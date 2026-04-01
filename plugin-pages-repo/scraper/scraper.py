@@ -1,9 +1,3 @@
-"""
-Infinite Yield Plugin Scraper
-Fetches plugins from Discord channel and outputs to JSON.
-For testing purposes only.
-"""
-
 import discord
 import json
 import os
@@ -87,15 +81,12 @@ class PluginScraper(discord.Client):
 
     async def parse_message(self, message, existing_plugin=None):
         """Parse a Discord message to extract plugin information."""
-        # Skip bot messages and system messages
         if message.type != discord.MessageType.default and message.type != discord.MessageType.reply:
             return None
 
-        # Skip messages that do not have attachments
         if not message.attachments:
             return None
 
-        # Ensure there is at least one .iy file before processing
         has_iy = any(att.filename.lower().endswith('.iy') for att in message.attachments)
         if not has_iy:
             return None
@@ -116,7 +107,6 @@ class PluginScraper(discord.Client):
             "reactions": [],
         }
 
-        # Extract attachments (specifically .iy files)
         for attachment in message.attachments:
             is_plugin = attachment.filename.lower().endswith('.iy')
             att_data = {
@@ -143,47 +133,38 @@ class PluginScraper(discord.Client):
                     pass
             plugin["attachments"].append(att_data)
 
-        # Extract code blocks from message content
         code_block_pattern = r'```(?:lua)?\s*\n?(.*?)```'
         code_blocks = re.findall(code_block_pattern, message.content, re.DOTALL)
         plugin["code_blocks"] = [block.strip() for block in code_blocks]
 
-        # Extract URLs from message content
         url_pattern = r'https?://[^\s<>\]\)\"\'`]+'
         urls = re.findall(url_pattern, message.content)
         plugin["links"] = urls
 
-        # Extract reactions
         for reaction in message.reactions:
             plugin["reactions"].append({
                 "emoji": str(reaction.emoji),
                 "count": reaction.count,
             })
 
-        # Determine plugin name from attachment filename or first line of content
         plugin["name"] = self.extract_plugin_name(plugin)
 
         return plugin
 
     def extract_plugin_name(self, plugin):
         """Try to extract a meaningful name for the plugin."""
-        # Try attachment filename first
         for att in plugin["attachments"]:
             if att["is_plugin_file"]:
                 name = att["filename"]
-                # Remove extension
                 name = re.sub(r'\.(iy)$', '', name, flags=re.IGNORECASE)
                 return name
 
-        # Try first line of content (often the title)
         if plugin["content"]:
             first_line = plugin["content"].split('\n')[0].strip()
-            # Remove markdown formatting
             first_line = re.sub(r'[*_~`#]', '', first_line).strip()
             if first_line and len(first_line) < 100:
                 return first_line
 
-        # Fallback: any attachment name
         if plugin["attachments"]:
             return plugin["attachments"][0]["filename"]
 
