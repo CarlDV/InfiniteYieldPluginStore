@@ -22,7 +22,6 @@
     const overlay = $('overlay');
     const loadMoreTarget = $('load-more');
 
-    // ---- Init ----
     async function init() {
         try {
             const res = await fetch('data/plugins.json');
@@ -44,13 +43,13 @@
                     const h = Math.floor((diff % 86400) / 3600);
                     const m = Math.floor((diff % 3600) / 60);
                     const s = diff % 60;
-                    
+
                     let str = '';
                     if (d > 0) str += `${d}d `;
                     if (h > 0 || d > 0) str += `${h}h `;
                     if (m > 0 || h > 0 || d > 0) str += `${m}m `;
                     str += `${s}s ago`;
-                    
+
                     $('stat-updated').textContent = str;
                     $('stat-updated').title = scrapedDate.toLocaleString();
                 };
@@ -75,7 +74,6 @@
         }
     }
 
-    // ---- Render ----
     function render() {
         let list = [...allPlugins];
 

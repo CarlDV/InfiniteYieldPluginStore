@@ -4,6 +4,8 @@ import os
 import re
 import asyncio
 import random
+import sys
+import logging
 from datetime import datetime, timezone
 
 TOKEN = os.environ.get("DISCORD_TOKEN")
@@ -196,10 +198,12 @@ def main():
         print("ERROR: DISCORD_TOKEN environment variable not set.")
         return
 
+    logging.basicConfig(level=logging.INFO)
+    
     client = PluginScraper()
-    print("Starting Infinite Yield Plugin Scraper...")
-    print(f"Target channel: {CHANNEL_ID}")
-    client.run(TOKEN, log_handler=None)
+    print("Starting Infinite Yield Plugin Scraper...", flush=True)
+    print(f"Target channel: {CHANNEL_ID}", flush=True)
+    client.run(TOKEN)
 
 
 if __name__ == "__main__":

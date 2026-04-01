@@ -29,6 +29,7 @@ jobs:
       - name: Run Scraper
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          PYTHONUNBUFFERED: 1
         run: |
           cd plugin-pages-repo/scraper
           python scraper.py
