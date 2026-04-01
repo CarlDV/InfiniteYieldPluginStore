@@ -204,24 +204,10 @@
         }
 
         let html = '';
-
-        let text = (p.content || '').replace(/```[\s\S]*?```/g, '');
-        // Collapse 3 or more newlines (even with spaces) into just 2 newlines
-        text = text.replace(/\n\s*\n\s*\n+/g, '\n\n').trim();
+        let text = (p.content || '').trim();
 
         if (text) {
-            html += `<div class="section"><div class="section-label">Description</div><div class="section-text">${discordFormat(text)}</div></div>`;
-        }
-
-        if (p.code_blocks?.length) {
-            p.code_blocks.forEach((code, i) => {
-                const id = `cb-${p.id}-${i}`;
-                html += `<div class="section"><div class="section-label">Code${p.code_blocks.length > 1 ? ' #' + (i + 1) : ''}</div>
-                    <div class="code-wrap">
-                        <div class="code-bar"><span class="code-lang">lua</span><button class="copy-btn" data-id="${id}">Copy</button></div>
-                        <pre class="code-block" id="${id}">${esc(code)}</pre>
-                    </div></div>`;
-            });
+            html += `<div class="section"><div class="section-label">Description</div><div class="section-text">${discordFormat(text, p.id)}</div></div>`;
         }
 
         if (p.attachments?.length) {
@@ -447,33 +433,65 @@
     function escAttr(s) {
         return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
-    function discordFormat(text) {
+    function discordFormat(text, pId) {
         if (!text) return '';
-        let html = esc(text);
 
-        // Headings
-        html = html.replace(/^###\s+(.*)$/gim, '<h5>$1</h5>');
-        html = html.replace(/^##\s+(.*)$/gim, '<h4>$1</h4>');
-        html = html.replace(/^#\s+(.*)$/gim, '<h3>$1</h3>');
+        // Collapse 3 or more newlines (even with spaces) into just 2 newlines
+        text = text.replace(/\n\s*\n\s*\n+/g, '\n\n');
 
-        // Bold: **text**
-        html = html.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
-        // Underline: __text__
-        html = html.replace(/__([^_]+)__/g, '<u>$1</u>');
-        // Italics: *text* or _text_
-        html = html.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
-        html = html.replace(/_([^_]+)_/g, '<em>$1</em>');
-        // Strikethrough: ~~text~~
-        html = html.replace(/~~([^~]+)~~/g, '<s>$1</s>');
-        // Spoiler: ||text||
-        html = html.replace(/\|\|([\s\S]+?)\|\|/g, '<span class="spoiler" onclick="this.classList.toggle(\\\'revealed\\\')">$1</span>');
-        // Inline code: `text`
-        html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+        // Split by code blocks ```...```
+        const parts = text.split(/(```[\s\S]*?```)/g);
+        let cbCount = 0;
 
-        // Clean up trailing # from headings if users typed # Header #
-        html = html.replace(/(<\/h[3-5]>)(\s*#+)/gi, '$1');
+        return parts.map(part => {
+            if (part.startsWith('```') && part.endsWith('```')) {
+                const match = part.match(/```(?:(\w+)\s*\n)?([\s\S]*?)```/);
+                if (!match) return `<pre class="code-block">${esc(part)}</pre>`;
 
-        return html;
+                const lang = (match[1] || 'lua').toLowerCase();
+                const code = match[2].trim();
+                const id = `cb-${pId}-i${cbCount++}`;
+
+                return `<div class="code-wrap" style="margin: 12px 0;">
+                    <div class="code-bar"><span class="code-lang">${esc(lang)}</span><button class="copy-btn" data-id="${id}">Copy</button></div>
+                    <pre class="code-block" id="${id}">${esc(code)}</pre>
+                </div>`;
+            } else {
+                let segment = part.trim();
+                if (!segment) return '';
+
+                let html = esc(segment);
+
+                // Headings
+                html = html.replace(/^###\s+(.*)$/gim, '<h5>$1</h5>');
+                html = html.replace(/^##\s+(.*)$/gim, '<h4>$1</h4>');
+                html = html.replace(/^#\s+(.*)$/gim, '<h3>$1</h3>');
+
+                // Bold: **text**
+                html = html.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
+                // Underline: __text__
+                html = html.replace(/__([^_]+)__/g, '<u>$1</u>');
+                // Italics: *text* or _text_
+                html = html.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+                html = html.replace(/_([^_]+)_/g, '<em>$1</em>');
+                // Strikethrough: ~~text~~
+                html = html.replace(/~~([^~]+)~~/g, '<s>$1</s>');
+                // Spoiler: ||text||
+                html = html.replace(/\|\|([\s\S]+?)\|\|/g, (match, $1) => `<span class="spoiler" onclick="this.classList.toggle('revealed')">${$1}</span>`);
+                // Inline code: `text`
+                html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+
+                // Cleanup trailing # from headings
+                html = html.replace(/(<\/h[3-5]>)(\s*#+)/gi, '$1');
+
+                // Convert double newlines to paragraph breaks, single newlines to <br>
+                html = html.replace(/\n\n/g, '</p><p>');
+                html = html.replace(/\n/g, '<br>');
+                html = `<p>${html}</p>`;
+
+                return html;
+            }
+        }).join('');
     }
     function debounce(fn, ms) {
         let t;
