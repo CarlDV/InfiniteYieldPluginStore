@@ -3,7 +3,6 @@ import json
 import os
 import re
 import asyncio
-import random
 import sys
 import logging
 from datetime import datetime, timezone
@@ -57,7 +56,6 @@ class PluginScraper(discord.Client):
             async for message in channel.history(**kwargs):
                 message_count += 1
 
-                await asyncio.sleep(random.uniform(0.3, 1.0))
 
                 existing_plugin = self.existing_plugins.get(str(message.id))
                 plugin_data = await self.parse_message(message, existing_plugin)
@@ -132,7 +130,6 @@ class PluginScraper(discord.Client):
                     if existing_code:
                         att_data["code"] = existing_code
                     else:
-                        await asyncio.sleep(random.uniform(0.5, 1.5))
                         content_bytes = await attachment.read()
                         att_data["code"] = content_bytes.decode('utf-8', errors='replace')
                 except Exception:
