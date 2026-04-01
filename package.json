@@ -1,0 +1,11 @@
+{
+  "name": "iyplugins",
+  "version": "1.0.0",
+  "description": "Infinite Yield Plugin Store",
+  "scripts": {
+    "build": "echo 'No build step required for static files.'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
