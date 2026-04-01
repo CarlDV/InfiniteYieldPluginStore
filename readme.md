@@ -3,4 +3,4 @@ Infinite Yield Plugin Store!
 This project is **80% vibecoded** using Opus 4.6 and Gemini 3.1 Pro. Honestly no one would want to code this xoxoxox
 
 
-Updates on the site run **every hour**, as says in the github actions workflow file. If you uploaded a plugin to the Discord server, expect it to appear on the webpage within about an hour.
+Updates on the site run **every 20 hours**, as specified in the GitHub Actions workflow file. If you uploaded a plugin to the Discord server, it will typically appear on the webpage within a day (or you can mention me on the IY server so i can update it immediately @dein2fl [david])
