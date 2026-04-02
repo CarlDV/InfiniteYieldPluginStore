@@ -8,14 +8,14 @@
 }
 
 :root {
-    --bg: #111;
-    --bg2: #191919;
+    --bg: #000000;
+    --bg2: #020000;
     --border: #2a2a2a;
     --text: #e5e5e5;
     --text2: #999;
     --text3: #666;
     --accent: #ffffff;
-    --accent-dim: rgba(0, 0, 0, 0.167);
+    --accent-dim: rgb(0, 0, 0);
     --cyan: #5eead4;
     --green: #6ee7b7;
     --radius: 8px;
@@ -59,7 +59,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(17, 17, 17, 0.85);
+    background: rgb(0, 0, 0);
     border-bottom: 1px solid var(--border);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
@@ -315,7 +315,7 @@ main {
 
 .card:hover {
     border-color: #444;
-    background: #1c1c1c;
+    background: #000000;
     transform: translateY(-3px);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
 }
