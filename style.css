@@ -473,7 +473,7 @@ span.author-click:hover,
     width: 100%;
     max-width: 680px;
     max-height: 85vh;
-    background: #151515;
+    background: #000000;
     border: 1px solid var(--border);
     border-radius: 12px;
     display: flex;
@@ -488,7 +488,7 @@ span.author-click:hover,
     justify-content: space-between;
     padding: 24px 28px 20px;
     border-bottom: 1px solid var(--border);
-    background: #1e1e1e;
+    background: #000000;
     gap: 12px;
 }
 
@@ -584,10 +584,10 @@ span.author-click:hover,
     align-items: center;
     margin-left: 6px;
     padding: 3px 8px;
-    background: rgba(88, 101, 242, 0.15);
-    border: 1px solid rgba(88, 101, 242, 0.4);
+    background: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 4px;
-    color: #a4adff;
+    color: #ffffff;
     font-size: 0.65rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -597,8 +597,8 @@ span.author-click:hover,
 }
 
 .msg-btn:hover {
-    background: rgba(88, 101, 242, 0.3);
-    border-color: rgba(88, 101, 242, 0.8);
+    background: rgb(0, 0, 0);
+    border-color: rgb(255, 255, 255);
     color: #fff;
 }
 
