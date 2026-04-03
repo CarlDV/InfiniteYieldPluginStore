@@ -240,11 +240,25 @@
             html += `</div>`;
         }
 
-        if (p.links?.length) {
-            html += `<div class="section"><div class="section-label">Links</div>`;
-            p.links.forEach(l => {
-                html += `<a class="link-item" href="${escAttr(l)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(l)}</a>`;
-            });
+        if (p.links?.length || p.embeds?.length) {
+            html += `<div class="section"><div class="section-label">Links & Embeds</div>`;
+
+            // Render Embeds first
+            if (p.embeds?.length) {
+                p.embeds.forEach(emb => {
+                    html += renderEmbed(emb);
+                });
+            }
+
+            // Render raw links that aren't already embedded (optional, but good for safety)
+            if (p.links?.length) {
+                const embeddedUrls = new Set((p.embeds || []).map(e => e.url));
+                p.links.forEach(l => {
+                    if (!embeddedUrls.has(l)) {
+                        html += `<a class="link-item" href="${escAttr(l)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(l)}</a>`;
+                    }
+                });
+            }
             html += `</div>`;
         }
 
@@ -432,6 +446,62 @@
     }
     function escAttr(s) {
         return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function renderEmbed(emb) {
+        const color = emb.color ? (emb.color.startsWith('0x') ? '#' + emb.color.slice(2) : emb.color) : '#202225';
+
+        let authorHtml = '';
+        if (emb.author) {
+            authorHtml = `
+                <a class="embed-author" href="${escAttr(emb.author.url || '#')}" target="_blank" rel="noopener">
+                    ${emb.author.icon_url ? `<img class="embed-author-icon" src="${escAttr(emb.author.icon_url)}" alt="">` : ''}
+                    <span>${esc(emb.author.name)}</span>
+                </a>
+            `;
+        }
+
+        let gridContent = `
+            <div class="embed-text">
+                ${emb.provider ? `<div class="embed-provider">${esc(emb.provider.name)}</div>` : ''}
+                ${authorHtml}
+                ${emb.title ? `<a class="embed-title" href="${escAttr(emb.url || '#')}" target="_blank" rel="noopener">${esc(emb.title)}</a>` : ''}
+                ${emb.description ? `<div class="embed-description">${esc(emb.description)}</div>` : ''}
+            </div>
+        `;
+
+        if (emb.thumbnail) {
+            gridContent = `
+                <div class="embed-grid">
+                    ${gridContent}
+                    <img class="embed-thumbnail" src="${escAttr(emb.thumbnail.url)}" alt="" loading="lazy">
+                </div>
+            `;
+        }
+
+        let mediaHtml = '';
+        if (emb.video && emb.video.url) {
+            // Very basic video handling, usually requires iframe for youtube/etc
+            if (emb.video.url.includes('youtube.com') || emb.video.url.includes('youtu.be')) {
+                const ytId = emb.video.url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/)?.[1];
+                if (ytId) {
+                    mediaHtml = `<div class="embed-video-wrap"><iframe class="embed-video" src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div>`;
+                }
+            } else {
+                mediaHtml = `<div class="embed-video-wrap"><video class="embed-video" src="${escAttr(emb.video.url)}" controls></video></div>`;
+            }
+        } else if (emb.image) {
+            mediaHtml = `<img class="embed-image" src="${escAttr(emb.image.url)}" alt="" loading="lazy">`;
+        }
+
+        return `
+            <div class="embed-card">
+                <div class="embed-border" style="background-color: ${color}"></div>
+                <div class="embed-inner">
+                    ${gridContent}
+                    ${mediaHtml}
+                </div>
+            </div>
+        `;
     }
     function discordFormat(text, pId) {
         if (!text) return '';

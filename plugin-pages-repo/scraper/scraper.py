@@ -107,6 +107,7 @@ class PluginScraper(discord.Client):
             "attachments": [],
             "code_blocks": [],
             "links": [],
+            "embeds": [],
             "reactions": [],
         }
 
@@ -143,6 +144,22 @@ class PluginScraper(discord.Client):
         url_pattern = r'https?://[^\s<>\]\)\"\'`]+'
         urls = re.findall(url_pattern, message.content)
         plugin["links"] = urls
+
+        for embed in message.embeds:
+            emb_data = {
+                "type": embed.type,
+                "url": embed.url,
+                "title": embed.title,
+                "description": embed.description,
+                "color": hex(embed.color.value) if embed.color else None,
+                "provider": {"name": embed.provider.name, "url": embed.provider.url} if embed.provider else None,
+                "author": {"name": embed.author.name, "url": embed.author.url, "icon_url": embed.author.icon_url} if embed.author else None,
+                "thumbnail": {"url": embed.thumbnail.proxy_url or embed.thumbnail.url} if embed.thumbnail else None,
+                "image": {"url": embed.image.proxy_url or embed.image.url} if embed.image else None,
+                "video": {"url": embed.video.url} if embed.video else None,
+            }
+            if any([emb_data["title"], emb_data["description"], emb_data["image"], emb_data["thumbnail"]]):
+                plugin["embeds"].append(emb_data)
 
         for reaction in message.reactions:
             plugin["reactions"].append({

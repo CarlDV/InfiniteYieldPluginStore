@@ -606,6 +606,125 @@ span.author-click:hover,
     display: none !important;
 }
 
+/* ---- Embeds ---- */
+.embed-card {
+    display: flex;
+    margin: 12px 0;
+    max-width: 520px;
+    background: #1e1f22;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.embed-border {
+    width: 4px;
+    flex-shrink: 0;
+    background-color: #202225; /* Default sidebar color */
+}
+
+.embed-inner {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.embed-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+}
+
+.embed-text {
+    min-width: 0;
+}
+
+.embed-provider {
+    font-size: 0.72rem;
+    color: var(--text3);
+    font-weight: 500;
+}
+
+.embed-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 2px;
+}
+
+.embed-author:hover {
+    text-decoration: underline;
+}
+
+.embed-author-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.embed-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #00a8fc;
+    text-decoration: none;
+    line-height: 1.3;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.embed-title:hover {
+    text-decoration: underline;
+}
+
+.embed-description {
+    font-size: 0.88rem;
+    color: #dbdee1;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.embed-thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.embed-image {
+    margin-top: 8px;
+    border-radius: 4px;
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    background: #000;
+    cursor: zoom-in;
+}
+
+.embed-video-wrap {
+    margin-top: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+    position: relative;
+    aspect-ratio: 16 / 9;
+}
+
+.embed-video {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
 .modal-body {
     padding: 24px 28px 28px;
     overflow-y: auto;
