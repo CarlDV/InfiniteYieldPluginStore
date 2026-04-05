@@ -1,0 +1,87 @@
+local function SpoofAvatar(speaker, targetUsername)
+    local Players = speaker.Parent
+    local char = speaker.Character
+    local humanoid = char and char:FindFirstChildOfClass("Humanoid")
+    
+    if not humanoid then 
+        notify("Boii you gyat no Character/Humanoid")
+        return
+    end
+
+    local successId, targetId = pcall(function() 
+        return Players:GetUserIdFromNameAsync(targetUsername) 
+    end)
+    
+    if not successId then
+        if targetId then
+            warn(targetId)
+        end
+        notify("L typo boi 🤣🤣") 
+        return 
+    end
+
+    local successDesc, targetDesc = pcall(function() 
+        return Players:GetHumanoidDescriptionFromUserIdAsync(targetId) 
+    end)
+
+    if successDesc and targetDesc then
+        local current = humanoid:GetAppliedDescription()
+        targetDesc.HeightScale = current.HeightScale
+        targetDesc.WidthScale = current.WidthScale
+        targetDesc.DepthScale = current.DepthScale
+        targetDesc.HeadScale = current.HeadScale
+        targetDesc.ProportionScale = current.ProportionScale
+        targetDesc.BodyTypeScale = current.BodyTypeScale
+
+        for _, item in ipairs(char:GetChildren()) do
+            if item:IsA("Accessory") then
+                item:Destroy()
+            end
+
+            if item:IsA("Shirt") or item:IsA("Pants") then
+                item:Destroy()
+            end
+        end
+
+        local successApply = pcall(function()
+            humanoid:ApplyDescriptionClientServer(targetDesc)
+        end)
+        
+        if not successApply then
+            humanoid:ApplyDescriptionResetAsync(targetDesc)
+        end
+    else
+        notify("insufficient aura 🤣☠️")
+    end
+end
+
+local Plugin = {
+    ["PluginName"] = "ReplicateAura",
+    ["PluginDescription"] = "+99999aura ♾️☠️",
+    ["Commands"] = {
+        ["SpoofAvatar"] = {
+           ["ListName"] = "SpoofAvatar [name]",
+           ["Description"] = "Changes your avatar",
+           ["Aliases"] = {"CopyAvatar", "sat"},
+           ["Function"] = function(args, speaker)
+                if args[1] and type(args[1]) ~= "string" then
+                    notify("Boiii NOT TUFF ☠️☠️")
+                    return
+                end
+          
+                SpoofAvatar(speaker, args[1])
+           end
+        },
+        ["Mason67"] = {
+           ["ListName"] = "Mason67",
+           ["Description"] = "Turn into legenday mason67 Hacker😈",
+           ["Aliases"] = {"hackergod", "67hacker"},
+           ["Function"] = function(args, speaker)
+                notify("SOO TUFF BOIII 😈☠️")
+                SpoofAvatar(speaker, "67hacker88890")
+           end
+        }
+    }
+}
+
+return Plugin

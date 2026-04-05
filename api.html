@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation — Infinite Yield Plugins</title>
+    <meta name="description"
+        content="Developer API for browsing and downloading Infinite Yield plugins via Lua scripts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Logo_Small.png" type="image/x-icon">
+    <style>
+        .api-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        .api-hero {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .api-hero h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .api-hero p {
+            color: var(--text2);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .api-section {
+            margin-bottom: 40px;
+        }
+
+        .api-section h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--accent);
+            letter-spacing: -0.01em;
+        }
+
+        .api-section h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 24px 0 12px;
+            color: var(--text);
+        }
+
+        .api-section p {
+            color: var(--text2);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .api-endpoint {
+            background: #111214;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .api-method {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            background: #0f2b2b;
+            color: var(--cyan);
+            margin-right: 10px;
+            letter-spacing: 0.04em;
+        }
+
+        .api-url {
+            font-family: var(--mono);
+            font-size: 0.88rem;
+            color: var(--text);
+            word-break: break-all;
+        }
+
+        .api-desc {
+            margin-top: 10px;
+            color: var(--text3);
+            font-size: 0.82rem;
+        }
+
+        .api-code {
+            background: #0a0a0a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .api-code-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 14px;
+            background: #161616;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .api-code-lang {
+            font-size: 0.68rem;
+            color: var(--text3);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .api-code pre {
+            padding: 14px;
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            line-height: 1.65;
+            color: var(--text2);
+            overflow-x: auto;
+            white-space: pre;
+            margin: 0;
+        }
+
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin: 12px 0;
+        }
+
+        .api-table th {
+            text-align: left;
+            padding: 10px 14px;
+            background: #111214;
+            color: var(--text3);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .api-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #1a1a1a;
+            color: var(--text2);
+        }
+
+        .api-table code {
+            font-family: var(--mono);
+            font-size: 0.8em;
+            background: #1e1f22;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--cyan);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: opacity 0.15s;
+        }
+
+        .back-link:hover {
+            opacity: 0.7;
+        }
+
+        .api-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: #1e1b2e;
+            color: var(--accent);
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-left">
+                <a class="logo" href="/">
+                    <img src="Logo_Small.png" alt="" class="brand-logo">
+                    Plugins
+                </a>
+            </div>
+            <div class="header-links">
+                <a href="/" class="h-link">← Store</a>
+                <a href="tutorial.html" class="h-link">Tutorial</a>
+                <a href="api.html" class="h-link h-link-api">API</a>
+                <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link">IY Discord</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="api-container">
+        <div class="api-hero">
+            <h1>Plugin Store API</h1>
+            <p>Browse, search, and download Infinite Yield plugins directly from your Lua scripts. All endpoints return
+                JSON.</p>
+        </div>
+
+        <div class="api-section">
+            <h2>Base URL</h2>
+            <div class="api-endpoint">
+                <span class="api-url">https://iyplugins.pages.dev</span>
+            </div>
+            <p>All paths below are relative to this URL.</p>
+        </div>
+
+        <div class="api-section">
+            <h2>Endpoints</h2>
+
+            <h3>Get All Plugins (Lightweight)</h3>
+            <div class="api-endpoint">
+                <span class="api-method">GET</span>
+                <span class="api-url">/data/api.json</span>
+                <div class="api-desc">Returns a lightweight list of all plugins with name, author, date, and file URLs.
+                </div>
+            </div>
+
+            <h3>Get All Plugins (Full Data)</h3>
+            <div class="api-endpoint">
+                <span class="api-method">GET</span>
+                <span class="api-url">/data/plugins.json</span>
+                <div class="api-desc">Returns the full database including descriptions, embeds, reactions, code blocks,
+                    and embedded source code.</div>
+            </div>
+
+            <h3>Download a Plugin File</h3>
+            <div class="api-endpoint">
+                <span class="api-method">GET</span>
+                <span class="api-url">/plugins/{id}/{filename}</span>
+                <div class="api-desc">Downloads the raw .iy plugin file. The <code>id</code> and <code>filename</code>
+                    are found in the plugin's <code>files</code> array.</div>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>Response Schema — api.json</h2>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>version</code></td>
+                        <td>string</td>
+                        <td>API version</td>
+                    </tr>
+                    <tr>
+                        <td><code>updated_at</code></td>
+                        <td>string</td>
+                        <td>ISO 8601 timestamp of last update</td>
+                    </tr>
+                    <tr>
+                        <td><code>total</code></td>
+                        <td>number</td>
+                        <td>Total number of plugins</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[]</code></td>
+                        <td>array</td>
+                        <td>Array of plugin objects</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].id</code></td>
+                        <td>string</td>
+                        <td>Unique plugin ID</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].name</code></td>
+                        <td>string</td>
+                        <td>Plugin display name</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].author</code></td>
+                        <td>string</td>
+                        <td>Author display name</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].date</code></td>
+                        <td>string</td>
+                        <td>Upload date (ISO 8601)</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].files[]</code></td>
+                        <td>array</td>
+                        <td>Plugin .iy files</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].files[].filename</code></td>
+                        <td>string</td>
+                        <td>File name (e.g. "fly.iy")</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].files[].url</code></td>
+                        <td>string</td>
+                        <td>Relative download path</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].files[].size</code></td>
+                        <td>number</td>
+                        <td>File size in bytes</td>
+                    </tr>
+                    <tr>
+                        <td><code>plugins[].loadstring_urls</code></td>
+                        <td>array</td>
+                        <td>URLs found inside loadstring() calls</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="api-section">
+            <h2>Lua Examples</h2>
+
+            <h3>List All Plugins</h3>
+            <div class="api-code">
+                <div class="api-code-bar">
+                    <span class="api-code-lang">Lua</span>
+                </div>
+                <pre>local HttpService = game:GetService("HttpService")
+local BASE = "https://iyplugins.pages.dev"
+
+local response = game:HttpGet(BASE .. "/data/api.json")
+local data = HttpService:JSONDecode(response)
+
+print("Total plugins: " .. tostring(data.total))
+for _, plugin in ipairs(data.plugins) do
+    print(plugin.name .. " by " .. plugin.author)
+end</pre>
+            </div>
+
+            <h3>Search by Name</h3>
+            <div class="api-code">
+                <div class="api-code-bar">
+                    <span class="api-code-lang">Lua</span>
+                </div>
+                <pre>local HttpService = game:GetService("HttpService")
+local BASE = "https://iyplugins.pages.dev"
+
+local function searchPlugins(query)
+    local response = game:HttpGet(BASE .. "/data/api.json")
+    local data = HttpService:JSONDecode(response)
+    local results = {}
+    for _, plugin in ipairs(data.plugins) do
+        if string.find(string.lower(plugin.name), string.lower(query)) then
+            table.insert(results, plugin)
+        end
+    end
+    return results
+end
+
+local found = searchPlugins("fly")
+for _, p in ipairs(found) do
+    print("Found: " .. p.name .. " (" .. p.files[1].filename .. ")")
+end</pre>
+            </div>
+
+            <h3>Download a Plugin</h3>
+            <div class="api-code">
+                <div class="api-code-bar">
+                    <span class="api-code-lang">Lua</span>
+                </div>
+                <pre>local HttpService = game:GetService("HttpService")
+local BASE = "https://iyplugins.pages.dev"
+
+local response = game:HttpGet(BASE .. "/data/api.json")
+local data = HttpService:JSONDecode(response)
+
+local plugin = data.plugins[1]
+local file = plugin.files[1]
+local code = game:HttpGet(BASE .. "/" .. file.url)
+
+print("Downloaded " .. file.filename .. " (" .. tostring(file.size) .. " bytes)")
+print(code)</pre>
+            </div>
+
+            <h3>Download and Execute</h3>
+            <div class="api-code">
+                <div class="api-code-bar">
+                    <span class="api-code-lang">Lua</span>
+                </div>
+                <pre>local HttpService = game:GetService("HttpService")
+local BASE = "https://iyplugins.pages.dev"
+
+local function loadPlugin(name)
+    local response = game:HttpGet(BASE .. "/data/api.json")
+    local data = HttpService:JSONDecode(response)
+    for _, plugin in ipairs(data.plugins) do
+        if string.lower(plugin.name) == string.lower(name) then
+            local code = game:HttpGet(BASE .. "/" .. plugin.files[1].url)
+            return loadstring(code)()
+        end
+    end
+    warn("Plugin not found: " .. name)
+end
+
+loadPlugin("fly")</pre>
+            </div>
+            <h3>Download All to Workspace</h3>
+            <div class="api-code">
+                <div class="api-code-bar">
+                    <span class="api-code-lang">Lua (Exploit)</span>
+                </div>
+                <pre>local HttpService = game:GetService("HttpService")
+local BASE = "https://iyplugins.pages.dev"
+
+local function downloadAll()
+    print("Fetching plugin list...")
+    local response = game:HttpGet(BASE .. "/data/api.json")
+    local data = HttpService:JSONDecode(response)
+    
+    for i, plugin in ipairs(data.plugins) do
+        print(string.format("[%d/%d] Downloading: %s", i, data.total, plugin.name))
+        for _, file in ipairs(plugin.files) do
+            local success, content = pcall(function()
+                return game:HttpGet(BASE .. "/" .. file.url)
+            end)
+            
+            if success then
+                writefile(file.filename, content)
+            else
+                warn("Failed to download: " .. file.filename)
+            end
+        end
+    end
+    print("Download complete! All files saved directly to workspace/")
+end
+
+downloadAll()</pre>
+            </div>
+        </div>
+
+        <div class="api-section">
+            <h2>FAQ</h2>
+
+            <h3>How often is the data updated?</h3>
+            <p>The plugin database is updated manually. Check the <code>updated_at</code> field in the API response to
+                see when the last update was!</p>
+
+            <h3>What's the difference between api.json and plugins.json?</h3>
+            <p><code>api.json</code> is lightweight — it only contains the essential fields needed to browse and
+                download plugins. <code>plugins.json</code> is the full database with descriptions, embeds, reactions,
+                and embedded source code. Use <code>api.json</code> for Lua scripts and <code>plugins.json</code> if you
+                need everything.</p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -9,19 +9,17 @@ from datetime import datetime, timezone
 
 TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = 551846012310782014
-OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "data", "plugins.json")
+BASE_DIR = os.path.join(os.path.dirname(__file__), "..", "..")
+DATA_DIR = os.path.join(BASE_DIR, "data")
+PLUGINS_DIR = os.path.join(BASE_DIR, "plugins")
+OUTPUT_PATH = os.path.join(DATA_DIR, "plugins.json")
+API_PATH = os.path.join(DATA_DIR, "api.json")
 
 
 def extract_loadstring_urls(code):
-    """Extract URLs from loadstring(game:HttpGet(...)) patterns.
-    
-    Returns a list of URL strings found inside loadstring calls.
-    """
     if not code or not code.strip():
         return []
-
     urls = []
-
     patterns = [
         r'loadstring\s*\(\s*game\s*:\s*HttpGet\s*\(\s*["\']([^"\']+)["\']\s*\)',
         r'loadstring\s*\(\s*game\s*:\s*GetObjects\s*\(\s*["\']([^"\']+)["\']\s*\)',
@@ -32,8 +30,23 @@ def extract_loadstring_urls(code):
         for match in re.findall(pat, code, re.IGNORECASE):
             if match not in urls:
                 urls.append(match)
-
     return urls
+
+
+def extract_plugin_name(plugin):
+    for att in plugin["files"]:
+        if att["is_plugin"]:
+            name = att["filename"]
+            name = re.sub(r'\.(iy)$', '', name, flags=re.IGNORECASE)
+            return name
+    if plugin["description"]:
+        first_line = plugin["description"].split('\n')[0].strip()
+        first_line = re.sub(r'[*_~`#]', '', first_line).strip()
+        if first_line and len(first_line) < 100:
+            return first_line
+    if plugin["files"]:
+        return plugin["files"][0]["filename"]
+    return f"Plugin #{plugin['id'][-6:]}"
 
 
 class PluginScraper(discord.Client):
@@ -44,18 +57,16 @@ class PluginScraper(discord.Client):
         self.load_existing_plugins()
 
     def load_existing_plugins(self):
-        """Load existing plugins to reuse code and avoid rate limits."""
         if os.path.exists(OUTPUT_PATH):
             try:
                 with open(OUTPUT_PATH, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    plugins_list = data.get("plugins", [])
-                    for p in plugins_list:
+                    for p in data.get("plugins", []):
                         if "id" in p:
                             self.existing_plugins[str(p["id"])] = p
                     print(f"Loaded {len(self.existing_plugins)} existing plugins for code reuse.")
             except Exception as e:
-                print(f"Note: Could not load existing plugins. Starting fresh. ({e})")
+                print(f"Could not load existing plugins: {e}")
 
     async def on_ready(self):
         print(f"Logged in as {self.user} (ID: {self.user.id})")
@@ -65,7 +76,6 @@ class PluginScraper(discord.Client):
             channel = self.get_channel(CHANNEL_ID)
             if channel is None:
                 channel = await self.fetch_channel(CHANNEL_ID)
-
             if channel is None:
                 print(f"ERROR: Could not find channel {CHANNEL_ID}")
                 await self.close()
@@ -73,29 +83,22 @@ class PluginScraper(discord.Client):
 
             print(f"Found channel: #{channel.name}")
 
-            kwargs = {"limit": None, "oldest_first": True}
-
             message_count = 0
             new_plugins = 0
-            async for message in channel.history(**kwargs):
+            async for message in channel.history(limit=None, oldest_first=True):
                 message_count += 1
-
-
-                existing_plugin = self.existing_plugins.get(str(message.id))
-                plugin_data = await self.parse_message(message, existing_plugin)
-                
-                if plugin_data:
-                    self.plugins.append(plugin_data)
-                    if not existing_plugin:
+                existing = self.existing_plugins.get(str(message.id))
+                plugin = await self.parse_message(message, existing)
+                if plugin:
+                    self.plugins.append(plugin)
+                    if not existing:
                         new_plugins += 1
-
                 if message_count % 100 == 0:
-                    print(f"  Processed {message_count} new messages, found {new_plugins} new plugins...")
+                    print(f"  Processed {message_count} messages, {new_plugins} new plugins...")
 
-            print(f"\nDone! Processed {message_count} new messages.")
-            print(f"Added {new_plugins} new plugins. Total database size: {len(self.plugins)} plugins.")
-
-            self.save_plugins()
+            print(f"\nDone! Processed {message_count} messages.")
+            print(f"New: {new_plugins} | Total: {len(self.plugins)} plugins.")
+            self.save_all()
 
         except discord.Forbidden:
             print("ERROR: No permission to access this channel.")
@@ -106,71 +109,66 @@ class PluginScraper(discord.Client):
 
         await self.close()
 
-    async def parse_message(self, message, existing_plugin=None):
-        """Parse a Discord message to extract plugin information."""
-        if message.type != discord.MessageType.default and message.type != discord.MessageType.reply:
+    async def parse_message(self, message, existing=None):
+        if message.type not in (discord.MessageType.default, discord.MessageType.reply):
             return None
-
         if not message.attachments:
             return None
-
-        has_iy = any(att.filename.lower().endswith('.iy') for att in message.attachments)
-        if not has_iy:
+        if not any(att.filename.lower().endswith('.iy') for att in message.attachments):
             return None
 
         plugin = {
             "id": str(message.id),
-            "message_url": message.jump_url,
+            "name": "",
+            "description": message.content or "",
             "author": {
                 "name": message.author.display_name or message.author.name,
                 "username": str(message.author),
                 "avatar": str(message.author.display_avatar.url) if message.author.display_avatar else None,
             },
             "date": message.created_at.isoformat(),
-            "content": message.content or "",
-            "attachments": [],
+            "message_url": message.jump_url,
+            "files": [],
             "code_blocks": [],
             "links": [],
             "embeds": [],
             "reactions": [],
+            "loadstring_urls": [],
         }
 
         for attachment in message.attachments:
             is_plugin = attachment.filename.lower().endswith('.iy')
-            att_data = {
+            file_data = {
                 "filename": attachment.filename,
                 "url": attachment.url,
                 "size": attachment.size,
-                "is_plugin_file": is_plugin,
+                "is_plugin": is_plugin,
             }
-            if is_plugin and not attachment.filename.lower().endswith('.rbxm') and attachment.size < 200_000:
+            if is_plugin and attachment.size < 200_000:
                 try:
                     existing_code = None
-                    if existing_plugin:
-                        for ext_att in existing_plugin.get("attachments", []):
+                    if existing:
+                        for ext_att in existing.get("files", existing.get("attachments", [])):
                             if ext_att.get("filename") == attachment.filename and "code" in ext_att:
                                 existing_code = ext_att["code"]
                                 break
-                                
                     if existing_code:
-                        att_data["code"] = existing_code
+                        file_data["code"] = existing_code
                     else:
                         content_bytes = await attachment.read()
-                        att_data["code"] = content_bytes.decode('utf-8', errors='replace')
+                        file_data["code"] = content_bytes.decode('utf-8', errors='replace')
                 except Exception:
                     pass
-            plugin["attachments"].append(att_data)
+            plugin["files"].append(file_data)
 
-        code_block_pattern = r'```(?:lua)?\s*\n?(.*?)```'
-        code_blocks = re.findall(code_block_pattern, message.content, re.DOTALL)
-        plugin["code_blocks"] = [block.strip() for block in code_blocks]
+        code_blocks = re.findall(r'```(?:lua)?\s*\n?(.*?)```', message.content, re.DOTALL)
+        plugin["code_blocks"] = [b.strip() for b in code_blocks]
 
-        url_pattern = r'https?://[^\s<>\]\)\"\'`]+'
-        urls = re.findall(url_pattern, message.content)
+        urls = re.findall(r'https?://[^\s<>\]\)\"\'`]+', message.content)
         plugin["links"] = urls
 
         for embed in message.embeds:
-            emb_data = {
+            emb = {
                 "type": embed.type,
                 "url": embed.url,
                 "title": embed.title,
@@ -182,8 +180,8 @@ class PluginScraper(discord.Client):
                 "image": {"url": embed.image.proxy_url or embed.image.url} if embed.image else None,
                 "video": {"url": embed.video.url} if embed.video else None,
             }
-            if any([emb_data["title"], emb_data["description"], emb_data["image"], emb_data["thumbnail"]]):
-                plugin["embeds"].append(emb_data)
+            if any([emb["title"], emb["description"], emb["image"], emb["thumbnail"]]):
+                plugin["embeds"].append(emb)
 
         for reaction in message.reactions:
             plugin["reactions"].append({
@@ -191,84 +189,81 @@ class PluginScraper(discord.Client):
                 "count": reaction.count,
             })
 
-        plugin["name"] = self.extract_plugin_name(plugin)
+        plugin["name"] = extract_plugin_name(plugin)
 
-        # --- Loadstring URL extraction ---
         all_code = []
-        for att in plugin["attachments"]:
-            if att.get("code"):
-                all_code.append(att["code"])
+        for f in plugin["files"]:
+            if f.get("code"):
+                all_code.append(f["code"])
         for cb in plugin["code_blocks"]:
             all_code.append(cb)
-
-        combined_code = "\n".join(all_code)
-        plugin["loadstring_urls"] = extract_loadstring_urls(combined_code)
+        plugin["loadstring_urls"] = extract_loadstring_urls("\n".join(all_code))
 
         return plugin
 
-    def extract_plugin_name(self, plugin):
-        """Try to extract a meaningful name for the plugin."""
-        for att in plugin["attachments"]:
-            if att["is_plugin_file"]:
-                name = att["filename"]
-                name = re.sub(r'\.(iy)$', '', name, flags=re.IGNORECASE)
-                return name
-
-        if plugin["content"]:
-            first_line = plugin["content"].split('\n')[0].strip()
-            first_line = re.sub(r'[*_~`#]', '', first_line).strip()
-            if first_line and len(first_line) < 100:
-                return first_line
-
-        if plugin["attachments"]:
-            return plugin["attachments"][0]["filename"]
-
-        return f"Plugin #{plugin['id'][-6:]}"
-
-    def save_plugins(self):
-        """Save collected plugins to JSON file and write .iy files locally."""
-        os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
-
-        # Save .iy files to plugins/ directory
-        plugins_dir = os.path.join(os.path.dirname(OUTPUT_PATH), "..", "plugins")
-        os.makedirs(plugins_dir, exist_ok=True)
+    def save_all(self):
+        os.makedirs(DATA_DIR, exist_ok=True)
+        os.makedirs(PLUGINS_DIR, exist_ok=True)
         files_saved = 0
 
         for plugin in self.plugins:
-            for att in plugin["attachments"]:
-                if att.get("is_plugin_file") and att.get("code"):
-                    # Save to plugins/<message_id>/<filename>
-                    plugin_dir = os.path.join(plugins_dir, plugin["id"])
+            for f in plugin["files"]:
+                if f.get("is_plugin") and f.get("code"):
+                    plugin_dir = os.path.join(PLUGINS_DIR, plugin["id"])
                     os.makedirs(plugin_dir, exist_ok=True)
-                    file_path = os.path.join(plugin_dir, att["filename"])
-                    with open(file_path, 'w', encoding='utf-8') as f:
-                        f.write(att["code"])
-                    # Update URL to local path
-                    att["url"] = f"plugins/{plugin['id']}/{att['filename']}"
+                    filepath = os.path.join(plugin_dir, f["filename"])
+                    with open(filepath, 'w', encoding='utf-8') as fh:
+                        fh.write(f["code"])
+                    f["url"] = f"plugins/{plugin['id']}/{f['filename']}"
                     files_saved += 1
 
-        print(f"Saved {files_saved} plugin files to {plugins_dir}")
+        print(f"Saved {files_saved} plugin files to {PLUGINS_DIR}")
 
-        output = {
+        full_output = {
             "scraped_at": datetime.now(timezone.utc).isoformat(),
             "channel_id": str(CHANNEL_ID),
             "total_plugins": len(self.plugins),
             "plugins": self.plugins,
         }
-
         with open(OUTPUT_PATH, 'w', encoding='utf-8') as f:
-            json.dump(output, f, indent=2, ensure_ascii=False)
-
+            json.dump(full_output, f, indent=2, ensure_ascii=False)
         print(f"Saved {len(self.plugins)} plugins to {OUTPUT_PATH}")
+
+        api_plugins = []
+        for p in self.plugins:
+            api_entry = {
+                "id": p["id"],
+                "name": p["name"],
+                "author": p["author"]["name"],
+                "date": p["date"],
+                "files": [],
+                "loadstring_urls": p["loadstring_urls"],
+            }
+            for f in p["files"]:
+                if f.get("is_plugin"):
+                    api_entry["files"].append({
+                        "filename": f["filename"],
+                        "url": f["url"],
+                        "size": f["size"],
+                    })
+            api_plugins.append(api_entry)
+
+        api_output = {
+            "version": "1.0",
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "total": len(api_plugins),
+            "plugins": api_plugins,
+        }
+        with open(API_PATH, 'w', encoding='utf-8') as f:
+            json.dump(api_output, f, indent=2, ensure_ascii=False)
+        print(f"Saved API ({len(api_plugins)} plugins) to {API_PATH}")
 
 
 def main():
     if not TOKEN:
         print("ERROR: DISCORD_TOKEN environment variable not set.")
         return
-
     logging.basicConfig(level=logging.INFO)
-    
     client = PluginScraper()
     print("Starting Infinite Yield Plugin Scraper...", flush=True)
     print(f"Target channel: {CHANNEL_ID}", flush=True)

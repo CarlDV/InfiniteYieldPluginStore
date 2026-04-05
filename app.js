@@ -67,10 +67,20 @@
             observer.observe(loadMoreTarget);
 
             render();
+            handleDeepLink();
         } catch (e) {
             loading.textContent = 'Failed to load plugins.json';
         }
     }
+
+    function handleDeepLink() {
+        const hash = decodeURIComponent(location.hash.slice(1));
+        if (!hash) return;
+        const plugin = allPlugins.find(p => p.id === hash);
+        if (plugin) openModal(plugin);
+    }
+
+    window.addEventListener('hashchange', handleDeepLink);
 
     function render() {
         let list = [...allPlugins];
@@ -119,12 +129,12 @@
             }
 
             // Description
-            let desc = (p.content || '').replace(/```[\s\S]*?```/g, '').replace(/[*_~`#]/g, '').trim();
-            if (!desc && p.attachments?.length) desc = p.attachments.map(a => a.filename).join(', ');
+            let desc = (p.description || '').replace(/```[\s\S]*?```/g, '').replace(/[*_~`#]/g, '').trim();
+            if (!desc && p.files?.length) desc = p.files.map(a => a.filename).join(', ');
 
             // Tags
             let tags = '';
-            if (p.attachments?.some(a => a.is_plugin_file)) tags += '<span class="tag tag-file">📁 File</span>';
+            if (p.files?.some(a => a.is_plugin)) tags += '<span class="tag tag-file">📁 File</span>';
             if (p.code_blocks?.length) tags += '<span class="tag tag-code">⟨/⟩ Code</span>';
             if (p.links?.length) tags += '<span class="tag tag-link">🔗 Link</span>';
             if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring">⚡ Loadstring</span>';
@@ -153,8 +163,19 @@
                 <div class="card-desc">${esc(desc || 'No description')}</div>
                 <div class="card-footer">
                     <div class="card-tags">${tags}</div>
+                    <button class="card-share" title="Copy link">🔗</button>
                 </div>
             `;
+
+            card.querySelector('.card-share').addEventListener('click', (e) => {
+                e.stopPropagation();
+                const url = `${location.origin}${location.pathname}#${encodeURIComponent(p.id)}`;
+                navigator.clipboard.writeText(url).then(() => {
+                    const btn = e.currentTarget;
+                    btn.textContent = '✅';
+                    setTimeout(() => btn.textContent = '🔗', 1500);
+                });
+            });
 
             card.onclick = () => {
                 openModal(p);
@@ -167,6 +188,7 @@
 
     // ---- Modal ----
     function openModal(p) {
+        history.replaceState(null, '', `#${encodeURIComponent(p.id)}`);
         // Avatar in modal
         const initial = (p.author?.name || '?')[0].toUpperCase();
         const authorName = p.author?.name || 'Unknown';
@@ -212,15 +234,15 @@
             html += `</div>`;
         }
 
-        let text = (p.content || '').trim();
+        let text = (p.description || '').trim();
 
         if (text) {
             html += `<div class="section"><div class="section-label">Description</div><div class="section-text">${discordFormat(text, p.id)}</div></div>`;
         }
 
-        if (p.attachments?.length) {
-            html += `<div class="section"><div class="section-label">Attachments</div>`;
-            p.attachments.forEach((a, i) => {
+        if (p.files?.length) {
+            html += `<div class="section"><div class="section-label">Files</div>`;
+            p.files.forEach((a, i) => {
                 const isCode = a.filename.toLowerCase().match(/\.(lua|iy|txt)$/);
                 const isImage = a.filename.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/);
                 const isVideo = a.filename.toLowerCase().match(/\.(mp4|webm|mov)$/);
@@ -294,7 +316,7 @@
                 const pId = parts[1];
                 const aIdx = parseInt(parts[2]);
                 const plugin = allPlugins.find(p => p.id === pId);
-                const attachment = plugin?.attachments?.[aIdx];
+                const attachment = plugin?.files?.[aIdx];
 
                 if (attachment && attachment.code) {
                     codeBlock.textContent = attachment.code;
@@ -323,7 +345,7 @@
                 const pId = parts[1];
                 const aIdx = parseInt(parts[2]);
                 const plugin = allPlugins.find(p => p.id === pId);
-                const attachment = plugin?.attachments?.[aIdx];
+                const attachment = plugin?.files?.[aIdx];
 
                 if (attachment && attachment.code) {
                     const blob = new Blob([attachment.code], { type: 'application/octet-stream' });
@@ -360,6 +382,7 @@
     function closeModal() {
         overlay.classList.add('hidden');
         document.body.style.overflow = '';
+        history.replaceState(null, '', location.pathname + location.search);
     }
 
     // ---- Events ----
@@ -388,9 +411,9 @@
                 let count = 0;
 
                 allPlugins.forEach(p => {
-                    if (p.attachments) {
-                        p.attachments.forEach(a => {
-                            if (a.is_plugin_file && a.code && a.code.trim()) {
+                    if (p.files) {
+                        p.files.forEach(a => {
+                            if (a.is_plugin && a.code && a.code.trim()) {
                                 let name = a.filename;
                                 if (names.has(name)) {
                                     const base = name.replace(/\.[^/.]+$/, "");
