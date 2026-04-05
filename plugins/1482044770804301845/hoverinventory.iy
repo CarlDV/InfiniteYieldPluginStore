@@ -1,0 +1,152 @@
+local Plugin = {
+	["PluginName"] = "hover inventory",
+	["PluginDescription"] = "hover hoverpoop inventooprytory Hover",
+	["Commands"] = {
+		["hoverinventory"] = {
+			["ListName"] = "hoverinventory",
+			["Description"] = "shows a player's inventory when you hover your mouse over them",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+
+				if getgenv().pooptory then
+					getgenv().pooptory:Disconnect()
+				end
+
+				local players = game:GetService("Players")
+				local uis = game:GetService("UserInputService")
+				local lplr = players.LocalPlayer
+				local realMouse = lplr:GetMouse()
+
+				local gui = Instance.new("ScreenGui")
+				gui.Name = "hoverinv_"..tostring(math.random(1000,9999))
+				gui.Parent = game:GetService("CoreGui")
+
+				local ScaledHolder = Instance.new("Frame")
+				ScaledHolder.BackgroundTransparency = 1
+				ScaledHolder.Size = UDim2.new(1,0,1,0)
+				ScaledHolder.Parent = gui
+
+				local function randomString()
+					local s=""
+					for i=1,10 do
+						s=s..string.char(math.random(97,122))
+					end
+					return s
+				end
+
+				local mouse = {}
+				mouse.Move = Instance.new("BindableEvent")
+				mouse.X = 0
+				mouse.Y = 0
+				mouse.Target = nil
+
+				uis.InputChanged:Connect(function(i)
+					if i.UserInputType == Enum.UserInputType.MouseMovement then
+						mouse.X = realMouse.X
+						mouse.Y = realMouse.Y
+						mouse.Target = realMouse.Target
+						mouse.Move:Fire()
+					end
+				end)
+
+				wait()
+
+				local nameBox = Instance.new("TextLabel")
+				nameBox.Name = randomString()
+				nameBox.Parent = ScaledHolder
+				nameBox.BackgroundTransparency = 1
+				nameBox.Size = UDim2.new(0,300,0,200)
+				nameBox.Font = Enum.Font.Code
+				nameBox.TextSize = 16
+				nameBox.Text = ""
+				nameBox.TextColor3 = Color3.new(1,1,1)
+				nameBox.TextStrokeTransparency = 0
+				nameBox.TextXAlignment = Enum.TextXAlignment.Left
+				nameBox.TextYAlignment = Enum.TextYAlignment.Top
+				nameBox.ZIndex = 10
+
+				local nbSelection = Instance.new("SelectionBox")
+				nbSelection.Name = randomString()
+				nbSelection.LineThickness = 0.03
+				nbSelection.Color3 = Color3.new(1,1,1)
+
+				local function getInventory(plr)
+					local items={}
+					local bp=plr:FindFirstChildOfClass("Backpack")
+					if bp then
+						for _,v in ipairs(bp:GetChildren()) do
+							table.insert(items,v.Name)
+						end
+					end
+					if plr.Character then
+						for _,v in ipairs(plr.Character:GetChildren()) do
+							if v:IsA("Tool") then
+								table.insert(items,v.Name)
+							end
+						end
+					end
+					return table.concat(items,"\n")
+				end
+
+				local function updateNameBox()
+					local t
+					local target = mouse.Target
+
+					if target then
+						local humanoid = target.Parent:FindFirstChildOfClass("Humanoid") or target.Parent.Parent:FindFirstChildOfClass("Humanoid")
+						if humanoid then
+							t = humanoid.Parent
+						end
+					end
+
+					if t ~= nil then
+						local plr = players:GetPlayerFromCharacter(t)
+						local x = mouse.X
+						local y = mouse.Y
+						local xP
+
+						if mouse.X > 200 then
+							xP = x - 205
+							nameBox.TextXAlignment = Enum.TextXAlignment.Right
+						else
+							xP = x + 25
+							nameBox.TextXAlignment = Enum.TextXAlignment.Left
+						end
+
+						nameBox.Position = UDim2.new(0,xP,0,y)
+
+						local inv=""
+						if plr then
+							inv=getInventory(plr)
+						end
+
+						nameBox.Text=inv
+						nameBox.Visible=true
+						nbSelection.Parent=t
+						nbSelection.Adornee=t
+					else
+						nameBox.Visible=false
+						nbSelection.Parent=nil
+						nbSelection.Adornee=nil
+					end
+				end
+
+				getgenv().pooptory = mouse.Move.Event:Connect(updateNameBox)
+
+			end,
+		},
+
+		["unhoverinventory"] = {
+			["ListName"] = "unhoverinventory / nohoverinventory",
+			["Description"] = "disable the hover thingy",
+			["Aliases"] = { "nohoverinventory" },
+			["Function"] = function(args, speaker)
+				if getgenv().pooptory then
+					getgenv().pooptory:Disconnect()
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

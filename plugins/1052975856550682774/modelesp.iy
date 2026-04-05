@@ -1,0 +1,205 @@
+local Plugin={
+    ['PluginName']='Model ESP',
+    ['PluginDescription']='Highlights models',
+    ['Commands']={
+        ['modelesp']={
+            ['ListName']='modelesp / mesp [model] [color]',
+            ['Description']='Highlights a model',
+            ['Aliases']={'modelesp','mesp'},
+            ['Function']=function(args,speaker)
+                local kt={
+                    ['red']=Color3.new(1,0,0),
+                    ['green']=Color3.new(0,1,0),
+                    ['blue']=Color3.new(0,.2,1),
+                    ['white']=Color3.new(1,1,1),
+                    ['gray']=Color3.new(.5,.5,.5),['grey']=Color3.new(.5,.5,.5),
+                    ['teal']=Color3.new(0,1,1),
+                    ['yellow']=Color3.new(1,1,0),
+                    ['orange']=Color3.new(1,.6,0),
+                    ['pink']=Color3.new(1,.35,.7),
+                    ['purple']=Color3.new(.2,0,1),
+                    ['brown']=Color3.new(.4,.25,.15),
+                    ['black']=Color3.new()
+                }
+                
+                local mdln=args[1]
+                for i,v in ipairs(args)do
+                    if i~=1 and i~=#args then
+                        mdln=mdln..' '..args[i]
+                    end
+                end
+                
+                local mdl,wmdl=false
+                for _,v in ipairs(workspace:GetDescendants())do
+                    if tostring(v):lower()==mdln:lower()and v:IsA'Model'then
+                        mdl,wmdl=true,v
+                        break
+                    end
+                end
+                if not mdl then
+                    return notify('Invalid Target','Target is not a model')
+                elseif not kt[args[#args]:lower()]then
+                    return notify('Invalid Color','Color \''..args[2]..'\' is unavailable')
+                end
+                if COREGUI:FindFirstChild(mdln:lower())then
+                    for _,v in ipairs(COREGUI:children())do
+                        if v:IsA'BoxHandleAdornment'and tostring(v)==mdln:lower()then
+                            v:Destroy()
+                        end
+                    end
+                end
+                
+                for _,v in ipairs(workspace:GetDescendants())do
+                    if v:IsA'Model'and tostring(v):lower()==mdln:lower()then
+                        for _,pr in ipairs(v:GetDescendants())do
+                            if pr:IsA'BasePart'then
+                                local a=Instance.new('BoxHandleAdornment',COREGUI)
+                                a.Name=mdln:lower()
+                                a.Color3=kt[args[#args]:lower()]
+                                a.Size=pr.Size+Vector3.new(.1,.1,.1)
+                                a.Transparency=.3
+                                a.AlwaysOnTop=true
+                                a.ZIndex=10
+                                a.Adornee=pr
+                                a.MouseButton1Down:Connect(function()
+                                    pcall(function()
+                                        if IYMouse.Target~=a.Adornee and COREGUI:FindFirstChild(tostring(IYMouse.Target:FindFirstAncestorOfClass'Model'):lower())then
+                                            return
+                                        end
+                                    end)
+                                    
+                                    IYMouse.TargetFilter=workspace:FindFirstChildOfClass'Terrain'
+                                    local bp
+                                    for _,p in ipairs(v:GetDescendants())do
+                                        if p:IsA'BasePart'and p.Transparency<1 then
+                                            if not bp then
+                                                bp=p
+                                            elseif p.Size.Y>bp.Size.Y then
+                                                bp=p
+                                            end
+                                        end
+                                    end
+                            
+                                    if not COREGUI:FindFirstChild(mdln..'bibo')then
+                                        local bg=Instance.new("BillboardGui",COREGUI)
+                                        bg.Name=mdln..'bibo'
+                                        bg.Active,bg.AlwaysOnTop=true,true
+                                        bg.Size=UDim2.new(0,bp.Size.X+10,0,bp.Size.Y+10)
+                                        if bp.Size.Y<10 and speaker:DistanceFromCharacter(bp.Position)<30 then
+                                            bg.StudsOffset=Vector3.new(-1,bp.Size.Y+3,0)
+                                        elseif bp.Size.Magnitude<10 then
+                                            bg.StudsOffset=Vector3.new(-1,bp.Size.Y+5,0)
+                                        else
+                                            bg.StudsOffset=Vector3.new(-1,bp.Size.Y+20,0)
+                                        end
+                                        bg.Adornee=v
+                                        local tlbl=Instance.new("TextLabel",bg)
+                                        tlbl.ZIndex=7
+                                        tlbl.BackgroundTransparency=1
+                                        tlbl.TextScaled=true
+                                        tlbl.Text=tostring(wmdl)
+                                        tlbl.TextStrokeTransparency=.7
+                                        tlbl.TextColor3=kt[args[#args]:lower()]
+                                        tlbl.Font=Enum.Font.SourceSansSemibold
+                                        if bp.Size.Y<10 then
+                                            tlbl.Size=UDim2.new(0,bp.Size.X+70,0,bp.Size.Y+40)
+                                        else
+                                            tlbl.Size=UDim2.new(0,bp.Size.X+50,0,bp.Size.Y+20)
+                                        end
+                                    end
+                                end)
+                        
+                                a.MouseButton1Up:Connect(function()
+                                    IYMouse.TargetFilter=nil
+                                    if COREGUI:FindFirstChild(mdln..'bibo')then
+                                        for _,bl in ipairs(COREGUI:children())do
+                                            if bl:IsA'BillboardGui'and tostring(bl)==mdln..'bibo'then
+                                                bl:Destroy()
+                                            end
+                                        end
+                                    end
+                                end)
+                                a.MouseLeave:Connect(function()
+                                    if COREGUI:FindFirstChild(mdln..'bibo')then
+                                        for _,v in ipairs(COREGUI:children())do
+                                            if v:IsA'BoxHandleAdornment'and tostring(v)==mdln then
+                                                if v.Adornee==IYMouse.Target then
+                                                    return
+                                                end
+                                            end
+                                        end
+                                    end
+                                    if IYMouse.TargetFilter==workspace:FindFirstChildOfClass'Terrain'then
+                                        IYMouse.TargetFilter=nil 
+                                    end
+                                    for _,bl in ipairs(COREGUI:children())do
+                                        if bl:IsA'BillboardGui'and tostring(bl)==mdln..'bibo'then
+                                            bl:Destroy()
+                                        end
+                                    end
+                                end)
+                                
+                                workspace.DescendantRemoving:Connect(function(i)
+                                    pcall(function()
+                                        if i:IsA'Model'and i==a.Adornee:FindFirstAncestorOfClass'Model'then
+                                            a:Destroy()
+                                        end
+                                    end)
+                                end)
+                            end
+                        end
+                    end
+                end
+            end
+        },
+        ['unmodelesp']={
+            ['ListName']='unmodelesp / unmesp [model], all',
+            ['Description']='Removes highlight from model',
+            ['Aliases']={'unmodelesp','unmesp'},
+            ['Function']=function(args,speaker)
+                local mdln=args[1]
+                for i,v in ipairs(args)do
+                    if i~=1 then
+                        mdln=mdln..' '..args[i]
+                    end
+                end
+                
+                local hlt=false
+                for _,v in ipairs(COREGUI:children())do
+                    if v:IsA'BoxHandleAdornment'and tostring(v):lower()==mdln:lower()then
+                        hlt=true
+                    end
+                end
+                if args[1]=='all'then
+                    hlt=true
+                end
+                
+                if not hlt then
+                    return notify('Invalid Target','Target is not highlighted')
+                end
+                
+                for _,v in ipairs(COREGUI:children())do
+                    if args[1]=='all'then
+                        if v:IsA'BoxHandleAdornment'and tostring(v)~='BoxHandleAdornment'then
+                            v:Destroy()
+                        end
+                    else
+                        if v:IsA'BoxHandleAdornment'and tostring(v):lower()==mdln:lower()then
+                            v:Destroy()
+                        end
+                    end
+                end
+            end
+        },
+        ['mespcolors']={
+            ['ListName']='mespcolors / mcolors',
+            ['Description']='Shows available colors',
+            ['Aliases']={'mespcolors','mcolors'},
+            ['Function']=function(args,speaker)
+                notify('Available Colors','Red, Green, Blue, White, Gray, Teal, Yellow, Orange, Pink, Purple, Brown, Black')
+            end
+        }
+    }
+}
+ 
+return Plugin

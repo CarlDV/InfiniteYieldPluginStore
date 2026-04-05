@@ -1,0 +1,19 @@
+local Plugin = {
+	["PluginName"] = "AntiRagdoll",
+	["PluginDescription"] = "Removes your Ragdoll",
+	["Commands"] = {
+		["antiragdoll/antirag"] = {
+			["Description"] = "Removes your Ragdoll",
+			["Aliases"] = {'antiragdoll','antirag'},
+			["Function"] = function(args,speaker)
+
+loadstring(game:HttpGet(('https://pastebin.com/raw/iJ86h4Zn'),true))()
+
+           end,
+        },
+    },
+}
+
+return Plugin
+
+

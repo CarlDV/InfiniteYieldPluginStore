@@ -1,0 +1,19 @@
+local Plugin = {
+    ["PluginName"] = "Showhealth",
+    ["PluginDescription"] = "Made by YuKii#4662",
+    ["Commands"] = {
+		["health"] = {
+			["ListName"] = "health [plr]",
+			["Description"] = "Show Player Health",
+			["Aliases"] = {"hp"},
+			["Function"] = function(args,speaker)
+			local players = getPlayer(args[1], speaker) 
+			for k,v in pairs(players) do
+			local HP = Players[v].Character:FindFirstChildWhichIsA("Humanoid").Health
+			notify(Players[v].name .."'s",HP)
+			end
+			end
+		},
+    }
+}
+return Plugin

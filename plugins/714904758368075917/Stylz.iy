@@ -1,0 +1,34 @@
+local Plugin = {
+    ["PluginName"] = "Stylz FuckOver",
+    ["PluginDescription"] = "Has a couple of functions for the game Stylz Salon.",
+    ["Commands"] = {
+        ["stylzgear"] = {
+            ["ListName"] = "stylzgear [player] [gearid] [backpack/character]",
+            ["Description"] = "In Stylz Makeover, gives the gear to the player in the item location specified. Players don't normally have backpack access. If you're putting gear in your backpack, type enable inventory in Infinite Yield",
+            ["Aliases"] = {"sgear","stylzgear"},
+            ["Function"] = function(args,speaker)
+            local e = getPlayer(args[1], speaker)
+            for i,plr in pairs(e)do
+    if args[3] == "backpack" then
+    game.Workspace.HatEvent:FireServer("AddHat", args[2], game.Players[plr].Backpack)
+    elseif args[3] == "character" then
+    game.Workspace.HatEvent:FireServer("AddHat", args[2], game.Players[plr].Character)
+            end
+        end
+    end
+        },
+["stylzkick"] = {
+    ["ListName"] = "stylzkick [player]",
+    ["Description"] = "Kicks someone in Stylz Makeover.",
+    ["Aliases"] = {"skick, stylzkick"},
+    ["Function"] = function(args, speaker)
+    plr = getPlayer(args[1], speaker)
+    for i,plr2 in pairs(plr)do
+    game.Workspace.HatEvent:FireServer("RemoveHat", 0, game.Players, plr2)
+    end
+end
+    },
+     },
+}
+
+return Plugin

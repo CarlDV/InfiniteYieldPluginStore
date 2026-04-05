@@ -1,0 +1,123 @@
+local Sense = loadstring(game:HttpGet('https://sirius.menu/sense'))() --> ESP library cause IY
+Sense.teamSettings.enemy.enabled = true
+Sense.teamSettings.enemy.box3dColor[1] = Color3.fromRGB(255, 99, 99)
+Sense.teamSettings.enemy.box3d = true
+Sense.teamSettings.enemy.name = true
+Sense.teamSettings.enemy.nameColor[1] = Color3.fromRGB(255, 99, 99)
+
+local humanoidDescriptions = {} --> Cache to prevent api request throttling
+
+-- Euclidean distance in RGB
+local function rgbDistance(aR, aG, aB, bR, bG, bB)
+	return math.sqrt((aR - bR)^2 + (aG - bG)^2 + (aB - bB)^2)
+end
+
+-- perceptual-ish luminance (linear RGB 0-1)
+local function luminance(r, g, b)
+	-- Rec.709 luminance approximation
+	return 0.2126 * r + 0.7152 * g + 0.0722 * b
+end
+
+-- centroids for reddish brown, orange-brown, chocolate and near-black tints.
+local TARGETS = {
+	-- deep chocolate / very dark brown
+	{ r = 0.13, g = 0.07, b = 0.05 }, -- almost-black brown
+	{ r = 0.20, g = 0.10, b = 0.06 }, -- dark chocolate
+	{ r = 0.30, g = 0.14, b = 0.07 }, -- chestnut / reddish-dark
+	{ r = 0.36, g = 0.20, b = 0.10 }, -- warm dark brown
+	{ r = 0.4, g = 0.25, b = 0.12 }, -- medium-dark saturated brown (Roblox-styled)
+	{ r = 0.4, g = 0.30, b = 0.16 },  -- slightly brighter but still in brown family (optional)
+	{ r = 0.4, g = 0.42, b = 0}, -- some brown color idk
+	{ r = 0.4, g = 0.34, b = 0}, -- slight yellowish brown
+}
+
+-- Tunables
+local DIST_THRESHOLD = 0.18  -- max RGB distance to accept as matching a target
+local LUMINANCE_MAX   = 0.42 -- maximum luminance allowed to avoid bright tan/yellow
+local BLACK_V_MAX     = 0.03 -- if luminance <= this, treat as black-like immediately
+
+local function isColorDark(color: Color3): boolean
+	-- convert Color3 (0-1)
+	local r, g, b = color.r, color.g, color.b
+	local h, s, v = color:ToHSV()
+	
+	-- get rid of greens and blues
+	if (h >= 0.17 and h <= 0.9) and (r > 0.13 or g > 0.13 or b > 0.13) then 
+		return false
+	end
+
+	-- very dark colors -> accept
+	if luminance(r, g, b) <= BLACK_V_MAX then
+		return true
+	end
+
+	-- reject very bright / pale colors early (these are tans / beige / skin-medium)
+	if luminance(r, g, b) > LUMINANCE_MAX then
+		return false
+	end
+
+	-- compute distance to each target centroid
+	local minDist = math.huge
+	for _, t in ipairs(TARGETS) do
+		local d = rgbDistance(r, g, b, t.r, t.g, t.b)
+		if d < minDist then
+			minDist = d
+		end
+	end
+
+	-- match if close enough to any target
+	return (minDist <= DIST_THRESHOLD)
+end
+
+
+local function isPlayerDark(player: Player, actualavatar: boolean): boolean
+    if actualavatar then
+        if humanoidDescriptions[player.UserId] then 
+            return isColorDark(humanoidDescriptions[player.UserId].TorsoColor) 
+        end
+        local humanoidDescription
+        local success,_ = pcall(function()
+            humanoidDescription = game.Players:GetHumanoidDescriptionFromUserId(player.UserId)
+        end)
+
+        if humanoidDescription then
+            humanoidDescriptions[player.UserId] = humanoidDescription
+            return isColorDark(humanoidDescription.TorsoColor)
+        else return false end
+    else
+        if player.Character and player.Character:FindFirstChild("Head") then
+            return isColorDark(player.Character.Head.Color)
+        end
+    end
+end
+
+local Plugin = {
+    ["PluginName"] = "Dark Marker",
+    ["PluginDescription"] = "Made by @scriptleveling (<@293025935291187210>) on discord",
+    ["Commands"] = {
+        ["markdarkplayers"] = {
+            ["ListName"] = "markdarkplayers [robloxavatar]",
+            ["Description"] = "Queries through all players and marks players with dark skin tones with ESP",
+            ["Aliases"] = {"markdarks", "revealdarks"},
+            ["Function"] = function(args, speaker)
+                local robloxavatar: boolean = if args[1] == 'true' then true else false
+                Sense.isFriendly = function(player)
+                    return if isPlayerDark(player, robloxavatar) then false else true 
+                end
+                Sense.Load()
+                notify('Marked darks')
+            end
+        },
+        ["unmarkdarkplayers"] = {
+                ["ListName"] = "unmarkdarkplayers",
+                ["Description"] = "Unmarks players marked by the 'markdarkplayers' command",
+                ["Aliases"] = {"unmarkdarks", "hidedarks"},
+                ["Function"] = function(args, speaker)
+                    Sense.Unload()
+                    notify('Unmarked darks')
+                end
+        }
+    }
+}
+
+return Plugin

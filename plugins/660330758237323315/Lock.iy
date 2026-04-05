@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "Shiftlock",
+    ["PluginDescription"] = "Enable/Disable the shiftlock",
+    ["Commands"] = {
+        ["shiftlock"] = {
+            ["ListName"] = "Shiftlock",
+            ["Description"] = "Turn on the shiftlock",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                Players = game:GetService("Players")
+                Players.LocalPlayer.DevEnableMouseLock = true
+            end
+            },
+            ["noshiftlock"] = {
+                ["ListName"] = "NoShiftlock",
+                ["Description"] = "Turn off the shiftlock",
+                ["Aliases"] = {""},
+                ["Function"] = function(args,speaker)
+                    Players.LocalPlayer.DevEnableMouseLock = false
+                end
+            }
+        }
+    }
+    return Plugin

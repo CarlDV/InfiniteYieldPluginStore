@@ -1,0 +1,23 @@
+local Plugin = {
+    ["PluginName"] = "Kill IY",
+    ["PluginDescription"] = "kills infinite yield",
+    ["Commands"] = {
+        ["killiy"] = {
+            ["ListName"] = "killiy",
+            ["Description"] = "Kill infinite yield",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                getgenv().IY_LOADED = false
+                PARENT:Destroy()
+                
+                Holder = Instance.new("Frame", workspace)
+                Notification = Instance.new("Frame", workspace)
+                Settings = Instance.new("Frame", workspace)
+
+                print("kiled")
+            end
+        }
+     }
+}
+
+return Plugin

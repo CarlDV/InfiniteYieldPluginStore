@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "Draggable Chat",
+    ["PluginDescription"] = "Credit for script Poptart#4811, Credit for plugin and idea Orion#4085",
+    ["Commands"] = {
+		["dragchat"] = {
+			["ListName"] = "dragchat / dragc",
+			["Description"] = "Drag roblox chat anywhere left click",
+			["Aliases"] = {"dragc"},
+			["Function"] = function(args,speaker)
+				repeat wait() until game:IsLoaded()
+				local c =game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild("Chat"):FindFirstChildWhichIsA("Frame");c.Active = true;c.Draggable=true
+			end
+		}
+    }
+}
+
+return Plugin

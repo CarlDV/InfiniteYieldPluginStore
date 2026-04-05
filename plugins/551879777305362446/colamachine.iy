@@ -1,0 +1,26 @@
+local Plugin = {
+	["PluginName"] = "Coca Cola Machine",
+	["PluginDescription"] = "Turns you into a coca cola machine, make sure you wear the pants!",
+	["Commands"] = {
+		["cocacolamachine"] = {
+			["Description"] = "yes very good cola",
+			["Aliases"] = {'ccm', 'colamachine'},
+			["Function"] = function(args,speaker)
+                local char = speaker.Character
+                local p = speaker
+
+                if char.Humanoid.RigType == Enum.HumanoidRigType.R6 then
+                    char.Torso["Left Shoulder"]:Destroy()
+                    char.Torso["Right Shoulder"]:Destroy()
+                    char.Torso.Neck.C0 = CFrame.new(Vector3.new(0, 9999, 0))
+                else
+                    char["LeftUpperArm"].LeftShoulder:Destroy()
+                    char["RightUpperArm"].RightShoulder:Destroy()
+                    char.Head.Neck.C0 = CFrame.new(Vector3.new(0, 9999, 0))
+                end
+			end,
+		},
+	},
+}
+
+return Plugin

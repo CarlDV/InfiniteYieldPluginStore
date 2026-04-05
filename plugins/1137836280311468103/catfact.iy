@@ -1,0 +1,110 @@
+if not httprequest then notify('Incompatible Exploit','Failed to add plugin, exploit lacks support for http requests')return end
+local url='https://catfact.ninja/fact'
+
+local Plugin={
+    ['PluginName']='Random Cat Fact',
+    ['PluginDescription']='Generates random cat facts',
+    ['Commands']={
+        ['catfact']={
+            ['ListName']='catfact / cfact',
+            ['Description']='Generate a random cat fact',
+            ['Aliases']={'catfact','cfact'},
+            ['Function']=function(args,speaker)
+                notify('Random Cat Fact',HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact)
+            end
+        },
+        ['copycatfact']={
+            ['ListName']='copycatfact / ccatfact',
+            ['Description']='Copy a random cat fact to your clipboard',
+            ['Aliases']={'copycatfact','ccatfact'},
+            ['Function']=function(args,speaker)
+                toClipboard(HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact)
+            end
+        },
+        ['kickcatfact']={
+            ['ListName']='kickcatfact / kcatfact',
+            ['Description']='Kicks you with a random cat fact as the kick message',
+            ['Aliases']={'kickcatfact','kcatfact'},
+            ['Function']=function(args,speaker)
+                speaker:Kick(HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact)
+            end
+        },
+        ['printcatfact']={
+            ['ListName']='printcatfact / pcatfact',
+            ['Description']='Print a random cat fact to the developer console',
+            ['Aliases']={'printcatfact','pcatfact'},
+            ['Function']=function(args,speaker)
+                print(HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact)
+            end
+        },
+        ['warncatfact']={
+            ['ListName']='warncatfact / wcatfact',
+            ['Description']='Print a random cat fact as a warning message to the developer console',
+            ['Aliases']={'warncatfact','wcatfact'},
+            ['Function']=function(args,speaker)
+                warn(HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact)
+            end
+        },
+        ['errorcatfact']={
+            ['ListName']='errorcatfact / ecatfact',
+            ['Description']='Print a random cat fact as an error message to the developer console',
+            ['Aliases']={'errorcatfact','ecatfact'},
+            ['Function']=function(args,speaker)
+                error(HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact)
+            end
+        },
+        ['notifycatfact']={
+            ['ListName']='notifycatfact / ncatfact',
+            ['Description']='Generate a random cat fact using StarterGui.SetCore',
+            ['Aliases']={'notifycatfact','ncatfact'},
+            ['Function']=function(args,speaker)
+                StarterGui:SetCore('SendNotification',{
+                    Title='RANDOM CAT FACT',
+                    Text=HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact
+                })
+            end
+        },
+        ['filecatfact']={
+            ['ListName']='filecatfact / fcatfact',
+            ['Description']='Write a text file containing a random cat fact and store it in the exploit\'s workspace folder',
+            ['Aliases']={'filecatfact','fcatfact'},
+            ['Function']=function(args,speaker)
+                if not writefile or not listfiles then notify('Incompatible Exploit','Exploit lacks support for writefile/listfiles')return end
+                local t={}
+                for _,v in ipairs(listfiles())do
+                    if v:sub(1,7)~='catfact'then continue end
+                    table.insert(t,v)
+                end
+                writefile(('catfact_%i.txt'):format(#t),HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact)
+            end
+        },
+        ['msgcatfact']={
+            ['ListName']='msgcatfact / mcatfact',
+            ['Description']='Generate a random cat fact using a message box',
+            ['Aliases']={'msgcatfact','mcatfact'},
+            ['Function']=function(args,speaker)
+                if not messagebox then notify('Incompatible Exploit','Exploit lacks support for messagebox')return end
+                local m
+                repeat
+                    m=messagebox(HttpService:JSONDecode(httprequest({Url=url,Method='GET'}).Body).fact,'Random Cat Fact',4)
+                until m==6
+            end
+        },
+        ['textcatfact']={
+            ['ListName']='textcatfact / tcatfact',
+            ['Description']='Changes all existing TextLabel\'s text (if any) to a random cat fact',
+            ['Aliases']={'textcatfact','tcatfact'},
+            ['Function']=function(args,speaker)
+                local t={}
+                for _,v in ipairs(game:GetDescendants())do
+                    if not v:IsA'TextLabel'then continue end
+                    table.insert(t,v)
+                end
+                function f1(p1,p2)p1.Text=p2 end
+                for _,v in ipairs(t)do task.spawn(f1,v,httprequest({Url=url,Method='GET'}).Body.fact)end
+            end
+        }
+    }
+}
+ 
+return Plugin

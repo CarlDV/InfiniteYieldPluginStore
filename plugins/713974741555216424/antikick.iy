@@ -1,0 +1,34 @@
+local toggle = false
+
+local Plugin = {
+    ["PluginName"] = "Anti Kick",
+    ["PluginDescription"] = "Instantly rejoin if you are kicked from the game.",
+    ["Commands"] = {
+        ["antikick"] = {
+	["ListName"] = "antikick/autorejoin/autorj/ak (togglable)",
+            ["Description"] = "Instantly rejoin if you are kicked from the game.",
+            ["Aliases"] = {'antikick', 'autorejoin', 'autorj','ak'},
+            ["Function"] = function(args,speaker)
+
+if toggle == false then
+notify("Anti-Kick","Enabled")
+toggle = true
+repeat
+game:GetService("RunService").Stepped:wait()
+until #game.Players:GetChildren() == 0
+if toggle == true then
+game:GetService("TeleportService"):Teleport(game.PlaceId, LocalPlayer)
+end
+else
+notify("Anti-Kick","Disabled")
+toggle = false
+end
+
+            end,
+        },
+     },
+}
+
+
+
+return Plugin

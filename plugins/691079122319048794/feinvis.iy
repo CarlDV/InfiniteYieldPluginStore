@@ -1,0 +1,76 @@
+
+local Plugin = {
+    ["PluginName"] = "feinvis",
+    ["PluginDescription"] = "makes you invisible",
+    ["Commands"] = {
+        ["COMMANDNAME"] = {
+            ["ListName"] = "feinvis",
+            ["Description"] = "makes you invisible",
+            ["Aliases"] = {"feinvis"},
+            ["Function"] = function(args,speaker)
+
+notify("making you invis, please wait 11 seconds, original script by Diemiers#4209")
+local ch = game.Players.LocalPlayer.Character
+local prt=Instance.new("Model", workspace)
+local z1 =  Instance.new("Part", prt)
+z1.Name="Torso"
+z1.CanCollide = false
+z1.Anchored = true
+local z2  =Instance.new("Part", prt)
+z2.Name="Head"
+z2.Anchored = true
+z2.CanCollide = false
+local z3 =Instance.new("Humanoid", prt)
+z3.Name="Humanoid"
+z1.Position = Vector3.new(0,9999,0)
+z2.Position = Vector3.new(0,9991,0)
+ game.Players.LocalPlayer.Character=prt
+wait(5)
+game.Players.LocalPlayer.Character=ch
+wait(6)
+
+
+local plr = game.Players.LocalPlayer
+mouse = plr:GetMouse()
+
+local Hum = Instance.new("Humanoid")
+Hum.Parent = game.Players.LocalPlayer.Character
+
+
+local root =  game.Players.LocalPlayer.Character.HumanoidRootPart
+
+
+for i,v in pairs(plr.Character:GetChildren()) do
+	
+	if v ~= root and  v.Name ~= "Humanoid" then
+		
+		v:Destroy()
+		
+	end
+	
+	
+end
+           
+workspace.CurrentCamera.CameraSubject = root
+
+local se = Instance.new("SelectionBox",root)
+se.Adornee = root
+
+
+game:GetService('RunService').Stepped:connect(function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
+end)
+game:GetService('RunService').RenderStepped:connect(function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CanCollide = false
+end)
+
+execCmd("fly")  
+
+            end
+        }
+     }
+}
+
+return Plugin
+
+

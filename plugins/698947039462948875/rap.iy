@@ -1,0 +1,44 @@
+local Plugin = {
+    ["PluginName"] = "RAP calculator",
+    ["PluginDescription"] = "Tells a player RAP",
+    ["Commands"] = {
+        ["rap"] = {
+            ["Description"] = "This script tells a player RAP(only if the target inventory is open)",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+			
+            local player = game.Players.LocalPlayer
+			local players = getPlayer(args[1], speaker)
+			Players = game:GetService("Players")
+			local HttpService = game:GetService("HttpService")
+			local sum = 0
+			
+			for i,v in pairs(players) do
+				local success = pcall(function()
+					repCheck = game:HttpGet("https://inventory.rprxy.xyz/v1/users/"..Players[v].UserId.."/assets/collectibles?sortOrder=Asc&limit=100")
+				end)
+				local data2 = HttpService:JSONDecode(repCheck)
+				
+				if not success then
+					local msg = Players[v].Name.." inventory is private."
+					local mode = "All"
+					local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
+					Event:FireServer(msg, mode)
+				else
+					for i,v in pairs(data2.data) do
+						sum = sum + v.recentAveragePrice
+					end
+					
+					local msg = Players[v].Name.." RAP: "..sum.." Robux"
+					local mode = "All"
+					local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest
+					Event:FireServer(msg, mode)
+				end
+			end
+			
+            end
+        }
+     },
+}
+
+return Plugin

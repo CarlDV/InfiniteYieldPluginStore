@@ -1,0 +1,17 @@
+--execCmd("InvisFling")
+local Plugin = {
+	["PluginName"] = "Invisible Fling",
+	["PluginDescription"] = "Fling people around whilst invisible",
+	["Commands"] = {
+		["invisfling"] = {
+			["ListName"] = "invisiblefling / invisfling" ,
+			["Description"] = "Bruh!",
+			["Aliases"] = {'invisiblefling', 'invisfling'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/2T1TZ67D"))();
+			end,
+		},
+	},
+}
+
+return Plugin

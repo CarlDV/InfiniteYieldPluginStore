@@ -1,0 +1,16 @@
+local Plugin={
+    ['PluginName']='VR MOBILE R6',
+    ['PluginDescription']='Moves your hands (mobile) R6',
+    ['Commands']={
+        ['vrmobile']={
+            ['ListName']='vrmobile',
+            ['Description']='Negative numbers will teleport you backwards',
+            ['Aliases']={'vrmovehands'},
+            ['Function']=function(args,speaker)
+                loadstring(game:HttpGet('https://pastebin.com/raw/Zf64fu3W'))()
+            end
+        }
+    }
+}
+ 
+return Plugin

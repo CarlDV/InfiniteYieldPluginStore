@@ -1,0 +1,15 @@
+local pp = {
+    ["PluginName"] = "No cooldown",
+    ["PluginDescription"] = "Removes cooldown (universal)",
+    ["Commands"] = {
+        ["noc"] = {
+            ["ListName"] = "No cooldown",
+            ["Description"] = "Removes cooldown, is universal. Might cause lag",
+            ["Aliases"] = {'noc'},
+            ["Function"] = function()
+                local a a=hookfunc(wait,function(b)b=nil return a(b)end)
+            end
+        }
+    }
+}
+return pp

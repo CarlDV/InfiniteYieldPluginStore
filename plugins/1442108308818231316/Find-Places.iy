@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Find Places",
+	["PluginDescription"] = "Finds secret places inside the game.",
+	["Commands"] = {
+		["findplaces"] = {
+			["ListName"] = "findplaces",
+			["Description"] = "Find secret places.",
+			["Aliases"] = {"findplaces", "findsecretplaces"},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ACEtheSOLID/NoobyHub-Reborn/refs/heads/main/FindPlaces-v0.2.lua"))()
+			end
+		}
+	}
+}
+
+return Plugin

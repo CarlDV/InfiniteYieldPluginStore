@@ -1,0 +1,25 @@
+local Plugin = {
+    ["PluginName"] = "Load Link/String",
+    ["PluginDescription"] = "Use Loadstring:)",
+    ["Commands"] = {
+        ["loadlink"] = {
+            ["ListName"] = "loadlink [text]",
+            ["Description"] = "Load raw link into roblox and run it.",
+            ["Aliases"] = {"ll","runlink","rl"},
+            ["Function"] = function(args,speaker)
+                local success, errorcode = pcall(function()
+                    loadstring(game:HttpGet(getstring(1)))()
+                end)
+                if not success then
+                    -- Replace with a valid notification function
+                    warn("LoadLink Error Code:\n "..errorcode)
+                else
+                    -- Replace with a valid notification function
+                    --print("Successfully Ran Link.")
+                end
+            end
+        }
+    }
+}
+
+return Plugin

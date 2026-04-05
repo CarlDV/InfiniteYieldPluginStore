@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "graphics",
+    ["PluginDescription"] = "DESCRIPTION HERE",
+    ["Commands"] = {
+        ["grap"] = {
+            ["ListName"] = "grap [graphics enhancer]",
+            ["Description"] = "DESCRIPTION HERE",
+            ["Aliases"] = {"NOXD","NOXD","NOXD"},
+            ["Function"] = function(args,speaker)
+            loadstring(game:GetObjects("rbxassetid://3680227112")[1].Source)()  
+            end		
+        }		
+    }
+}
+
+return Plugin

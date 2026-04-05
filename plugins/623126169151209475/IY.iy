@@ -1,0 +1,521 @@
+execCmd("IYPLUS")
+local Plugin = {
+    ["PluginName"] = "Infinite Yield+",
+    ["PluginDescription"] = "Adds commands that should be in IY itself",
+    ["Commands"] = {
+        ["fov"] = {
+            ["ListName"] = "fov [num]",
+            ["Description"] = "Changes your field of view",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            workspace.Camera.FieldOfView = tonumber(args[1])
+            end,
+        },
+        ["compliment"] = {
+            ["ListName"] = "compliment [plr]",
+            ["Description"] = "Compliments a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            Compliments = {" is the coolest person in this server!", ", I really like your avatar!", ", I really want to be your friend!", " is truly amazing. Truly!", " is incredible!", ", you are my favourite here!!", ", I am complimenting you right now at this very moment.", " you are really awesome", " when will you be my friend!?", " is such a great person", " is a fantastic person!"}
+            local players = getPlayer(args[1], speaker)
+            for i,v in pairs(players) do
+            local plrName = Players[v].Name
+              game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(plrName..Compliments[math.random(1, #Compliments)], "All")
+              end
+            end,
+        },
+        ["follow"] = {
+            ["ListName"] = "follow [plr] [distance]",
+            ["Description"] = "Follows a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not args[1] then notify('Error','No player specified')
+            else
+            if not args[2] then distance = -3
+            else distance = tonumber(args[2])
+            end
+            local asd = getPlayer(args[1], speaker)
+            for i,v in pairs(asd) do
+            local asdf = Players[v]
+            flwplr = asdf.Character.HumanoidRootPart
+            followed = true
+            end
+            end
+            end,
+        },
+        ["unfollow"] = {
+            ["ListName"] = "unfollow",
+            ["Description"] = "unfollows a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            followed = false
+            end,
+        },
+        ["breakcam"] = {
+            ["ListName"] = "breakcam",
+            ["Description"] = "Makes it so your camera can go through parts, fixed with fixcam",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            workspace.CurrentCamera.CameraSubject = lplayer.Character.Head
+            end,
+        },
+        ["orbit"] = {
+            ["ListName"] = "orbit [plr]",
+            ["Description"] = "Makes it so your camera can go through parts, fixed with fixcam",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            local asd = getPlayer(args[1], speaker)
+            for i,v in pairs(asd) do
+            local asdf = Players[v]
+            view(asdf)
+      			RocketPropulsion(5000,100,5000,asdf,"OrbitMove")
+      		  end
+            end,
+        },
+        ["unorbit"] = {
+            ["ListName"] = "unorbit",
+            ["Description"] = "unorbits a player",
+            ["Aliases"] = {'noorbit'},
+            ["Function"] = function(args,speaker)
+            for i,v in pairs(lplayer.Character:GetDescendants()) do
+          		if v.Name == "OrbitMove" then
+          			v:Destroy()
+          		end
+          	end
+          	view(lplayer)
+            end,
+        },
+        ["equiptools"] = {
+            ["ListName"] = "equiptools/etools",
+            ["Description"] = "equips all the tools in your backpack",
+            ["Aliases"] = {'etools'},
+            ["Function"] = function(args,speaker)
+            for _, tool in ipairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+            if tool:IsA("Tool") then
+            tool.Parent = game:GetService("Players").LocalPlayer.Character
+            end
+            end
+            end,
+        },
+        ["jump"] = {
+            ["ListName"] = "jump",
+            ["Description"] = "Makes you jump",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Jump = true
+            end,
+        },
+        ["pinfo"] = {
+            ["ListName"] = "playerinfo/pinfo [plr]",
+            ["Description"] = "shows information about a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if args[1] then
+            local asd = getPlayer(args[1], speaker)
+            for i,v in pairs(asd) do
+            local asdf = Players[v]
+                createINFO(asdf)
+              end
+            end
+            end,
+        },
+        ["reach"] = {
+            ["ListName"] = "reach [on/off] [number]",
+            ["Description"] = "Increases the hitbox of your held tool. [number] is optional.",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            	if args[1] then
+            		for i,v in pairs(lplayer.Character:GetDescendants()) do
+            			if v:IsA("Tool") then
+            				if string.lower(tostring(args[1])) == "off" then
+            					v.Handle.Size = currentToolSize
+                      v.GripPos = currentGripPos
+            					v.Handle.SelectionBoxCreated:Destroy()
+            					lplayer.Character:FindFirstChildOfClass("Humanoid"):UnequipTools()
+            				elseif string.lower(tostring(args[1])) == "on" then
+            					if args[2] then
+            						currentToolSize = v.Handle.Size
+                        currentGripPos = v.GripPos
+            						local a = Instance.new("SelectionBox",v.Handle)
+            						a.Name = "SelectionBoxCreated"
+            						a.Adornee = v.Handle
+            						v.Handle.Size = Vector3.new(0.5,0.5,args[2])
+            						v.GripPos = Vector3.new(0,0,0)
+            						lplayer.Character.Humanoid:UnequipTools()
+            					else
+            						currentToolSize = v.Handle.Size
+                        currentGripPos = v.GripPos
+            						local a = Instance.new("SelectionBox",v.Handle)
+            						a.Name = "SelectionBoxCreated"
+            						a.Adornee = v.Handle
+            						v.Handle.Size = Vector3.new(0.5,0.5,60)
+            						v.GripPos = Vector3.new(0,0,0)
+            						lplayer.Character.Humanoid:UnequipTools()
+            					end
+            				end
+            			end
+            		end
+            	end
+            end,
+        },
+        ["toolsdrop"] = {
+            ["ListName"] = "toolsdrop",
+            ["Description"] = "Makes your tools droppable",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if tooldrop then tooldrop = false
+            else tooldrop = true
+            end
+            end,
+        },
+        ["trip"] = {
+            ["ListName"] = "trip",
+            ["Description"] = "Makes you trip",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            	if lplayer.Character:findFirstChild("Right Leg") then -- credz to Zwolf#3762
+            	local dir = lplayer.Character:findFirstChild("Right Leg")
+            	dir.Anchored = true
+            	if dir.Anchored == true then
+                wait(.5)
+                lplayer.Character.Humanoid.Sit = true
+                wait(1)
+                lplayer.Character.Humanoid.Sit = false
+                dir.Anchored = false
+            	end
+            	end
+            end,
+        },
+        ["walk"] = {
+            ["ListName"] = "walk",
+            ["Description"] = "Makes you walk forward",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            char = lplayer.Character
+            if char:FindFirstChild("walk") then
+            char.walk:Destroy()
+            end
+            hum = char:FindFirstChildOfClass("Humanoid")
+            local part = Instance.new("Part")
+            part.Name = "walk"
+            part.Parent = char
+            part.Position = char.HumanoidRootPart.CFrame.Position + char.HumanoidRootPart.CFrame.lookVector * 4
+            part.CanCollide = false
+            part.Transparency = 1
+            walking = true
+            end,
+        },
+        ["unwalk"] = {
+            ["ListName"] = "unwalk/nowalk",
+            ["Description"] = "Stops you from walking forward",
+            ["Aliases"] = {'nowalk'},
+            ["Function"] = function(args,speaker)
+            walking = false
+            if char:FindFirstChild("walk") then
+            char.walk:Destroy()
+            end
+            end,
+        },
+        ["fctp"] = {
+            ["ListName"] = "fctp/freecamtp",
+            ["Description"] = "teleports you to the freecam",
+            ["Aliases"] = {'freecamtp','freecamteleport'},
+            ["Function"] = function(args,speaker)
+            if not lplayer.Character:FindFirstChild('xFC') then
+            notify('Error','No freecam detected, is it active?')
+            else
+            lplayer.Character.Head.Anchored = false
+            lplayer.Character.HumanoidRootPart.CFrame = lplayer.Character:FindFirstChild('xFC').CFrame
+    			  lplayer.Character.Head.Anchored = true
+            end
+            end,
+        },
+        ["stopsit"] = {
+            ["ListName"] = "stopsit/nosit (toggle)",
+            ["Description"] = "keeps you from sitting",
+            ["Aliases"] = {'nosit'},
+            ["Function"] = function(args,speaker)
+            if stopsitting then stopsitting = false
+            else stopsitting = true
+            end
+            end,
+        },
+        ["inviscam"] = {
+            ["ListName"] = "inviscam/invisiblecam",
+            ["Description"] = "Makes your camera go through objects always keeping the humanoid visible (use fixcam to disable)",
+            ["Aliases"] = {'invisiblecam'},
+            ["Function"] = function(args,speaker)
+            lplayer.DevCameraOcclusionMode = "Invisicam"
+            end,
+        },
+        ["IYPLUS"] = {
+            ["ListName"] = "",
+            ["Description"] = "oh hai, you've found me",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            local Version = "1.0"
+            local update = game:HttpGet("https://pastebin.com/raw/d6fdWksH",false)
+            if update ~= "IY+ " .. Version then
+            writefile("IY+.iy",game:HttpGet("https://pastebin.com/raw/ZG5GgEgk",false))
+            notify('Updated','Updated to ' .. update)
+            end
+            gsTween = game:GetService("TweenService")
+            gsCoreGui = game:GetService("CoreGui")
+            stopsitting = false
+            followed = false
+            distance = -3
+            walking = false
+            currentToolSize = ""
+            currentGripPos = ""
+            tooldrop = false
+            lplayer = game:GetService("Players").LocalPlayer
+            game:GetService('RunService').Stepped:connect(function()
+            if tooldrop then
+            for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+            if v:IsA("Tool") and not v.CanBeDropped then
+            v.CanBeDropped = true
+            end
+            end
+            end
+            if stopsitting then
+              lplayer.Character.Humanoid.Sit = false
+            end
+            if followed then
+            if lplayer.Character:FindFirstChildOfClass("Humanoid").Sit == true then lplayer.Character:FindFirstChildOfClass("Humanoid").Sit = false
+            end
+              lplayer.Character.HumanoidRootPart.CFrame = flwplr.CFrame + flwplr.CFrame.lookVector * distance
+            end
+            pcall(function()
+            if walking == true then
+            if char.HumanoidRootPart ~= nil then
+            char.walk.Position = char.HumanoidRootPart.CFrame.Position + char.HumanoidRootPart.CFrame.lookVector * 4
+            hum:MoveTo(char.walk.Position)
+            end
+            end
+            end)
+            end)
+            function view(plr)
+            	if plr.Character.Humanoid ~= nil then
+            		workspace.CurrentCamera.CameraSubject = plr.Character.Humanoid
+            	else
+            		workspace.CurrentCamera.CameraSubject = plr.Character.Head
+            	end
+            end
+            function RocketPropulsion(maxthrust,maxspeed,thrustp,targetplr,name)
+            	local l = Instance.new("RocketPropulsion")
+            	l.Parent = lplayer.Character.HumanoidRootPart
+            	l.CartoonFactor = 1
+            	l.MaxThrust = maxthrust
+            	l.MaxSpeed = maxspeed
+            	l.ThrustP = thrustp
+            	l.Name = name
+            	l.Target = targetplr.Character.HumanoidRootPart
+            	l:Fire()
+            end
+            function createINFO(player)
+              local over13 = nil
+              if player:GetUnder13() then over13 = " (Under 13!)" else over13 = " (Over 13!)" end
+              local mem = tostring(player.MembershipType)
+            	local InfoGUIv2 = Instance.new("ScreenGui")
+            	local Frame = Instance.new("Frame")
+            	local Frame_2 = Instance.new("Frame")
+            	local infoguiCLOSE = Instance.new("TextButton")
+            	local Frame_3 = Instance.new("Frame")
+            	local playerName = Instance.new("TextLabel")
+            	local Frame_4 = Instance.new("Frame")
+            	local playerAvatar = Instance.new("ImageLabel")
+            	local playerAccAge = Instance.new("TextLabel")
+            	local playerId = Instance.new("TextLabel")
+            	local playerOs = Instance.new("TextLabel")
+            	local playerMembership = Instance.new("TextLabel")
+            	local Frame_5 = Instance.new("Frame")
+            	local Frame_6 = Instance.new("Frame")
+            	InfoGUIv2.Name = "InfoGUIv2"
+            	InfoGUIv2.Parent = gsCoreGui
+            	Frame.Parent = InfoGUIv2
+            	Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+            	Frame.BackgroundTransparency = 1
+            	Frame.BorderColor3 = Color3.new(0, 0, 0)
+            	Frame.ClipsDescendants = true
+            	Frame.Position = UDim2.new(0.45, 0, 1, 0)
+            	Frame.Size = UDim2.new(0, 265, 0, 302)
+            	Frame.ZIndex = -1
+            	Frame_2.Parent = Frame
+            	Frame_2.BackgroundColor3 = Color3.new(0.290196, 0, 0.447059)
+            	Frame_2.BorderSizePixel = 0
+            	Frame_2.Size = UDim2.new(0, 260, 0, 20)
+            	infoguiCLOSE.Name = "infoguiCLOSE"
+            	infoguiCLOSE.Parent = Frame_2
+            	infoguiCLOSE.BackgroundColor3 = Color3.new(1, 1, 1)
+            	infoguiCLOSE.BackgroundTransparency = 1
+            	infoguiCLOSE.BorderSizePixel = 0
+            	infoguiCLOSE.Position = UDim2.new(0, 230, 0, 0)
+            	infoguiCLOSE.Size = UDim2.new(0, 30, 0, 20)
+            	infoguiCLOSE.Font = Enum.Font.SourceSansBold
+            	infoguiCLOSE.Text = "X"
+            	infoguiCLOSE.TextColor3 = Color3.new(0.992157, 0.992157, 0.992157)
+            	infoguiCLOSE.TextSize = 20
+            	Frame_3.Parent = Frame
+            	Frame_3.BackgroundColor3 = Color3.new(0.482353, 0.121569, 0.635294)
+            	Frame_3.BorderSizePixel = 0
+            	Frame_3.Position = UDim2.new(0, 0, 0, 20)
+            	Frame_3.Size = UDim2.new(0, 260, 0, 40)
+            	playerName.Name = "playerName"
+            	playerName.Parent = Frame_3
+            	playerName.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerName.BackgroundTransparency = 1
+            	playerName.Position = UDim2.new(0, 10, 0, 5)
+            	playerName.Size = UDim2.new(0, 240, 0, 30)
+            	playerName.Font = Enum.Font.SourceSansLight
+            	playerName.Text = player.Name
+            	playerName.TextColor3 = Color3.new(0.988235, 0.988235, 0.988235)
+            	playerName.TextScaled = true
+            	playerName.TextSize = 14
+            	playerName.TextWrapped = true
+            	Frame_4.Parent = Frame
+            	Frame_4.BackgroundColor3 = Color3.new(0.956863, 0.956863, 0.956863)
+            	Frame_4.BorderSizePixel = 0
+            	Frame_4.Position = UDim2.new(0, 0, 0, 60)
+            	Frame_4.Size = UDim2.new(0, 260, 0, 237)
+            	playerAvatar.Name = "playerAvatar"
+            	playerAvatar.Parent = Frame_4
+            	playerAvatar.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerAvatar.Position = UDim2.new(0, 85, 0, 10)
+            	playerAvatar.Size = UDim2.new(0, 85, 0, 85)
+            	playerAvatar.Image = "https://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&username="..player.Name
+            	playerAccAge.Name = "playerAccAge"
+            	playerAccAge.Parent = Frame_4
+            	playerAccAge.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerAccAge.BackgroundTransparency = 1
+            	playerAccAge.Position = UDim2.new(0, 5, 0, 101)
+            	playerAccAge.Size = UDim2.new(0, 250, 0, 30)
+            	playerAccAge.Font = Enum.Font.SourceSans
+            	playerAccAge.Text = "Account Age: "..player.AccountAge ..over13
+            	playerAccAge.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerAccAge.TextScaled = true
+            	playerAccAge.TextSize = 14
+            	playerAccAge.TextWrapped = true
+            	playerId.Name = "playerId"
+            	playerId.Parent = Frame_4
+            	playerId.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerId.BackgroundTransparency = 1
+            	playerId.Position = UDim2.new(0, 5, 0, 131)
+            	playerId.Size = UDim2.new(0, 250, 0, 30)
+            	playerId.Font = Enum.Font.SourceSans
+            	playerId.Text = "Account ID: "..player.UserId
+            	playerId.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerId.TextScaled = true
+            	playerId.TextSize = 14
+            	playerId.TextWrapped = true
+            	playerOs.Name = "playerOs"
+            	playerOs.Parent = Frame_4
+            	playerOs.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerOs.BackgroundTransparency = 1
+            	playerOs.Position = UDim2.new(0, 5, 0, 161)
+            	playerOs.Size = UDim2.new(0, 250, 0, 30)
+            	playerOs.Font = Enum.Font.SourceSansLight
+            	playerOs.Text = "Player OS: "..player.OsPlatform
+            	playerOs.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerOs.TextScaled = true
+            	playerOs.TextSize = 14
+            	playerOs.TextWrapped = true
+            	playerMembership.Name = "playerMembership"
+            	playerMembership.Parent = Frame_4
+            	playerMembership.BackgroundColor3 = Color3.new(1, 1, 1)
+            	playerMembership.BackgroundTransparency = 1
+            	playerMembership.Position = UDim2.new(0, 5, 0, 191)
+            	playerMembership.Size = UDim2.new(0, 250, 0, 30)
+            	playerMembership.Font = Enum.Font.SourceSansLight
+            	if player.MembershipType == Enum.MembershipType.None then
+            		playerMembership.Text = "No builder's club."
+            	elseif player.MembershipType == Enum.MembershipType.BuildersClub then
+            		playerMembership.Text = "Builder's club!"
+            	elseif player.MembershipType == Enum.MembershipType.TurboBuildersClub then
+            		playerMembership.Text = "Turbo Builder's club!"
+            	elseif player.MembershipType == Enum.MembershipType.OutrageousBuildersClub then
+            		playerMembership.Text = "Outrageous Builder's club!"
+              elseif player.MembershipType == Enum.MembershipType.Premium then
+                playerMembership.Text = "Has Premium!"
+              elseif mem:sub(1,20) == "Enum.MembershipType." then
+                playerMembership.Text = "Player Membership: " .. mem:sub(21)
+              else playerMembership.Text = "Player Membership: " .. mem
+            	end
+            	playerMembership.TextColor3 = Color3.new(0.0784314, 0.0784314, 0.0784314)
+            	playerMembership.TextScaled = true
+            	playerMembership.TextSize = 14
+            	playerMembership.TextWrapped = true
+            	Frame_5.Parent = Frame
+            	Frame_5.BackgroundColor3 = Color3.new(0, 0, 0)
+            	Frame_5.BackgroundTransparency = 0.69999998807907
+            	Frame_5.BorderColor3 = Color3.new(0, 0, 0)
+            	Frame_5.BorderSizePixel = 0
+            	Frame_5.ClipsDescendants = true
+            	Frame_5.Position = UDim2.new(0, 10, 0, 10)
+            	Frame_5.Selectable = true
+            	Frame_5.Size = UDim2.new(0, 255, 0, 292)
+            	Frame_5.ZIndex = -1
+            	Frame_6.Parent = Frame
+            	Frame_6.BackgroundColor3 = Color3.new(0, 0, 0)
+            	Frame_6.BackgroundTransparency = 0.69999998807907
+            	Frame_6.BorderColor3 = Color3.new(0, 0, 0)
+            	Frame_6.BorderSizePixel = 0
+            	Frame_6.ClipsDescendants = true
+            	Frame_6.Position = UDim2.new(0, 8, 0, 8)
+            	Frame_6.Selectable = true
+            	Frame_6.Size = UDim2.new(0, 255, 0, 292)
+            	Frame_6.ZIndex = -1
+            	local closeGet = {}
+            	closeGet.Size = UDim2.new(0, 0, 0, 0)
+            	local openGet = {}
+            	openGet.Position = UDim2.new(0.45, 0, 0.45, 0)
+            	local closeFunction = gsTween:Create(Frame, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), closeGet)
+            	local openFunction = gsTween:Create(Frame, TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), openGet)
+            	infoguiCLOSE.MouseButton1Click:Connect(function()
+            		closeFunction:Play()
+            		Frame:TweenPosition((Frame.Position + UDim2.new(0, 265 / 2, 0, 302 / 2)), "InOut", "Sine", 2)
+            		wait(2.01)
+            		Frame:Destroy()
+            	end)
+            	openFunction:Play()
+            	local UserInputService = game:GetService("UserInputService")
+            	local dragging
+            	local dragInput
+            	local dragStart
+            	local startPos
+            	local function update(input)
+            		local delta = input.Position - dragStart
+            		local dragTime = 0.055
+            		local SmoothDrag = {}
+            		SmoothDrag.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            		local dragSmoothFunction = gsTween:Create(Frame, TweenInfo.new(dragTime, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), SmoothDrag)
+            		dragSmoothFunction:Play()
+            	end
+            	Frame.InputBegan:Connect(function(input)
+            		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            			dragging = true
+            			dragStart = input.Position
+            			startPos = Frame.Position
+            			input.Changed:Connect(function()
+            				if input.UserInputState == Enum.UserInputState.End then
+            					dragging = false
+            				end
+            			end)
+            		end
+            	end)
+            	Frame.InputChanged:Connect(function(input)
+            		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            			dragInput = input
+            		end
+            	end)
+            	UserInputService.InputChanged:Connect(function(input)
+            		if input == dragInput and dragging and Frame.Size == UDim2.new(0, 265, 0, 302) then
+            			update(input)
+            		end
+            	end)
+            end
+            end,
+        },
+    },
+}
+
+return Plugin

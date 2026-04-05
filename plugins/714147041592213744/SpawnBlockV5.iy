@@ -1,0 +1,106 @@
+local Plugin = {
+    ["PluginName"] = "SpawnBlockV4",
+    ["PluginDescription"] = "some trick to do with drop hat e",
+        ["Commands"] = {
+            ["spawnhat"] = {
+              ["ListName"] = "SpawnHat/Sh",
+              ["Description"] = "spawn hat and reset character",
+              ["Aliases"] = {"sh"},
+              ["Function"] = function(args,speaker)
+                execCmd("blockhats",speaker)  
+                execCmd("drophats",speaker)
+wait()
+execCmd("respawn",speaker)
+              end
+            },
+            ["spawnblock"] = {
+                ["ListName"] = "SpawnBlock/sb",
+                ["Description"] = "make ur hat block and then dropped and die",
+                ["Aliases"] = {"sb"},
+                ["Function"] = function(args,speaker)
+execCmd("drophats",speaker)
+wait()
+execCmd("respawn",speaker)
+                end
+            },
+            ["spawnblocktp"] = {
+                ["ListName"] = "Spawnblocktp/Sbtp",
+                ["Description"] = "make ur hat block, drop them, reset character and died tp",
+                ["Aliases"] = {"sbtp"},
+               ["Function"] = function(args,speaker)
+execCmd("blockhats",speaker)  
+execCmd("drophats",speaker)
+wait()
+execCmd("refresh",speaker)
+end
+            },
+            ["spawnhattp"] = {
+                ["ListName"] = "Spawnhattp/Shtp",
+                ["Description"] = "Spawn hat and diedtp",
+                ["Aliases"] = {"shtp"},
+                ["Function"] = function(args,speaker)
+execCmd("drophats",speaker)
+wait() 
+execCmd("refresh",speaker)
+end
+            },
+            ["spawnblock1"] = {
+                ["ListName"] = "SpawnBlock1/sb1",
+                ["Description"] = "just make ur hat block and drop them with no reset",
+                ["Aliases"] = {"sb1"},
+                ["Function"] = function(args,speaker)
+execCmd("blockhats",speaker)  
+ execCmd("drophats",speaker)
+                end
+            },
+         ["guisb"] = {
+                ["ListName"] = "guisb/gsb",
+                ["Description"] = "will spawn a gui if ur tired of sex",
+                ["Aliases"] = {"gsb"},
+                ["Function"] = function(args,speaker)
+loadstring(game:HttpGet("https://pastebin.com/raw/ZczcJ5Wg", true))()
+                end 
+}, 
+         ["spamhat"] = {
+                ["ListName"] = "spamhat/sph",
+                ["Description"] = "will make u spawn hat",
+                ["Aliases"] = {"sph"},
+                ["Function"] = function(args,speaker)
+the = true
+while the and wait() do 
+execCmd("drophats",speaker)
+wait()
+execCmd("refresh",speaker)
+wait(4)
+end 
+                end 
+}, 
+         ["spamblock"] = {
+                ["ListName"] = "spamblock/spb",
+                ["Description"] = "will make u spawn block",
+                ["Aliases"] = {"spb"},
+                ["Function"] = function(args,speaker)
+eth = true
+while eth and wait() do 
+execCmd("blockhats",speaker)
+execCmd("drophats",speaker)
+wait()
+execCmd("refresh",speaker)
+wait(4)
+end 
+                end 
+}, 
+         ["unspamhat"] = {
+                ["ListName"] = "stopspam/unspam",
+                ["Description"] = "will stop",
+                ["Aliases"] = {"unsph"},
+                ["Function"] = function(args,speaker)
+the = false
+eth = false
+                end 
+},
+
+    
+        }
+}
+return Plugin

@@ -1,0 +1,44 @@
+local Plugin = {
+    ["PluginName"] = "Hug",
+    ["PluginDescription"] = "Touch people and they get flinged",
+    ["Commands"] = {
+        ["Hug"] = {
+            ["ListName"] = "Hug",
+            ["Description"] = "Touch people and they get flinged",
+            ["Aliases"] = {'h'},
+            ["Function"] = function(args,speaker)
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local target = game:GetService("Players").LocalPlayer
+local torsoname = "Torso"
+if LocalPlayer.Character:FindFirstChild("Humanoid").RigType == Enum.HumanoidRigType.R15 then
+    torsoname = "UpperTorso"
+end
+if target.Character ~= nil then
+    local savepos = LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame
+    LocalPlayer.Character:FindFirstChild(torsoname).Anchored = true
+    local tool = Instance.new("Tool", LocalPlayer.Backpack)
+    local hat = LocalPlayer.Character:FindFirstChildOfClass("Accessory")
+    local hathandle = hat.Handle
+    hathandle.Parent = tool
+    hathandle.Massless = true
+    tool.GripPos = Vector3.new(0, 9e99, 0)
+    tool.Parent = LocalPlayer.Character
+    repeat wait() until LocalPlayer.Character:FindFirstChildOfClass("Tool") ~= nil
+    tool.Grip = CFrame.new(Vector3.new(0, 0, 0))
+    LocalPlayer.Character:FindFirstChild(torsoname).Anchored = false
+    repeat
+        LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = target.Character:FindFirstChild("HumanoidRootPart").CFrame
+        wait()
+    until target.Character == nil or target.Character:FindFirstChild("Humanoid").Health <= 0 or LocalPlayer.Character == nil or LocalPlayer.Character:FindFirstChild("Humanoid").Health <= 0 or (target.Character:FindFirstChild("HumanoidRootPart").Velocity.magnitude - target.Character:FindFirstChild("Humanoid").WalkSpeed) > (target.Character:FindFirstChild("Humanoid").WalkSpeed + 20)
+    LocalPlayer.Character:FindFirstChild("Humanoid"):UnequipTools()
+    hathandle.Parent = hat
+    hathandle.Massless = false
+    tool:Destroy()
+    LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = savepos
+end
+ end,
+        },
+    },
+}
+
+return Plugin

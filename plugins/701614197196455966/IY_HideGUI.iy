@@ -1,0 +1,46 @@
+
+local coreGui = game:GetService("CoreGui")
+local screen = Instance.new("ScreenGui")
+screen.Name = "Infinite Yield"
+screen.Parent = coreGui
+
+local robloxcoregui = coreGui:FindFirstChild("RobloxGui")
+if robloxcoregui then
+	for i,gui in pairs(robloxcoregui:GetChildren()) do
+        local IY = gui:FindFirstChild("Dark")
+		if IY then
+            IY.Parent.Parent = screen
+        end
+	end
+end
+for i,tooltip1 in pairs(robloxcoregui:GetChildren()) do
+    local tooltip2 = tooltip1:FindFirstChild("Title" and "Description")
+    if tooltip2 then
+        tooltip2.Parent.Parent = screen
+    end
+    end
+    for z,notification in pairs(robloxcoregui:GetChildren())do
+        local notify = notification:FindFirstChild("CloseButton")
+        if notify then
+            notify.Parent.Parent = screen
+        end
+    end
+
+local Plugin = {
+    ["PluginName"] = "HideIY",
+    ["PluginDescription"] = "Hide the gui",
+    ["Commands"] = {
+        ["gui"] = {
+            ["ListName"] = "GUI",
+            ["Description"] = "Turn the GUI visible/invisible",
+            ["Aliases"] = {""},
+            ["Function"] = function(args, speaker)
+                if coreGui:FindFirstChild("Infinite Yield").Enabled == true then
+                    coreGui:FindFirstChild("Infinite Yield").Enabled = false else
+                        coreGui:FindFirstChild("Infinite Yield").Enabled = true
+                    end
+            end
+        }
+    }
+}
+return Plugin

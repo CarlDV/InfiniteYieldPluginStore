@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "FE Penisito",
+    ["PluginDescription"] = "Turns you into a flying penis,Penisito [R6 only]",
+    ["Commands"] = {
+        ["penisito"] = {
+            ["ListName"] = "penisito",
+            ["Description"] = "Im sexy and i know it",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('http://pastebin.com/raw/Bv7fMr4y'),true))()
+            end     
+        },
+    }
+}
+
+return Plugin

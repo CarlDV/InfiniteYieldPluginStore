@@ -1,0 +1,32 @@
+local commands = {}
+
+commands["addallplugins"] = {
+    ["ListName"] = "addallplugins / aap",
+    ["Description"] = "Adds all avaliable plugins",
+    ["Aliases"] = {"aap"},
+    ["Function"] = function(args, speaker)
+        if not listfiles then notify('Incompatible Exploit','Your exploit does not support this command (missing listfiles)') return end
+    function getPlugins()
+		local pluginlist = {}
+		for i,v in pairs(listfiles('')) do
+			h = v:split(".")
+			if h[#h] == "iy" and v:lower() ~= "iy_fe.iy" and v:lower() ~= "iy_fe" and not isfolder(v) then
+				pluginlist[#pluginlist + 1] = v
+			end
+		end
+		return pluginlist
+	end
+	local files = getPlugins()
+	for i,file in pairs(files) do
+		if not FindInTable(PluginsTable, file) then
+			addPlugin(file)
+		end
+	end
+    end
+}
+
+return {
+    ["PluginName"] = "addallplugins",
+    ["PluginDescription"] = "made by prisj",
+    ["Commands"] = commands
+}

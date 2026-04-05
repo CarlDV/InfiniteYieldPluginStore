@@ -1,0 +1,1 @@
+return loadstring(game:HttpGet("https://raw.githubusercontent.com/Fiazer1/Smoke-Plugin-IY/refs/heads/main/Smoke.lua"))()

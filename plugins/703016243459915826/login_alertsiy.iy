@@ -1,0 +1,243 @@
+local gLogs = Instance.new("Frame")
+local gLogsBackg = Instance.new("Frame")
+local gClear = Instance.new("TextButton")
+local gToggle = Instance.new("TextButton")
+local gScroll = Instance.new("ScrollingFrame")
+local gShadow = Instance.new("Frame")
+local gExit = Instance.new("ImageButton")
+local gHide = Instance.new("ImageButton")
+local gPopupText = Instance.new("TextLabel")
+
+gLogs.Name = "gLogs"
+gLogs.Parent = game.CoreGui.RobloxGui
+gLogs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+gLogs.BackgroundTransparency = 1.000
+gLogs.BorderColor3 = Color3.fromRGB(27, 42, 53)
+gLogs.Position = UDim2.new(0, 0, 1.0238378, -245)
+gLogs.Size = UDim2.new(0, 338, 0, 20)
+gLogs.Visible = false
+
+gLogsBackg.Name = "gLogsBackg"
+gLogsBackg.Parent = gLogs
+gLogsBackg.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
+gLogsBackg.BorderSizePixel = 0
+gLogsBackg.Position = UDim2.new(0.00380636752, 0, 12.23314, -245)
+gLogsBackg.Size = UDim2.new(0, 336, 0, 225)
+gLogsBackg.ZIndex = 10
+
+gClear.Name = "gClear"
+gClear.Parent = gLogsBackg
+gClear.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+gClear.BorderSizePixel = 0
+gClear.Position = UDim2.new(0.0193183422, 0, 0.878205299, 0)
+gClear.Size = UDim2.new(0, 78, 0, 19)
+gClear.Font = Enum.Font.SourceSans
+gClear.Text = "Clear"
+gClear.TextColor3 = Color3.fromRGB(255, 255, 255)
+gClear.TextSize = 14.000
+
+gToggle.Name = "gToggle"
+gToggle.Parent = gLogsBackg
+gToggle.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+gToggle.BorderSizePixel = 0
+gToggle.Position = UDim2.new(0.742922306, 0, 0.878205299, 0)
+gToggle.Size = UDim2.new(0, 78, 0, 20)
+gToggle.Font = Enum.Font.SourceSans
+gToggle.Text = "Disabled"
+gToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+gToggle.TextSize = 14.000
+
+gScroll.Name = "gScroll"
+gScroll.Parent = gLogs
+gScroll.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+gScroll.BorderSizePixel = 0
+gScroll.Position = UDim2.new(0.0244188309, 0, 13.8839893, -245)
+gScroll.Size = UDim2.new(0, 321, 0, 158)
+gScroll.ZIndex = 10
+gScroll.VerticalScrollBarInset = Enum.ScrollBarInset.Always
+
+gShadow.Name = "gShadow"
+gShadow.Parent = gLogs
+gShadow.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+gShadow.BorderSizePixel = 0
+gShadow.Position = UDim2.new(0.00193343125, 0, 12.2412033, -245)
+gShadow.Size = UDim2.new(0, 337, 0, 25)
+gShadow.ZIndex = 10
+
+gExit.Name = "gExit"
+gExit.Parent = gShadow
+gExit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+gExit.BackgroundTransparency = 1.000
+gExit.BorderSizePixel = 0
+gExit.Position = UDim2.new(-0.00183412351, 0, -0.00333251944, 0)
+gExit.Size = UDim2.new(0, 22, 0, 25)
+gExit.Image = "rbxassetid://2132544126"
+
+gHide.Name = "gHide"
+gHide.Parent = gShadow
+gHide.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+gHide.BackgroundTransparency = 1.000
+gHide.BorderSizePixel = 0
+gHide.Position = UDim2.new(0.928854227, 0, -0.00333251944, 0)
+gHide.Size = UDim2.new(0, 22, 0, 25)
+gHide.Image = "rbxassetid://2406617031"
+gHide.ImageTransparency = 0.500
+
+gPopupText.Name = "gPopupText"
+gPopupText.Parent = gShadow
+gPopupText.BackgroundTransparency = 1.000
+gPopupText.BorderSizePixel = 0
+gPopupText.Position = UDim2.new(-0.0117348284, 0, -0.00317382813, 0)
+gPopupText.Size = UDim2.new(0, 340, 0, 20)
+gPopupText.Font = Enum.Font.SourceSans
+gPopupText.Text = "Join / Leave Logs"
+gPopupText.TextColor3 = Color3.fromRGB(255, 255, 255)
+gPopupText.TextSize = 15.000
+
+gExit.MouseButton1Down:Connect(function()
+	gLogs:TweenSize(UDim2.new(0,338,0,36), "InOut", "Quart", 0.2, true, function() gLogs.Visible = false end)
+end)
+
+gClear.MouseButton1Down:connect(function()
+	for _, child in pairs(gScroll:GetChildren()) do
+		child:Destroy()
+	end
+	gScroll.CanvasSize = UDim2.new(0, 0, 0, 10)
+end)
+
+gHide.MouseButton1Down:connect(function()
+	if gLogs.Size ~= UDim2.new(0,338,0,36) then
+		gLogs:TweenSize(UDim2.new(0,338,0,36), "InOut", "Quart", 0.2, true, nil)
+	else
+		gLogs:TweenSize(UDim2.new(0,338,0,20), "InOut", "Quart", 0.2, true, nil)
+	end
+end)
+
+LogsEnabled = true
+if LogsEnabled then
+	gToggle.Text = 'Enabled'
+else
+	gToggle.Text = 'Disabled'
+end
+
+gToggle.MouseButton1Down:connect(function()
+	if LogsEnabled then
+		LogsEnabled = false
+		gToggle.Text = 'Disabled'
+	else
+		LogsEnabled = true
+		gToggle.Text = 'Enabled'
+	end
+end)
+
+local logged = {}
+game:GetService('Players').PlayerAdded:Connect(function(player)
+	gCreateLabel(player.Name, " joined the game")
+	if(FindInTable(logged, player.Name) or FindInTable(logged, player.UserId)) then
+		notify(player.Name .. " joined the game")
+	end
+end)
+
+game:GetService('Players').PlayerRemoving:Connect(function(player)
+	gCreateLabel(player.Name, " left the game")
+	if(FindInTable(logged, player.Name) or FindInTable(logged, player.UserId)) then
+		notify(player.Name .. " left the game")
+	end
+end)
+
+
+function gCreateLabel(Name, Text)
+	if #gScroll:GetChildren() >= 2546 then
+		gScroll:gClearAllChildren()
+	end
+	local alls = 0
+	local lastLabel = nil
+	for i,v in pairs(gScroll:GetChildren()) do
+		if v then
+			alls = v.Size.Y.Offset + alls
+			lastLabel = v
+		else
+			alls = 0
+		end
+	end
+	local tl = Instance.new('TextLabel', gScroll)
+	local il = Instance.new('Frame', tl)
+	tl.Name = Name
+	tl.ZIndex = 10
+	tl.Text = Time2().." - ["..Name.."]: "..Text
+	tl.Size = UDim2.new(0,484,0,84)
+	tl.BackgroundTransparency = 1
+	tl.BorderSizePixel = 0
+	tl.Font = "SourceSans"
+	tl.Position = UDim2.new(-1,0,0,alls)
+	tl.TextTransparency = 1
+	tl.TextScaled = false
+	tl.TextSize = 14
+	tl.TextWrapped = true
+	tl.TextXAlignment = "Left"
+	tl.TextYAlignment = "Top"
+	il.BackgroundTransparency = 1
+	il.BorderSizePixel = 0
+	il.Size = UDim2.new(0,12,1,0)
+	il.Position = UDim2.new(0,316,0,0)
+	il.ZIndex = 10
+	tl.TextColor3 = Color3.fromRGB(255,255,255)
+	tl.Size = UDim2.new(0,484,0,tl.TextBounds.Y)
+	gScroll.CanvasSize = UDim2.new(0,0,0,alls+tl.TextBounds.Y)
+	gScroll.CanvasPosition = Vector2.new(0,gScroll.CanvasPosition.Y+tl.TextBounds.Y)
+	local size2 = gScroll.CanvasSize.Y.Offset
+	tl:TweenPosition(UDim2.new(0,3,0,alls), 'In', 'Quint', 0.5)
+	for i = 0,50 do wait(0.05)
+		tl.TextTransparency = tl.TextTransparency - 0.05
+	end
+	tl.TextTransparency = 0
+end
+
+function Time2()
+	local HOUR = math.floor((tick() % 86400) / 3600)
+	local MINUTE = math.floor((tick() % 3600) / 60)
+	local SECOND = math.floor(tick() % 60)
+	local AP = HOUR > 11 and 'PM' or 'AM'
+	HOUR = (HOUR % 12 == 0 and 12 or HOUR % 12)
+	HOUR = HOUR < 10 and '0' .. HOUR or HOUR
+	MINUTE = MINUTE < 10 and '0' .. MINUTE or MINUTE
+	SECOND = SECOND < 10 and '0' .. SECOND or SECOND
+	return HOUR .. ':' .. MINUTE .. ':' .. SECOND .. ' ' .. AP
+end
+		
+local Plugin = {
+    ["PluginName"] = "Join/Leave logs",
+    ["PluginDescription"] = "Logs players that join and leave",
+    ["Commands"] = {
+		["log"] = {
+            ["ListName"] = "log [plr name/userid]",
+            ["Description"] = "Notify you when someone joins/leaves",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				table.insert(logged, args[1])	
+			end
+		},
+		["unlog"] = {
+            ["ListName"] = "unlog [plr name/userid]",
+            ["Description"] = "Turns off logs for that player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				for t, f in pairs(logged) do
+					if f:lower() == args[1]:lower() then
+						table.remove(logged, t)
+					end
+				end
+			end
+		},
+        ["jllogs"] = {
+            ["ListName"] = "jllogs",
+            ["Description"] = "Show join/leave logs",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				gLogs.Visible = true
+				gLogs:TweenSize(UDim2.new(0,338,0,20), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .5)
+			end
+		}
+    }
+}
+return Plugin

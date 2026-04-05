@@ -1,0 +1,163 @@
+local geese = false
+local Plugin = {
+    ["PluginName"] = "JSFly",
+    ["PluginDescription"] = "Controller-compatible fly :] made by ! $ ive seen sunlight#6040",
+    ["Commands"] = {
+        ["flyJS"] = {
+            ["ListName"] = "flyJS [speed]",
+            ["Description"] = "fly but for joystick",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+if geese == false then
+geese = true
+notify('Notice','You might need to click to make it work')
+end
+
+FLYInput = tonumber(args[1])
+FLYInput2 = 2
+FLYING2 = false
+iyflyspeed2 = 1
+vehicleflyspeed2 = 1
+function sFLY2(vfly)
+	repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+	repeat wait() until IYMouse
+	if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+
+	local T = getRoot(Players.LocalPlayer.Character)
+	local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+	local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+	local SPEED = 0
+
+	local function FLY2()
+		FLYING2 = true
+		local BG = Instance.new('BodyGyro')
+		local BV = Instance.new('BodyVelocity')
+		BG.P = 9e4
+		BG.Parent = T
+		BV.Parent = T
+		BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		BG.cframe = T.CFrame
+		BV.velocity = Vector3.new(0, 0, 0)
+		BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+		task.spawn(function()
+			repeat wait()
+				if not vfly and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+					Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+				end
+				if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
+					SPEED = 50
+				elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
+					SPEED = 0
+				end
+				if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
+					BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+					lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+				elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
+					BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+				else
+					BV.velocity = Vector3.new(0, 0, 0)
+				end
+				BG.cframe = workspace.CurrentCamera.CoordinateFrame
+			until not FLYING2
+			CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			SPEED = 0
+			BG:Destroy()
+			BV:Destroy()
+			if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+				Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+			end
+		end)
+	end
+local UserInputService = game:GetService("UserInputService")	
+flyKeyDown = UserInputService.InputChanged:Connect(function(KEY,gameProcessedEvent)
+
+local function doFlys(KEY)
+	iyflyspeed2 = KEY.Position.Y * FLYInput
+	vehicleflyspeed2 = KEY.Position.Y * FLYInput2
+	
+	CONTROL.F = (vfly and vehicleflyspeed2 or iyflyspeed2)
+end
+
+if not gameProcessedEvent then
+if KEY.UserInputType == Enum.UserInputType.Gamepad1 then
+		task.spawn(function()
+		while wait() do
+		if KEY.KeyCode == Enum.KeyCode.Thumbstick1 then
+		doFlys(KEY)
+		pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Track end)
+		end
+end
+end)
+else
+		if KEY.KeyCode == Enum.KeyCode.W then
+			CONTROL.F = (vfly and vehicleflyspeed or iyflyspeed2)
+		elseif KEY.KeyCode == Enum.KeyCode.S then
+			CONTROL.B = - (vfly and vehicleflyspeed or iyflyspeed2)
+		elseif KEY.KeyCode == Enum.KeyCode.A then
+			CONTROL.L = - (vfly and vehicleflyspeed2 or iyflyspeed2)
+		elseif KEY.KeyCode == Enum.KeyCode.D then 
+			CONTROL.R = (vfly and vehicleflyspeed2 or iyflyspeed2)
+		elseif QEfly and KEY.KeyCode == Enum.KeyCode.E then
+			CONTROL.Q = (vfly and vehicleflyspeed2 or iyflyspeed2)*2
+		elseif QEfly and KEY.KeyCode == Enum.KeyCode.Q then
+			CONTROL.E = -(vfly and vehicleflyspeed2 or iyflyspeed2)*2
+		end
+		pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Track end)
+		end
+		end
+		end)
+	flyKeyUp = IYMouse.KeyUp:Connect(function(KEY)
+		if KEY.KeyCode == Enum.KeyCode.W then
+			CONTROL.F = 0
+		elseif KEY.KeyCode == Enum.KeyCode.S then
+			CONTROL.B = 0
+		elseif KEY.KeyCode == Enum.KeyCode.A then
+			CONTROL.L = 0
+		elseif KEY.KeyCode == Enum.KeyCode.D then
+			CONTROL.R = 0
+		elseif KEY.KeyCode == Enum.KeyCode.E then
+			CONTROL.Q = 0
+		elseif KEY.KeyCode == Enum.KeyCode.Q then
+			CONTROL.E = 0
+		end
+	end)
+	FLY2()
+end
+function NOFLY2()
+	FLYING2 = false
+	if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+	if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+		Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+	end
+	pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Custom end)
+end
+NOFLY2()
+wait()
+sFLY2()
+
+            end
+        },
+	["vflyJS"] = {
+	    ["ListName"] = "vflyJS [speed]",
+            ["Description"] = "vfly but for joystick",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+		FLYInput2 = tonumber(args[1])
+		NOFLY2()
+		wait()
+		sFLY2(true)
+	end
+	},
+	["unflyJS"] = {
+	    ["ListName"] = "unflyJS",
+            ["Description"] = "disable joystick fly",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+		NOFLY2()
+	end
+	}
+     }
+}
+
+return Plugin

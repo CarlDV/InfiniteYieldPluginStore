@@ -1,0 +1,382 @@
+local noracismguys = {
+	["PluginName"] = "I FUCKING HATE PEOPLE OMG",
+	["PluginDescription"] = "kill all people with this shitty script",
+	["Commands"] = {
+["tkill"] = {
+    ["ListName"] = "tkill [player/all] [number for random]",
+    ["Description"] = "Kills a person in the best way",
+    ["Aliases"] = {"tk"},
+    ["Function"] = function(args,speaker)
+	local humcfram = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	local rando = false
+	local all = false
+	local plrsss = false
+	local coutc = 0
+	local randoms = 0
+	if args[1] == "all" then all = true else for i,v in pairs(game.Players:GetChildren()) do if v.Name:sub(1, #args[1]):lower() == args[1]:lower() or v.DisplayName:sub(1, #args[1]):lower() == args[1]:lower() then rand = v; plrsss = true; break end end if plrsss == false then return notify('nigga there are no players named that tf is u on') end end 
+	if plrsss == true then for i,v in pairs(game.Players:GetPlayers()) do randoms = randoms + 1; if v == rand then rand = randoms end end end
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.Humanoid.Sit = true
+game.Workspace.Camera.CameraType = Enum.CameraType.Fixed
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+for a,c in pairs(game.Players.LocalPlayer.Character:GetChildren()) do if c:IsA("BasePart") then c.CanCollide = true end end
+local count = 0
+local plrslol = 0
+local function func(rob, v)
+pcall(function()
+		   while v.Parent == workspace[game.Players.LocalPlayer.Name] do
+for aaa=1,20 do
+		       v.Grip = _G.arm:ToObjectSpace(rob.Character.Head.CFrame):Inverse()
+	firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 0)
+		firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 1)
+			firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 0)
+end
+wait()
+	   end
+end)
+plrslol = plrslol + 1
+end
+local nodefenselol = {}
+local plrs = {}
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Heartbeat = game:GetService("RunService").Heartbeat
+LocalPlayer.Character.Animate.Disabled = true
+LocalPlayer.Character.Humanoid.Animator:Destroy()
+Heartbeat:Connect(function()
+    LocalPlayer.MaximumSimulationRadius = math.huge
+    sethiddenproperty(LocalPlayer, "SimulationRadius", math.huge)
+end)
+
+
+for i,v in next, game:GetService("Players").LocalPlayer.Character:GetDescendants() do
+    if v:IsA("BasePart") and v.Name ~="HumanoidRootPart" then 
+    game:GetService("RunService").Heartbeat:connect(function()
+    v.Velocity = Vector3.new(-30,0,0)
+    end)
+    end
+    end
+    
+
+
+local character = game.Players.LocalPlayer.Character
+local tools = {}
+for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if v:IsA("Tool") then
+        table.insert(tools,v)
+    end
+end
+local pl = game.Players.LocalPlayer
+local hu = game.Players.LocalPlayer.Character.Humanoid:Clone()
+_G.arm = nil
+if pl.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+_G.arm = game.Players.LocalPlayer.Character['RightLowerArm'].CFrame * CFrame.new(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0)
+else _G.arm = game.Players.LocalPlayer.Character['Right Arm'].CFrame * CFrame.new(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0) end
+local bs = {}
+local v
+pl.Character.Humanoid:UnequipTools()
+pl.Character.Humanoid:Destroy()
+hu.Parent = pl.Character
+hu.PlatformStand = true
+wait()
+local frtools = 0
+frtools = #game.Players.LocalPlayer.Backpack:GetChildren()
+    if #game.Players:GetPlayers() < 2 then return end
+	if all == false then
+		frtools = 1; table.insert(nodefenselol, game.Players:GetPlayers()[rand]) end
+	cc = 0
+	if rando == true or all == true then 
+	  cc = cc + 1
+for rand, val in next, game.Players:GetPlayers() do
+     if game.Players:GetPlayers()[rand].Name ~= pl.Name then if not table.find(bs, game.Players:GetPlayers()[rand].Name) then if game.Players:GetPlayers()[rand].Character ~= nil then if game.Players:GetPlayers()[rand].Character:FindFirstChild("HumanoidRootPart") and game.Players:GetPlayers()[rand].Character:FindFirstChild("Head")  then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid") then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid").Health ~= 0 and game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid").Sit == false then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Right Arm") or game.Players:GetPlayers()[rand].Character:FindFirstChild("RightLowerArm") then table.insert(nodefenselol, game.Players:GetPlayers()[rand]) end end end end end end end
+       table.insert(bs, game.Players:GetPlayers()[rand].Name) end end
+	for e,r in next, nodefenselol do
+		rand = math.random(1, #nodefenselol)
+		 v = pl.Backpack:FindFirstChildOfClass("Tool")
+		  v.Parent = pl.Character
+	   	table.insert(plrs, nodefenselol[rand])
+		   coroutine.wrap(func)(nodefenselol[rand],v)
+		   frtools = frtools - 1
+if frtools == 0 or nodefenselol == {} then break end
+	end
+
+delay(1.5, function ()
+	plrslol = #plrs
+end)
+for i,v in pairs(pl.Character:GetChildren()) do if v:IsA("BasePart") then v.Anchored = false end end
+while plrslol ~= #plrs do
+wait()
+end
+wait()
+table.clear(bs)
+pl.Character.Humanoid:ChangeState(15)
+pl.Character.Humanoid.Health = 0
+pl.Character = nil
+wait(0.5)
+pl.Character = workspace:FindFirstChild(pl.Name)
+pl.Character:Remove()
+pl.CharacterAdded:Wait()
+wait()
+pl.Character:WaitForChild("HumanoidRootPart").CFrame = humcfram
+end
+},
+["tbring"] = {
+    ["ListName"] = "tbring [player/all] [number for random]",
+    ["Description"] = "Brings a person in the best way",
+    ["Aliases"] = {"tb"},
+    ["Function"] = function(args,speaker)
+	local humcfram = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	local rando = false
+	local all = false
+	local plrsss = false
+	local coutc = 0
+	local randoms = 0
+	if args[1] == "all" then all = true else for i,v in pairs(game.Players:GetChildren()) do if v.Name:sub(1, #args[1]):lower() == args[1]:lower() or v.DisplayName:sub(1, #args[1]):lower() == args[1]:lower() then rand = v; plrsss = true; break end end if plrsss == false then return notify('nigga there are no players named that tf is u on') end end 
+	if plrsss == true then for i,v in pairs(game.Players:GetPlayers()) do randoms = randoms + 1; if v == rand then rand = randoms end end end
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.Humanoid.Sit = true
+game.Workspace.Camera.CameraType = Enum.CameraType.Fixed
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+for a,c in pairs(game.Players.LocalPlayer.Character:GetChildren()) do if c:IsA("BasePart") then c.CanCollide = true end end
+local count = 0
+local plrslol = 0
+local function func(rob, v)
+pcall(function()
+		   while v.Parent == workspace[game.Players.LocalPlayer.Name] do
+for aaa=1,20 do
+	firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 0)
+		firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 1)
+			firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 0)
+end
+wait()
+	   end
+end)
+plrslol = plrslol + 1
+end
+local nodefenselol = {}
+local plrs = {}
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Heartbeat = game:GetService("RunService").Heartbeat
+LocalPlayer.Character.Animate.Disabled = true
+LocalPlayer.Character.Humanoid.Animator:Destroy()
+Heartbeat:Connect(function()
+    LocalPlayer.MaximumSimulationRadius = math.huge
+    sethiddenproperty(LocalPlayer, "SimulationRadius", math.huge)
+end)
+
+
+for i,v in next, game:GetService("Players").LocalPlayer.Character:GetDescendants() do
+    if v:IsA("BasePart") and v.Name ~="HumanoidRootPart" then 
+    game:GetService("RunService").Heartbeat:connect(function()
+    v.Velocity = Vector3.new(-30,0,0)
+    end)
+    end
+    end
+    
+
+
+local character = game.Players.LocalPlayer.Character
+local tools = {}
+for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if v:IsA("Tool") then
+        table.insert(tools,v)
+    end
+end
+local pl = game.Players.LocalPlayer
+local hu = game.Players.LocalPlayer.Character.Humanoid:Clone()
+_G.arm = nil
+if pl.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+_G.arm = game.Players.LocalPlayer.Character['RightLowerArm'].CFrame * CFrame.new(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0)
+else _G.arm = game.Players.LocalPlayer.Character['Right Arm'].CFrame * CFrame.new(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0) end
+local bs = {}
+local v
+pl.Character.Humanoid:UnequipTools()
+pl.Character.Humanoid:Destroy()
+hu.Parent = pl.Character
+hu.PlatformStand = true
+wait()
+local frtools = 0
+frtools = #game.Players.LocalPlayer.Backpack:GetChildren()
+    if #game.Players:GetPlayers() < 2 then return end
+	if all == false then
+		frtools = 1; table.insert(nodefenselol, game.Players:GetPlayers()[rand]) end
+	cc = 0
+	if rando == true or all == true then 
+	  cc = cc + 1
+for rand, val in next, game.Players:GetPlayers() do
+     if game.Players:GetPlayers()[rand].Name ~= pl.Name then if not table.find(bs, game.Players:GetPlayers()[rand].Name) then if game.Players:GetPlayers()[rand].Character ~= nil then if game.Players:GetPlayers()[rand].Character:FindFirstChild("HumanoidRootPart") and game.Players:GetPlayers()[rand].Character:FindFirstChild("Head")  then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid") then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid").Health ~= 0 and game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid").Sit == false then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Right Arm") or game.Players:GetPlayers()[rand].Character:FindFirstChild("RightLowerArm") then table.insert(nodefenselol, game.Players:GetPlayers()[rand]) end end end end end end end
+       table.insert(bs, game.Players:GetPlayers()[rand].Name) end end
+	for e,r in next, nodefenselol do
+		rand = math.random(1, #nodefenselol)
+		 v = pl.Backpack:FindFirstChildOfClass("Tool")
+		  v.Parent = pl.Character
+	   	table.insert(plrs, nodefenselol[rand])
+		   coroutine.wrap(func)(nodefenselol[rand],v)
+		   frtools = frtools - 1
+if frtools == 0 or nodefenselol == {} then break end
+	end
+
+delay(1.5, function ()
+	plrslol = #plrs
+end)
+for i,v in pairs(pl.Character:GetChildren()) do if v:IsA("BasePart") then v.Anchored = false end end
+while plrslol ~= #plrs do
+wait()
+end
+wait()
+table.clear(bs)
+pl.Character = nil
+pl.Character = workspace:FindFirstChild(pl.Name)
+pl.Character:Remove()
+pl.CharacterAdded:Wait()
+wait()
+pl.Character:WaitForChild("HumanoidRootPart").CFrame = humcfram
+    end
+},
+["void"] = {
+    ["ListName"] = "tbring [player/all] [number for random]",
+    ["Description"] = "voids a person in the best way",
+    ["Aliases"] = {"v"},
+    ["Function"] = function(args,speaker)
+	local humcfram = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	local rando = false
+	local all = false
+	local plrsss = false
+	local coutc = 0
+	local randoms = 0
+	if args[1] == "all" then all = true else for i,v in pairs(game.Players:GetChildren()) do if v.Name:sub(1, #args[1]):lower() == args[1]:lower() or v.DisplayName:sub(1, #args[1]):lower() == args[1]:lower() then rand = v; plrsss = true; break end end if plrsss == false then return notify('nigga there are no players named that tf is u on') end end 
+	if plrsss == true then for i,v in pairs(game.Players:GetPlayers()) do randoms = randoms + 1; if v == rand then rand = randoms end end end
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9999999999999999999999999999999999, 9999999999999999999999999999999999, 9999999999999999999999999999999999)
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+game.Players.LocalPlayer.Character.Humanoid.Sit = true
+game.Workspace.Camera.CameraType = Enum.CameraType.Fixed
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+for a,c in pairs(game.Players.LocalPlayer.Character:GetChildren()) do if c:IsA("BasePart") then c.CanCollide = true end end
+local count = 0
+local plrslol = 0
+local function func(rob, v)
+pcall(function()
+		   while v.Parent == workspace[game.Players.LocalPlayer.Name] do
+for aaa=1,20 do
+	firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 0)
+		firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 1)
+			firetouchinterest(v.Handle, rob.Character.HumanoidRootPart, 0)
+end
+wait()
+	   end
+end)
+plrslol = plrslol + 1
+end
+local nodefenselol = {}
+local plrs = {}
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Heartbeat = game:GetService("RunService").Heartbeat
+LocalPlayer.Character.Animate.Disabled = true
+LocalPlayer.Character.Humanoid.Animator:Destroy()
+Heartbeat:Connect(function()
+    LocalPlayer.MaximumSimulationRadius = math.huge
+    sethiddenproperty(LocalPlayer, "SimulationRadius", math.huge)
+end)
+
+
+for i,v in next, game:GetService("Players").LocalPlayer.Character:GetDescendants() do
+    if v:IsA("BasePart") and v.Name ~="HumanoidRootPart" then 
+    game:GetService("RunService").Heartbeat:connect(function()
+    v.Velocity = Vector3.new(-30,0,0)
+    end)
+    end
+    end
+    
+
+
+local character = game.Players.LocalPlayer.Character
+local tools = {}
+for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+    if v:IsA("Tool") then
+        table.insert(tools,v)
+    end
+end
+local pl = game.Players.LocalPlayer
+local hu = game.Players.LocalPlayer.Character.Humanoid:Clone()
+_G.arm = nil
+if pl.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+_G.arm = game.Players.LocalPlayer.Character['RightLowerArm'].CFrame * CFrame.new(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0)
+else _G.arm = game.Players.LocalPlayer.Character['Right Arm'].CFrame * CFrame.new(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, -1, 0) end
+local bs = {}
+local v
+pl.Character.Humanoid:UnequipTools()
+pl.Character.Humanoid:Destroy()
+hu.Parent = pl.Character
+hu.PlatformStand = true
+wait()
+local frtools = 0
+frtools = #game.Players.LocalPlayer.Backpack:GetChildren()
+    if #game.Players:GetPlayers() < 2 then return end
+	if all == false then
+		frtools = 1; table.insert(nodefenselol, game.Players:GetPlayers()[rand]) end
+	cc = 0
+	if rando == true or all == true then 
+	  cc = cc + 1
+for rand, val in next, game.Players:GetPlayers() do
+     if game.Players:GetPlayers()[rand].Name ~= pl.Name then if not table.find(bs, game.Players:GetPlayers()[rand].Name) then if game.Players:GetPlayers()[rand].Character ~= nil then if game.Players:GetPlayers()[rand].Character:FindFirstChild("HumanoidRootPart") and game.Players:GetPlayers()[rand].Character:FindFirstChild("Head")  then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid") then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid").Health ~= 0 and game.Players:GetPlayers()[rand].Character:FindFirstChild("Humanoid").Sit == false then if game.Players:GetPlayers()[rand].Character:FindFirstChild("Right Arm") or game.Players:GetPlayers()[rand].Character:FindFirstChild("RightLowerArm") then table.insert(nodefenselol, game.Players:GetPlayers()[rand]) end end end end end end end
+       table.insert(bs, game.Players:GetPlayers()[rand].Name) end end
+	for e,r in next, nodefenselol do
+		rand = math.random(1, #nodefenselol)
+		 v = pl.Backpack:FindFirstChildOfClass("Tool")
+		  v.Parent = pl.Character
+	   	table.insert(plrs, nodefenselol[rand])
+		   coroutine.wrap(func)(nodefenselol[rand],v)
+		   frtools = frtools - 1
+if frtools == 0 or nodefenselol == {} then break end
+	end
+
+delay(1.5, function ()
+	plrslol = #plrs
+end)
+for i,v in pairs(pl.Character:GetChildren()) do if v:IsA("BasePart") then v.Anchored = false end end
+while plrslol ~= #plrs do
+wait()
+end
+wait()
+table.clear(bs)
+pl.Character = nil
+pl.Character = workspace:FindFirstChild(pl.Name)
+pl.Character:Remove()
+
+pl.CharacterAdded:Wait()
+wait()
+pl.Character:WaitForChild("HumanoidRootPart").CFrame = humcfram
+end
+},
+["pdupe"] = {
+    ["ListName"] = "pdupe [amount]",
+    ["Description"] = "dupes yo shit in the best way",
+    ["Aliases"] = {"pd"},
+    ["Function"] = function(args,speaker)
+local humcfram = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local am = args[1]
+for i=1,am do
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+	v.Parent = game.Players.LocalPlayer.Character
+end
+	wait()
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+	if v:IsA("Tool") then
+	v.Parent = game.Workspace
+	end
+end
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+game.Players.LocalPlayer.Character:Destroy()
+game.Players.LocalPlayer.CharacterAdded:Wait()
+wait()
+game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = humcfram
+for i,v in pairs(game.Workspace:GetChildren()) do 
+	game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+end
+wait(0.3)
+end
+end
+}
+}
+}
+return noracismguys

@@ -1,0 +1,22 @@
+local Plugin = {
+    ["PluginName"] = "blackesp",
+    ["PluginDescription"] = "black people esp",
+    ["Commands"] = {
+        ["blackesp"] = {
+            ["ListName"] = "blackesp",
+            ["Description"] = "detect all blacks",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                for i,v in pairs(game.Players:GetPlayers()) do
+                    local skintone = v.Character:FindFirstChild("Body Colors").HeadColor3
+                    if (math.floor(skintone.R*255) >= 90 and math.floor(skintone.R*255) < 130) and (math.floor(skintone.G*255) >= 45 and math.floor(skintone.G*255) < 80) and math.floor(skintone.B*255) < 55 then
+                        ESP(v)
+		print(v)
+                    end
+                end
+            end
+        }
+     }
+}
+
+return Plugin

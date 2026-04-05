@@ -1,0 +1,401 @@
+getgenv().createRig = getgenv().createRig or function()
+local FakeRig = Instance.new("Model", Workspace)
+FakeRig.Name = "ghost"
+local FakeHumanoid = Instance.new("Humanoid")
+local FakeRigChildren = {}
+local FakeRoot = nil
+
+do
+	local HumanoidDesc = Instance.new("HumanoidDescription")
+	local Animator = Instance.new("Animator")
+	local Animate = Instance.new("LocalScript")
+
+	local function MakeMotor6D(Name, Part0, Part1, C0, C1)
+		local Joint = Instance.new("Motor6D")
+
+		Joint.Name = Name
+		Joint.Part0 = Part0
+		Joint.Part1 = Part1
+		Joint.C0 = C0
+		Joint.C1 = C1
+
+		Joint.Parent = Part0
+
+		return Joint
+	end
+
+	local function MakeAttachment(Name, CFrame, Parent)
+		local Attachment = Instance.new("Attachment")
+
+		Attachment.Name = Name
+		Attachment.CFrame = CFrame
+		Attachment.Parent = Parent
+	end
+
+	local Torso = Instance.new("Part")
+	local RightArm = Instance.new("Part")
+	local Head = Instance.new("Part")
+
+	Head.Size = Vector3.new(2,1,1)
+	Torso.Size = Vector3.new(2,2,1)
+	RightArm.Size = Vector3.new(1,2,1)
+
+	local Transparency = 0.5
+	Head.Transparency = Transparency
+	Torso.Transparency = Transparency
+	RightArm.Transparency = Transparency
+
+	FakeRoot = Torso:Clone()
+	FakeRoot.CanCollide = true
+
+	local LeftArm = RightArm:Clone()
+	local RightLeg = RightArm:Clone()
+	local LeftLeg = RightArm:Clone()
+
+	FakeRoot.Name = "HumanoidRootPart"
+	Torso.Name = "Torso"
+	Head.Name = "Head"
+	RightArm.Name = "Right Arm"
+	LeftArm.Name = "Left Arm"
+	RightLeg.Name = "Right Leg"
+	LeftLeg.Name = "Left Leg"
+
+	Animator.Parent = FakeHumanoid
+	HumanoidDesc.Parent = FakeHumanoid
+
+	FakeHumanoid.Parent = FakeRig
+	FakeRoot.Parent = FakeRig
+	Head.Parent = FakeRig
+
+	Torso.Parent = FakeRig
+	RightArm.Parent = FakeRig
+	LeftArm.Parent = FakeRig
+	RightLeg.Parent = FakeRig
+	LeftLeg.Parent = FakeRig
+	FakeHumanoid.Parent = FakeRig
+
+	MakeMotor6D('Neck', Torso, Head, CFrame.new(0, 1, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0), CFrame.new(0, -0.5, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0))
+	MakeMotor6D('RootJoint', FakeRoot, Torso, CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0), CFrame.new(0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1, -0))
+	local RightShoulder = MakeMotor6D('Right Shoulder', Torso, RightArm, CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0), CFrame.new(-0.5, 0.5, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0))
+	local LeftShoulder = MakeMotor6D('Left Shoulder', Torso, LeftArm, CFrame.new(-1, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0), CFrame.new(0.5, 0.5, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0))
+	local RightHip = MakeMotor6D('Right Hip', Torso, RightLeg, CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0), CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, -0, -1, 0, 0))
+	local LeftHip = MakeMotor6D('Left Hip', Torso, LeftLeg, CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0), CFrame.new(-0.5, 1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0))
+
+	Animate.Name = "Animate"
+	Animate.Parent = FakeRig
+
+	FakeRig.PrimaryPart = Head
+
+	FakeHumanoid:ChangeState(Enum.HumanoidStateType.GettingUp)
+	FakeHumanoid:ChangeState(Enum.HumanoidStateType.Landed)
+
+	if AccessoryFallbackDefaults then
+		for Name, Data in DefaultHats do
+			local HatsData = Hats[Name]
+			local Flagged = nil
+
+			if HatsData then
+				if typeof(HatsData) == "table" then
+					for _, Hat in ipairs(HatsData) do
+						local Types = {Name = "string", Texture = "string", Mesh = "string", Offset = "CFrame"}
+
+						for Key, Type in Types do
+							if typeof(Hat[Key]) ~= Type then
+								Flagged = true
+							end
+						end
+					end
+				else
+					Flagged = true
+				end
+			else
+				Flagged = true
+			end
+
+			if Flagged then
+				Hats[Name] = table.clone(Data)
+			end
+		end
+	end
+
+	local Attachments = {
+		HairAttachment = {CFrame.new(0, 0.6, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Head},
+		HatAttachment = {CFrame.new(0, 0.6, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Head},
+		FaceFrontAttachment = {CFrame.new(0, 0, -0.6, 1, 0, 0, 0, 1, 0, 0, 0, 1), Head},
+		RootAttachment = {CFrame.new(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), FakeRoot},
+		LeftShoulderAttachment = {CFrame.new(0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), LeftArm},
+		LeftGripAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), LeftArm},
+		RightShoulderAttachment = {CFrame.new(0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), RightArm},
+		RightGripAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), RightArm},
+		LeftFootAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), LeftLeg},
+		RightFootAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), RightLeg},
+		NeckAttachment = {CFrame.new(0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		BodyFrontAttachment = {CFrame.new(0, 0, -0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		BodyBackAttachment = {CFrame.new(0, 0, 0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		LeftCollarAttachment = {CFrame.new(-1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		RightCollarAttachment = {CFrame.new(1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		WaistFrontAttachment = {CFrame.new(0, -1, -0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		WaistCenterAttachment = {CFrame.new(0, -1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso},
+		WaistBackAttachment = {CFrame.new(0, -1, 0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1), Torso}
+	}
+
+	for Name, Table in Attachments do
+		MakeAttachment(Name, Table[1], Table[2])
+	end
+
+	table.clear(Attachments)
+
+	if Animations then
+		task.delay(1, function()
+			local AnimationsToggled = true
+
+			local Pose = "Standing"
+			local CurrentAnim = ""
+
+			local CurrentAnimInstance = nil
+			local CurrentAnimTrack = nil
+			local CurrentAnimKeyframeHandler = nil
+
+			local Dances = {"dance1", "dance2", "dance3"}
+			local EmoteNames = {wave = nil, point = nil, dance1 = true, dance2 = true, dance3 = true, laugh = nil, cheer = nil}
+
+			local AnimationTable = {}
+			local AnimData = {
+				-- Movement Anims
+				Idle = "http://www.roblox.com/asset/?id=180435571", Walk = "http://www.roblox.com/asset/?id=180426354", Run = "Run.xml", Jump = "http://www.roblox.com/asset/?id=125750702", Fall = "http://www.roblox.com/asset/?id=180436148", Climb = "http://www.roblox.com/asset/?id=180436334", Sit = "http://www.roblox.com/asset/?id=178130996",
+				-- Animations
+				dance1 = "http://www.roblox.com/asset/?id=182435998", dance2 = "http://www.roblox.com/asset/?id=182436842", dance3 = "http://www.roblox.com/asset/?id=182436935", wave = "http://www.roblox.com/asset/?id=128777973", point = "http://www.roblox.com/asset/?dan=128853357", laugh = "http://www.roblox.com/asset/?id=129423131", cheer = "http://www.roblox.com/asset/?id=129423030"
+			}
+
+			local CurrentAnimSpeed = 1.0
+			local JumpAnimTime = 0
+			local Time = 0
+
+			for Name, Id in AnimData do
+				local Animation = Instance.new("Animation")
+				Animation.AnimationId = Id
+				
+				AnimationTable[Name] = Animation
+			end
+
+			local function SetAnimationSpeed(Speed)
+				if Speed ~= CurrentAnimSpeed then
+					CurrentAnimSpeed = Speed
+					CurrentAnimTrack:AdjustSpeed(CurrentAnimSpeed)
+				end
+			end
+
+			local function PlayAnimation(AnimName, TransitionTime)
+				local Anim = AnimationTable[AnimName]
+
+				if Anim ~= CurrentAnimInstance then
+					if CurrentAnimTrack then
+						CurrentAnimTrack:Stop(TransitionTime)
+						CurrentAnimTrack:Destroy()
+					end
+
+					CurrentAnimSpeed = 1.0
+					CurrentAnimTrack = FakeHumanoid:LoadAnimation(Anim)
+					CurrentAnimTrack.Priority = Enum.AnimationPriority.Core
+
+					CurrentAnimTrack:Play(TransitionTime)
+					CurrentAnim = AnimName
+					CurrentAnimInstance = Anim
+
+					if CurrentAnimKeyframeHandler then
+						CurrentAnimKeyframeHandler:disconnect()
+					end
+
+					CurrentAnimKeyframeHandler = CurrentAnimTrack.KeyframeReached:Connect(function(FrameName)
+						if FrameName == "End" then
+							local RepeatAnim = CurrentAnim
+							if EmoteNames[RepeatAnim] and not EmoteNames[RepeatAnim] then
+								RepeatAnim = "Idle"
+							end
+
+							local AnimSpeed = CurrentAnimSpeed
+							PlayAnimation(RepeatAnim, 0.0)
+							SetAnimationSpeed(AnimSpeed)
+						end
+					end)
+				end
+			end
+
+			local function OnDied() if AnimationsToggled then Pose = "Dead" end end
+			local function OnGettingUp() if AnimationsToggled then Pose = "GettingUp" end end
+			local function OnFallingDown() if AnimationsToggled then Pose = "FallingDown" end end
+			local function OnSeated() if AnimationsToggled then Pose = "Seated" end end
+			local function OnPlatformStanding() if AnimationsToggled then Pose = "PlatformStanding" end end
+			local function OnRunning(Speed)
+				if AnimationsToggled then
+					if Speed > 0.01 then
+						PlayAnimation("Walk", 0.1) Pose = "Running"
+						if CurrentAnimInstance and CurrentAnimInstance.AnimationId == "http://www.roblox.com/asset/?id=180426354" then
+							SetAnimationSpeed(Speed / 14.5)
+						end
+					elseif not EmoteNames[CurrentAnim] then 
+						PlayAnimation("Idle", 0.1) Pose = "Standing"
+					end
+				end
+			end
+
+			local function OnJumping()
+				if AnimationsToggled then 
+					PlayAnimation("Jump", 0.1)
+					JumpAnimTime = 0.3
+					Pose = "Jumping"
+				end
+			end
+
+			local function OnClimbing(Speed)
+				if AnimationsToggled then
+					PlayAnimation("Climb", 0.1) SetAnimationSpeed(Speed / 12.0) Pose = "Climbing"
+				end
+			end
+
+			local function OnFreeFall()
+				if AnimationsToggled then
+					if JumpAnimTime <= 0 then PlayAnimation("Fall", 0.3) end
+					Pose = "FreeFall"
+				end
+			end
+
+			local function OnSwimming(Speed)
+				if AnimationsToggled then Pose = Speed >= 0 and "Running" or "Standing" end
+			end
+
+			FakeHumanoid.Died:Connect(OnDied)
+			FakeHumanoid.Running:Connect(OnRunning)
+			FakeHumanoid.Jumping:Connect(OnJumping)
+			FakeHumanoid.Climbing:Connect(OnClimbing)
+			FakeHumanoid.GettingUp:Connect(OnGettingUp)
+			FakeHumanoid.FreeFalling:Connect(OnFreeFall)
+			FakeHumanoid.FallingDown:Connect(OnFallingDown)
+			FakeHumanoid.Seated:Connect(OnSeated)
+			FakeHumanoid.PlatformStanding:Connect(OnPlatformStanding)
+			FakeHumanoid.Swimming:Connect(OnSwimming)
+
+			AnimationHandlingFunction = function(Message)
+				local Emote = ""
+
+				if Message == "/e dance" then
+					Emote = Dances[math.random(1, #Dances)]
+				elseif string.sub(Message, 1, 3) == "/e " then
+					Emote = string.sub(Message, 4)
+				end
+
+				if Pose == "Standing" and EmoteNames[Emote] then
+					PlayAnimation(Emote, 0.1)
+				end
+			end
+
+			table.insert(RBXSignals, RunService.PostSimulation:Connect(function(DeltaTime)
+				AnimationsToggled = Animate and Animate.Parent and Animate.Enabled or nil
+
+				local Amplitude = 1
+				local SetAngles = nil
+
+				if JumpAnimTime > 0 then
+					JumpAnimTime = JumpAnimTime - DeltaTime
+				end
+
+				if Pose == "FreeFall" and JumpAnimTime <= 0 then
+					PlayAnimation("Fall", 0.3)
+				elseif Pose == "Seated" then
+					PlayAnimation("Sit", 0.5)
+				elseif Pose == "Running" then
+					PlayAnimation("Walk", 0.1)
+				elseif Pose == "Dead" or Pose == "GettingUp" or Pose == "FallingDown" or Pose == "Seated" or Pose == "PlatformStanding" then
+					local OldAnim = CurrentAnim
+
+					if not EmoteNames[OldAnim] then
+						OldAnim = "Idle"
+					end
+
+					CurrentAnim, CurrentAnimInstance = "", nil
+
+					if CurrentAnimKeyframeHandler  then
+						CurrentAnimKeyframeHandler:Disconnect()
+					end
+
+					if CurrentAnimTrack then
+						CurrentAnimTrack:Stop()
+						CurrentAnimTrack:Destroy()
+					end
+
+					Amplitude = 0.1
+					SetAngles = true
+
+					if SetAngles then
+						local DesiredAngle = Amplitude * math.sin(Time * 1)
+						RightShoulder:SetDesiredAngle(DesiredAngle)
+						LeftShoulder:SetDesiredAngle(DesiredAngle)
+						RightHip:SetDesiredAngle(-DesiredAngle)
+						LeftHip:SetDesiredAngle(-DesiredAngle)
+					end
+				end
+			end))
+
+			table.clear(AnimData)
+		end)
+	end
+end
+
+return FakeRig, FakeHumanoid
+end
+
+local Plugin = {
+	["PluginName"] = "Ghosting",
+	["PluginDescription"] = "OoOOoOOOoooOOoOo spooky scary ghost!!1!",
+	["Commands"] = {
+		["ghostmove"] = {
+			["ListName"] = "ghostmove",
+            ["Description"] = "Spawns ghost",
+            ["Aliases"] = {"gm"},
+            ["Function"] = function(args,speaker)
+				getgenv().ghost, fhum = getgenv().createRig()
+				fhum.Died:Connect(function()
+					execCmd("cgm", speaker)
+				end)
+				getgenv().ghost:SetPrimaryPartCFrame(CFrame.new(Vector3.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y + 5, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)))
+
+				getgenv().oldchar = game.Players.LocalPlayer.Character; task.wait()
+				game.Players.LocalPlayer.Character = getgenv().ghost; task.wait()
+				workspace.CurrentCamera.CameraSubject = getgenv().ghost.Humanoid
+            end
+		},
+		["unghostmove"] = {
+			["ListName"] = "unghostmove",
+            ["Description"] = "Teleports main rig to ghost and despawns ghost",
+            ["Aliases"] = {"ungm"},
+            ["Function"] = function(args,speaker)
+				if not getgenv().ghost then return end
+				if not getgenv().oldchar then return end
+				getgenv().oldchar.HumanoidRootPart.CFrame = getgenv().ghost.HumanoidRootPart.CFrame
+
+				game.Players.LocalPlayer.Character = getgenv().oldchar
+				workspace.CurrentCamera.CameraSubject = getgenv().oldchar.Humanoid
+				getgenv().ghost:Destroy()
+				getgenv().ghost = nil
+				getgenv().oldchar = nil
+            end
+		},
+		["cancelghostmove"] = {
+			["ListName"] = "cancelghostmove",
+            ["Description"] = "Despawns ghost",
+            ["Aliases"] = {"cgm"},
+            ["Function"] = function(args,speaker)
+				if not getgenv().ghost then return end
+				if not getgenv().oldchar then return end
+
+				game.Players.LocalPlayer.Character = getgenv().oldchar
+				workspace.CurrentCamera.CameraSubject = getgenv().oldchar.Humanoid
+				getgenv().ghost:Destroy()
+				getgenv().ghost = nil
+				getgenv().oldchar = nil
+            end
+		}
+    }
+}
+
+return Plugin

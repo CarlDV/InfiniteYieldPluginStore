@@ -1,0 +1,660 @@
+return {
+    PluginName = "Server Hopper",
+    PluginDescription = "A server hopper script with server list functionality.",
+    Commands = {
+        serverhopper = {
+			ListName = "serverhopper / hopper",
+            Aliases = {"hopper"},
+            Description = "Opens the server hopper UI.",
+            Function = function(args, speaker)
+
+                --------------------------------------------------------------------
+                --  SERVICES & PLAYER ------------------------------------------------
+                --------------------------------------------------------------------
+                local TS      = game:GetService("TeleportService")
+                local Players = game:GetService("Players")
+                local UIS     = game:GetService("UserInputService")
+                local RS      = game:GetService("RunService")
+                local HttpService = game:GetService("HttpService")
+                local plr     = Players.LocalPlayer
+                local guiParent = plr:WaitForChild("PlayerGui")
+
+                --------------------------------------------------------------------
+                --  CLEAN UP OLD INSTANCE -------------------------------------------
+                --------------------------------------------------------------------
+                local existing = guiParent:FindFirstChild("JoinGui")
+                if existing then existing:Destroy() end
+
+                --------------------------------------------------------------------
+                --  STYLE / SIZE CONFIG ---------------------------------------------
+                --------------------------------------------------------------------
+                --// Sizing
+                local PANEL_WIDTH     = 800
+                local PANEL_HEIGHT    = 500
+                local INFO_WIDTH      = 320
+                local LIST_WIDTH      = 450
+                local BOX_HEIGHT      = 38
+
+                --// Fonts
+                local FONT_BOLD       = Enum.Font.GothamBold
+                local FONT_MEDIUM     = Enum.Font.GothamMedium
+                local FONT_REGULAR    = Enum.Font.Gotham -- This is kept for reference but FONT_MEDIUM is used for readability
+
+                --// Colors
+                local CLR_BACKGROUND  = Color3.fromRGB(30, 32, 36)
+                local CLR_SURFACE     = Color3.fromRGB(44, 46, 51)
+                local CLR_PRIMARY     = Color3.fromRGB(0, 122, 255)
+                local CLR_SUCCESS     = Color3.fromRGB(40, 167, 69)
+                local CLR_DANGER      = Color3.fromRGB(237, 66, 69)
+                local CLR_TEXT        = Color3.fromRGB(235, 235, 235)
+                local CLR_TEXT_MUTED  = Color3.fromRGB(170, 170, 170)
+                local CLR_ACCENT      = Color3.fromRGB(130, 180, 255)
+                local CLR_HOVER       = Color3.fromRGB(200, 220, 255)
+                local CLR_SEPARATOR   = Color3.fromRGB(60, 62, 67)
+
+                --------------------------------------------------------------------
+                --  SERVER DATA FETCHING --------------------------------------------
+                --------------------------------------------------------------------
+                local allServers = {}
+                local currentSort = "players_high"
+
+                -- Function to get all servers for current place
+                local function GetAllServers(PlaceID)
+                    local servers = {}
+                    
+                    local function fetchPage(cursor)
+                        local url = 'https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Desc&limit=100'
+                        if cursor then
+                            url = url .. '&cursor=' .. cursor
+                        end
+                        
+                        local success, response = pcall(function()
+                            return HttpService:JSONDecode(game:HttpGet(url))
+                        end)
+                        
+                        if success and response and response.data then
+                            for _, server in ipairs(response.data) do
+                                table.insert(servers, server)
+                            end
+                            
+                            if response.nextPageCursor and response.nextPageCursor ~= "null" then
+                                fetchPage(response.nextPageCursor)
+                            end
+                        end
+                    end
+                    
+                    pcall(function()
+                        fetchPage()
+                    end)
+                    
+                    return servers
+                end
+                
+                -- Function to sort servers
+                local function sortServers(servers, sortType)
+                    if sortType == "players_low" then
+                        table.sort(servers, function(a, b)
+                            return a.playing < b.playing
+                        end)
+                    elseif sortType == "players_high" then
+                        table.sort(servers, function(a, b)
+                            return a.playing > b.playing
+                        end)
+                    end
+                    return servers
+                end
+
+                --------------------------------------------------------------------
+                --  ROOT GUI ---------------------------------------------------------
+                --------------------------------------------------------------------
+                local gui = Instance.new("ScreenGui")
+                gui.Name              = "JoinGui"
+                gui.ResetOnSpawn      = false
+                gui.ZIndexBehavior    = Enum.ZIndexBehavior.Sibling
+                gui.Parent            = guiParent
+
+                local frame = Instance.new("Frame", gui)
+                frame.Size             = UDim2.fromOffset(PANEL_WIDTH, PANEL_HEIGHT)
+                frame.Position         = UDim2.new(.5, -PANEL_WIDTH/2, .5, -PANEL_HEIGHT/2)
+                frame.BackgroundColor3 = CLR_BACKGROUND
+                frame.BorderSizePixel  = 0
+                frame.Active           = true
+                Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+                Instance.new("UIStroke", frame).Color = Color3.fromRGB(80,80,80)
+
+                --------------------------------------------------------------------
+                --  CLOSE BUTTON -----------------------------------------------------
+                --------------------------------------------------------------------
+                local CLOSE_SIZE = 28
+                local closeBtn = Instance.new("TextButton", frame)
+                closeBtn.Size              = UDim2.fromOffset(CLOSE_SIZE, CLOSE_SIZE)
+                closeBtn.Position          = UDim2.new(1, -(CLOSE_SIZE + 8), 0, 8)
+                closeBtn.BackgroundColor3  = CLR_SURFACE
+                closeBtn.Text              = "X"
+                closeBtn.Font              = FONT_BOLD
+                closeBtn.TextSize          = 16
+                closeBtn.TextColor3        = CLR_TEXT_MUTED
+                closeBtn.AutoButtonColor   = false
+                Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 8)
+
+                closeBtn.MouseEnter:Connect(function() closeBtn.BackgroundColor3 = CLR_DANGER; closeBtn.TextColor3 = Color3.new(1,1,1) end)
+                closeBtn.MouseLeave:Connect(function() closeBtn.BackgroundColor3 = CLR_SURFACE; closeBtn.TextColor3 = CLR_TEXT_MUTED end)
+                closeBtn.MouseButton1Click:Connect(function()
+                    gui:Destroy()
+                end)
+
+                --------------------------------------------------------------------
+                --  TITLE ------------------------------------------------------------
+                --------------------------------------------------------------------
+                local title = Instance.new("TextLabel", frame)
+                title.Size                   = UDim2.new(1, -(CLOSE_SIZE + 20), 0, 44)
+                title.Position               = UDim2.new(0, 0, 0, 0)
+                title.BackgroundTransparency = 1
+                title.Font                   = FONT_BOLD
+                title.TextColor3             = CLR_TEXT
+                title.TextSize               = 22
+                title.Text                   = "Server Hopper"
+                Instance.new("UIPadding", title).PaddingLeft = UDim.new(0, 16)
+
+                --------------------------------------------------------------------
+                --  INFO BAR (LEFT) --------------------------------------------------
+                --------------------------------------------------------------------
+                local info = Instance.new("Frame", frame)
+                info.Size               = UDim2.fromOffset(INFO_WIDTH, PANEL_HEIGHT - 58)
+                info.Position           = UDim2.new(0, 12, 0, 46)
+                info.BackgroundColor3   = CLR_SURFACE
+                info.BorderSizePixel    = 0
+                Instance.new("UICorner", info).CornerRadius = UDim.new(0, 8)
+                local infoPad = Instance.new("UIPadding", info)
+                infoPad.PaddingTop    = UDim.new(0, 8)
+                infoPad.PaddingLeft   = UDim.new(0, 12)
+                infoPad.PaddingRight  = UDim.new(0, 12)
+                infoPad.PaddingBottom = UDim.new(0, 8)
+
+                local infoList = Instance.new("UIListLayout", info)
+                infoList.FillDirection = Enum.FillDirection.Vertical
+                infoList.SortOrder = Enum.SortOrder.LayoutOrder
+                infoList.Padding = UDim.new(0, 6)
+
+                local function mkInfoTitle(text, isMainTab)
+                    local title = Instance.new("TextLabel", info)
+                    title.Size                   = UDim2.new(1, 0, 0, isMainTab and 24 or 16)
+                    title.BackgroundTransparency = 1
+                    title.Font                   = FONT_BOLD
+                    title.TextColor3             = CLR_ACCENT
+                    title.TextSize               = isMainTab and 16 or 11
+                    title.TextXAlignment         = Enum.TextXAlignment.Left
+                    title.Text                   = text
+                    return title
+                end
+
+                local function createLabelWithValue(parent, labelText, valueText, valueColor, isCopyable)
+                    local container = Instance.new("Frame", parent)
+                    container.Size = UDim2.new(1, 0, 0, 20)
+                    container.BackgroundTransparency = 1
+
+                    local combinedLabel = Instance.new("TextLabel", container)
+                    combinedLabel.Size = UDim2.new(1, 0, 1, 0)
+                    combinedLabel.BackgroundTransparency = 1
+                    combinedLabel.Font = FONT_MEDIUM
+                    combinedLabel.TextSize = 12
+                    combinedLabel.RichText = true
+                    combinedLabel.TextWrapped = true
+                    combinedLabel.TextXAlignment = Enum.TextXAlignment.Center 
+                    combinedLabel.TextYAlignment = Enum.TextYAlignment.Top
+
+                    local labelColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_TEXT_MUTED.R * 255, CLR_TEXT_MUTED.G * 255, CLR_TEXT_MUTED.B * 255)
+                    local valueColorStr = string.format("rgb(%.0f, %.0f, %.0f)", valueColor.R * 255, valueColor.G * 255, valueColor.B * 255)
+                    
+                    local originalText = string.format('<font color="%s">%s </font><font color="%s">%s</font>', labelColorStr, labelText, valueColorStr, valueText)
+                    combinedLabel.Text = originalText
+                    
+                    if isCopyable then
+                        local hoverColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_HOVER.R * 255, CLR_HOVER.G * 255, CLR_HOVER.B * 255)
+                        local hoverText = string.format('<font color="%s">%s </font><font color="%s">%s</font>', labelColorStr, labelText, hoverColorStr, valueText)
+
+                        local btn = Instance.new("TextButton", container)
+                        btn.Size = UDim2.new(1, 0, 1, 0)
+                        btn.BackgroundTransparency = 1
+                        btn.Text = ""
+
+                        btn.MouseEnter:Connect(function() combinedLabel.Text = hoverText end)
+                        btn.MouseLeave:Connect(function() combinedLabel.Text = originalText end)
+                        btn.MouseButton1Click:Connect(function()
+                            if setclipboard then
+                                setclipboard(valueText)
+                            end
+                        end)
+                    end
+                    
+                    return container
+                end
+
+                -- MANUAL HOP SECTION
+                local manualTitle = mkInfoTitle("MANUAL HOP", true)
+                manualTitle.LayoutOrder = 1
+                
+                local manualContainer = Instance.new("Frame", info)
+                manualContainer.Size = UDim2.new(1, 0, 0, 170) 
+                manualContainer.BackgroundTransparency = 1
+                manualContainer.LayoutOrder = 2
+
+                local manualList = Instance.new("UIListLayout", manualContainer)
+                manualList.FillDirection = Enum.FillDirection.Vertical
+                manualList.SortOrder = Enum.SortOrder.LayoutOrder
+                manualList.Padding = UDim.new(0, 6)
+
+                local placeBox = Instance.new("TextBox", manualContainer)
+                placeBox.Size               = UDim2.new(1, 0, 0, BOX_HEIGHT)
+                placeBox.BackgroundColor3   = CLR_BACKGROUND
+                placeBox.BorderSizePixel    = 0
+                placeBox.Font               = FONT_MEDIUM
+                placeBox.PlaceholderText    = "Place ID"
+                placeBox.Text               = tostring(game.PlaceId)
+                placeBox.TextColor3         = CLR_TEXT
+                placeBox.TextSize           = 14
+                placeBox.ClearTextOnFocus   = true
+                placeBox.LayoutOrder        = 1
+                Instance.new("UICorner", placeBox).CornerRadius = UDim.new(0, 6)
+                Instance.new("UIPadding", placeBox).PaddingLeft = UDim.new(0, 10)
+                
+                local placeStroke = Instance.new("UIStroke", placeBox)
+                placeStroke.Color = CLR_BACKGROUND
+                placeBox.MouseEnter:Connect(function() placeStroke.Color = CLR_HOVER end) -- CHANGED
+                placeBox.MouseLeave:Connect(function() placeStroke.Color = CLR_BACKGROUND end)
+
+                local jobBox = Instance.new("TextBox", manualContainer)
+                jobBox.Size               = UDim2.new(1, 0, 0, BOX_HEIGHT)
+                jobBox.BackgroundColor3   = CLR_BACKGROUND
+                jobBox.BorderSizePixel    = 0
+                jobBox.Font               = FONT_MEDIUM
+                jobBox.PlaceholderText    = "Job ID (optional)"
+                jobBox.Text               = ""
+                jobBox.TextColor3         = CLR_TEXT
+                jobBox.TextSize           = 14
+                jobBox.ClearTextOnFocus   = true
+                jobBox.LayoutOrder        = 2
+                Instance.new("UICorner", jobBox).CornerRadius = UDim.new(0, 6)
+                Instance.new("UIPadding", jobBox).PaddingLeft = UDim.new(0, 10)
+
+                local jobStroke = Instance.new("UIStroke", jobBox)
+                jobStroke.Color = CLR_BACKGROUND
+                jobBox.MouseEnter:Connect(function() jobStroke.Color = CLR_HOVER end) -- CHANGED
+                jobBox.MouseLeave:Connect(function() jobStroke.Color = CLR_BACKGROUND end)
+
+                local joinBtn = Instance.new("TextButton", manualContainer)
+                joinBtn.Size              = UDim2.new(1, 0, 0, BOX_HEIGHT)
+                joinBtn.BackgroundColor3  = CLR_PRIMARY
+                joinBtn.Text              = "Hop"
+                joinBtn.Font              = FONT_BOLD
+                joinBtn.TextColor3        = Color3.new(1, 1, 1)
+                joinBtn.TextSize          = 16
+                joinBtn.AutoButtonColor   = false
+                joinBtn.LayoutOrder       = 3
+                Instance.new("UICorner", joinBtn).CornerRadius = UDim.new(0, 6)
+
+                local rejoinBtn = Instance.new("TextButton", manualContainer)
+                rejoinBtn.Size              = UDim2.new(1, 0, 0, BOX_HEIGHT)
+                rejoinBtn.BackgroundColor3  = CLR_SUCCESS
+                rejoinBtn.Text              = "Rejoin Server"
+                rejoinBtn.Font              = FONT_BOLD
+                rejoinBtn.TextColor3        = Color3.new(1, 1, 1)
+                rejoinBtn.TextSize          = 13
+                rejoinBtn.AutoButtonColor   = false
+                rejoinBtn.LayoutOrder       = 4
+                Instance.new("UICorner", rejoinBtn).CornerRadius = UDim.new(0, 6)
+                
+                local spacer = Instance.new("Frame", info)
+                spacer.Size = UDim2.new(1, 0, 0, 30) 
+                spacer.BackgroundTransparency = 1
+                spacer.BorderSizePixel = 0
+                spacer.LayoutOrder = 3
+
+                --------------------------------------------------------------------
+                --  SERVER INFO BOX (SEPARATE CONTAINER) ---------------------------
+                --------------------------------------------------------------------
+                local serverInfoBox = Instance.new("Frame", info)
+                serverInfoBox.Size = UDim2.new(1, 0, 0, 154)
+                serverInfoBox.Position = UDim2.new(0, 0, 0, 0)
+                serverInfoBox.BackgroundColor3 = CLR_BACKGROUND
+                serverInfoBox.BorderSizePixel = 0
+                serverInfoBox.LayoutOrder = 4
+                Instance.new("UICorner", serverInfoBox).CornerRadius = UDim.new(0, 8)
+
+                local serverInfoPad = Instance.new("UIPadding", serverInfoBox)
+                serverInfoPad.PaddingTop = UDim.new(0, 8)
+                serverInfoPad.PaddingLeft = UDim.new(0, 12)
+                serverInfoPad.PaddingRight = UDim.new(0, 12)
+                serverInfoPad.PaddingBottom = UDim.new(0, 8)
+
+                local serverInfoList = Instance.new("UIListLayout", serverInfoBox)
+                serverInfoList.FillDirection = Enum.FillDirection.Vertical
+                serverInfoList.SortOrder = Enum.SortOrder.LayoutOrder
+                serverInfoList.Padding = UDim.new(0, 4)
+
+                -- Create title directly in the serverInfoBox
+                local serverInfoTitle = Instance.new("TextLabel", serverInfoBox)
+                serverInfoTitle.Size = UDim2.new(1, 0, 0, 18)
+                serverInfoTitle.BackgroundTransparency = 1
+                serverInfoTitle.Font = FONT_BOLD
+                serverInfoTitle.TextColor3 = CLR_ACCENT
+                serverInfoTitle.TextSize = 12
+                serverInfoTitle.TextXAlignment = Enum.TextXAlignment.Center
+                serverInfoTitle.Text = "SERVER INFO"
+                serverInfoTitle.LayoutOrder = 1
+                
+                -- Create all info rows using the new centered style
+                local verContainer = createLabelWithValue(serverInfoBox, "Version:", tostring(game.PlaceVersion), CLR_TEXT, false)
+                local upContainer   = createLabelWithValue(serverInfoBox, "Uptime:", "00:00:00", CLR_TEXT, false)
+                local pplContainer = createLabelWithValue(serverInfoBox, "Players:", tostring(#Players:GetPlayers()), CLR_TEXT, false)
+                local placeContainer = createLabelWithValue(serverInfoBox, "PlaceId:", tostring(game.PlaceId), CLR_ACCENT, true)
+                local jobContainer = createLabelWithValue(serverInfoBox, "JobId:", tostring(game.JobId), CLR_ACCENT, true)
+
+                verContainer.LayoutOrder = 2
+                upContainer.LayoutOrder = 3
+                pplContainer.LayoutOrder = 4
+                placeContainer.LayoutOrder = 5
+                jobContainer.LayoutOrder = 6
+
+                -- live updating values
+                local pplLabel = pplContainer:FindFirstChildOfClass("TextLabel") 
+                Players.PlayerAdded:Connect(function() 
+                    local valueColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_TEXT.R * 255, CLR_TEXT.G * 255, CLR_TEXT.B * 255)
+                    local labelColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_TEXT_MUTED.R * 255, CLR_TEXT_MUTED.G * 255, CLR_TEXT_MUTED.B * 255)
+                    if pplLabel then
+                        pplLabel.Text = string.format('<font color="%s">Players: </font><font color="%s">%s</font>', labelColorStr, valueColorStr, tostring(#Players:GetPlayers()))
+                    end
+                end)
+                Players.PlayerRemoving:Connect(function() 
+                    local valueColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_TEXT.R * 255, CLR_TEXT.G * 255, CLR_TEXT.B * 255)
+                    local labelColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_TEXT_MUTED.R * 255, CLR_TEXT_MUTED.G * 255, CLR_TEXT_MUTED.B * 255)
+                    if pplLabel then
+                        pplLabel.Text = string.format('<font color="%s">Players: </font><font color="%s">%s</font>', labelColorStr, valueColorStr, tostring(#Players:GetPlayers()))
+                    end
+                end)
+
+                -- uptime calculation (starts from when GUI opens)
+                local upLabel = upContainer:FindFirstChildOfClass("TextLabel")
+                local startTime = tick()
+                local function updateUptime()
+                    local elapsed = tick() - startTime
+                    local hours = math.floor(elapsed / 3600)
+                    local minutes = math.floor((elapsed % 3600) / 60)
+                    local seconds = math.floor(elapsed % 60)
+                    
+                    local valueColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_TEXT.R * 255, CLR_TEXT.G * 255, CLR_TEXT.B * 255)
+                    local labelColorStr = string.format("rgb(%.0f, %.0f, %.0f)", CLR_TEXT_MUTED.R * 255, CLR_TEXT_MUTED.G * 255, CLR_TEXT_MUTED.B * 255)
+                    if upLabel then
+                        upLabel.Text = string.format('<font color="%s">Uptime: </font><font color="%s">%s</font>', labelColorStr, valueColorStr, string.format("%02d:%02d:%02d", hours, minutes, seconds))
+                    end
+                end
+                local uptimeConnection = RS.Heartbeat:Connect(updateUptime)
+
+                local btnNormalColor = CLR_PRIMARY
+                joinBtn.MouseEnter:Connect(function() joinBtn.BackgroundColor3 = CLR_HOVER end)
+                joinBtn.MouseLeave:Connect(function() joinBtn.BackgroundColor3 = btnNormalColor end)
+
+                rejoinBtn.MouseEnter:Connect(function() rejoinBtn.BackgroundColor3 = Color3.fromRGB(60, 200, 90) end)
+                rejoinBtn.MouseLeave:Connect(function() rejoinBtn.BackgroundColor3 = CLR_SUCCESS end)
+
+                local originalText = joinBtn.Text
+                joinBtn.MouseButton1Click:Connect(function()
+                    local placeNum = tonumber(placeBox.Text)
+                    if not placeNum then
+                        joinBtn.Text = "Invalid PlaceId"
+                        joinBtn.BackgroundColor3 = CLR_DANGER
+                        task.delay(1.5, function()
+                            joinBtn.Text = originalText
+                            joinBtn.BackgroundColor3 = btnNormalColor
+                        end)
+                        return
+                    end
+
+                    local jobId = jobBox.Text:gsub("%s", "")
+                    if jobId ~= "" then
+                        TS:TeleportToPlaceInstance(placeNum, jobId, plr)
+                    else
+                        TS:Teleport(placeNum, plr)
+                    end
+                end)
+
+                rejoinBtn.MouseButton1Click:Connect(function()
+                    TS:TeleportToPlaceInstance(game.PlaceId, game.JobId, plr)
+                end)
+
+                --------------------------------------------------------------------
+                --  SERVER LIST (RIGHT) ----------------------------------------------
+                --------------------------------------------------------------------
+                local serverList = Instance.new("Frame", frame)
+                serverList.Size               = UDim2.fromOffset(LIST_WIDTH, PANEL_HEIGHT - 58)
+                serverList.Position           = UDim2.new(0, INFO_WIDTH + 24, 0, 46)
+                serverList.BackgroundColor3   = CLR_SURFACE
+                serverList.BorderSizePixel    = 0
+                Instance.new("UICorner", serverList).CornerRadius = UDim.new(0, 8)
+
+                -- Server list header
+                local listHeader = Instance.new("Frame", serverList)
+                listHeader.Size = UDim2.new(1, 0, 0, 50)
+                listHeader.Position = UDim2.new(0, 0, 0, 0)
+                listHeader.BackgroundTransparency = 1
+
+                local listTitle = Instance.new("TextLabel", listHeader)
+                listTitle.Size = UDim2.new(0.4, 0, 1, 0)
+                listTitle.Position = UDim2.new(0, 12, 0, 0)
+                listTitle.BackgroundTransparency = 1
+                listTitle.Font = FONT_BOLD
+                listTitle.TextColor3 = CLR_ACCENT
+                listTitle.TextSize = 16
+                listTitle.TextXAlignment = Enum.TextXAlignment.Left
+                listTitle.Text = "SERVER LIST"
+
+                local buttonContainer = Instance.new("Frame", listHeader)
+                buttonContainer.Size = UDim2.new(0.6, -12, 1, 0)
+                buttonContainer.Position = UDim2.new(0.4, 0, 0, 0)
+                buttonContainer.BackgroundTransparency = 1
+                
+                local filterBtn = Instance.new("TextButton", buttonContainer)
+                filterBtn.Size = UDim2.new(1, -80, 0, 24)
+                filterBtn.Position = UDim2.new(0, 0, 0.5, -12)
+                filterBtn.BackgroundColor3 = CLR_PRIMARY
+                filterBtn.Text = "Filter Players"
+                filterBtn.Font = FONT_MEDIUM
+                filterBtn.TextColor3 = CLR_TEXT
+                filterBtn.TextSize = 12
+                filterBtn.AutoButtonColor = false
+                Instance.new("UICorner", filterBtn).CornerRadius = UDim.new(0, 4)
+
+                filterBtn.MouseEnter:Connect(function() filterBtn.BackgroundColor3 = CLR_HOVER end)
+                filterBtn.MouseLeave:Connect(function() filterBtn.BackgroundColor3 = CLR_PRIMARY end)
+
+                local refreshBtn = Instance.new("TextButton", buttonContainer)
+                refreshBtn.Size = UDim2.new(0, 70, 0, 24)
+                refreshBtn.Position = UDim2.new(1, -70, 0.5, -12)
+                refreshBtn.BackgroundColor3 = CLR_SUCCESS
+                refreshBtn.Text = "Refresh"
+                refreshBtn.Font = FONT_MEDIUM
+                refreshBtn.TextColor3 = Color3.new(1, 1, 1)
+                refreshBtn.TextSize = 12
+                refreshBtn.AutoButtonColor = false
+                Instance.new("UICorner", refreshBtn).CornerRadius = UDim.new(0, 4)
+
+                local refreshHoverColor = Color3.fromRGB(60, 200, 90)
+                refreshBtn.MouseEnter:Connect(function() refreshBtn.BackgroundColor3 = refreshHoverColor end)
+                refreshBtn.MouseLeave:Connect(function() refreshBtn.BackgroundColor3 = CLR_SUCCESS end)
+
+                -- Server list scroll frame
+                local scrollFrame = Instance.new("ScrollingFrame", serverList)
+                scrollFrame.Size = UDim2.new(1, -12, 1, -62)
+                scrollFrame.Position = UDim2.new(0, 6, 0, 56)
+                scrollFrame.BackgroundTransparency = 1
+                scrollFrame.BorderSizePixel = 0
+                scrollFrame.ScrollBarThickness = 6
+                scrollFrame.ScrollBarImageColor3 = CLR_TEXT_MUTED
+                scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+                local scrollLayout = Instance.new("UIListLayout", scrollFrame)
+                scrollLayout.FillDirection = Enum.FillDirection.Vertical
+                scrollLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                scrollLayout.Padding = UDim.new(0, 4)
+
+                -- Function to create server entry
+                local function createServerEntry(server, index)
+                    local entry = Instance.new("Frame", scrollFrame)
+                    entry.Size = UDim2.new(1, -6, 0, 60)
+                    entry.BackgroundColor3 = CLR_BACKGROUND
+                    entry.BorderSizePixel = 0
+                    entry.LayoutOrder = index
+                    Instance.new("UICorner", entry).CornerRadius = UDim.new(0, 6)
+
+                    local entryPad = Instance.new("UIPadding", entry)
+                    entryPad.PaddingLeft = UDim.new(0, 8)
+                    entryPad.PaddingRight = UDim.new(0, 8)
+                    entryPad.PaddingTop = UDim.new(0, 6)
+                    entryPad.PaddingBottom = UDim.new(0, 6)
+
+                    local playersLabel = Instance.new("TextLabel", entry)
+                    playersLabel.Size = UDim2.new(0, 100, 0, 20)
+                    playersLabel.Position = UDim2.new(0, 0, 0, 0)
+                    playersLabel.BackgroundTransparency = 1
+                    playersLabel.Font = FONT_MEDIUM
+                    playersLabel.TextColor3 = CLR_TEXT
+                    playersLabel.TextSize = 13
+                    playersLabel.TextXAlignment = Enum.TextXAlignment.Left
+                    playersLabel.Text = server.playing .. "/" .. server.maxPlayers .. " players"
+
+                    local idLabel = Instance.new("TextLabel", entry)
+                    idLabel.Size = UDim2.new(1, -200, 0, 20)
+                    idLabel.Position = UDim2.new(0, 0, 0, 24)
+                    idLabel.BackgroundTransparency = 1
+                    idLabel.Font = FONT_MEDIUM
+                    idLabel.TextColor3 = CLR_TEXT_MUTED
+                    idLabel.TextSize = 11
+                    idLabel.TextXAlignment = Enum.TextXAlignment.Left
+                    idLabel.Text = "ID: " .. server.id
+                    idLabel.TextTruncate = Enum.TextTruncate.AtEnd
+
+                    local joinServerBtn = Instance.new("TextButton", entry)
+                    joinServerBtn.Size = UDim2.new(0, 60, 0, 24)
+                    joinServerBtn.Position = UDim2.new(1, -60, 0, 18)
+                    joinServerBtn.BackgroundColor3 = CLR_PRIMARY
+                    joinServerBtn.Text = "Join"
+                    joinServerBtn.Font = FONT_MEDIUM
+                    joinServerBtn.TextColor3 = Color3.new(1, 1, 1)
+                    joinServerBtn.TextSize = 12
+                    joinServerBtn.AutoButtonColor = false
+                    Instance.new("UICorner", joinServerBtn).CornerRadius = UDim.new(0, 4)
+
+                    joinServerBtn.MouseEnter:Connect(function()
+                        joinServerBtn.BackgroundColor3 = CLR_HOVER
+                    end)
+
+                    joinServerBtn.MouseLeave:Connect(function()
+                        joinServerBtn.BackgroundColor3 = CLR_PRIMARY
+                    end)
+
+                    joinServerBtn.MouseButton1Click:Connect(function()
+                        TS:TeleportToPlaceInstance(game.PlaceId, server.id, plr)
+                    end)
+
+                    return entry
+                end
+
+                -- Function to update server list display
+                local function updateServerList()
+                    for _, child in ipairs(scrollFrame:GetChildren()) do
+                        if child:IsA("Frame") or child:IsA("TextLabel") then
+                            child:Destroy()
+                        end
+                    end
+
+                    for i, server in ipairs(allServers) do
+                        createServerEntry(server, i)
+                    end
+                end
+
+                -- Function to refresh servers
+                local function refreshServers()
+                    refreshBtn.Text = "Loading..."
+                    refreshBtn.BackgroundColor3 = CLR_TEXT_MUTED
+                    
+                    task.spawn(function()
+                        local servers = GetAllServers(game.PlaceId)
+                        if #servers > 0 then
+                            allServers = sortServers(servers, currentSort)
+                            updateServerList()
+                        else
+                            for _, child in ipairs(scrollFrame:GetChildren()) do
+                                if child:IsA("Frame") or child:IsA("TextLabel") then
+                                    child:Destroy()
+                                end
+                            end
+                            
+                            local errorLabel = Instance.new("TextLabel", scrollFrame)
+                            errorLabel.Size = UDim2.new(1, 0, 0, 40)
+                            errorLabel.BackgroundTransparency = 1
+                            errorLabel.Font = FONT_MEDIUM
+                            errorLabel.TextColor3 = CLR_TEXT_MUTED
+                            errorLabel.TextSize = 14
+                            errorLabel.Text = "Failed to load servers, rate-limited? or no servers available"
+                            errorLabel.TextWrapped = true
+                        end
+                        
+                        refreshBtn.Text = "Refresh"
+                        refreshBtn.BackgroundColor3 = CLR_SUCCESS
+                    end)
+                end
+
+                filterBtn.MouseButton1Click:Connect(function()
+                    if currentSort == "players_high" then
+                        currentSort = "players_low"
+                    else
+                        currentSort = "players_high"
+                    end
+                    allServers = sortServers(allServers, currentSort)
+                    updateServerList()
+                end)
+
+                refreshBtn.MouseButton1Click:Connect(function()
+                    refreshServers()
+                end)
+
+                -- Initial server load
+                refreshServers()
+
+                --------------------------------------------------------------------
+                --  DRAG SUPPORT -----------------------------------------------------
+                --------------------------------------------------------------------
+                local dragging, dragStart, startPos
+                frame.InputBegan:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        dragging = true
+                        dragStart = input.Position
+                        startPos = frame.Position
+                    end
+                end)
+
+                frame.InputChanged:Connect(function(input)
+                    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+                        local delta = input.Position - dragStart
+                        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+                    end
+                end)
+
+                UIS.InputEnded:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        dragging = false
+                    end
+                end)
+
+                -- Cleanup function when GUI is destroyed
+                gui.AncestryChanged:Connect(function()
+                    if gui.Parent == nil then
+                        if uptimeConnection then
+                            uptimeConnection:Disconnect()
+                        end
+                    end
+                end)
+            end
+        }
+    }
+}

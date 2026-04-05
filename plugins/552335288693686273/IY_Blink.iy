@@ -1,0 +1,33 @@
+local Plugin = {
+	["PluginName"] = "Blink",
+	["PluginDescription"] = "Adds a blink command",
+	["Commands"] = {
+		["blink"] = {
+			["ListName"] = "blink",
+			["Description"] = "Move around as your camera aka freecam",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				FC()
+			end,
+		},
+		["unblink"] = {
+			["ListName"] = "unblink",
+			["Description"] = "Teleports to your camera in blink/freecam mode",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local plrChar = speaker.Character
+				if plrChar then
+					local fc = plrChar:FindFirstChild("xFC")
+					local hum = plrChar:FindFirstChild("HumanoidRootPart")
+					if hum and fc then
+						local pos = fc.CFrame
+						UFC()
+						hum.CFrame = pos
+					end
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

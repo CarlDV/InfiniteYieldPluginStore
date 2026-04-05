@@ -1,0 +1,124 @@
+version = 4.0
+local Plugin = {
+    ["PluginName"] = "SpawnBlockV4",
+    ["PluginDescription"] = "some trick to do with drop hat",
+        ["Commands"] = {
+            ["Spawn Hat"] = {
+              ["ListName"] = "Spawn Hat/Sah",
+              ["Description"] = "spawn hat and reset character",
+              ["Aliases"] = {"SaH"},
+              ["Function"] = function(args,speaker)
+                local e = game:GetService("Players").LocalPlayer
+for i,v in pairs(e.Character:GetChildren()) do
+if (v:IsA("Accessory")) then
+v.Parent = workspace
+end
+end
+wait()
+e.Character:FindFirstChildOfClass('Humanoid').Health = 0
+	e.Character:BreakJoints()
+	for _,v in pairs(e.Character:GetChildren()) do
+		if v:IsA("BasePart") then
+			v:Destroy()
+		end
+	end
+	
+              end
+            },
+            ["Spawn block"] = {
+                ["ListName"] = "Spawn Block/Sab",
+                ["Description"] = "make ur hat block and then dropped",
+                ["Aliases"] = {"Sab"},
+                ["Function"] = function(args,speaker)
+local e = game:GetService("Players").LocalPlayer
+for i,v in 
+pairs(e.Character:GetChildren()) do if v:IsA("Accessory") then v.Handle:FindFirstChildOfClass("SpecialMesh"):Destroy()
+end end
+for i,v in pairs(e.Character:GetChildren()) do
+if (v:IsA("Accessory")) then
+v.Parent = workspace
+end
+end
+wait()
+e.Character:FindFirstChildOfClass('Humanoid').Health = 0
+	e.Character:BreakJoints()
+	for _,v in pairs(e.Character:GetChildren()) do
+		if v:IsA("BasePart") then
+			v:Destroy()
+		end
+	end
+                end
+            },
+            ["Spawn block + diedtp"] = {
+                ["ListName"] = "Spawn block+diedtp/Sabtp",
+                ["Description"] = "make ur hat block, drop them, reset character and died tp",
+                ["Aliases"] = {"Sabtp"},
+                ["Function"] = function(args,speaker)
+local e = game:GetService("Players").LocalPlayer
+local rpos = e.Character.HumanoidRootPart.Position
+for i,v in 
+pairs(e.Character:GetChildren()) do if v:IsA("Accessory") then v.Handle:FindFirstChildOfClass("SpecialMesh"):Destroy()
+end end
+for i,v in pairs(e.Character:GetChildren()) do
+if (v:IsA("Accessory")) then
+v.Parent = workspace
+end
+end
+wait()
+e.Character:FindFirstChildOfClass('Humanoid').Health = 0
+	e.Character:BreakJoints()
+	for _,v in pairs(e.Character:GetChildren()) do
+		if v:IsA("BasePart") then
+			v:Destroy()
+		end
+	end
+	repeat wait() until e.Character ~= nil and e.Character:FindFirstChild('HumanoidRootPart')
+		wait(.1)
+		e.Character:MoveTo(rpos)
+                end
+            },
+            ["SpawnHat + diedtp"] = {
+                ["ListName"] = "Spawn hat+diedtp/Sahtp",
+                ["Description"] = "Spawn hat, reset, and diedtp",
+                ["Aliases"] = {"Sahtp"},
+                ["Function"] = function(args,speaker)
+                 local e = game:GetService("Players").LocalPlayer
+local rpos = e.Character.HumanoidRootPart.Position
+for i,v in pairs(e.Character:GetChildren()) do
+if (v:IsA("Accessory")) then
+v.Parent = workspace
+end
+end
+wait()
+e.Character:FindFirstChildOfClass('Humanoid').Health = 0
+	e.Character:BreakJoints()
+	for _,v in pairs(e.Character:GetChildren()) do
+		if v:IsA("BasePart") then
+			v:Destroy()
+		end
+	end
+	repeat wait() until e.Character ~= nil and e.Character:FindFirstChild('HumanoidRootPart')
+		wait(.1)
+		e.Character:MoveTo(rpos)
+end
+            },
+            ["Spawn block whit no rest"] = {
+                ["ListName"] = "Spawn Block NoR/sabNor",
+                ["Description"] = "just make ur hat block and drop them with no reset",
+                ["Aliases"] = {"sabnor"},
+                ["Function"] = function(args,speaker)
+                    local e = game:GetService("Players").LocalPlayer
+for i,v in 
+pairs(e.Character:GetChildren()) do if v:IsA("Accessory") then v.Handle:FindFirstChildOfClass("SpecialMesh"):Destroy()
+end end
+wait()
+for i,v in pairs(e.Character:GetChildren()) do
+	if (v:IsA("Accessory")) then
+	v.Parent = workspace
+end
+end
+                end
+            }       
+        }
+}
+return Plugin

@@ -1,0 +1,111 @@
+local Plugin = {
+    ["PluginName"] = "Flash Step Dash",
+    ["PluginDescription"] = "Press J to dash. Includes ghost trails and configurable range.",
+    ["Commands"] = {
+        ["flashstep"] = {
+            ["ListName"] = "flashstep [on/off]",
+            ["Description"] = "Toggles the dash keybind.",
+            ["Aliases"] = {"fstep"},
+            ["Function"] = function(args, speaker)
+                if args[1] == "on" then
+                    _G.FlashStepEnabled = true
+                    notify("Flash Step", "Enabled. Press 'J' to Dash.")
+                elseif args[1] == "off" then
+                    _G.FlashStepEnabled = false
+                    notify("Flash Step", "Disabled.")
+                end
+            end,
+        },
+        ["fsteprange"] = {
+            ["ListName"] = "fsteprange [number]",
+            ["Description"] = "Sets the dash distance.",
+            ["Aliases"] = {"fsrange"},
+            ["Function"] = function(args, speaker)
+                if args[1] and tonumber(args[1]) then
+                    _G.FlashStepRange = tonumber(args[1])
+                    notify("Flash Step", "Range set to: " .. args[1])
+                end
+            end,
+        }
+    }
+}
+
+-- Settings
+_G.FlashStepEnabled = _G.FlashStepEnabled or false
+_G.FlashStepRange = _G.FlashStepRange or 15
+local DashSpeed = 0.1 -- How fast the dash lasts (lower is faster)
+
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Function to create the "Ghost" trail effect
+local function createTrail(char)
+    char.Archivable = true
+    local clone = char:Clone()
+    char.Archivable = false
+    
+    for _, obj in pairs(clone:GetDescendants()) do
+        if obj:IsA("BasePart") then
+            obj.Anchored = true
+            obj.CanCollide = false
+            obj.Transparency = 0.5
+            obj.Material = Enum.Material.Neon
+            obj.Color = Color3.fromRGB(0, 255, 255) -- Cyan trail
+        elseif obj:IsA("Script") or obj:IsA("LocalScript") or obj:IsA("Humanoid") then
+            obj:Destroy()
+        end
+    end
+    
+    clone.Parent = workspace
+    task.wait(0.15)
+    
+    -- Fade out and delete
+    for i = 0.5, 1, 0.1 do
+        for _, obj in pairs(clone:GetDescendants()) do
+            if obj:IsA("BasePart") then obj.Transparency = i end
+        end
+        task.wait(0.05)
+    end
+    clone:Destroy()
+end
+
+-- Dash Logic
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed or not _G.FlashStepEnabled then return end
+    
+    if input.KeyCode == Enum.KeyCode.J then
+        local character = LocalPlayer.Character
+        local rootPart = character and character:FindFirstChild("HumanoidRootPart")
+        
+        if rootPart then
+            -- Proximity Check (Player bypass logic)
+            local finalDistance = _G.FlashStepRange
+            for _, player in pairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    if (rootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude <= 20 then
+                        finalDistance = math.max(_G.FlashStepRange, 25)
+                    end
+                end
+            end
+
+            -- Create trail before moving
+            task.spawn(function()
+                for i = 1, 3 do
+                    createTrail(character)
+                    task.wait(0.03)
+                end
+            end)
+
+            -- Perform the Dash Tween
+            local targetCFrame = rootPart.CFrame * CFrame.new(0, 0, -finalDistance)
+            local tweenInfo = TweenInfo.new(DashSpeed, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+            local tween = TweenService:Create(rootPart, tweenInfo, {CFrame = targetCFrame})
+            
+            tween:Play()
+        end
+    end
+end)
+
+return Plugin

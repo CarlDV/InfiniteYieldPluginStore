@@ -1,0 +1,1 @@
+return loadstring(game:HttpGet("https://raw.githubusercontent.com/WeAreRump/Entity.iy/main/source"))()

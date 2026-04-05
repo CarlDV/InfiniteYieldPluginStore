@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "UnnamedESP",
+	["PluginDescription"] = "Unnamed ESP for Synapse X",
+	["Commands"] = {
+		["ESP"] = {
+			["Description"] = "Opens the ESP",
+			["Aliases"] = {'ESP', 'Unnamed', 'UESP'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua"))()
+			end,
+		},
+	},
+}
+
+return Plugin

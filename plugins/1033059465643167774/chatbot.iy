@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "chatbot",
+    ["PluginDescription"] = "Cool Chatbot made by yours truly ! $ ive seen sunlight#6040",
+    ["Commands"] = {
+        ["chatbot"] = {
+            ["ListName"] = "chatbot [cooldown time]",
+            ["Description"] = "Fires chatbot with cooldown (set 0 for cooldown disabled)",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+		print("ran")
+		if tonumber(args[1]) == 0 then
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/MRMANSCRIpt/SSAF/main/ChatBot'))()
+			getgenv().cooldown = false;
+		else
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/MRMANSCRIpt/SSAF/main/ChatBot'))()
+			getgenv().cooldown = true;
+			getgenv().cdtime = tonumber(args[1]);
+		end
+            end
+        }
+     }
+}
+
+return Plugin

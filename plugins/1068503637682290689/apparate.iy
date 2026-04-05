@@ -1,0 +1,18 @@
+local Plugin={
+    ['PluginName']='Apparate',
+    ['PluginDescription']='Teleport <studs> number of studs forward/backward',
+    ['Commands']={
+        ['apparate']={
+            ['ListName']='apparate / aprt [studs]',
+            ['Description']='Negative numbers will teleport you backwards',
+            ['Aliases']={'apparate','aprt'},
+            ['Function']=function(args,speaker)
+                if isNumber(args[1])and speaker.Character then
+                    speaker.Character:PivotTo(getRoot(speaker.Character):GetPivot()*CFrame.new(0,0,-tonumber(args[1])))
+                end
+            end
+        }
+    }
+}
+ 
+return Plugin

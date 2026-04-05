@@ -1,0 +1,27 @@
+local plugin = {
+    ["PluginName"] = "anti-cheat-bypass";
+    ["PluginDescription"] = "Bypass the walkspeed and the jump power anticheat. It is recommended to set it to run on char spawn.";
+    ["Commands"] = {
+        ["bypassac"] = {
+            ["ListName"] = "bypassac";
+            ["Description"] = "Bypass the anti cheat that prevent you from changing your walkspeed and jumppower.";
+            ["Aliases"] = {};
+            ["Function"] = function(args,speaker)
+                local Players = game:GetService('Players')
+                local LocalPlayer = Players.LocalPlayer
+                local Character = LocalPlayer.Character
+                local Humanoid = Character.Humanoid
+                if not getconnections then
+                    notify("Incompatible exploit","Error: your exploit don't support this plugin. You need to have a exploit that must have the custom function \"getconnections\"");
+                    error("Your exploit don't support this plugin. You need to have a exploit that must have the custom function \"getconnections\". Plugin execution ended.");
+                end;
+                for _,signal in pairs( getconnections(speaker.Character.Humanoid.Changed) ) do
+                    signal:Disable()
+                end
+                addspawn("bypassac",0)
+            end
+        }
+    }
+}
+
+return plugin

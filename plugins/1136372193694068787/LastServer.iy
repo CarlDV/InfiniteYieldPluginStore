@@ -1,0 +1,33 @@
+game:GetService("Players").PlayerRemoving:Connect(function(plr)
+    if plr == game.Players.LocalPlayer then
+        local currentServer = {
+            PlaceId = game.PlaceId,
+            JobId = game.JobId
+        }
+        writefile("lastServer.json", game:GetService('HttpService'):JSONEncode(currentServer))
+    end
+end)
+
+local Plugin = {
+    ["PluginName"] = "LastServer",
+    ["PluginDescription"] = "Join the previous server you were in",
+    ["Commands"] = {
+        ["lastserver"] = {
+            ["Aliases"] = {"ls"},
+            ["ListName"] = "LastServer / ls",
+            ["Description"] = "Join the previous server you were in",
+            ["Function"] = function()
+                local File = pcall(function()
+                    lastServer = game:GetService('HttpService'):JSONDecode(readfile("lastServer.json"))
+                end)
+                if File then
+                    game:GetService("TeleportService"):TeleportToPlaceInstance(lastServer.PlaceId, lastServer.JobId, game.Players.LocalPlayer)
+                else
+                    notify("Last server could not be found.")
+                end
+            end
+        }
+    }
+}
+
+return Plugin

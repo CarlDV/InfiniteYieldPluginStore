@@ -1,0 +1,55 @@
+taunts = {
+   'noob',
+   'get OUT',
+   'jifwbefnkjefk',
+   'kid',
+   'HAHAHAHAHA KID UR 9',
+   'shutuiop',
+   'SHUTUP NOOB',
+   'LEAVE OR REPORT',
+   'bro i going to report to ROBLOX',
+   'im the best at this game',
+   'this game SUCKS',
+   'roblox SUCKS',
+   'MY PARENTS OWN ROBLOX STOP TROLL',
+   'I HAVE MORE ROBUX THAN U POOR KID',
+   'ur noob go away',
+   'OUT',
+   'NOOB',
+   '!#1#@#!@EH1UIRH1U2GRU838712G!!!!!!!',
+   'jibewfuegbieygew',
+   'reported',
+   'lol noob',
+   'get RKT',
+   'imma beat you up',
+   'GRRRRRRRRR',
+   'STOP NOOB',
+   '>:(',
+   ':/',
+   '>:C',
+   '>:[',
+   'ECKS DEEEEE',
+   'get rekt noob xd ur bad',
+   '54CK YOU N00B HACKER',
+   'OMGEE HACKUR',
+   'ABOVE IS NOOB AND GAY',
+   'BELOW IS NOOB ANF GAY'
+}
+
+local Plugin = {
+    ["PluginName"] = "Taunts",
+    ["PluginDescription"] = "Chat a random taunt",
+    ["Commands"] = {
+        ["Taunt"] = {
+            ["ListName"] = "taunt [Plr]",
+            ["Description"] = "Makes you chat a taunt",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				local reply = taunts[math.random(1, #taunts)]
+				execCmd('chat '..reply)
+            end
+        },
+    },
+}
+
+return Plugin

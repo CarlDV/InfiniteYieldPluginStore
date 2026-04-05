@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "assassinsilentaim",
+    ["PluginDescription"] = "silentaimforassassindumbass",
+    ["Commands"] = {
+        ["shitter"] = {
+            ["ListName"] = "assassin / silentaim / assassinsilentaim",
+            ["Description"] = "guess",
+            ["Aliases"] = {"assassin", "silentaim", "assassinsilentaim"},
+            ["Function"] = function(args,speaker)
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/bockatta/Shitter/main/Loader'))()
+            end,
+        },
+    },
+}
+
+return Plugin

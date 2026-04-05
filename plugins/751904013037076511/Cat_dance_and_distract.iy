@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "Dance",
+    ["PluginDescription"] = "dances R6",
+    ["Commands"] = {
+        ["CatDance"] = {
+            ["ListName"] = "CatDance",
+            ["Description"] = "Dance like a Loli",
+            ["Aliases"] = {"CatDance"},
+            ["Function"] = function(args,speaker)
+              loadstring(game:HttpGet("https://pastebin.com/raw/2UW0kvH5"))();                
+            end       
+        },
+        ["Distract"] = {
+            ["ListName"] = "Distract",
+            ["Description"] = "Quick Do something!",
+            ["Aliases"] = {"Distract"},
+            ["Function"] = function(args,speaker)
+              loadstring(game:HttpGetAsync("https://pastebin.com/raw/m9Re7Bmc"))()               
+            end     
+        }
+    }
+}
+
+return Plugin

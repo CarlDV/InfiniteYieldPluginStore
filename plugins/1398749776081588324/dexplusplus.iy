@@ -1,0 +1,27 @@
+local Plugin = {
+    ["PluginName"] = "Dex++",
+    ["PluginDescription"] = "Adds Dex++ and Dex Stripped to Infinite Yield commands.",
+    ["Commands"] = {
+        ["dex++"] = {
+            ["ListName"] = "dex++ / dexpp / dexplusplus",
+            ["Description"] = "Loads Dex++ by Chillz which has alot of features and fixes.",
+            ["Aliases"] = {'dexpp','chillzdex','dpp','dexplusplus'},
+            ["Function"] = function(args,speaker)
+		-- loads latest dex
+                loadstring(game:HttpGet("https://github.com/AZYsGithub/DexPlusPlus/releases/latest/download/out.lua"))()
+            end
+        },
+	["dexstripped"] = {
+            ["ListName"] = "dexstripped / dexs / dexcore",
+            ["Description"] = "Loads Stripped Dex++ by Chillz with bare minimum features.",
+            ["Aliases"] = {'strippeddex','dexs','dexcore','dexstrip'},
+            ["Function"] = function(args,speaker)
+		-- loads stripped dex
+                loadstring(game:HttpGet("https://github.com/AZYsGithub/DexPlusPlus/releases/download/stripped-2.1/out.lua"))()
+            end
+        }
+
+    }
+}
+
+return Plugin

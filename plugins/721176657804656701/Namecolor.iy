@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Namecolor",
+	["PluginDescription"] = "Changes name color",
+	["Commands"] = {
+		["Namecolor"] = {
+			["Description"] = "Opens Namecolor changer",
+			["Aliases"] = {'name1', 'name2', 'name3'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/14yYq8NH"))()
+			end,
+		},
+	},
+}
+
+return Plugin

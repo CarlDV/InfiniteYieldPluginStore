@@ -1,0 +1,143 @@
+local Plugin = {
+    ["PluginName"] = "Brookhaven Commands",
+    ["PluginDescription"] = "Some simple commands that work in brookhaven. DM Minx#0005 with any issues!",
+    ["Commands"] = {
+        ["brookhavenkillall"] = {
+            ["ListName"] = "brookhavenkillall",
+            ["Description"] = "Uses the lawnmower tool to kill everyone. (ONLY WORKS IN BROOKHAVEN)",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                if not speaker.Backpack:FindFirstChild("LawnMower") and not speaker.Character:FindFirstChild("LawnMower") then
+                    game.ReplicatedStorage.RemoteEvents.Tools44772:InvokeServer("PickingTools","LawnMower")
+                end
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if not v then
+                        notify("Skipped","Skipped the player "..v.Name.." because they left.")
+                    elseif v.Character.Humanoid.Sit == true then
+                        notify("Skipped","Skipped the player "..v.Name.." because they are sitting.")
+                    elseif v ~= speaker then
+                        local captured = false
+                        while captured==false do
+                            if not v then
+                                captured = true
+                                notify("Skipped","Skipped the player "..v.Name.." because they left.")
+                            elseif not speaker.Character:FindFirstChild("HumanoidRootPart") then
+                                warn("Cannot find humanoidrootpart")
+                            elseif v.Character.Humanoid.Sit == true and speaker.Character:FindFirstChild("LawnMower"):FindFirstChild("Seat").Occupant == nil then
+                                captured = true
+                                notify("Skipped","Skipped the player "..v.Name.." because they are sitting.")
+                            elseif speaker.Character:FindFirstChild("HumanoidRootPart") then
+                                if speaker.Character:WaitForChild("Humanoid").Sit == true then
+                                    speaker.Character.Humanoid.Jump = true
+                               end
+                                if speaker.Backpack:FindFirstChild("LawnMower") then
+                                    speaker.Character.Humanoid:EquipTool(speaker.Backpack.LawnMower)
+                                end
+                                local position = Vector3.new(v.Character.HumanoidRootPart.Position.X,v.Character.HumanoidRootPart.Position.Y,v.Character.HumanoidRootPart.Position.Z-5)
+                                local look = v.Character.HumanoidRootPart.Position
+                                speaker.Character.HumanoidRootPart.CFrame = CFrame.new(position,look)
+                                if speaker.Character.LawnMower.Seat.Occupant ~= nil then
+                                    captured = true
+                                    speaker.Character.HumanoidRootPart.CFrame = CFrame.new(999999, workspace.FallenPartsDestroyHeight + 1.5,999999)
+                                end
+                            end
+                            wait(.1)
+                        end
+                    end
+                end
+                notify("Done","Killed everyone.")
+            end
+        },
+        ["brookhavenkill"] = {
+            ["ListName"] = "brookhavenkill [player]",
+            ["Description"] = "Uses the lawnmower tool to kill the selected player. (ONLY WORKS IN BROOKHAVEN)",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                if not speaker.Backpack:FindFirstChild("LawnMower") and not speaker.Character:FindFirstChild("LawnMower") then
+                    game.ReplicatedStorage.RemoteEvents.Tools44772:InvokeServer("PickingTools","LawnMower")
+                end
+                local found = false
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if string.lower(string.sub(v.Name,0,#args[1])) == string.lower(args[1]) and found==false then
+                        found = true
+                        local captured = false
+                        while captured==false do
+                            if not v then
+                                captured = true
+                                notify("Unable to kill","The player "..v.Name.." has left.")
+                            elseif not speaker.Character:FindFirstChild("HumanoidRootPart") then
+                                warn("Cannot find humanoidrootpart")
+                            elseif v.Character.Humanoid.Sit == true and speaker.Character:FindFirstChild("LawnMower"):FindFirstChild("Seat").Occupant == nil then
+                                captured = true
+                                notify("Unable to kill","The player "..v.Name.." is sitting.")
+                            elseif speaker.Character:FindFirstChild("HumanoidRootPart") then
+                                if speaker.Character:WaitForChild("Humanoid").Sit == true then
+                                    speaker.Character.Humanoid.Jump = true
+                               end
+                                if speaker.Backpack:FindFirstChild("LawnMower") then
+                                    speaker.Character.Humanoid:EquipTool(speaker.Backpack.LawnMower)
+                                end
+                                local position = Vector3.new(v.Character.HumanoidRootPart.Position.X,v.Character.HumanoidRootPart.Position.Y,v.Character.HumanoidRootPart.Position.Z-5)
+                                local look = v.Character.HumanoidRootPart.Position
+                                speaker.Character.HumanoidRootPart.CFrame = CFrame.new(position,look)
+                                if speaker.Character.LawnMower.Seat.Occupant ~= nil then
+                                    captured = true
+                                    speaker.Character.HumanoidRootPart.CFrame = CFrame.new(999999, workspace.FallenPartsDestroyHeight + 1.5,999999)
+                                    notify("Done","Killed "..v.Name)
+                                end
+                            end
+                            wait(.1)
+                        end
+                    end
+                end
+            end
+        },
+        ["brookhavenbring"] = {
+            ["ListName"] = "brookhavenbring [player]",
+            ["Description"] = "Uses the lawnmower tool to bring the selected player. (ONLY WORKS IN BROOKHAVEN)",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                if not speaker.Backpack:FindFirstChild("LawnMower") and not speaker.Character:FindFirstChild("LawnMower") then
+                    game.ReplicatedStorage.RemoteEvents.Tools44772:InvokeServer("PickingTools","LawnMower")
+                end
+                local found = false
+                for i,v in pairs(game.Players:GetChildren()) do
+                    if string.lower(string.sub(v.Name,0,#args[1])) == string.lower(args[1]) and found==false then
+                        found = true
+                        local captured = false
+                        local oldcframe = speaker.Character.HumanoidRootPart.CFrame
+                        while captured==false do
+                            if not v then
+                                captured = true
+                                notify("Unable to bring","The player "..v.Name.." has left.")
+                            elseif not speaker.Character:FindFirstChild("HumanoidRootPart") then
+                                warn("Cannot find humanoidrootpart")
+                            elseif v.Character.Humanoid.Sit == true and speaker.Character:FindFirstChild("LawnMower"):FindFirstChild("Seat").Occupant == nil then
+                                captured = true
+                                notify("Unable to bring","The player "..v.Name.." is sitting.")
+                            elseif speaker.Character:FindFirstChild("HumanoidRootPart") then
+                                if speaker.Character:WaitForChild("Humanoid").Sit == true then
+                                    speaker.Character.Humanoid.Jump = true
+                               end
+                                if speaker.Backpack:FindFirstChild("LawnMower") then
+                                    speaker.Character.Humanoid:EquipTool(speaker.Backpack.LawnMower)
+                                end
+                                local position = Vector3.new(v.Character.HumanoidRootPart.Position.X,v.Character.HumanoidRootPart.Position.Y,v.Character.HumanoidRootPart.Position.Z-5)
+                                local look = v.Character.HumanoidRootPart.Position
+                                speaker.Character.HumanoidRootPart.CFrame = CFrame.new(position,look)
+                                if speaker.Character.LawnMower.Seat.Occupant ~= nil then
+                                    captured = true
+                                    speaker.Character.HumanoidRootPart.CFrame = oldcframe
+                                    notify("Done","Brought "..v.Name)
+                                end
+                            end
+                            wait(.1)
+                        end
+                    end
+                end
+            end
+        }
+    }
+}
+
+return Plugin

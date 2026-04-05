@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "SingInChat", 
+	["PluginDescription"] = "Makes you sing in the chat", 
+	["Commands"] = {
+		["sing"] = {
+			["ListName"] = "sing [delay] [song]",
+			["Description"] = "balls",
+			["Aliases"] = {"sing"},
+			["Function"] = function(args,speaker)
+			 local a=getstring(2)request=game:HttpGet("https://lyrics.flc.bar/search?song="..a)decoded=game.HttpService:JSONDecode(request)local b={}for c in decoded.lyrics:gmatch("[^\r\n]+")do table.insert(b,c)end;for c,d in pairs(b)do wait(args[1])game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(d,"All")end
+			end
+		}
+	}
+}
+return Plugin

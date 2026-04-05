@@ -1,0 +1,40 @@
+local Plugin = {
+    ["PluginName"] = "UsefulPlugin",
+    ["PluginDescription"] = "bottom text",
+    ["Commands"] = {
+        ["god"] = {
+            ["ListName"] = "god",
+            ["Description"] = "clones humanoid",
+            ["Aliases"] = {"godmode"},
+            ["Function"] = function(args,speaker)
+				local player = game.Players.LocalPlayer
+				player.Character.Humanoid.Name = "1"
+				local l = player.Character["1"]:Clone()
+				l.Parent = player.Character
+				l.Name = "Humanoid"; wait(0.1)
+				player.Character["1"]:Destroy()
+				workspace.CurrentCamera.CameraSubject = player.Character.Humanoid
+				player.Character.Animate.Disabled = true; wait(0.1)
+				player.Character.Animate.Disabled = false
+				l.BreakJointsOnDeath = false
+            end
+        },
+        ["invis"] = {
+            ["ListName"] = "invis",
+            ["Description"] = "clones hrp",
+            ["Aliases"] = {"invisible"},
+            ["Function"] = function(args,speaker)
+                local player = game.Players.LocalPlayer
+				player.Character.HumanoidRootPart.Name = "1"
+				local l = player.Character["1"]:Clone()
+				l.Parent = player.Character
+				l.Name = "HumanoidRootPart"; wait(0.1)
+				player.Character["1"]:Destroy()
+				player.Character.Animate.Disabled = true; wait(0.1)
+				player.Character.Animate.Disabled = false
+            end
+        }
+    }
+}
+
+return Plugin

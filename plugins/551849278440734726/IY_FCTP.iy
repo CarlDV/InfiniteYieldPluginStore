@@ -1,0 +1,70 @@
+-- Changed how things work, I would say for the better
+local notifications = true -- Change to false for a permanent solution
+
+local errMsg = {
+	[1] = "Error: Player needs to be in freecam.",
+	[2] = "Error: Player missing Character.",
+	[3] = "Error: Player missing HumanoidRootPart.",
+	[4] = "Error: Invalid coordinates.",
+	[5] = "Error: Player does not exist."
+}
+
+local Plugin = {
+	["PluginName"] = "Freecam Teleport",
+	["PluginDescription"] = "Adds a teleport command for freecam",
+	["Commands"] = {
+		["fctp"] = {
+			["ListName"] = "fcgoto / fctp [plr]",
+			["Description"] = "Teleports to [plr]",
+			["Aliases"] = {"fcgoto", "freecamteleport"},
+			["Function"] = function(args, speaker)
+				local plrChar = speaker.Character
+				if plrChar then
+					local fc = plrChar:FindFirstChild("xFC")
+					if fc then
+						local plrList = getPlayer(args[1], speaker)
+						for i,v in pairs(plrList) do
+							print(i, v)
+						end
+						if #plrList > 0 then
+							local plr = Players[plrList[1]]
+							local pChar = plr.Character
+							local pHum =  pChar:FindFirstChild("HumanoidRootPart")
+							if pChar and pHum then
+								fc.CFrame = pHum.CFrame
+							else
+								notify(errMsg[not pChar and 2 or 3])
+							end
+						else
+							notify(errMsg[5])
+						end
+					else
+						notify(errMsg[1])
+					end
+				end
+			end,
+		},
+		["fctppos"] = {
+			["ListName"] = "fcgotopos / fctppos [x] [y] [z]",
+			["Description"] = "Teleports to [x] [y] [z]",
+			["Aliases"] = {"fcgotopos", "freecamteleportposition"},
+			["Function"] = function(args, speaker)
+				local plrChar = speaker.Character
+				if plrChar then
+					local fc = plrChar:FindFirstChild("xFC")
+					if fc then
+						if #args == 3 then
+							fc.CFrame = CFrame.new(tonumber(args[1]), tonumber(args[2]), tonumber(args[3]))
+						else
+							notify(errMsg[4])
+						end
+					else
+						notify(errMsg[1])
+					end
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

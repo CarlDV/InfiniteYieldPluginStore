@@ -1,0 +1,151 @@
+--[[ | Core | ]]--
+
+
+local Core										=					{};
+
+
+--[[ | Services | ]]--
+
+
+Core.Services								=					setmetatable(
+	{
+		
+	},
+	{
+		__index									=					function(_, Request)
+			local FoundRequest;
+			local Found, Error					=					pcall(function()
+				FoundRequest					=					game:GetService(Request);
+			end)
+			if Found then
+				return FoundRequest;
+			else
+				return nil, warn('Services : ', Request, ' Error : ', Error);
+			end
+		end
+	}
+);
+
+
+--[[ | Client | ]]--
+
+
+Core.Client										=					setmetatable(
+	{
+		
+	},
+	{
+		__index									=					function(_, Request)
+			local FoundRequest;
+			local Found, Error					=					pcall(function()
+				if rawequal(Request, 'Camera') or rawequal(Request, 'CurrentCamera') then
+					FoundRequest				=					Core.Services.Workspace.CurrentCamera;
+				elseif rawequal(Request, 'Mouse') then
+					FoundRequest				=					Core.Services.Players.LocalPlayer:GetMouse();
+				elseif rawequal(Request, 'Player') then
+					FoundRequest				=					Core.Services.Players.LocalPlayer;
+				else
+					FoundRequest				=					Core.Services.Players.LocalPlayer[Request];
+				end;
+			end);
+				
+			if Found then
+				return FoundRequest;
+			else
+				return nil, warn('Client : ', Request, ' Error : ', Error);
+			end
+		end;
+	}
+);
+		
+
+--[[ | Storage | ]]--
+
+
+Core.Storage									=					
+{
+	PreventIdle									=					
+	{
+		Enabled									=					false;
+		Last									=					tick();
+	};
+};
+
+
+--[[ | Tasks | ]]--
+
+
+Core.Tasks										=					{};
+
+
+--[[ | Prevent Idle | ]]--
+
+
+Core.Tasks.PreventIdle							=					function()
+	local VirtualUser							=					Core.Services.VirtualUser;
+	VirtualUser:CaptureController();
+	VirtualUser:Button2Down(Vector2.new());
+	VirtualUser:Button2Up(Vector2.new());
+end;
+
+
+--[[ | Enabled | ]]--
+
+
+Core.Tasks.Enabled								=					function()
+	Core.Storage.PreventIdle.Enabled			=					true;
+	notify('Idle Preventor', 'Has been enabled!');
+end;
+
+
+--[[ | Disable | ]]--
+
+
+Core.Tasks.Disable								=					function()
+	Core.Storage.PreventIdle.Enabled			=					false;
+	notify('Idle Preventor', 'Has been disabled!');
+end;
+
+
+--[[ | IdleManager | ]]--
+
+
+Core.Tasks.IdleManager							=					Core.Services.RunService:BindToRenderStep('IdlePreventor', Enum.RenderPriority.Last.Value, function()
+	if Core.Storage.PreventIdle.Enabled then
+		if (tick() - Core.Storage.PreventIdle.Last) >= 20 then
+			Core.Tasks.PreventIdle();
+			Core.Storage.PreventIdle.Last		=					tick();
+		end;
+	end;
+end);
+
+
+--[[ | Plugin | ]]--
+
+
+Core.Tasks.Plugin								=					
+{
+	['PluginName']								=					'Idle Preventor';
+	['PluginDescription']						=					'Prevents player from entering a idle state';
+	['Commands']								=					
+	{
+		['Idle']								=					
+		{
+			['ListName']						=					'Idle [bool]';
+			['Description']						=					'Enables or Disabled IdlePreventor';
+			['Aliases']							=					{};
+			['Function']						=					function(Arguments, Speaker)
+				local Enabled					=					Arguments[1];
+				if Enabled:lower() == 'true' or Enabled:lower() == 'enable' then
+					Core.Tasks.Enabled();
+				elseif Enabled:lower() == 'false' or Enabled:lower() == 'disable' then
+					Core.Tasks.Disable();
+				end;
+			end;
+		};
+	};
+};
+
+notify('Idle Preventor', 'is disabled please execute "idle true" to enabled and "idle false" to disable!');
+
+return Core.Tasks.Plugin;

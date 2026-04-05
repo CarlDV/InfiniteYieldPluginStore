@@ -7,9 +7,33 @@ import sys
 import logging
 from datetime import datetime, timezone
 
-TOKEN = os.environ.get("DISCORD_TOKEN")
+TOKEN = os.getenv("DISCORD_TOKEN")
 CHANNEL_ID = 551846012310782014
 OUTPUT_PATH = os.path.join(os.path.dirname(__file__), "..", "..", "data", "plugins.json")
+
+
+def extract_loadstring_urls(code):
+    """Extract URLs from loadstring(game:HttpGet(...)) patterns.
+    
+    Returns a list of URL strings found inside loadstring calls.
+    """
+    if not code or not code.strip():
+        return []
+
+    urls = []
+
+    patterns = [
+        r'loadstring\s*\(\s*game\s*:\s*HttpGet\s*\(\s*["\']([^"\']+)["\']\s*\)',
+        r'loadstring\s*\(\s*game\s*:\s*GetObjects\s*\(\s*["\']([^"\']+)["\']\s*\)',
+        r'loadstring\s*\(\s*httpGet\s*\(\s*["\']([^"\']+)["\']\s*\)',
+        r'loadstring\s*\(\s*readfile\s*\(\s*["\']([^"\']+)["\']\s*\)',
+    ]
+    for pat in patterns:
+        for match in re.findall(pat, code, re.IGNORECASE):
+            if match not in urls:
+                urls.append(match)
+
+    return urls
 
 
 class PluginScraper(discord.Client):
@@ -169,6 +193,17 @@ class PluginScraper(discord.Client):
 
         plugin["name"] = self.extract_plugin_name(plugin)
 
+        # --- Loadstring URL extraction ---
+        all_code = []
+        for att in plugin["attachments"]:
+            if att.get("code"):
+                all_code.append(att["code"])
+        for cb in plugin["code_blocks"]:
+            all_code.append(cb)
+
+        combined_code = "\n".join(all_code)
+        plugin["loadstring_urls"] = extract_loadstring_urls(combined_code)
+
         return plugin
 
     def extract_plugin_name(self, plugin):
@@ -191,8 +226,28 @@ class PluginScraper(discord.Client):
         return f"Plugin #{plugin['id'][-6:]}"
 
     def save_plugins(self):
-        """Save collected plugins to JSON file."""
+        """Save collected plugins to JSON file and write .iy files locally."""
         os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
+
+        # Save .iy files to plugins/ directory
+        plugins_dir = os.path.join(os.path.dirname(OUTPUT_PATH), "..", "plugins")
+        os.makedirs(plugins_dir, exist_ok=True)
+        files_saved = 0
+
+        for plugin in self.plugins:
+            for att in plugin["attachments"]:
+                if att.get("is_plugin_file") and att.get("code"):
+                    # Save to plugins/<message_id>/<filename>
+                    plugin_dir = os.path.join(plugins_dir, plugin["id"])
+                    os.makedirs(plugin_dir, exist_ok=True)
+                    file_path = os.path.join(plugin_dir, att["filename"])
+                    with open(file_path, 'w', encoding='utf-8') as f:
+                        f.write(att["code"])
+                    # Update URL to local path
+                    att["url"] = f"plugins/{plugin['id']}/{att['filename']}"
+                    files_saved += 1
+
+        print(f"Saved {files_saved} plugin files to {plugins_dir}")
 
         output = {
             "scraped_at": datetime.now(timezone.utc).isoformat(),

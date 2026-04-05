@@ -1,0 +1,151 @@
+local Plugin = {
+    ["PluginName"] = "NPC Hitbox",
+    ["PluginDescription"] = "Increases all NPCs hitbox size",
+    ["Commands"] = {
+        ["npchitbox"] = {
+            ["Function"] = function(args)
+                local p = game:GetService("Players").LocalPlayer
+                
+                local function getNPCs()
+                    local npcs = {}
+                    local character = p.Character
+                    
+                    for _, obj in pairs(workspace:GetDescendants()) do
+                        if obj:IsA("Model") and obj:FindFirstChildOfClass("Humanoid") then
+                            local isPlayer = false
+                            for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+                                if player.Character == obj then
+                                    isPlayer = true
+                                    break
+                                end
+                            end
+                            
+                            if not isPlayer then
+                                local rootPart = obj:FindFirstChild("HumanoidRootPart") or obj:FindFirstChild("Torso") or obj:FindFirstChild("UpperTorso")
+                                if rootPart then
+                                    table.insert(npcs, {
+                                        Model = obj,
+                                        Root = rootPart,
+                                        Name = obj.Name
+                                    })
+                                end
+                            end
+                        end
+                    end
+                    return npcs
+                end
+                
+                local sizeArg = args[1] and tonumber(args[1]) or 10
+                local transparency = args[2] and tonumber(args[2]) or 0.4
+                local Size = Vector3.new(sizeArg, sizeArg, sizeArg)
+                
+                local npcs = getNPCs()
+                
+                for i, npcData in pairs(npcs) do
+                    if npcData.Root:IsA("BasePart") then
+                        if not npcData.Root:FindFirstChild("OriginalSize") then
+                            local originalSize = Instance.new("Vector3Value")
+                            originalSize.Name = "OriginalSize"
+                            originalSize.Value = npcData.Root.Size
+                            originalSize.Parent = npcData.Root
+                        end
+                        
+                        if not npcData.Root:FindFirstChild("OriginalTransparency") then
+                            local originalTransparency = Instance.new("NumberValue")
+                            originalTransparency.Name = "OriginalTransparency"
+                            originalTransparency.Value = npcData.Root.Transparency
+                            originalTransparency.Parent = npcData.Root
+                        end
+
+                        if not npcData.Root:FindFirstChild("OriginalColor") then
+                            local originalColor = Instance.new("Color3Value")
+                            originalColor.Name = "OriginalColor"
+                            originalColor.Value = npcData.Root.Color
+                            originalColor.Parent = npcData.Root
+                        end
+
+                        if not npcData.Root:FindFirstChild("OriginalMaterial") then
+                            local originalMaterial = Instance.new("StringValue")
+                            originalMaterial.Name = "OriginalMaterial"
+                            originalMaterial.Value = npcData.Root.Material.Name
+                            originalMaterial.Parent = npcData.Root
+                        end
+                        
+                        npcData.Root.CanCollide = false
+                        npcData.Root.Size = Size
+                        npcData.Root.Transparency = transparency
+                        npcData.Root.Color = Color3.fromRGB(128, 128, 128)
+                        npcData.Root.Material = Enum.Material.Plastic
+                    end
+                end
+            end
+        },
+        
+        ["npchitboxreset"] = {
+            ["Function"] = function(args)
+                local p = game:GetService("Players").LocalPlayer
+                
+                local function getNPCs()
+                    local npcs = {}
+                    
+                    for _, obj in pairs(workspace:GetDescendants()) do
+                        if obj:IsA("Model") and obj:FindFirstChildOfClass("Humanoid") then
+                            local isPlayer = false
+                            for _, player in pairs(game:GetService("Players"):GetPlayers()) do
+                                if player.Character == obj then
+                                    isPlayer = true
+                                    break
+                                end
+                            end
+                            
+                            if not isPlayer then
+                                local rootPart = obj:FindFirstChild("HumanoidRootPart") or obj:FindFirstChild("Torso") or obj:FindFirstChild("UpperTorso")
+                                if rootPart then
+                                    table.insert(npcs, {
+                                        Model = obj,
+                                        Root = rootPart,
+                                        Name = obj.Name
+                                    })
+                                end
+                            end
+                        end
+                    end
+                    return npcs
+                end
+                
+                local npcs = getNPCs()
+                
+                for i, npcData in pairs(npcs) do
+                    if npcData.Root:IsA("BasePart") then
+                        local originalSize = npcData.Root:FindFirstChild("OriginalSize")
+                        local originalTransparency = npcData.Root:FindFirstChild("OriginalTransparency")
+                        local originalColor = npcData.Root:FindFirstChild("OriginalColor")
+                        local originalMaterial = npcData.Root:FindFirstChild("OriginalMaterial")
+                        
+                        if originalSize then
+                            npcData.Root.Size = originalSize.Value
+                            originalSize:Destroy()
+                        end
+                        
+                        if originalTransparency then
+                            npcData.Root.Transparency = originalTransparency.Value
+                            originalTransparency:Destroy()
+                        end
+
+                        if originalColor then
+                            npcData.Root.Color = originalColor.Value
+                            originalColor:Destroy()
+                        end
+
+                        if originalMaterial then
+                            npcData.Root.Material = Enum.Material[originalMaterial.Value]
+                            originalMaterial:Destroy()
+                        end
+                    end
+                end
+            end
+        }
+    }
+}
+
+return Plugin

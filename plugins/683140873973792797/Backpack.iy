@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "backpack",
+	["PluginDescription"] = "backpack",
+	["Commands"] = {
+		["backpack"] = {
+			["Description"] = "oh no! Wheres my head?!",
+			["Aliases"] = {'bpack', 'bp', 'bag'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/Yj0ut03M", true))()
+			end,
+		},
+	},
+}
+
+return Plugin

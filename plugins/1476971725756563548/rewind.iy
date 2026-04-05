@@ -1,0 +1,127 @@
+local REWIND_SPEED_MULTIPLIER = 1
+local Plugin = {
+	["PluginName"] = "rewind",
+	["PluginDescription"] = "it's that one really old rewind script",
+	["Commands"] = {
+		["rewind"] = {
+			["ListName"] = "rewind",
+			["Description"] = "hold R to rewind in time",
+			["Aliases"] = { "nothing   3" },
+			["Function"] = function(args, speaker)
+
+local REWIND_KEY = Enum.KeyCode.R -- Rewind Keybind
+local REWIND_SECONDS = 120 -- How long Rewind Capture
+
+
+if getgenv().RewindScriptRunning then
+    getgenv().RewindScriptRunning = false
+    if getgenv().RewindConnection then
+        getgenv().RewindConnection:Disconnect()
+    end
+    task.wait(0.1)
+    print("Old config cleared. Applying new settings...")
+end
+
+-- Variables
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local player = game.Players.LocalPlayer
+
+local history = {}
+local maxStored = REWIND_SECONDS * 60 
+local isRewinding = false
+
+
+getgenv().RewindScriptRunning = true
+
+
+getgenv().RewindConnection = RunService.Heartbeat:Connect(function()
+    if not getgenv().RewindScriptRunning then 
+        getgenv().RewindConnection:Disconnect()
+        return 
+    end
+
+    local char = player.Character
+    local root = char and char:FindFirstChild("HumanoidRootPart")
+    local hum = char and char:FindFirstChild("Humanoid")
+    local animateScript = char and char:FindFirstChild("Animate")
+
+    if not root or not hum or hum.Health <= 0 then
+        history = {}
+        return
+    end
+
+    if UIS:IsKeyDown(REWIND_KEY) then
+        isRewinding = true
+        
+        
+        for i = 1, REWIND_SPEED_MULTIPLIER do
+            if #history > 0 then
+                if animateScript then animateScript.Disabled = true end
+                
+                local snapshot = table.remove(history, #history)
+                
+                
+                if i == REWIND_SPEED_MULTIPLIER or #history == 0 then
+                    root.CFrame = root.CFrame:Lerp(snapshot.cf, 0.5)
+                    root.AssemblyLinearVelocity = Vector3.zero
+                    
+                    for _, animData in pairs(snapshot.anims) do
+                        local track = animData.track
+                        if track then
+                            if not track.IsPlaying then track:Play(0) end
+                            track.TimePosition = animData.pos
+                            track:AdjustSpeed(0)
+                            track:AdjustWeight(animData.weight)
+                        end
+                    end
+                end
+            end
+        end
+    else
+        -- Clean up
+        if isRewinding then
+            isRewinding = false
+            if animateScript then animateScript.Disabled = false end
+            for _, track in pairs(hum:GetPlayingAnimationTracks()) do
+                track:Stop(0.1)
+                track:AdjustSpeed(1)
+            end
+        end
+
+        -- Recording
+        local currentAnims = {}
+        for _, track in pairs(hum:GetPlayingAnimationTracks()) do
+            if track.WeightCurrent > 0 then
+                table.insert(currentAnims, {
+                    track = track,
+                    pos = track.TimePosition,
+                    weight = track.WeightCurrent
+                })
+            end
+        end
+
+        table.insert(history, {
+            cf = root.CFrame,
+            anims = currentAnims
+        })
+        
+        if #history > maxStored then
+            table.remove(history, 1)
+        end
+    end
+end)
+			end,
+     	},
+		["rewindspeed"] = {
+			["ListName"] = "rewindspeed [frames to skip]",
+			["Description"] = "1 to skip no frames (default), 2 to skip to frames, 0 to break",
+			["Aliases"] = { "YOU GET NOTHING" },
+			["Function"] = function(args, speaker)
+local REWIND_SPEED_MULTIPLIER = args[1]
+			end,
+		},
+	},
+}
+
+return Plugin

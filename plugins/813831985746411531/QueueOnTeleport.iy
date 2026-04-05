@@ -1,0 +1,19 @@
+local functable = syn or arch
+
+local Plugin = {
+    ["PluginName"] = "HandleTP",
+    ["PluginDescription"] = "IY teleport handler",
+    ["Commands"] = {
+        ["COMMANDNAME"] = {
+            ["ListName"] = "handletp",
+            ["Description"] = "executes IY after a teleport",
+            ["Aliases"] = {"handletp", "tphandle", "loadafterteleport"},
+            ["Function"] = function(args,speaker)
+                functable.queue_on_teleport(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))
+                notify("HandleTP for IY Loaded")
+            end
+        }
+    }
+}
+
+return Plugin

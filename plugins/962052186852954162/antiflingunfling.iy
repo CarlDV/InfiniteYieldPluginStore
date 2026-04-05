@@ -1,0 +1,19 @@
+local Plugin = {
+    ["PluginName"] = "antiflingunfling",
+    ["PluginDescription"] = "Stops you from getting flinged from the unfling cmd", -- IY one sucks, you still get flinged (lol)
+    ["Commands"] = {
+        ["antiflingunfling"] = {
+            ["ListName"] = "afu / antiflingunfling",
+            ["Description"] = "Stops you from getting flinged from the unfling cmd",
+            ["Aliases"] = {"afu","antiflingunfling"},
+            ["Function"] = function(args, speaker)
+                execCmd('unfling')
+                execCmd('freeze')
+                execCmd('breakvelocity')
+                execCmd('unfreeze')
+            end
+        },
+    }
+}
+
+return Plugin

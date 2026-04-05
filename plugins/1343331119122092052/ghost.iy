@@ -1,0 +1,22 @@
+function maximizeHolder()
+	if StayOpen == false then
+		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, -220), "InOut", "Quart", 0.2, true, nil)
+		TweenService:Create(Holder, TweenInfo.new(0.2), { BackgroundTransparency = 0 }):Play()
+		TweenService:Create(Title, TweenInfo.new(0.2), { BackgroundTransparency = 0 }):Play()
+	end
+end
+
+minimizeNum = -20
+function minimizeHolder()
+	if StayOpen == false then
+		Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
+		TweenService:Create(Holder, TweenInfo.new(0.5), { BackgroundTransparency = 0.7 }):Play()
+		TweenService:Create(Title, TweenInfo.new(0.5), { BackgroundTransparency = 0.7 }):Play()
+	end
+end
+
+return {
+	PluginName = "Ghost Holder",
+	PluginDescription = "gui becomes slightly invisible when not using the command bar",
+	Commands = {}
+}

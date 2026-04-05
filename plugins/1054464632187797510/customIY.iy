@@ -1,0 +1,273 @@
+--[[
+    shy
+shy
+ 
+booger
+booger
+ 
+Jersue
+Jersue
+ 
+Comet Wing
+Comet Wing
+ 
+Wise Potato
+Wise Potato
+ 
+mguwu
+mguwu
+ 
+ilikecatsalot
+ilikecatsalot
+ 
+muedly
+muedly
+ 
+Roblox Thot
+Roblox Thot
+ 
+hortensja.szop
+hortensja.szop
+ 
+Sim
+Sim
+ 
+ches
+ches
+ 
+bruhMach
+bruhMach
+ 
+𝙻𝚎𝚘𝙶𝚗
+𝙻𝚎𝚘𝙶𝚗
+ 
+Toon For Owner
+UsernameHere
+ 
+Toon
+Toon
+ 
+da guest
+da guest
+ 
+arn
+arn
+ 
+Generic enclave soldier
+Generic enclave soldier
+ 
+ralsei with a gun
+ralsei with a gun
+ 
+snow cup
+snow cup
+ 
+Darkus
+Darkus
+ 
+curd
+curd
+ 
+streekaiz
+streekaiz
+ 
+PrivatePropane
+PrivatePropane
+ 
+sapato
+sapato
+ 
+yeahidliketosolvethepuzzle
+Quan
+ 
+boiboiboi
+boiboiboi
+ 
+CunningReaper
+CunningReaper
+ 
+AmNotPhantom
+visiblename
+ 
+serman
+serman
+ 
+Philisonye
+Philisonye
+ 
+Euphoria_X
+Euphoria_X
+ 
+liminal
+liminal
+ 
+Gravity
+Gravity
+ 
+😸Да😸
+😸Да😸
+
+you should kill yourself now
+]]--
+
+local fontfamily = "SourceSans"
+local ts = game:GetService("TweenService")
+
+function PlaceFont(font)
+    for i,v in pairs(Holder.Parent:GetDescendants()) do
+        local succ, err = pcall(function()
+            v.Font = Enum.Font[font]
+        end)
+        if succ then
+            fontfamily = font
+        end
+    end
+end
+
+function DoTween(instance,value)
+    local tween = ts:Create(instance,TweenInfo.new(0.3,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,0,false,0),{BackgroundTransparency = value})
+    tween:Play()
+end
+
+if isfile("CustomIY_confgs.iy") then
+    local success,response = pcall(function()
+        local data = game:GetService("HttpService"):JSONDecode(readfile("CustomIY_confgs.iy"))
+        PlaceFont(data.FontFamily)
+        DoTween(Holder,data.Transparency)
+        DoTween(Dark,data.Transparency)
+        DoTween(Title,data.Transparency)
+        Holder.BorderMode = Enum.BorderMode.Outline
+        Holder.BorderSizePixel = data.BorderSize
+        Holder.BorderColor3 = Color3.new(data.BorderColor[1],data.BorderColor[2],data.BorderColor[3])
+        for i,v in pairs(Holder.Parent:GetDescendants()) do
+            pcall(function()
+                v.TextScaled = data.textIsScaled
+            end)
+        end
+    end)
+    if not success then
+        notify("JSON Load Error:", response)
+    end
+end
+
+local textscaledbool
+local isnotified = false
+local Plugin = {
+    ["PluginName"] = "CustomIY",
+    ["PluginDescription"] = "customize the ui",
+    ["Commands"] = {
+        ["setBgTransparency"] = {
+            ["ListName"] = "setBgTransparency [num]",
+            ["Description"] = "Sets transparency of command list",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local num = tonumber(args[1])
+                if num == nil then
+                    num = 0
+                end
+                DoTween(Holder,num)
+                DoTween(Dark,num)
+                DoTween(Title,num)
+            end
+        },
+        ["setFontFamily"] = {
+            ["ListName"] = "setFontFamily [font/default]",
+            ["Description"] = "Sets font family of all text",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local font = tostring(args[1])
+                if font == nil or font == "default" then
+                    font = "SourceSans"
+                end
+                PlaceFont(font)
+                if isnotified == false then
+                    isnotified = true
+                    notify([[You can change the scale of the text using "textScaled"]])
+                end
+            end
+        },
+        ["setBorder"] = {
+            ["ListName"] = "setBorder [num/default]",
+            ["Description"] = "Sets border of UI",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local num = tonumber(args[1])
+                if num == nil or num == "default" then
+                    num = 0
+                end
+                Holder.BorderSizePixel = num
+                Holder.BorderMode = Enum.BorderMode.Outline
+            end
+        },
+        ["setBorderColor"] = {
+            ["ListName"] = "setBorderColor ([R] [G] [B] / default)",
+            ["Description"] = "Sets color of UI border",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local R = tonumber(args[1])
+                local G = tonumber(args[2])
+                local B = tonumber(args[3])
+                if tostring(args[1]) ~= "default" then
+                    if R == nil then
+                        error([[Invalid Color
+                        Missing RED.]])
+                    elseif G == nil then
+                        error([[Invalid Color
+                        Missing GREEN.]])
+                    elseif B == nil then
+                        error([[Invalid Color
+                        Missing BLUE.]])
+                    else
+                        Holder.BorderColor3 = Color3.fromRGB(R,G,B)
+                    end
+                else
+                    Holder.BorderColor3 = Color3.fromRGB(20,20,20)
+                end
+            end
+        },
+        ["textScaled"] = {
+            ["ListName"] = "textScaled [bool]",
+            ["Description"] = "Toggle TextScaled of all labels",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                if args[1] == "false" then
+                    textscaledbool = false
+                elseif args[1] == "true" then
+                    textscaledbool = true
+                else
+                    textscaledbool = false
+                end
+                for i,v in pairs(Holder.Parent:GetDescendants()) do
+                    pcall(function()
+                        v.TextScaled = textscaledbool
+                    end)
+                end
+            end
+        },
+        ["saveCustomSettings"] = {
+            ["ListName"] = "saveCustomSettings",
+            ["Description"] = "Save current CustomIY settings",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                if Holder.BorderMode == nil then
+                    Holder.BorderMode = Enum.BorderMode.Outline
+                end
+                if Holder.BorderColor3 == nil then
+                    Holder.BorderColor3 = Color3.fromRGB(20,20,20)
+                end
+                local items = {
+                    ["FontFamily"] = fontfamily,
+                    ["Transparency"] = Holder.BackgroundTransparency,
+                    ["BorderSize"] = Holder.BorderSizePixel,
+                    ["BorderColor"] = {Holder.BorderColor3.R,Holder.BorderColor3.G,Holder.BorderColor3.B},
+                    ["textIsScaled"] = (textscaledbool)
+                }
+
+                local text = game:GetService("HttpService"):JSONEncode(items)
+                writefile("CustomIY_confgs.iy",text)
+            end
+        }
+     }
+}
+
+return Plugin

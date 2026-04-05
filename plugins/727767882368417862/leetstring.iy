@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "leetstring()",
+    ["PluginDescription"] = "Chat's an inputted string, but 1337.",
+    ["Commands"] = {
+        ["cutestring"] = {
+            ["ListName"] = "leetstring [string] / leetify [string]",
+            ["Description"] = "makes a string 1337",
+            ["Aliases"] = {"leetify"},{"1337"},{"leet"},
+            ["Function"] = function(args,speaker)
+                local cutestring = string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(string.gsub(getstring(1), "e", "3"), "a", "4"), "i", "1"), "o", "0"), "g", "9"), "t", "7"), "b", "8")
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(cutestring, "All")
+            end
+        }
+     }
+}
+
+return Plugin

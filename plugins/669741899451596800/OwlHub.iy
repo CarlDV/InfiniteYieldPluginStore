@@ -1,0 +1,16 @@
+local Plugin = {
+  ["PluginName"] = "OwlHub",
+    ["PluginDescription"] = "Dont wanna seperate owl hub and infinite yield",
+    ["Commands"] = {
+        ["OwlHub"] = {
+            ["ListName"] = "OwlHub",
+            ["Description"] = "Support 30+ games",
+            ["Aliases"] = {OH},
+            ["Function"] = function(args,speaker)
+					loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))();
+            end,
+        },
+    },
+}
+
+return Plugin

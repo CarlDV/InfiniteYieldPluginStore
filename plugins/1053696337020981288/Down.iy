@@ -1,0 +1,18 @@
+return {
+    PluginName = "Down",
+    PluginDescription = "Go down",
+    Commands = {
+        Down = {
+            ListName = "Down",
+            Description = "Down",
+            Aliases = {},
+            Function = function(args,speaker)
+                execCmd("lay")
+                execCmd("noclip")
+                wait(0.4)
+                execCmd("clip")
+                execCmd("jump")
+            end
+        }
+    }
+}

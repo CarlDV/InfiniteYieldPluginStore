@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "BladeBall",
+    ["PluginDescription"] = "GUI for BladeBall Hacks",
+    ["Commands"] = {
+        ["COMMANDNAME"] = {
+            ["ListName"] = "bladeball",
+            ["Description"] = "Open GUI for Hacks",
+            ["Aliases"] = {"bb","bball","bladeb"},
+            ["Function"] = function(args,speaker)
+            loadstring(game:HttpGet("https://github.com/SadlekAski/Scripts/raw/main/Blade%20Ball/Equip%20any%20ability.lua"))()  
+            end
+        }
+     }
+}
+
+return Plugin

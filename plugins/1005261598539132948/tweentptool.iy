@@ -1,0 +1,34 @@
+local Plugin = {
+   ["PluginName"] = "tweentptool",
+   ["PluginDescription"] = "Teleports to the mouse position (bypasses some anticheats)",
+   ["Commands"] = {
+      ["tweentptool"] = {
+         ["ListName"] = "tweentptool [time to teleport]",
+         ["Description"] = "Teleports  to the mouse position (bypasses some anticheats)",
+         ["Aliases"] = {},
+         ["Function"] = function(args,speaker)
+         if not args[1]then
+            notify('Insufficient Arguments','Requires 1 argument (time to teleport).')
+         elseif #args>1 then
+            notify('Arguments > 1','Too many arguments provided.')
+         else
+            local a=game:service'Players'.LocalPlayer
+            local b=Instance.new('Tool',a.Backpack)
+            local g=game:service'TweenService'
+            b.RequiresHandle=false
+            b.Name='TweenTp'
+
+            b.Activated:connect(function()
+            g:Create(
+            a.Character:FindFirstChildOfClass'Humanoid'.RootPart,
+            TweenInfo.new(tonumber(args[1]),Enum.EasingStyle.Linear),
+            {CFrame=CFrame.new(a:GetMouse().Hit.Position+Vector3.new(0,5,0))}
+            ):Play()
+            end)
+         end
+      end
+   }
+}
+}
+
+return Plugin

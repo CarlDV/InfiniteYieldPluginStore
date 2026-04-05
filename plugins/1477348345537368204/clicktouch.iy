@@ -1,0 +1,43 @@
+local Plugin = {
+	["PluginName"] = "clicktouch",
+	["PluginDescription"] = "fires touch interests whom parts you click (shakespear jealous of me)",
+	["Commands"] = {
+		["clicktouch"] = {
+			["ListName"] = "clicktouch / mousetouch",
+			["Description"] = "click on a part that has a touch interest to fire the touch interest",
+			["Aliases"] = { "mousetouch" },
+			["Function"] = function(args, speaker)
+				getgenv().toggleclick = true
+
+				local lplr = game:GetService("Players").LocalPlayer
+				local mouse = lplr:GetMouse()
+
+				mouse.Button1Down:Connect(function()
+					if not getgenv().toggleclick then return end
+					local target = mouse.Target
+					if not target then return end
+
+					local touch = target:FindFirstChildOfClass("TouchTransmitter")
+					if touch then
+						local character = lplr.Character
+						if character and character:FindFirstChild("HumanoidRootPart") then
+							local hrp = character.HumanoidRootPart
+							firetouchinterest(hrp, target, 0)
+							firetouchinterest(hrp, target, 1)
+						end
+					end
+				end)
+			end,
+     	},
+		["unclicktouch"] = {
+			["ListName"] = "unclicktouch / noclicktouch / unmousetouch / nomousetouch",
+			["Description"] = "toggles click to touch",
+			["Aliases"] = { "noclicktouch", "unmousetouch", "nomousetouch" },
+			["Function"] = function(args, speaker)
+				getgenv().toggleclick = false
+			end,
+		},
+	},
+}
+
+return Plugin

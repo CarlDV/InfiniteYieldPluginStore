@@ -1,0 +1,38 @@
+local Wrapper = {}
+Wrapper.__index = Wrapper
+
+local typeof = typeof
+local assert = assert
+
+function Wrapper:CreatePlugin(Name, Description)
+    local self = setmetatable({}, Wrapper)
+    self.PluginName = Name
+    self.PluginDescription = Description
+    self.Commands = {}
+
+    return self
+end
+
+function Wrapper:AddCommand(CommandName, List, Description, Alias, Func)
+	assert(typeof(CommandName) == "string", "CommandName must be a string.")
+	assert(typeof(List) == "string", "List must be a string.")
+	assert(typeof(Description) == "string", "Description must be a string.")
+	assert(typeof(Func) == "function", "Func must be a function.")
+	assert(typeof(Alias) == "table", "Alias must be a table.")
+	
+	self.Commands[CommandName] = {
+	    ListName = List,
+        Description = Description,
+        Aliases = Alias,
+        Function = function(Args, Speaker)
+            Func(Args, Speaker)
+        end
+	}
+end
+
+local PrintHi = Wrapper:CreatePlugin("useless plugin", "prints hi")
+PrintHi:AddCommand("print", "print [text]", "prints the text", {"prt"}, function(Args, Speaker)
+	print(Args[1])
+end)
+
+return PrintHi

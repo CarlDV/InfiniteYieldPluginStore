@@ -1,0 +1,494 @@
+local Player = game:GetService("Players").LocalPlayer
+local Character = Player.Character
+local Animate = nil
+local R15 = false
+
+Player.CharacterAdded:Connect(function(NewCharacter)
+	Character = NewCharacter
+	Animate = Character:FindFirstChild("Animate")
+	if Character:FindFirstChild("Humanoid") then -- Just in case the game updates your model
+		R15 = Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+	end
+end)
+
+if Character:FindFirstChild("Humanoid") then
+	R15 = Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+end
+
+Animate = Character:FindFirstChild("Animate")
+
+local notify = function(a) return a end
+
+local Plugin = {
+	["PluginName"] = "Animation Pack Changer",
+	["PluginDescription"] = "R15 Animation Pack Changer",
+	["Commands"] = {
+		["popstar"] = {
+			["Description"] = "Changes your animation to 'Popstar'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://1212900985"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://1150842221"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://1212980338"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://1212980348"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://1212954642"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1213044953"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://1212900995"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["patrol"] = {
+			["Description"] = "Changes your animation to 'Patrol'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://1149612882"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://1150842221"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://1151231493"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://1150967949"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://1148811837"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1148811837"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://1148863382"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["confident"] = {
+			["Description"] = "Changes your animation to 'Confident'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://1069977950"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://1069987858"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://1070017263"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://1070001516"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://1069984524"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1069946257"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://1069973677"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["sneaky"] = {
+			["Description"] = "Changes your animation to 'Sneaky'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://1132473842"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://1132477671"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://1132510133"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://1132494274"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://1132489853"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1132461372"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://1132469004"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["princess"] = {
+			["Description"] = "Changes your animation to 'Princess'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://941003647"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://941013098"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://941028902"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://941015281"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://941008832"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://940996062"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://941000007"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["cowboy"] = {
+			["Description"] = "Changes your animation to 'Cowboy'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					Animate.idle.Animation1.AnimationId = "rbxassetid://1014390418"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://1014398616"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://1014421541"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://1014401683"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://1014394726"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1014380606"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://1014384571"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["zombie"] = {
+			["Description"] = "Changes your animation to 'Zombie'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://616158929"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://616160636"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://616168032"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://616163682"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://616161997"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616156119"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://616157476"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["robot"] = {
+			["Description"] = "Changes your animation to 'Robot'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://616088211"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://616089559"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://616095330"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://616091570"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://616090535"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616086039"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://616087089"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["stylish"] = {
+			["Description"] = "Changes your animation to 'Stylish'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://616136790"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://616138447"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://616146177"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://616140816"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://616139451"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616133594"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://616134815"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["toy"] = {
+			["Description"] = "Changes your animation to 'Toy'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://782841498"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://782845736"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://782843345"
+				 	Animate.run.RunAnim.AnimationId = "rbxassetid://782842708"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://782847020"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://782843869"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://782846423"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["cartoony"] = {
+			["Description"] = "Changes your animation to 'Cartoony'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://742637544"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://742638445"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://742640026"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://742638842"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://742637942"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://742636889"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://742637151"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["superhero"] = {
+			["Description"] = "Changes your animation to 'Superhero'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://616111295"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://616113536"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://616122287"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://616117076"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://616115533"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616104706"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://616108001"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["ninja"] = {
+			["Description"] = "Changes your animation to 'Ninja'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://656117400"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://656118341"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://656121766"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://656118852"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://656117878"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://656114359"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://656115606"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["mage"] = {
+			["Description"] = "Changes your animation to 'Mage'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://707742142"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://707855907"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://707897309"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://707861613"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://707853694"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://707826056"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://707829716"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["levitation"] = {
+			["Description"] = "Changes your animation to 'Levitation'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://616006778"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://616008087"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://616013216"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://616010382"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://616008936"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616003713"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://616005863"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["vampire"] = {
+			["Description"] = "Changes your animation to 'Vampire'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://1083445855"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://1083450166"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://1083473930"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://1083462077"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://1083455352"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1083439238"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://1083443587"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["elder"] = {
+			["Description"] = "Changes your animation to 'Elder'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://845397899"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://845400520"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://845403856"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://845386501"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://845398858"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://845392038"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://845396048"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["werewolf"] = {
+			["Description"] = "Changes your animation to 'Werewolf'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://1083195517"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://1083214717"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://1083178339"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://1083216690"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://1083218792"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1083182000"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://1083189019"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["pirate"] = {
+			["Description"] = "Changes your animation to 'Pirate'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://750781874"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://750782770"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://750785693"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://750783738"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://750782230"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://750779899"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://750780242"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["knight"] = {
+			["Description"] = "Changes your animation to 'Knight'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://657595757"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://657568135"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://657552124"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://657564596"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://658409194"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://658360781"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://657600338"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["astronaut"] = {
+			["Description"] = "Changes your animation to 'Astronaut'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://891621366"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://891633237"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://891667138"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://891636393"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://891627522"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://891609353"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://891617961"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["bubbly"] = {
+			["Description"] = "Changes your animation to 'Bubbly'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://910004836"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://910009958"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://910034870"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://910025107"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://910016857"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://910001910"
+					Animate.swimidle.SwimIdle.AnimationId = "rbxassetid://910030921"
+					Animate.swim.Swim.AnimationId = "rbxassetid://910028158"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["ghost"] = {
+			["Description"] = "Changes your animation to 'Ghost'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://616006778"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://616008087"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://616013216"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://616013216"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://616008936"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://616005863"
+					Animate.swimidle.SwimIdle.AnimationId = "rbxassetid://616012453"
+					Animate.swim.Swim.AnimationId = "rbxassetid://616011509"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["oldschool"] = {
+			["Description"] = "Changes your animation to 'Oldschool'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://5319922112"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://5319831086"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://5319909330"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://5319900634"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://5319917561"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://5319914476"
+					Animate.swimidle.SwimIdle.AnimationId = "rbxassetid://5319852613"
+					Animate.swim.Swim.AnimationId = "rbxassetid://5319850266"
+					Animate.climb.climb.Animationid = "rbxassetid://5319931619"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["rthro"] = {
+			["Description"] = "Changes your animation to 'Rthro'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://2510196951"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://2510197257"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://2510202577"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://2510198475"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://2510197830"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://2510195892"
+					Animate.swimidle.SwimIdle.AnimationId = "rbxassetid://2510201162"
+					Animate.swim.Swim.AnimationId = "rbxassetid://2510199791"
+					Animate.climb.climb.Animationid = "rbxassetid://2510192778"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["none"] = {
+			["Description"] = "Changes your animation to 'None'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://0"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://0"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://0"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://0"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://0"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://0"
+					Animate.swimidle.SwimIdle.AnimationId = "rbxassetid://0"
+					Animate.swim.Swim.AnimationId = "rbxassetid://0"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+		["default"] = {
+			["Description"] = "Changes your animation to 'Default'.",
+			["Function"] = function(args, speaker)
+				if R15 then
+					notify("Animations have changed.")
+					Animate.idle.Animation1.AnimationId = "rbxassetid://2510196951"
+					Animate.idle.Animation2.AnimationId = "rbxassetid://2510197257"
+					Animate.walk.WalkAnim.AnimationId = "rbxassetid://2510202577"
+					Animate.run.RunAnim.AnimationId = "rbxassetid://2510198475"
+					Animate.jump.JumpAnim.AnimationId = "rbxassetid://2510197830"
+					Animate.climb.ClimbAnim.AnimationId = "rbxassetid://2510192778"
+					Animate.fall.FallAnim.AnimationId = "rbxassetid://2510195892"
+				else
+					notify("Sorry, this only works with the R15 type rig.")
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

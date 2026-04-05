@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Infinite Jump Bypass",
+	["PluginDescription"] = "Bypass some anti-infinite jump games",
+	["Commands"] = {
+		["infjumpbp/ijbp"] = {
+			["Description"] = "yes",
+			["Aliases"] = {'infjumpbp','ijbp'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/WbUsjpG8",true))()
+
+			end,
+		},
+	},
+}
+
+return Plugin

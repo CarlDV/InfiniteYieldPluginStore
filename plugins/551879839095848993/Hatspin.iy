@@ -1,0 +1,34 @@
+local Plugin = {
+	["PluginName"] = "Hatspin",
+	["PluginDescription"] = "Spin those hats, make everyone envy you!",
+	["Commands"] = {
+		["hatspin"] = {
+			["Description"] = "What!? My hats are spinning!?",
+			["Aliases"] = {'hspin', 'hatspinner'},
+			["Function"] = function(args, speaker)
+				local char = speaker.Character
+				for i,v in pairs(char:GetChildren()) do
+				if v.ClassName == "Accessory" then
+				local stg = v.Handle:FindFirstChildOfClass("BodyForce")
+				if stg == nil then
+				local a = Instance.new("BodyPosition")
+				local b = Instance.new("BodyAngularVelocity")
+				a.Parent = v.Handle
+				b.Parent = v.Handle
+				v.Handle.AccessoryWeld:Destroy()
+				b.AngularVelocity = Vector3.new(0,100,0)
+				b.MaxTorque = Vector3.new(0,200,0)
+					a.P = 30000
+						a.D = 50
+							game:GetService('RunService').Stepped:connect(function()
+								a.Position = char.Head.Position
+							end)
+						end
+					end
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

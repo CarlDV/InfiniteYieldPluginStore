@@ -1,0 +1,25 @@
+local Plugin = {
+    ["PluginName"] = "general anim Speed",
+    ["PluginDescription"] = "speeds up all animations, including walking n stuff",
+    ["Commands"] = {
+        ["genanimspeed"] = {
+            ["ListName"] = "genanimspeed [speed: int]",
+            ["Description"] = "Speeds up every anim in your character",
+            ["Aliases"] = {"gas","gs","ganims"},
+            ["Function"] = function(args,speaker)
+                local Value = tonumber(getstring(1))
+                local sChar = speaker:FindFirstChildOfClass("Character") or speaker.Character
+                if not sChar then return end
+                while task.wait() do
+                    local sAnimController = sChar:FindFirstChildOfClass("Humanoid") or sChar:FindFirstChildWhichIsA("AnimationController")
+                    if not sAnimController or not sChar then continue end
+                    for _, Animation in next, sAnimController:GetPlayingAnimationTracks() do
+                        Animation:AdjustSpeed(Value)
+                    end
+                end
+            end
+        }
+     }
+}
+
+return Plugin

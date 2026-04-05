@@ -1,0 +1,40 @@
+local Plugin = {
+	["PluginName"] = "Viewtools",
+	["PluginDescription"] = "View the amount of tools a player has",
+	["Commands"] = {
+		["viewtools"] = {
+			["ListName"] = "viewtools",
+			["Description"] = "View the amount of tools a player has",
+			["Aliases"] = { "" },
+			["Function"] = function(args, speaker)
+				for _, v in pairs(getPlayer(args[1], speaker)) do
+                    local Target = game:GetService("Players")[v]
+					if Target then
+						local CHR, BP = 0, 0
+						for _, v in ipairs(Target.Character:GetChildren()) do
+							if v:IsA("BackpackItem") then
+								CHR = CHR + 1
+							end
+						end
+						for _, v in ipairs(Target.Backpack:GetChildren()) do
+							if v:IsA("BackpackItem") then
+								BP = BP + 1
+							end
+						end
+						return notify(
+							"Success",
+							string.format(
+								"%s has %d tools in their Backpack and %d tools in their Character",
+								Target.Name,
+								BP,
+								CHR
+							)
+						)
+					end
+					return notify("Error", "Cannot find player " .. args[1])
+				end
+			end,
+		},
+	},
+}
+return Plugin

@@ -1,0 +1,65 @@
+local Plugin = {
+    ["PluginName"] = "random chatting tool",
+    ["PluginDescription"] = "idk??",
+    ["Commands"] = {
+        ["luckynumber"] = {
+            ["ListName"] = "luckynumber",
+            ["Description"] = "lucky number yes yes",
+            ["Aliases"] = {"luckynum"},
+            ["Function"] = function(args,speaker)
+                local number = "Lucky number: "..math.random(1, 10000)
+                local args = { [1] = number, [2] = "All" } 
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+            end
+        },
+
+        ["randomquote"] = {
+            ["ListName"] = "randomquote",
+            ["Description"] = "inspiring",
+            ["Aliases"] = {"rquote"},
+            ["Function"] = function(args,speaker)
+                local quotes = {
+                    "People need responsibility. They resist assuming it, but they cannot get along without it.",
+                    "A rarer spirit never Did steer humanity; but you gods will give us Some faults to make us men.",
+                    "Some are so very studious of learning what was done by the ancients that they know not how to live with the moderns.",
+                    "Time is the scarcest resource and unless it is managed nothing else can be managed.",
+                    "But whither am I strayed? I need not raise Trophies to thee from other men's dispraise; Nor is thy fame on lesser ruins built; Nor needs thy juster title the foul guilt Of Eastern kings, who, to secure their reign, Must have their brothers, sons, and kindred slain.",
+                    "When I was younger I could remember anything, whether it had happened or not.",
+                    "I will follow the upward road today; I will keep my face to the light. I will think high thoughts as I go my way; I will do what I know is right. I will look for the flowers by the side of the road; I will laugh and love and be strong. I will try to lighten another's load this day as I fare along.",
+                    "My only fear is that I may live too long. This would be a subject of dread to me."
+                }
+                local args = { [1] = math.random(1, #quotes), [2] = "All" } 
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+            end
+        },
+
+        ["ishowspeedwhogonstopme"] = {
+            ["ListName"] = "ishowspeed",
+            ["Description"] = "WHO GON STOP ME?",
+            ["Aliases"] = {"isswhogonstopme"},
+            ["Function"] = function(args,speaker)
+                local args = { [1] = "let me ask you a question", [2] = "All" }
+                local args2 = { [1] = "if we are the last 2 people on earth", [2] = "All" }
+                local args3 = { [1] = "and we had to reproduce to make the world continue", [2] = "All" }
+                local args4 = { [1] = "would you reproduce with me?", [2] = "All" }
+                local args5 = { [1] = "WHO GON STOP ME?", [2] = "All" }
+                local args6 = { [1] = "IF WE THE LAST 2 PEOPLE ON EARTH", [2] = "All" }
+                local args7 = { [1] = "WHO GON STOP ME?", [2] = "All" }
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
+                wait(2)
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args2))
+                wait(1)
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args3))
+                wait(2)
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args4))
+                wait(5)
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args5))
+                wait()
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args6))
+                wait()
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args7))
+            end
+        }
+    }
+}
+return Plugin

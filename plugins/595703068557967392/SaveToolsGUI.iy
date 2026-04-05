@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "SaveToolsGUI",
+    ["PluginDescription"] = "Loads a UI making it easier to save tools on death. Press H to toggle.",
+    ["Commands"] = {
+        ["COMMAND"] = {
+            ["ListName"] = "savetoolui",
+            ["Description"] = "Loads a UI making it easier to save tools on death. Press H to toggle.",
+            ["Aliases"] = {'stt'},
+            ["Function"] = function(args,speaker)
+                loadstring(game:HttpGet(('https://pastebin.com/raw/DX0rjmKr'),true))()
+            end,
+        },
+    },
+}
+
+return Plugin

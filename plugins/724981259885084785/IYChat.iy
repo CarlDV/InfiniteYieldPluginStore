@@ -1,0 +1,504 @@
+-- IY Chat Plugin By Tohru~ (トール )#0001
+
+local Players = game:GetService("Players")
+local LP = Players.LocalPlayer
+function Match(str, with)
+	local str, with = tostring(str), tostring(with)
+	if (string.match(str, with) and true or false) then
+		return true or false
+	end
+end
+local Secret_Key = 200
+function SplitStr(str, div)
+  local str, sep, div = tostring(str), {}, tostring(div)
+  for i in str:gmatch("[^".. div .."]+") do
+    table.insert(sep, i)
+  end
+  return sep
+end
+function IYEncrypt(Message, PluginKey)
+	local Message, PluginKey, tab = tostring(Message), tonumber(PluginKey), {}
+	for i = 0, 127 do 
+		local a = -1 
+		repeat a = a + 2 
+		until a * (2 * i + 1) % 256 == 1 
+		tab[i] = a
+	end
+	local Var1 = PluginKey
+	local Var2 = PluginKey + PluginKey
+	return (Message:gsub(".", function(Encode) 
+		local Var3 = Var1 % 274877906944
+		local Var4 = (Var1 - Var3) / 274877906944 
+		local Var5 = Var4 % 128 
+		Encode = Encode:byte() 
+		local Var6 = (Encode * tab[Var5] - (Var4 - Var5) / 128) % 256
+		Var1 = Var3 * Var2 + Var4 + Var6 + Encode
+		return ('%02x'):format(Var6)
+	end))
+end
+function IYDecrypt(Message, PluginKey)
+	local Message, PluginKey = tostring(Message), tonumber(PluginKey)
+	local Var1 = PluginKey
+	local Var2 = PluginKey + PluginKey
+	return(Message:gsub("%x%x", function(Decode) 
+		local Var3 = Var1 % 274877906944
+		local Var4 = (Var1 - Var3) / 274877906944 
+		local Var5 = Var4 % 128 
+		Decode = tonumber(Decode, 16) 
+		local Var6 = (Decode + (Var4 - Var5) / 128) * (2 * Var5 + 1) % 256 
+		Var1 = Var3 * Var2 + Var4 + Decode + Var6
+		return string.char(Var6)
+	end))
+end
+function GetPlayers(str)
+  local str = tostring(str)
+  local found = {}
+  for i,v in pairs(Players:GetPlayers()) do
+    if str == "all" then
+      table.insert(found, v)
+    elseif str == "others" then
+      if v.Name ~= LP.Name then
+        table.insert(found, v)
+      end
+    elseif str == "me" then
+      if v.Name == LP.Name then
+        table.insert(found, v)
+      end
+    elseif v.Name:lower():sub(1, #str) == str:lower() then
+      table.insert(found, v)
+    end
+  end
+  if #found ~= 0 then
+    return found else return false
+  end
+end
+function GenMsg(str, PM, Target)
+	local str, Target = tostring(str), tostring(Target):lower()
+		if PM then
+			Key = 0
+			for i = 1, #Target do
+				Key = Key + Target:sub(i, i):byte()
+			end
+		end
+	if not PM then
+		return "IYCHAT_"..IYEncrypt("Received|||||"..str, Secret_Key)
+	else
+		if PM and Target and Key then
+			local PMEncryption = "Private|||||"..IYEncrypt("Received|||||"..str, Key)
+			return "IYCHAT_"..IYEncrypt(PMEncryption, Secret_Key)
+		end
+	end
+end
+function GetMsg(str, Username)
+	local str, Username, Key = tostring(str), tostring(Username):lower(), 0
+	for i = 1, #Username do
+		Key = Key + Username:sub(i, i):byte()
+	end
+	if Match(str, "IYCHAT_") then
+		str = str:gsub("IYCHAT_", "")
+		str = IYDecrypt(str, Secret_Key)
+		local split = SplitStr(str, "|||||")
+		if #split > 1 then
+			if split[1] == "Received" then
+				return {split[2]; false}
+			elseif split[1] == "Private" then
+				local encmsg = IYDecrypt(split[2], Key)
+				local split2 = SplitStr(encmsg, "|||||")
+				if #split2 > 1 then
+					if split2[1] == "Received" then
+						return {split2[2]; true}
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+function CreateTLabel(Text, ScrollFrame, TextSize, BringDown, IsDM)
+  local Text, TextSize = tostring(Text), tonumber(TextSize)
+  local v1 = 0
+  for a, b in pairs(ScrollFrame:GetChildren()) do
+    if b then
+      v1 = b.Size.Y.Offset + v1
+    elseif not b then
+      v1 = 0
+    end
+  end
+  local TextLabel1 = Instance.new("TextLabel")
+  local Frame1 = Instance.new("Frame")
+  TextLabel1.Parent = ScrollFrame
+  Frame1.Parent = TextLabel1
+  Frame1.ZIndex = ScrollFrame.ZIndex + 1
+  TextLabel1.Name = #ScrollFrame:GetChildren()
+  TextLabel1.ZIndex = ScrollFrame.ZIndex + 1
+  TextLabel1.Text = Text
+  TextLabel1.BackgroundTransparency = 1
+  TextLabel1.BorderSizePixel = 0
+  TextLabel1.Font = Enum.Font.SourceSansBold
+  TextLabel1.Position = UDim2.new(-1, 0, 0, v1)
+  TextLabel1.TextTransparency = 1
+  TextLabel1.TextScaled = false
+  TextLabel1.TextSize = TextSize
+  TextLabel1.TextWrapped = true
+  TextLabel1.TextXAlignment = "Left"
+  TextLabel1.TextYAlignment = "Top"
+  Frame1.BackgroundTransparency = 1
+  Frame1.BorderSizePixel = 0
+  Frame1.Size = UDim2.new(0, 12, 1, 0)
+  Frame1.Position = UDim2.new(0, 316, 0, 0)
+  Frame1.ZIndex = ScrollFrame.ZIndex + 1
+  local BoundY = game:GetService("TextService"):GetTextSize(TextLabel1.Text, TextLabel1.TextSize, Enum.Font.SourceSansBold, ScrollFrame.AbsoluteSize).Y
+  TextLabel1.TextColor3 = IsDM and Color3.fromRGB(249, 233, 153) or Color3.fromRGB(255, 255, 255)
+  TextLabel1.Size = UDim2.new(0, 308, 0, BoundY)
+  ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, v1 + BoundY)
+  if BringDown then
+    ScrollFrame.CanvasPosition = Vector2.new(0, ScrollFrame.CanvasPosition.Y + BoundY)
+  end
+  TextLabel1.TextStrokeTransparency = 0
+  local TweenInfo1 = TweenInfo.new(.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+  game:GetService("TweenService"):Create(TextLabel1, TweenInfo1, {Position = UDim2.new(0, 3, 0, v1);TextTransparency = 0;}):Play()
+end
+function DragGui(Frame)
+  spawn(function()
+    local IsDragging
+    local DragInput
+    local DragStart
+    local StartPos
+    local function UpdatePosition(Input)
+      local Delta = Input.Position - DragStart
+      local Position = UDim2.new(StartPos.X.Scale, StartPos.X.Offset + Delta.X, StartPos.Y.Scale, StartPos.Y.Offset + Delta.Y)
+      game:GetService("TweenService"):Create(Frame, TweenInfo.new(.25), {Position = Position}):Play()
+    end
+    Frame.InputBegan:Connect(function(Input)
+      if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+        IsDragging = true
+        DragStart = Input.Position
+        StartPos = Frame.Position
+        Input.Changed:Connect(function()
+          if Input.UserInputState == Enum.UserInputState.End then
+            IsDragging = false
+          end
+        end)
+      end
+    end)
+    Frame.InputChanged:Connect(function(Input)
+      if Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch then
+        DragInput = Input
+      end
+    end)
+    game:GetService("UserInputService").InputChanged:Connect(function(Input)
+      if Input == DragInput and IsDragging then
+        UpdatePosition(Input)
+      end
+    end)
+  end)
+end
+function CreateUsers(Player, ScrollFrame)
+  local v1 = 0
+  for a, b in pairs(ScrollFrame:GetChildren()) do
+    if b then
+      v1 = b.Size.Y.Offset + v1
+    elseif not b then
+      v1 = 0
+    end
+  end
+  local Thumb = Instance.new("ImageLabel")
+  local TextLabel1 = Instance.new("TextLabel")
+  Thumb.Parent = ScrollFrame
+  Thumb.ZIndex = ScrollFrame.ZIndex + 1
+  Thumb.Size = UDim2.new(0, 100, 0, 100)
+  Thumb.Image = "http://www.roblox.com/Thumbs/Avatar.ashx?x=100&y=100&Format=Png&userName="..Player.."&RAND"..math.random(1, 100000000)
+  Thumb.Position = UDim2.new(-1, 0, 0, v1)
+  Thumb.BackgroundTransparency = 1
+  Thumb.ImageRectSize = Vector2.new(-100, 100)
+  Thumb.ImageRectOffset = Vector2.new(100, 0)
+  Thumb.BorderSizePixel = 0
+  ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, v1 + 100)
+  ScrollFrame.CanvasPosition = Vector2.new(0, ScrollFrame.CanvasPosition.Y + 100)
+  Thumb.ImageTransparency = 1
+  TextLabel1.Parent = Thumb
+  TextLabel1.ZIndex = ScrollFrame.ZIndex + 1
+  TextLabel1.Text = Player
+  TextLabel1.BackgroundTransparency = 1
+  TextLabel1.BorderSizePixel = 0
+  TextLabel1.Font = Enum.Font.SourceSansBold
+  local Y = 100 - 90
+  local Y2 = 100 - 70
+  TextLabel1.Position = UDim2.new(-1, 10, 0, Y)
+  TextLabel1.TextTransparency = 1
+  TextLabel1.TextScaled = false
+  TextLabel1.TextSize = 20
+  TextLabel1.TextWrapped = true
+  TextLabel1.TextXAlignment = "Left"
+  TextLabel1.TextYAlignment = "Top"
+  TextLabel1.TextColor3 = Color3.fromRGB(255, 255, 255)
+  TextLabel1.TextStrokeTransparency = 0
+  local TextLabel2 = TextLabel1:Clone()
+  TextLabel2.Parent = Thumb
+  TextLabel2.Position = UDim2.new(-1, 10, 0, Y2)
+  TextLabel2.Text = "Is Using IY Chat!"
+  local Bounds = game:GetService("TextService"):GetTextSize(TextLabel1.Text, TextLabel1.TextSize, Enum.Font.SourceSansBold, ScrollFrame.AbsoluteSize)
+  TextLabel1.Size = UDim2.new(0, Bounds.X, 0, Bounds.Y)
+  local Bounds = game:GetService("TextService"):GetTextSize(TextLabel2.Text, TextLabel2.TextSize, Enum.Font.SourceSansBold, ScrollFrame.AbsoluteSize)
+  TextLabel2.Size = UDim2.new(0, Bounds.X, 0, Bounds.Y)
+  local TweenInfo1 = TweenInfo.new(.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+  game:GetService("TweenService"):Create(TextLabel1, TweenInfo1, {Position = UDim2.new(0, 100, 0, Y);TextTransparency = 0;}):Play()
+  game:GetService("TweenService"):Create(TextLabel2, TweenInfo1, {Position = UDim2.new(0, 99, 0, Y2);TextTransparency = 0;}):Play()
+  game:GetService("TweenService"):Create(Thumb, TweenInfo1, {Position = UDim2.new(0, 3, 0, v1);ImageTransparency = 0;}):Play()
+end
+IYChatOpen = false
+IYChatUserOpen = false
+local IYChatLogs = Instance.new("ScreenGui")
+IYChatLogs.Parent = game:GetService("CoreGui")
+IYChatLogs.ResetOnSpawn = false
+local Frame = Instance.new("Frame")
+Frame.Parent = IYChatLogs
+Frame.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+Frame.Size = UDim2.new(0, 328, 0, 190)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 5
+Frame.Position = UDim2.new(.5, -164, .5, -1095)
+Frame.ZIndex = 10
+local TL = Instance.new("TextLabel")
+TL.Text = "IY Chat"
+TL.TextColor3 = Color3.fromRGB(255, 255, 255)
+TL.Size = UDim2.new(0, 0, 0, 0)
+TL.TextSize = 40
+TL.Font = Enum.Font.SourceSansBold
+TL.TextStrokeTransparency = 0
+TL.BackgroundTransparency = 1
+TL.Position = UDim2.new(0, 164, 0, 20)
+TL.Parent = Frame
+TL.ZIndex = 10
+local scroll = Instance.new("ScrollingFrame")
+scroll.Parent = Frame
+scroll.BackgroundColor3 = Frame.BackgroundColor3
+scroll.BorderSizePixel = 0
+scroll.Position = UDim2.new(0, 0, 0, 40)
+scroll.Size = UDim2.new(0, 328, 0, 150)
+scroll.ZIndex = 10
+scroll.ScrollBarImageColor3 = Color3.fromRGB(78,78,79)
+scroll.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+scroll.CanvasSize = UDim2.new(0, 0, 0, 10)
+scroll.MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+scroll.ScrollBarThickness = 8
+scroll.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+scroll.VerticalScrollBarInset = "Always"
+local exit = Instance.new("ImageButton")
+exit.Size = UDim2.new(0, 40, 0, 40)
+exit.Parent = Frame
+exit.BackgroundTransparency = 1
+exit.Image = "rbxassetid://2132544126"
+exit.ZIndex = 10
+exit.Position = UDim2.new(0, 288, 0, 0)
+exit.MouseButton1Click:Connect(function()
+	local TInfo = TweenInfo.new(.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+	IYChatOpen = false
+	game:GetService("TweenService"):Create(Frame, TInfo, {Position = Frame.Position + UDim2.new(0, 0, 0, -1000)}):Play()
+end)
+DragGui(Frame)
+local Frame1 = Instance.new("Frame")
+Frame1.Parent = IYChatLogs
+Frame1.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+Frame1.Size = UDim2.new(0, 328, 0, 190)
+Frame1.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame1.BorderSizePixel = 5
+Frame1.Position = UDim2.new(.5, -164, .5, -1095)
+Frame1.ZIndex = 12
+scroll1 = Instance.new("ScrollingFrame")
+scroll1.Parent = Frame1
+scroll1.BackgroundColor3 = Frame.BackgroundColor3
+scroll1.BorderSizePixel = 0
+scroll1.Position = UDim2.new(0, 0, 0, 40)
+scroll1.Size = UDim2.new(0, 328, 0, 150)
+scroll1.ZIndex = 12
+scroll1.ScrollBarImageColor3 = Color3.fromRGB(78,78,79)
+scroll1.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+scroll1.CanvasSize = UDim2.new(0, 0, 0, 10)
+scroll1.MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+scroll1.ScrollBarThickness = 8
+scroll1.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+scroll1.VerticalScrollBarInset = "Always"
+local TL1 = Instance.new("TextLabel")
+TL1.Text = "IY Chat Users"
+TL1.TextColor3 = Color3.fromRGB(255, 255, 255)
+TL1.Size = UDim2.new(0, 0, 0, 0)
+TL1.TextSize = 40
+TL1.Font = Enum.Font.SourceSansBold
+TL1.TextStrokeTransparency = 0
+TL1.BackgroundTransparency = 1
+TL1.Position = UDim2.new(0, 164, 0, 20)
+TL1.Parent = Frame1
+TL1.ZIndex = 12
+local exit2 = Instance.new("ImageButton")
+exit2.Size = UDim2.new(0, 40, 0, 40)
+exit2.Parent = Frame1
+exit2.BackgroundTransparency = 1
+exit2.Image = "rbxassetid://2132544126"
+exit2.ZIndex = 12
+exit2.Position = UDim2.new(0, 288, 0, 0)
+exit2.MouseButton1Click:Connect(function()
+	local TInfo = TweenInfo.new(.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+	IYChatUserOpen = false
+	game:GetService("TweenService"):Create(Frame1, TInfo, {Position = Frame1.Position + UDim2.new(0, 0, 0, -1000)}):Play()
+end)
+DragGui(Frame1)
+local IYC = {}
+function RefreshUsers()
+	for i,v in pairs(scroll1:GetChildren()) do
+		v:Destroy()
+	end
+	for i,v in pairs(IYC) do
+		CreateUsers(v, scroll1)
+	end
+end
+for i,v in pairs(Players:GetPlayers()) do
+	v:GetPropertyChangedSignal("OsPlatform"):Connect(function()
+		if GetMsg(v.OsPlatform, LP.Name) then
+			local Msg = GetMsg(v.OsPlatform, LP.Name)[1]
+			local Private = GetMsg(v.OsPlatform, LP.Name)[2]
+			if Private then
+				Msg = LocalTime().." - Received '"..Msg.."' from ["..v.Name.."]"
+			else
+				Msg = LocalTime().." - ["..v.Name.."]: "..Msg
+			end
+			CreateTLabel(Msg, scroll, 14, true, Private)
+		end
+		local x = false
+		for a, b in pairs(IYC) do
+			if v.Name == b then
+				x = true
+			end
+		end
+		if not x then
+			if Match(v.OsPlatform, "IYCHAT_") then
+				table.insert(IYC, v.Name)
+				RefreshUsers()
+			end
+		end
+	end)
+end
+Players.PlayerAdded:Connect(function(plr)
+	plr:GetPropertyChangedSignal("OsPlatform"):Connect(function()
+		if GetMsg(plr.OsPlatform, LP.Name) then
+			local Msg = GetMsg(plr.OsPlatform, LP.Name)[1]
+			local Private = GetMsg(plr.OsPlatform, LP.Name)[2]
+			if Private then
+				Msg = LocalTime().." - Received '"..Msg.."' from ["..plr.Name.."]"
+			else
+				Msg = LocalTime().." - ["..plr.Name.."]: "..Msg
+			end
+			CreateTLabel(Msg, scroll, 14, true, Private)
+		end
+		local x = false
+		for i,v in pairs(IYC) do
+			if plr.Name == v then
+				x = true
+			end
+		end
+		if not x then
+			if Match(plr.OsPlatform, "IYCHAT_") then
+				table.insert(IYC, plr.Name)
+				RefreshUsers()
+			end
+		end
+	end)
+end)
+Players.PlayerRemoving:Connect(function(plr)
+	for i,v in pairs(IYC) do
+		if plr.Name == v then
+			IYC[i] = nil
+			RefreshUsers()
+		end
+	end
+end)
+LP.OsPlatform = "IYCHAT_Running"
+function LocalTime()
+  local the_hour = math.floor((tick() % 86400) / 3600)
+  local the_minute = math.floor((tick() % 3600) / 60)
+  local the_second = math.floor(tick() % 60)
+  local the_time_of_day = the_hour > 11 and 'PM' or 'AM'
+  the_hour = (the_hour % 12 == 0 and 12 or the_hour % 12)
+  the_hour = the_hour < 10 and '0' .. the_hour or the_hour
+  the_minute = the_minute < 10 and '0' .. the_minute or the_minute
+  the_second = the_second < 10 and '0' .. the_second or the_second
+  return the_hour .. ':' .. the_minute .. ':' .. the_second .. ' ' .. the_time_of_day
+end
+local Plugin = {
+	["PluginName"] = "IYChat";
+	["PluginDescription"] = "Allows you to securely chat with other users with this plugin installed. Made by Tohru~ (トール )#0001";
+	["Commands"] = {
+		["broadcast"] = {
+			["ListName"] = "broadcast [msg]";
+			["Description"] = "Sends a message everyone with the plugin will receive";
+			["Aliases"] = {};
+			["Function"] = function(args, speaker)
+				if args then
+					LP.OsPlatform = GenMsg(getstring(1))
+				end
+			end
+		};
+		["iychatusers"] = {
+			["ListName"] = "iychatusers";
+			["Description"] = "Lists all the players in the game who has IY Chat";
+			["Aliases"] = {"iycu";};
+			["Function"] = function(args, speaker)
+				if not IYChatUserOpen then
+					local TInfo = TweenInfo.new(.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					IYChatUserOpen = true
+					game:GetService("TweenService"):Create(Frame1, TInfo, {Position = Frame1.Position + UDim2.new(0, 0, 0, 1000)}):Play()
+				end
+			end
+		};
+		["iychatlogs"] = {
+			["ListName"] = "iychatlogs";
+			["Description"] = "Opens the IY Chat logs";
+			["Aliases"] = {"iycl";};
+			["Function"] = function(args, speaker)
+				if not IYChatOpen then
+					local TInfo = TweenInfo.new(.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+					IYChatOpen = true
+					game:GetService("TweenService"):Create(Frame, TInfo, {Position = Frame.Position + UDim2.new(0, 0, 0, 1000)}):Play()
+				end
+			end
+		};
+		["dm"] = {
+			["ListName"] = "dm [plr] [msg]";
+			["Description"] = "Directly DM's [plr] [msg]";
+			["Aliases"] = {};
+			["Function"] = function(args, speaker)
+				if args then
+					if GetPlayers(args[1]) then
+						if FindInTable(IYC, GetPlayers(args[1])[1].Name) then
+							LP.OsPlatform = GenMsg(getstring(2), true, tostring(GetPlayers(args[1])[1].Name))
+							CreateTLabel(LocalTime().." - Sent '"..getstring(2).."'  to ["..tostring(GetPlayers(args[1])[1].Name).."]", scroll, 14, true, true)
+							notify("IY Chat", "Sent your message to "..GetPlayers(args[1])[1].Name)
+						else
+							notify("IY Chat", GetPlayers(args[1])[1].Name.." isn't using IY Chat")
+					end
+				end
+			end
+		end
+		};
+		["iyusers"] = {
+			["ListName"] = "iyusers [plr]";
+			["Description"] = "Sees if [plr] is using iychat, otherwise, returns the people using IY Chat";
+			["Aliases"] = {"iyu";"checkuser";};
+			["Function"] = function(args, speaker)
+				if #args == 0 then
+					notify("IY Chat", "Users: "..table.concat(IYC, ", "))
+				else
+					if GetPlayers(args[1]) then
+						if FindInTable(IYC, GetPlayers(args[1])[1].Name) then
+							notify("IY Chat", GetPlayers(args[1])[1].Name.." is using IY Chat")
+						else
+							notify("IY Chat", GetPlayers(args[1])[1].Name.." is not using IY Chat")
+						end
+					end
+				end
+			end
+		};
+	};
+};
+	return Plugin
+

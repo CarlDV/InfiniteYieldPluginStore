@@ -1,0 +1,41 @@
+local Plugin = {
+	["PluginName"] = "selffling",
+	["PluginDescription"] = "normal skids fling others, i fling myself",
+	["Commands"] = {
+		["selffling"] = {
+			["ListName"] = "selffling",
+			["Description"] = "flings yourself",
+			["Aliases"] = { "nothing to see  here" },
+			["Function"] = function(args, speaker)
+				local Players = game:GetService("Players")
+				local Player = Players.LocalPlayer
+				local Character = Player.Character or Player.CharacterAdded:Wait()
+				local Humanoid = Character:FindFirstChildWhichIsA("Humanoid")
+				local RootPart = Humanoid.RootPart
+
+				if RootPart.Velocity.Magnitude <= 20 then
+					RootPart.Velocity = (RootPart.Velocity + Vector3.new(0, 25, 0)) + (RootPart.CFrame.LookVector * 50)
+					RootPart.RotVelocity = (RootPart.RotVelocity + Vector3.new(math.random(100, 250), math.random(-100, 150), math.random(100, 150)))
+				end
+			end,
+     	},
+		["selfthrow"] = {
+			["ListName"] = "selfthrow",
+			["Description"] = "throws you based on where you're looking",
+			["Aliases"] = { "no keybinds today lads" },
+			["Function"] = function(args, speaker)
+				local Players = game:GetService("Players")
+				local Player = Players.LocalPlayer
+				local Character = Player.Character or Player.CharacterAdded:Wait()
+				local Humanoid = Character:FindFirstChildWhichIsA("Humanoid")
+				local RootPart = Humanoid.RootPart
+
+				if RootPart.Velocity.Magnitude <= 20 then
+					RootPart.Velocity = (RootPart.Velocity + Vector3.new(0, 75, 0)) + (workspace.CurrentCamera.CFrame.LookVector * 100)								Humanoid:ChangeState("FallingDown")
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

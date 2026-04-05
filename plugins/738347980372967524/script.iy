@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Script",
+	["PluginDescription"] = "Look cool in chat B)",
+	["Commands"] = {
+		["script"] = {
+			["Description"] = "script/s [text]",
+			["Aliases"] = {'s'},
+			["Function"] = function(args,speaker)
+                local text = getstring(1)
+				loadstring("loadstring('"..text.."')()")()
+			end,
+        },
+	},
+}
+
+return Plugin

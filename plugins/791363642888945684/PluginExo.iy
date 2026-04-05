@@ -1,0 +1,20 @@
+local Plugin = {
+	["PluginName"] = "Exo Chat",
+	["PluginDescription"] = "SYNAPSE USERS ONLY",
+	["Commands"] = {
+		["iychat"] = {
+			["ListName"] = "exochat/exoch",
+			["Description"] = "This allows you to talk to other players from other servers or games",
+			["Aliases"] = {"exoch","exochat"},
+			["Function"] = function(args,speaker)
+				getgenv().settings = {
+					--//Settings//--
+					Roles = "Test" -- Info: This String can take up to 7 Characters. If you are found abusing this like I said you will be banned.
+				}
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/CadenWhaley/Exo-Launcher/main/ExoLauncher"))()
+			end
+		}
+	}
+}
+
+return Plugin

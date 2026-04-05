@@ -1,0 +1,20 @@
+local Plugin = {
+	["PluginName"] = "IY chat",
+	["PluginDescription"] = "SYNAPSE AND PROTO USERS ONLY NO FREE EXPLOITS",
+	["Commands"] = {
+		["iychat"] = {
+			["ListName"] = "iychat/ichat/crosschat/serverchat",
+			["Description"] = "This allows you to talk to other players from other servers",
+			["Aliases"] = {"ichat","crosschat","serverchat"},
+			["Function"] = function(args,speaker)
+				getgenv().settings1 = {
+					--//Settings//--
+					Roles = "Role Goes Here" -- Info: This Table can take up to 7 Characters. If you are found abusing this like I said you will be banned.
+				}
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/CadenWhaley/IY-Chat/main/IYCHAT.txt"))()
+			end
+		}
+	}
+}
+
+return Plugin

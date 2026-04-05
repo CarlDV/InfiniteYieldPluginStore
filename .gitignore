@@ -4,6 +4,5 @@ __pycache__/
 *.pyo
 *.pyd
 .DS_Store
-data/plugins.json
 node_modules/
 dist/

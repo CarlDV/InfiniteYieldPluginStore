@@ -1,0 +1,66 @@
+local HttpRequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
+local HttpService = game:GetService("HttpService")
+
+local function requestFact()
+    local url = "https://api.api-ninjas.com/v1/facts?limit=1"
+    local headers = {
+        ["X-Api-Key"] = "9uDtqyQHdTHJjEmEIrcbCg==vOxsk9livTKn4D1m" --// ples do not spam my api key >:(
+    }
+
+    local options = {
+        Url = url,
+        Method = "GET",
+        Headers = headers
+    }
+
+    local success, response = pcall(function()
+        return HttpRequest(options)
+    end)
+
+    if success and response.StatusCode == 200 then
+        local responseData = HttpService:JSONDecode(response.Body)
+        local fact = responseData[1].fact
+        return fact
+    else
+        warn("Failed to retrieve fact:", response)
+        return nil
+    end
+end
+
+local function retrieveFact()
+    local fact
+    local success, errorMessage = pcall(function()
+        fact = requestFact()
+    end)
+    if success then
+        return fact
+    else
+        warn("Failed to retrieve fact:", errorMessage)
+        return nil
+    end
+end
+
+
+
+
+local Plugin = {
+    PluginName = "fact",
+    PluginDescription = "Will tell you a random fact.",
+    Commands = {
+        joke = {
+            ["Aliases"] = {"fact"},
+            ListName = "fact",
+            Description = "Tells you a useless fact.",
+            Function = function(args)
+                local fact = retrieveFact()
+                if fact then
+                    notify("Fact", fact)
+                else
+                    print("Failed to retrieve fact")
+                end
+            end
+        }
+    }
+}
+
+return Plugin

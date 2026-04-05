@@ -1,0 +1,141 @@
+local Plugin = {
+    ["PluginName"] = "Bang Tool",
+    ["PluginDescription"] = "A clickable bang, for all your banging needs.",
+    ["Commands"] = {
+        ["bangtool"] = {
+            ["ListName"] = "bangtool",
+            ["Description"] = "Regular Bang Tool.",
+            ["Aliases"] = {"bt", "bangt"},
+            ["Function"] = function(args, speaker)
+                local speakerChar = speaker.Character
+                if not speakerChar then return end
+                
+                local backpack = speaker:FindFirstChild("Backpack")
+                if backpack then
+                    local oldTool = backpack:FindFirstChild("Bang Tool")
+                    if oldTool then oldTool:Destroy() end
+                end
+                
+                local tool = Instance.new("Tool")
+                tool.Name = "Bang Tool"
+                tool.ToolTip = "Click to bang."
+                tool.RequiresHandle = false
+                tool.CanBeDropped = false
+                
+                local mouse = speaker:GetMouse()
+                
+                local function getPlayerFromClick(target)
+                    if not target then return nil end
+                    for _, player in ipairs(game.Players:GetPlayers()) do
+                        local char = player.Character
+                        if char and (target == char or target:IsDescendantOf(char)) then
+                            return player
+                        end
+                    end
+                    return nil
+                end
+                
+                local isBanging = false
+                
+                tool.Activated:Connect(function()
+                    local targetPlayer = getPlayerFromClick(mouse.Target)
+                    
+                    if targetPlayer and not isBanging then
+                        execCmd("bang "..targetPlayer.Name, speaker)
+                        isBanging = true
+                    else
+                        execCmd("unbang", speaker)
+                        isBanging = false
+                    end
+                end)
+                tool.Unequipped:Connect(function()
+                    if isBanging then
+                        execCmd("unbang", speaker)
+                    end
+                end)
+                
+                if backpack then
+                    tool.Parent = backpack
+                end
+                
+                notify("Bang Tool", "Equip the tool from your backpack and click on players.")
+            end
+        },
+        
+        ["bangandreturntool"] = {
+            ["ListName"] = "bangandreturntool",
+            ["Description"] = "Bang Tool that returns to previous position.",
+            ["Aliases"] = {"bart", "brt", "bangrt"},
+            ["Function"] = function(args, speaker)
+                local speakerChar = speaker.Character
+                if not speakerChar or not speakerChar:FindFirstChild("HumanoidRootPart") then 
+                    return 
+                end
+                
+                local backpack = speaker:FindFirstChild("Backpack")
+                if backpack then
+                    local oldTool = backpack:FindFirstChild("Bang 'n Return Tool")
+                    if oldTool then oldTool:Destroy() end
+                end
+                
+                local tool = Instance.new("Tool")
+                tool.Name = "Bang 'n Return Tool"
+                tool.ToolTip = "Click to bang, click away to return."
+                tool.RequiresHandle = false
+                tool.CanBeDropped = false
+                
+                local mouse = speaker:GetMouse()
+                local returnPosition = nil
+                local isBanging = false
+                
+                local function getPlayerFromClick(target)
+                    if not target then return nil end
+                    for _, player in ipairs(game.Players:GetPlayers()) do
+                        local char = player.Character
+                        if char and (target == char or target:IsDescendantOf(char)) then
+                            return player
+                        end
+                    end
+                    return nil
+                end
+                
+                tool.Activated:Connect(function()
+                    local targetPlayer = getPlayerFromClick(mouse.Target)
+                    local rootPart = speakerChar:FindFirstChild("HumanoidRootPart")
+                    
+                    if not rootPart then return end
+                    
+                    if targetPlayer and not isBanging then
+                        returnPosition = rootPart.CFrame
+                        execCmd("bang "..targetPlayer.Name, speaker)
+                        isBanging = true
+                    else
+                        execCmd("unbang", speaker)
+                        isBanging = false
+                        
+                        if returnPosition then
+                            task.wait(0.1)
+                            rootPart.CFrame = returnPosition
+                            returnPosition = nil
+                        end
+                    end
+                end)
+                
+                tool.Unequipped:Connect(function()
+                    if isBanging then
+                        execCmd("unbang", speaker)
+                        isBanging = false
+                    end
+                end)
+                
+                if backpack then
+                    tool.Parent = backpack
+                end
+                
+                notify("Bang 'n Return Tool", "Equip tool and click players. Click away to return.")
+            end
+        }
+    }
+}
+
+return Plugin

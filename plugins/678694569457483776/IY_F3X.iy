@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "F3X Reimplementation",
+    ["PluginDescription"] = "Adds F3X back to IY",
+    ["Commands"] = {
+        ["f3x"] = {
+            ["ListName"] = "f3x",
+            ["Description"] = "Gives you F3X building tools.",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+				loadstring(game:GetObjects("rbxassetid://4698064966")[1].Source)()
+            end     
+        },
+    }
+}
+
+return Plugin

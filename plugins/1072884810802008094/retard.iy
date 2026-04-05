@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "retard",
+    ["PluginDescription"] = "retard",
+    ["Commands"] = {
+        ["retard"] = {
+            ["ListName"] = "retard",
+            ["Description"] = "retard",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              notify("contact this retarded beluga fanboy","hеckеr#6891 (toll free)")
+            end
+        }
+     }
+}
+
+return Plugin

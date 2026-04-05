@@ -1,0 +1,33 @@
+local on = true
+if (pcall(function() readfile("notifs.txt") end)) then -- if config file exists
+	if readfile("notifs.txt") == "false" then
+		on = false
+	end
+else
+	writefile("notifs.txt", tostring(on))
+end
+
+local orignotify = notify -- reassigning to our own that allows toggling
+
+notify = function(text,text2,length) -- don't want to call it recursively lol
+	if on then
+		orignotify(text, text2, length)
+	end
+end
+
+local Plugin = {
+	["PluginName"] = "Notifications",
+	["PluginDescription"] = "Toggles notifications",
+	["Commands"] = {
+		["notifications / notifs"] = {
+			["Description"] = "Toggles notifications",
+			["Aliases"] = {'notifications', 'notifs'},
+			["Function"] = function(args, speaker)
+				on = not on
+				writefile("notifs.txt", tostring(on))
+			end,
+		},
+	},
+}
+
+return Plugin

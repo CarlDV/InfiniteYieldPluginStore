@@ -1,0 +1,29 @@
+local list = {"furry", "fur", "tail", "wolf", "ears", "floof", "fox", "protogen", "shark", "dragon", "critter"}
+function Smatch(String)
+	String = String:lower()
+    for i,v in pairs(list) do
+        if string.find(String, v) then
+           return true
+        end
+    end
+    return false
+end
+
+SpecialPlayerCases["furries"] = function(speaker)
+    local returns = {}
+		for _,plr in pairs(Players:GetPlayers()) do
+			for i,hat in pairs(plr.Character:GetChildren()) do
+			    if hat:IsA("Accessory") and Smatch(hat.Name) then
+				    table.insert(returns,plr)
+				    break
+			    end
+			end
+		end
+	return returns
+end
+
+return {
+    ["PluginName"] = "FurriesPlayerCase",
+    ["PluginDescription"] = "made by prisj",
+    ["Commands"] = {}
+}

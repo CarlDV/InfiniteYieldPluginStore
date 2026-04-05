@@ -1,0 +1,26 @@
+local Plugin = {
+    ["PluginName"] = "replacesound",
+    ["PluginDescription"] = "replace all sounds in ga me",
+    ["Commands"] = {
+        ["replacesounds"] = {
+            ["ListName"] = "replacesounds [sound id]",
+            ["Description"] = "replace sound",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local id = tonumber(args[1]); if id == nil then id = 142376088 end
+                local audio = "rbxassetid://"..tostring(id)
+                for i,v in pairs(workspace:GetDescendants()) do
+                    if v:IsA("Sound") then
+                        pcall(function()
+                            v.SoundId = audio
+                            v:Stop()
+                            v:Play()
+                        end)
+                    end
+                end
+            end
+        }
+     }
+}
+
+return Plugin

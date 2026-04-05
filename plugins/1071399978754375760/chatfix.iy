@@ -1,0 +1,55 @@
+local hook
+local hook2
+local Plugin = {
+    ["PluginName"] = "chatfix",
+    ["PluginDescription"] = "not quite what you'd think",
+    ["Commands"] = {
+        ["prefix"] = {
+            ["ListName"] = "prefix [text]",
+            ["Description"] = "set message prefix to that",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                args = table.concat(args," ").." "
+		hook = nil
+               	hook = hookmetamethod(game,"__namecall",newcclosure(function(self,...)
+                    local argsa = {...}
+                    local method = getnamecallmethod()
+                    if self.Name:find("SayMessageRequest") and method == "FireServer" then
+                        argsa[1] = args..argsa[1]
+                        return hook(self,unpack(argsa))
+                    end
+                    return hook(self,...)
+                end))
+            end
+        },
+        ["suffix"] = {
+            ["ListName"] = "suffix [text]",
+            ["Description"] = "set message suffix to that",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                args = table.concat(args," ")
+		hook2 = nil
+                hook2 = hookmetamethod(game,"__namecall",newcclosure(function(self,...)
+                    local argsa = {...}
+                    local method = getnamecallmethod()
+                    if self.Name:find("SayMessageRequest") and method == "FireServer" then
+                        argsa[1] = argsa[1].." "..args
+                        return hook2(self,unpack(argsa))
+                    end
+                    return hook2(self,...)
+                end))
+            end
+        },
+        ["nofix"] = {
+            ["ListName"] = "nofix",
+            ["Description"] = "try to remove those damned prefixes",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                hookmetamethod(game, "__namecall", hook)
+		hookmetamethod(game, "__namecall", hook2)
+            end
+        }
+     }
+}
+
+return Plugin

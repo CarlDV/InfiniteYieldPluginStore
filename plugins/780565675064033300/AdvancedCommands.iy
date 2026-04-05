@@ -1,0 +1,28 @@
+local player = game.Players.LocalPlayer
+local character = player.Character
+local humanoid = character.Humanoid
+
+local Plugin = {
+	["PluginName"] = "Advanced Commands",
+	["PluginDescription"] = "Version 0.0.1\nMade by WeAreRump",
+	["Commands"] = {
+		["superspeed"] = {
+			["ListName"] = "superspeed",
+			["Description"] = "Sets Speed to '150'",
+			["Aliases"] = {""},
+			["Function"] = function(args,speaker)
+				humanoid.WalkSpeed = 150
+			end,
+		},
+		
+		["defaultspeed"] = {
+			["ListName"] = "superspeed",
+			["Description"] = "Sets Speed to '"..game.StarterPlayer.CharacterWalkSpeed.."'",
+			["Aliases"] = {""},
+			["Function"] = function(args,speaker)
+				humanoid.WalkSpeed = game.StarterPlayer.CharacterWalkSpeed
+			end,
+		}
+	}
+}
+return Plugin

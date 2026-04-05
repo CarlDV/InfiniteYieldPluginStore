@@ -1,0 +1,46 @@
+version = 1.0
+local Plugin = {
+    ["PluginName"] = "Float With Noclip",
+    ["PluginDescription"] = "Use this noclip if you want to float",
+    ["Commands"] = {
+        ["noclip1"] = {
+            ["ListName"] = "Noclip1",
+            ["Description"] = "Enable the noclip1",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+    local Noclipping = nil
+	Clip = false
+	wait(0.1)
+	local function NoclipLoop()
+		if Clip == false and Players.LocalPlayer.Character ~= nil then
+	   		for _, child in pairs(Players.LocalPlayer.Character:GetDescendants()) do
+				if child:IsA("BasePart") and child.CanCollide == true then
+                       child.CanCollide = false
+                elseif child.Name == "Float" then
+                    child.CanCollide = true
+				end
+			end
+		end
+	end
+	Noclipping = game:GetService('RunService').Stepped:connect(NoclipLoop)
+end,
+        },
+        ["unnoclip1"] = {
+            ["ListName"] = "Clip1 / Unnoclip1",
+            ["Description"] = "Disable the noclip1",
+            ["Aliases"] = {"clip1"},
+            ["Function"] = function(args,speaker)
+                if Noclipping then
+                    Noclipping:Disconnect()
+                end
+                Clip = true
+                for _, child in pairs(Players.LocalPlayer.Character:GetDescendants()) do
+                    if child.Name == "Float" then
+                        child.CanCollide = false
+                    end
+                end
+            end
+        }
+    }
+}
+return Plugin

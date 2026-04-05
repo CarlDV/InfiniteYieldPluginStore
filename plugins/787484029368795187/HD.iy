@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "HD Lighting",
+	["PluginDescription"] = "Switches the game to a more refined look",
+	["Commands"] = {
+		["HD"] = {
+			["Description"] = "Switches the game to a more refined look.",
+			["Aliases"] = {'newlighting', 'NL', 'realworld'},
+            		["Function"] = function(args,speaker)
+                loadstring(game:HttpGet('https://pastebin.com/raw/Q5hX9qud'))()
+            end
+        }    
+    }
+}
+
+return Plugin

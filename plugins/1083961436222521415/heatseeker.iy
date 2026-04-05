@@ -1,0 +1,35 @@
+local Enabled
+local Plugin = {
+    ["PluginName"] = "HeatSeeker",
+    ["PluginDescription"] = "HeatSeeker Speed",
+    ["Commands"] = {
+        ["HeatSeeker"] = {
+            ["ListName"] = "HeatSeeker [speed] [waitime]",
+            ["Description"] = "",
+            ["Aliases"] = {"heatseeker", "hs"},
+            ["Function"] = function(args,speaker)
+                  Enabled = true
+                  local speed = tonumber(args[1])
+                  local waittime = tonumber(args[2])
+                  local entity = game.Players.LocalPlayer
+                  repeat
+                    entity.Character.Humanoid.WalkSpeed = speed
+                    wait(waittime)
+                    entity.Character.Humanoid.WalkSpeed = 16
+                    wait(waittime)
+                  until not entity.Character or not Enabled
+            end
+        },
+        ["NoHeatSeeker"] = {
+            ["ListName"] = "noHeatSeeker",
+            ["Description"] = "",
+            ["Aliases"] = {"noheatseeker", "nhs"},
+            ["Function"] = function(args,speaker)
+                Enabled = false
+                entity.Character.Humanoid.WalkSpeed = 16
+            end
+        }
+    }
+}
+
+return Plugin

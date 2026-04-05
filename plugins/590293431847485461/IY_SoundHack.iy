@@ -1,0 +1,98 @@
+local ToggleLoop = false
+local TotalSounds = 0
+
+local Plugin = {
+    ["PluginName"] = "SoundHack",
+    ["PluginDescription"] = "Allows you to experiment with sounds in Roblox",
+    ["Commands"] = {
+        ["soundcheck"] = {
+            ["ListName"] = "soundcheck / scheck",
+            ["Description"] = "Checks if game sound can be exploitable.",
+            ["Aliases"] = {'scheck'},
+            ["Function"] = function(args, speaker)
+                if game:GetService("SoundService").RespectFilteringEnabled == false then
+					notify("SoundHack", "Sounds can be exploited.")
+                else
+					notify("SoundHack", "Sounds can't be exploited.")
+                end
+            end,
+        },
+        ["soundplay"] = {
+            ["ListName"] = "soundplay / splay",
+            ["Description"] = "Plays all sound in game.",
+            ["Aliases"] = {'splay'},
+            ["Function"] = function(args, speaker)
+                for i,v in pairs(game:GetDescendants()) do
+                    if v:IsA("Sound") then
+                        v:Play()
+                    end
+                end
+                notify("SoundHack", "Finished playing sounds.")
+            end,
+        },
+        ["soundstop"] = {
+            ["ListName"] = "soundstop / sstop",
+            ["Description"] = "Plays all sound in game.",
+            ["Aliases"] = {'sstop'},
+            ["Function"] = function(args, speaker)
+                for i,v in pairs(game:GetDescendants()) do
+                    if v:IsA("Sound") then
+                        v:Stop()
+                    end
+                end
+                notify("SoundHack", "Finished stopping sounds.")
+            end,
+        },
+        ["soundloop"] = {
+            ["ListName"] = "sound loop / sloup",
+            ["Description"] = "Toggle looping of all sounds in game.",
+            ["Aliases"] = {'sloop'},
+            ["Function"] = function(args, speaker)
+                ToggleLoop = not ToggleLoop
+				if not ToggleLoop then
+				    for i,v in pairs(game:GetDescendants()) do
+						if v:IsA("Sound") then
+							v:Stop()
+						end
+					end
+                end
+                while ToggleLoop do
+                    wait(0.5)
+                    for i,v in pairs(game:GetDescendants()) do
+                        if v:IsA("Sound") then
+                            v:Play()
+                        end
+                    end
+                end
+                notify("SoundHack", "Now looping sounds.")
+            end,
+        },
+        ["soundnum"] = {
+            ["ListName"] = "soundnum / snum",
+            ["Description"] = "Counts how many sounds are in-game.",
+            ["Aliases"] = {'snum'},
+            ["Function"] = function(args, speaker)
+                TotalSounds = 0
+                for i,v in pairs(game:GetDescendants()) do
+                    if v:IsA("Sound") then
+                        TotalSounds = TotalSounds + 1
+                    end
+                end
+                notify("SoundHack", "There are "..tostring(TotalSounds).." sounds in the game.")
+            end,
+        },
+        ["soundscan"] = {
+            ["ListName"] = "soundscan / sscan",
+            ["Description"] = "Scans a specific area for sounds, and plays them.",
+            ["Aliases"] = {'sscan'},
+            ["Function"] = function(args, speaker)
+                for i,v in pairs(args[1]:GetDescendants()) do
+                    if v:IsA("Sound") then
+                        v:Play()
+                    end
+                end
+                notify("Finished scanning : "..tostring(args[1]))
+            end,
+        },
+    },
+}

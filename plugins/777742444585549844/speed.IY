@@ -1,0 +1,39 @@
+local mt = getrawmetatable(game)
+local OldIndex = mt.__newindex
+setreadonly(mt, false)
+local speed = 16
+local enabled = false
+mt.__newindex = newcclosure(function(t, i, v)
+    if tostring(t) == "Humanoid" and tostring(i) == "WalkSpeed" and enabled then
+        v = speed
+    end
+    return OldIndex(t, i, v)
+end)
+
+setreadonly(mt, true)
+
+local Plugin = {
+	["PluginName"] = "SpeedBypass",
+	["PluginDescription"] = "Gives you access to bypass standard speed anticheats",
+	["Commands"] = {
+		["SpeedBypass"] = {
+			["Description"] = "Activate the speed",
+			["Aliases"] = {'SpeedBypass'},
+			["Function"] = function(args,speaker)
+                enabled = true
+                speed = tonumber(args[1])
+                game:GetService("Players").LocalPlayer:WaitForChild("Humanoid").Walkspeed = speed
+			end,
+		},
+		["SpeedOff"] = {
+            ["Description"] = "Deactivate the speed",
+            ["Aliases"] = {'NoSpeedBypass'},
+            ["Function"] = function(args,speaker)
+                enabled = false
+                game:GetService("Players").LocalPlayer:WaitForChild("Humanoid").Walkspeed = 16
+            end,
+		},
+	},
+}
+
+return Plugin

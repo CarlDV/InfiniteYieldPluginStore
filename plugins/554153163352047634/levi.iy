@@ -1,0 +1,31 @@
+local Plugin = {
+	["PluginName"] = "Levitation",
+	["PluginDescription"] = "A cool little plugin edit by Amokah#6969 original by Lustris#4321 that changes your R15 animation C:",
+	["Commands"] = {
+		["Levitation"] = {
+			["Description"] = "Changing animations if possible...",
+			["Aliases"] = {'Levitationanim'},
+			["Function"] = function(args,speaker)
+			   local char = speaker.Character
+			   if char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+			   print("User is R15 -- Animation changing")
+			   notify("Animations changed, unless game has animation override")
+               char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=616006778"
+               char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
+               char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+               char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+               char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
+               char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+               char.Animate.swimidle.Swimidle.AnimationId = "http://www.roblox.com/asset/?id=616012453"
+               char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=616011509"
+			   else
+			   notify("Sorry, only works with R15 types")
+			   print("User is R6 so we can't change animations :I")
+               --ez
+			   end
+			end,
+		},
+	},
+}
+
+return Plugin

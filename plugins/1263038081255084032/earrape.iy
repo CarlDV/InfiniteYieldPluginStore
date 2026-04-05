@@ -1,0 +1,45 @@
+local Plugin = {
+    ["PluginName"] = "Earrape",
+    ["PluginDescription"] = "anti ear (without the rape)",
+    ["Commands"] = {
+        ["anti-earrape"] = {
+            ["ListName"] = "earrape",
+            ["Description"] = "blinds your ears as sounds play",
+            ["Aliases"] = {"sigmatoilet", "er"},
+            ["Function"] = function()
+                local MAX_THRESHOLD = 1000 -- next update u can edit this through infinite yield
+                local MIN_THRESHOLD = 860
+
+                local function monitor(sound)
+                    local heartbeat = game:GetService("RunService").Heartbeat:Connect(function()
+                            if sound.IsPlaying then
+                                sound.Volume = 100
+                            else
+                                heartbeat:Disconnect()
+                            end
+                        end)
+                end
+
+                local function findSoundsIn(parent)
+                    for _, child in ipairs(parent:GetChildren()) do
+                        if child:IsA("Sound") then
+                            monitor(child)
+                        elseif #child:GetChildren() > 0 then
+                            findSoundsIn(child)
+                        end
+                    end
+                end
+
+                findSoundsIn(game)
+
+                game.DescendantAdded:Connect(function(descendant)
+                     if descendant:IsA("Sound") then
+                     monitor(descendant)
+                     end
+               end)
+            end
+        }
+    }
+}
+
+return Plugin

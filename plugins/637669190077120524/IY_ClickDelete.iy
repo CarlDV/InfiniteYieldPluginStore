@@ -1,0 +1,48 @@
+_G.IY_ClickDelete = false
+game:GetService("Players").LocalPlayer:GetMouse().Button1Down:connect(function()
+if not _G.IY_ClickDelete then return end
+if not game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftAlt) then return end
+if not game:GetService("Players").LocalPlayer:GetMouse().Target then return end
+game:GetService("Players").LocalPlayer:GetMouse().Target:Destroy()
+end)
+
+local Plugin = {
+	["PluginName"] = "ClickDelete",
+	["PluginDescription"] = "Click Delete plugin by Pawel12d#0272 (Alt + Click)",
+	["Commands"] = {
+		["clickdelete"] = {
+			["ListName"] = "clickdelete",
+			["Description"] = "Toggles ON Click Delete (alt)",
+			["Aliases"] = {'cd'},
+			["Function"] = function(args, speaker)
+			_G.IY_ClickDelete = true
+			notify("Click Delete toggled ON!")
+			end,
+		},
+		["unclickdelete"] = {
+			["ListName"] = "unclickdelete",
+			["Description"] = "Toggles OFF Click Delete (alt)",
+			["Aliases"] = {'ucd', 'uncd'},
+			["Function"] = function(args, speaker)
+			_G.IY_ClickDelete = false
+			notify("Click Delete toggled OFF!")
+			end,
+		},
+		["toggleclickdelete"] = {
+			["ListName"] = "toggleclickdelete",
+			["Description"] = "Toggles ON or OFF Click Delete (alt)",
+			["Aliases"] = {'tcd', 'togglecd'},
+			["Function"] = function(args, speaker)
+			if _G.IY_ClickDelete then 
+				_G.IY_ClickDelete = false
+				notify("Click Delete toggled OFF!")
+			else
+				_G.IY_ClickDelete = true
+				notify("Click Delete toggled ON!")
+			end
+			end,
+		},
+	},
+}
+
+return Plugin

@@ -1,0 +1,236 @@
+local Plugin = {
+    ["PluginName"] = "PlayerTPGUI",
+    ["PluginDescription"] = "Teleport to any player using a GUI with avatars, search, sort, and quick history.",
+    ["Commands"] = {
+        ["playertpgui"] = {
+            ["ListName"] = "playertpgui",
+            ["Description"] = "Opens a GUI to teleport to players.",
+            ["Aliases"] = {"ptpgui", "tpgui"},
+            ["Function"] = function(args, speaker)
+                local Players = game:GetService("Players")
+                local lp = speaker or Players.LocalPlayer
+                local history = {}
+                local maxHistory = 5
+
+                if game.CoreGui:FindFirstChild("PlayerTPGUI") then return end
+
+                local gui = Instance.new("ScreenGui", game.CoreGui)
+                gui.Name = "PlayerTPGUI"
+                gui.ResetOnSpawn = false
+
+                local frame = Instance.new("Frame", gui)
+                frame.Size = UDim2.new(0, 400, 0, 500)
+                frame.Position = UDim2.new(0.5, -200, 0.5, -250)
+                frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+                frame.BorderSizePixel = 0
+                frame.Active = true
+                frame.Draggable = true
+                frame.AnchorPoint = Vector2.new(0.5, 0.5)
+
+                Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 15)
+
+                local title = Instance.new("TextLabel", frame)
+                title.Text = "Player TP GUI"
+                title.Size = UDim2.new(1, -30, 0, 30)
+                title.BackgroundColor3 = Color3.fromRGB(60, 0, 80)
+                title.TextColor3 = Color3.new(1, 0.8, 0.9)
+                title.Font = Enum.Font.SourceSansBold
+                title.TextSize = 20
+                title.TextXAlignment = Enum.TextXAlignment.Left
+                title.Position = UDim2.new(0, 5, 0, 0)
+
+                local close = Instance.new("TextButton", frame)
+                close.Text = "❌"
+                close.Size = UDim2.new(0, 30, 0, 30)
+                close.Position = UDim2.new(1, -30, 0, 0)
+                close.BackgroundColor3 = Color3.fromRGB(100, 0, 40)
+                close.TextColor3 = Color3.new(1, 0.8, 0.9)
+                close.Font = Enum.Font.SourceSansBold
+                close.TextSize = 18
+                close.MouseButton1Click:Connect(function() gui:Destroy() end)
+
+                Instance.new("UICorner", close).CornerRadius = UDim.new(0, 10)
+
+                local search = Instance.new("TextBox", frame)
+                search.PlaceholderText = "Search players..."
+                search.Size = UDim2.new(0.6, -10, 0, 30)
+                search.Position = UDim2.new(0, 10, 0, 40)
+                search.BackgroundColor3 = Color3.fromRGB(40, 0, 60)
+                search.TextColor3 = Color3.new(1, 0.9, 1)
+                search.Font = Enum.Font.SourceSans
+                search.TextSize = 16
+                search.ClearTextOnFocus = false
+                search.Text = ""
+
+                Instance.new("UICorner", search).CornerRadius = UDim.new(0, 12)
+
+                local sortDropdown = Instance.new("TextButton", frame)
+                sortDropdown.Size = UDim2.new(0.35, -10, 0, 30)
+                sortDropdown.Position = UDim2.new(0.6, 10, 0, 40)
+                sortDropdown.Text = "Sort: A-Z"
+                sortDropdown.BackgroundColor3 = Color3.fromRGB(60, 0, 80)
+                sortDropdown.TextColor3 = Color3.new(1, 0.8, 0.9)
+                sortDropdown.Font = Enum.Font.SourceSans
+                sortDropdown.TextSize = 14
+
+                Instance.new("UICorner", sortDropdown).CornerRadius = UDim.new(0, 12)
+
+                local list = Instance.new("ScrollingFrame", frame)
+                list.Position = UDim2.new(0, 10, 0, 80)
+                list.Size = UDim2.new(1, -20, 0.55, -90)
+                list.CanvasSize = UDim2.new(0, 0, 0, 0)
+                list.ScrollBarThickness = 6
+                list.BackgroundColor3 = Color3.fromRGB(25, 0, 40)
+
+                Instance.new("UICorner", list).CornerRadius = UDim.new(0, 12)
+
+                local historyFrame = Instance.new("ScrollingFrame", frame)
+                historyFrame.Position = UDim2.new(0, 10, 0.55, 0)
+                historyFrame.Size = UDim2.new(1, -20, 0.45, -10)
+                historyFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+                historyFrame.ScrollBarThickness = 6
+                historyFrame.BackgroundColor3 = Color3.fromRGB(30, 0, 50)
+
+                Instance.new("UICorner", historyFrame).CornerRadius = UDim.new(0, 12)
+
+                local historyTitle = Instance.new("TextLabel", historyFrame)
+                historyTitle.Text = "Quick Teleport History"
+                historyTitle.Size = UDim2.new(1, 0, 0, 25)
+                historyTitle.BackgroundTransparency = 1
+                historyTitle.TextColor3 = Color3.new(1, 0.8, 0.9)
+                historyTitle.Font = Enum.Font.SourceSansBold
+                historyTitle.TextSize = 16
+
+                local sortOptions = {"A-Z", "Nearest", "Recent"}
+                local selectedSort = 1
+
+                sortDropdown.MouseButton1Click:Connect(function()
+                    selectedSort = selectedSort % #sortOptions + 1
+                    sortDropdown.Text = "Sort: " .. sortOptions[selectedSort]
+                end)
+
+                local function getAvatarThumbnail(userId)
+                    return Players:GetUserThumbnailAsync(userId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
+                end
+
+                local function formatName(p)
+                    return p.DisplayName ~= p.Name and (p.DisplayName .. " (@" .. p.Name .. ")") or p.Name
+                end
+
+                local function addToHistory(p)
+                    for i, v in ipairs(history) do
+                        if v == p then table.remove(history, i) break end
+                    end
+                    table.insert(history, 1, p)
+                    if #history > maxHistory then table.remove(history) end
+                end
+
+                local function refreshHistory()
+                    for _, child in ipairs(historyFrame:GetChildren()) do
+                        if child ~= historyTitle then child:Destroy() end
+                    end
+                    local y = 30
+                    for i, p in ipairs(history) do
+                        local avatar = getAvatarThumbnail(p.UserId)
+                        local button = Instance.new("TextButton", historyFrame)
+                        button.Size = UDim2.new(1, -10, 0, 40)
+                        button.Position = UDim2.new(0, 5, 0, y)
+                        button.BackgroundColor3 = Color3.fromRGB(50, 0, 70)
+                        button.TextColor3 = Color3.fromRGB(255, 200, 220)
+                        button.Text = formatName(p)
+                        button.Font = Enum.Font.SourceSans
+                        button.TextScaled = true
+                        button.MouseButton1Click:Connect(function()
+                            addToHistory(p)
+                            if lp.Character and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                                lp.Character:SetPrimaryPartCFrame(p.Character.HumanoidRootPart.CFrame)
+                            end
+                            refreshHistory()
+                        end)
+
+                        Instance.new("UICorner", button).CornerRadius = UDim.new(0, 8)
+
+                        local avatarImage = Instance.new("ImageLabel", button)
+                        avatarImage.Image = avatar
+                        avatarImage.Size = UDim2.new(0, 30, 0, 30)
+                        avatarImage.Position = UDim2.new(0, 3, 0.5, -15)
+                        avatarImage.BackgroundTransparency = 1
+                        Instance.new("UICorner", avatarImage).CornerRadius = UDim.new(1, 0)
+
+                        y = y + 45
+                    end
+                    historyFrame.CanvasSize = UDim2.new(0, 0, 0, y)
+                end
+
+                local function refresh()
+                    list:ClearAllChildren()
+                    local players = Players:GetPlayers()
+                    table.remove(players, table.find(players, lp))
+                    if selectedSort == 1 then
+                        table.sort(players, function(a, b) return a.DisplayName:lower() < b.DisplayName:lower() end)
+                    elseif selectedSort == 2 and lp.Character and lp.Character:FindFirstChild("HumanoidRootPart") then
+                        table.sort(players, function(a, b)
+                            local lpPos = lp.Character.HumanoidRootPart.Position
+                            local aPos = a.Character and a.Character:FindFirstChild("HumanoidRootPart") and a.Character.HumanoidRootPart.Position or Vector3.new()
+                            local bPos = b.Character and b.Character:FindFirstChild("HumanoidRootPart") and b.Character.HumanoidRootPart.Position or Vector3.new()
+                            return (lpPos - aPos).Magnitude < (lpPos - bPos).Magnitude
+                        end)
+                    elseif selectedSort == 3 then
+                        table.sort(players, function(a, b) return a.AccountAge > b.AccountAge end)
+                    end
+
+                    local searchText = search.Text:lower()
+                    local y = 0
+                    for _, p in ipairs(players) do
+                        if formatName(p):lower():find(searchText) then
+                            local avatar = getAvatarThumbnail(p.UserId)
+                            local playerFrame = Instance.new("Frame", list)
+                            playerFrame.Size = UDim2.new(1, -10, 0, 50)
+                            playerFrame.Position = UDim2.new(0, 5, 0, y)
+                            playerFrame.BackgroundTransparency = 1
+
+                            local avatarImage = Instance.new("ImageLabel", playerFrame)
+                            avatarImage.Image = avatar
+                            avatarImage.Size = UDim2.new(0, 40, 0, 40)
+                            avatarImage.Position = UDim2.new(0, 5, 0.5, -20)
+                            avatarImage.BackgroundTransparency = 1
+                            Instance.new("UICorner", avatarImage).CornerRadius = UDim.new(1, 0)
+
+                            local nameButton = Instance.new("TextButton", playerFrame)
+                            nameButton.Size = UDim2.new(1, -50, 1, -10)
+                            nameButton.Position = UDim2.new(0, 50, 0, 5)
+                            nameButton.BackgroundColor3 = Color3.fromRGB(50, 0, 70)
+                            nameButton.TextColor3 = Color3.fromRGB(255, 200, 220)
+                            nameButton.Text = formatName(p)
+                            nameButton.Font = Enum.Font.SourceSans
+                            nameButton.TextSize = 16
+                            nameButton.TextWrapped = true
+                            nameButton.MouseButton1Click:Connect(function()
+                                addToHistory(p)
+                                if lp.Character and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                                    lp.Character:SetPrimaryPartCFrame(p.Character.HumanoidRootPart.CFrame)
+                                end
+                                refreshHistory()
+                            end)
+
+                            Instance.new("UICorner", nameButton).CornerRadius = UDim.new(0, 8)
+
+                            y = y + 55
+                        end
+                    end
+                    list.CanvasSize = UDim2.new(0, 0, 0, y)
+                end
+
+                search:GetPropertyChangedSignal("Text"):Connect(refresh)
+                Players.PlayerAdded:Connect(refresh)
+                Players.PlayerRemoving:Connect(refresh)
+                sortDropdown.MouseButton1Click:Connect(refresh)
+
+                refresh()
+                refreshHistory()
+            end
+        }
+    }
+}
+
+return Plugin

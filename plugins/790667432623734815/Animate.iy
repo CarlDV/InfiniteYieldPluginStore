@@ -1,0 +1,24 @@
+local Plugin = {
+	["PluginName"] = "Enable/Disable Animation",
+	["PluginDescription"] = "Enables or disables your character animation lol.",
+	["Commands"] = {
+		["noanimate"] = {
+			["Description"] = "Removes animation",
+			["Aliases"] = {'na'},
+			["Function"] = function(args,speaker)
+				game.Players.LocalPlayer.Character.Animate.Disabled = true
+
+			end,
+		},
+		["animate"] = {
+			["Description"] = "Enables animation",
+			["Aliases"] = {'ea'},
+			["Function"] = function(args,speaker)
+				game.Players.LocalPlayer.Character.Animate.Disabled = false
+
+			end,
+		},
+	},
+}
+
+return Plugin

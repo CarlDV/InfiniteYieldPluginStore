@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Audio Logger",
+	["PluginDescription"] = "Logs Audio Played",
+	["Commands"] = {
+		["AudioLogger"] = {
+			["Description"] = "AudioLog",
+			["Aliases"] = {'al'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet(("https://raw.githubusercontent.com/CoolMLGPlayer/robloxstuff/master/exploit-stuff/audiolog.lua"),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

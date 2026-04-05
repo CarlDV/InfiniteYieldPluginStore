@@ -1,0 +1,27 @@
+local Plugin = {
+    ["PluginName"] = "Test chat filtering",
+    ["PluginDescription"] = "BOTTOM TEXT",
+    ["Commands"] = {
+        ["chatfiltercheck"] = {
+            ["ListName"] = "chatfiltercheck / cfcheck [msg]",
+            ["Description"] = "Notify you the chat output whether if it is tags or not",
+            ["Aliases"] = {'cfcheck','cfiltercheck'},
+            ["Function"] = function(args, speaker)
+                local msg = getstring(1)
+                filterString = game:GetService("Chat"):FilterStringForBroadcast(msg, speaker)
+                notify('Chat filtering output',filterString)
+            end
+        },
+        ["copychatfilter"] = {
+            ["ListName"] = "copychatfilter / copycfilter",
+            ["Description"] = "Copy the last message you putted",
+            ["Aliases"] = {'copycfilter'},
+            ["Function"] = function(args, speaker)
+                setclipboard(filterString)
+                notify('Copied message',filterString)
+            end
+        },
+    }
+}
+
+return Plugin

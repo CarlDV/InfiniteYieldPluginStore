@@ -1,0 +1,40 @@
+local Plugin = {
+	["PluginName"] = "hidedex",
+	["PluginDescription"] = "Hides dex explorer (needs to run dex first)",
+	["Commands"] = {
+		["hidedex"] = {
+			["ListName"] = "hidedex",
+			["Description"] = "hides all dex explorer guis by toggling off the 'Enabled' value on them",
+			["Aliases"] = { "hd", "if you actually can't be bothered to type hidedex and you legitimately need a shortcut for it i have no words for u" },
+			["Function"] = function(args, speaker)
+				local ThisPluginIsSoCracked = false
+
+				pcall(function()
+					for _, v in ipairs(game:GetService("CoreGui").RobloxGui:GetDescendants()) do
+						if v:IsA("ScreenGui") and (v.Name == "MainMenu" or v.Name == "Window" or v.Name == "ScreenGui") then
+						    v.Enabled = ThisPluginIsSoCracked
+    						end
+					end
+				end)
+			end,
+     	},
+		["unhidedex"] = {
+			["ListName"] = "unhidedex",
+			["Description"] = "what do u thimk",
+			["Aliases"] = { "unhd" },
+			["Function"] = function(args, speaker)
+				local ThisPluginIsSoCracked = true
+
+				pcall(function()
+					for _, v in ipairs(game:GetService("CoreGui").RobloxGui:GetDescendants()) do
+						if v:IsA("ScreenGui") and (v.Name == "MainMenu" or v.Name == "Window" or v.Name == "ScreenGui") then
+						    v.Enabled = ThisPluginIsSoCracked
+    						end
+					end
+				end)
+			end,
+		},
+	},
+}
+
+return Plugin

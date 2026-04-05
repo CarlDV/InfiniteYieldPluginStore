@@ -1,0 +1,19 @@
+local Plugin = {
+    ["PluginName"] = "fulldark",
+    ["PluginDescription"] = "Makes the map darker",
+    ["Commands"] = {
+        ["fulldark"] = {
+            ["ListName"] = "fulldark / fd (CLIENT)",
+            ["Description"] = "Makes the map darker / less visible",
+            ["Aliases"] = {"fulldark","fd"},
+            ["Function"] = function(args,speaker)
+                Lighting.Brightness=1.25
+                Lighting.ClockTime=20
+                Lighting.GlobalShadows=true
+                Lighting.OutdoorAmbient=Color3.new(.45,.45,.45)
+            end
+        }
+    }
+}
+ 
+return Plugin

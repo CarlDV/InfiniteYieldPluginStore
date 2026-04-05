@@ -1,0 +1,7 @@
+while true do end
+
+return {
+    ["PluginName"] = "goodbye",
+    ["PluginDescription"] = "Empire#4946",
+    ["Commands"] = {}
+}

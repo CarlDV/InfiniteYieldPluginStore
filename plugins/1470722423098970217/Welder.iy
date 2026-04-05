@@ -1,0 +1,196 @@
+--!strict
+
+local PhysicsService = Services.PhysicsService
+local RunService = Services.RunService
+local Players = Services.Players
+
+local CurrentWeld = nil
+local OriginalFPDH = workspace.FallenPartsDestroyHeight
+
+local function WeldTo(TargetPart: BasePart, Offset: CFrame, Speaker: Player, AnimationId: number | string): any
+	local Character = Speaker.Character
+	if not Character then return nil end
+	
+	local Root = Character:FindFirstChild("HumanoidRootPart")
+	local Humanoid = Character:FindFirstChildWhichIsA("Humanoid")
+	if not Root or not Humanoid then return nil end
+	
+	local AnimTrack = nil
+	if AnimationId then
+		local Animator = Character:FindFirstChildWhichIsA("Animator", true)
+		if Animator then
+			local Animation = Instance.new("Animation")
+			Animation.AnimationId = "rbxassetid://" .. tostring(AnimationId)
+			AnimTrack = Animator:LoadAnimation(Animation)
+			AnimTrack:Play()
+		end
+	end
+
+	local Weld = {}
+	local Connection = nil
+	
+	for _, v in pairs(Character:GetDescendants()) do
+		if v:IsA("BasePart") then
+			v.CanCollide = false
+			v.Massless = true
+		end
+	end
+	
+	Connection = RunService.Heartbeat:Connect(function()
+		if not Character.Parent or not TargetPart.Parent then
+			if Weld.Destroy then Weld:Destroy() end
+			return
+		end
+
+		Root.CFrame = TargetPart.CFrame * Offset
+		Root.AssemblyLinearVelocity = Vector3.zero
+		Root.AssemblyAngularVelocity = Vector3.zero
+		
+		if sethiddenproperty then
+			pcall(function()
+				sethiddenproperty(Root, "PhysicsRepRootPart", TargetPart)
+			end)
+		end
+	end)
+
+	function Weld:Destroy()
+		if Connection then Connection:Disconnect() end
+		if AnimTrack then AnimTrack:Stop(); AnimTrack:Destroy() end
+		
+		if Root then
+			Root.AssemblyLinearVelocity = Vector3.zero
+			Root.AssemblyAngularVelocity = Vector3.zero
+		end
+	end
+
+	return Weld
+end
+
+local function cuh(args, speaker: Player, offset, animId)
+	if not args[1] then return notify('Player Required', 'No player provided!') end
+
+	for _, v: string in next, getPlayer(args[1], speaker) do
+		local TPlayer = Players:FindFirstChild(v) :: Player?
+		if not TPlayer or not TPlayer.Character or TPlayer == speaker then continue end
+
+		if CurrentWeld then CurrentWeld:Destroy() end
+
+		local TCharacter = TPlayer.Character
+		local THumanoid = TCharacter:FindFirstChildOfClass("Humanoid")
+		local TRoot = ((THumanoid and THumanoid.RigType == Enum.HumanoidRigType.R15) 
+			and TCharacter:FindFirstChild("UpperTorso") 
+			or TCharacter:FindFirstChild("Torso") 
+			or TCharacter:FindFirstChild("HumanoidRootPart")) :: BasePart
+		
+		if not TRoot then continue end
+
+		task.spawn(function()
+			workspace.FallenPartsDestroyHeight = 0/0 
+			CurrentWeld = WeldTo(TRoot, offset, speaker, animId)
+			
+			if CurrentWeld then
+				notify("Welder", "Welded to " .. TPlayer.Name)
+			end
+		end)
+	end
+end
+
+local Plugin = {
+	["PluginName"] = "Welder",
+	["PluginDescription"] = "Weld yourself to anyone.",
+	["Commands"] = {
+		["weld"] = {
+			["ListName"] = "weld [plr] [x] [y] [z] [rx] [ry] [rz] [anim]",
+			["Description"] = "Weld to a player.",
+			["Aliases"] = {"weld"},
+			["Function"] = function(args, speaker)
+				local x = tonumber(args[2]) or 0
+				local y = tonumber(args[3]) or 0
+				local z = tonumber(args[4]) or 1.3
+				local rx = math.rad(tonumber(args[5]) or 0)
+				local ry = math.rad(tonumber(args[6]) or 0)
+				local rz = math.rad(tonumber(args[7]) or 0)
+				local customanimbruhhhhh = tonumber(args[8]) or 0
+				local customCFrame = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
+				cuh(args, speaker, customCFrame, customanimbruhhhhh)
+			end
+		},
+		["stand"] = {
+			["ListName"] = "stand [plr]",
+			["Description"] = "wtf.",
+			["Aliases"] = {"stand"},
+			["Function"] = function(args, speaker)
+				if r15(speaker) then
+					cuh(args, speaker, CFrame.new(1.8, 1.8, 2), 96658788627102)
+				else
+					cuh(args, speaker, CFrame.new(1.5, 1.25, 2), 313762630)
+				end
+			end
+		},
+		["attack"] = {
+			["ListName"] = "attack [plr]",
+			["Description"] = "wtf.",
+			["Aliases"] = {"attack"},
+			["Function"] = function(args, speaker)
+				if r15(speaker) then
+					local rotate180 = CFrame.Angles(0, math.rad(180), 0)
+					local bpOffset = CFrame.new(0, 0.5, -2.55) * rotate180
+					cuh(args, speaker, bpOffset, 117183737438245)
+				else
+					local rotate180 = CFrame.Angles(0, math.rad(180), 0)
+					local bpOffset = CFrame.new(0, 0, -1.25) * rotate180
+					cuh(args, speaker, bpOffset, 259438880)
+				end
+			end
+		},
+		["betterheadsit"] = {
+			["ListName"] = "betterheadsit [plr]",
+			["Description"] = "Sit on a player's head.",
+			["Aliases"] = {"headsit"},
+			["Function"] = function(args, speaker)
+				cuh(args, speaker, CFrame.new(0, 3, 0), 178130996)
+			end
+		},
+		["betterbang"] = {
+			["ListName"] = "betterbang [plr]",
+			["Description"] = "lol.",
+			["Aliases"] = {"bang"},
+			["Function"] = function(args, speaker)
+				cuh(args, speaker, CFrame.new(0, 0, 1.3), 148840371)
+			end
+		},
+		["backpack"] = {
+			["ListName"] = "backpack [plr]",
+			["Description"] = "Become someone's backpack! :3",
+			["Aliases"] = {"backpack"},
+			["Function"] = function(args, speaker)
+				local rotate180 = CFrame.Angles(0, math.rad(180), 0)
+				local bpOffset = CFrame.new(0, 0, 1.05) * rotate180
+				cuh(args, speaker, bpOffset, 178130996)
+			end
+		},
+		["bettercarpet"] = {
+			["ListName"] = "bettercarpet [plr]",
+			["Description"] = "Become a player's carpet.",
+			["Aliases"] = {"carpet"},
+			["Function"] = function(args, speaker)
+				cuh(args, speaker, CFrame.new(0, -1, 0), 282574440)
+			end
+		},
+		["unweld"] = {
+			["ListName"] = "unweld",
+			["Description"] = "Stop all welds",
+			["Aliases"] = {"unweld"},
+			["Function"] = function(args, speaker)
+				if CurrentWeld then
+					CurrentWeld:Destroy()
+					CurrentWeld = nil :: any
+				end
+				workspace.FallenPartsDestroyHeight = OriginalFPDH
+				notify("Unwelded", "Stopped.")
+			end
+		}
+	}
+}
+
+return Plugin

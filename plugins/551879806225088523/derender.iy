@@ -1,0 +1,56 @@
+local Events = {}
+local Plugin = {
+	["PluginName"] = "Derender by Zwolf",
+	["PluginDescription"] = "Removes someones existence from the game... does not replicate!",
+	["Commands"] = {
+		["derender"] = {
+			["Description"] = "derender [player]",
+			["Aliases"] = {'der', 'block'},
+			["Function"] = function(args,speaker)
+                local players = getPlayer(args[1], speaker)
+
+                for i,v in pairs(players) do
+                    print(i,v)
+                    local Player = Players[v]
+                    Player.Character.Parent = game.Lighting
+                    local Event = Player.CharacterAdded:Connect(function(char)
+                        Player.Character.Parent = game.Lighting
+                    end)
+
+                    
+                    local yesindeed = workspace.ChildAdded:Connect(function(obj)
+                        if obj.Name == Player.Name then
+                            obj.Parent = game.Lighting
+                        end
+                    end)
+
+                    Events[v.Name] = {[1] = Event, [2] = yesindeed}
+                end
+
+
+
+
+			end,
+        },
+        ["rerender"] = {
+            ["Description"] = "Rerenders a person",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local players = getPlayer(args[1], speaker)
+
+                Events[1]:Disconnect()
+                Events[1] = nil
+                Events[2]:Disconnect()
+                Events[2] = nil
+
+                for i,v in pairs(players) do
+                    print(i,v)
+                    local Player = Players[v]
+                    game.Lighting[Player.Name].Parent = workspace
+                end
+            end
+        }
+	},
+}
+
+return Plugin

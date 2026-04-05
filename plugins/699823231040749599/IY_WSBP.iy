@@ -1,0 +1,39 @@
+local plugin = {
+    ["PluginName"] = "humanoid changed bypass";
+    ["PluginDescription"] = "intercepts statechanged/changed connections to bypass simple anti-exploits";
+    ["Commands"] = {
+        ["wsbypass"] = {
+            ["ListName"] = "wsbypass";
+            ["Description"] = "Disable Humanoid StateChanged/Changed Events";
+            ["Aliases"] = {};
+            ["Function"] = function(args, speaker)
+                --method one
+                spawn(function()
+                    for _, signal in pairs(getconnections(speaker.Character.Humanoid.Changed)) do signal:Disable() end
+                end)
+                --method two
+                spawn(function()
+                    for _, signal in pairs(getconnections(speaker.Character.Humanoid.StateChanged)) do signal:Disable() end
+                end)
+            end
+        };
+        --listed as two commands vs alias to appear in cmdlist as both
+        ["wbp"] = {
+            ["ListName"] = "wsbp";
+            ["Description"] = "Disable Humanoid StateChanged/Changed Events";
+            ["Aliases"] = {};
+            ["Function"] = function(args,speaker)
+                --method one
+                spawn(function()
+                    for _, signal in pairs(getconnections(speaker.Character.Humanoid.Changed)) do signal:Disable() end
+                end)
+                --method two
+                spawn(function()
+                    for _, signal in pairs(getconnections(speaker.Character.Humanoid.StateChanged)) do signal:Disable() end
+                end)
+            end
+        };
+    }
+}
+
+return plugin

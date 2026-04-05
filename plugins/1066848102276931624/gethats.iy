@@ -1,0 +1,45 @@
+local Plugin = {
+    ["PluginName"] = "hatprices",
+    ["PluginDescription"] = "get prices of all in-game hats worn by people",
+    ["Commands"] = {
+        ["gethats"] = {
+            ["ListName"] = "gethats",
+            ["Description"] = "get all hats and print name, price and owner",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                notify("gethats","Check console")
+                for _,v in pairs(game.Players:GetPlayers()) do
+                    local Character
+                    if game.Players:FindFirstChild(v.Name) then Character = (v.Character) or (v.CharacterAdded:Wait()) end
+                    for _,v2 in pairs(Character:GetChildren()) do
+                        if v2:IsA("Accessory") then
+                            local data2 = request({
+                                Url = [[https://catalog.roblox.com/v1/search/items/details?Category=11&Keyword=]]..game:GetService("HttpService"):UrlEncode(v2.Name),
+                                Method = "GET"
+                            })
+                            
+                            if data2.Body.errors == nil and game.HttpService:JSONDecode(data2.Body).data ~= nil then
+                                    local data = game.HttpService:JSONDecode(data2.Body).data[1]
+                                    if data ~= nil then
+                                        pcall(function()
+                                            local price = (data.price) or (data.lowestPrice)
+                                            if price >= 100 then
+                                                warn(v.Name.." is RICH! | PRICE = "..price.." | ACCESSORY = "..data.name)
+                                                print("----------------")
+                                            else
+                                                print(v.Name.." | PRICE = "..price.." | ACCESSORY = "..data.name)
+                                                print("----------------")
+                                            end
+                                        end)
+                                        task.wait(1)
+                                    end
+                            end
+                        end
+                    end
+                end
+            end
+        }
+     }
+}
+
+return Plugin

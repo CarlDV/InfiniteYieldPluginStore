@@ -1,0 +1,40 @@
+local Wrapper = {}
+Wrapper.__index = Wrapper
+
+function Wrapper:CreatePlugin(Name, Description)
+    local self = setmetatable({}, Wrapper)
+    self.PluginName = Name
+    self.PluginDescription = Description
+    self.Commands = {}
+
+    return self
+end
+
+function Wrapper:AddCommand(Command, List, Description, Alias, Func)
+    if self.Command[Command] then
+        warn("Overwriting a function...")
+    end
+
+    assert(type(Alias) == "table", "Alias must be a table.")
+
+    self.Command[Command] = {
+        ListName = List,
+        Description = Description,
+        Aliases = Alias,
+        Function = function(Args, Speaker)
+            Func(Args, Speaker)
+        end
+    }
+end
+
+function Wrapper:GetPlugin()
+    return self
+end
+
+local PrintHi = Wrapper:CreatePlugin("useless plugin", "prints hi")
+PrintHi:AddCommand("print", "print [text]", "prints the text", {"prt"}, function(Args, _)
+    local Text = Args[1]
+    print(Text)
+end)
+
+return PrintHi:GetPlugin()

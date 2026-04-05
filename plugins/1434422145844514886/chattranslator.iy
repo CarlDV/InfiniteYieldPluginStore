@@ -1,0 +1,143 @@
+--// IMPORT
+local game = game;
+
+local request = request or http_request or (syn and syn.request) or (http and http.request) or (fluxus and fluxus.request);
+local cloneref = cloneref or function(...) return ...; end;
+
+if (not request) then
+	return warn('Your exploit is incompatible with this plugin');
+end
+
+local get_service = function(svc)
+	return cloneref(game:GetService(svc));
+end;
+
+--// SERVICES
+local players = get_service('Players');
+local starter_gui = get_service('StarterGui');
+local http_service = get_service('HttpService');
+local run_service = get_service('RunService');
+local textchat_service = get_service('TextChatService');
+local repl_storage = get_service('ReplicatedStorage');
+
+--// VARIABLES
+local legacy = (textchat_service.ChatVersion == Enum.ChatVersion.LegacyChatService);
+
+--// GOOGLE
+local google_translate, google_languages;
+do
+	local response = request({
+		Url = 'https://translate.googleapis.com/translate_a/l?client=gtx&hl=en',
+		Method = 'GET'
+	});
+	google_languages = response and http_service:JSONDecode(response.Body);
+	google_languages.tl['zh'] = google_languages.tl['zh-CN'];
+
+	google_translate = function(text, to)
+		local url = string.format(
+			'https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=%s&dt=t&q=%s',
+			to, http_service:UrlEncode(text)
+		);
+		local response = request({ Url = url, Method = 'GET' });
+		local body = http_service:JSONDecode(response.Body);
+
+		return {
+			text = body[1][1][1],
+			from = body[3],
+			to = body[1][1][2],
+		};
+	end;
+end
+
+--// FUNCTIONS
+local properties = {
+	Color = Color3.new(1, 0.8, 0),
+	TextSize = 12,
+	Font = Enum.Font.SourceSansBold;
+};
+
+local system_message = function(str)
+	if (legacy) then
+		properties.Text = str;
+		starter_gui:SetCore('ChatMakeSystemMessage', properties);
+	else
+		textchat_service.TextChannels.RBXGeneral:DisplaySystemMessage(str);
+	end
+end
+
+local get = function(speaker, text, to)
+	local data = google_translate(text, to, 'auto');
+	local gl_translation = data.text;
+	local gl_language = data.from;
+
+	if (gl_language == to:lower()) then return; end
+	if (gl_translation) then
+		system_message('['..gl_language:upper()..'] ['..speaker..']: '..gl_translation);
+	end
+end
+
+return {
+	PluginName = 'Chat Translator 1000',
+	PluginDescription = 'from @hxerohero',
+	Commands = {
+		["chattranslator"] = {
+			ListName = 'chattranslator [language]',
+			Description = 'translate the chat using Google Translate API',
+			Aliases = {},
+			Function = function(args, speaker)
+				local connections = {};
+				local target_lang = args[1] or "EN";
+				target_lang = (target_lang:sub(1, 2)):lower() == 'zh' and 'zh' or target_lang:lower();
+
+				local language = google_languages.tl[target_lang];
+				if (not language) then
+					return notify("Error!", "Invalid language "..target_lang);
+				end
+
+				if (legacy) then
+					system_message('--// CHAT TRANSLATOR [ '..language:upper()..' ] //--');
+				else
+					system_message('<b><font color="#B2F1C7">--// CHAT TRANSLATOR [ '..language:upper()..' ] //--</font></b>');
+				end
+
+				if (legacy) then
+					local events = repl_storage:WaitForChild('DefaultChatSystemChatEvents');
+					events:WaitForChild('OnMessageDoneFiltering').OnClientEvent:Connect(function(data)
+						if (not data) then return; end
+
+						local speaker = data.FromSpeaker;
+						local text = data.Message;
+						local channel = data.OriginalChannel;
+
+						if (channel:find('To ')) then
+							speaker = speaker..' '..channel;
+						end
+
+						get(speaker, text, target_lang);
+					end);
+				else
+					for i, v in ipairs(players:GetPlayers()) do
+						connections[v.Name] = v.Chatted:Connect(function(text)
+							get(v.DisplayName, text, target_lang);
+						end);
+					end
+
+					players.PlayerAdded:Connect(function(plr)
+						connections[plr.Name] = plr.Chatted:Connect(function()
+							get(plr.DisplayName, text, target_lang)
+						end);
+					end);
+
+					players.PlayerRemoving:Connect(function(plr)
+						pcall(function()
+							connections[plr.Name]:Disconnect();
+							connections[plr.Name] = nil;
+						end)
+					end);
+				end
+
+				notify("Success!", "Chat translator activated [ "..language.." ]");
+			end,
+		}
+	}
+}

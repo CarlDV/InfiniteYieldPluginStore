@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "Game ID",
+    ["PluginDescription"] = "DESCRIPTION HERE",
+    ["Commands"] = {
+        ["gameid"] = {
+            ["ListName"] = "gameid",
+            ["Description"] = "gives you the Game ID",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              setclipboard(Game.GameId)
+              notify(Game.GameId)
+            end
+        }
+     }
+}
+
+return Plugin

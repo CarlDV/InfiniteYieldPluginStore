@@ -1,0 +1,133 @@
+--[[ Avatar Commands ~ By Aim#3750
+3.0 Noob Requirements:
+	https://web.roblox.com/bundles/238
+	https://www.roblox.com/catalog/63690008
+	https://www.roblox.com/catalog/144076358
+	https://www.roblox.com/catalog/144076760
+--]]
+
+local HttpService = game:GetService("HttpService")
+local LP = game:GetService("Players").LocalPlayer
+local userid = LP.UserId
+
+function get(url)
+    return HttpService:JSONDecode(game:HttpGet(url))
+end
+
+function setchar(colors, assets)
+	game:HttpPost("https://avatar.roblox.com/v1/avatar/set-body-colors", colors)
+	game:HttpPost("https://avatar.roblox.com/v1/avatar/set-wearing-assets", assets)
+end
+
+local out = get("https://avatar.roblox.com/v1/users/"..userid.."/outfits?page=1&itemsPerPage=100000&isEditable=true").data
+local outfits = {}
+for _, v in pairs(out) do
+	table.insert(outfits, v.id)
+end
+
+function setrandomoutfit()
+	local outfit = outfits[math.random(#outfits)]
+	if currentoutfit then
+		if currentoutfit == outfit and #outfits > 1 then
+			repeat outfit = outfits[math.random(#outfits)] until currentoutfit ~= outfit
+		end
+	end
+	currentoutfit = outfit
+	game:HttpPost("https://avatar.roblox.com/v1/outfits/"..outfit.."/wear", '')
+end
+
+--Original character
+local oldcolors = HttpService:JSONEncode(get("https://avatar.roblox.com/v1/avatar").bodyColors)
+local oldassets = HttpService:JSONEncode({assetIds = get("https://avatar.roblox.com/v1/users/"..userid.."/currently-wearing").assetIds})
+
+--Noob Character
+local noobcolors = '{"headColorId":208,"torsoColorId":26,"rightArmColorId":208,"leftArmColorId":208,"rightLegColorId":102,"leftLegColorId":102}'
+local noobassets = '{"assetIds":[144076760,63690008,86498048,86500008,86500036,86500054,86500064,86500078,144075659,144076358]}'
+
+--Old Noob Character
+local oldnoobcolors = '{"headColorId":24,"torsoColorId":23,"rightArmColorId":24,"leftArmColorId":24,"rightLegColorId":119,"leftLegColorId":119}'
+local oldnoobassets = '{"assetIds":[]}'
+
+local Plugin = {
+    ["PluginName"] = "Avatar Commands",
+    ["PluginDescription"] = "Commands for changing your character's appearance (FE).",
+    ["Commands"] = {
+        ["resetchar"] = {
+            ["ListName"] = "resetchar / rchar",
+            ["Description"] = "Go back to original avatar.",
+            ["Aliases"] = {'rchar'},
+            ["Function"] = function()
+				setchar(oldcolors, oldassets)
+				if con then con:Disconnect() end
+				execCmd('re')
+            end
+        },
+        ["noob"] = {
+            ["ListName"] = "noob",
+            ["Description"] = "Temporary 3.0 noob.",
+            ["Aliases"] = {},
+            ["Function"] = function()
+				setchar(noobcolors, noobassets)
+				execCmd('re'); LP.CharacterAppearanceLoaded:wait()
+				setchar(oldcolors, oldassets)
+            end
+        },
+        ["permnoob"] = {
+            ["ListName"] = "permnoob / pnoob",
+            ["Description"] = "3.0 noob until resetchar/rchar command.",
+            ["Aliases"] = {'pnoob'},
+            ["Function"] = function()
+				setchar(noobcolors, noobassets)
+				execCmd('re')
+            end
+        },
+        ["oldnoob"] = {
+            ["ListName"] = "oldnoob",
+            ["Description"] = "Temporary old noob.",
+            ["Aliases"] = {},
+            ["Function"] = function()
+				setchar(oldnoobcolors, oldnoobassets)
+				execCmd('re'); LP.CharacterAppearanceLoaded:wait()
+				setchar(oldcolors, oldassets)
+            end
+        },
+        ["permoldnoob"] = {
+            ["ListName"] = "permoldnoob / poldnoob",
+            ["Description"] = "Old noob until resetchar/rchar command.",
+            ["Aliases"] = {'poldnoob'},
+            ["Function"] = function()
+				setchar(oldnoobcolors, oldnoobassets)
+				execCmd('re')
+            end
+        },
+        ["randomoutfit"] = {
+            ["ListName"] = "randomoutfit / routfit",
+            ["Description"] = "Load a random outfit.",
+            ["Aliases"] = {'routfit'},
+            ["Function"] = function()
+				setrandomoutfit()
+				execCmd('re'); LP.CharacterAppearanceLoaded:wait()
+				setchar(oldcolors, oldassets)
+            end
+        },
+        ["permrandomoutfit"] = {
+            ["ListName"] = "permrandomoutfit / proutfit",
+            ["Description"] = "Load a random outfit until resetchar/rchar command.",
+            ["Aliases"] = {'proutfit'},
+            ["Function"] = function()
+				setrandomoutfit()
+				execCmd('re')
+            end
+        },
+        ["spawnrandomoutfit"] = {
+            ["ListName"] = "spawnrandomoutfit / sroutfit",
+            ["Description"] = "Load a random outfit on every respawn.",
+            ["Aliases"] = {'sroutfit'},
+            ["Function"] = function()
+            	con = LP.CharacterAdded:Connect(setrandomoutfit)
+            end
+        }
+    }
+}
+
+return Plugin

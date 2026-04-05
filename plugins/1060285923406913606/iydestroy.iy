@@ -1,0 +1,39 @@
+local Plugin = {
+    ["PluginName"] = "destroyiy",
+    ["PluginDescription"] = "destroy iy",
+    ["Commands"] = {
+        ["destroyiy"] = {
+            ["ListName"] = "destroyiy",
+            ["Description"] = "destroy iy",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				function maximizeHolder()
+					if StayOpen == false then
+						pcall(function()
+						Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, -220), "InOut", "Quart", 0.2, true, nil)
+						end)
+					end
+				end
+
+				minimizeNum = -20
+				function minimizeHolder()
+					if StayOpen == false then
+						pcall(function()
+							Holder:TweenPosition(UDim2.new(1, Holder.Position.X.Offset, 1, minimizeNum), "InOut", "Quart", 0.5, true, nil)
+						end)
+					end
+				end
+
+				function execCmd(cmdStr,speaker,store)
+					return
+				end			
+
+                		Holder.Parent:Destroy()
+				getgenv().IY_LOADED = false
+            end
+
+        }
+     }
+}
+
+return Plugin

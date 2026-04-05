@@ -1,0 +1,31 @@
+function renamecmd(cmd, newAlias)
+	if cmd ~= " " then
+		for i = #cmds,1,-1 do
+			if cmds[i].NAME:lower() == cmd:lower() then
+				cmds[i].NAME = newAlias:lower()
+				for a,c in pairs(Holder.CMDs:GetChildren()) do
+					if string.find(c.Text, "^"..cmd.."$") or string.find(c.Text, "^"..cmd.." ") or string.find(c.Text, " "..cmd.."$") or string.find(c.Text, " "..cmd.." ") then
+						c.Text = c.Text:gsub(cmd,newAlias:lower())
+					end
+				end
+			end
+		end
+	end
+end
+
+local Plugin = {
+    ["PluginName"] = "Rename CMDS",
+    ["PluginDescription"] = "Rename CMDS",
+    ["Commands"] = {
+		["rename"] = {
+            ["ListName"] = "rename [CMD] [NEWCMD]",
+            ["Description"] = "Rename a CMD",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				renamecmd(args[1], args[2])
+			end
+		}
+    }
+}
+
+return Plugin

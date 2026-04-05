@@ -1,0 +1,83 @@
+local commands = {}
+
+local fileExtension = "iy"
+if syn and DrawingImmediate then fileExtension = "txt" end
+local fileExLen = #fileExtension + 1
+
+function randomStringP()
+	local min, max, final = ("A"):byte(), ("Z"):byte(), "IYPluginDownloader-"
+	for i = 1, math.random(5, 10) do
+		final = final .. string.char(math.random(min, max))
+	end
+	return final
+end
+
+function requestGET(url)
+    local rhttp = game:GetService('HttpService') 
+    local req = syn and syn.request or http and http.request or http_request or fluxus and fluxus.request or getgenv().request or request
+	if req then
+		local response = req({
+			Url = url,
+			Method = 'GET',
+		})
+		return response.Body
+	else
+		notify("IYPluginDownloader", "Exploit does not support request. This plugin will not work.")
+	end
+end
+
+function getFileName(attemptName, RAW)
+    local fileName
+    if attemptName then
+        if attemptName:sub(-fileExLen) == '.' .. fileExtension then
+			fileName = attemptName
+		else
+			fileName = attemptName ..'.' .. fileExtension
+        end
+        if not isfile(fileName) then
+            return fileName
+        else
+            notify("IYPluginDownloader", "Provided file name already exists.")
+        end
+    else
+        fileName = loadstring(RAW)().PluginName .. "." .. fileExtension
+        if not isfile(fileName) then return fileName end
+        repeat fileName = randomStringP() .. "." .. fileExtension until not isfile(fileName)
+        return fileName
+    end
+end
+
+
+
+commands["dplugin"] = {
+    ["ListName"] = "dplugin [url] [filename]",
+    ["Description"] = "Download a plugin to the workspace through a url.",
+    ["Aliases"] = {},
+    ["Function"] = function(args, speaker)
+        if not args[1] then notify("IYPluginDownloader", "URL not specified.") end
+		local pluginRaw = requestGET(args[1])
+		local pluginName = getFileName(args[2], pluginRaw)
+		writefile(pluginName, pluginRaw)
+		notify("IYPluginDownloader", "Saved plugin as " .. pluginName)
+    end
+}
+commands["diplugin"] = {
+    ["ListName"] = "diplugin [url] [filename]",
+    ["Description"] = "Download a plugin to the workspace through a url.",
+    ["Aliases"] = {},
+    ["Function"] = function(args, speaker)
+        if not args[1] then notify("IYPluginDownloader", "URL not specified.") end
+		local pluginRaw = requestGET(args[1])
+		local pluginName = getFileName(args[2], pluginRaw)
+		writefile(pluginName, pluginRaw)
+		notify("IYPluginDownloader", "Saved plugin as " .. pluginName)
+		addPlugin(pluginName)
+    end
+}
+
+
+return {
+    ["PluginName"] = "DownloadPlugins",
+    ["PluginDescription"] = "made by prisj",
+    ["Commands"] = commands
+}

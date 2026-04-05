@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Physic Gun",
+	["PluginDescription"] = "Give you PhysicGun",
+	["Commands"] = {
+		["physicgun/pgun"] = {
+			["Description"] = "make unanchor part move around",
+			["Aliases"] = {'physicgun','pgun'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('https://pastebin.com/raw/6cfa5Wxa'),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

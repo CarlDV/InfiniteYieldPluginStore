@@ -1,0 +1,21 @@
+local plugin = {
+    ["PluginName"] = "Better copy position";
+    ["PluginDescription"] = "An better alternative to copypos";
+    ["Commands"] = {
+        ["btcopypos"] = {
+            ["ListName"] = "btcopypos / btcp / btcopy";
+            ["Description"] = "Add the Vector3.new with the position";
+            ["Aliases"] = {"btcp";"btcopy"};
+            ["Function"] = function(args,speaker)
+                local Players = game:GetService('Players')
+                local LocalPlayer = Players.LocalPlayer
+                local Character = LocalPlayer.Character
+                local Humanoid = Character.Humanoid
+                local HumanoidRootPart = Character.HumanoidRootPart
+                setclipboard( "Vector3.new(".. tostring(HumanoidRootPart.Position) .. ")")
+            end
+            }
+    }
+}
+
+return plugin

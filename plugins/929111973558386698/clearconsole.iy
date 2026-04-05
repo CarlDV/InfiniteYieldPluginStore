@@ -1,0 +1,27 @@
+local Plugin = {
+    ["PluginName"] = "Clear Console",
+    ["PluginDescription"] = "Clears Console",
+    ["Commands"] = {
+        ["clearconsole"] = {
+            ["ListName"] = "clearconsole",
+            ["Description"] = "Clears the console",
+            ["Aliases"] = {"clear"},
+            ["Function"] = function(args, speaker)
+                local l = game:GetService("CoreGui").DevConsoleMaster.DevConsoleWindow.DevConsoleUI.MainView.ClientLog
+                local lastNum = 1
+                for i,v in pairs(l:GetChildren()) do
+                    if tonumber(v.Name) then
+                        v:Destroy()
+                        lastNum = tonumber(v.Name)
+                    end
+                end
+                print("Console Cleared!")
+                l:WaitForChild(tostring(lastNum+1))
+                l[tostring(lastNum+1)].msg.TextColor3 = Color3.fromRGB(34, 34, 34)
+                l[tostring(lastNum+1)].msg.Font = Enum.Font.ArialBold
+            end
+        }
+    }
+}
+
+return Plugin

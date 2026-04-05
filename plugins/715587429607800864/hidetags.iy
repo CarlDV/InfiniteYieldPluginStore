@@ -1,0 +1,76 @@
+local pp = {
+    ["PluginName"] = "hidename",
+    ["PluginDescription"] = "Hides all artificial name tags, made by bruhmoment#4917",
+    ["Commands"] = {
+        ["hidenametags"] = {
+            ["ListName"] = "hidenametags / htags",
+            ["Description"] = "Hides all artificial name tags.",
+            ["Aliases"] = {'hidenametags','htags'},
+            ["Function"] = function(args,speaker)
+                local function hidenametags()
+                    local char = game.Players.LocalPlayer.Character
+                    wait(.1) -- for slight delay
+                    for _,v in pairs(char:GetDescendants()) do
+                        if v:IsA('BillboardGui') then
+                            v:Destroy()
+                        end
+                    end
+                end
+                hidenametags()
+                hidetagevent = game.Players.LocalPlayer.CharacterAdded:Connect(hidenametags)
+            end
+        },
+        ["unhidenametags"] = {
+            ["ListName"] = "shownametags / stags",
+            ["Description"] = "Unhides all artificial name tags.",
+            ["Aliases"] = {'shownametags','stags'},
+            ["Function"] = function(args,speaker)
+                if hidetagevent then
+                    hidetagevent:Disconnect()
+                    refresh(game.Players.LocalPlayer)
+                end
+            end
+        },
+        ["disguise"] = {
+            ["ListName"] = "disguise",
+            ["Description"] = "Hides your identity by hiding name tags and wiping shirts, hats, and pants.",
+            ["Aliases"] = {'disguise'},
+            ["Function"] = function(args,speaker)
+                local function anon()
+                    local char = game.Players.LocalPlayer.Character
+                    if not hidetagevent then
+                        local function hidenametags()
+                            wait(.1) -- for slight delay
+                            for _,v in pairs(char:GetDescendants()) do
+                                if v:IsA('BillboardGui') then
+                                    v:Destroy()
+                                end
+                            end
+                        end
+                        hidenametags()
+                    end
+                    for _,v in pairs(char:GetChildren()) do
+                        wait(.1) -- same delay here
+                        if v:IsA("Pants") or v:IsA("Shirt") or v:IsA("ShirtGraphic") or v:IsA("Accessory") then
+                            v:Destroy()
+                        end
+                    end
+                end
+                anon()
+                anonevent = game.Players.LocalPlayer.CharacterAdded:Connect(anon)
+            end 
+        },
+        ["undisguise"] = {
+            ["ListName"] = "undisguise",
+            ["Description"] = "Undoes the ;disguise command.",
+            ["Aliases"] = {'undisguise'},
+            ["Function"] = function(args,speaker)
+                if anonevent then
+                    anonevent:Disconnect()
+                    refresh(game.Players.LocalPlayer)
+                end
+            end 
+        }
+    },
+}
+return pp

@@ -1,0 +1,328 @@
+local Plugin = {
+    ["PluginName"] = "Prison Life Hax",
+    ["PluginDescription"] = "GUI not owned by me, all of the credits go to the owners",
+    ["Commands"] = {
+        ["PrisonLifeHax"] = {
+            ["ListName"] = "PrisonLifeHax",
+            ["Description"] = "An Extremely good Prison Life GUI",
+            ["Aliases"] = {"PLHax"},
+            ["Function"] = function(args,speaker)
+            plr = game:service'Players'.LocalPlayer
+plrgui = plr.PlayerGui
+char = plr.Character
+mouse = plr:GetMouse()
+
+g1 = Instance.new("ScreenGui", plrgui)
+g1.Name = "PrisonLifeGUI"
+o1 = Instance.new("Frame", g1)
+o1.Active = true
+o1.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o1.BackgroundTransparency = 0.20000000298023
+o1.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o1.BorderSizePixel = 0
+o1.Name = "DragPart"
+o1.Position = UDim2.new(0.1664953827858, 0, 0.3291731774807, 0)
+o1.Size = UDim2.new(0, 418, 0, 51)
+o1.Draggable = true
+o2 = Instance.new("TextLabel", o1)
+o2.BackgroundColor3 = Color3.new(1, 1, 1)
+o2.BackgroundTransparency = 1
+o2.BorderColor3 = Color3.new(0.666667, 0, 0)
+o2.BorderSizePixel = 0
+o2.Name = "Title"
+o2.Position = UDim2.new(0.23923444747925, 0, 0.13725490868092, 0)
+o2.Size = UDim2.new(0, 217, 0, 37)
+o2.Text = "Prison Life GUI"
+o2.TextColor3 = Color3.new(1, 1, 1)
+o2.Font = Enum.Font.SourceSansBold
+o2.FontSize = Enum.FontSize.Size32
+o3 = Instance.new("ScrollingFrame", o1)
+o3.BackgroundColor3 = Color3.new(0.0431373, 0.47451, 1)
+o3.BackgroundTransparency = 0.20000000298023
+o3.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o3.BorderSizePixel = 0
+o3.Position = UDim2.new(0, 0, 1, 0)
+o3.Size = UDim2.new(0, 418, 0, 225)
+o3.ClipsDescendants = true
+o4 = Instance.new("TextButton", o3)
+o4.Active = true
+o4.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o4.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o4.BorderSizePixel = 0
+o4.Name = "Team"
+o4.Position = UDim2.new(0.027511911466718, 0, 0.30666667222977, 0)
+o4.Size = UDim2.new(0, 132, 0, 31)
+o4.Text = "Change Team"
+o4.TextWrapped = true
+o4.TextColor3 = Color3.new(1, 1, 1)
+o4.Font = Enum.Font.SourceSansBold
+o4.FontSize = Enum.FontSize.Size18
+o5 = Instance.new("Frame", o4)
+o5.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o5.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o5.BorderSizePixel = 0
+o5.Position = UDim2.new(0, 0, 1, 0)
+o5.Size = UDim2.new(0, 131, 0, 6)
+o6 = Instance.new("TextButton", o3)
+o6.Active = true
+o6.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o6.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o6.BorderSizePixel = 0
+o6.Name = "Weapons"
+o6.Position = UDim2.new(0.026315789669752, 0, 0.08444444835186, 0)
+o6.Size = UDim2.new(0, 132, 0, 31)
+o6.Text = "Get Weapons"
+o6.TextWrapped = true
+o6.TextColor3 = Color3.new(1, 1, 1)
+o6.Font = Enum.Font.SourceSansBold
+o6.FontSize = Enum.FontSize.Size18
+o7 = Instance.new("Frame", o6)
+o7.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o7.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o7.BorderSizePixel = 0
+o7.Position = UDim2.new(0, 0, 1, 0)
+o7.Size = UDim2.new(0, 131, 0, 6)
+o8 = Instance.new("TextBox", o3)
+o8.Active = true
+o8.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o8.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o8.BorderSizePixel = 0
+o8.Position = UDim2.new(0.65311002731323, 0, 0.75111109018326, 0)
+o8.Size = UDim2.new(0, 131, 0, 31)
+o8.Text = "Target Name"
+o8.TextColor3 = Color3.new(1, 1, 1)
+o8.Font = Enum.Font.SourceSansBold
+o8.FontSize = Enum.FontSize.Size18
+o9 = Instance.new("Frame", o8)
+o9.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o9.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o9.BorderSizePixel = 0
+o9.Position = UDim2.new(0, 0, 1, 0)
+o9.Size = UDim2.new(0, 131, 0, 6)
+o10 = Instance.new("TextButton", o3)
+o10.Active = true
+o10.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o10.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o10.BorderSizePixel = 0
+o10.Name = "Kill"
+o10.Position = UDim2.new(0.027961723506451, 0, 0.52844446897507, 0)
+o10.Size = UDim2.new(0, 132, 0, 31)
+o10.Text = "Kill Aura"
+o10.TextWrapped = true
+o10.TextColor3 = Color3.new(1, 1, 1)
+o10.Font = Enum.Font.SourceSansBold
+o10.FontSize = Enum.FontSize.Size18
+o11 = Instance.new("Frame", o10)
+o11.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o11.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o11.BorderSizePixel = 0
+o11.Position = UDim2.new(0, 0, 1, 0)
+o11.Size = UDim2.new(0, 131, 0, 6)
+o12 = Instance.new("TextButton", o3)
+o12.Active = true
+o12.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o12.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o12.BorderSizePixel = 0
+o12.Name = "B-Tools"
+o12.Position = UDim2.new(0.65342581272125, 0, 0.52844446897507, 0)
+o12.Size = UDim2.new(0, 132, 0, 31)
+o12.Text = "B-Tools"
+o12.TextWrapped = true
+o12.TextColor3 = Color3.new(1, 1, 1)
+o12.Font = Enum.Font.SourceSansBold
+o12.FontSize = Enum.FontSize.Size18
+o13 = Instance.new("Frame", o12)
+o13.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o13.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o13.BorderSizePixel = 0
+o13.Position = UDim2.new(0, 0, 1, 0)
+o13.Size = UDim2.new(0, 131, 0, 6)
+o14 = Instance.new("TextButton", o3)
+o14.Active = true
+o14.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o14.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o14.BorderSizePixel = 0
+o14.Name = "TP"
+o14.Position = UDim2.new(0.65342581272125, 0, 0.306222230196, 0)
+o14.Size = UDim2.new(0, 132, 0, 31)
+o14.Text = "Teleport"
+o14.TextWrapped = true
+o14.TextColor3 = Color3.new(1, 1, 1)
+o14.Font = Enum.Font.SourceSansBold
+o14.FontSize = Enum.FontSize.Size18
+o15 = Instance.new("Frame", o14)
+o15.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o15.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o15.BorderSizePixel = 0
+o15.Position = UDim2.new(0, 0, 1, 0)
+o15.Size = UDim2.new(0, 131, 0, 6)
+o16 = Instance.new("TextButton", o3)
+o16.Active = true
+o16.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o16.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o16.BorderSizePixel = 0
+o16.Name = "Doors"
+o16.Position = UDim2.new(0.027961723506451, 0, 0.75044441223145, 0)
+o16.Size = UDim2.new(0, 132, 0, 31)
+o16.Text = "Remove Doors"
+o16.TextWrapped = true
+o16.TextColor3 = Color3.new(1, 1, 1)
+o16.Font = Enum.Font.SourceSansBold
+o16.FontSize = Enum.FontSize.Size18
+o17 = Instance.new("Frame", o16)
+o17.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o17.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o17.BorderSizePixel = 0
+o17.Position = UDim2.new(0, 0, 1, 0)
+o17.Size = UDim2.new(0, 131, 0, 6)
+o18 = Instance.new("TextButton", o3)
+o18.Active = true
+o18.BackgroundColor3 = Color3.new(0.027451, 0.329412, 0.670588)
+o18.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o18.BorderSizePixel = 0
+o18.Name = "Escape"
+o18.Position = UDim2.new(0.65342581272125, 0, 0.083999998867512, 0)
+o18.Size = UDim2.new(0, 132, 0, 31)
+o18.Text = "Escape"
+o18.TextWrapped = true
+o18.TextColor3 = Color3.new(1, 1, 1)
+o18.Font = Enum.Font.SourceSansBold
+o18.FontSize = Enum.FontSize.Size18
+o19 = Instance.new("Frame", o18)
+o19.BackgroundColor3 = Color3.new(0.0196078, 0.27451, 0.54902)
+o19.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o19.BorderSizePixel = 0
+o19.Position = UDim2.new(0, 0, 1, 0)
+o19.Size = UDim2.new(0, 131, 0, 6)
+o20 = Instance.new("ScrollingFrame", o1)
+o20.BackgroundColor3 = Color3.new(1, 1, 1)
+o20.BackgroundTransparency = 1
+o20.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o20.Name = "dontmind"
+o20.Position = UDim2.new(0.11004784703255, 0, 1.1960784196854, 0)
+o20.Size = UDim2.new(0, 372, 0, 206)
+o20.ClipsDescendants = true
+o21 = Instance.new("ImageLabel", o20)
+o21.BackgroundColor3 = Color3.new(1, 1, 1)
+o21.BackgroundTransparency = 1
+o21.BorderColor3 = Color3.new(0.105882, 0.164706, 0.207843)
+o21.BorderSizePixel = 0
+o21.Position = UDim2.new(0.235, 0, .141, 0)
+o21.Size = UDim2.new(0, 150, 0, 147)
+o21.Image = "rbxassetid://1268405663"
+
+tools = {
+	'Clone',
+	'GameTool',
+	'Hammer',
+	'Script',
+	'Grab'
+}
+
+local target
+local targetname
+killaura = false
+doors = false
+num = 1
+items = workspace.Prison_ITEMS.giver
+itemhandler = workspace.Remote.ItemHandler
+cteam = workspace.Remote.TeamEvent
+
+function gp(string) -- Credit to Timeless/xFunnieuss
+    local found = {}
+    local strl = string:lower()
+    if strl == "all" then
+        for i,v in pairs(game.Players:GetPlayers()) do
+            table.insert(found,v)
+        end
+    elseif strl == "others" then
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v.Name ~= game.Players.LocalPlayer.Name then
+                table.insert(found,v)
+            end
+        end    
+    else
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v.Name:lower():sub(1, #string) == string:lower() then
+                target = v
+				targetname = v.Name
+            end
+        end    
+    end
+    return found
+end 	
+
+function btools()
+	for i = 1,5 do
+		local tool = Instance.new("HopperBin", plr.Backpack)
+		tool.BinType = tools[num]
+		num = num + 1
+	end
+end
+
+function weapons()
+	for _, a in pairs(items:GetChildren()) do
+		itemhandler:InvokeServer(a.ITEMPICKUP)
+	end
+end
+
+function changet()
+	cteam:FireServer(game:GetService("Teams")[o8.Text].TeamColor)
+end
+
+function clear()
+	local found = {}
+end
+
+o8.Changed:connect(function()
+	gp(o8.Text)
+end)
+
+o4.MouseButton1Click:connect(function()
+	changet()
+end)
+
+o6.MouseButton1Click:connect(function()
+	weapons()
+end)
+
+o12.MouseButton1Click:connect(function()
+	btools()
+end)
+
+o10.MouseButton1Click:connect(function()
+	if not killaura then
+		killaura = true
+	else
+		killaura = false
+	end
+end)
+
+o14.MouseButton1Click:connect(function()
+	char.HumanoidRootPart.CFrame = target.Character.HumanoidRootPart.CFrame
+end)
+
+o16.MouseButton1Click:connect(function()
+	if workspace:FindFirstChild"Doors" then
+		workspace.Doors:Destroy()		
+	end
+end)
+
+o18.MouseButton1Click:connect(function()
+	char.HumanoidRootPart.CFrame = CFrame.new(283, 72, 2213)
+end)
+
+while wait(0.1) do
+    for i, b in pairs(game.Players:GetChildren()) do
+        if b.Name ~= plr.Name and not b:IsFriendsWith(plr.UserId) and killaura then
+            for i = 1, 10 do
+                game.ReplicatedStorage.meleeEvent:FireServer(b)
+            end
+        end
+    end
+end
+            end
+        }
+     }
+}
+return Plugin

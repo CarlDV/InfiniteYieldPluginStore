@@ -1,0 +1,50 @@
+local Plugin = {
+	["PluginName"] = "DrophatsP by Zwolf",
+	["PluginDescription"] = "Drops your hats a player's location.",
+	["Commands"] = {
+		["drophatsp"] = {
+			["Description"] = "drophatsp [player]",
+			["Aliases"] = {'dhp'},
+			["Function"] = function(args,speaker)
+                local players = getPlayer(args[1], speaker)
+
+                for i,v in pairs(players) do
+                    local Player = Players[v]
+                    local Char = Player.Character
+
+                    if Char then
+                        local hrp = Char.HumanoidRootPart
+                         
+                        if hrp then
+                            if speaker.Character then
+                                local handles = {}
+
+                                for _,obj in pairs(speaker.Character:GetChildren()) do
+                                    if obj:IsA("Accessory") then
+                                        obj.Parent = workspace
+                                        
+                                        local h = obj.Handle
+                                        if h then
+                                            repeat wait() until h.Parent.Parent == workspace
+                                            handles[#handles + 1] = h
+                                        end
+                                    end
+                                end
+
+                                wait(3)
+                                
+                                for i,v in next, handles do
+                                    --repeat wait() until v.Parent.Parent == workspace
+                                    
+                                    v.CFrame = Char.Head.CFrame
+                                end
+                            end
+                        end
+                    end
+                end
+			end,
+        },
+	},
+}
+
+return Plugin

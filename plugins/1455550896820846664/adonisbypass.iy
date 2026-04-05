@@ -1,0 +1,131 @@
+--!optimize 2
+-- thx upio
+
+local notify = getfenv().notify or warn
+
+local ShitMissing = {}
+local MissingMessage = " doesn't exist. This will lead to a limited bypass. Do not complain if you get detected."
+
+local getallthreads = getallthreads or getreg and function()
+    local reg = getreg()
+    for i = #reg, 1, -1 do
+        if type(reg[i]) == "thread" then continue end
+        table.remove(reg, i)
+    end
+    return reg :: {thread}
+end or nil
+
+local hookfunction: typeof(hookfunction) =
+    syn and syn.oth and syn.oth.hook or
+    oth and oth.hook or
+    hookfunction or function(a) return a end :: any
+
+if getexecutorname and getexecutorname() == "Volcano" then
+    local realhookfunction = getgenv().hookfunction
+    local realothhook = getgenv().oth.hook
+    hookfunction = function<A..., R...>(to_hook: (A...) -> (R...), hook: (A...) -> (R...)): (...any) -> (...any)
+        if debug.info(to_hook, "s") == "[C]" then
+            return realothhook(to_hook, hook)
+        else
+            return realhookfunction(to_hook, hook)
+        end
+    end
+end
+
+if not hookfunction then ShitMissing[#ShitMissing + 1] = "oth.hook or hookfunction" end
+if not isfunctionhooked then ShitMissing[#ShitMissing + 1] = "isfunctionhooked"; getgenv().isfunctionhooked = function(...) return false end end
+if not filtergc and not getgc then ShitMissing[#ShitMissing + 1] = "filtergc or getgc" end
+if not getallthreads and not getreg then ShitMissing[#ShitMissing + 1] = "getallthreads or getreg" end
+
+if #ShitMissing > 0 then
+    if #ShitMissing >= 4 then
+        notify("UNSUPPORTED", "bro your exploit aint got anything for this bypass to use")
+        return
+    end
+    if notify == warn then
+        notify("⚠️ WARNING", (function(s)
+            local out = {}
+            for i = 1, #s do
+                out[#out + 1] = s:sub(i, i)
+                if i < #s then
+                    out[#out + 1] = "\u{200B}"
+                end
+            end
+            return table.concat(out)
+        end)(table.concat(ShitMissing, ", ") .. MissingMessage))
+    else
+        notify("⚠️ WARNING", table.concat(ShitMissing, ", ") .. MissingMessage)
+    end
+end
+
+local threads = {}
+local AdonisFound = false
+for _, v in next, getallthreads() do
+    local source: string? = debug.info(v, 1, "s")
+    if source and (source:find(".Core.Anti", nil, true) or source:find(".Plugins.Anti_Cheat", nil, true)) then
+        threads[#threads + 1] = v
+        AdonisFound = true
+    end
+end
+
+local Bypassed = false
+local bypass = function(): ()
+    for _, v in next, threads do
+        pcall(task.cancel, v)
+    end
+    if hookfunction then
+        if filtergc then
+            for _, v in next, filtergc("table", {Keys = {"RLocked", "Detected"}}, true) do
+                if type(v) ~= "function" or isfunctionhooked(v) then continue end
+                hookfunction(v, coroutine.yield)
+            end
+        elseif getgc then
+            for _, v in next, getgc(true) do
+                if type(v) ~= "table" or not rawget(v, "Detected") or not rawget(v, "RLocked") then continue end
+                for _, v in next, v do
+                    if type(v) ~= "function" or isfunctionhooked(v) then continue end
+                    hookfunction(v, coroutine.yield)
+                end
+                break
+            end
+        end
+    end
+end
+
+if not getfenv().notify then
+    return bypass()
+end
+
+return {
+    PluginName = "adonis cries v67",
+    PluginDescription = "bypasses adonis",
+    Commands = {
+        adonischeck = {
+            ListName = "adonischeck",
+            Description = "check if adonis is in the game",
+            Aliases = {"checkadonis"},
+            Function = function()
+                notify(`Adonis was{if AdonisFound then " " else " not "}found.`)
+            end
+        },
+        adonisbypass = {
+            ListName = "adonisbypass",
+            Description = "bypass adonis",
+            Aliases = {"bypassadonis"},
+            Function = function()
+                if Bypassed then return end
+                if not AdonisFound then
+                    notify("Adonis was not found.")
+                    return
+                end
+                local s, e = pcall(bypass)
+                if not s then
+                    notify("error when bypassing", e)
+                else
+                    notify("Bypassed")
+                    Bypassed = true
+                end
+            end
+        }
+    }
+}

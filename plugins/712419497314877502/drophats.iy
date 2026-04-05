@@ -1,0 +1,38 @@
+local Plugin = {
+    ["PluginName"] = "lagserver",
+    ["PluginDescription"] = "uwu",
+    ["Commands"] = {
+        ["lagserver"] = {
+            ["ListName"] = "lagserver/ls" ,
+            ["Description"] = "uwu",
+            ["Aliases"] = {"ls"},
+            ["Function"] = function(args,speaker)
+                _G.Stop = false 
+                
+                game:GetService("RunService").RenderStepped:Connect(function()
+                    if _G.Stop == true then return; end
+                    if game.Players.LocalPlayer.Character == nil then repeat wait() until game.Players.LocalPlayer.Character ~= nil end   
+                    if not game.Players.LocalPlayer.Character:FindFirstChild("Head") then repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("Head") wait(3) end
+                    if game.Players.LocalPlayer.Character == nil then return; end
+                    if not game.Players.LocalPlayer:FindFirstChild("HumanoidRootPart") then repeat wait() until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") end
+                    wait(2)
+                    execCmd("blockhats",speaker)  
+                    execCmd("drophats",speaker)
+                    wait(2) 
+                    execCmd("refresh",speaker)  
+                    end)
+                end
+        
+        },
+            ["stoplagserver"] = {
+                ["ListName"] = "stoplagserver/sls" ,
+                ["Description"] = "s t o p",
+                ["Aliases"] = {"sls"},
+                ["Function"] = function(args,speaker)
+                    notify("stopping (you may respawn a couple more times)");
+                    _G.Stop = true
+                end
+            }
+        }
+    }
+    return Plugin

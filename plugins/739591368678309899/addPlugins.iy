@@ -1,0 +1,26 @@
+local Plugin = {
+    ["PluginName"] = "Add Plugins",
+    ["PluginDescription"] = "Add Plugins",
+    ["Commands"] = {
+		["addplugins"] = {
+            ["ListName"] = "addplugins",
+            ["Description"] = "Adds all plugins in Workspace folder",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				local files = listfiles("");
+				for i,fileName in pairs(files) do
+					if(string.find(fileName, ".iy") and fileName ~= "IY_FE.iy") then
+						if not FindInTable(PluginsTable, fileName) then
+							table.insert(PluginsTable, fileName)
+							LoadPlugin(fileName)
+							refreshplugins()
+							pcall(eventEditor.Refresh)
+							notify("Added Plugins", "Found plugins, added them to IY");
+						end
+					end
+				end
+			end
+		}
+	}
+}
+return Plugin

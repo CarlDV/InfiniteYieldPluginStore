@@ -1,0 +1,343 @@
+local Plugin = {
+    ["PluginName"] = "FeKill-FEpush",
+    ["PluginDescription"] = "Push the target or kill him",
+    ["Commands"] = {
+        ["Push"] = {
+            ["Description"] = "Use F to punch and if you want to kill him at 98% use C",
+            ["Aliases"] = {"Fepush"},
+            ["Function"] = function(args,speaker)
+
+            -- Farewell Infortality.
+            -- Version: 2.82
+            -- Instances:
+            local ScreenGui = Instance.new("ScreenGui")
+            local Frame = Instance.new("Frame")
+            local TextLabel = Instance.new("TextLabel")
+            local TextLabel_2 = Instance.new("TextLabel")
+            local TextLabel_3 = Instance.new("TextLabel")
+            local TextBox = Instance.new("TextBox")
+            local TextBox_2 = Instance.new("TextBox")
+            local Frame_2 = Instance.new("Frame")
+            local TextButton = Instance.new("TextButton")
+            local TextButton_2 = Instance.new("TextButton")
+            --Properties:
+            ScreenGui.Parent = game.CoreGui
+            ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+            Frame.Parent = ScreenGui
+            Frame.Active = true
+            Frame.Draggable = true
+            Frame.BackgroundColor3 = Color3.new(0.580392, 0.996078, 1)
+            Frame.BackgroundTransparency = 0.40000000596046
+            Frame.BorderColor3 = Color3.new(0, 0, 0)
+            Frame.Position = UDim2.new(0.118370466, 0, 0.391167223, 0)
+            Frame.Size = UDim2.new(0, 174, 0, 150)
+
+            TextLabel.Parent = Frame
+            TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+            TextLabel.BackgroundTransparency = 0.5
+            TextLabel.Position = UDim2.new(-0.00833322853, 0, 0, 0)
+            TextLabel.Size = UDim2.new(0, 175, 0, 34)
+            TextLabel.Font = Enum.Font.SourceSans
+            TextLabel.Text = "Keybinds"
+            TextLabel.TextColor3 = Color3.new(0, 0, 0)
+            TextLabel.TextSize = 14
+
+            TextLabel_2.Parent = Frame
+            TextLabel_2.BackgroundColor3 = Color3.new(1, 1, 1)
+            TextLabel_2.BackgroundTransparency = 0.40000000596046
+            TextLabel_2.Position = UDim2.new(0.0734596699, 0, 0.306236565, 0)
+            TextLabel_2.Size = UDim2.new(0, 71, 0, 33)
+            TextLabel_2.Font = Enum.Font.SourceSans
+            TextLabel_2.Text = "punch"
+            TextLabel_2.TextColor3 = Color3.new(0, 0, 0)
+            TextLabel_2.TextSize = 14
+
+            TextLabel_3.Parent = Frame
+            TextLabel_3.BackgroundColor3 = Color3.new(1, 1, 1)
+            TextLabel_3.BackgroundTransparency = 0.40000000596046
+            TextLabel_3.Position = UDim2.new(0.0734596699, 0, 0.627742052, 0)
+            TextLabel_3.Size = UDim2.new(0, 70, 0, 33)
+            TextLabel_3.Font = Enum.Font.SourceSans
+            TextLabel_3.Text = "slash"
+            TextLabel_3.TextColor3 = Color3.new(0, 0, 0)
+            TextLabel_3.TextSize = 14
+
+            TextBox.Parent = Frame
+            TextBox.BackgroundColor3 = Color3.new(1, 1, 1)
+            TextBox.BackgroundTransparency = 0.40000000596046
+            TextBox.Position = UDim2.new(0.481505632, 0, 0.306236565, 0)
+            TextBox.Size = UDim2.new(0, 70, 0, 33)
+            TextBox.Font = Enum.Font.SourceSans
+            TextBox.Text = "f"
+            TextBox.TextColor3 = Color3.new(0, 0, 0)
+            TextBox.TextSize = 14
+
+            TextBox_2.Parent = Frame
+            TextBox_2.BackgroundColor3 = Color3.new(1, 1, 1)
+            TextBox_2.BackgroundTransparency = 0.40000000596046
+            TextBox_2.Position = UDim2.new(0.475758493, 0, 0.626236558, 0)
+            TextBox_2.Size = UDim2.new(0, 70, 0, 33)
+            TextBox_2.Font = Enum.Font.SourceSans
+            TextBox_2.Text = "c"
+            TextBox_2.TextColor3 = Color3.new(0, 0, 0)
+            TextBox_2.TextSize = 14
+
+            Frame_2.Parent = ScreenGui
+            Frame_2.Active = true
+            Frame_2.Draggable = true
+            Frame_2.BackgroundColor3 = Color3.new(0.411765, 0.901961, 1)
+            Frame_2.BackgroundTransparency = 0.60000002384186
+            Frame_2.Position = UDim2.new(0.717140675, 0, 0.384858042, 0)
+            Frame_2.Size = UDim2.new(0, 106, 0, 158)
+
+            TextButton.Parent = Frame_2
+            TextButton.BackgroundColor3 = Color3.new(0.337255, 0.968628, 0.94902)
+            TextButton.BackgroundTransparency = 0.30000001192093
+            TextButton.NextSelectionDown = TextButton_2
+            TextButton.Size = UDim2.new(0, 106, 0, 82)
+            TextButton.Font = Enum.Font.SourceSans
+            TextButton.Text = "^"
+            TextButton.TextColor3 = Color3.new(0, 0, 0)
+            TextButton.TextSize = 70
+            TextButton.MouseButton1Click:connect(function()
+            	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,2,0)
+            end)
+
+            TextButton_2.Parent = Frame_2
+            TextButton_2.BackgroundColor3 = Color3.new(0.337255, 0.968628, 0.94902)
+            TextButton_2.BackgroundTransparency = 0.30000001192093
+            TextButton_2.Position = UDim2.new(0, 0, 0.524908125, 0)
+            TextButton_2.Size = UDim2.new(0, 106, 0, 74)
+            TextButton_2.Font = Enum.Font.SourceSans
+            TextButton_2.Text = "v"
+            TextButton_2.TextColor3 = Color3.new(0, 0, 0)
+            TextButton_2.TextSize = 56
+            TextButton_2.MouseButton1Click:connect(function()
+            	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,-2,0)
+            end)
+
+            spawn(function()
+            	while true do
+            wait(0.1)
+            if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
+                Frame.Visible = false
+            Frame_2.Visible = false
+            end
+            	end
+            	end)
+
+            function haveTools()
+            	local a = false
+            	local b = false
+            	for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+            		if v:IsA("Tool") then
+            			if v ~= nil then
+            				a = true
+            			else
+            				a = false
+            			end
+            		end
+            	end
+            	for i,k in pairs(game.Players.LocalPlayer.Backpack:GetDescendants()) do
+            		if k:IsA("Tool") then
+            			if k ~= nil then
+            				b = true
+            			else
+            				b = false
+            			end
+            		end
+            	end
+            	return a or b
+            end
+
+            power = math.huge
+            unholding = true
+            spawn(function()
+              while unholding do
+            wait()
+            game.Players.LocalPlayer.Character:FindFirstChild("Humanoid"):UnequipTools()
+            end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+            if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+            if key == "f" then
+            if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+            AnimationId = "846744780"
+            else
+            AnimationId = "204062532"
+            end
+            local Anim = Instance.new("Animation")
+            Anim.AnimationId = "rbxassetid://"..AnimationId
+            local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+            k:Play() --Play the animation
+            k:AdjustSpeed(1) --Set '1' to any value you want to adjust the animation speed.
+            unholding = false
+            wait()
+                  if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") == nil then
+                  game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool").Parent = game.Players.LocalPlayer.Character
+                  end
+            wait(1)
+            game.Players.LocalPlayer.Character:FindFirstChild("Humanoid"):UnequipTools()
+            unholding = true
+            end
+            end
+            end)
+
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+             if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+              if key == "c" then
+                	if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+                 		AnimationId = "675025570"
+                 		else
+                 		AnimationId = "218504594"
+                	end
+               local Anim = Instance.new("Animation")
+               Anim.AnimationId = "rbxassetid://"..AnimationId
+               local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+               k:Play() --Play the animation
+                	if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+                 		k:AdjustSpeed(3.4) --Set '1' to any value you want to adjust the animation speed.
+                	else
+                		k:AdjustSpeed(1)
+                	end
+            unholding = false
+            wait()
+                  if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") == nil then
+                  game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool").Parent = game.Players.LocalPlayer.Character
+                  end
+            wait(1)
+            game.Players.LocalPlayer.Character:FindFirstChild("Humanoid"):UnequipTools()
+            unholding = true
+              end
+             end
+            end)
+
+            -- Press Q or E to move up or down. Q is down, E is up.
+            -- Press R or T to change WalkSpeed. R is slower, T is faster.
+            if haveTools() == false then
+            local LocalPlayer = game:GetService("Players").LocalPlayer
+            for _, hat in pairs(LocalPlayer.Character.Humanoid:GetAccessories()) do
+                if hat.Handle ~= nil then
+                    local tool = Instance.new("Tool", LocalPlayer.Backpack)
+                    tool.Name = hat.Name
+                    local hathandle = hat.Handle
+                    hathandle:FindFirstChildOfClass("Weld").Part1 = nil
+                    hathandle.Parent = tool
+                    hathandle.Massless = true
+                end
+                break
+            end
+            end
+            game.Players.LocalPlayer.Character.Animate.toolnone.ToolNoneAnim.AnimationId = "nil"
+            wait()
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = 0
+            local noclip = true
+            game:GetService('RunService').Stepped:connect(function()
+            if noclip then
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+            end
+            end)
+            wait()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CustomPhysicalProperties = PhysicalProperties.new(0,0,0,0,0)
+            wait()
+            spawn(function()
+            while game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 do
+            for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+               if (v:IsA("Tool")) then
+            v.GripPos = Vector3.new(0,power,250)
+            end
+            end
+            wait()
+            end
+            end)
+            spawn(function()
+            while game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 do
+            for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+               if (v:IsA("Tool")) then
+            v.GripPos = Vector3.new(0,power,250)
+            end
+            end
+            wait()
+            end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+             if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+              if key == "q" then
+              end
+             end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+             if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+              if key == "e" then
+              end
+             end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+            if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+            if key == "r" then
+            end
+            end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+            if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+            if key == "t" then
+            end
+            end
+            end)
+            repeat
+            local noclip = true
+            wait()
+            until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+            wait()
+            noclip = false
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+            if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+            if key == "q" then
+            end
+            end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+            if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+            if key == "e" then
+            end
+            end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+            if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+            if key == "r" then
+            end
+            end
+            end)
+            plr = game.Players.LocalPlayer
+            mouse = plr:GetMouse()
+            mouse.KeyDown:connect(function(key)
+            if game.Players.LocalPlayer.Character.Humanoid.JumpPower == 0 then
+            if key == "t" then
+            end
+            end
+            end)
+          end
+        }
+     }
+}
+
+return Plugin

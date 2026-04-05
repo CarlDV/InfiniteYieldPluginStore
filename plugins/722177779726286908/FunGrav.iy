@@ -1,0 +1,586 @@
+--Made by Thomas_Cornez
+
+Players = game:GetService("Players") 
+local Plugin = {
+	["PluginName"] = "Have fun with gravity",
+	["PluginDescription"] = "Have fun with unanchored parts and the gravity",
+	["Commands"] = {
+		["nogravparts"] = {
+			["ListName"] = "nogravparts" ,
+			["Description"] = "FE No gravity",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker)
+				spawn(function() -- Not made by me, this is made by another guyy I forgot who he is
+					while true do
+						game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+						game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+						game:GetService("RunService").Stepped:wait()
+					end
+				end)
+				local function zeroGrav(part)
+					if part:FindFirstChild("BodyForce") then return end
+					local temp = Instance.new("BodyForce")
+					temp.Force = part:GetMass() * Vector3.new(0,workspace.Gravity,0)
+					temp.Parent = part
+				end
+				
+				for i,v in ipairs(workspace:GetDescendants()) do
+					if v:IsA("Part") and v.Anchored == false then
+						if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+							zeroGrav(v)
+						end
+					end
+				end
+			end,
+		},
+		["gravparts"] = {
+			["ListName"] = "gravparts" ,
+			["Description"] = "Will put back the gravs",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker)
+				for i,v in ipairs(workspace:GetDescendants()) do
+					if v:IsA("Part") and v.Anchored == false then
+						v.CanCollide = true
+						if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+						v:FindFirstChild("BodyForce"):Destroy()
+				end
+			end
+		end
+	end
+	},
+	["supergravparts"] = {
+		["ListName"] = "supergravparts" ,
+		["Description"] = "More Gravity on the parts",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			execCmd("gravparts")
+			wait(0.3)
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+			local function SuperGrav(part)
+				if part:FindFirstChild("BodyForce") then return end
+				local temp2 = Instance.new("BodyForce")
+				temp2.Force = part:GetMass() * Vector3.new(0,-5500,0)
+				temp2.Parent = part
+			end	
+			for i,v in ipairs(workspace:GetDescendants()) do
+				if v:IsA("Part") and v.Anchored == false then
+					if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+						SuperGrav(v)
+					end
+				end
+			end
+		end,
+	},
+	["invertgravparts"] = {
+		["ListName"] = "invertgravparts" ,
+		["Description"] = "Now the parts will fall in the sky ?",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			execCmd("gravparts")
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+			local function InvertGrav(part)
+				if part:FindFirstChild("BodyForce") then return end
+				local temp2 = Instance.new("BodyForce")
+				temp2.Force = part:GetMass() * Vector3.new(0,5500,0)
+				temp2.Parent = part
+			end	
+			for i,v in ipairs(workspace:GetDescendants()) do
+				if v:IsA("Part") and v.Anchored == false then
+					if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+						InvertGrav(v)
+					end
+				end
+			end
+		end,
+	},
+	["pushparts"] = {
+		["ListName"] = "pushparts" ,
+		["Description"] = "Push unanchored parts in the sky",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+			local function InvertGrav2(part)
+				if part:FindFirstChild("BodyForce") then return end
+				local temp2 = Instance.new("BodyForce")
+				temp2.Force = part:GetMass() * Vector3.new(0,1000,0)
+				temp2.Parent = part
+			end	
+			for i,v in ipairs(workspace:GetDescendants()) do
+				if v:IsA("Part") and v.Anchored == false then
+					if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+						InvertGrav2(v)
+					end
+				end
+			end
+			wait(0.4 )
+			execCmd("gravparts")
+		end
+	},
+	["bombparts"] = {
+		["ListName"] = "bombparts" ,
+		["Description"] = "Push unanchored parts in the sky and fall very fast so create a kind of explosion",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+			local function InvertGrav3(part)
+				if part:FindFirstChild("BodyForce") then return end
+				local temp2 = Instance.new("BodyForce")
+				temp2.Force = part:GetMass() * Vector3.new(0,1250,0)
+				temp2.Parent = part
+			end	
+			for i,v in ipairs(workspace:GetDescendants()) do
+				if v:IsA("Part") and v.Anchored == false then
+					if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+						InvertGrav3(v)
+					end
+				end
+			end
+			wait(0.7)
+			execCmd("gravparts")
+			wait(0.3)
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+			local function SuperGrav22(part)
+				if part:FindFirstChild("BodyForce") then return end
+				local temp2 = Instance.new("BodyForce")
+				temp2.Force = part:GetMass() * Vector3.new(0,-4500,0)
+				temp2.Parent = part
+			end	
+			for i,v in ipairs(workspace:GetDescendants()) do
+				if v:IsA("Part") and v.Anchored == false then
+					if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+						SuperGrav22(v)
+					end
+				end
+			end
+			wait(0.7)
+			execCmd("gravparts")
+			wait(0.1)
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+			local function zeroGrav2(part)
+				if part:FindFirstChild("BodyForce") then return end
+				local temp = Instance.new("BodyForce")
+				temp.Force = part:GetMass() * Vector3.new(0,workspace.Gravity,0)
+				temp.Parent = part
+			end
+			
+			for i,v in ipairs(workspace:GetDescendants()) do
+				if v:IsA("Part") and v.Anchored == false then
+					if not (v:IsDescendantOf(game.Players.LocalPlayer.Character)) then
+						zeroGrav2(v)
+					end
+				end
+			end
+		end
+	},
+	["deleteunanchored"] = {
+		["ListName"] = "deleteunanchored / deleteua / cleanua",
+		["Description"] = "Move all unanchoredparts to the void position ( so it destroy it )",
+		["Aliases"] = {"deleteua", "cleanua"},
+		["Function"] = function(args,speaker)
+	spawn(function()
+		while true do
+			game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+			game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+			game:GetService("RunService").Stepped:wait()
+		end
+	end)
+
+	local LocalPlayer = game:GetService("Players").LocalPlayer -- Your local player
+
+	local unanchoredparts7 = {} -- Get the anchored parts in the table
+
+	local movers = {} -- Put the body position in the table
+
+			-- add the unanchored parts in the table and clear them
+			for index, part in pairs(workspace:GetDescendants()) do
+				if part:IsA("Part") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false then
+					part.CanCollide = false
+			table.insert(unanchoredparts7, part)
+			if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+				part:FindFirstChildOfClass("BodyPosition"):Destroy()
+			end
+		end
+	end
+	 wait(0.2)
+
+	 -- Setting for the thing work
+	for index, part in pairs(unanchoredparts7) do
+		local mover = Instance.new("BodyPosition", part)
+		table.insert(movers, mover)
+		mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+			end
+
+-- Clean function
+		for index, mover in pairs(movers) do
+			mover.Position = Vector3.new(0,workspace.FallenPartsDestroyHeight - -1000,0)
+		end
+	end
+},
+	  ["moveparts"] = {
+	  ["ListName"] = "moveparts [plr]",
+	  ["Description"] = "Move the unanchored parts to the target",
+	  ["Aliases"] = {},
+	  ["Function"] = function(args,speaker)
+		spawn(function()
+			while true do
+				game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+				game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+				game:GetService("RunService").Stepped:wait()
+			end
+		end)
+		local players = getPlayer(args[1], speaker) 
+		local LocalPlayer = game:GetService("Players").LocalPlayer
+		local unanchoredparts = {}
+		local movers = {}
+ 
+				for index, part in pairs(workspace:GetDescendants()) do
+					if part:IsA("Part" or "MeshPart" or "Model") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false then
+				table.insert(unanchoredparts, part)
+				if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+					part:FindFirstChildOfClass("BodyPosition"):Destroy()
+				end
+			end
+		end
+
+		for index, part in pairs(unanchoredparts) do
+			local mover = Instance.new("BodyPosition", part)
+			table.insert(movers, mover)
+			mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+				end
+				moving = true
+		repeat
+			for i,plr in pairs(players)do
+			for index, mover in pairs(movers) do
+				mover.Position = game:GetService("Players")[plr].Character.HumanoidRootPart.CFrame:PointToWorldSpace()
+			end
+			end
+			wait(0.5)
+		until moving == false
+	end
+	},
+		["movepartsmouse"] = {
+		["ListName"] = "movepartsmouse",
+		["Description"] = "Move the unanchored parts to the mouse",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+		  local LocalPlayer = game:GetService("Players").LocalPlayer
+          local mouse = LocalPlayer:GetMouse()
+		  local unanchoredparts2 = {}
+		  local movers2 = {}
+   
+				  for index, part in pairs(workspace:GetDescendants())  do
+					  if part:IsA("Part" or "MeshPart" or "Model") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false then
+				  table.insert(unanchoredparts2, part)
+				  if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+					  part:FindFirstChildOfClass("BodyPosition"):Destroy()
+				  end
+			  end
+		  end
+  
+		  for index, part in pairs(unanchoredparts2) do
+			  local mover2 = Instance.new("BodyPosition", part)
+			  table.insert(movers2, mover2)
+			  mover2.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+				  end
+				  moving2 = true
+		  repeat
+			  for index, mover3 in pairs(movers2) do
+				  mover3.Position = mouse.Hit:PointToWorldSpace()
+			  end
+			  game:GetService("RunService").Stepped:wait()
+		  until moving2 == false
+	  end
+	},
+	["movepartsmouse1"] = {
+		["ListName"] = "movepartsmouse1",
+		["Description"] = "Move the unanchored parts to the mouse",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			spawn(function()
+				while true do
+					game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+					game:GetService("RunService").Stepped:wait()
+				end
+			end)
+		  local LocalPlayer = game:GetService("Players").LocalPlayer
+          local mouse = LocalPlayer:GetMouse()
+		  local unanchoredparts2 = {}
+		  local movers2 = {}
+   
+				  for index, part in pairs(workspace:GetDescendants())  do
+					  if part:IsA("Part" or "MeshPart" or "Model") and part.Anchored == false then
+				  table.insert(unanchoredparts2, part)
+				  if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+					  part:FindFirstChildOfClass("BodyPosition"):Destroy()
+				  end
+			  end
+		  end
+  
+		  for index, part in pairs(unanchoredparts2) do
+			  local mover2 = Instance.new("BodyPosition", part)
+			  table.insert(movers2, mover2)
+			  mover2.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+				  end
+				  moving2 = true
+		  repeat
+			  for index, mover3 in pairs(movers2) do
+				  mover3.Position = mouse.Hit:PointToWorldSpace()
+			  end
+			  game:GetService("RunService").Stepped:wait()
+		  until moving2 == false
+	  end
+	},
+["unmoveparts"] = {
+	["ListName"] = "unmoveparts",
+	["Description"] = "Stop moving the parts to the target",
+	["Aliases"] = {},
+	["Function"] = function(args,speaker)
+		execCmd("gravparts")
+		moving = false
+		moving2 = false
+		for i,mov in pairs(workspace:GetDescendants())do
+		if mov:IsA("BodyPosition") then
+			mov:Destroy()
+			end
+		end
+		end
+	},
+	["setblackhole"] = {
+		["ListName"] = "setblackhole",
+		["Description"] = "Set the blackhole position",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			local ball = Instance.new("Part", workspace)
+			ball.Anchored = true
+			ball.CanCollide = false
+			ball.Material = "Glass"
+			ball.Shape = "Ball"
+			ball.Color = Color3.fromRGB(56, 0, 85)
+			ball.Size = Vector3.new(2,2,2)
+			ball.Name = "BlackHoleCenter"
+			ball.Position = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+			end
+		},
+["blackhole"] = {
+["ListName"] = "blackhole",
+["Description"] = "Move unanchoredparts to your character once, so its look like a black hole",
+["Aliases"] = {},
+["Function"] = function(args,speaker)
+  spawn(function()
+	  while true do
+		  game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+		  game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+		  game:GetService("RunService").Stepped:wait()
+	  end
+  end)
+  local players = getPlayer(args[1], speaker) 
+  local LocalPlayer = game:GetService("Players").LocalPlayer
+  local unanchoredparts = {}
+  local movers = {}
+
+		  for index, part in pairs(workspace:GetDescendants()) do
+			  if part:IsA("Part" or "MeshPart" or "Model") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false and part.Name == "BlackHoleCenter" == false then
+		  table.insert(unanchoredparts, part)
+		  if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+			  part:FindFirstChildOfClass("BodyPosition"):Destroy()
+		  end
+	  end
+  end
+
+  for index, part in pairs(unanchoredparts) do
+	  local mover = Instance.new("BodyPosition", part)
+	  table.insert(movers, mover)
+	  mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+		  end
+
+		  cowboy = true
+		  repeat
+	  for index, mover in pairs(movers) do
+		  mover.Position = workspace:FindFirstChild("BlackHoleCenter").CFrame:PointToWorldSpace()
+	  end
+	  game:GetService("RunService").Stepped:wait()
+	until cowboy == false
+end
+},
+["removeblackhole"] = {
+	["ListName"] = "removeblackhole",
+	["Description"] = "Remove the blackhole",
+	["Aliases"] = {},
+	["Function"] = function(args,speaker)
+		for i,blackhole in pairs(workspace:GetChildren())do
+			if blackhole:IsA("Part") and blackhole.Name == "BlackHoleCenter" then
+				blackhole:Destroy()
+				execCmd("stopblackhole")
+			end
+		end
+		end
+	},
+	["stopblackhole"] = {
+		["ListName"] = "stopblackhole",
+		["Description"] = "Stop the blackhole",
+		["Aliases"] = {},
+		["Function"] = function(args,speaker)
+			for i,mov in pairs(workspace:GetDescendants())do
+				if mov:IsA("BodyPosition") then
+					mov:Destroy()
+					end
+				end
+			cowbow = false
+
+			end
+		},
+		["controlblackhole"] = {
+			["ListName"] = "controlblackhole",
+			["Description"] = "Control the black hole",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker)
+				local LocalPlayer = game:GetService("Players").LocalPlayer
+				FLYING = false
+workspace.Camera.CameraSubject = workspace:FindFirstChild("BlackHoleCenter")
+workspace:FindFirstChild("BlackHoleCenter").Anchored = false
+
+-- Fly Function
+local iyflyspeed = 3
+local mouse = LocalPlayer:GetMouse()
+local LP = LocalPlayer
+local function goup()
+	repeat wait() until LP and LP.Character and LP.Character:FindFirstChild('HumanoidRootPart') and LP.Character:FindFirstChild('Humanoid')
+	repeat wait() until mouse
+	
+	local T = workspace:FindFirstChild("BlackHoleCenter")
+	local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+	local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+	local SPEED = 0
+	
+	local function FLY()
+		FLYING = true
+		local BG = Instance.new('BodyGyro', T)
+		local BV = Instance.new('BodyVelocity', T)
+		BG.P = 9e4
+		BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		BG.cframe = T.CFrame
+		BV.velocity = Vector3.new(0, 0.1, 0)
+		BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+		spawn(function()
+		repeat wait()
+		if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+		SPEED = 50
+		elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+		SPEED = 0
+		end
+if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+else
+BV.velocity = Vector3.new(0, 0.1, 0)
+end
+	BG.cframe = workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(math.rad(-90), 0, 0)
+			until not FLYING
+			CONTROL = {F = 0, B = 0, L = 0, R = 0}
+			lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+			SPEED = 0
+			BG:destroy()
+			BV:destroy()
+		end)
+	end
+	mouse.KeyDown:connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = iyflyspeed
+		elseif KEY:lower() == 's' then
+			CONTROL.B = -iyflyspeed
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = -iyflyspeed 
+		elseif KEY:lower() == 'd' then 
+			CONTROL.R = iyflyspeed
+		end
+	end)
+	mouse.KeyUp:connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = 0
+		elseif KEY:lower() == 's' then
+			CONTROL.B = 0
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = 0
+		elseif KEY:lower() == 'd' then
+			CONTROL.R = 0
+		end
+	end)
+	FLY()
+end
+goup()
+
+for i,v in pairs(LocalPlayer.Character:GetChildren()) do
+	if v:IsA("BasePart" or "MeshPart") then
+		v.Anchored = true
+	end
+end
+
+			end
+			},
+			["uncontrolblackhole"] = {
+				["ListName"] = "uncontrolblackhole",
+				["Description"] = "UnControl the black hole",
+				["Aliases"] = {},
+			    ["Function"] = function(args,speaker)
+				local LocalPlayer = game:GetService("Players").LocalPlayer
+					 FLYING = false
+					 workspace.Camera.CameraSubject = LocalPlayer.Character.Humanoid
+					 workspace:FindFirstChild("BlackHoleCenter").Anchored = true
+
+					 for i,v in pairs(LocalPlayer.Character:GetDescendants()) do
+						if v:IsA("BasePart" or "MeshPart") then
+							v.Anchored = false
+						end
+					end
+				end
+			}
+	}
+}
+
+return Plugin

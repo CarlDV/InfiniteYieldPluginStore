@@ -1,0 +1,20 @@
+local Plugin = {
+    ["PluginName"] = "slur generator",
+    ["PluginDescription"] = "generate a US slur",
+    ["Commands"] = {
+        ["slur"] = {
+            ["ListName"] = "slur",
+            ["Description"] = "generate slur",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              	local slurs = {"Ape","Beaner","Black Buck","Bluegum","Bootlip","Buckwheat","Brownie","Burrhead","Charlie","Cheese-eating surrender monkeys","Ching chong","Chink","Coconut","Coon","Cracker","Dink","Dune coon","Eyetie","Flip","Froggy","Golliwog","Goombah","Greaseball","Groid","Hajji","Haole","Hillbilly","Honky","Injun","Jap","Jewboy","Jim Crow","Jungle bunny","Kike","Limey","Mayonnaise Monkey","Mulignan","Nigger","Nigger toe","Nip","Oreo","Pajeet","Pocho","Portagee","Rastus","Sambo","Sand nigger","Sheboon","Sheeny","Shine","Skinny","Snowflake","Smoked Irish","Sooty","Spic","Squaw","Tar-Baby","Toad","Tonto","Twinkie","Uncle Tom","Wetback","Wigger","White trash","Wop","Zipperhead"}
+		local g = math.random(#slurs)
+		print(slurs[g])
+		notify("Slur",tostring(slurs[g]))
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(""..slurs[g],"All")
+            end
+        }
+     }
+}
+
+return Plugin

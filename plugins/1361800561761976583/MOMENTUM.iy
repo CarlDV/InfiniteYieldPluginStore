@@ -1,0 +1,253 @@
+local Plugin = {
+    ["PluginName"] = "MOMENTUM",
+    ["PluginDescription"] = "Elite Movement System By atomic444 On Discord",
+    ["Commands"] = {
+        ["momentum"] = {
+            ["Function"] = function(args)
+                local p = game:GetService("Players").LocalPlayer
+                local c = p.Character or p.CharacterAdded:Wait()
+                local h = c:WaitForChild("Humanoid")
+                local r = c:WaitForChild("HumanoidRootPart")
+                local cam = workspace.CurrentCamera
+                local uis = game:GetService("UserInputService")
+                local run = game:GetService("RunService")
+                local s = 0
+                local maxSpeed = 90
+                local grounded = true
+                local jumping = false
+                local fallStartY = nil
+                local wallrunDir = nil
+                local wallrunning = false
+                local lastStep = 0
+                local trippedTimes = {}
+                local fallingSound
+                local con
+                local firstPersonCon
+                local vaultCooldown = 1
+                local lastVaultTime = 0
+
+                local function play(id, looped, parent)
+                    local snd = Instance.new("Sound")
+                    snd.SoundId = "rbxassetid://" .. tostring(id)
+                    snd.Looped = looped or false
+                    snd.Volume = 0.5  -- Reduced volume for walking sound
+                    snd.PlayOnRemove = not looped
+                    snd.Parent = parent or workspace
+                    if looped then snd:Play() else snd:Destroy() end
+                    return snd
+                end
+
+                local function trip()
+                    h:ChangeState(Enum.HumanoidStateType.Ragdoll)
+                    r.Velocity = -r.CFrame.LookVector * 40 + Vector3.new(0, 25, 0)
+                    s = 0
+                    table.insert(trippedTimes, tick())
+                    play(79498136171279, false, r)
+                    task.delay(1.5, function()
+                        h:ChangeState(Enum.HumanoidStateType.GettingUp)
+                    end)
+                end
+
+                local function adjustFirstPerson()
+                    local head = c:FindFirstChild("Head")
+                    if not head then return end
+                    local isFirst = (cam.CFrame.Position - head.Position).Magnitude < 1.5
+                    -- Head & Accessories Transparency
+                    head.LocalTransparencyModifier = isFirst and 1 or 0
+                    for _, acc in ipairs(c:GetChildren()) do
+                        if acc:IsA("Accessory") and acc:FindFirstChild("Handle") then
+                            acc.Handle.LocalTransparencyModifier = isFirst and 1 or 0
+                        end
+                    end
+                    -- Torso Transparency
+                    local torso = c:FindFirstChild("UpperTorso")
+                    if torso then
+                        torso.LocalTransparencyModifier = isFirst and 0.9 or 0
+                    end
+                    local lowerTorso = c:FindFirstChild("LowerTorso")
+                    if lowerTorso then
+                        lowerTorso.LocalTransparencyModifier = isFirst and 0.9 or 0
+                    end
+                end
+
+                local function reset()
+                    cam.FieldOfView = 70
+                    if con then con:Disconnect() end
+                    if firstPersonCon then firstPersonCon:Disconnect() end
+                    if fallingSound then fallingSound:Stop() fallingSound:Destroy() end
+                    local torso = c:FindFirstChild("UpperTorso")
+                    if torso then
+                        torso.LocalTransparencyModifier = 0
+                    end
+                    local lowerTorso = c:FindFirstChild("LowerTorso")
+                    if lowerTorso then
+                        lowerTorso.LocalTransparencyModifier = 0
+                    end
+                    local head = c:FindFirstChild("Head")
+                    if head then
+                        head.LocalTransparencyModifier = 0
+                    end
+                    for _, acc in ipairs(c:GetChildren()) do
+                        if acc:IsA("Accessory") and acc:FindFirstChild("Handle") then
+                            acc.Handle.LocalTransparencyModifier = 0
+                        end
+                    end
+                end
+
+                p.CharacterAdded:Connect(function()
+                    reset()
+                end)
+
+                firstPersonCon = run.RenderStepped:Connect(function()
+                    if p.Character then
+                        adjustFirstPerson()
+                    end
+                end)
+
+                con = run.RenderStepped:Connect(function(dt)
+                    if not p.Character or not p.Character:FindFirstChild("HumanoidRootPart") then return end
+                    c = p.Character
+                    h = c:FindFirstChild("Humanoid")
+                    r = c:FindFirstChild("HumanoidRootPart")
+                    if not h or not r then return end
+                    local d = h.MoveDirection
+                    local isGrounded = (h.FloorMaterial ~= Enum.Material.Air)
+                    grounded = isGrounded
+                    if h.Jump and not jumping then
+                        jumping = true
+                        local jumpPower = 50 + (s / 3)
+                        r.Velocity = Vector3.new(r.Velocity.X, jumpPower, r.Velocity.Z)
+                    end
+                    if jumping and isGrounded then
+                        jumping = false
+                    end
+                    if not isGrounded and not fallStartY then
+                        fallStartY = r.Position.Y
+                    elseif isGrounded and fallStartY then
+                        local fallDist = fallStartY - r.Position.Y
+                        fallStartY = nil
+                        if fallingSound then
+                            fallingSound:Stop()
+                            fallingSound:Destroy()
+                            fallingSound = nil
+                        end
+                        if fallDist > 38 then
+                            fallingSound = play(112426728115254, true, r)
+                            task.delay(0.3, function()
+                                if fallingSound then
+                                    fallingSound:Stop()
+                                    fallingSound:Destroy()
+                                    fallingSound = nil
+                                end
+                            end)
+                        end
+                        if fallDist > 15 then
+                            if not uis:IsKeyDown(Enum.KeyCode.LeftShift) then
+                                trip()
+                            else
+                                local anim = Instance.new("Animation")
+                                anim.AnimationId = "rbxassetid://616006778"
+                                local track = h:LoadAnimation(anim)
+                                track:Play()
+                            end
+                        end
+                    end
+                    if d.Magnitude > 0 then
+                        s = math.clamp(s + 0.6, 0, maxSpeed)
+                        local lv = r.CFrame.LookVector
+                        local blend = lv:Lerp(d.Unit, math.clamp(0.5 * dt * (s / maxSpeed), 0, 1))
+                        r.CFrame = CFrame.new(r.Position, r.Position + blend)
+                        r.Velocity = Vector3.new(blend.X * s, r.Velocity.Y, blend.Z * s)
+                        local stepRate = math.clamp(0.3 * (1.5 - (s / maxSpeed)), 0.05, 0.4)
+                        if tick() - lastStep >= stepRate and grounded then
+                            lastStep = tick()
+                            play(75860000822474, false, r)
+                        end
+                    else
+                        local decel = 1 - (0.3 * dt)
+                        s = math.clamp(s * decel, 0, maxSpeed)
+                        r.Velocity = r.Velocity * decel
+                    end
+                    cam.FieldOfView = 70 + ((125 - 70) * (s / maxSpeed))
+                    local ray = Ray.new(r.Position, r.CFrame.LookVector * 2)
+                    local hit = workspace:FindPartOnRay(ray, c)
+                    if hit and s > 25 then
+                        trip()
+                        local knockback = r.CFrame.LookVector * 70  -- Increased knockback strength
+                        r.Velocity = knockback + Vector3.new(0, 25, 0)  -- Added upward knockback
+                    end
+                    wallrunning = false
+                    wallrunDir = nil
+                    if not isGrounded and s > 30 then
+                        local leftRay = Ray.new(r.Position, -r.CFrame.RightVector * 3)
+                        local rightRay = Ray.new(r.Position, r.CFrame.RightVector * 3)
+                        if workspace:FindPartOnRay(leftRay, c) then
+                            wallrunning = true
+                            wallrunDir = -r.CFrame.RightVector
+                        elseif workspace:FindPartOnRay(rightRay, c) then
+                            wallrunning = true
+                            wallrunDir = r.CFrame.RightVector
+                        end
+                    end
+                    if wallrunning and wallrunDir then
+                        local runVec = Vector3.new(r.CFrame.LookVector.X, 0.2, r.CFrame.LookVector.Z).Unit
+                        r.Velocity = runVec * 60
+                        play(18782450319, false, r)
+                        if uis:IsKeyDown(Enum.KeyCode.Space) then
+                            r.Velocity = Vector3.new(-wallrunDir.X * 60, 50, -wallrunDir.Z * 60)
+                        end
+                    end
+                    if grounded and d.Magnitude > 0 and tick() - lastVaultTime > vaultCooldown then
+                        local origin = r.Position + Vector3.new(0, 2, 0)
+                        local vaultRay = Ray.new(origin, d.Unit * 3)
+                        local vaultHit = workspace:FindPartOnRay(vaultRay, c)
+                        if vaultHit and (vaultHit.Position.Y - r.Position.Y) < 3 then
+                            local upRay = Ray.new(vaultHit.Position + Vector3.new(0,1,0), Vector3.new(0,1,0) * 2)
+                            if not workspace:FindPartOnRay(upRay, c) then
+                                r.Velocity = Vector3.new(d.Unit.X * s, 35, d.Unit.Z * s)
+                                lastVaultTime = tick()
+                            end
+                        end
+                    end
+                    local now = tick()
+                    local newTrips = {}
+                    for _, t in ipairs(trippedTimes) do
+                        if now - t < 7 then
+                            table.insert(newTrips, t)
+                        end
+                    end
+                    trippedTimes = newTrips
+                    if #trippedTimes >= 3 then
+                        play(1869841622, false, r)
+                        trippedTimes = {}
+                    end
+                end)
+                if not _G.m then _G.m = {} end
+                _G.m[p] = {
+                    connection = con,
+                    reset = reset
+                }
+            end
+        },
+        ["unmomentum"] = {
+            ["Function"] = function(args)
+                local p = game:GetService("Players").LocalPlayer
+                local cam = workspace.CurrentCamera
+                if _G.m and _G.m[p] then
+                    _G.m[p].connection:Disconnect()
+                    _G.m[p].reset()
+                    _G.m[p] = nil
+                end
+                if cam then
+                    cam.FieldOfView = 70
+                end
+                local c = p.Character
+                if c and c:FindFirstChild("HumanoidRootPart") then
+                    c.HumanoidRootPart.Velocity = Vector3.zero
+                end
+            end
+        }
+    }
+}
+
+return Plugin

@@ -1,0 +1,143 @@
+settings = {
+  ExecOnRJ = false;
+  joinenabled = false;
+  joincmds = {};
+  plrcollideenabled = false;
+  plrcollidecmds = {};
+  cooldownnum = 0.5
+}
+
+if not isfile("IY.spawn") then writefile("IY.spawn",game:GetService("HttpService"):JSONEncode(settings)) end
+  				local json = game:GetService("HttpService"):JSONDecode(readfile("IY.spawn"))
+          local function runonjoin()
+          if json.ExecOnRJ then syn.queue_on_teleport("loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()")
+end
+end
+runonjoin()
+if json.joinenabled then
+  spawn(function() for i,v in pairs(json.joincmds) do pcall(function() execCmd(v) end) end end)
+notify("executed " ..tostring(#json.joincmds) .." cmds") end
+
+
+function collidecmd()
+
+if json.plrcollideenabled then
+
+  local function checkroot(root)
+    for _,plr in pairs(game:GetService("Players"):GetPlayers()) do
+    for i,v in pairs(plr.Character:GetDescendants()) do if v:IsA("BasePart") and v == root then return true
+    end end end
+
+      --if root == plr.Character.HumanoidRootPart then return true end end
+  return false end
+
+
+local cooldown = false
+local function ontouched()
+  for i,v in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+    if v:IsA("BasePart") then v.Touched:connect(function(part) if checkroot(part) and json.plrcollideenabled and not cooldown then cooldown = true for i,k in pairs(json.plrcollidecmds) do execCmd(k) end wait(json.cooldownnum) cooldown = false end end)
+end end
+
+end
+ontouched()
+game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function() wait() ontouched() end)
+ end
+end
+collidecmd()
+
+function savemyfile()
+  writefile("IY.spawn",game:GetService("HttpService"):JSONEncode(json))
+end
+
+
+
+
+local Plugin = {
+    ["PluginName"] = "JoinCmds",
+    ["PluginDescription"] = "adds automation to cmd execution. tip: add nearest to the plrcollide command to select the player you touched",
+    ["Commands"] = {
+      ["execRJ"] = {
+          ["ListName"] = "execRJ/IYrj",
+          ["Description"] = "re-executes iy after a teleport/rejoin, cmd is a toggle",
+          ["Aliases"] = {'iyrj'},
+          ["Function"] = function(args,speaker)
+          if json.ExecOnRJ then json.ExecOnRJ = false notify('IY will no longer re-execute on rejoin/teleport') else json.ExecOnRJ = true notify('IY will now re-execute on rejoin/teleport') end
+            savemyfile()
+            runonjoin()
+          end,
+      },
+      ["joincmds"] = {
+          ["ListName"] = "joincmds/jc",
+          ["Description"] = "toggles the join commands set",
+          ["Aliases"] = {'jc'},
+          ["Function"] = function(args,speaker)
+          if json.joinenabled then json.joinenabled = false notify('cmds will no longer execute on join') else json.joinenabled = true notify('cmds will now execute on join') end
+savemyfile()
+          end,
+      },
+      ["addjoincmd"] = {
+          ["ListName"] = "addjoincmd/ajc",
+          ["Description"] = "adds a command to be executed on join",
+          ["Aliases"] = {'ajc'},
+          ["Function"] = function(args,speaker)
+          table.insert(json.joincmds,getstring(1))
+          savemyfile()
+          notify('added '..tostring(getstring(1))..' to be executed when you join a game')
+          end,
+      },
+      ["clearjoincmds"] = {
+          ["ListName"] = "clearjoincmds/cjc",
+          ["Description"] = "removes all join commands",
+          ["Aliases"] = {'cjc'},
+          ["Function"] = function(args,speaker)
+          for i = 1,#json.joincmds do table.remove(json.joincmds, i) end
+          for i = 1,#json.joincmds do table.remove(json.joincmds, i) end
+          notify("Cleared all join cmds!")
+          savemyfile()
+          end,
+      },
+      ["plrcollide"] = {
+          ["ListName"] = "plrcollide/pcl",
+          ["Description"] = "toggles cmd execution on player touched",
+          ["Aliases"] = {'pcl'},
+          ["Function"] = function(args,speaker)
+          if json.plrcollideenabled then json.plrcollideenabled = false notify("cmd execution on touching a player is now disabled") else json.plrcollideenabled = true notify("cmd execution on touching a player is now enabled") end
+          collidecmd()
+          savemyfile()
+          end,
+      },
+      ["collidecooldown"] = {
+          ["ListName"] = "collidecooldown/cc",
+          ["Description"] = "changes how fast a cmd can execute",
+          ["Aliases"] = {'cc'},
+          ["Function"] = function(args,speaker)
+        json.cooldownnum = tonumber(args[1])
+        savemyfile()
+        notify("set the cooldown to "..args[1])
+          end,
+      },
+      ["addplrcollidecmd"] = {
+          ["ListName"] = "addplrcollidecmd/apcollide/apcc",
+          ["Description"] = "adds a command to be executed on touching a player",
+          ["Aliases"] = {'apcollide','apcc'},
+          ["Function"] = function(args,speaker)
+          table.insert(json.plrcollidecmds,getstring(1))
+          notify("added "..tostring(getstring(1)).." to be executed when you touch a player")
+          savemyfile()
+          end,
+      },
+      ["clearcollidecmds"] = {
+          ["ListName"] = "clearcollidecmds/ccc",
+          ["Description"] = "removes all collide commands",
+          ["Aliases"] = {'ccc'},
+          ["Function"] = function(args,speaker)
+            for i = 1,#json.plrcollidecmds do table.remove(json.plrcollidecmds, i) end
+            for i = 1,#json.plrcollidecmds do table.remove(json.plrcollidecmds, i) end
+          notify("Cleared all player collide cmds!")
+          savemyfile()
+          end,
+      },
+    },
+}
+
+return Plugin

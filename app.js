@@ -3,7 +3,6 @@
 
     let allPlugins = [];
     let currentList = [];
-    let filter = 'all';
     let sort = 'newest';
     let query = '';
 
@@ -18,7 +17,6 @@
     const empty = $('empty');
     const search = $('search');
     const sortEl = $('sort');
-    const filterGroup = $('filter-group');
     const overlay = $('overlay');
     const loadMoreTarget = $('load-more');
 
@@ -84,8 +82,7 @@
             );
         }
 
-        if (filter === 'files') list = list.filter(p => p.attachments?.some(a => a.is_plugin_file));
-        if (filter === 'code') list = list.filter(p => p.code_blocks?.length > 0);
+
 
         if (sort === 'newest') list.sort((a, b) => new Date(b.date) - new Date(a.date));
         if (sort === 'oldest') list.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -130,6 +127,7 @@
             if (p.attachments?.some(a => a.is_plugin_file)) tags += '<span class="tag tag-file">📁 File</span>';
             if (p.code_blocks?.length) tags += '<span class="tag tag-code">⟨/⟩ Code</span>';
             if (p.links?.length) tags += '<span class="tag tag-link">🔗 Link</span>';
+            if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring">⚡ Loadstring</span>';
 
             let dateColor = 'inherit';
             if (p.date) {
@@ -204,6 +202,16 @@
         }
 
         let html = '';
+
+        // Loadstring URLs section
+        if (p.loadstring_urls?.length) {
+            html += `<div class="section"><div class="section-label">⚡ Loadstring URLs (${p.loadstring_urls.length})</div>`;
+            p.loadstring_urls.forEach(url => {
+                html += `<a class="loadstring-link" href="${escAttr(url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(url)}</a>`;
+            });
+            html += `</div>`;
+        }
+
         let text = (p.content || '').trim();
 
         if (text) {
@@ -230,7 +238,7 @@
                 </div>`;
 
                 if (isCode) {
-                    html += `<div id="prev-${p.id}-${i}" class="file-preview hidden"><div class="code-wrap"><div class="code-bar"><span class="code-lang">${esc(a.filename.split('.').pop())}</span></div><pre class="code-block"></pre></div></div>`;
+                    html += `<div id="prev-${p.id}-${i}" class="file-preview hidden"><div class="code-wrap"><div class="code-bar"><span class="code-lang">${esc(a.filename.split('.').pop())}</span><button class="copy-btn" data-id="code-${p.id}-${i}">Copy</button></div><pre class="code-block" id="code-${p.id}-${i}"></pre></div></div>`;
                 } else if (isImage) {
                     html += `<div class="media-preview"><img src="${escAttr(a.url)}" alt="${escAttr(a.filename)}" loading="lazy" draggable="false"></div>`;
                 } else if (isVideo) {
@@ -357,14 +365,6 @@
     // ---- Events ----
     search.addEventListener('input', debounce(e => { query = e.target.value.trim(); render(); }, 200));
     sortEl.addEventListener('change', e => { sort = e.target.value; render(); });
-    filterGroup.addEventListener('click', e => {
-        const btn = e.target.closest('.filter-btn');
-        if (!btn) return;
-        filterGroup.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        filter = btn.dataset.filter;
-        render();
-    });
     $('m-close').addEventListener('click', closeModal);
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
     document.addEventListener('keydown', e => {

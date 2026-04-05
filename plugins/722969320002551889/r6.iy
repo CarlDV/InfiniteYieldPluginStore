@@ -1,0 +1,15 @@
+local pp = {
+    ["PluginName"] = "r6",
+    ["PluginDescription"] = "Transforms a r15 character to a r6 like character which supports r6 stuff, made by misrepresenting#4917",
+    ["Commands"] = {
+        ["r6"] = {
+            ["ListName"] = "r6",
+            ["Description"] = "Transforms a r15 character to a r6 like character which supports r6 stuff.",
+            ["Aliases"] = {'r6'},
+            ["Function"] = function()
+                loadstring(game:HttpGet("https://pastebin.com/raw/ZT0FQGSb"))()
+            end
+        }
+    }
+}
+return pp

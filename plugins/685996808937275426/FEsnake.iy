@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "FE snake",
+	["PluginDescription"] = "FE snake",
+	["Commands"] = {
+		["FEsnake"] = {
+			["Description"] = "FE snake",
+			["Aliases"] = {'bpack', 'bp', 'bag'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet('https://pastebin.com/raw/be06pAn6'))()
+			end,
+		},
+	},
+}
+
+return Plugin

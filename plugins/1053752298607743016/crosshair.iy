@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "Mazin Crosshair",
+    ["PluginDescription"] = "crosshair that go brrr and lgbt",
+    ["Commands"] = {
+        ["mazincrosshair"] = {
+            ["ListName"] = "mazincrosshair / mc / mazin / crosshair",
+            ["Description"] = "mazin crosshair lul",
+            ["Aliases"] = {"mc","mazin","crosshair"},
+            ["Function"] = function(args,speaker)
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/SwimPaste/rbxscripts/main/mazincrosshair.lua'))()
+            end
+        },
+        ["mazincrosshairwithcursor"] = {
+            ["ListName"] = "mazincrosshairwithcursor / mcwc / mazincursor / crosshaircursor",
+            ["Description"] = "mazin crosshair with cursor lul",
+            ["Aliases"] = {"mcwc","mazincursor","crosshaircursor"},
+            ["Function"] = function(args,speaker)
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/SwimPaste/rbxscripts/main/mazinwithcursor.lua'))()
+            end
+        }
+     }
+}
+
+return Plugin

@@ -1,8 +1,6 @@
 name: Update Plugins JSON
 
 on:
-  schedule:
-    - cron: '0 */20 * * *'
   workflow_dispatch:
 
 jobs:
@@ -37,5 +35,5 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: auto-update plugins.json"
-          file_pattern: 'data/plugins.json'
+          commit_message: "chore: update plugins database and self-hosted files"
+          file_pattern: '.'

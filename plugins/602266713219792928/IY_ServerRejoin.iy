@@ -1,0 +1,98 @@
+local Lplr = game:GetService("Players").LocalPlayer
+
+local GameData = nil
+local Retries = 0
+
+local function GetGameInfo()
+	local GameInfo = game:HttpPost("https://presence.roblox.com/v1/presence/users", "{\"userIds\":["..Lplr.UserId.."]}")
+	if GameData == nil and GameInfo ~= "" and GameInfo ~= "{}" then
+		local Info = game:GetService("HttpService"):JSONDecode(GameInfo)
+		
+		local UserPref = Info.userPresences
+		if UserPref and UserPref[1]
+			and UserPref[1].placeId ~= nil
+			and UserPref[1].placeId ~= ""
+			and UserPref[1].gameId ~= nil
+			and UserPref[1].gameId ~= "" then
+			
+			GameData = UserPref[1]
+		else
+			-- Give 5 retries with 3 second intervals and notify the player if it doesnt get it
+			if Retries < 5 then
+				Retries = Retries + 1
+				wait(3)
+				GetGameInfo()
+			else
+				notify("Server info was unable to be obtained, try running [retryrejoin] to retry")
+			end
+		end
+	end
+end
+
+local Plugin = {
+	["PluginName"] = "Server Rejoin",
+	["PluginDescription"] = "Allows you to easily rejoin the exact server you were just in",
+	["Commands"] = {
+		["copyrejoin"] = {
+			["ListName"] = "copyrejoin",
+			["Description"] = "Copies the script to rejoin the server",
+			["Aliases"] = {},
+			["Function"] = function()
+				if not setclipboard then
+					notify("setclipboard missing, needed for string copy")
+					return
+				end
+				
+				if GameData ~= nil then
+					setclipboard("game:GetService(\"TeleportService\"):TeleportToPlaceInstance("..GameData.placeId..", \""..GameData.gameId.."\")")
+				else
+					notify("Was unable to get the game info, retrying...")
+					spawn(function()
+						GetGameInfo()
+						if GameData ~= nil then
+							setclipboard("game:GetService(\"TeleportService\"):TeleportToPlaceInstance("..GameData.placeId..", \""..GameData.gameId.."\")")
+							notify("Game finally copied")
+						end
+					end)
+				end
+			end
+		},
+		["serverrejoin"] = {
+			["ListName"] = "serverrejoin / rejoinserver",
+			["Description"] = "Rejoins the exact server you were just in",
+			["Aliases"] = {"rejoinserver"},
+			["Function"] = function()
+				if GameData ~= nil then
+					game:GetService("TeleportService"):TeleportToPlaceInstance(GameData.placeId, GameData.gameId)
+				else
+					notify("Was unable to get the game info, retrying...")
+					spawn(function()
+						GetGameInfo()
+						if GameData ~= nil then
+							game:GetService("TeleportService"):TeleportToPlaceInstance(GameData.placeId, GameData.gameId)
+						end
+					end)
+				end
+			end
+		},
+		["retryrejoin"] = {
+			["ListName"] = "retryrejoin",
+			["Description"] = "Tries to obtain the information to rejoin the server",
+			["Aliases"] = {},
+			["Function"] = function()
+				if GameData == nil then
+					notify("Getting game info...")
+					spawn(function()
+						GetGameInfo()
+					end)
+				end
+			end
+		}
+	}
+}
+
+spawn(function()
+	GetGameInfo()
+end)
+
+return Plugin

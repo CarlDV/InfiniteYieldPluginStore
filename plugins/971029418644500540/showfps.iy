@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "ShowFPS",
+    ["PluginDescription"] = "Empire#4946",
+    ["Commands"] = {
+        ["COMMANDNAME"] = {
+            ["ListName"] = "showfps",
+            ["Description"] = "Notifies your Roblox FPS.",
+            ["Aliases"] = {"showfps"},
+            ["Function"] = function(args,speaker)
+              notify('ShowFPS',''..workspace:GetRealPhysicsFPS()..'')
+              wait(1)
+            end
+        }
+     }
+}
+
+return Plugin

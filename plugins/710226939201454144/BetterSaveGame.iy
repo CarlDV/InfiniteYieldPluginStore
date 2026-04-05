@@ -1,0 +1,87 @@
+local Plugin = {
+	["PluginName"] = "BetterSaveGame",
+	["PluginDescription"] = "Adds the snotify command for saving the game, and making it more obvouse when it's done.",
+	["Commands"] = {
+		["snotify"] = {
+			["ListName"] = "snotify",
+			["Description"] = "Uses saveinstance to save the game, and notifies you when it's done.",
+			["Aliases"] = {"t"},
+			["Function"] = function(args, speaker)
+				local function MakeGUI()
+					--Instances:
+					local SaveGUI = Instance.new("ScreenGui")
+					local Frame = Instance.new("Frame")
+					local Frame_2 = Instance.new("ImageLabel")
+					local TextButton = Instance.new("TextButton")
+					
+					--Properties:
+					SaveGUI.Name = "SaveGUI"
+					if game:GetService("CoreGui"):FindFirstChild('RobloxGui') then
+						SaveGUI.Parent = game:GetService("CoreGui").RobloxGui
+					else
+						SaveGUI.Parent = game:GetService("CoreGui")
+					end
+					
+					Frame.Parent = SaveGUI
+					Frame.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+					Frame.BackgroundTransparency = 0.300
+					Frame.BorderSizePixel = 0
+					Frame.Size = UDim2.new(1, 0, 1, 0)
+
+					Frame_2.Name = "Frame"
+					Frame_2.Parent = Frame
+					Frame_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					Frame_2.BackgroundTransparency = 1.000
+					Frame_2.Position = UDim2.new(0.42, 0, 0.5, 0)
+					Frame_2.Size = UDim2.new(0, 200, 0, 50)
+					Frame_2.Image = "rbxassetid://3570695787"
+					Frame_2.ImageColor3 = Color3.fromRGB(152, 255, 152)
+					Frame_2.ScaleType = Enum.ScaleType.Slice
+					Frame_2.SliceCenter = Rect.new(100, 100, 100, 100)
+					Frame_2.SliceScale = 0.120
+
+					TextButton.Parent = Frame_2
+					TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+					TextButton.BackgroundTransparency = 1.000
+					TextButton.BorderSizePixel = 0
+					TextButton.Size = UDim2.new(1, 0, 1, 0)
+					TextButton.Font = Enum.Font.SourceSansBold
+					TextButton.Text = "Game Saved"
+					TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+					TextButton.TextScaled = true
+					TextButton.TextSize = 14.000
+					TextButton.TextWrapped = true
+					
+					--Functions:
+					TextButton.MouseEnter:Connect(function()
+						Frame_2.ImageColor3 = Color3.fromRGB(108, 181, 108)
+					end)
+
+					TextButton.MouseButton1Click:Connect(function()
+						SaveGUI:Destroy()
+					end)
+				end
+				if syn_checkcaller then
+					notify("Loading","Fetching Moon's SaveInstance")
+					loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/saveinstance/master/source'))()
+					repeat wait() until saveplace
+					notify("Loading","Downloading game. This will take a while")
+					local placeName = tostring(game.PlaceId).." Map"
+					saveplace(tostring(game.PlaceId).." Map")
+					wait(1)
+					notify('Game Saved','Saved place to the workspace folder within your exploit folder.')
+					MakeGUI()
+				elseif saveinstance then
+					notify("Loading","Downloading game. This will take a while")
+					saveinstance()
+					notify('Game Saved','Saved place to the workspace folder within your exploit folder.')
+					MakeGUI()
+				else
+					notify('Incompatible Exploit','Your exploit does not support this command')
+				end
+			end
+		},
+	}
+}
+
+return Plugin
