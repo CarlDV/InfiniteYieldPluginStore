@@ -775,6 +775,12 @@ span.author-click:hover,
     min-width: 0;
 }
 
+@media (max-width: 768px) {
+    .modal-body {
+        padding: 16px 18px 20px;
+    }
+}
+
 .section {
     margin-bottom: 20px;
 }
@@ -938,9 +944,19 @@ span.author-click:hover,
     font-size: 0.78rem;
     line-height: 1.65;
     color: var(--text2);
-    overflow-x: auto;
-    white-space: pre;
-    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 450px;
+}
+
+@media (max-width: 768px) {
+    .code-block {
+        max-height: 300px;
+        font-size: 0.72rem;
+        padding: 10px;
+    }
 }
 
 .att-row {
