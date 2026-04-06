@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-04-06T12:22:56.331775+00:00",
-  "total": 541,
+  "updated_at": "2026-04-06T23:10:13.270620+00:00",
+  "total": 540,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -1589,7 +1589,7 @@
       "files": [
         {
           "filename": "PrisonLifeHax.iy",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/698193652526088312/PrisonLifeHax.iy?ex=69d47ac2&is=69d32942&hm=fae9803e4f971832586ea3c75b569de56581803217075fc287355c6e6c839b3a&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/698193652526088312/PrisonLifeHax.iy?ex=69d52382&is=69d3d202&hm=2581a159f3b488a525fdbca896993a847a45f96e801a16e7ed67e39a5f3959bb&",
           "size": 244078
         }
       ],
@@ -3206,7 +3206,7 @@
       "files": [
         {
           "filename": "PP.iy",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/744998512584032367/PP.iy?ex=69d4afae&is=69d35e2e&hm=73c3bafbafaaeb72125fd3a3ba69a593d06e3b36a36c332de5f1293b8f70870b&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/744998512584032367/PP.iy?ex=69d5586e&is=69d406ee&hm=f1fba03343c41d5985b2beadfcdd4ac983225a65f296796d6d2de469a66440dd&",
           "size": 253257
         }
       ],
@@ -4621,22 +4621,6 @@
       ],
       "loadstring_urls": [
         "https://pastebin.com/raw/u7HEbm8q"
-      ]
-    },
-    {
-      "id": "893095112190595092",
-      "name": "assassinsilentaim",
-      "author": "Deleted User",
-      "date": "2021-09-30T11:21:07.651000+00:00",
-      "files": [
-        {
-          "filename": "assassinsilentaim.iy",
-          "url": "plugins/893095112190595092/assassinsilentaim.iy",
-          "size": 572
-        }
-      ],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/bockatta/Shitter/main/Loader"
       ]
     },
     {
@@ -7450,7 +7434,7 @@
     {
       "id": "1470722423098970217",
       "name": "Welder",
-      "author": "averywindyplace",
+      "author": "averyrainyplace",
       "date": "2026-02-10T10:05:50.368000+00:00",
       "files": [
         {
@@ -7760,20 +7744,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "1490616865121108038",
-      "name": "plug",
-      "author": "smug",
-      "date": "2026-04-06T07:39:14.967000+00:00",
-      "files": [
-        {
-          "filename": "plug.iy",
-          "url": "plugins/1490616865121108038/plug.iy",
-          "size": 3327
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "1490685255466877070",
       "name": "FarhatUtility",
       "author": "Agent666_0",
@@ -7786,6 +7756,22 @@
         }
       ],
       "loadstring_urls": []
+    },
+    {
+      "id": "1490806746103550054",
+      "name": "SpiderFacts",
+      "author": "𝓡𝔂𝓸",
+      "date": "2026-04-06T20:13:46.121000+00:00",
+      "files": [
+        {
+          "filename": "SpiderFacts.iy",
+          "url": "plugins/1490806746103550054/SpiderFacts.iy",
+          "size": 836
+        }
+      ],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/Fiazer1/Spider/refs/heads/main/Facts.lua"
+      ]
     }
   ]
 }
