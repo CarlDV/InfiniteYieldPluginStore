@@ -1,0 +1,84 @@
+local rs = game:GetService("RunService")
+
+local connswalk
+local params = RaycastParams.new()
+params.FilterType = Enum.RaycastFilterType.Blacklist
+
+return {
+  ["PluginName"] = "thing",
+  ["PluginDescription"] = "thing2",
+  ["Commands"] = {
+["orbitwalk"] = {
+  ["ListName"] = "orbitwalk [plr] [rad]",
+  ["Description"] = "Orbit a player (default = 4)",
+  ["Aliases"] = {"ow"},
+  ["Function"] = function(args, speaker)
+    for _, v in pairs(getPlayer(args[1], speaker)) do
+      local plr = Players[v]
+      if not plr or not plr.Character then continue end
+      local hrp = getRoot(speaker.Character)
+      local hum = speaker.Character:FindFirstChildWhichIsA("Humanoid")
+      local hrp2 = getRoot(plr.Character)
+      local hum2 = plr.Character:FindFirstChildWhichIsA("Humanoid")
+      if not (hum and hum.Health > 0) or not hrp or not (hum2 and hum2.Health > 0) or not hrp2 then continue end
+
+      local radius = tonumber(args[2]) or 4
+      local pivot = Vector3.zero
+      local angle = 0
+
+      if connswalk then connswalk:Disconnect() connswalk = nil end
+      connswalk = rs.RenderStepped:Connect(function(dt)
+        if not plr.Character or not (speaker.Character and hum and hum.Parent) then
+          connswalk:Disconnect() connswalk = nil return
+        end
+        hrp2 = getRoot(plr.Character)
+        hum2 = plr.Character:FindFirstChildWhichIsA("Humanoid")
+        if not hrp2 or not (hum2 and hum2.Health > 0) then return end
+        dt = math.clamp(dt, 0, 1/30)
+        angle += dt * (hum.WalkSpeed / 16) * (16 / radius)
+        pivot = hrp2.Position
+        local orbitPos = Vector3.new(pivot.X + math.cos(angle) * radius,hrp.Position.Y,pivot.Z + math.sin(angle) * radius)
+        hum:Move((orbitPos - hrp.Position).Unit * 1.01, false)
+        params.FilterDescendantsInstances = {speaker.Character}
+        rayed = workspace:Raycast(hrp.Position, (orbitPos - hrp.Position).Unit * 3, params)
+        if rayed and rayed.Instance.CanCollide then
+          hum.Jump = true
+        end
+      end)
+    end
+  end
+},
+["walkpulse"] = {
+  ["ListName"] = "walkpulse [dist]",
+  ["Description"] = "walk down and up each x studs (default = 4)",
+  ["Aliases"] = {"wap"},
+  ["Function"] = function(args, speaker)
+    local char = speaker.Character
+    local hum = char and char:FindFirstChildWhichIsA("Humanoid")
+    if not (char and hum and hum.Health > 0) then return end
+    local amplitude = tonumber(args[1]) or 4
+    local t = 0
+    if connswalk then connswalk:Disconnect() connswalk = nil end
+    connswalk = rs.RenderStepped:Connect(function(dt)
+      if not (speaker.Character and hum and hum.Parent) then
+        connswalk:Disconnect() connswalk = nil return
+      end
+      dt = math.clamp(dt, 0, 1/30)
+      t += dt * (hum.WalkSpeed / 16) * (16 / amplitude)
+      local offset = ((math.floor(t) % 2) == 0) and amplitude or -amplitude
+      hum:Move(workspace.CurrentCamera.CFrame.LookVector * offset, false)
+    end)
+  end
+},
+["unorbitwalk"] = {
+  ["ListName"] = "unorbitwalk",
+  ["Description"] = "Stop orbiting or pulsing",
+  ["Aliases"] = {"uwo"},
+  ["Function"] = function(args, speaker)
+    if connswalk then connswalk:Disconnect() connswalk = nil end
+    local hum = speaker.Character and speaker.Character:FindFirstChildWhichIsA("Humanoid")
+    if hum then hum:Move(Vector3.zero, false) end
+  end
+}
+  }
+}
