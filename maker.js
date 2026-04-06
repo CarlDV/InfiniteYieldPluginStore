@@ -1,6 +1,8 @@
 let pluginData = {
     name: "ExamplePlugin",
     description: "This is a helpful template created using IY Plugin Maker.",
+    headerCode: "",
+    footerCode: "return Plugin",
     commands: [
         {
             id: 'cmd_initial',
@@ -54,6 +56,52 @@ function initMonaco() {
 }
 
 initMonaco().then(() => {
+    // Register Roblox Lua IntelliSense
+    monaco.languages.registerCompletionItemProvider('lua', {
+        provideCompletionItems: function (model, position) {
+            var word = model.getWordUntilPosition(position);
+            var range = {
+                startLineNumber: position.lineNumber,
+                endLineNumber: position.lineNumber,
+                startColumn: word.startColumn,
+                endColumn: word.endColumn
+            };
+            var suggestions = [];
+            
+            const globals = ["game", "workspace", "script", "math", "string", "table", "coroutine", "task", "tick", "os", "debug", "Instance", "Vector3", "Vector2", "CFrame", "Color3", "UDim2", "UDim", "Ray", "RaycastParams", "TweenInfo", "Enum", "BrickColor", "pcall", "ypcall", "xpcall", "print", "warn", "error"];
+            globals.forEach(kw => {
+                suggestions.push({
+                    label: kw,
+                    kind: monaco.languages.CompletionItemKind.Class,
+                    insertText: kw,
+                    range: range
+                });
+            });
+
+            const methods = ["GetService", "FindFirstChild", "WaitForChild", "GetChildren", "GetDescendants", "Clone", "Destroy", "IsA", "FindFirstChildOfClass", "FindFirstChildWhichIsA", "FireServer", "InvokeServer", "Connect", "Disconnect", "Wait", "ClearAllChildren"];
+            methods.forEach(md => {
+                suggestions.push({
+                    label: md,
+                    kind: monaco.languages.CompletionItemKind.Method,
+                    insertText: md,
+                    range: range
+                });
+            });
+
+            const services = ["Players", "ReplicatedStorage", "ServerScriptService", "ServerStorage", "StarterGui", "StarterPack", "StarterPlayer", "Lighting", "MaterialService", "Workspace", "RunService", "TweenService", "UserInputService", "HttpService", "TeleportService", "DataStoreService", "CollectionService", "MarketplaceService", "PhysicsService", "SoundService", "TextService", "ContextActionService", "VoiceChatService"];
+            services.forEach(sv => {
+                suggestions.push({
+                    label: sv,
+                    kind: monaco.languages.CompletionItemKind.Interface,
+                    insertText: sv,
+                    range: range
+                });
+            });
+            
+            return { suggestions: suggestions };
+        }
+    });
+
     previewEditor = monaco.editor.create(document.getElementById('monaco-preview'), {
         value: generateLua(),
         language: 'lua',
@@ -110,7 +158,12 @@ document.getElementById('resume-sync-btn').addEventListener('click', () => {
 });
 
 function generateLua() {
-    let lua = `local Plugin = {\n`;
+    let lua = "";
+    if (pluginData.headerCode && pluginData.headerCode.trim().length > 0) {
+        lua += pluginData.headerCode.trim() + "\n\n";
+    }
+
+    lua += `local Plugin = {\n`;
     lua += `    ["PluginName"] = "${escLua(pluginData.name)}",\n`;
     lua += `    ["PluginDescription"] = "${escLua(pluginData.description)}",\n`;
     lua += `    ["Commands"] = {\n`;
@@ -135,7 +188,14 @@ function generateLua() {
     }
 
     lua += `    }\n`;
-    lua += `}\n\nreturn Plugin\n`;
+    lua += `}\n`;
+    
+    if (pluginData.footerCode && pluginData.footerCode.trim().length > 0) {
+        lua += "\n" + pluginData.footerCode.trim() + "\n";
+    } else {
+        lua += `\nreturn Plugin\n`;
+    }
+    
     return lua;
 }
 
@@ -318,8 +378,56 @@ dropZone.addEventListener('drop', (e) => {
     }
 });
 
+function extractGlobalCode(text) {
+    let header = "";
+    let footer = "return Plugin";
+    let cmdIdx = text.indexOf('["Commands"]');
+    if (cmdIdx === -1) cmdIdx = text.indexOf("['Commands']");
+    if (cmdIdx === -1) return {header, footer};
+    
+    let prefix = text.substring(0, cmdIdx);
+    let match;
+    let regex = /(?:local\s+)?[a-zA-Z_]\w*\s*=\s*\{/g;
+    let lastIndex = -1;
+    while ((match = regex.exec(prefix)) !== null) {
+        lastIndex = match.index;
+    }
+    
+    if (lastIndex !== -1) {
+        header = text.substring(0, lastIndex).trim();
+        let depth = 0;
+        let inString = false;
+        let stringChar = '';
+        let endIdx = -1;
+        for (let i = lastIndex; i < text.length; i++) {
+            let char = text[i];
+            if (inString) {
+                if (char === '\\') { i++; continue; }
+                if (char === stringChar) { inString = false; }
+                continue;
+            }
+            if (char === '"' || char === "'") {
+                inString = true; stringChar = char; continue;
+            }
+            if (char === '{') depth++;
+            if (char === '}') {
+                depth--;
+                if (depth === 0) { endIdx = i; break; }
+            }
+        }
+        if (endIdx !== -1) {
+            footer = text.substring(endIdx + 1).trim();
+        }
+    }
+    return {header, footer};
+}
+
 function parseLuaToForm(text) {
     try {
+        let globals = extractGlobalCode(text);
+        pluginData.headerCode = globals.header;
+        pluginData.footerCode = globals.footer;
+
         let nameMatch = text.match(/\["PluginName"\]\s*=\s*(["'])(.*?)\1/);
         if (nameMatch) {
             document.getElementById('plugin-name').value = nameMatch[2];
