@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plugin Maker - Infinite Yield</title>
+    <meta name="description" content="Create Infinite Yield plugins visually with our web-based maker tool.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="maker.css">
+    <link rel="shortcut icon" href="Logo_Small.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-left">
+                <a class="logo" href="/">
+                    <img src="Logo_Small.png" alt="" class="brand-logo">
+                    Plugins
+                </a>
+            </div>
+            <div class="header-links">
+                <a href="maker.html" class="h-link active">Plugin Maker</a>
+                <a href="tutorial.html" class="h-link">Installing Plugins</a>
+                <a href="api.html" class="h-link h-link-api">API</a>
+                <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link">IY Discord</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="maker-main">
+        <div id="drop-zone" class="drop-zone hidden">
+            <div class="drop-zone-content">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <h3>Drop .iy file here</h3>
+                <p>Upload an existing plugin to edit it</p>
+            </div>
+        </div>
+
+        <div class="maker-container">
+            <div class="maker-form-section">
+                <div class="maker-header">
+                    <h1>Plugin Maker</h1>
+                    <p>Create a new Infinite Yield plugin or drag & drop an existing <code>.iy</code> file anywhere on this page to edit it.</p>
+                    <button class="btn btn-secondary btn-sm" id="upload-plugin-btn" style="margin-top: 10px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        Upload .iy Plugin
+                    </button>
+                    <input type="file" id="upload-plugin-file" accept=".iy" style="display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="plugin-name">Plugin Name</label>
+                    <input type="text" id="plugin-name" placeholder="e.g. ExamplePlugin" value="ExamplePlugin">
+                </div>
+
+                <div class="form-group">
+                    <label for="plugin-desc">Plugin Description</label>
+                    <textarea id="plugin-desc" rows="3" placeholder="Description of your plugin..." style="resize: vertical;">This is a helpful template created using IY Plugin Maker.</textarea>
+                </div>
+
+                <div class="commands-header">
+                    <h2>Commands</h2>
+                    <button class="btn btn-primary" id="add-cmd-btn">+ Add Command</button>
+                </div>
+
+                <div id="commands-list" class="commands-list">
+                    <!-- Commands will be dynamically injected here -->
+                </div>
+            </div>
+
+            <div class="maker-preview-section">
+                <div class="preview-header">
+                    <h2>Live Preview</h2>
+                    <button class="btn btn-success" id="download-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Plugin
+                    </button>
+                </div>
+                <div id="sync-warning" class="sync-banner hidden">
+                    <span>⚠️ Manual edits detected. Form syncing paused.</span>
+                    <button class="btn btn-sm btn-primary" id="resume-sync-btn">Resume Sync</button>
+                </div>
+                <div id="monaco-preview" class="monaco-container"></div>
+            </div>
+        </div>
+        
+        <!-- Command Editor Modal over the screen -->
+        <div id="cmd-modal" class="overlay hidden">
+            <div class="modal cmd-editor-modal">
+                <div class="modal-top">
+                    <h2 id="cmd-modal-title">Edit Command</h2>
+                    <button class="m-close" id="cmd-modal-close">×</button>
+                </div>
+                <div class="modal-content cmd-modal-content">
+                    <div class="form-group">
+                        <label for="cmd-key">Command Internal Name (Key)</label>
+                        <input type="text" id="cmd-key" placeholder="e.g. print">
+                    </div>
+                    <div class="form-group">
+                        <label for="cmd-list-name">List Name (Usage format)</label>
+                        <input type="text" id="cmd-list-name" placeholder="e.g. print [text]">
+                    </div>
+                    <div class="form-group">
+                        <label for="cmd-desc">Command Description</label>
+                        <input type="text" id="cmd-desc" placeholder="e.g. Outputs text to console">
+                    </div>
+                    <div class="form-group">
+                        <label for="cmd-aliases">Aliases (comma-separated)</label>
+                        <input type="text" id="cmd-aliases" placeholder="e.g. p, output, log">
+                    </div>
+                    <div class="form-group flex-fill">
+                        <label>Function Code</label>
+                        <div id="monaco-cmd-editor" class="monaco-container small-monaco"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="save-cmd-btn">Save Command</button>
+                    <button class="btn btn-secondary" id="cancel-cmd-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="maker.js"></script>
+</body>
+
+</html>

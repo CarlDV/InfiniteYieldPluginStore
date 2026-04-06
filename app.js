@@ -134,10 +134,9 @@
 
             // Tags
             let tags = '';
-            if (p.files?.some(a => a.is_plugin)) tags += '<span class="tag tag-file">📁 File</span>';
-            if (p.code_blocks?.length) tags += '<span class="tag tag-code">⟨/⟩ Code</span>';
-            if (p.links?.length) tags += '<span class="tag tag-link">🔗 Link</span>';
-            if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring">⚡ Loadstring</span>';
+            if (p.code_blocks?.length) tags += '<span class="tag tag-code"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>Code</span>';
+            if (p.links?.length) tags += '<span class="tag tag-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Link</span>';
+            if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Loadstring</span>';
 
             let dateColor = 'inherit';
             if (p.date) {
@@ -163,7 +162,7 @@
                 <div class="card-desc">${esc(desc || 'No description')}</div>
                 <div class="card-footer">
                     <div class="card-tags">${tags}</div>
-                    <button class="card-share" title="Copy link">🔗</button>
+                    <button class="card-share" title="Copy link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></button>
                 </div>
             `;
 
@@ -172,8 +171,8 @@
                 const url = `${location.origin}${location.pathname}#${encodeURIComponent(p.id)}`;
                 navigator.clipboard.writeText(url).then(() => {
                     const btn = e.currentTarget;
-                    btn.textContent = '✅';
-                    setTimeout(() => btn.textContent = '🔗', 1500);
+                    btn.innerHTML = '✅';
+                    setTimeout(() => btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>', 1500);
                 });
             });
 

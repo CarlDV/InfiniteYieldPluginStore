@@ -1,0 +1,296 @@
+/* ---- Maker Layout ---- */
+.maker-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 24px 24px;
+    position: relative;
+}
+
+.maker-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+/* ---- Form Section ---- */
+.maker-form-section {
+    display:flex;
+    flex-direction:column;
+    gap: 20px;
+}
+
+.maker-header h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, #ffffff, #a1a1aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.maker-header p {
+    color: var(--text2);
+    font-size: 0.95rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.flex-fill {
+    flex: 1;
+    min-height: 0;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.commands-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.commands-header h2 {
+    font-size: 1.25rem;
+}
+
+.commands-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cmd-item {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border);
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cmd-info h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.cmd-info p {
+    font-size: 0.8rem;
+    color: var(--text3);
+}
+
+.cmd-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* ---- Preview Section ---- */
+.maker-preview-section {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: calc(100vh - 120px);
+}
+
+.sync-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(239, 150, 68, 0.1);
+    border: 1px solid rgba(239, 150, 68, 0.3);
+    color: #fdba74;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.sync-banner.hidden {
+    display: none;
+}
+
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.monaco-container {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1e1e1e; /* Monaco default dark */
+}
+
+.small-monaco {
+    min-height: 250px;
+}
+
+/* ---- Drop Zone ---- */
+.drop-zone {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drop-zone.hidden {
+    display: none;
+}
+
+.drop-zone-content {
+    border: 3px dashed var(--text2);
+    border-radius: 24px;
+    padding: 64px;
+    text-align: center;
+    color: var(--text);
+    pointer-events: none;
+    transition: all 0.2s;
+}
+
+.drop-zone-content svg {
+    margin-bottom: 16px;
+    color: var(--text2);
+}
+
+.drop-zone-content h3 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.drop-zone-content p {
+    color: var(--text3);
+    font-size: 1.1rem;
+}
+
+/* ---- Modals ---- */
+.cmd-editor-modal {
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+}
+
+.cmd-modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Buttons */
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 0.8rem;
+}
+
+.btn-primary {
+    background: #ffffff;
+    color: #000000;
+}
+
+.btn-primary:hover {
+    background: #e2e8f0;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-color: var(--border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.btn-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.btn-success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+.btn-success:hover {
+    background: rgba(34, 197, 94, 0.2);
+    color: #86efac;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .maker-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .maker-preview-section {
+        position: static;
+        height: 60vh;
+    }
+}
