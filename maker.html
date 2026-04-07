@@ -25,12 +25,35 @@
                     <img src="Logo_Small.png" alt="" class="brand-logo">
                     Plugins
                 </a>
+                <div class="header-stats" id="header-stats">
+                    <div class="stat-item">
+                        <span id="stat-total" class="stat-num">—</span>
+                        <span class="stat-lbl">plugins</span>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="stat-item">
+                        <span id="stat-authors" class="stat-num">—</span>
+                        <span class="stat-lbl">authors</span>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="stat-item">
+                        <span class="stat-lbl">Updated:</span>
+                        <span id="stat-updated" class="stat-num">—</span>
+                    </div>
+                </div>
+                <button class="burger-btn" id="burger-btn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
-            <div class="header-links">
-                <a href="maker.html" class="h-link active">Plugin Maker</a>
+            <div class="header-links" id="header-links">
+                <a href="maker.html" class="h-link">Plugin Maker</a>
                 <a href="tutorial.html" class="h-link">Installing Plugins</a>
                 <a href="api.html" class="h-link h-link-api">API</a>
                 <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link">IY Discord</a>
+                <a href="https://github.com/CarlDV/InfiniteYieldPluginStore" target="_blank" rel="noopener"
+                    class="h-link">WebpageRepo</a>
+                <a href="https://github.com/EdgeIY/infiniteyield" target="_blank" rel="noopener" class="h-link">IY
+                    GitHub</a>
             </div>
         </div>
     </header>
@@ -38,7 +61,12 @@
     <main class="maker-main">
         <div id="drop-zone" class="drop-zone hidden">
             <div class="drop-zone-content">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
                 <h3>Drop .iy file here</h3>
                 <p>Upload an existing plugin to edit it</p>
             </div>
@@ -48,11 +76,21 @@
             <div class="maker-form-section">
                 <div class="maker-header">
                     <h1>Plugin Maker</h1>
-                    <p>Create a new Infinite Yield plugin or drag & drop an existing <code>.iy</code> file anywhere on this page to edit it.</p>
-                    <button class="btn btn-secondary btn-sm" id="upload-plugin-btn" style="margin-top: 10px;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                        Upload .iy Plugin
-                    </button>
+                    <p>Create a new Infinite Yield plugin visually. Use the import area below to load an existing <code>.iy</code> file for editing.</p>
+                </div>
+
+                <div class="import-area" id="import-area">
+                    <div class="import-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <div class="import-text">
+                        <h3>Import Existing Plugin</h3>
+                        <p>Drag & drop or Click to upload <code>.iy</code> file</p>
+                    </div>
                     <input type="file" id="upload-plugin-file" accept=".iy" style="display: none;">
                 </div>
 
@@ -63,7 +101,8 @@
 
                 <div class="form-group">
                     <label for="plugin-desc">Plugin Description</label>
-                    <textarea id="plugin-desc" rows="3" placeholder="Description of your plugin..." style="resize: vertical;">This is a helpful template created using IY Plugin Maker.</textarea>
+                    <textarea id="plugin-desc" rows="3" placeholder="Description of your plugin..."
+                        style="resize: vertical;">This is a helpful template created using IY Plugin Maker.</textarea>
                 </div>
 
                 <div class="commands-header">
@@ -80,7 +119,12 @@
                 <div class="preview-header">
                     <h2>Live Preview</h2>
                     <button class="btn btn-success" id="download-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
                         Download Plugin
                     </button>
                 </div>
@@ -91,13 +135,13 @@
                 <div id="monaco-preview" class="monaco-container"></div>
             </div>
         </div>
-        
+
         <!-- Command Editor Modal over the screen -->
         <div id="cmd-modal" class="overlay hidden">
             <div class="modal cmd-editor-modal">
                 <div class="modal-top">
                     <h2 id="cmd-modal-title">Edit Command</h2>
-                    <button class="m-close" id="cmd-modal-close">×</button>
+                    <button class="close-btn" id="cmd-modal-close">×</button>
                 </div>
                 <div class="modal-content cmd-modal-content">
                     <div class="form-group">
@@ -130,6 +174,17 @@
     </main>
 
     <script src="maker.js"></script>
+    <script>
+    (function() {
+        const btn = document.getElementById('burger-btn');
+        const links = document.getElementById('header-links');
+        if (!btn || !links) return;
+        btn.addEventListener('click', function() {
+            btn.classList.toggle('active');
+            links.classList.toggle('open');
+        });
+    })();
+    </script>
 </body>
 
 </html>

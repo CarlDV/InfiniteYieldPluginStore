@@ -25,6 +25,7 @@
     margin-bottom: 8px;
     background: linear-gradient(to right, #ffffff, #a1a1aa);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -137,6 +138,74 @@
     font-size: 0.85rem;
 }
 
+.import-area {
+    background: rgba(255, 255, 255, 0.02);
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.import-area::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.import-area:hover::after {
+    opacity: 1;
+}
+
+.import-area:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.import-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text2);
+    transition: all 0.2s;
+}
+
+.import-area:hover .import-icon {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.import-text h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #fff;
+}
+
+.import-text p {
+    font-size: 0.85rem;
+    color: var(--text3);
+    line-height: 1.4;
+}
+
 .sync-banner.hidden {
     display: none;
 }
@@ -205,6 +274,31 @@
     width: 90%;
     max-width: 800px;
     height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text2);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.15s;
+    line-height: 1;
+    padding: 4px;
+}
+
+.close-btn:hover {
+    color: #fff;
 }
 
 .cmd-modal-content {

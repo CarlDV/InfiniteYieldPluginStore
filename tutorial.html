@@ -23,12 +23,35 @@
                     <img src="Logo_Small.png" alt="" class="brand-logo">
                     Plugins
                 </a>
+                <div class="header-stats" id="header-stats">
+                    <div class="stat-item">
+                        <span id="stat-total" class="stat-num">—</span>
+                        <span class="stat-lbl">plugins</span>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="stat-item">
+                        <span id="stat-authors" class="stat-num">—</span>
+                        <span class="stat-lbl">authors</span>
+                    </div>
+                    <div class="sep"></div>
+                    <div class="stat-item">
+                        <span class="stat-lbl">Updated:</span>
+                        <span id="stat-updated" class="stat-num">—</span>
+                    </div>
+                </div>
+                <button class="burger-btn" id="burger-btn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
-            <div class="header-links">
-                <a href="/" class="h-link">← Store</a>
-                <a href="tutorial.html" class="h-link">Tutorial</a>
+            <div class="header-links" id="header-links">
+                <a href="maker.html" class="h-link">Plugin Maker</a>
+                <a href="tutorial.html" class="h-link">Installing Plugins</a>
                 <a href="api.html" class="h-link h-link-api">API</a>
                 <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link">IY Discord</a>
+                <a href="https://github.com/CarlDV/InfiniteYieldPluginStore" target="_blank" rel="noopener"
+                    class="h-link">WebpageRepo</a>
+                <a href="https://github.com/EdgeIY/infiniteyield" target="_blank" rel="noopener" class="h-link">IY
+                    GitHub</a>
             </div>
         </div>
     </header>
@@ -47,7 +70,8 @@
                 <div class="tutor-info">
                     <div class="tutor-type">Desktop Guide</div>
                     <h2 class="tutor-title">PC Installation</h2>
-                    <p class="tutor-desc">Learn how to manually add .iy files to your workspace and load them via the IY command bar on Windows</p>
+                    <p class="tutor-desc">Learn how to manually add .iy files to your workspace and load them via the IY
+                        command bar on Windows</p>
                 </div>
             </div>
 
@@ -58,11 +82,23 @@
                 <div class="tutor-info">
                     <div class="tutor-type">Mobile Guide</div>
                     <h2 class="tutor-title">Mobile Installation</h2>
-                    <p class="tutor-desc">A detailed guide for mobile executors on how to manage plugin files within your mobile file system.</p>
+                    <p class="tutor-desc">A detailed guide for mobile executors on how to manage plugin files within
+                        your mobile file system.</p>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    (function() {
+        const btn = document.getElementById('burger-btn');
+        const links = document.getElementById('header-links');
+        if (!btn || !links) return;
+        btn.addEventListener('click', function() {
+            btn.classList.toggle('active');
+            links.classList.toggle('open');
+        });
+    })();
+    </script>
 </body>
 
 </html>

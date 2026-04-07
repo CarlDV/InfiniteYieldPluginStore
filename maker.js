@@ -326,10 +326,13 @@ document.getElementById('download-btn').addEventListener('click', () => {
 
 // Drag and drop / Upload File overrides
 const dropZone = document.getElementById('drop-zone');
+const importArea = document.getElementById('import-area');
 
-document.getElementById('upload-plugin-btn').addEventListener('click', () => {
-    document.getElementById('upload-plugin-file').click();
-});
+if (importArea) {
+    importArea.addEventListener('click', () => {
+        document.getElementById('upload-plugin-file').click();
+    });
+}
 
 document.getElementById('upload-plugin-file').addEventListener('change', (e) => {
     if (e.target.files.length) {
