@@ -148,10 +148,16 @@ class PluginScraper(discord.Client):
             plugin_dir = os.path.join(PLUGINS_DIR, str(message.id))
             filepath = os.path.join(plugin_dir, attachment.filename)
             
+            MAX_FILE_SIZE = 25 * 1024 * 1024 # 25 MiB
+            
             try:
-                if not (os.path.exists(filepath) and os.path.getsize(filepath) == attachment.size):
-                    os.makedirs(plugin_dir, exist_ok=True)
-                    await attachment.save(filepath)
+                if attachment.size <= MAX_FILE_SIZE:
+                    if not (os.path.exists(filepath) and os.path.getsize(filepath) == attachment.size):
+                        os.makedirs(plugin_dir, exist_ok=True)
+                        await attachment.save(filepath)
+                else:
+                    print(f"Skipping local save for {attachment.filename} ({attachment.size} bytes) - exceeds 25MB limit.")
+                    file_data["url"] = attachment.url
             except Exception as e:
                 print(f"Failed to save {attachment.filename}: {e}")
                 file_data["url"] = attachment.url
