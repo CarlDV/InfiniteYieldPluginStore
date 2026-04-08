@@ -6,6 +6,8 @@
     window.initHome = function() {
         if (cleanup) cleanup();
 
+        let isAborted = false;
+
         let allPlugins = [];
         let currentList = [];
         let sort = 'newest';
@@ -31,6 +33,7 @@
         try {
             const res = await fetch('data/plugins.json');
             const data = await res.json();
+            if (isAborted) return;
             allPlugins = data.plugins || [];
             $('stat-total').textContent = allPlugins.length;
             const authors = new Set(allPlugins.map(p => p.author?.username).filter(Boolean));
@@ -39,6 +42,7 @@
             if (data.scraped_at) {
                 const scrapedDate = new Date(data.scraped_at);
                 const updateLiveTime = () => {
+                    if (isAborted || !$('stat-updated')) return;
                     const diff = Math.floor((new Date() - scrapedDate) / 1000);
                     if (diff < 0) {
                         $('stat-updated').textContent = 'Just now';
@@ -631,11 +635,10 @@
     init();
 
         cleanup = () => {
+            isAborted = true;
             if (intervalId) clearInterval(intervalId);
             window.removeEventListener('hashchange', onHashChange);
             document.removeEventListener('keydown', onKeyDown);
-            // DOM event listeners inside #content-area get destroyed with innerHTML anyway,
-            // but global window/document listeners must be removed carefully
         };
         window.currentRouteCleanup = cleanup;
     };

@@ -152,13 +152,21 @@
     }
 
     function loadScript(src, callback) {
-        if (document.querySelector(`script[src="${src}"]`)) {
-            if (callback) callback();
+        let existingScript = document.querySelector(`script[src="${src}"]`);
+        if (existingScript) {
+            if (existingScript.dataset.loaded) {
+                if (callback) callback();
+            } else if (callback) {
+                existingScript.addEventListener('load', callback);
+            }
             return;
         }
         const s = document.createElement('script');
         s.src = src;
-        s.onload = callback;
+        s.onload = () => {
+            s.dataset.loaded = 'true';
+            if (callback) callback();
+        };
         document.body.appendChild(s);
     }
     

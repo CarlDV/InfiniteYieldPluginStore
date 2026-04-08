@@ -3,6 +3,7 @@
 
     window.initMaker = function() {
         if (cleanup) cleanup();
+        let isAborted = false;
 
         let pluginData = {
             name: "ExamplePlugin",
@@ -42,8 +43,12 @@ window.MonacoEnvironment = {
     }
 };
 
+window.monacoInitPromise = window.monacoInitPromise || null;
+
 function initMonaco() {
-    return new Promise((resolve, reject) => {
+    if (window.monacoInitPromise) return window.monacoInitPromise;
+
+    window.monacoInitPromise = new Promise((resolve, reject) => {
         if (window.require && window.monaco) {
             resolve();
             return;
@@ -73,9 +78,11 @@ function initMonaco() {
         };
         document.head.appendChild(loaderScript);
     });
+    return window.monacoInitPromise;
 }
 
 initMonaco().then(() => {
+    if (isAborted) return;
     // Register Roblox Lua IntelliSense
     if (!window.monacoLuaRegistered) {
         monaco.languages.registerCompletionItemProvider('lua', {
@@ -126,7 +133,10 @@ initMonaco().then(() => {
         window.monacoLuaRegistered = true;
     }
 
-    previewEditor = monaco.editor.create(document.getElementById('monaco-preview'), {
+    const previewEl = document.getElementById('monaco-preview');
+    if (!previewEl) return;
+
+    previewEditor = monaco.editor.create(previewEl, {
         value: generateLua(),
         language: 'lua',
         theme: 'vs-dark',
@@ -146,7 +156,10 @@ initMonaco().then(() => {
         }
     });
 
-    cmdEditor = monaco.editor.create(document.getElementById('monaco-cmd-editor'), {
+    const cmdEl = document.getElementById('monaco-cmd-editor');
+    if (!cmdEl) return;
+
+    cmdEditor = monaco.editor.create(cmdEl, {
         value: 'print("Hello World!")',
         language: 'lua',
         theme: 'vs-dark',
@@ -611,6 +624,7 @@ function parseLuaToForm(text) {
 }
 
         cleanup = () => {
+            isAborted = true;
             document.removeEventListener('dragover', onDragOver);
             if (previewEditor) previewEditor.dispose();
             if (cmdEditor) cmdEditor.dispose();

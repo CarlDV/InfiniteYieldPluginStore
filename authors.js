@@ -6,6 +6,8 @@
     window.initAuthors = function() {
         if (cleanup) cleanup();
 
+        let isAborted = false;
+
         let allAuthors = [];
         let allPlugins = [];
         let filteredAuthors = [];
@@ -24,6 +26,7 @@
         try {
             const res = await fetch('data/plugins.json');
             const data = await res.json();
+            if (isAborted) return;
             allPlugins = data.plugins || [];
 
             // Build unique authors map
@@ -629,6 +632,7 @@
     init();
 
         cleanup = () => {
+            isAborted = true;
             window.removeEventListener('hashchange', onHashChange);
             document.removeEventListener('keydown', onKeyDown);
         };
