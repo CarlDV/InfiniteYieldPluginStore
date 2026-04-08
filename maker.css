@@ -34,6 +34,22 @@
     font-size: 0.95rem;
 }
 
+.showcase-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.showcase-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
