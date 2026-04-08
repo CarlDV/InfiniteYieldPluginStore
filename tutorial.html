@@ -41,6 +41,7 @@
         </div>
     </header>
 
+    <div id="content-area">
     <div class="tutor-container">
         <div class="tutor-hero">
             <h1>Tutorial on how to install</h1>
@@ -73,17 +74,8 @@
             </div>
         </div>
     </div>
-    <script>
-    (function() {
-        const btn = document.getElementById('burger-btn');
-        const links = document.getElementById('header-links');
-        if (!btn || !links) return;
-        btn.addEventListener('click', function() {
-            btn.classList.toggle('active');
-            links.classList.toggle('open');
-        });
-    })();
-    </script>
+    </div>
+    <script src="router.js"></script>
 </body>
 
 </html>

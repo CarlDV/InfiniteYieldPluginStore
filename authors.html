@@ -51,6 +51,7 @@
         </div>
     </header>
 
+    <div id="content-area">
     <div class="authors-container">
         <div class="authors-hero">
             <h1>Plugin Authors</h1>
@@ -122,22 +123,13 @@
             <div class="modal-body" id="pm-body"></div>
         </div>
     </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
     <script src="authors.js"></script>
-    <script>
-    (function() {
-        const btn = document.getElementById('burger-btn');
-        const links = document.getElementById('header-links');
-        if (!btn || !links) return;
-        btn.addEventListener('click', function() {
-            btn.classList.toggle('active');
-            links.classList.toggle('open');
-        });
-    })();
-    </script>
+    <script src="router.js"></script>
 </body>
 
 </html>

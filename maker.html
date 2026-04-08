@@ -43,6 +43,7 @@
         </div>
     </header>
 
+    <div id="content-area">
     <main class="maker-main">
         <div id="drop-zone" class="drop-zone hidden">
             <div class="drop-zone-content">
@@ -157,19 +158,10 @@
             </div>
         </div>
     </main>
+    </div>
 
     <script src="maker.js"></script>
-    <script>
-    (function() {
-        const btn = document.getElementById('burger-btn');
-        const links = document.getElementById('header-links');
-        if (!btn || !links) return;
-        btn.addEventListener('click', function() {
-            btn.classList.toggle('active');
-            links.classList.toggle('open');
-        });
-    })();
-    </script>
+    <script src="router.js"></script>
 </body>
 
 </html>

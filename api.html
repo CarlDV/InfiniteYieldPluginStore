@@ -312,6 +312,7 @@
         </div>
     </header>
 
+    <div id="content-area">
     <div class="api-container">
         <div class="api-hero">
             <h1>Plugin Store API</h1>
@@ -601,34 +602,10 @@ downloadAndLoadAll()</code></pre>
                 need everything.</p>
         </div>
     </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script>
-        function copyCode(btn) {
-            const pre = btn.closest('.api-code').querySelector('pre code');
-            const text = pre.innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const original = btn.innerText;
-                btn.innerText = 'Copied!';
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.innerText = original;
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
-        }
-
-        (function () {
-            const btn = document.getElementById('burger-btn');
-            const links = document.getElementById('header-links');
-            if (!btn || !links) return;
-            btn.addEventListener('click', function () {
-                btn.classList.toggle('active');
-                links.classList.toggle('open');
-            });
-        })();
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="router.js"></script>
 </body>
 
 </html>

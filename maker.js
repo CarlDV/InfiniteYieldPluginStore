@@ -1,5 +1,11 @@
-let pluginData = {
-    name: "ExamplePlugin",
+(() => {
+    let cleanup = null;
+
+    window.initMaker = function() {
+        if (cleanup) cleanup();
+
+        let pluginData = {
+            name: "ExamplePlugin",
     description: "This is a helpful template created using IY Plugin Maker.",
     headerCode: "",
     footerCode: "return Plugin",
@@ -38,7 +44,21 @@ window.MonacoEnvironment = {
 
 function initMonaco() {
     return new Promise((resolve, reject) => {
+        if (window.require && window.monaco) {
+            resolve();
+            return;
+        }
+        if (document.getElementById('monaco-loader-script')) {
+            let check = setInterval(() => {
+                if (window.monaco) {
+                    clearInterval(check);
+                    resolve();
+                }
+            }, 100);
+            return;
+        }
         const loaderScript = document.createElement('script');
+        loaderScript.id = 'monaco-loader-script';
         loaderScript.src = `${MONACO_BASE}/vs/loader.min.js`;
         loaderScript.onload = function () {
             require.config({ paths: { 'vs': `${MONACO_BASE}/vs` } });
@@ -57,7 +77,8 @@ function initMonaco() {
 
 initMonaco().then(() => {
     // Register Roblox Lua IntelliSense
-    monaco.languages.registerCompletionItemProvider('lua', {
+    if (!window.monacoLuaRegistered) {
+        monaco.languages.registerCompletionItemProvider('lua', {
         provideCompletionItems: function (model, position) {
             var word = model.getWordUntilPosition(position);
             var range = {
@@ -98,9 +119,12 @@ initMonaco().then(() => {
                 });
             });
             
+            
             return { suggestions: suggestions };
         }
-    });
+        });
+        window.monacoLuaRegistered = true;
+    }
 
     previewEditor = monaco.editor.create(document.getElementById('monaco-preview'), {
         value: generateLua(),
@@ -352,12 +376,13 @@ document.getElementById('upload-plugin-file').addEventListener('change', (e) => 
     }
 });
 
-document.addEventListener('dragover', (e) => {
+const onDragOver = (e) => {
     e.preventDefault();
-    dropZone.classList.remove('hidden');
-});
+    dropZone?.classList.remove('hidden');
+};
+document.addEventListener('dragover', onDragOver);
 
-dropZone.addEventListener('dragleave', (e) => {
+dropZone?.addEventListener('dragleave', (e) => {
     e.preventDefault();
     dropZone.classList.add('hidden');
 });
@@ -584,3 +609,16 @@ function parseLuaToForm(text) {
         alert('Failed to parse the provided .iy file correctly.');
     }
 }
+
+        cleanup = () => {
+            document.removeEventListener('dragover', onDragOver);
+            if (previewEditor) previewEditor.dispose();
+            if (cmdEditor) cmdEditor.dispose();
+        };
+        window.currentRouteCleanup = cleanup;
+    };
+
+    if (location.pathname === '/maker.html') {
+        window.initMaker();
+    }
+})();

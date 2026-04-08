@@ -1,21 +1,26 @@
 (() => {
     'use strict';
 
-    let allAuthors = [];
-    let allPlugins = [];
-    let filteredAuthors = [];
-    let searchQuery = '';
-    let sortMode = 'plugins';
+    let cleanup = null;
 
-    const $ = id => document.getElementById(id);
-    const grid = $('authors-grid');
-    const loading = $('authors-loading');
-    const empty = $('authors-empty');
-    const searchInput = $('author-search');
-    const sortEl = $('author-sort');
-    const overlay = $('author-overlay');
+    window.initAuthors = function() {
+        if (cleanup) cleanup();
 
-    async function init() {
+        let allAuthors = [];
+        let allPlugins = [];
+        let filteredAuthors = [];
+        let searchQuery = '';
+        let sortMode = 'plugins';
+
+        const $ = id => document.getElementById(id);
+        const grid = $('authors-grid');
+        const loading = $('authors-loading');
+        const empty = $('authors-empty');
+        const searchInput = $('author-search');
+        const sortEl = $('author-sort');
+        const overlay = $('author-overlay');
+
+        async function init() {
         try {
             const res = await fetch('data/plugins.json');
             const data = await res.json();
@@ -70,7 +75,8 @@
         if (author) openAuthorModal(author);
     }
 
-    window.addEventListener('hashchange', handleDeepLink);
+    const onHashChange = handleDeepLink;
+    window.addEventListener('hashchange', onHashChange);
 
     function render() {
         let list = [...allAuthors];
@@ -305,34 +311,42 @@
         history.replaceState(null, '', location.pathname + location.search);
     }
 
-    // Events
-    searchInput.addEventListener('input', debounce(e => {
+    const onSearchInput = debounce(e => {
         searchQuery = e.target.value.trim();
         render();
-    }, 200));
+    }, 200);
+    searchInput?.addEventListener('input', onSearchInput);
 
-    // Fix closeModal to close whichever modal is active
     function closePluginModal() {
-        $('plugin-overlay').classList.add('hidden');
+        $('plugin-overlay')?.classList.add('hidden');
     }
 
-    sortEl.addEventListener('change', e => {
+    const onSortChange = e => {
         sortMode = e.target.value;
         render();
-    });
+    };
+    sortEl?.addEventListener('change', onSortChange);
 
-    $('am-close').addEventListener('click', closeModal);
-    $('pm-close').addEventListener('click', closePluginModal);
-    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-    $('plugin-overlay').addEventListener('click', e => { if (e.target === $('plugin-overlay')) closePluginModal(); });
+    const onAmCloseClick = closeModal;
+    $('am-close')?.addEventListener('click', onAmCloseClick);
     
-    document.addEventListener('keydown', e => {
+    const onPmCloseClick = closePluginModal;
+    $('pm-close')?.addEventListener('click', onPmCloseClick);
+    
+    const onOverlayClick = e => { if (e.target === overlay) closeModal(); };
+    overlay?.addEventListener('click', onOverlayClick);
+    
+    const onPluginOverlayClick = e => { if (e.target === $('plugin-overlay')) closePluginModal(); };
+    $('plugin-overlay')?.addEventListener('click', onPluginOverlayClick);
+    
+    const onKeyDown = e => {
         if (e.key === 'Escape') {
-            if (!$('plugin-overlay').classList.contains('hidden')) closePluginModal();
-            else if (!overlay.classList.contains('hidden')) closeModal();
+            if (!$('plugin-overlay')?.classList.contains('hidden')) closePluginModal();
+            else if (!overlay?.classList.contains('hidden')) closeModal();
         }
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); searchInput.focus(); }
-    });
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); searchInput?.focus(); }
+    };
+    document.addEventListener('keydown', onKeyDown);
 
     // Plugin Modal
     const ONE_YEAR_MS = 365.25 * 24 * 60 * 60 * 1000;
@@ -613,4 +627,15 @@
     }
 
     init();
+
+        cleanup = () => {
+            window.removeEventListener('hashchange', onHashChange);
+            document.removeEventListener('keydown', onKeyDown);
+        };
+        window.currentRouteCleanup = cleanup;
+    };
+
+    if (location.pathname === '/authors.html') {
+        window.initAuthors();
+    }
 })();

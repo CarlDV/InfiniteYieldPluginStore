@@ -58,6 +58,7 @@
         </div>
     </header>
 
+    <div id="content-area">
     <main>
         <div class="stats-strip" id="stats-strip">
             <div class="stat-item">
@@ -139,20 +140,11 @@
             <div class="modal-body" id="m-body"></div>
         </div>
     </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="app.js"></script>
-    <script>
-        (function () {
-            const btn = document.getElementById('burger-btn');
-            const links = document.getElementById('header-links');
-            if (!btn || !links) return;
-            btn.addEventListener('click', function () {
-                btn.classList.toggle('active');
-                links.classList.toggle('open');
-            });
-        })();
-    </script>
+    <script src="router.js"></script>
 </body>
 
 </html>

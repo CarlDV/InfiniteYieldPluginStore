@@ -1,26 +1,33 @@
 (() => {
     'use strict';
 
-    let allPlugins = [];
-    let currentList = [];
-    let sort = 'newest';
-    let query = '';
+    let cleanup = null;
 
-    let currentPage = 0;
-    const PAGE_SIZE = 40;
+    window.initHome = function() {
+        if (cleanup) cleanup();
 
-    const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+        let allPlugins = [];
+        let currentList = [];
+        let sort = 'newest';
+        let query = '';
 
-    const $ = id => document.getElementById(id);
-    const grid = $('grid');
-    const loading = $('loading');
-    const empty = $('empty');
-    const search = $('search');
-    const sortEl = $('sort');
-    const overlay = $('overlay');
-    const loadMoreTarget = $('load-more');
+        let currentPage = 0;
+        const PAGE_SIZE = 40;
 
-    async function init() {
+        const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+
+        const $ = id => document.getElementById(id);
+        const grid = $('grid');
+        const loading = $('loading');
+        const empty = $('empty');
+        const search = $('search');
+        const sortEl = $('sort');
+        const overlay = $('overlay');
+        const loadMoreTarget = $('load-more');
+
+        let intervalId = null;
+
+        async function init() {
         try {
             const res = await fetch('data/plugins.json');
             const data = await res.json();
@@ -52,7 +59,7 @@
                     $('stat-updated').title = scrapedDate.toLocaleString();
                 };
                 updateLiveTime();
-                setInterval(updateLiveTime, 1000);
+                intervalId = setInterval(updateLiveTime, 1000);
             } else {
                 $('stat-updated').textContent = 'Unknown';
             }
@@ -80,7 +87,8 @@
         if (plugin) openModal(plugin);
     }
 
-    window.addEventListener('hashchange', handleDeepLink);
+    const onHashChange = handleDeepLink;
+    window.addEventListener('hashchange', onHashChange);
 
     function render() {
         let list = [...allPlugins];
@@ -406,14 +414,23 @@
     }
 
     // ---- Events ----
-    search.addEventListener('input', debounce(e => { query = e.target.value.trim(); render(); }, 200));
-    sortEl.addEventListener('change', e => { sort = e.target.value; render(); });
-    $('m-close').addEventListener('click', closeModal);
-    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeModal();
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); search.focus(); }
-    });
+    const debouncedSearch = debounce(e => { query = e.target.value.trim(); render(); }, 200);
+    search?.addEventListener('input', debouncedSearch);
+    
+    const sortChange = e => { sort = e.target.value; render(); };
+    sortEl?.addEventListener('change', sortChange);
+    
+    const onCloseClick = closeModal;
+    $('m-close')?.addEventListener('click', onCloseClick);
+    
+    const onOverlayClick = e => { if (e.target === overlay) closeModal(); };
+    overlay?.addEventListener('click', onOverlayClick);
+    
+    const onKeyDown = e => {
+        if (e.key === 'Escape' && !overlay?.classList.contains('hidden')) closeModal();
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); search?.focus(); }
+    };
+    document.addEventListener('keydown', onKeyDown);
 
 
     // ZIP Download All
@@ -612,4 +629,18 @@
     }
 
     init();
+
+        cleanup = () => {
+            if (intervalId) clearInterval(intervalId);
+            window.removeEventListener('hashchange', onHashChange);
+            document.removeEventListener('keydown', onKeyDown);
+            // DOM event listeners inside #content-area get destroyed with innerHTML anyway,
+            // but global window/document listeners must be removed carefully
+        };
+        window.currentRouteCleanup = cleanup;
+    };
+
+    if (location.pathname === '/' || location.pathname === '/index.html') {
+        window.initHome();
+    }
 })();
