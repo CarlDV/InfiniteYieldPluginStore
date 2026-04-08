@@ -87,12 +87,14 @@
 
         if (query) {
             const q = query.toLowerCase();
-            list = list.filter(p =>
-                (p.name || '').toLowerCase().includes(q)
-            );
+            list = list.filter(p => {
+                if (q.startsWith('author:')) {
+                    const aq = q.substring(7).trim();
+                    return (p.author?.name || '').toLowerCase() === aq;
+                }
+                return (p.name || '').toLowerCase().includes(q) || (p.author?.name || '').toLowerCase().includes(q);
+            });
         }
-
-
 
         if (sort === 'newest') list.sort((a, b) => new Date(b.date) - new Date(a.date));
         if (sort === 'oldest') list.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -155,7 +157,7 @@
                     ${avatarHTML}
                     <div class="card-info">
                         <div class="card-name">${esc(p.name || 'Untitled')}</div>
-                        <div class="card-author">${esc(authorName)}</div>
+                        <div class="card-author author-click" title="View all by ${escAttr(authorName)}">${esc(authorName)}</div>
                     </div>
                     <div class="card-date" style="color: ${dateColor}; font-weight: 500;">${fmtDate(p.date)}</div>
                 </div>
@@ -175,6 +177,16 @@
                     setTimeout(() => btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>', 1500);
                 });
             });
+
+            const authorSpan = card.querySelector('.card-author');
+            if (authorSpan) {
+                authorSpan.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    search.value = 'author:' + authorName;
+                    search.dispatchEvent(new Event('input'));
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
 
             card.onclick = () => {
                 openModal(p);
@@ -210,6 +222,15 @@
 
         $('m-title').textContent = p.name || 'Untitled';
         $('m-author').textContent = authorName;
+        $('m-author').className = 'author-click';
+        $('m-author').title = 'View all by ' + authorName;
+        $('m-author').onclick = (e) => {
+            e.stopPropagation();
+            closeModal();
+            search.value = 'author:' + authorName;
+            search.dispatchEvent(new Event('input'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
         $('m-date').textContent = fmtDate(p.date);
         $('m-date').style.color = dateColor;
         $('m-date').style.fontWeight = '500';
