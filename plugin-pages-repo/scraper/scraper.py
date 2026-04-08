@@ -140,10 +140,22 @@ class PluginScraper(discord.Client):
             is_plugin = attachment.filename.lower().endswith('.iy')
             file_data = {
                 "filename": attachment.filename,
-                "url": attachment.url,
+                "url": f"plugins/{message.id}/{attachment.filename}",
                 "size": attachment.size,
                 "is_plugin": is_plugin,
             }
+            
+            plugin_dir = os.path.join(PLUGINS_DIR, str(message.id))
+            filepath = os.path.join(plugin_dir, attachment.filename)
+            
+            try:
+                if not (os.path.exists(filepath) and os.path.getsize(filepath) == attachment.size):
+                    os.makedirs(plugin_dir, exist_ok=True)
+                    await attachment.save(filepath)
+            except Exception as e:
+                print(f"Failed to save {attachment.filename}: {e}")
+                file_data["url"] = attachment.url
+                
             if is_plugin and attachment.size < 200_000:
                 try:
                     existing_code = None
@@ -155,8 +167,8 @@ class PluginScraper(discord.Client):
                     if existing_code:
                         file_data["code"] = existing_code
                     else:
-                        content_bytes = await attachment.read()
-                        file_data["code"] = content_bytes.decode('utf-8', errors='replace')
+                        with open(filepath, 'r', encoding='utf-8', errors='replace') as fh:
+                            file_data["code"] = fh.read()
                 except Exception:
                     pass
             plugin["files"].append(file_data)
@@ -214,10 +226,13 @@ class PluginScraper(discord.Client):
                     filepath = os.path.join(plugin_dir, f["filename"])
                     with open(filepath, 'w', encoding='utf-8') as fh:
                         fh.write(f["code"])
+                
+                # Make sure the URL reflects local path for all files
+                if f.get("url") and not f["url"].startswith("http"):
                     f["url"] = f"plugins/{plugin['id']}/{f['filename']}"
-                    files_saved += 1
+                files_saved += 1
 
-        print(f"Saved {files_saved} plugin files to {PLUGINS_DIR}")
+        print(f"Processed {files_saved} files/media to {PLUGINS_DIR}")
 
         full_output = {
             "scraped_at": datetime.now(timezone.utc).isoformat(),
@@ -240,12 +255,12 @@ class PluginScraper(discord.Client):
                 "loadstring_urls": p["loadstring_urls"],
             }
             for f in p["files"]:
-                if f.get("is_plugin"):
-                    api_entry["files"].append({
-                        "filename": f["filename"],
-                        "url": f["url"],
-                        "size": f["size"],
-                    })
+                api_entry["files"].append({
+                    "filename": f["filename"],
+                    "url": f["url"],
+                    "size": f["size"],
+                    "is_plugin": f["is_plugin"]
+                })
             api_plugins.append(api_entry)
 
         api_output = {

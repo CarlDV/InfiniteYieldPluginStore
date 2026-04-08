@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-04-06T23:10:13.270620+00:00",
-  "total": 540,
+  "updated_at": "2026-04-08T16:54:57.372972+00:00",
+  "total": 536,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -12,7 +12,8 @@
         {
           "filename": "ClickDelete.iy",
           "url": "plugins/551849233905614881/ClickDelete.iy",
-          "size": 977
+          "size": 977,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -26,7 +27,8 @@
         {
           "filename": "dankfly.iy",
           "url": "plugins/551849247129993228/dankfly.iy",
-          "size": 3689
+          "size": 3689,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -40,7 +42,8 @@
         {
           "filename": "Enable_Inventory.iy",
           "url": "plugins/551849254877134869/Enable_Inventory.iy",
-          "size": 525
+          "size": 525,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -54,7 +57,8 @@
         {
           "filename": "Idle_Preventor.iy",
           "url": "plugins/551849262942519296/Idle_Preventor.iy",
-          "size": 3408
+          "size": 3408,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -68,7 +72,8 @@
         {
           "filename": "IY_FCTP.iy",
           "url": "plugins/551849278440734726/IY_FCTP.iy",
-          "size": 1980
+          "size": 1980,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -82,7 +87,8 @@
         {
           "filename": "armfly.iy",
           "url": "plugins/551879746980413441/armfly.iy",
-          "size": 2329
+          "size": 2329,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -96,7 +102,8 @@
         {
           "filename": "colamachine.iy",
           "url": "plugins/551879777305362446/colamachine.iy",
-          "size": 973
+          "size": 973,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -110,7 +117,8 @@
         {
           "filename": "dankfly.iy",
           "url": "plugins/551879805004415008/dankfly.iy",
-          "size": 3689
+          "size": 3689,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -124,7 +132,8 @@
         {
           "filename": "derender.iy",
           "url": "plugins/551879806225088523/derender.iy",
-          "size": 1781
+          "size": 1781,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -138,7 +147,8 @@
         {
           "filename": "Headless.iy",
           "url": "plugins/551879835409186848/Headless.iy",
-          "size": 806
+          "size": 806,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -152,7 +162,8 @@
         {
           "filename": "Headless2.iy",
           "url": "plugins/551879836549775384/Headless2.iy",
-          "size": 808
+          "size": 808,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -166,7 +177,8 @@
         {
           "filename": "example.iy",
           "url": "plugins/551879838592401443/example.iy",
-          "size": 1410
+          "size": 1410,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -180,7 +192,8 @@
         {
           "filename": "Hatspin.iy",
           "url": "plugins/551879839095848993/Hatspin.iy",
-          "size": 993
+          "size": 993,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -194,7 +207,8 @@
         {
           "filename": "IY_UIScaling.iy",
           "url": "plugins/551879913926295554/IY_UIScaling.iy",
-          "size": 2859
+          "size": 2859,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -208,7 +222,8 @@
         {
           "filename": "IY_Blink.iy",
           "url": "plugins/552335288693686273/IY_Blink.iy",
-          "size": 816
+          "size": 816,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -222,7 +237,8 @@
         {
           "filename": "animations.iy",
           "url": "plugins/553723145597616146/animations.iy",
-          "size": 35941
+          "size": 35941,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -236,7 +252,8 @@
         {
           "filename": "levi.iy",
           "url": "plugins/554153163352047634/levi.iy",
-          "size": 1589
+          "size": 1589,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -250,7 +267,8 @@
         {
           "filename": "bubbly.iy",
           "url": "plugins/554432990189584400/bubbly.iy",
-          "size": 1468
+          "size": 1468,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -264,7 +282,8 @@
         {
           "filename": "IY_Animations.iy",
           "url": "plugins/563097256404975618/IY_Animations.iy",
-          "size": 39934
+          "size": 39934,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -278,7 +297,8 @@
         {
           "filename": "derender.iy",
           "url": "plugins/572559879932346369/derender.iy",
-          "size": 1260
+          "size": 1260,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -292,7 +312,8 @@
         {
           "filename": "drophats.iy",
           "url": "plugins/572600685657587723/drophats.iy",
-          "size": 1932
+          "size": 1932,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -306,7 +327,8 @@
         {
           "filename": "Bt.iy",
           "url": "plugins/574776434879365121/Bt.iy",
-          "size": 3919
+          "size": 3919,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -320,7 +342,8 @@
         {
           "filename": "T_Pose.iy",
           "url": "plugins/576827393357119508/T_Pose.iy",
-          "size": 706
+          "size": 706,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -334,7 +357,8 @@
         {
           "filename": "Enable_Inventory.iy",
           "url": "plugins/577322236730540045/Enable_Inventory.iy",
-          "size": 458
+          "size": 458,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -348,7 +372,8 @@
         {
           "filename": "Print_coords.iy",
           "url": "plugins/577322256833839115/Print_coords.iy",
-          "size": 488
+          "size": 488,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -362,7 +387,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/583765077434302487/IY_SoundHack.iy",
-          "size": 1353
+          "size": 1353,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -376,7 +402,8 @@
         {
           "filename": "ibtools.iy",
           "url": "plugins/587467414753509378/ibtools.iy",
-          "size": 620
+          "size": 620,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -392,7 +419,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/590293431847485461/IY_SoundHack.iy",
-          "size": 3709
+          "size": 3709,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -406,7 +434,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/590683358439145512/IY_SoundHack.iy",
-          "size": 3823
+          "size": 3823,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -420,7 +449,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/591787623438352386/reJB.iy",
-          "size": 12731
+          "size": 12731,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -437,7 +467,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/593488203722391602/reJB.iy",
-          "size": 13829
+          "size": 13829,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -454,7 +485,8 @@
         {
           "filename": "BtoolsV2.iy",
           "url": "plugins/594400027875606539/BtoolsV2.iy",
-          "size": 848
+          "size": 848,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -470,7 +502,8 @@
         {
           "filename": "SaveToolsGUI.iy",
           "url": "plugins/594400981433712653/SaveToolsGUI.iy",
-          "size": 584
+          "size": 584,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -484,7 +517,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/594999581662511114/reJB.iy",
-          "size": 16622
+          "size": 16622,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -501,7 +535,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/595371285819686912/reJB.iy",
-          "size": 19192
+          "size": 19192,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -518,7 +553,8 @@
         {
           "filename": "T_Pose.iy",
           "url": "plugins/595702906041270354/T_Pose.iy",
-          "size": 706
+          "size": 706,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -532,7 +568,8 @@
         {
           "filename": "Torsoless.iy",
           "url": "plugins/595702910592090125/Torsoless.iy",
-          "size": 960
+          "size": 960,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -546,7 +583,8 @@
         {
           "filename": "derender.iy",
           "url": "plugins/595703001449103373/derender.iy",
-          "size": 1260
+          "size": 1260,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -560,7 +598,8 @@
         {
           "filename": "drophats.iy",
           "url": "plugins/595703001679921153/drophats.iy",
-          "size": 1932
+          "size": 1932,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -574,7 +613,8 @@
         {
           "filename": "ibtools.iy",
           "url": "plugins/595703003239940156/ibtools.iy",
-          "size": 620
+          "size": 620,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -590,7 +630,8 @@
         {
           "filename": "IY_Animations.iy",
           "url": "plugins/595703009661681666/IY_Animations.iy",
-          "size": 39934
+          "size": 39934,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -604,7 +645,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/595703068402909191/reJB.iy",
-          "size": 19192
+          "size": 19192,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -621,7 +663,8 @@
         {
           "filename": "SaveToolsGUI.iy",
           "url": "plugins/595703068557967392/SaveToolsGUI.iy",
-          "size": 584
+          "size": 584,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -635,7 +678,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/596512871106609162/IY_SoundHack.iy",
-          "size": 5722
+          "size": 5722,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -649,7 +693,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/596759958385590276/IY_SoundHack.iy",
-          "size": 6044
+          "size": 6044,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -663,7 +708,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/596764321267318796/IY_SoundHack.iy",
-          "size": 6557
+          "size": 6557,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -677,7 +723,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/596826549198520360/IY_SoundHack.iy",
-          "size": 7539
+          "size": 7539,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -691,7 +738,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/596830550325592085/IY_SoundHack.iy",
-          "size": 7559
+          "size": 7559,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -705,7 +753,8 @@
         {
           "filename": "Dropable.iy",
           "url": "plugins/596831089142530049/Dropable.iy",
-          "size": 514
+          "size": 514,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -719,7 +768,8 @@
         {
           "filename": "IY_SoundHack.iy",
           "url": "plugins/597540079841574953/IY_SoundHack.iy",
-          "size": 8163
+          "size": 8163,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -733,7 +783,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/599342115566256130/reJB.iy",
-          "size": 24589
+          "size": 24589,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -750,7 +801,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/600785027793682463/reJB.iy",
-          "size": 25683
+          "size": 25683,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -767,7 +819,8 @@
         {
           "filename": "rpgkit.iy",
           "url": "plugins/601836665300058134/rpgkit.iy",
-          "size": 1220
+          "size": 1220,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -781,7 +834,8 @@
         {
           "filename": "IY_ServerRejoin.iy",
           "url": "plugins/602266713219792928/IY_ServerRejoin.iy",
-          "size": 2938
+          "size": 2938,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -795,7 +849,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/602960583222099974/reJB.iy",
-          "size": 29761
+          "size": 29761,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -813,7 +868,8 @@
         {
           "filename": "reJB.iy",
           "url": "plugins/612862535300939786/reJB.iy",
-          "size": 34060
+          "size": 34060,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -831,7 +887,8 @@
         {
           "filename": "ws2.iy",
           "url": "plugins/617201812776419341/ws2.iy",
-          "size": 1834
+          "size": 1834,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -845,7 +902,8 @@
         {
           "filename": "IY_Reach.iy",
           "url": "plugins/621994151205928963/IY_Reach.iy",
-          "size": 1599
+          "size": 1599,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -859,7 +917,8 @@
         {
           "filename": "IY.iy",
           "url": "plugins/623126169151209475/IY.iy",
-          "size": 24168
+          "size": 24168,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -873,7 +932,8 @@
         {
           "filename": "Punch.iy",
           "url": "plugins/626213087732826114/Punch.iy",
-          "size": 14641
+          "size": 14641,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -887,7 +947,8 @@
         {
           "filename": "IY_ClickDelete.iy",
           "url": "plugins/637669190077120524/IY_ClickDelete.iy",
-          "size": 1536
+          "size": 1536,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -901,7 +962,8 @@
         {
           "filename": "soft_tp.iy",
           "url": "plugins/639908894755258393/soft_tp.iy",
-          "size": 1036
+          "size": 1036,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -915,7 +977,8 @@
         {
           "filename": "SeeTools.iy",
           "url": "plugins/651548655509307419/SeeTools.iy",
-          "size": 868
+          "size": 868,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -929,7 +992,8 @@
         {
           "filename": "Lighting.iy",
           "url": "plugins/654822807217242154/Lighting.iy",
-          "size": 11617
+          "size": 11617,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -943,7 +1007,8 @@
         {
           "filename": "Lock.iy",
           "url": "plugins/660330758237323315/Lock.iy",
-          "size": 866
+          "size": 866,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -957,7 +1022,8 @@
         {
           "filename": "control.iy",
           "url": "plugins/660343995351695388/control.iy",
-          "size": 9403
+          "size": 9403,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -971,7 +1037,8 @@
         {
           "filename": "FloatWithNoclip.iy",
           "url": "plugins/660659170336571412/FloatWithNoclip.iy",
-          "size": 1567
+          "size": 1567,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -985,7 +1052,8 @@
         {
           "filename": "InfiniteJump.iy",
           "url": "plugins/666093576228306960/InfiniteJump.iy",
-          "size": 1109
+          "size": 1109,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -999,7 +1067,8 @@
         {
           "filename": "OwlHub.iy",
           "url": "plugins/669741899451596800/OwlHub.iy",
-          "size": 508
+          "size": 508,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1015,7 +1084,8 @@
         {
           "filename": "BoogaX.iy",
           "url": "plugins/670883913601646593/BoogaX.iy",
-          "size": 466
+          "size": 466,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1031,7 +1101,8 @@
         {
           "filename": "UDTeleport.iy",
           "url": "plugins/670987051369496581/UDTeleport.iy",
-          "size": 1350
+          "size": 1350,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1045,7 +1116,8 @@
         {
           "filename": "NinjaLegends.iy",
           "url": "plugins/671036536351096844/NinjaLegends.iy",
-          "size": 526
+          "size": 526,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1059,7 +1131,8 @@
         {
           "filename": "Blocktool.iy",
           "url": "plugins/672160819026460712/Blocktool.iy",
-          "size": 174513
+          "size": 174513,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1073,7 +1146,8 @@
         {
           "filename": "tronxchat.iy",
           "url": "plugins/673267152643555379/tronxchat.iy",
-          "size": 366
+          "size": 366,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1089,7 +1163,8 @@
         {
           "filename": "InvisFling.iy",
           "url": "plugins/673994595922739221/InvisFling.iy",
-          "size": 473
+          "size": 473,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1105,7 +1180,8 @@
         {
           "filename": "IY_Serverhop.iy",
           "url": "plugins/674501849117622293/IY_Serverhop.iy",
-          "size": 1394
+          "size": 1394,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1119,7 +1195,8 @@
         {
           "filename": "fullbright.iy",
           "url": "plugins/675735328409124926/fullbright.iy",
-          "size": 4406
+          "size": 4406,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1133,7 +1210,8 @@
         {
           "filename": "savetools.iy",
           "url": "plugins/677944149160362044/savetools.iy",
-          "size": 1299
+          "size": 1299,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1147,7 +1225,8 @@
         {
           "filename": "punchfling.iy",
           "url": "plugins/677964404242907179/punchfling.iy",
-          "size": 509
+          "size": 509,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1161,7 +1240,8 @@
         {
           "filename": "spawnblock.iy",
           "url": "plugins/677998278398312511/spawnblock.iy",
-          "size": 1606
+          "size": 1606,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1175,7 +1255,8 @@
         {
           "filename": "IY_F3X.iy",
           "url": "plugins/678694569457483776/IY_F3X.iy",
-          "size": 473
+          "size": 473,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1191,7 +1272,8 @@
         {
           "filename": "Spawnblock.iy",
           "url": "plugins/679925467796602880/Spawnblock.iy",
-          "size": 378
+          "size": 378,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1205,7 +1287,8 @@
         {
           "filename": "GravWalk.iy",
           "url": "plugins/680628390243467287/GravWalk.iy",
-          "size": 4094
+          "size": 4094,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1219,7 +1302,8 @@
         {
           "filename": "SpawnblockV2.iy",
           "url": "plugins/680722327507304485/SpawnblockV2.iy",
-          "size": 378
+          "size": 378,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1233,7 +1317,8 @@
         {
           "filename": "dab.iy",
           "url": "plugins/680895425838186556/dab.iy",
-          "size": 3897
+          "size": 3897,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1247,7 +1332,8 @@
         {
           "filename": "Backpack.iy",
           "url": "plugins/683140873973792797/Backpack.iy",
-          "size": 372
+          "size": 372,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1261,7 +1347,8 @@
         {
           "filename": "hug.iy",
           "url": "plugins/683248440234475565/hug.iy",
-          "size": 2337
+          "size": 2337,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1275,7 +1362,8 @@
         {
           "filename": "SpawnblockV3.iy",
           "url": "plugins/683376625064214538/SpawnblockV3.iy",
-          "size": 378
+          "size": 378,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1289,7 +1377,8 @@
         {
           "filename": "headless.iy",
           "url": "plugins/684240721758126090/headless.iy",
-          "size": 405
+          "size": 405,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1303,7 +1392,8 @@
         {
           "filename": "crash.iy",
           "url": "plugins/684276545258258468/crash.iy",
-          "size": 401
+          "size": 401,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1317,7 +1407,8 @@
         {
           "filename": "FEcircle.iy",
           "url": "plugins/685950483462225925/FEcircle.iy",
-          "size": 371
+          "size": 371,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1331,7 +1422,8 @@
         {
           "filename": "FEaura.iy",
           "url": "plugins/685996756277657604/FEaura.iy",
-          "size": 346
+          "size": 346,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1347,7 +1439,8 @@
         {
           "filename": "FEsnake.iy",
           "url": "plugins/685996808937275426/FEsnake.iy",
-          "size": 350
+          "size": 350,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1363,7 +1456,8 @@
         {
           "filename": "IY_HatHax.iy",
           "url": "plugins/686166013208952835/IY_HatHax.iy",
-          "size": 470
+          "size": 470,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1377,7 +1471,8 @@
         {
           "filename": "IY_penis.iy",
           "url": "plugins/686166015402704971/IY_penis.iy",
-          "size": 6911
+          "size": 6911,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1391,7 +1486,8 @@
         {
           "filename": "IY_penis.iy",
           "url": "plugins/686171076182671386/IY_penis.iy",
-          "size": 498
+          "size": 498,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1405,7 +1501,8 @@
         {
           "filename": "FEpack.iy",
           "url": "plugins/686175076030087190/FEpack.iy",
-          "size": 1315
+          "size": 1315,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1422,7 +1519,8 @@
         {
           "filename": "PrisonLifeHax.iy",
           "url": "plugins/687872826883178506/PrisonLifeHax.iy",
-          "size": 10792
+          "size": 10792,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1436,7 +1534,8 @@
         {
           "filename": "pathfinding.iy",
           "url": "plugins/689530703083601948/pathfinding.iy",
-          "size": 8847
+          "size": 8847,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1450,7 +1549,8 @@
         {
           "filename": "noroot.iy",
           "url": "plugins/689619418048626828/noroot.iy",
-          "size": 794
+          "size": 794,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1464,7 +1564,8 @@
         {
           "filename": "denynw.iy",
           "url": "plugins/689815313146970112/denynw.iy",
-          "size": 17492
+          "size": 17492,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1478,7 +1579,8 @@
         {
           "filename": "feinvis.iy",
           "url": "plugins/691079122319048794/feinvis.iy",
-          "size": 1807
+          "size": 1807,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1492,7 +1594,8 @@
         {
           "filename": "reanimate.iy",
           "url": "plugins/693248701195354192/reanimate.iy",
-          "size": 408
+          "size": 408,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1506,7 +1609,8 @@
         {
           "filename": "Remotespy.iy",
           "url": "plugins/694105872548364308/Remotespy.iy",
-          "size": 6530
+          "size": 6530,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1520,7 +1624,8 @@
         {
           "filename": "hug.iy",
           "url": "plugins/695144251322794025/hug.iy",
-          "size": 2147
+          "size": 2147,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1534,7 +1639,8 @@
         {
           "filename": "speed_and_jump_power_anti_cheat_disabler.iy",
           "url": "plugins/696067847444496495/speed_and_jump_power_anti_cheat_disabler.iy",
-          "size": 1382
+          "size": 1382,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1548,7 +1654,8 @@
         {
           "filename": "bt-cp.iy",
           "url": "plugins/696446786226880572/bt-cp.iy",
-          "size": 849
+          "size": 849,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1562,7 +1669,8 @@
         {
           "filename": "killsounds.iy",
           "url": "plugins/697186901009891388/killsounds.iy",
-          "size": 707
+          "size": 707,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1576,7 +1684,8 @@
         {
           "filename": "PL_lagswitch.iy",
           "url": "plugins/697361257501687818/PL_lagswitch.iy",
-          "size": 713
+          "size": 713,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1589,8 +1698,9 @@
       "files": [
         {
           "filename": "PrisonLifeHax.iy",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/698193652526088312/PrisonLifeHax.iy?ex=69d52382&is=69d3d202&hm=2581a159f3b488a525fdbca896993a847a45f96e801a16e7ed67e39a5f3959bb&",
-          "size": 244078
+          "url": "plugins/698193653226668113/PrisonLifeHax.iy",
+          "size": 244078,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1604,7 +1714,8 @@
         {
           "filename": "InfiniteJump.iy",
           "url": "plugins/698213277234233457/InfiniteJump.iy",
-          "size": 959
+          "size": 959,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1618,7 +1729,8 @@
         {
           "filename": "energizeremade.iy",
           "url": "plugins/698221562519879702/energizeremade.iy",
-          "size": 466
+          "size": 466,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1632,7 +1744,8 @@
         {
           "filename": "JLL.iy",
           "url": "plugins/698943172407197776/JLL.iy",
-          "size": 14514
+          "size": 14514,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1646,7 +1759,8 @@
         {
           "filename": "rap.iy",
           "url": "plugins/698947039462948875/rap.iy",
-          "size": 1493
+          "size": 1493,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1660,7 +1774,8 @@
         {
           "filename": "rap.iy",
           "url": "plugins/698969675211735060/rap.iy",
-          "size": 1161
+          "size": 1161,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1674,7 +1789,8 @@
         {
           "filename": "anti-cheat-disabler.iy",
           "url": "plugins/699433886182277211/anti-cheat-disabler.iy",
-          "size": 2106
+          "size": 2106,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1688,7 +1804,8 @@
         {
           "filename": "anti-cheat-disabler.iy",
           "url": "plugins/699434950218219540/anti-cheat-disabler.iy",
-          "size": 2110
+          "size": 2110,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1702,7 +1819,8 @@
         {
           "filename": "IY_WSBP.iy",
           "url": "plugins/699823231040749599/IY_WSBP.iy",
-          "size": 1633
+          "size": 1633,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1716,7 +1834,8 @@
         {
           "filename": "yeet.iy",
           "url": "plugins/700958990989000745/yeet.iy",
-          "size": 366
+          "size": 366,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1730,7 +1849,8 @@
         {
           "filename": "kill_logs.iy",
           "url": "plugins/701427333155782677/kill_logs.iy",
-          "size": 6387
+          "size": 6387,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1744,7 +1864,8 @@
         {
           "filename": "FunCmds.iy",
           "url": "plugins/701493483520917635/FunCmds.iy",
-          "size": 2381
+          "size": 2381,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1758,7 +1879,8 @@
         {
           "filename": "IY_HideGUI.iy",
           "url": "plugins/701614197196455966/IY_HideGUI.iy",
-          "size": 1484
+          "size": 1484,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1772,7 +1894,8 @@
         {
           "filename": "BTT.iy",
           "url": "plugins/701695840724713492/BTT.iy",
-          "size": 383
+          "size": 383,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1786,7 +1909,8 @@
         {
           "filename": "SpawnBlockV4.iy",
           "url": "plugins/702252652079349900/SpawnBlockV4.iy",
-          "size": 4082
+          "size": 4082,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1800,7 +1924,8 @@
         {
           "filename": "login_alertsiy.iy",
           "url": "plugins/703016243459915826/login_alertsiy.iy",
-          "size": 7809
+          "size": 7809,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1814,7 +1939,8 @@
         {
           "filename": "renameCMD.iy",
           "url": "plugins/703224969743827004/renameCMD.iy",
-          "size": 870
+          "size": 870,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1828,7 +1954,8 @@
         {
           "filename": "killsounds.iy",
           "url": "plugins/704120155004862545/killsounds.iy",
-          "size": 978
+          "size": 978,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1842,7 +1969,8 @@
         {
           "filename": "Nograss.iy",
           "url": "plugins/705956586820075593/Nograss.iy",
-          "size": 2278
+          "size": 2278,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1856,7 +1984,8 @@
         {
           "filename": "swastika_chat.iy",
           "url": "plugins/706028294314655775/swastika_chat.iy",
-          "size": 368
+          "size": 368,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1870,7 +1999,8 @@
         {
           "filename": "IY_Streamspoof.iy",
           "url": "plugins/706345869074628630/IY_Streamspoof.iy",
-          "size": 546
+          "size": 546,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1884,7 +2014,8 @@
         {
           "filename": "Fling2.iy",
           "url": "plugins/709434687969558658/Fling2.iy",
-          "size": 383
+          "size": 383,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1898,7 +2029,8 @@
         {
           "filename": "MouseNetwork.iy",
           "url": "plugins/709473031604404235/MouseNetwork.iy",
-          "size": 1488
+          "size": 1488,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1912,7 +2044,8 @@
         {
           "filename": "BetterSaveGame.iy",
           "url": "plugins/710226939201454144/BetterSaveGame.iy",
-          "size": 3226
+          "size": 3226,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1928,7 +2061,8 @@
         {
           "filename": "InvisFling.iy",
           "url": "plugins/710715123211173888/InvisFling.iy",
-          "size": 488
+          "size": 488,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -1944,7 +2078,8 @@
         {
           "filename": "Creatorid.iy",
           "url": "plugins/711061775126233158/Creatorid.iy",
-          "size": 392
+          "size": 392,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1958,7 +2093,8 @@
         {
           "filename": "drophats.iy",
           "url": "plugins/712419497314877502/drophats.iy",
-          "size": 1782
+          "size": 1782,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1972,7 +2108,8 @@
         {
           "filename": "joincmds.iy",
           "url": "plugins/712541097569812492/joincmds.iy",
-          "size": 5752
+          "size": 5752,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -1986,7 +2123,8 @@
         {
           "filename": "ServerSide.iy",
           "url": "plugins/712660812002492556/ServerSide.iy",
-          "size": 503
+          "size": 503,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2000,7 +2138,8 @@
         {
           "filename": "joincmds.iy",
           "url": "plugins/712870247333494855/joincmds.iy",
-          "size": 6004
+          "size": 6004,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2014,7 +2153,8 @@
         {
           "filename": "antikick.iy",
           "url": "plugins/713974741555216424/antikick.iy",
-          "size": 845
+          "size": 845,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2028,7 +2168,8 @@
         {
           "filename": "IYChat.iy",
           "url": "plugins/714100281012518965/IYChat.iy",
-          "size": 18250
+          "size": 18250,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2042,7 +2183,8 @@
         {
           "filename": "Crash.iy",
           "url": "plugins/714108874587635742/Crash.iy",
-          "size": 450
+          "size": 450,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2056,7 +2198,8 @@
         {
           "filename": "SpawnBlockV5.iy",
           "url": "plugins/714147041592213744/SpawnBlockV5.iy",
-          "size": 3317
+          "size": 3317,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2070,7 +2213,8 @@
         {
           "filename": "invisgod.iy",
           "url": "plugins/714644035956113418/invisgod.iy",
-          "size": 371
+          "size": 371,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2084,7 +2228,8 @@
         {
           "filename": "Stylz.iy",
           "url": "plugins/714904758368075917/Stylz.iy",
-          "size": 1402
+          "size": 1402,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2098,7 +2243,8 @@
         {
           "filename": "hidetags.iy",
           "url": "plugins/715587429607800864/hidetags.iy",
-          "size": 3207
+          "size": 3207,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2112,7 +2258,8 @@
         {
           "filename": "Stylz.iy",
           "url": "plugins/715674182284869693/Stylz.iy",
-          "size": 2916
+          "size": 2916,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2126,7 +2273,8 @@
         {
           "filename": "CurseEm.iy",
           "url": "plugins/716048993234190376/CurseEm.iy",
-          "size": 384
+          "size": 384,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2142,7 +2290,8 @@
         {
           "filename": "CurseEm.iy",
           "url": "plugins/716060175538323527/CurseEm.iy",
-          "size": 403
+          "size": 403,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2158,7 +2307,8 @@
         {
           "filename": "ChatSpy.iy",
           "url": "plugins/716123307338104862/ChatSpy.iy",
-          "size": 381
+          "size": 381,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2174,7 +2324,8 @@
         {
           "filename": "WallRun.iy",
           "url": "plugins/716123343690137600/WallRun.iy",
-          "size": 394
+          "size": 394,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2190,7 +2341,8 @@
         {
           "filename": "physicgun.iy",
           "url": "plugins/716357103551250462/physicgun.iy",
-          "size": 396
+          "size": 396,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2204,7 +2356,8 @@
         {
           "filename": "UnnamedESP.iy",
           "url": "plugins/716826357488943185/UnnamedESP.iy",
-          "size": 419
+          "size": 419,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2220,7 +2373,8 @@
         {
           "filename": "ExploiterChat.iy",
           "url": "plugins/717120369978245262/ExploiterChat.iy",
-          "size": 22770
+          "size": 22770,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2234,7 +2388,8 @@
         {
           "filename": "whoisnet.iy",
           "url": "plugins/717802748967387227/whoisnet.iy",
-          "size": 2013
+          "size": 2013,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2248,7 +2403,8 @@
         {
           "filename": "AudioLogger.iy",
           "url": "plugins/717810532475732018/AudioLogger.iy",
-          "size": 419
+          "size": 419,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2262,7 +2418,8 @@
         {
           "filename": "ExploiterChat.iy",
           "url": "plugins/718292231018119178/ExploiterChat.iy",
-          "size": 131
+          "size": 131,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2276,7 +2433,8 @@
         {
           "filename": "PhysicgunV2.iy",
           "url": "plugins/720079027259441169/PhysicgunV2.iy",
-          "size": 396
+          "size": 396,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2290,7 +2448,8 @@
         {
           "filename": "CameraOcclusion.iy",
           "url": "plugins/720308632889065512/CameraOcclusion.iy",
-          "size": 696
+          "size": 696,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2307,7 +2466,8 @@
         {
           "filename": "MeshesGUITroller.iy",
           "url": "plugins/720704457708666891/MeshesGUITroller.iy",
-          "size": 399
+          "size": 399,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2323,7 +2483,8 @@
         {
           "filename": "Namecolor.iy",
           "url": "plugins/721176657804656701/Namecolor.iy",
-          "size": 384
+          "size": 384,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2339,7 +2500,8 @@
         {
           "filename": "antilag.iy",
           "url": "plugins/721280301019561984/antilag.iy",
-          "size": 1618
+          "size": 1618,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2353,7 +2515,8 @@
         {
           "filename": "Flipper.iy",
           "url": "plugins/721801434462683257/Flipper.iy",
-          "size": 414
+          "size": 414,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2369,7 +2532,8 @@
         {
           "filename": "FunGrav.iy",
           "url": "plugins/722177779726286908/FunGrav.iy",
-          "size": 20352
+          "size": 20352,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2383,7 +2547,8 @@
         {
           "filename": "flingparts.iy",
           "url": "plugins/722186883488022619/flingparts.iy",
-          "size": 11514
+          "size": 11514,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2397,7 +2562,8 @@
         {
           "filename": "pi.iy",
           "url": "plugins/722586957506674737/pi.iy",
-          "size": 1501
+          "size": 1501,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2411,7 +2577,8 @@
         {
           "filename": "rerespawn.iy",
           "url": "plugins/722945133477363813/rerespawn.iy",
-          "size": 1199
+          "size": 1199,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2425,7 +2592,8 @@
         {
           "filename": "r6.iy",
           "url": "plugins/722969320002551889/r6.iy",
-          "size": 565
+          "size": 565,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2441,7 +2609,8 @@
         {
           "filename": "checkfriend.iy",
           "url": "plugins/723531252191330405/checkfriend.iy",
-          "size": 780
+          "size": 780,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2455,7 +2624,8 @@
         {
           "filename": "antiAFK.iy",
           "url": "plugins/723651325971136652/antiAFK.iy",
-          "size": 345
+          "size": 345,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2469,7 +2639,8 @@
         {
           "filename": "IYChat.iy",
           "url": "plugins/724981259885084785/IYChat.iy",
-          "size": 18252
+          "size": 18252,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2483,7 +2654,8 @@
         {
           "filename": "avatar.iy",
           "url": "plugins/725192596611268618/avatar.iy",
-          "size": 4865
+          "size": 4865,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2497,7 +2669,8 @@
         {
           "filename": "ip.iy",
           "url": "plugins/725369416145174652/ip.iy",
-          "size": 706
+          "size": 706,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2511,7 +2684,8 @@
         {
           "filename": "flingparts.iy",
           "url": "plugins/726051719888502884/flingparts.iy",
-          "size": 11512
+          "size": 11512,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2525,7 +2699,8 @@
         {
           "filename": "FunGrav.iy",
           "url": "plugins/726052142506311690/FunGrav.iy",
-          "size": 19771
+          "size": 19771,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2539,7 +2714,8 @@
         {
           "filename": "graphics.iy",
           "url": "plugins/727069160793964564/graphics.iy",
-          "size": 493
+          "size": 493,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2555,7 +2731,8 @@
         {
           "filename": "whoisnet.iy",
           "url": "plugins/727302659366977570/whoisnet.iy",
-          "size": 1441
+          "size": 1441,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2569,7 +2746,8 @@
         {
           "filename": "GameID.iy",
           "url": "plugins/727539117516128266/GameID.iy",
-          "size": 452
+          "size": 452,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2583,7 +2761,8 @@
         {
           "filename": "cutestring.iy",
           "url": "plugins/727567272457142332/cutestring.iy",
-          "size": 719
+          "size": 719,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2597,7 +2776,8 @@
         {
           "filename": "leetstring.iy",
           "url": "plugins/727767882368417862/leetstring.iy",
-          "size": 802
+          "size": 802,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2611,7 +2791,8 @@
         {
           "filename": "fuckjjsploit.iy",
           "url": "plugins/727785709380829199/fuckjjsploit.iy",
-          "size": 823
+          "size": 823,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2625,7 +2806,8 @@
         {
           "filename": "cutestring.iy",
           "url": "plugins/727980418879455323/cutestring.iy",
-          "size": 1956
+          "size": 1956,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2639,7 +2821,8 @@
         {
           "filename": "pluginwrap.iy",
           "url": "plugins/727999907767648359/pluginwrap.iy",
-          "size": 1000
+          "size": 1000,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2653,7 +2836,8 @@
         {
           "filename": "r6.iy",
           "url": "plugins/728036590487601203/r6.iy",
-          "size": 565
+          "size": 565,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2669,7 +2853,8 @@
         {
           "filename": "ChatEmoji.iy",
           "url": "plugins/728069057466597426/ChatEmoji.iy",
-          "size": 8193
+          "size": 8193,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2683,7 +2868,8 @@
         {
           "filename": "PluginWrapper.iy",
           "url": "plugins/728364233410216026/PluginWrapper.iy",
-          "size": 1149
+          "size": 1149,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2697,7 +2883,8 @@
         {
           "filename": "CmdXPort.iy",
           "url": "plugins/728380853054603386/CmdXPort.iy",
-          "size": 8601
+          "size": 8601,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2711,7 +2898,8 @@
         {
           "filename": "pathfindingpart.iy",
           "url": "plugins/728820141885882378/pathfindingpart.iy",
-          "size": 9412
+          "size": 9412,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2725,7 +2913,8 @@
         {
           "filename": "Taunt.iy",
           "url": "plugins/729074425407733871/Taunt.iy",
-          "size": 1237
+          "size": 1237,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2739,7 +2928,8 @@
         {
           "filename": "Alphabet.iy",
           "url": "plugins/729081578243751976/Alphabet.iy",
-          "size": 785
+          "size": 785,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2753,7 +2943,8 @@
         {
           "filename": "ChatBypass.iy",
           "url": "plugins/729104079279620158/ChatBypass.iy",
-          "size": 5060
+          "size": 5060,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2767,7 +2958,8 @@
         {
           "filename": "tauntplus.iy",
           "url": "plugins/729347829117747270/tauntplus.iy",
-          "size": 2772
+          "size": 2772,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2781,7 +2973,8 @@
         {
           "filename": "DoinYourMom.iy",
           "url": "plugins/729459203726376970/DoinYourMom.iy",
-          "size": 6163
+          "size": 6163,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2795,7 +2988,8 @@
         {
           "filename": "Ninja_Legends_Best_Free_Hack.iy",
           "url": "plugins/729894584263639051/Ninja_Legends_Best_Free_Hack.iy",
-          "size": 463
+          "size": 463,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2809,7 +3003,8 @@
         {
           "filename": "InfiniteJumpBypass.iy",
           "url": "plugins/730128592155050006/InfiniteJumpBypass.iy",
-          "size": 397
+          "size": 397,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2823,7 +3018,8 @@
         {
           "filename": "whoisnet.iy",
           "url": "plugins/730815084506644561/whoisnet.iy",
-          "size": 1854
+          "size": 1854,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2837,7 +3033,8 @@
         {
           "filename": "alltools.iy",
           "url": "plugins/731291004165947413/alltools.iy",
-          "size": 436
+          "size": 436,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2851,7 +3048,8 @@
         {
           "filename": "CinematicFreeCam.iy",
           "url": "plugins/731314495947014235/CinematicFreeCam.iy",
-          "size": 13747
+          "size": 13747,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2865,7 +3063,8 @@
         {
           "filename": "ChatBypass.iy",
           "url": "plugins/731533795919921212/ChatBypass.iy",
-          "size": 529
+          "size": 529,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2881,7 +3080,8 @@
         {
           "filename": "ESCMDS.iy",
           "url": "plugins/733963503542468618/ESCMDS.iy",
-          "size": 9797
+          "size": 9797,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2895,7 +3095,8 @@
         {
           "filename": "translator.iy",
           "url": "plugins/734118781583884409/translator.iy",
-          "size": 520
+          "size": 520,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -2911,7 +3112,8 @@
         {
           "filename": "glue.iy",
           "url": "plugins/734194790131826741/glue.iy",
-          "size": 3021
+          "size": 3021,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2925,7 +3127,8 @@
         {
           "filename": "mynet.iy",
           "url": "plugins/734909573286068264/mynet.iy",
-          "size": 895
+          "size": 895,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2939,7 +3142,8 @@
         {
           "filename": "flashlight.iy",
           "url": "plugins/735207003680538725/flashlight.iy",
-          "size": 4761
+          "size": 4761,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2953,7 +3157,8 @@
         {
           "filename": "ExploiterChat.iy",
           "url": "plugins/735306597877809223/ExploiterChat.iy",
-          "size": 532
+          "size": 532,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2967,7 +3172,8 @@
         {
           "filename": "beyblade.iy",
           "url": "plugins/735323609060343839/beyblade.iy",
-          "size": 483
+          "size": 483,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2981,7 +3187,8 @@
         {
           "filename": "aimbot.iy",
           "url": "plugins/736284107234869249/aimbot.iy",
-          "size": 388
+          "size": 388,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -2995,7 +3202,8 @@
         {
           "filename": "script.iy",
           "url": "plugins/736453465491898416/script.iy",
-          "size": 344
+          "size": 344,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3009,26 +3217,13 @@
         {
           "filename": "RemoveLimbs.iy",
           "url": "plugins/736507083238801431/RemoveLimbs.iy",
-          "size": 1361
+          "size": 1361,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
         "https://pastebin.com/raw/u7HEbm8q"
       ]
-    },
-    {
-      "id": "736803683160948809",
-      "name": "ragdoll",
-      "author": "Deleted User",
-      "date": "2020-07-26T04:34:47.216000+00:00",
-      "files": [
-        {
-          "filename": "ragdoll.iy",
-          "url": "plugins/736803683160948809/ragdoll.iy",
-          "size": 479
-        }
-      ],
-      "loadstring_urls": []
     },
     {
       "id": "738347980372967524",
@@ -3039,7 +3234,8 @@
         {
           "filename": "script.iy",
           "url": "plugins/738347980372967524/script.iy",
-          "size": 377
+          "size": 377,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3053,7 +3249,8 @@
         {
           "filename": "anticlaim.iy",
           "url": "plugins/738422183965098106/anticlaim.iy",
-          "size": 394
+          "size": 394,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3067,7 +3264,8 @@
         {
           "filename": "plugininfo.iy",
           "url": "plugins/739186776299536494/plugininfo.iy",
-          "size": 1218
+          "size": 1218,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3081,7 +3279,8 @@
         {
           "filename": "userinfo.iy",
           "url": "plugins/739236056473534575/userinfo.iy",
-          "size": 1032
+          "size": 1032,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3095,7 +3294,8 @@
         {
           "filename": "anticlaim1.iy",
           "url": "plugins/739356110020149301/anticlaim1.iy",
-          "size": 719
+          "size": 719,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3109,7 +3309,8 @@
         {
           "filename": "addPlugins.iy",
           "url": "plugins/739591368678309899/addPlugins.iy",
-          "size": 802
+          "size": 802,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3123,7 +3324,8 @@
         {
           "filename": "Better_Graphics.iy",
           "url": "plugins/741015627099275365/Better_Graphics.iy",
-          "size": 1278
+          "size": 1278,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3137,7 +3339,8 @@
         {
           "filename": "givetools.iy",
           "url": "plugins/742206676911915100/givetools.iy",
-          "size": 1316
+          "size": 1316,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3151,7 +3354,8 @@
         {
           "filename": "gun.iy",
           "url": "plugins/742456732781117511/gun.iy",
-          "size": 6146
+          "size": 6146,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3165,7 +3369,8 @@
         {
           "filename": "CamMaker.iy",
           "url": "plugins/743289571441377390/CamMaker.iy",
-          "size": 1594
+          "size": 1594,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3179,7 +3384,8 @@
         {
           "filename": "CamMaker.iy",
           "url": "plugins/743394317447462933/CamMaker.iy",
-          "size": 2064
+          "size": 2064,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3193,7 +3399,8 @@
         {
           "filename": "gun.iy",
           "url": "plugins/744630167493935164/gun.iy",
-          "size": 6185
+          "size": 6185,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3206,8 +3413,9 @@
       "files": [
         {
           "filename": "PP.iy",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/744998512584032367/PP.iy?ex=69d5586e&is=69d406ee&hm=f1fba03343c41d5985b2beadfcdd4ac983225a65f296796d6d2de469a66440dd&",
-          "size": 253257
+          "url": "plugins/744998512537632881/PP.iy",
+          "size": 253257,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3221,7 +3429,8 @@
         {
           "filename": "IY_FE_Hub.iy",
           "url": "plugins/745411226749894687/IY_FE_Hub.iy",
-          "size": 430
+          "size": 430,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3237,7 +3446,8 @@
         {
           "filename": "CamMaker.iy",
           "url": "plugins/745453625161285802/CamMaker.iy",
-          "size": 3528
+          "size": 3528,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3251,7 +3461,8 @@
         {
           "filename": "mousetarget.iy",
           "url": "plugins/745469968996630629/mousetarget.iy",
-          "size": 2098
+          "size": 2098,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3265,7 +3476,8 @@
         {
           "filename": "crash.iy",
           "url": "plugins/745615141424595105/crash.iy",
-          "size": 555
+          "size": 555,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3279,7 +3491,8 @@
         {
           "filename": "FreeCam.iy",
           "url": "plugins/747093477841436712/FreeCam.iy",
-          "size": 14262
+          "size": 14262,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3293,7 +3506,8 @@
         {
           "filename": "btools2.IY",
           "url": "plugins/748773264171728956/btools2.IY",
-          "size": 3052
+          "size": 3052,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3307,7 +3521,8 @@
         {
           "filename": "notifs.iy",
           "url": "plugins/749726005303705650/notifs.iy",
-          "size": 824
+          "size": 824,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3321,7 +3536,8 @@
         {
           "filename": "moreCommands.iy",
           "url": "plugins/751234565405933608/moreCommands.iy",
-          "size": 10101
+          "size": 10101,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3335,7 +3551,8 @@
         {
           "filename": "moreCommands.iy",
           "url": "plugins/751555946202923069/moreCommands.iy",
-          "size": 12302
+          "size": 12302,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3349,7 +3566,8 @@
         {
           "filename": "moreCommands.iy",
           "url": "plugins/751597977432358913/moreCommands.iy",
-          "size": 14689
+          "size": 14689,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3363,7 +3581,8 @@
         {
           "filename": "Cat_dance_and_distract.iy",
           "url": "plugins/751904013037076511/Cat_dance_and_distract.iy",
-          "size": 824
+          "size": 824,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3379,7 +3598,8 @@
         {
           "filename": "moreCommands.iy",
           "url": "plugins/752230184207515668/moreCommands.iy",
-          "size": 16982
+          "size": 16982,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3395,7 +3615,8 @@
         {
           "filename": "serversearcher.iy",
           "url": "plugins/757132555987451974/serversearcher.iy",
-          "size": 28849
+          "size": 28849,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3409,7 +3630,8 @@
         {
           "filename": "Hide.iy",
           "url": "plugins/757704527062499478/Hide.iy",
-          "size": 1568
+          "size": 1568,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3425,7 +3647,8 @@
         {
           "filename": "moreCmds.iy",
           "url": "plugins/761391515699249172/moreCmds.iy",
-          "size": 16351
+          "size": 16351,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3441,7 +3664,8 @@
         {
           "filename": "Hide.iy",
           "url": "plugins/763172399428009984/Hide.iy",
-          "size": 1468
+          "size": 1468,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3457,7 +3681,8 @@
         {
           "filename": "BN.iy",
           "url": "plugins/763201206545809428/BN.iy",
-          "size": 1070
+          "size": 1070,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3471,7 +3696,8 @@
         {
           "filename": "joinrandomplace.iy",
           "url": "plugins/765263441928912937/joinrandomplace.iy",
-          "size": 850
+          "size": 850,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3485,7 +3711,8 @@
         {
           "filename": "Unload.iy",
           "url": "plugins/765988835070312479/Unload.iy",
-          "size": 635
+          "size": 635,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3499,7 +3726,8 @@
         {
           "filename": "Reload.iy",
           "url": "plugins/766939698811633706/Reload.iy",
-          "size": 986
+          "size": 986,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3515,7 +3743,8 @@
         {
           "filename": "ShiftToSprint.iy",
           "url": "plugins/767381015756668928/ShiftToSprint.iy",
-          "size": 2152
+          "size": 2152,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3529,7 +3758,8 @@
         {
           "filename": "Ctrllock.iy",
           "url": "plugins/772180369956012084/Ctrllock.iy",
-          "size": 772
+          "size": 772,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3543,7 +3773,8 @@
         {
           "filename": "FunGrav.iy",
           "url": "plugins/772671332067311636/FunGrav.iy",
-          "size": 55689
+          "size": 55689,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3557,7 +3788,8 @@
         {
           "filename": "controlnpc.iy",
           "url": "plugins/772959447076044831/controlnpc.iy",
-          "size": 1866
+          "size": 1866,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3571,7 +3803,8 @@
         {
           "filename": "lagswitch.iy",
           "url": "plugins/774448763275575326/lagswitch.iy",
-          "size": 1094
+          "size": 1094,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3585,7 +3818,8 @@
         {
           "filename": "speed.IY",
           "url": "plugins/777742444585549844/speed.IY",
-          "size": 1185
+          "size": 1185,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3599,7 +3833,8 @@
         {
           "filename": "Animations.iy",
           "url": "plugins/779358778964574239/Animations.iy",
-          "size": 21476
+          "size": 21476,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3613,7 +3848,8 @@
         {
           "filename": "FakeChat.iy",
           "url": "plugins/779367528622718996/FakeChat.iy",
-          "size": 572
+          "size": 572,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3627,7 +3863,8 @@
         {
           "filename": "IY_Emotes.iy",
           "url": "plugins/780277777785421835/IY_Emotes.iy",
-          "size": 21049
+          "size": 21049,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3641,7 +3878,8 @@
         {
           "filename": "AdvancedCommands.iy",
           "url": "plugins/780565675064033300/AdvancedCommands.iy",
-          "size": 776
+          "size": 776,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3655,7 +3893,8 @@
         {
           "filename": "usefulPlugin.iy",
           "url": "plugins/783024872108458045/usefulPlugin.iy",
-          "size": 1416
+          "size": 1416,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3669,7 +3908,8 @@
         {
           "filename": "noc.iy",
           "url": "plugins/783621295551807489/noc.iy",
-          "size": 476
+          "size": 476,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3683,7 +3923,8 @@
         {
           "filename": "controlnpc.iy",
           "url": "plugins/784513132428132362/controlnpc.iy",
-          "size": 2407
+          "size": 2407,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3697,7 +3938,8 @@
         {
           "filename": "iychat.iy",
           "url": "plugins/785234699386617866/iychat.iy",
-          "size": 512
+          "size": 512,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3711,7 +3953,8 @@
         {
           "filename": "iychat.iy",
           "url": "plugins/786231464206401536/iychat.iy",
-          "size": 737
+          "size": 737,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3727,7 +3970,8 @@
         {
           "filename": "iychat.iy",
           "url": "plugins/786243272967192596/iychat.iy",
-          "size": 738
+          "size": 738,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3743,7 +3987,8 @@
         {
           "filename": "Freecam2.iy",
           "url": "plugins/786781334466461716/Freecam2.iy",
-          "size": 3397
+          "size": 3397,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3757,7 +4002,8 @@
         {
           "filename": "Music.iy",
           "url": "plugins/786964299993448479/Music.iy",
-          "size": 3181
+          "size": 3181,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3771,7 +4017,8 @@
         {
           "filename": "lofimusic.iy",
           "url": "plugins/787212859489648672/lofimusic.iy",
-          "size": 382
+          "size": 382,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3787,7 +4034,8 @@
         {
           "filename": "HD.iy",
           "url": "plugins/787484029368795187/HD.iy",
-          "size": 467
+          "size": 467,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3803,7 +4051,8 @@
         {
           "filename": "Music.iy",
           "url": "plugins/788821705425420289/Music.iy",
-          "size": 4150
+          "size": 4150,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3817,7 +4066,8 @@
         {
           "filename": "PrisonLife_1.iy",
           "url": "plugins/789566354579390475/PrisonLife_1.iy",
-          "size": 446
+          "size": 446,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3831,7 +4081,8 @@
         {
           "filename": "blackhole.iy",
           "url": "plugins/789576409051693137/blackhole.iy",
-          "size": 6511
+          "size": 6511,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3845,7 +4096,8 @@
         {
           "filename": "BSOD_1.iy",
           "url": "plugins/789588793678102589/BSOD_1.iy",
-          "size": 417
+          "size": 417,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3859,7 +4111,8 @@
         {
           "filename": "NewBsod.iy",
           "url": "plugins/790271566067531826/NewBsod.iy",
-          "size": 413
+          "size": 413,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3873,7 +4126,8 @@
         {
           "filename": "CinematicFreeCam.iy",
           "url": "plugins/790499003749498900/CinematicFreeCam.iy",
-          "size": 13747
+          "size": 13747,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3887,7 +4141,8 @@
         {
           "filename": "Animate.iy",
           "url": "plugins/790667432623734815/Animate.iy",
-          "size": 611
+          "size": 611,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3901,7 +4156,8 @@
         {
           "filename": "PluginExo.iy",
           "url": "plugins/791363642888945684/PluginExo.iy",
-          "size": 682
+          "size": 682,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3917,7 +4173,8 @@
         {
           "filename": "SLTC.iy",
           "url": "plugins/791440645179834378/SLTC.iy",
-          "size": 768
+          "size": 768,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3933,7 +4190,8 @@
         {
           "filename": "PluginExo.iy",
           "url": "plugins/791792759391780864/PluginExo.iy",
-          "size": 491
+          "size": 491,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3949,7 +4207,8 @@
         {
           "filename": "systemchat.iy",
           "url": "plugins/796977127232634890/systemchat.iy",
-          "size": 704
+          "size": 704,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3963,7 +4222,8 @@
         {
           "filename": "anti_ragdoll.iy",
           "url": "plugins/797189037878018098/anti_ragdoll.iy",
-          "size": 422
+          "size": 422,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -3977,7 +4237,8 @@
         {
           "filename": "Entity.iy",
           "url": "plugins/800397425545969725/Entity.iy",
-          "size": 102
+          "size": 102,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -3993,7 +4254,8 @@
         {
           "filename": "IY_Anims.iy",
           "url": "plugins/801620870891307018/IY_Anims.iy",
-          "size": 30250
+          "size": 30250,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4007,7 +4269,8 @@
         {
           "filename": "BetterPrintPosition.iy",
           "url": "plugins/803462566159581214/BetterPrintPosition.iy",
-          "size": 1666
+          "size": 1666,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4021,7 +4284,8 @@
         {
           "filename": "partflashback.iy",
           "url": "plugins/804157338017202187/partflashback.iy",
-          "size": 1226
+          "size": 1226,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4035,7 +4299,8 @@
         {
           "filename": "ShaderMod.iy",
           "url": "plugins/804862111339249755/ShaderMod.iy",
-          "size": 1307
+          "size": 1307,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4049,7 +4314,8 @@
         {
           "filename": "Wishes.iy",
           "url": "plugins/805166354918277121/Wishes.iy",
-          "size": 1004
+          "size": 1004,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4063,7 +4329,8 @@
         {
           "filename": "IY_Emotes.iy",
           "url": "plugins/807313471271731251/IY_Emotes.iy",
-          "size": 25467
+          "size": 25467,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4077,7 +4344,8 @@
         {
           "filename": "anguralwalk.iy",
           "url": "plugins/807387161426395176/anguralwalk.iy",
-          "size": 2929
+          "size": 2929,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4091,7 +4359,8 @@
         {
           "filename": "ChatTranslator.iy",
           "url": "plugins/811264665522012190/ChatTranslator.iy",
-          "size": 8700
+          "size": 8700,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4105,7 +4374,8 @@
         {
           "filename": "QueueOnTeleport.iy",
           "url": "plugins/813831985746411531/QueueOnTeleport.iy",
-          "size": 650
+          "size": 650,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4119,7 +4389,8 @@
         {
           "filename": "chatfiltercheck.iy",
           "url": "plugins/816344457997582396/chatfiltercheck.iy",
-          "size": 1060
+          "size": 1060,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4133,7 +4404,8 @@
         {
           "filename": "prisonlife.iy",
           "url": "plugins/818908670359502858/prisonlife.iy",
-          "size": 13922
+          "size": 13922,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4149,7 +4421,8 @@
         {
           "filename": "prisonlife.iy",
           "url": "plugins/819207006396088350/prisonlife.iy",
-          "size": 14970
+          "size": 14970,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4166,7 +4439,8 @@
         {
           "filename": "interactesp.iy",
           "url": "plugins/819582776944361502/interactesp.iy",
-          "size": 2576
+          "size": 2576,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4180,7 +4454,8 @@
         {
           "filename": "lag.iy",
           "url": "plugins/823273182722130020/lag.iy",
-          "size": 713
+          "size": 713,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4194,7 +4469,8 @@
         {
           "filename": "british.iy",
           "url": "plugins/823553050387283988/british.iy",
-          "size": 1380
+          "size": 1380,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4208,7 +4484,8 @@
         {
           "filename": "interactesp.iy",
           "url": "plugins/825180880616161311/interactesp.iy",
-          "size": 148
+          "size": 148,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4224,7 +4501,8 @@
         {
           "filename": "draggablechat.iy",
           "url": "plugins/828001006351810591/draggablechat.iy",
-          "size": 618
+          "size": 618,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4238,7 +4516,8 @@
         {
           "filename": "draggablechat.iy",
           "url": "plugins/828032720529129512/draggablechat.iy",
-          "size": 493
+          "size": 493,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4252,7 +4531,8 @@
         {
           "filename": "tool.iy",
           "url": "plugins/829603989955018752/tool.iy",
-          "size": 930
+          "size": 930,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4266,7 +4546,8 @@
         {
           "filename": "tool.iy",
           "url": "plugins/829645186971074590/tool.iy",
-          "size": 893
+          "size": 893,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4280,7 +4561,8 @@
         {
           "filename": "addallplugins.iy",
           "url": "plugins/830114708429864960/addallplugins.iy",
-          "size": 880
+          "size": 880,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4296,7 +4578,8 @@
         {
           "filename": "chatspy.iy",
           "url": "plugins/831606049109835826/chatspy.iy",
-          "size": 380
+          "size": 380,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4310,7 +4593,8 @@
         {
           "filename": "tel.iy",
           "url": "plugins/831606104399020083/tel.iy",
-          "size": 422
+          "size": 422,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4324,7 +4608,8 @@
         {
           "filename": "interactesp.iy",
           "url": "plugins/835293610324000808/interactesp.iy",
-          "size": 148
+          "size": 148,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4340,7 +4625,8 @@
         {
           "filename": "future.iy",
           "url": "plugins/835405519409774592/future.iy",
-          "size": 775
+          "size": 775,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4354,7 +4640,8 @@
         {
           "filename": "AddAllPlugs.iy",
           "url": "plugins/836033079310942218/AddAllPlugs.iy",
-          "size": 1843
+          "size": 1843,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4370,7 +4657,8 @@
         {
           "filename": "FunGrav.iy",
           "url": "plugins/837047793620222004/FunGrav.iy",
-          "size": 55689
+          "size": 55689,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4384,7 +4672,8 @@
         {
           "filename": "tel.iy",
           "url": "plugins/838127402672062515/tel.iy",
-          "size": 422
+          "size": 422,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4398,7 +4687,8 @@
         {
           "filename": "brookhaven.iy",
           "url": "plugins/850489701193482300/brookhaven.iy",
-          "size": 9485
+          "size": 9485,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4412,7 +4702,8 @@
         {
           "filename": "climb.iy",
           "url": "plugins/852346865096720384/climb.iy",
-          "size": 1449
+          "size": 1449,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4426,7 +4717,8 @@
         {
           "filename": "interactesp.iy",
           "url": "plugins/853147818700701706/interactesp.iy",
-          "size": 148
+          "size": 148,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4442,7 +4734,8 @@
         {
           "filename": "displayNameRemover.iy",
           "url": "plugins/867876660229570600/displayNameRemover.iy",
-          "size": 1574
+          "size": 1574,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4456,7 +4749,8 @@
         {
           "filename": "EwAdmin.iy",
           "url": "plugins/869057014272233484/EwAdmin.iy",
-          "size": 70
+          "size": 70,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4472,7 +4766,8 @@
         {
           "filename": "enablebackpack.iy",
           "url": "plugins/870323058886455326/enablebackpack.iy",
-          "size": 641
+          "size": 641,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4486,7 +4781,8 @@
         {
           "filename": "marble.iy",
           "url": "plugins/872485803568291931/marble.iy",
-          "size": 3130
+          "size": 3130,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4500,7 +4796,8 @@
         {
           "filename": "builderchat.iy",
           "url": "plugins/872503787577827388/builderchat.iy",
-          "size": 715
+          "size": 715,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4514,7 +4811,8 @@
         {
           "filename": "avatar.iy",
           "url": "plugins/873056258436001853/avatar.iy",
-          "size": 454
+          "size": 454,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4528,7 +4826,8 @@
         {
           "filename": "builderchat.iy",
           "url": "plugins/874133004199530576/builderchat.iy",
-          "size": 778
+          "size": 778,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4542,7 +4841,8 @@
         {
           "filename": "bigsize.iy",
           "url": "plugins/876844362070384651/bigsize.iy",
-          "size": 1475
+          "size": 1475,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4558,7 +4858,8 @@
         {
           "filename": "NsfwR6.iy",
           "url": "plugins/878377716116754492/NsfwR6.iy",
-          "size": 4523
+          "size": 4523,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4572,7 +4873,8 @@
         {
           "filename": "metahook.iy",
           "url": "plugins/880801322968973332/metahook.iy",
-          "size": 994
+          "size": 994,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4586,7 +4888,8 @@
         {
           "filename": "AntiKill.iy",
           "url": "plugins/886291211713916948/AntiKill.iy",
-          "size": 2804
+          "size": 2804,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4600,7 +4903,8 @@
         {
           "filename": "inviteme.iy",
           "url": "plugins/886741958977003520/inviteme.iy",
-          "size": 424
+          "size": 424,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4616,7 +4920,8 @@
         {
           "filename": "moresex.iy",
           "url": "plugins/891574703213408347/moresex.iy",
-          "size": 3061
+          "size": 3061,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4632,7 +4937,8 @@
         {
           "filename": "morenotify.iy",
           "url": "plugins/893255203711762492/morenotify.iy",
-          "size": 1833
+          "size": 1833,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4648,7 +4954,8 @@
         {
           "filename": "infinitestore.iy",
           "url": "plugins/899424302825345024/infinitestore.iy",
-          "size": 138
+          "size": 138,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4662,7 +4969,8 @@
         {
           "filename": "earrape.iy",
           "url": "plugins/903291417516990504/earrape.iy",
-          "size": 2082
+          "size": 2082,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4676,7 +4984,8 @@
         {
           "filename": "displayNameRemover.iy",
           "url": "plugins/903647402320330804/displayNameRemover.iy",
-          "size": 1446
+          "size": 1446,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4690,7 +4999,8 @@
         {
           "filename": "IY_Emotes.iy",
           "url": "plugins/908910792684994562/IY_Emotes.iy",
-          "size": 32791
+          "size": 32791,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4704,7 +5014,8 @@
         {
           "filename": "Orbit.iy",
           "url": "plugins/911024615848034314/Orbit.iy",
-          "size": 3572
+          "size": 3572,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4718,7 +5029,8 @@
         {
           "filename": "tel.iy",
           "url": "plugins/916017557679525909/tel.iy",
-          "size": 422
+          "size": 422,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4732,7 +5044,14 @@
         {
           "filename": "FurrTools.iy",
           "url": "plugins/921210235807481876/FurrTools.iy",
-          "size": 36353
+          "size": 36353,
+          "is_plugin": true
+        },
+        {
+          "filename": "why.mp4",
+          "url": "plugins/921210235807481876/why.mp4",
+          "size": 42867196,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -4746,7 +5065,8 @@
         {
           "filename": "MultiSkid.iy",
           "url": "plugins/921484604123254794/MultiSkid.iy",
-          "size": 4295
+          "size": 4295,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4772,7 +5092,14 @@
         {
           "filename": "FurrTools.iy",
           "url": "plugins/921581776785264671/FurrTools.iy",
-          "size": 62101
+          "size": 62101,
+          "is_plugin": true
+        },
+        {
+          "filename": "toolsV1.3.mp4",
+          "url": "plugins/921581776785264671/toolsV1.3.mp4",
+          "size": 7233100,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -4786,7 +5113,8 @@
         {
           "filename": "MultiSkid.iy",
           "url": "plugins/921789280337141770/MultiSkid.iy",
-          "size": 7149
+          "size": 7149,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4817,7 +5145,8 @@
         {
           "filename": "viewtools.iy",
           "url": "plugins/921955839969996840/viewtools.iy",
-          "size": 1107
+          "size": 1107,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4831,7 +5160,8 @@
         {
           "filename": "clearconsole.iy",
           "url": "plugins/929111973558386698/clearconsole.iy",
-          "size": 1039
+          "size": 1039,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4845,7 +5175,8 @@
         {
           "filename": "FurrTools.iy",
           "url": "plugins/934272193326637136/FurrTools.iy",
-          "size": 62917
+          "size": 62917,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4859,7 +5190,8 @@
         {
           "filename": "ctrl_lock.iy",
           "url": "plugins/936087763575521312/ctrl_lock.iy",
-          "size": 901
+          "size": 901,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4873,7 +5205,8 @@
         {
           "filename": "FE_Skateboard.iy",
           "url": "plugins/937013646893129779/FE_Skateboard.iy",
-          "size": 107
+          "size": 107,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4887,7 +5220,8 @@
         {
           "filename": "Showhealth.iy",
           "url": "plugins/942998734961270824/Showhealth.iy",
-          "size": 535
+          "size": 535,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4901,7 +5235,8 @@
         {
           "filename": "httpspy.iy",
           "url": "plugins/945181415379718144/httpspy.iy",
-          "size": 2451
+          "size": 2451,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4915,7 +5250,8 @@
         {
           "filename": "creepteleport.iy",
           "url": "plugins/945206424978456606/creepteleport.iy",
-          "size": 2167
+          "size": 2167,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4929,7 +5265,8 @@
         {
           "filename": "randomchattingthing.iy",
           "url": "plugins/945216369195094046/randomchattingthing.iy",
-          "size": 4341
+          "size": 4341,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4943,7 +5280,8 @@
         {
           "filename": "randomchattingthing.iy",
           "url": "plugins/945219012076371999/randomchattingthing.iy",
-          "size": 4382
+          "size": 4382,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -4957,7 +5295,8 @@
         {
           "filename": "korehub.iy",
           "url": "plugins/945576190301859860/korehub.iy",
-          "size": 519
+          "size": 519,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -4973,7 +5312,14 @@
         {
           "filename": "randomchatspam.iy",
           "url": "plugins/949738879257288744/randomchatspam.iy",
-          "size": 3502
+          "size": 3502,
+          "is_plugin": true
+        },
+        {
+          "filename": "spamlist.txt",
+          "url": "plugins/949738879257288744/spamlist.txt",
+          "size": 12084,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -4987,7 +5333,8 @@
         {
           "filename": "emotes.iy",
           "url": "plugins/957932223061950465/emotes.iy",
-          "size": 33091
+          "size": 33091,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5001,7 +5348,8 @@
         {
           "filename": "antichatlog.iy",
           "url": "plugins/960221797645680710/antichatlog.iy",
-          "size": 342
+          "size": 342,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5015,7 +5363,8 @@
         {
           "filename": "smallsize.iy",
           "url": "plugins/960296771152674826/smallsize.iy",
-          "size": 1338
+          "size": 1338,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5029,7 +5378,8 @@
         {
           "filename": "UFOc.iy",
           "url": "plugins/960298094191325285/UFOc.iy",
-          "size": 65803
+          "size": 65803,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5043,7 +5393,8 @@
         {
           "filename": "furryplayercase.iy",
           "url": "plugins/960345438840565770/furryplayercase.iy",
-          "size": 765
+          "size": 765,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5057,7 +5408,8 @@
         {
           "filename": "addallplugins.iy",
           "url": "plugins/960636782364471306/addallplugins.iy",
-          "size": 929
+          "size": 929,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5071,7 +5423,8 @@
         {
           "filename": "morenotify.iy",
           "url": "plugins/960640079896903720/morenotify.iy",
-          "size": 2089
+          "size": 2089,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5085,7 +5438,8 @@
         {
           "filename": "moresex.iy",
           "url": "plugins/960641523291144233/moresex.iy",
-          "size": 3388
+          "size": 3388,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5097,9 +5451,16 @@
       "date": "2022-04-06T01:54:40.875000+00:00",
       "files": [
         {
+          "filename": "unknown.png",
+          "url": "plugins/961081480052875314/unknown.png",
+          "size": 8927,
+          "is_plugin": false
+        },
+        {
           "filename": "brickiy.iy",
           "url": "plugins/961081480052875314/brickiy.iy",
-          "size": 126
+          "size": 126,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5113,7 +5474,14 @@
         {
           "filename": "settingscount.iy",
           "url": "plugins/961090124060454973/settingscount.iy",
-          "size": 1631
+          "size": 1631,
+          "is_plugin": true
+        },
+        {
+          "filename": "unknown.png",
+          "url": "plugins/961090124060454973/unknown.png",
+          "size": 11716,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -5127,7 +5495,8 @@
         {
           "filename": "spotify.iy",
           "url": "plugins/961160389515698237/spotify.iy",
-          "size": 44050
+          "size": 44050,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5141,7 +5510,8 @@
         {
           "filename": "antiflingunfling.iy",
           "url": "plugins/962052186852954162/antiflingunfling.iy",
-          "size": 698
+          "size": 698,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5155,7 +5525,8 @@
         {
           "filename": "sing-1.iy",
           "url": "plugins/965787773049122857/sing-1.iy",
-          "size": 668
+          "size": 668,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -5171,7 +5542,8 @@
         {
           "filename": "Xtranim.iy",
           "url": "plugins/965853396932395009/Xtranim.iy",
-          "size": 14066
+          "size": 14066,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5185,21 +5557,8 @@
         {
           "filename": "rochanics.iy",
           "url": "plugins/966469544375898182/rochanics.iy",
-          "size": 7501
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "969979768705548308",
-      "name": "fuckyou",
-      "author": "Deleted User",
-      "date": "2022-04-30T15:13:18.212000+00:00",
-      "files": [
-        {
-          "filename": "fuckyou.iy",
-          "url": "plugins/969979768705548308/fuckyou.iy",
-          "size": 132
+          "size": 7501,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5211,23 +5570,16 @@
       "date": "2022-05-02T22:43:50.638000+00:00",
       "files": [
         {
+          "filename": "showcase.mp4",
+          "url": "plugins/970817926649249842/showcase.mp4",
+          "size": 5681721,
+          "is_plugin": false
+        },
+        {
           "filename": "iyplugindownloader.iy",
           "url": "plugins/970817926649249842/iyplugindownloader.iy",
-          "size": 2690
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "971029418644500540",
-      "name": "showfps",
-      "author": "Deleted User",
-      "date": "2022-05-03T12:44:14.259000+00:00",
-      "files": [
-        {
-          "filename": "showfps.iy",
-          "url": "plugins/971029418644500540/showfps.iy",
-          "size": 468
+          "size": 2690,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5241,7 +5593,8 @@
         {
           "filename": "emotes.iy",
           "url": "plugins/971643652369707018/emotes.iy",
-          "size": 34684
+          "size": 34684,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5253,9 +5606,16 @@
       "date": "2022-05-05T12:01:10.612000+00:00",
       "files": [
         {
+          "filename": "unknown.png",
+          "url": "plugins/971743357774729276/unknown.png",
+          "size": 4179,
+          "is_plugin": false
+        },
+        {
           "filename": "WriteFileIY.iy",
           "url": "plugins/971743357774729276/WriteFileIY.iy",
-          "size": 1321
+          "size": 1321,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5269,7 +5629,8 @@
         {
           "filename": "spotify2.iy",
           "url": "plugins/972860110495973396/spotify2.iy",
-          "size": 3920
+          "size": 3920,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5281,23 +5642,16 @@
       "date": "2022-06-10T22:51:22.348000+00:00",
       "files": [
         {
+          "filename": "unknown.png",
+          "url": "plugins/984952948016701490/unknown.png",
+          "size": 11716,
+          "is_plugin": false
+        },
+        {
           "filename": "settingscount.iy",
           "url": "plugins/984952948016701490/settingscount.iy",
-          "size": 2305
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "987907505826979911",
-      "name": "fakecommands",
-      "author": "Deleted User",
-      "date": "2022-06-19T02:31:43.823000+00:00",
-      "files": [
-        {
-          "filename": "fakecommands.iy",
-          "url": "plugins/987907505826979911/fakecommands.iy",
-          "size": 1025
+          "size": 2305,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5311,7 +5665,14 @@
         {
           "filename": "spectate2.iy",
           "url": "plugins/991798236358652025/spectate2.iy",
-          "size": 5334
+          "size": 5334,
+          "is_plugin": true
+        },
+        {
+          "filename": "Roblox_2022-06-28_12-59-21.mp4",
+          "url": "plugins/991798236358652025/Roblox_2022-06-28_12-59-21.mp4",
+          "size": 7893994,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -5323,9 +5684,16 @@
       "date": "2022-07-03T23:38:25.956000+00:00",
       "files": [
         {
+          "filename": "prediction.PNG",
+          "url": "plugins/993299711995949166/prediction.PNG",
+          "size": 55221,
+          "is_plugin": false
+        },
+        {
           "filename": "prediction.iy",
           "url": "plugins/993299711995949166/prediction.iy",
-          "size": 3788
+          "size": 3788,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5339,7 +5707,8 @@
         {
           "filename": "spoofmemory.iy",
           "url": "plugins/993896946622267472/spoofmemory.iy",
-          "size": 909
+          "size": 909,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5353,7 +5722,8 @@
         {
           "filename": "GotoFolder.iy",
           "url": "plugins/994382674502352986/GotoFolder.iy",
-          "size": 596
+          "size": 596,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5367,7 +5737,8 @@
         {
           "filename": "funfact.iy",
           "url": "plugins/1001603986882842737/funfact.iy",
-          "size": 473
+          "size": 473,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5381,7 +5752,8 @@
         {
           "filename": "cripple.iy",
           "url": "plugins/1001688774738190376/cripple.iy",
-          "size": 431
+          "size": 431,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5395,7 +5767,8 @@
         {
           "filename": "gaeware.iy",
           "url": "plugins/1002415773245001748/gaeware.iy",
-          "size": 940
+          "size": 940,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5409,7 +5782,8 @@
         {
           "filename": "tweentptool.iy",
           "url": "plugins/1005261598539132948/tweentptool.iy",
-          "size": 1248
+          "size": 1248,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5423,7 +5797,8 @@
         {
           "filename": "notify.iy",
           "url": "plugins/1008214349292249150/notify.iy",
-          "size": 133
+          "size": 133,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5437,7 +5812,8 @@
         {
           "filename": "tfly.iy",
           "url": "plugins/1009052646075797644/tfly.iy",
-          "size": 3806
+          "size": 3806,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5449,9 +5825,16 @@
       "date": "2022-08-16T10:58:16.847000+00:00",
       "files": [
         {
+          "filename": "Roblox_2022-08-11_14-05-24.mp4",
+          "url": "plugins/1009053479614025868/Roblox_2022-08-11_14-05-24.mp4",
+          "size": 37318716,
+          "is_plugin": false
+        },
+        {
           "filename": "pipe.iy",
           "url": "plugins/1009053479614025868/pipe.iy",
-          "size": 992
+          "size": 992,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5465,7 +5848,8 @@
         {
           "filename": "shake.iy",
           "url": "plugins/1012662823274422352/shake.iy",
-          "size": 1291
+          "size": 1291,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5479,7 +5863,8 @@
         {
           "filename": "Sshop.iy",
           "url": "plugins/1014292015065866321/Sshop.iy",
-          "size": 984
+          "size": 984,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5491,9 +5876,16 @@
       "date": "2022-10-07T01:34:39.007000+00:00",
       "files": [
         {
+          "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
+          "url": "plugins/1027755806323638366/Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
+          "size": 42719466,
+          "is_plugin": false
+        },
+        {
           "filename": "ball.iy",
           "url": "plugins/1027755806323638366/ball.iy",
-          "size": 3153
+          "size": 3153,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5505,9 +5897,16 @@
       "date": "2022-10-08T19:10:35.595000+00:00",
       "files": [
         {
+          "filename": "oE3nU0Nz.mp4",
+          "url": "plugins/1028383930979717162/oE3nU0Nz.mp4",
+          "size": 9036515,
+          "is_plugin": false
+        },
+        {
           "filename": "IYcontroller.iy",
           "url": "plugins/1028383930979717162/IYcontroller.iy",
-          "size": 6139
+          "size": 6139,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -5523,7 +5922,8 @@
         {
           "filename": "ball.iy",
           "url": "plugins/1029554088226074654/ball.iy",
-          "size": 3719
+          "size": 3719,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5537,7 +5937,8 @@
         {
           "filename": "spectategui.iy",
           "url": "plugins/1029946579882364938/spectategui.iy",
-          "size": 21619
+          "size": 21619,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5551,7 +5952,14 @@
         {
           "filename": "chatbot.iy",
           "url": "plugins/1033059465643167774/chatbot.iy",
-          "size": 839
+          "size": 839,
+          "is_plugin": true
+        },
+        {
+          "filename": "H7vuB9FG.mp4",
+          "url": "plugins/1033059465643167774/H7vuB9FG.mp4",
+          "size": 15411123,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": [
@@ -5567,7 +5975,8 @@
         {
           "filename": "smallshop.iy",
           "url": "plugins/1035260586579202128/smallshop.iy",
-          "size": 936
+          "size": 936,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5581,7 +5990,8 @@
         {
           "filename": "name.iy",
           "url": "plugins/1035666623643787345/name.iy",
-          "size": 1282
+          "size": 1282,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5595,7 +6005,8 @@
         {
           "filename": "fakeping.iy",
           "url": "plugins/1039762395075190804/fakeping.iy",
-          "size": 753
+          "size": 753,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -5612,7 +6023,8 @@
         {
           "filename": "vehicleseat.iy",
           "url": "plugins/1045348304369754192/vehicleseat.iy",
-          "size": 1851
+          "size": 1851,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5626,7 +6038,8 @@
         {
           "filename": "fulldark.iy",
           "url": "plugins/1046501060468019322/fulldark.iy",
-          "size": 619
+          "size": 619,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5640,7 +6053,8 @@
         {
           "filename": "UnGod.iy",
           "url": "plugins/1048806491320225823/UnGod.iy",
-          "size": 764
+          "size": 764,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5654,7 +6068,8 @@
         {
           "filename": "modelesp.iy",
           "url": "plugins/1052975856550682774/modelesp.iy",
-          "size": 10543
+          "size": 10543,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5668,7 +6083,8 @@
         {
           "filename": "Down.iy",
           "url": "plugins/1053696337020981288/Down.iy",
-          "size": 445
+          "size": 445,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5682,7 +6098,8 @@
         {
           "filename": "Up.iy",
           "url": "plugins/1053711463866454107/Up.iy",
-          "size": 429
+          "size": 429,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5696,7 +6113,8 @@
         {
           "filename": "crosshair.iy",
           "url": "plugins/1053752298607743016/crosshair.iy",
-          "size": 1067
+          "size": 1067,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -5713,7 +6131,8 @@
         {
           "filename": "customIY.iy",
           "url": "plugins/1054464632187797510/customIY.iy",
-          "size": 7092
+          "size": 7092,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5727,7 +6146,8 @@
         {
           "filename": "coinflip.iy",
           "url": "plugins/1054574569312239696/coinflip.iy",
-          "size": 456
+          "size": 456,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5741,7 +6161,8 @@
         {
           "filename": "Netless.iy",
           "url": "plugins/1054868045480349737/Netless.iy",
-          "size": 1065
+          "size": 1065,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5755,7 +6176,8 @@
         {
           "filename": "iydestroy.iy",
           "url": "plugins/1060285923406913606/iydestroy.iy",
-          "size": 1009
+          "size": 1009,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5769,7 +6191,8 @@
         {
           "filename": "donut.iy",
           "url": "plugins/1062220292589621349/donut.iy",
-          "size": 1360
+          "size": 1360,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5783,7 +6206,8 @@
         {
           "filename": "catfact.iy",
           "url": "plugins/1063533771195940964/catfact.iy",
-          "size": 1202
+          "size": 1202,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5797,7 +6221,8 @@
         {
           "filename": "dogfact.iy",
           "url": "plugins/1064547124282404934/dogfact.iy",
-          "size": 1310
+          "size": 1310,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5811,7 +6236,8 @@
         {
           "filename": "balleresp.iy",
           "url": "plugins/1066738290109206658/balleresp.iy",
-          "size": 1903
+          "size": 1903,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5825,7 +6251,8 @@
         {
           "filename": "replacesounds.iy",
           "url": "plugins/1066751391382646784/replacesounds.iy",
-          "size": 904
+          "size": 904,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5839,7 +6266,8 @@
         {
           "filename": "imitate.iy",
           "url": "plugins/1066769416513130617/imitate.iy",
-          "size": 3595
+          "size": 3595,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5851,9 +6279,16 @@
       "date": "2023-01-22T22:33:28.662000+00:00",
       "files": [
         {
+          "filename": "ZW5JEtIs.mp4",
+          "url": "plugins/1066848102276931624/ZW5JEtIs.mp4",
+          "size": 5229647,
+          "is_plugin": false
+        },
+        {
           "filename": "gethats.iy",
           "url": "plugins/1066848102276931624/gethats.iy",
-          "size": 2385
+          "size": 2385,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5867,7 +6302,8 @@
         {
           "filename": "apparate.iy",
           "url": "plugins/1068503637682290689/apparate.iy",
-          "size": 657
+          "size": 657,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5881,7 +6317,8 @@
         {
           "filename": "antifling.iy",
           "url": "plugins/1069761070920650793/antifling.iy",
-          "size": 2093
+          "size": 2093,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5893,9 +6330,16 @@
       "date": "2023-01-31T01:51:41.563000+00:00",
       "files": [
         {
+          "filename": "gifViewer.gif",
+          "url": "plugins/1069797087643975701/gifViewer.gif",
+          "size": 9453237,
+          "is_plugin": false
+        },
+        {
           "filename": "bp.iy",
           "url": "plugins/1069797087643975701/bp.iy",
-          "size": 5658
+          "size": 5658,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5907,9 +6351,16 @@
       "date": "2023-02-04T12:01:00.584000+00:00",
       "files": [
         {
+          "filename": "CnG6M0nx.mp4",
+          "url": "plugins/1071399978754375760/CnG6M0nx.mp4",
+          "size": 7589211,
+          "is_plugin": false
+        },
+        {
           "filename": "chatfix.iy",
           "url": "plugins/1071399978754375760/chatfix.iy",
-          "size": 2096
+          "size": 2096,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5923,7 +6374,8 @@
         {
           "filename": "yttd.iy",
           "url": "plugins/1071697250054578177/yttd.iy",
-          "size": 964
+          "size": 964,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5937,7 +6389,8 @@
         {
           "filename": "meme.iy",
           "url": "plugins/1071861478258389012/meme.iy",
-          "size": 899
+          "size": 899,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5951,7 +6404,8 @@
         {
           "filename": "bodydeletor.iy",
           "url": "plugins/1072762672740847677/bodydeletor.iy",
-          "size": 9700
+          "size": 9700,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5965,7 +6419,8 @@
         {
           "filename": "vrmobile.iy",
           "url": "plugins/1072763581956894781/vrmobile.iy",
-          "size": 496
+          "size": 496,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -5981,7 +6436,8 @@
         {
           "filename": "retard.iy",
           "url": "plugins/1072884810802008094/retard.iy",
-          "size": 439
+          "size": 439,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -5995,7 +6451,8 @@
         {
           "filename": "cameratools.iy",
           "url": "plugins/1074690745098829944/cameratools.iy",
-          "size": 3734
+          "size": 3734,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6009,7 +6466,8 @@
         {
           "filename": "ibtools.iy",
           "url": "plugins/1076386971322155018/ibtools.iy",
-          "size": 20311
+          "size": 20311,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6023,7 +6481,8 @@
         {
           "filename": "pov.iy",
           "url": "plugins/1076427147553554562/pov.iy",
-          "size": 1890
+          "size": 1890,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6037,7 +6496,8 @@
         {
           "filename": "IY.iy",
           "url": "plugins/1078075161066094644/IY.iy",
-          "size": 19664
+          "size": 19664,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6051,7 +6511,8 @@
         {
           "filename": "LoadLink.iy",
           "url": "plugins/1078296507461148693/LoadLink.iy",
-          "size": 910
+          "size": 910,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6065,7 +6526,8 @@
         {
           "filename": "IY-.iy",
           "url": "plugins/1078588664826822686/IY-.iy",
-          "size": 22152
+          "size": 22152,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6079,7 +6541,8 @@
         {
           "filename": "joinjobid.iy",
           "url": "plugins/1081899476656062464/joinjobid.iy",
-          "size": 687
+          "size": 687,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6093,7 +6556,8 @@
         {
           "filename": "yomomma.iy",
           "url": "plugins/1083445248207880254/yomomma.iy",
-          "size": 17086
+          "size": 17086,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6107,7 +6571,8 @@
         {
           "filename": "heatseeker.iy",
           "url": "plugins/1083961436222521415/heatseeker.iy",
-          "size": 1232
+          "size": 1232,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6121,7 +6586,8 @@
         {
           "filename": "olddex.iy",
           "url": "plugins/1091222879682695189/olddex.iy",
-          "size": 888
+          "size": 888,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6135,7 +6601,8 @@
         {
           "filename": "af2023.iy",
           "url": "plugins/1092277185114558554/af2023.iy",
-          "size": 587
+          "size": 587,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6149,7 +6616,14 @@
         {
           "filename": "blackesp.iy",
           "url": "plugins/1111283247301799947/blackesp.iy",
-          "size": 834
+          "size": 834,
+          "is_plugin": true
+        },
+        {
+          "filename": "skRPok7H_1.mp4",
+          "url": "plugins/1111283247301799947/skRPok7H_1.mp4",
+          "size": 7990853,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -6163,7 +6637,8 @@
         {
           "filename": "tview.iy",
           "url": "plugins/1113201467554271254/tview.iy",
-          "size": 882
+          "size": 882,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6177,7 +6652,8 @@
         {
           "filename": "fact.iy",
           "url": "plugins/1113848981722775692/fact.iy",
-          "size": 1752
+          "size": 1752,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6191,7 +6667,8 @@
         {
           "filename": "LastServer.iy",
           "url": "plugins/1136372193694068787/LastServer.iy",
-          "size": 1208
+          "size": 1208,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6205,7 +6682,8 @@
         {
           "filename": "SaveGuiPosition.iy",
           "url": "plugins/1136741337752944714/SaveGuiPosition.iy",
-          "size": 1567
+          "size": 1567,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6219,7 +6697,8 @@
         {
           "filename": "catfact.iy",
           "url": "plugins/1137836280311468103/catfact.iy",
-          "size": 5288
+          "size": 5288,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6233,7 +6712,8 @@
         {
           "filename": "BladeBall.iy",
           "url": "plugins/1152323984399015936/BladeBall.iy",
-          "size": 53947
+          "size": 53947,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -6249,7 +6729,8 @@
         {
           "filename": "bladeball.iy",
           "url": "plugins/1152329744348622898/bladeball.iy",
-          "size": 542
+          "size": 542,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -6259,13 +6740,14 @@
     {
       "id": "1153550910342037534",
       "name": "AnimationSpeed",
-      "author": "edgar",
+      "author": "nightcrawler",
       "date": "2023-09-19T04:39:28.965000+00:00",
       "files": [
         {
           "filename": "AnimationSpeed.iy",
           "url": "plugins/1153550910342037534/AnimationSpeed.iy",
-          "size": 989
+          "size": 989,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6279,7 +6761,8 @@
         {
           "filename": "customIY.iy",
           "url": "plugins/1155023113650708541/customIY.iy",
-          "size": 7092
+          "size": 7092,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6293,7 +6776,8 @@
         {
           "filename": "joinjobid.iy",
           "url": "plugins/1175866106729222154/joinjobid.iy",
-          "size": 687
+          "size": 687,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6307,7 +6791,8 @@
         {
           "filename": "fact.iy",
           "url": "plugins/1175883881505898666/fact.iy",
-          "size": 1752
+          "size": 1752,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6319,9 +6804,16 @@
       "date": "2024-01-03T15:30:37.349000+00:00",
       "files": [
         {
+          "filename": "Screenshot_20240103-115634.png",
+          "url": "plugins/1192127888774942812/Screenshot_20240103-115634.png",
+          "size": 158247,
+          "is_plugin": false
+        },
+        {
           "filename": "toolview.iy",
           "url": "plugins/1192127888774942812/toolview.iy",
-          "size": 1253
+          "size": 1253,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6335,7 +6827,8 @@
         {
           "filename": "aprilfools.iy",
           "url": "plugins/1215142061205094400/aprilfools.iy",
-          "size": 928
+          "size": 928,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6349,7 +6842,8 @@
         {
           "filename": "walkfling.iy",
           "url": "plugins/1221875918272725103/walkfling.iy",
-          "size": 1435
+          "size": 1435,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6363,7 +6857,8 @@
         {
           "filename": "flingv2.iy",
           "url": "plugins/1250986314220966010/flingv2.iy",
-          "size": 1725
+          "size": 1725,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6377,7 +6872,8 @@
         {
           "filename": "PVP_Handler.iy",
           "url": "plugins/1258193145150046319/PVP_Handler.iy",
-          "size": 4690
+          "size": 4690,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6391,7 +6887,8 @@
         {
           "filename": "AntiAntiEarrape.iy",
           "url": "plugins/1260308481282674790/AntiAntiEarrape.iy",
-          "size": 2062
+          "size": 2062,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6405,7 +6902,8 @@
         {
           "filename": "earrape.iy",
           "url": "plugins/1263038081255084032/earrape.iy",
-          "size": 1635
+          "size": 1635,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6417,9 +6915,16 @@
       "date": "2024-08-05T14:50:33.411000+00:00",
       "files": [
         {
+          "filename": "image.png",
+          "url": "plugins/1270031197032157256/image.png",
+          "size": 185420,
+          "is_plugin": false
+        },
+        {
           "filename": "facefuck.iy",
           "url": "plugins/1270031197032157256/facefuck.iy",
-          "size": 2166
+          "size": 2166,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6431,9 +6936,16 @@
       "date": "2024-08-05T17:02:41.511000+00:00",
       "files": [
         {
+          "filename": "image.png",
+          "url": "plugins/1270064449893564588/image.png",
+          "size": 166646,
+          "is_plugin": false
+        },
+        {
           "filename": "bams.iy",
           "url": "plugins/1270064449893564588/bams.iy",
-          "size": 1681
+          "size": 1681,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6447,7 +6959,8 @@
         {
           "filename": "VaporizeD.iy",
           "url": "plugins/1282256403574296577/VaporizeD.iy",
-          "size": 838
+          "size": 838,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6459,9 +6972,16 @@
       "date": "2024-09-21T02:24:00.193000+00:00",
       "files": [
         {
+          "filename": "Screenshot_20240920-2208152.jpg",
+          "url": "plugins/1286875550341922904/Screenshot_20240920-2208152.jpg",
+          "size": 17426,
+          "is_plugin": false
+        },
+        {
           "filename": "tag.iy",
           "url": "plugins/1286875550341922904/tag.iy",
-          "size": 1215
+          "size": 1215,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6475,7 +6995,8 @@
         {
           "filename": "aim.iy",
           "url": "plugins/1299724288353374319/aim.iy",
-          "size": 16893
+          "size": 16893,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6489,7 +7010,8 @@
         {
           "filename": "mfly.iy",
           "url": "plugins/1300363956174716969/mfly.iy",
-          "size": 13640
+          "size": 13640,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6503,7 +7025,8 @@
         {
           "filename": "mfly.iy",
           "url": "plugins/1301938690775580746/mfly.iy",
-          "size": 12698
+          "size": 12698,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6517,7 +7040,8 @@
         {
           "filename": "wallpaper.iy",
           "url": "plugins/1302108519889375273/wallpaper.iy",
-          "size": 3320
+          "size": 3320,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6529,9 +7053,16 @@
       "date": "2024-11-05T01:01:14.788000+00:00",
       "files": [
         {
+          "filename": "Roblox_2024-11-04_17-58-26.mp4",
+          "url": "plugins/1303162177875742811/Roblox_2024-11-04_17-58-26.mp4",
+          "size": 79720817,
+          "is_plugin": false
+        },
+        {
           "filename": "Kommander.iy",
           "url": "plugins/1303162177875742811/Kommander.iy",
-          "size": 5349
+          "size": 5349,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6545,7 +7076,8 @@
         {
           "filename": "Screenshake.iy",
           "url": "plugins/1304510375454310491/Screenshake.iy",
-          "size": 2084
+          "size": 2084,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6559,7 +7091,8 @@
         {
           "filename": "relight.iy",
           "url": "plugins/1316046724594139156/relight.iy",
-          "size": 5417
+          "size": 5417,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6573,7 +7106,8 @@
         {
           "filename": "Jerk.iy",
           "url": "plugins/1322109071955988581/Jerk.iy",
-          "size": 1943
+          "size": 1943,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6587,7 +7121,8 @@
         {
           "filename": "simpleesp.iy",
           "url": "plugins/1325586764236062830/simpleesp.iy",
-          "size": 4392
+          "size": 4392,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6601,7 +7136,8 @@
         {
           "filename": "simpleaimbot.iy",
           "url": "plugins/1325793591066624021/simpleaimbot.iy",
-          "size": 6214
+          "size": 6214,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6615,7 +7151,8 @@
         {
           "filename": "quickbar.iy",
           "url": "plugins/1327024844587536395/quickbar.iy",
-          "size": 11215
+          "size": 11215,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6629,7 +7166,8 @@
         {
           "filename": "Inject.iy",
           "url": "plugins/1334700625069473832/Inject.iy",
-          "size": 1075
+          "size": 1075,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6641,9 +7179,16 @@
       "date": "2025-02-18T21:05:40.979000+00:00",
       "files": [
         {
+          "filename": "RobloxPlayerBeta_THmIjrw3Op.mp4",
+          "url": "plugins/1341516010137849977/RobloxPlayerBeta_THmIjrw3Op.mp4",
+          "size": 19691607,
+          "is_plugin": false
+        },
+        {
           "filename": "coloresp.iy",
           "url": "plugins/1341516010137849977/coloresp.iy",
-          "size": 4891
+          "size": 4891,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6655,9 +7200,16 @@
       "date": "2025-02-20T12:02:10.659000+00:00",
       "files": [
         {
+          "filename": "C6A20C15-7B4E-4A55-BB6F-EC4F24A4763B.png",
+          "url": "plugins/1342104008273170522/C6A20C15-7B4E-4A55-BB6F-EC4F24A4763B.png",
+          "size": 13560,
+          "is_plugin": false
+        },
+        {
           "filename": "bbinds.iy",
           "url": "plugins/1342104008273170522/bbinds.iy",
-          "size": 17544
+          "size": 17544,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6671,7 +7223,8 @@
         {
           "filename": "TweenFlight.iy",
           "url": "plugins/1342563287325347921/TweenFlight.iy",
-          "size": 9848
+          "size": 9848,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6685,7 +7238,14 @@
         {
           "filename": "killiy.iy",
           "url": "plugins/1342991481690128455/killiy.iy",
-          "size": 694
+          "size": 694,
+          "is_plugin": true
+        },
+        {
+          "filename": "RobloxPlayerBeta_SpzMtoyFc5.mp4",
+          "url": "plugins/1342991481690128455/RobloxPlayerBeta_SpzMtoyFc5.mp4",
+          "size": 3447538,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -6697,9 +7257,16 @@
       "date": "2025-02-23T21:18:16.684000+00:00",
       "files": [
         {
+          "filename": "image.png",
+          "url": "plugins/1343331119122092052/image.png",
+          "size": 31581,
+          "is_plugin": false
+        },
+        {
           "filename": "ghost.iy",
           "url": "plugins/1343331119122092052/ghost.iy",
-          "size": 885
+          "size": 885,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6711,9 +7278,16 @@
       "date": "2025-02-28T20:40:42.419000+00:00",
       "files": [
         {
+          "filename": "Demo.mp4",
+          "url": "plugins/1345133603377512564/Demo.mp4",
+          "size": 6319801,
+          "is_plugin": false
+        },
+        {
           "filename": "MusicTimeML.iy",
           "url": "plugins/1345133603377512564/MusicTimeML.iy",
-          "size": 10365
+          "size": 10365,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6727,7 +7301,8 @@
         {
           "filename": "ToSpawn.iy",
           "url": "plugins/1348810300455125124/ToSpawn.iy",
-          "size": 1743
+          "size": 1743,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6741,7 +7316,8 @@
         {
           "filename": "meow.iy",
           "url": "plugins/1351092371969933323/meow.iy",
-          "size": 1623
+          "size": 1623,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6755,7 +7331,8 @@
         {
           "filename": "hellenkeller.iy",
           "url": "plugins/1351331880686981160/hellenkeller.iy",
-          "size": 1701
+          "size": 1701,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6769,7 +7346,8 @@
         {
           "filename": "relight.iy",
           "url": "plugins/1352246115004579890/relight.iy",
-          "size": 17721
+          "size": 17721,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6783,7 +7361,8 @@
         {
           "filename": "hellenkeller.iy",
           "url": "plugins/1353493274928873625/hellenkeller.iy",
-          "size": 1758
+          "size": 1758,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6797,7 +7376,14 @@
         {
           "filename": "Find-Places.iy",
           "url": "plugins/1358016022539403456/Find-Places.iy",
-          "size": 13660
+          "size": 13660,
+          "is_plugin": true
+        },
+        {
+          "filename": "other2.mov",
+          "url": "plugins/1358016022539403456/other2.mov",
+          "size": 58632246,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -6811,7 +7397,8 @@
         {
           "filename": "fent.iy",
           "url": "plugins/1359556665816645883/fent.iy",
-          "size": 2274
+          "size": 2274,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6825,7 +7412,8 @@
         {
           "filename": "MOMENTUM.iy",
           "url": "plugins/1361800561761976583/MOMENTUM.iy",
-          "size": 12310
+          "size": 12310,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6839,7 +7427,8 @@
         {
           "filename": "nightvision.iy",
           "url": "plugins/1363203975117275176/nightvision.iy",
-          "size": 9166
+          "size": 9166,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6853,7 +7442,8 @@
         {
           "filename": "AdonisDisabler.iy",
           "url": "plugins/1366919858146639892/AdonisDisabler.iy",
-          "size": 873
+          "size": 873,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6867,7 +7457,8 @@
         {
           "filename": "Ghosting.iy",
           "url": "plugins/1366962581343961119/Ghosting.iy",
-          "size": 13939
+          "size": 13939,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6881,7 +7472,8 @@
         {
           "filename": "Ghosting.iy",
           "url": "plugins/1366972465934499951/Ghosting.iy",
-          "size": 14035
+          "size": 14035,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6895,7 +7487,8 @@
         {
           "filename": "Ghosting.iy",
           "url": "plugins/1367115685360173179/Ghosting.iy",
-          "size": 13676
+          "size": 13676,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6909,7 +7502,8 @@
         {
           "filename": "ServerFinder.iy",
           "url": "plugins/1382042301471129681/ServerFinder.iy",
-          "size": 567
+          "size": 567,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -6925,7 +7519,14 @@
         {
           "filename": "Server_Hopper.iy",
           "url": "plugins/1392317899569627188/Server_Hopper.iy",
-          "size": 36515
+          "size": 36515,
+          "is_plugin": true
+        },
+        {
+          "filename": "bruh.png",
+          "url": "plugins/1392317899569627188/bruh.png",
+          "size": 594302,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -6939,7 +7540,8 @@
         {
           "filename": "remoteUtilities.iy",
           "url": "plugins/1394780446847406272/remoteUtilities.iy",
-          "size": 7087
+          "size": 7087,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6953,7 +7555,8 @@
         {
           "filename": "dexplusplus.iy",
           "url": "plugins/1398749776081588324/dexplusplus.iy",
-          "size": 1136
+          "size": 1136,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -6970,7 +7573,8 @@
         {
           "filename": "FPS_menu.iy",
           "url": "plugins/1400412583407648828/FPS_menu.iy",
-          "size": 12238
+          "size": 12238,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6978,13 +7582,14 @@
     {
       "id": "1402172209732128969",
       "name": "Auraic",
-      "author": "ADD Jugular.Developer",
+      "author": "Lycin.Lua",
       "date": "2025-08-05T06:11:45.900000+00:00",
       "files": [
         {
           "filename": "Auraic.iy",
           "url": "plugins/1402172209732128969/Auraic.iy",
-          "size": 4304
+          "size": 4304,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -6998,7 +7603,8 @@
         {
           "filename": "GK.iy",
           "url": "plugins/1402193908729118733/GK.iy",
-          "size": 182908
+          "size": 182908,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7012,7 +7618,8 @@
         {
           "filename": "stretchres.iy",
           "url": "plugins/1402432798987653141/stretchres.iy",
-          "size": 3012
+          "size": 3012,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7026,7 +7633,8 @@
         {
           "filename": "gotopartnext.iy",
           "url": "plugins/1407434369143935079/gotopartnext.iy",
-          "size": 7833
+          "size": 7833,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7040,7 +7648,8 @@
         {
           "filename": "gotopartnext.iy",
           "url": "plugins/1407674845701083207/gotopartnext.iy",
-          "size": 14000
+          "size": 14000,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7054,7 +7663,8 @@
         {
           "filename": "fakelag.iy",
           "url": "plugins/1407770133450985564/fakelag.iy",
-          "size": 2421
+          "size": 2421,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7068,7 +7678,8 @@
         {
           "filename": "tuff.iy",
           "url": "plugins/1418785347583742013/tuff.iy",
-          "size": 1385
+          "size": 1385,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7082,7 +7693,8 @@
         {
           "filename": "ChineseEspionageSocialCreditSystem.iy",
           "url": "plugins/1419154844232450189/ChineseEspionageSocialCreditSystem.iy",
-          "size": 3097
+          "size": 3097,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7096,7 +7708,8 @@
         {
           "filename": "jewconquest1.iy",
           "url": "plugins/1419899279916404878/jewconquest1.iy",
-          "size": 11200
+          "size": 11200,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7110,7 +7723,8 @@
         {
           "filename": "NpcHitbox.iy",
           "url": "plugins/1431726747975684248/NpcHitbox.iy",
-          "size": 7334
+          "size": 7334,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7122,9 +7736,16 @@
       "date": "2025-10-28T21:37:34.657000+00:00",
       "files": [
         {
+          "filename": "image.png",
+          "url": "plugins/1432845778816073748/image.png",
+          "size": 1393819,
+          "is_plugin": false
+        },
+        {
           "filename": "DarkMarker.iy",
           "url": "plugins/1432845778816073748/DarkMarker.iy",
-          "size": 4612
+          "size": 4612,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -7140,7 +7761,8 @@
         {
           "filename": "DarkMarker.iy",
           "url": "plugins/1433189765058003036/DarkMarker.iy",
-          "size": 4756
+          "size": 4756,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -7156,7 +7778,8 @@
         {
           "filename": "GetBoombox.iy",
           "url": "plugins/1434172941133680670/GetBoombox.iy",
-          "size": 2522
+          "size": 2522,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7170,7 +7793,8 @@
         {
           "filename": "healthbars.iy",
           "url": "plugins/1434224750938292235/healthbars.iy",
-          "size": 4084
+          "size": 4084,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7184,7 +7808,8 @@
         {
           "filename": "playertpgui.iy",
           "url": "plugins/1434224970682204383/playertpgui.iy",
-          "size": 12241
+          "size": 12241,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7198,7 +7823,8 @@
         {
           "filename": "chattranslator.iy",
           "url": "plugins/1434422145844514886/chattranslator.iy",
-          "size": 4292
+          "size": 4292,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7212,7 +7838,8 @@
         {
           "filename": "shadowchatrblx.iy",
           "url": "plugins/1434977303745527938/shadowchatrblx.iy",
-          "size": 6209
+          "size": 6209,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7226,7 +7853,8 @@
         {
           "filename": "playercollision.iy",
           "url": "plugins/1440679146526343312/playercollision.iy",
-          "size": 5459
+          "size": 5459,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7240,7 +7868,8 @@
         {
           "filename": "translator.iy",
           "url": "plugins/1440713185668890714/translator.iy",
-          "size": 5488
+          "size": 5488,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7254,7 +7883,8 @@
         {
           "filename": "ServerFinder.iy",
           "url": "plugins/1440749263943372850/ServerFinder.iy",
-          "size": 576
+          "size": 576,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -7268,9 +7898,16 @@
       "date": "2025-11-23T11:03:33.899000+00:00",
       "files": [
         {
+          "filename": "FindPlaces-v0.2.rbxm",
+          "url": "plugins/1442108308818231316/FindPlaces-v0.2.rbxm",
+          "size": 18149,
+          "is_plugin": false
+        },
+        {
           "filename": "Find-Places.iy",
           "url": "plugins/1442108308818231316/Find-Places.iy",
-          "size": 501
+          "size": 501,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -7286,7 +7923,8 @@
         {
           "filename": "Stopwatch.iy",
           "url": "plugins/1448419186215878877/Stopwatch.iy",
-          "size": 1966
+          "size": 1966,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7300,7 +7938,8 @@
         {
           "filename": "flashstep.iy",
           "url": "plugins/1452915929594724363/flashstep.iy",
-          "size": 4110
+          "size": 4110,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7314,7 +7953,8 @@
         {
           "filename": "BangTool.iy",
           "url": "plugins/1453502812871987333/BangTool.iy",
-          "size": 5805
+          "size": 5805,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7328,7 +7968,8 @@
         {
           "filename": "AnimSpeed.iy",
           "url": "plugins/1453956864403443784/AnimSpeed.iy",
-          "size": 1125
+          "size": 1125,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7342,7 +7983,8 @@
         {
           "filename": "adonisbypass.iy",
           "url": "plugins/1455550896820846664/adonisbypass.iy",
-          "size": 4560
+          "size": 4560,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7356,7 +7998,8 @@
         {
           "filename": "adonisbypass.iy",
           "url": "plugins/1455588101186523288/adonisbypass.iy",
-          "size": 5757
+          "size": 5757,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7370,7 +8013,8 @@
         {
           "filename": "adonisbypass.iy",
           "url": "plugins/1455996330307616778/adonisbypass.iy",
-          "size": 5914
+          "size": 5914,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7384,7 +8028,8 @@
         {
           "filename": "adonisbypass.iy",
           "url": "plugins/1456002641820913675/adonisbypass.iy",
-          "size": 5927
+          "size": 5927,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7398,7 +8043,8 @@
         {
           "filename": "fakeinvis.iy",
           "url": "plugins/1459123910283890708/fakeinvis.iy",
-          "size": 7423
+          "size": 7423,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7412,7 +8058,8 @@
         {
           "filename": "nanfling.iy",
           "url": "plugins/1464509858169618558/nanfling.iy",
-          "size": 2024
+          "size": 2024,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7426,7 +8073,14 @@
         {
           "filename": "Simple_Player_TP_GUI.iy",
           "url": "plugins/1467936909564055603/Simple_Player_TP_GUI.iy",
-          "size": 11241
+          "size": 11241,
+          "is_plugin": true
+        },
+        {
+          "filename": "20260202_230545.jpg",
+          "url": "plugins/1467936909564055603/20260202_230545.jpg",
+          "size": 24500,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -7434,13 +8088,14 @@
     {
       "id": "1470722423098970217",
       "name": "Welder",
-      "author": "averyrainyplace",
+      "author": "avery",
       "date": "2026-02-10T10:05:50.368000+00:00",
       "files": [
         {
           "filename": "Welder.iy",
           "url": "plugins/1470722423098970217/Welder.iy",
-          "size": 6048
+          "size": 6048,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7454,7 +8109,8 @@
         {
           "filename": "BetterHop.iy",
           "url": "plugins/1471968494693388452/BetterHop.iy",
-          "size": 936
+          "size": 936,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -7470,7 +8126,8 @@
         {
           "filename": "mousetptween.iy",
           "url": "plugins/1476667020597792910/mousetptween.iy",
-          "size": 946
+          "size": 946,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7484,7 +8141,8 @@
         {
           "filename": "hidedex.iy",
           "url": "plugins/1476744020469481554/hidedex.iy",
-          "size": 1371
+          "size": 1371,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7498,7 +8156,8 @@
         {
           "filename": "rewind.iy",
           "url": "plugins/1476971725756563548/rewind.iy",
-          "size": 3947
+          "size": 3947,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7512,7 +8171,8 @@
         {
           "filename": "adminguidelete.iy",
           "url": "plugins/1476993994113286195/adminguidelete.iy",
-          "size": 1030
+          "size": 1030,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7526,7 +8186,8 @@
         {
           "filename": "pivotgoto.iy",
           "url": "plugins/1477005127586939044/pivotgoto.iy",
-          "size": 1250
+          "size": 1250,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7540,7 +8201,8 @@
         {
           "filename": "clicktouch.iy",
           "url": "plugins/1477348345537368204/clicktouch.iy",
-          "size": 1427
+          "size": 1427,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7554,7 +8216,8 @@
         {
           "filename": "antichartp.iy",
           "url": "plugins/1477650612056231938/antichartp.iy",
-          "size": 1755
+          "size": 1755,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7568,7 +8231,8 @@
         {
           "filename": "antitouch.iy",
           "url": "plugins/1478201561493541048/antitouch.iy",
-          "size": 1466
+          "size": 1466,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7582,7 +8246,8 @@
         {
           "filename": "selffling.iy",
           "url": "plugins/1478482602502525102/selffling.iy",
-          "size": 1647
+          "size": 1647,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7596,7 +8261,8 @@
         {
           "filename": "interactable.iy",
           "url": "plugins/1478948322843562024/interactable.iy",
-          "size": 20074
+          "size": 20074,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7610,7 +8276,8 @@
         {
           "filename": "VoiceChatBypass.iy",
           "url": "plugins/1479602529523204249/VoiceChatBypass.iy",
-          "size": 5331
+          "size": 5331,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7624,7 +8291,8 @@
         {
           "filename": "hoverinventory.iy",
           "url": "plugins/1482044770804301845/hoverinventory.iy",
-          "size": 4092
+          "size": 4092,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7638,7 +8306,8 @@
         {
           "filename": "sprint.iy",
           "url": "plugins/1482057934878937169/sprint.iy",
-          "size": 2698
+          "size": 2698,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7652,7 +8321,8 @@
         {
           "filename": "CopyScripts.iy",
           "url": "plugins/1483565431674372359/CopyScripts.iy",
-          "size": 9650
+          "size": 9650,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7666,7 +8336,8 @@
         {
           "filename": "AutoClicker.iy",
           "url": "plugins/1483565529170972864/AutoClicker.iy",
-          "size": 10235
+          "size": 10235,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7680,7 +8351,8 @@
         {
           "filename": "TeleportJump.iy",
           "url": "plugins/1483565703578779648/TeleportJump.iy",
-          "size": 2879
+          "size": 2879,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7694,7 +8366,14 @@
         {
           "filename": "instant-prompts.iy",
           "url": "plugins/1488884206082851048/instant-prompts.iy",
-          "size": 1180
+          "size": 1180,
+          "is_plugin": true
+        },
+        {
+          "filename": "2026-04-01_20-49-25.mp4",
+          "url": "plugins/1488884206082851048/2026-04-01_20-49-25.mp4",
+          "size": 41635796,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -7708,7 +8387,8 @@
         {
           "filename": "Speedometer.iy",
           "url": "plugins/1489357763678310441/Speedometer.iy",
-          "size": 6436
+          "size": 6436,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7722,7 +8402,8 @@
         {
           "filename": "Smoke.iy",
           "url": "plugins/1490405333754052811/Smoke.iy",
-          "size": 120
+          "size": 120,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
@@ -7738,7 +8419,14 @@
         {
           "filename": "ReplicateAura.iy",
           "url": "plugins/1490426577048047736/ReplicateAura.iy",
-          "size": 2781
+          "size": 2781,
+          "is_plugin": true
+        },
+        {
+          "filename": "Showcase.mp4",
+          "url": "plugins/1490426577048047736/Showcase.mp4",
+          "size": 5645932,
+          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -7752,7 +8440,8 @@
         {
           "filename": "FarhatUtility.iy",
           "url": "plugins/1490685255466877070/FarhatUtility.iy",
-          "size": 77249
+          "size": 77249,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
@@ -7766,7 +8455,8 @@
         {
           "filename": "SpiderFacts.iy",
           "url": "plugins/1490806746103550054/SpiderFacts.iy",
-          "size": 836
+          "size": 836,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": [
