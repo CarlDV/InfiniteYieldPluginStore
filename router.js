@@ -102,18 +102,20 @@
 
             // Route matching
             const urlObj = new URL(url);
-            const path = urlObj.pathname;
+            let path = urlObj.pathname;
+            if (path.endsWith('.html')) path = path.slice(0, -5);
+            if (path.endsWith('/') && path !== '/') path = path.slice(0, -1);
 
-            if (path === '/' || path === '/index.html') {
+            if (path === '/' || path === '/index') {
                 if (window.initHome) window.initHome();
                 else loadScript('app.js', () => window.initHome && window.initHome());
-            } else if (path === '/authors.html') {
+            } else if (path === '/authors') {
                 if (window.initAuthors) window.initAuthors();
                 else loadScript('authors.js', () => window.initAuthors && window.initAuthors());
-            } else if (path === '/maker.html') {
+            } else if (path === '/maker') {
                 if (window.initMaker) window.initMaker();
                 else loadScript('maker.js', () => window.initMaker && window.initMaker());
-            } else if (path === '/api.html' || path === '/tutorial.html') {
+            } else if (path === '/api' || path === '/tutorial') {
                 // Check if they need prism.js
                 if (doc.querySelector('script[src*="prism.min.js"]')) {
                     if (!window.Prism) {
