@@ -194,39 +194,91 @@
             </div>
         `;
 
-        // Sort plugins newest first in modal
-        const sorted = [...author.plugins].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-
         let html = `
-            <div class="author-modal-profile" style="justify-content: space-between;">
-                <div></div>
+            <div class="author-modal-profile" style="justify-content: space-between; margin-bottom: 24px;">
+                <div class="author-plugins-label" style="margin: 0; font-size: 1.1rem;">All Plugins (${author.plugins.length})</div>
                 <button class="author-modal-share-btn" id="am-share-btn">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
                     </svg>
-                    Share Profile
+                    Share
                 </button>
             </div>
-            <div class="author-plugins-label">All Plugins (${author.plugins.length})</div>
+            <div class="am-toolbar" style="display: flex; gap: 12px; margin-bottom: 20px;">
+                <div style="position: relative; flex: 1;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); pointer-events: none;">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="am-search" placeholder="Search plugins..." style="width: 100%; padding: 9px 12px 9px 36px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font); font-size: 0.85rem; outline: none; transition: border-color 0.15s;">
+                </div>
+                <select id="am-sort" style="padding: 8px 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text2); font-family: var(--font); font-size: 0.8rem; cursor: pointer; outline: none;">
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="az">A-Z</option>
+                </select>
+            </div>
+            <div id="am-plugin-list"></div>
         `;
 
-        sorted.forEach(p => {
-            let tags = '';
-            if (p.code_blocks?.length) tags += '<span class="tag tag-code" style="font-size:0.65rem;padding:2px 8px">Code</span>';
-            if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring" style="font-size:0.65rem;padding:2px 8px">Loadstring</span>';
-            if (p.files?.length) tags += '<span class="tag tag-file" style="font-size:0.65rem;padding:2px 8px">' + p.files.length + ' file' + (p.files.length > 1 ? 's' : '') + '</span>';
-
-            html += `
-                <div class="author-plugin-item" data-plugin-id="${escAttr(p.id)}">
-                    <div class="author-plugin-name">${esc(p.name || 'Untitled')}</div>
-                    <div class="author-plugin-tags">${tags}</div>
-                    <div class="author-plugin-date">${fmtDate(p.date)}</div>
-                </div>
-            `;
-        });
-
         $('am-body').innerHTML = html;
+
+        const pluginList = $('am-plugin-list');
+        const searchInput = $('am-search');
+        const sortSelect = $('am-sort');
+
+        function renderAuthorPlugins() {
+            const query = searchInput.value.toLowerCase().trim();
+            const sortVal = sortSelect.value;
+
+            let filtered = author.plugins.filter(p => !query || (p.name || '').toLowerCase().includes(query));
+
+            if (sortVal === 'newest') {
+                filtered.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+            } else if (sortVal === 'oldest') {
+                filtered.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+            } else if (sortVal === 'az') {
+                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+            }
+
+            let listHtml = '';
+            if (filtered.length === 0) {
+                listHtml = '<div style="color: var(--text3); text-align: center; padding: 24px 0; font-size: 0.9rem;">No plugins match your search.</div>';
+            } else {
+                filtered.forEach(p => {
+                    let tags = '';
+                    if (p.code_blocks?.length) tags += '<span class="tag tag-code" style="font-size:0.65rem;padding:2px 8px">Code</span>';
+                    if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring" style="font-size:0.65rem;padding:2px 8px">Loadstring</span>';
+                    if (p.files?.length) tags += '<span class="tag tag-file" style="font-size:0.65rem;padding:2px 8px">' + p.files.length + ' file' + (p.files.length > 1 ? 's' : '') + '</span>';
+
+                    listHtml += `
+                        <div class="author-plugin-item" data-plugin-id="${escAttr(p.id)}">
+                            <div class="author-plugin-name">${esc(p.name || 'Untitled')}</div>
+                            <div class="author-plugin-tags">${tags}</div>
+                            <div class="author-plugin-date">${fmtDate(p.date)}</div>
+                        </div>
+                    `;
+                });
+            }
+
+            pluginList.innerHTML = listHtml;
+
+            // Plugin click -> preview in floating modal
+            pluginList.querySelectorAll('.author-plugin-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const pid = item.dataset.pluginId;
+                    const plugin = allPlugins.find(p => p.id === pid);
+                    if (plugin) openPluginModal(plugin);
+                });
+            });
+        }
+
+        searchInput.addEventListener('input', debounce(renderAuthorPlugins, 200));
+        sortSelect.addEventListener('change', renderAuthorPlugins);
+        
+        // Initial render
+        renderAuthorPlugins();
 
         // Share button in modal
         const shareBtn = $('am-share-btn');
@@ -242,15 +294,6 @@
                 });
             });
         }
-
-        // Plugin click -> preview in floating modal
-        $('am-body').querySelectorAll('.author-plugin-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const pid = item.dataset.pluginId;
-                const plugin = allPlugins.find(p => p.id === pid);
-                if (plugin) openPluginModal(plugin);
-            });
-        });
 
         overlay.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
