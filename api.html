@@ -543,7 +543,7 @@ end
 
 loadPlugin("fly")</code></pre>
             </div>
-            <h3>Download All to Workspace</h3>
+            <h3>Download All &amp; Auto-Load</h3>
             <div class="api-code">
                 <div class="api-code-bar">
                     <span class="api-code-lang">Luau</span>
@@ -552,18 +552,23 @@ loadPlugin("fly")</code></pre>
                 <pre><code class="language-lua">local HttpService = game:GetService("HttpService")
 local BASE = "https://iyplugins.pages.dev"
 
-local function downloadAll()
+local function downloadAndLoadAll()
+    if not writefile then
+        notify("Incompatible Exploit", "Your exploit does not support writefile")
+        return
+    end
+
     print("Fetching plugin list...")
     local response = game:HttpGet(BASE .. "/data/api.json")
     local data = HttpService:JSONDecode(response)
-    
+
     for i, plugin in ipairs(data.plugins) do
         print(string.format("[%d/%d] Downloading: %s", i, data.total, plugin.name))
         for _, file in ipairs(plugin.files) do
             local success, content = pcall(function()
                 return game:HttpGet(BASE .. "/" .. file.url)
             end)
-            
+
             if success then
                 writefile(file.filename, content)
             else
@@ -571,10 +576,29 @@ local function downloadAll()
             end
         end
     end
-    print("Download complete! All files saved directly to workspace/")
+    print("Download complete! Loading plugins...")
+
+    -- Auto-load all downloaded .iy plugins
+    if not listfiles or not isfolder then
+        warn("Cannot auto-load: exploit missing listfiles/isfolder")
+        return
+    end
+
+    for _, filePath in ipairs(listfiles("")) do
+        local fileName = filePath:match("([^/\\]+%.iy)$")
+
+        if fileName and
+            fileName:lower() ~= "iy_fe.iy" and
+            not isfolder(fileName) and
+            not table.find(PluginsTable, fileName)
+        then
+            addPlugin(fileName)
+        end
+    end
+    print("All plugins loaded!")
 end
 
-downloadAll()</code></pre>
+downloadAndLoadAll()</code></pre>
             </div>
         </div>
 
