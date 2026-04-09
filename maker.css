@@ -316,11 +316,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+}
+
+.cmd-info {
+    flex: 1;
+    min-width: 0;
 }
 
 .cmd-info h4 {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 4px;
+    word-break: break-all;
+    line-height: 1.4;
 }
 
 .cmd-info p {
@@ -331,6 +339,7 @@
 .cmd-actions {
     display: flex;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 /* ---- Preview Section ---- */

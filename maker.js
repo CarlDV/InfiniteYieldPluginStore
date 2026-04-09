@@ -127,6 +127,43 @@ window.MonacoEnvironment = {
 
 window.monacoInitPromise = window.monacoInitPromise || null;
 
+    // Persistence & Auto-Save
+    function saveProjectData() {
+        const data = {
+            pluginName: document.getElementById('plugin-name').value,
+            pluginDesc: document.getElementById('plugin-desc').value,
+            commands: pluginData.commands
+        };
+        localStorage.setItem('iy_maker_draft', JSON.stringify(data));
+    }
+
+    function loadProjectData() {
+        const saved = localStorage.getItem('iy_maker_draft');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                if (data.pluginName || data.commands?.length > 0) {
+                    if (confirm('Found a saved draft. Restore it?')) {
+                        document.getElementById('plugin-name').value = data.pluginName || '';
+                        document.getElementById('plugin-desc').value = data.pluginDesc || '';
+                        pluginData.commands = data.commands || [];
+                        renderCommands();
+                        updatePreview();
+                    }
+                }
+            } catch (e) { console.error('Failed to load draft', e); }
+        }
+    }
+
+    // Call load on start
+    setTimeout(loadProjectData, 100);
+
+    // Auto-save on changes
+    ['plugin-name', 'plugin-desc'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', saveProjectData);
+    });
+
 function initMonaco() {
     if (window.monacoInitPromise) return window.monacoInitPromise;
 
@@ -271,41 +308,7 @@ initMonaco().then(() => {
 
     renderCommands(); // Render the initial template command
 
-    // Persistence & Auto-Save
-    function saveProjectData() {
-        const data = {
-            pluginName: document.getElementById('plugin-name').value,
-            pluginDesc: document.getElementById('plugin-desc').value,
-            commands: pluginData.commands
-        };
-        localStorage.setItem('iy_maker_draft', JSON.stringify(data));
-    }
 
-    function loadProjectData() {
-        const saved = localStorage.getItem('iy_maker_draft');
-        if (saved) {
-            try {
-                const data = JSON.parse(saved);
-                if (data.pluginName || data.commands?.length > 0) {
-                    if (confirm('Found a saved draft. Restore it?')) {
-                        document.getElementById('plugin-name').value = data.pluginName || '';
-                        document.getElementById('plugin-desc').value = data.pluginDesc || '';
-                        pluginData.commands = data.commands || [];
-                        renderCommands();
-                        updatePreview();
-                    }
-                }
-            } catch (e) { console.error('Failed to load draft', e); }
-        }
-    }
-
-    // Call load on start
-    setTimeout(loadProjectData, 100);
-
-    // Auto-save on changes
-    ['plugin-name', 'plugin-desc'].forEach(id => {
-        document.getElementById(id).addEventListener('input', saveProjectData);
-    });
 
 
     // Attach search listener
@@ -998,8 +1001,8 @@ dropZone.addEventListener('drop', (e) => {
 function extractGlobalCode(text) {
     let header = "";
     let footer = "return Plugin";
-    let cmdIdx = text.indexOf('["Commands"]');
-    if (cmdIdx === -1) cmdIdx = text.indexOf("['Commands']");
+    let commandsMatch = text.match(/\[(["'])Commands\1\]/);
+    let cmdIdx = commandsMatch ? commandsMatch.index : -1;
     if (cmdIdx === -1) return {header, footer};
     
     let prefix = text.substring(0, cmdIdx);
@@ -1056,21 +1059,22 @@ function parseLuaToForm(text) {
         pluginData.headerCode = globals.header;
         pluginData.footerCode = globals.footer;
 
-        let nameMatch = text.match(/\["PluginName"\]\s*=\s*(["'])(.*?)\1/);
+        let nameMatch = text.match(/\[(["'])PluginName\1\]\s*=\s*(["'])(.*?)\2/);
         if (nameMatch) {
-            document.getElementById('plugin-name').value = nameMatch[2];
-            pluginData.name = nameMatch[2];
+            document.getElementById('plugin-name').value = nameMatch[3];
+            pluginData.name = nameMatch[3];
         }
 
-        let descMatch = text.match(/\["PluginDescription"\]\s*=\s*(["'])(.*?)\1/);
+        let descMatch = text.match(/\[(["'])PluginDescription\1\]\s*=\s*(["'])(.*?)\2/);
         if (descMatch) {
-            document.getElementById('plugin-desc').value = descMatch[2];
-            pluginData.description = descMatch[2];
+            document.getElementById('plugin-desc').value = descMatch[3];
+            pluginData.description = descMatch[3];
         }
 
         pluginData.commands = [];
 
-        let commandsStart = text.indexOf('["Commands"]');
+        let commandsMatch = text.match(/\[(["'])Commands\1\]/);
+        let commandsStart = commandsMatch ? commandsMatch.index : -1;
         if (commandsStart === -1) {
             renderCommands();
             updatePreview();
@@ -1130,14 +1134,12 @@ function parseLuaToForm(text) {
             }
         }
 
-        // Extremely robust lookahead logic:
         // Finds `["key"] = {` BUT only if the inner table immediately starts with a standard command key, e.g. `["ListName"]`
-        // This physically prevents it from mapping things like `["Aliases"] = {"sps"}` as independent commands!
-        let cmdRegex = /\["([^"]+)"\]\s*=\s*\{(?=\s*(?:--[^\n]*\n\s*)*\[")/g;
+        let cmdRegex = /\[(["'])([^"']+)\1\]\s*=\s*\{(?=\s*(?:--[^\n]*\n\s*)*\[(["']))/g;
         let match;
         let indices = [];
         while ((match = cmdRegex.exec(commandsBody)) !== null) {
-            indices.push({ key: match[1], start: match.index });
+            indices.push({ key: match[2], start: match.index });
         }
 
         for (let i = 0; i < indices.length; i++) {
@@ -1146,17 +1148,17 @@ function parseLuaToForm(text) {
 
             let blockStr = next ? commandsBody.substring(current.start, next.start) : commandsBody.substring(current.start);
 
-            let listNameMatch = blockStr.match(/\["ListName"\]\s*=\s*(["'])(.*?)\1/);
-            let listName = listNameMatch ? listNameMatch[2] : "cmd";
+            let listNameMatch = blockStr.match(/\[(["'])ListName\1\]\s*=\s*(["'])(.*?)\2/);
+            let listName = listNameMatch ? listNameMatch[3] : "cmd";
 
-            let descMatch = blockStr.match(/\["Description"\]\s*=\s*(["'])(.*?)\1/);
-            let desc = descMatch ? descMatch[2] : "";
+            let descMatch = blockStr.match(/\[(["'])Description\1\]\s*=\s*(["'])(.*?)\2/);
+            let desc = descMatch ? descMatch[3] : "";
 
-            let aliasesMatch = blockStr.match(/\["Aliases"\]\s*=\s*\{([^}]*)\}/);
-            let aliases = aliasesMatch ? aliasesMatch[1].split(',').map(s => s.replace(/['"]/g, '').trim()).filter(x => x) : [];
+            let aliasesMatch = blockStr.match(/\[(["'])Aliases\1\]\s*=\s*\{([^}]*)\}/);
+            let aliases = aliasesMatch ? aliasesMatch[2].split(',').map(s => s.replace(/['"]/g, '').trim()).filter(x => x) : [];
 
             let code = "-- code here";
-            let fnMatch = blockStr.match(/\["Function"\]\s*=\s*function\s*\([^)]*\)/);
+            let fnMatch = blockStr.match(/\[(["'])Function\1\]\s*=\s*function\s*\([^)]*\)/);
             if (fnMatch) {
                 let fnStartIdx = fnMatch.index + fnMatch[0].length;
                 let fnStr = blockStr.substring(fnStartIdx);
@@ -1173,16 +1175,19 @@ function parseLuaToForm(text) {
             while (codeLines.length && codeLines[0].trim() === '') codeLines.shift();
             while (codeLines.length && codeLines[codeLines.length - 1].trim() === '') codeLines.pop();
 
+            // normalize indentation
+            codeLines = codeLines.map(l => l.replace(/\t/g, '    '));
+
             let minIndent = Infinity;
             for (let line of codeLines) {
                 if (line.trim().length > 0) {
-                    let wsMatch = line.match(/^([ \t]*)/);
+                    let wsMatch = line.match(/^([ ]*)/);
                     let indent = wsMatch ? wsMatch[1].length : 0;
                     if (indent < minIndent) minIndent = indent;
                 }
             }
             if (minIndent === Infinity) minIndent = 0;
-            codeLines = codeLines.map(l => l.substring(minIndent));
+            codeLines = codeLines.map(l => l.substring(minIndent).trimEnd());
 
             pluginData.commands.push({
                 id: generateId(),
