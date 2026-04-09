@@ -127,42 +127,27 @@ window.MonacoEnvironment = {
 
 window.monacoInitPromise = window.monacoInitPromise || null;
 
-    // Persistence & Auto-Save
-    function saveProjectData() {
-        const data = {
-            pluginName: document.getElementById('plugin-name').value,
-            pluginDesc: document.getElementById('plugin-desc').value,
-            commands: pluginData.commands
-        };
-        localStorage.setItem('iy_maker_draft', JSON.stringify(data));
-    }
-
-    function loadProjectData() {
-        const saved = localStorage.getItem('iy_maker_draft');
-        if (saved) {
-            try {
-                const data = JSON.parse(saved);
-                if (data.pluginName || data.commands?.length > 0) {
-                    if (confirm('Found a saved draft. Restore it?')) {
-                        document.getElementById('plugin-name').value = data.pluginName || '';
-                        document.getElementById('plugin-desc').value = data.pluginDesc || '';
-                        pluginData.commands = data.commands || [];
-                        renderCommands();
-                        updatePreview();
-                    }
-                }
-            } catch (e) { console.error('Failed to load draft', e); }
+    function setupEditorListeners() {
+        const nameInput = document.getElementById('plugin-name');
+        const descInput = document.getElementById('plugin-desc');
+        
+        if (nameInput) {
+            nameInput.addEventListener('input', () => {
+                pluginData.name = nameInput.value;
+                updatePreview();
+            });
+        }
+        
+        if (descInput) {
+            descInput.addEventListener('input', () => {
+                pluginData.description = descInput.value;
+                updatePreview();
+            });
         }
     }
-
-    // Call load on start
-    setTimeout(loadProjectData, 100);
-
-    // Auto-save on changes
-    ['plugin-name', 'plugin-desc'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener('input', saveProjectData);
-    });
+    
+    // Call listeners setup
+    setTimeout(setupEditorListeners, 100);
 
 function initMonaco() {
     if (window.monacoInitPromise) return window.monacoInitPromise;
@@ -599,7 +584,6 @@ function updatePreview() {
         previewEditor.setValue(generateLua());
         isProgrammaticUpdate = false;
     }
-    saveProjectData();
 }
 
 function renderCommands() {
@@ -1076,9 +1060,45 @@ function parseLuaToForm(text) {
         let commandsMatch = text.match(/\[(["'])Commands\1\]/);
         let commandsStart = commandsMatch ? commandsMatch.index : -1;
         if (commandsStart === -1) {
-            renderCommands();
-            updatePreview();
-            alert('Loaded plugin metadata, but no Commands block was found.');
+            // Improved Loader Detection (handles nested parents and multi-args)
+            let loaderRegex = /loadstring\s*\(\s*game\s*:\s*HttpGet\s*\(\s*\(?\s*(["'])(.*?)\1\s*\)?(?:\s*,\s*[^)]+)?\s*\)\s*\)\s*\(\s*\)/i;
+            let loaderMatch = text.match(loaderRegex);
+            if (loaderMatch) {
+                let url = loaderMatch[2];
+                let loaderUI = document.getElementById('loader-ui');
+                let urlPreview = document.getElementById('loader-url-preview');
+                if (loaderUI && urlPreview) {
+                    urlPreview.textContent = url.length > 50 ? url.substring(0, 47) + '...' : url;
+                    loaderUI.classList.add('active');
+                    
+                    document.getElementById('loader-ui-dismiss').onclick = () => {
+                        loaderUI.classList.remove('active');
+                    };
+
+                    let fetchBtn = document.getElementById('loader-ui-fetch');
+                    fetchBtn.onclick = async () => {
+                        fetchBtn.disabled = true;
+                        fetchBtn.innerHTML = '<span class="loader-shimmer">Fetching...</span>';
+                        loaderUI.classList.add('loader-shimmer');
+                        try {
+                            const resp = await fetch(url);
+                            if (!resp.ok) throw new Error('Fetch failed');
+                            const remoteCode = await resp.text();
+                            loaderUI.classList.remove('active', 'loader-shimmer');
+                            parseLuaToForm(remoteCode);
+                        } catch (e) {
+                            alert('Failed to fetch source: ' + e.message);
+                            fetchBtn.textContent = 'Fetch & Edit';
+                            fetchBtn.disabled = false;
+                            loaderUI.classList.remove('loader-shimmer');
+                        }
+                    };
+                }
+            } else {
+                renderCommands();
+                updatePreview();
+                alert('Loaded plugin metadata, but no Commands block was found.');
+            }
             return;
         }
 
@@ -1163,11 +1183,69 @@ function parseLuaToForm(text) {
                 let fnStartIdx = fnMatch.index + fnMatch[0].length;
                 let fnStr = blockStr.substring(fnStartIdx);
 
-                let lastEnd = fnStr.lastIndexOf('end');
-                if (lastEnd !== -1) {
-                    code = fnStr.substring(0, lastEnd);
-                } else {
-                    code = fnStr;
+                // Robust Depth-Aware Balancing Scan
+                let depth = 1; // We start inside the function (which opened)
+                let i = 0;
+                let inString = false;
+                let stringChar = '';
+                let longString = false;
+                let inComment = false;
+                let longComment = false;
+
+                let lastMatchedWordLength = 0;
+                while (i < fnStr.length && depth > 0) {
+                    let char = fnStr[i];
+                    let next = fnStr[i+1];
+                    let prev = i > 0 ? fnStr[i-1] : '';
+
+                    if (inComment) {
+                        if (longComment) {
+                            if (char === ']' && next === ']') { inComment = false; longComment = false; i++; }
+                        } else {
+                            if (char === '\n') inComment = false;
+                        }
+                    } else if (inString) {
+                        if (longString) {
+                            if (char === ']' && next === ']') { inString = false; longString = false; i++; }
+                        } else {
+                            if (char === stringChar && prev !== '\\') inString = false;
+                        }
+                    } else {
+                        // Check for comments
+                        if (char === '-' && next === '-') {
+                            inComment = true;
+                            if (fnStr.substring(i+2, i+4) === '[[') { longComment = true; i += 3; }
+                            else i++;
+                        }
+                        // Check for strings
+                        else if (char === '"' || char === "'") {
+                            inString = true;
+                            stringChar = char;
+                        }
+                        else if (char === '[' && next === '[') {
+                            inString = true;
+                            longString = true;
+                            i++;
+                        }
+                        // Check for keywords (balancing)
+                        else {
+                            let wordMatch = fnStr.substring(i).match(/^(end|function|if|while|for|do|repeat|until)\b/);
+                            if (wordMatch) {
+                                let word = wordMatch[0];
+                                lastMatchedWordLength = word.length;
+                                if (word === 'end' || word === 'until') depth--;
+                                else if (word === 'function' || word === 'if' || word === 'while' || word === 'for' || word === 'do' || word === 'repeat') {
+                                    depth++;
+                                }
+                                i += word.length - 1;
+                            }
+                        }
+                    }
+                    i++;
+                    if (depth === 0) {
+                        code = fnStr.substring(0, i - lastMatchedWordLength).trim(); 
+                        break;
+                    }
                 }
             }
 

@@ -1092,3 +1092,78 @@ body.ide-mode .maker-header {
 .btn-link-inline:hover {
     color: #fff !important;
 }
+
+/* ---- Loader UI ---- */
+.loader-ui {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #121214;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1000;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader-ui.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.loader-ui-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(74, 222, 128, 0.1);
+    border-radius: 10px;
+    color: #4ade80;
+}
+
+.loader-ui-content {
+    flex: 1;
+}
+
+.loader-ui-content h4 {
+    font-size: 0.9rem;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.loader-ui-content p {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.loader-ui-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 8px;
+}
+
+.loader-ui-actions .btn {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+}
+
+.loader-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(74, 222, 128, 0.1), transparent);
+    background-size: 200% 100%;
+    animation: loader-shimmer 1.5s infinite;
+}
+
+@keyframes loader-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
