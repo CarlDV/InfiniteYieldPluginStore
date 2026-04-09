@@ -47,7 +47,7 @@ If you would like to improve the website UI, fix bugs, or add features:
 
 ---
 
-### Credits & Vibes
+### Credits
 This project is **80% vibecoded** using **Opus 4.6** and **Gemini 3.1 Pro**. Honestly, no one would want to code this manually xoxoxox.
 
 ---
