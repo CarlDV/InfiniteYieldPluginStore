@@ -825,6 +825,17 @@ function extractGlobalCode(text) {
     
     if (lastIndex !== -1) {
         header = text.substring(0, lastIndex).trim();
+        
+        // Strip the IY Plugin Maker signature if it exists to prevent duplication on export
+        const sigBlock = "--------------------------------------------------------------------------------\n" +
+                         "-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)\n" +
+                         "-- This plugin was generated automatically using IY Plugin Maker.\n" +
+                         "--------------------------------------------------------------------------------";
+        
+        if (header.includes(sigBlock)) {
+            header = header.replace(sigBlock, "").trim();
+        }
+
         let depth = 0;
         let inString = false;
         let stringChar = '';
