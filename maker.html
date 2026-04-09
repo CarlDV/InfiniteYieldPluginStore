@@ -44,216 +44,232 @@
     </header>
 
     <div id="content-area">
-    <main class="maker-main">
-        <div id="drop-zone" class="drop-zone hidden">
-            <div class="drop-zone-content">
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="17 8 12 3 7 8"></polyline>
-                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-                <h3>Drop .iy file here</h3>
-                <p>Upload an existing plugin to edit it</p>
-            </div>
-        </div>
-
-        <div class="maker-container">
-            <div class="maker-form-section">
-                <div class="mobile-warning">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        <main class="maker-main">
+            <div id="drop-zone" class="drop-zone hidden">
+                <div class="drop-zone-content">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
-                    <span><strong>Note:</strong> The Plugin Maker is not recommended for mobile devices. For the best experience, please use a desktop browser.</span>
+                    <h3>Drop .iy file here</h3>
+                    <p>Upload an existing plugin to edit it</p>
                 </div>
-                <div class="maker-header">
-                    <div class="maker-title-row">
-                        <h1>Plugin Maker</h1>
-                        <div class="tour-launcher">
-                            <span class="btn-arrow">→</span>
-                            <button class="btn btn-primary" id="start-tour-btn">
-                                Start Tutorial
+            </div>
+
+            <div class="maker-container">
+                <div class="maker-form-section">
+                    <div class="mobile-warning">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <span><strong>Note:</strong> The Plugin Maker is not recommended for mobile devices. For the
+                            best experience, please use a desktop browser.</span>
+                    </div>
+                    <div class="maker-header">
+                        <div class="maker-title-row">
+                            <h1>Plugin Maker</h1>
+                            <div class="tour-launcher">
+                                <span class="btn-arrow">→</span>
+                                <button class="btn btn-primary" id="start-tour-btn">
+                                    Start Tutorial
+                                </button>
+                            </div>
+                        </div>
+                        <div class="maker-subtitle-row">
+                            <p>Create a new Infinite Yield plugin visually. Use the import area below to load an
+                                existing <code>.iy</code> file for editing.</p>
+                        </div>
+                    </div>
+
+                    <div class="import-area" id="import-area">
+                        <div class="import-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                        </div>
+                        <div class="import-text">
+                            <h3>Import Existing Plugin</h3>
+                            <p>Drag & drop or Click to upload .iy file</p>
+                        </div>
+                        <input type="file" id="upload-plugin-file" accept=".iy" style="display: none;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="plugin-name">Plugin Name</label>
+                        <input type="text" id="plugin-name" placeholder="e.g. ExamplePlugin" value="ExamplePlugin">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="plugin-desc">Plugin Description</label>
+                        <textarea id="plugin-desc" rows="3" placeholder="Description of your plugin..."
+                            style="resize: vertical;">This is a helpful template created using IY Plugin Maker.</textarea>
+                    </div>
+
+                    <div class="commands-header">
+                        <div class="ch-left">
+                            <h2>Commands</h2>
+                            <div class="search-mini">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" id="cmd-search" placeholder="Search commands...">
+                            </div>
+                        </div>
+                        <div class="ch-actions">
+                            <button class="btn btn-primary" id="add-cmd-btn">+ Add Command</button>
+                        </div>
+                    </div>
+
+                    <div id="commands-list" class="commands-list">
+                        <!-- Commands will be dynamically injected here -->
+                    </div>
+                </div>
+
+                <div class="maker-preview-section">
+                    <div class="preview-header">
+                        <h2>Live Preview</h2>
+                        <div class="preview-actions">
+                            <button class="btn btn-secondary btn-sm" id="browse-store-btn"
+                                title="Browse Community Store">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Browse Plugins to Edit :3
+                            </button>
+                            <button class="btn btn-secondary btn-sm" id="ide-mode-toggle" title="Full Web IDE Mode">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3">
+                                    </path>
+                                </svg>
+                                IDE Mode
+                            </button>
+                            <button class="btn btn-success" id="download-btn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Download Plugin
                             </button>
                         </div>
                     </div>
-                    <p>Create a new Infinite Yield plugin visually. Use the import area below to load an existing <code>.iy</code> file for editing.</p>
-                </div>
-
-                <div class="showcase-container">
-                    <video class="showcase-video" src="tutor/SHOWCASE_MAKER.mp4" controls preload="metadata"></video>
-                </div>
-
-                <div class="usage-steps">
-                    <div class="step">
-                        <div class="step-num">1</div>
-                        <div class="step-content">
-                            <h4>Setup</h4>
-                            <p>Enter your plugin's name and a clear description.</p>
-                        </div>
+                    <div id="sync-warning" class="sync-banner hidden">
+                        <span>⚠️ Manual edits detected. Form syncing paused.</span>
+                        <button class="btn btn-sm btn-primary" id="resume-sync-btn">Resume Sync</button>
                     </div>
-                    <div class="step">
-                        <div class="step-num">2</div>
-                        <div class="step-content">
-                            <h4>Commands</h4>
-                            <p>Click "Add Command" to define a new action for your plugin.</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">3</div>
-                        <div class="step-content">
-                            <h4>Logic</h4>
-                            <p>Write your Lua code in the editor and save the command.</p>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">4</div>
-                        <div class="step-content">
-                            <h4>Export</h4>
-                            <p>Preview your code and click "Download Plugin" to get your .iy file.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="import-area" id="import-area">
-                    <div class="import-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="17 8 12 3 7 8"></polyline>
-                            <line x1="12" y1="3" x2="12" y2="15"></line>
-                        </svg>
-                    </div>
-                    <div class="import-text">
-                        <h3>Import Existing Plugin</h3>
-                        <p>Drag & drop or Click to upload <code>.iy</code> file</p>
-                    </div>
-                    <input type="file" id="upload-plugin-file" accept=".iy" style="display: none;">
-                </div>
-
-                <div class="form-group">
-                    <label for="plugin-name">Plugin Name</label>
-                    <input type="text" id="plugin-name" placeholder="e.g. ExamplePlugin" value="ExamplePlugin">
-                </div>
-
-                <div class="form-group">
-                    <label for="plugin-desc">Plugin Description</label>
-                    <textarea id="plugin-desc" rows="3" placeholder="Description of your plugin..."
-                        style="resize: vertical;">This is a helpful template created using IY Plugin Maker.</textarea>
-                </div>
-
-                <div class="commands-header">
-                    <div class="ch-left">
-                        <h2>Commands</h2>
-                        <div class="search-mini">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
-                            <input type="text" id="cmd-search" placeholder="Search commands...">
-                        </div>
-                    </div>
-                    <button class="btn btn-primary" id="add-cmd-btn">+ Add Command</button>
-                </div>
-
-                <div id="commands-list" class="commands-list">
-                    <!-- Commands will be dynamically injected here -->
+                    <div id="monaco-preview" class="monaco-container"></div>
                 </div>
             </div>
 
-            <div class="maker-preview-section">
-                <div class="preview-header">
-                    <h2>Live Preview</h2>
-                    <div class="preview-actions">
-                        <button class="btn btn-secondary btn-sm" id="ide-mode-toggle" title="Full Web IDE Mode">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
-                            </svg>
-                            IDE Mode
-                        </button>
-                        <button class="btn btn-success" id="download-btn">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Download Plugin
-                        </button>
+            <!-- Command Editor Modal over the screen -->
+            <div id="cmd-modal" class="overlay hidden">
+                <div class="modal cmd-editor-modal">
+                    <div class="modal-top">
+                        <h2 id="cmd-modal-title">Edit Command</h2>
+                        <div style="display:flex;gap:8px;">
+                            <button class="close-btn" id="cmd-modal-expand" title="Toggle Fullscreen"
+                                style="font-size: 1.1rem; line-height: 1;">⛶</button>
+                            <button class="close-btn" id="cmd-modal-close" title="Close">×</button>
+                        </div>
                     </div>
-                </div>
-                <div id="sync-warning" class="sync-banner hidden">
-                    <span>⚠️ Manual edits detected. Form syncing paused.</span>
-                    <button class="btn btn-sm btn-primary" id="resume-sync-btn">Resume Sync</button>
-                </div>
-                <div id="monaco-preview" class="monaco-container"></div>
-            </div>
-        </div>
-
-        <!-- Command Editor Modal over the screen -->
-        <div id="cmd-modal" class="overlay hidden">
-            <div class="modal cmd-editor-modal">
-                <div class="modal-top">
-                    <h2 id="cmd-modal-title">Edit Command</h2>
-                    <div style="display:flex;gap:8px;">
-                        <button class="close-btn" id="cmd-modal-expand" title="Toggle Fullscreen" style="font-size: 1.1rem; line-height: 1;">⛶</button>
-                        <button class="close-btn" id="cmd-modal-close" title="Close">×</button>
+                    <div class="modal-content cmd-modal-content">
+                        <div class="modal-fields-sidebar">
+                            <div class="form-group">
+                                <label for="cmd-key">Command Internal Name (Key)</label>
+                                <input type="text" id="cmd-key" placeholder="e.g. print">
+                                <p class="field-help">The unique ID Infinite Yield uses to identify this command (e.g.
+                                    <code>fly</code>). Users won't usually see this.
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label for="cmd-list-name">List Name (Usage format)</label>
+                                <input type="text" id="cmd-list-name" placeholder="e.g. print [text]">
+                                <p class="field-help">How the command appears in the IY command list. Use <code>[arg]</code>
+                                    to denote arguments.</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="cmd-desc">Command Description</label>
+                                <input type="text" id="cmd-desc" placeholder="e.g. Outputs text to console">
+                                <p class="field-help">A short explanation of what the command does, shown in the IY help
+                                    menu.</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="cmd-aliases">Aliases (comma-separated)</label>
+                                <input type="text" id="cmd-aliases" placeholder="e.g. p, output, log">
+                                <p class="field-help">Other words that trigger this command. Useful for shortcuts (e.g.
+                                    <code>f</code> for <code>fly</code>).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-editor-main">
+                            <div class="form-group flex-fill">
+                                <label>Function Code</label>
+                                <div id="monaco-cmd-editor" class="monaco-container small-monaco"></div>
+                                <p class="field-help">The Lua logic that runs when the command is typed. Use
+                                    <code>args</code> for inputs and <code>speaker</code> for the user.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-content cmd-modal-content">
-                    <div class="form-group">
-                        <label for="cmd-key">Command Internal Name (Key)</label>
-                        <input type="text" id="cmd-key" placeholder="e.g. print">
-                        <p class="field-help">The unique ID Infinite Yield uses to identify this command (e.g. <code>fly</code>). Users won't usually see this.</p>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="save-cmd-btn">Save Command</button>
+                        <button class="btn btn-secondary" id="cancel-cmd-btn">Cancel</button>
                     </div>
-                    <div class="form-group">
-                        <label for="cmd-list-name">List Name (Usage format)</label>
-                        <input type="text" id="cmd-list-name" placeholder="e.g. print [text]">
-                        <p class="field-help">How the command appears in the IY command list. Use <code>[arg]</code> to denote arguments.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="cmd-desc">Command Description</label>
-                        <input type="text" id="cmd-desc" placeholder="e.g. Outputs text to console">
-                        <p class="field-help">A short explanation of what the command does, shown in the IY help menu.</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="cmd-aliases">Aliases (comma-separated)</label>
-                        <input type="text" id="cmd-aliases" placeholder="e.g. p, output, log">
-                        <p class="field-help">Other words that trigger this command. Useful for shortcuts (e.g. <code>f</code> for <code>fly</code>).</p>
-                    </div>
-                    <div class="form-group flex-fill">
-                        <label>Function Code</label>
-                        <div id="monaco-cmd-editor" class="monaco-container small-monaco"></div>
-                        <p class="field-help">The Lua logic that runs when the command is typed. Use <code>args</code> for inputs and <code>speaker</code> for the user.</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" id="save-cmd-btn">Save Command</button>
-                    <button class="btn btn-secondary" id="cancel-cmd-btn">Cancel</button>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
     </div>
 
-        <!-- Tour Overlay -->
-        <div id="tour-overlay" class="tour-overlay hidden">
-            <div id="tour-spotlight" class="tour-spotlight"></div>
-            <div id="tour-card" class="tour-card">
-                <div class="tour-card-content">
-                    <h3 id="tour-title">Step Title</h3>
-                    <p id="tour-desc">Step description goes here.</p>
-                </div>
-                <div class="tour-footer">
-                    <span id="tour-progress">1 / 4</span>
-                    <div class="tour-btns">
-                        <button class="btn btn-secondary btn-sm" id="tour-skip">Skip</button>
-                        <button class="btn btn-secondary btn-sm hidden" id="tour-back">Back</button>
-                        <button class="btn btn-primary btn-sm" id="tour-next">Next</button>
-                    </div>
+    <!-- Tour Overlay -->
+    <div id="tour-overlay" class="tour-overlay hidden">
+        <div id="tour-spotlight" class="tour-spotlight"></div>
+        <div id="tour-card" class="tour-card">
+            <div class="tour-card-content">
+                <h3 id="tour-title">Step Title</h3>
+                <p id="tour-desc">Step description goes here.</p>
+            </div>
+            <div class="tour-footer">
+                <span id="tour-progress">1 / 4</span>
+                <div class="tour-btns">
+                    <button class="btn btn-secondary btn-sm" id="tour-skip">Skip</button>
+                    <button class="btn btn-secondary btn-sm hidden" id="tour-back">Back</button>
+                    <button class="btn btn-primary btn-sm" id="tour-next">Next</button>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Store Browser Modal -->
+    <div id="store-modal" class="overlay hidden">
+        <div class="modal store-modal">
+            <div class="modal-top">
+                <h2>Browse Community Plugins</h2>
+                <button class="close-btn" id="store-modal-close">×</button>
+            </div>
+            <div class="store-modal-search">
+                <input type="text" id="store-search-input" placeholder="Search by name or author...">
+            </div>
+            <div class="modal-content store-modal-content" id="store-plugins-list">
+                <div class="loading-state">Loading plugins...</div>
+            </div>
+        </div>
+    </div>
 
     <script src="maker.js"></script>
     <script src="router.js"></script>

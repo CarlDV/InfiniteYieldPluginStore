@@ -52,6 +52,7 @@
 }
 
 .showcase-container {
+    position: relative;
     width: 100%;
     border-radius: 12px;
     overflow: hidden;
@@ -124,6 +125,41 @@
 @media (max-width: 600px) {
     .usage-steps {
         grid-template-columns: 1fr;
+    }
+
+    .commands-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .ch-left {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .ch-actions {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .ch-actions .btn {
+        width: 100%;
+    }
+
+    .search-mini {
+        width: 100%;
+    }
+
+    .maker-title-row {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        text-align: center;
     }
 }
 
@@ -470,8 +506,8 @@
 
 /* ---- Modals ---- */
 .cmd-editor-modal {
-    width: 90%;
-    max-width: 800px;
+    width: 95%;
+    max-width: 1200px;
     height: 90vh;
     display: flex;
     flex-direction: column;
@@ -516,11 +552,50 @@
 
 .cmd-modal-content {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: hidden; /* Container doesn't scroll, columns do */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-fields-sidebar {
     padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    overflow-y: auto;
+}
+
+.modal-editor-main {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
+    flex: 1;
+}
+
+.modal-editor-main .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-editor-main .monaco-container {
+    flex: 1;
+    min-height: 400px;
+}
+
+@media (min-width: 900px) {
+    .cmd-modal-content {
+        flex-direction: row;
+    }
+    
+    .modal-fields-sidebar {
+        width: 380px;
+        flex-shrink: 0;
+    }
 }
 
 .modal-footer {
@@ -603,6 +678,7 @@
     overflow: hidden;
     animation: btn-glow-pulse 3s infinite ease-in-out;
 }
+
 
 .btn-arrow {
     display: inline-block;
@@ -825,4 +901,185 @@ body.ide-mode #ide-mode-toggle svg {
     .mobile-warning {
         display: flex;
     }
+}
+
+/* UI Toggles & Link Buttons */
+.maker-subtitle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--cyan);
+    font-size: 0.85rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.btn-link:hover {
+    color: #fff;
+}
+
+.btn-link-sm {
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.btn-link-sm:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.section-header-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.section-header-mini span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text3);
+}
+
+.hide-section-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.hide-section-btn:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+    transform: scale(1.1);
+}
+
+/* Store Browser Modal Styling */
+.store-modal {
+    max-width: 900px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.store-modal-search {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.store-modal-search input {
+    width: 100%;
+    padding: 14px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.store-modal-search input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.1);
+}
+
+.store-modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    background: #000;
+    align-content: start;
+}
+
+/* Fix for card squishing */
+.store-modal-content .card {
+    background: #0a0a0c;
+    border-color: rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    width: 100%;
+}
+
+.store-modal-content .card:hover {
+    background: #111114;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Hide tour launcher and header in IDE mode to save space */
+body.ide-mode .tour-launcher,
+body.ide-mode .maker-header {
+    display: none !important;
+}
+
+.store-modal-content .remix-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.store-modal-content .card:hover .remix-badge {
+    background: #fff;
+    color: #000;
+}
+
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 64px;
+    color: var(--text3);
+    font-size: 1rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.btn-link-inline {
+    transition: all 0.2s;
+}
+
+.btn-link-inline:hover {
+    color: #fff !important;
 }

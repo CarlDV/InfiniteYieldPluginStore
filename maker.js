@@ -39,11 +39,6 @@ const tourSteps = [
         desc: 'This tool lets you build Infinite Yield plugins visually without writing the boilerplate code yourself.'
     },
     {
-        target: '.usage-steps',
-        title: 'Follow the Steps',
-        desc: 'We\'ve outlined 4 simple steps to get your plugin from idea to .iy file. Use these as your checklist!'
-    },
-    {
         target: '#import-area',
         title: 'Import Existing Plugins',
         desc: 'Already have a .iy file? Drag and drop it here or click to import. You can edit any existing plugin with ease!'
@@ -276,6 +271,43 @@ initMonaco().then(() => {
 
     renderCommands(); // Render the initial template command
 
+    // Persistence & Auto-Save
+    function saveProjectData() {
+        const data = {
+            pluginName: document.getElementById('plugin-name').value,
+            pluginDesc: document.getElementById('plugin-desc').value,
+            commands: pluginData.commands
+        };
+        localStorage.setItem('iy_maker_draft', JSON.stringify(data));
+    }
+
+    function loadProjectData() {
+        const saved = localStorage.getItem('iy_maker_draft');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                if (data.pluginName || data.commands?.length > 0) {
+                    if (confirm('Found a saved draft. Restore it?')) {
+                        document.getElementById('plugin-name').value = data.pluginName || '';
+                        document.getElementById('plugin-desc').value = data.pluginDesc || '';
+                        pluginData.commands = data.commands || [];
+                        renderCommands();
+                        updatePreview();
+                    }
+                }
+            } catch (e) { console.error('Failed to load draft', e); }
+        }
+    }
+
+    // Call load on start
+    setTimeout(loadProjectData, 100);
+
+    // Auto-save on changes
+    ['plugin-name', 'plugin-desc'].forEach(id => {
+        document.getElementById(id).addEventListener('input', saveProjectData);
+    });
+
+
     // Attach search listener
     const cmdSearch = document.getElementById('cmd-search');
     if (cmdSearch) {
@@ -290,6 +322,160 @@ initMonaco().then(() => {
     document.getElementById('tour-next').addEventListener('click', nextTourStep);
     document.getElementById('tour-back').addEventListener('click', prevTourStep);
     document.getElementById('tour-skip').addEventListener('click', endTour);
+
+    // Store Integration Logic
+    let allStorePlugins = [];
+    const storeModal = document.getElementById('store-modal');
+    const storePluginsList = document.getElementById('store-plugins-list');
+    const storeSearch = document.getElementById('store-search-input');
+
+    async function fetchStorePlugins() {
+        if (allStorePlugins.length > 0) return;
+        try {
+            // Use absolute path to ensure fetching from root across routes
+            const resp = await fetch('/data/plugins.json');
+            if (!resp.ok) throw new Error('Network response was not ok');
+            const data = await resp.json();
+            allStorePlugins = (data.plugins || []).sort((a, b) => {
+                const dateA = new Date(a.date || 0);
+                const dateB = new Date(b.date || 0);
+                return dateB - dateA;
+            });
+            renderStorePlugins();
+        } catch (e) {
+            console.error('Failed to fetch plugins', e);
+            if (storePluginsList) {
+                storePluginsList.innerHTML = `<div class="loading-state">Failed to load plugins. Database file not found or connection issue. <br><small>${e.message}</small></div>`;
+            }
+        }
+    }
+
+    // Helper functions for rendering
+    function esc(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function fmtDate(dateStr) {
+        if (!dateStr) return 'Unknown date';
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) return 'Unknown date';
+        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    let storeLimit = 24;
+
+    function renderStorePlugins(filter = '', limit = storeLimit) {
+        if (!storePluginsList) return;
+        storeLimit = limit;
+        const query = filter.toLowerCase();
+        const filtered = allStorePlugins.filter(p => 
+            p.name.toLowerCase().includes(query) || 
+            (p.author && (typeof p.author === 'string' ? p.author : p.author.name).toLowerCase().includes(query))
+        );
+
+        if (filtered.length === 0) {
+            storePluginsList.innerHTML = '<div class="loading-state">No plugins found matching your search.</div>';
+            return;
+        }
+
+        const paginated = filtered.slice(0, limit);
+
+        let html = paginated.map(p => {
+            const author = p.author && typeof p.author === 'object' ? p.author : { name: p.author || 'Unknown' };
+            const authorName = author.name;
+            const avatarHTML = author.avatar 
+                ? `<img src="${author.avatar}" class="card-avatar" alt="">`
+                : `<div class="card-avatar-ph">${esc(authorName[0].toUpperCase())}</div>`;
+            
+            let tags = '';
+            if (p.files && p.files.length > 0) tags += '<span class="tag tag-file">.iy file</span>';
+            if (p.code_blocks && p.code_blocks.length > 0) tags += '<span class="tag tag-code">Source</span>';
+
+            return `
+                <div class="card" onclick="importFromStore('${p.id}')">
+                    <div class="card-header">
+                        ${avatarHTML}
+                        <div class="card-info">
+                            <div class="card-name">${esc(p.name || 'Untitled')}</div>
+                            <div class="card-author">by ${esc(authorName)}</div>
+                        </div>
+                        <div class="card-date">${fmtDate(p.date)}</div>
+                    </div>
+                    <div class="card-desc">${esc(p.description || 'No description provided.')}</div>
+                    <div class="card-footer">
+                        <div class="card-tags">${tags}</div>
+                        <div class="remix-badge">REMIX</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        if (filtered.length > limit) {
+            html += `
+                <div class="load-more-container" style="grid-column: 1/-1; display:flex; justify-content:center; padding: 20px 0;">
+                    <button class="btn btn-secondary" id="load-more-store-btn" onclick="window.loadMoreStore()">Load More Plugins</button>
+                </div>
+            `;
+        }
+
+        storePluginsList.innerHTML = html;
+    }
+
+    window.loadMoreStore = function() {
+        renderStorePlugins(storeSearch ? storeSearch.value : '', storeLimit + 24);
+    };
+
+    window.importFromStore = function(id) {
+        const plugin = allStorePlugins.find(p => p.id === id);
+        if (!plugin) return;
+        
+        if (confirm(`Are you sure you want to remix "${plugin.name}"? This will overwrite your current project.`)) {
+            // The source code is inside the first file object for these plugins
+            let sourceCode = '';
+            if (plugin.files && plugin.files.length > 0) {
+                sourceCode = plugin.files[0].code;
+            } else if (plugin.code) {
+                sourceCode = plugin.code;
+            }
+
+            if (sourceCode) {
+                parseLuaToForm(sourceCode); 
+                if (storeModal) storeModal.classList.add('hidden');
+            } else {
+                alert('Could not find source code for this plugin.');
+            }
+        }
+    };
+
+    const browseStoreBtn = document.getElementById('browse-store-btn');
+    if (browseStoreBtn) {
+        browseStoreBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents importArea from triggering file upload
+            if (storeModal) storeModal.classList.remove('hidden');
+            fetchStorePlugins();
+        });
+    }
+
+    const storeModalClose = document.getElementById('store-modal-close');
+    if (storeModalClose) {
+        storeModalClose.addEventListener('click', () => {
+            if (storeModal) storeModal.classList.add('hidden');
+        });
+    }
+
+    if (storeSearch) {
+        storeSearch.addEventListener('input', (e) => {
+            renderStorePlugins(e.target.value);
+        });
+    }
+
+    // Close modal on escape
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && storeModal && !storeModal.classList.contains('hidden')) {
+            storeModal.classList.add('hidden');
+        }
+    });
 
     // Attach IDE mode listener
     const ideToggle = document.getElementById('ide-mode-toggle');
@@ -410,6 +596,7 @@ function updatePreview() {
         previewEditor.setValue(generateLua());
         isProgrammaticUpdate = false;
     }
+    saveProjectData();
 }
 
 function renderCommands() {
@@ -1007,11 +1194,16 @@ function parseLuaToForm(text) {
             });
         }
 
-        renderCommands();
-        // Force autoSync active because we successfully parsed entirely client-side
-        autoSyncEnabled = true;
-        document.getElementById('sync-warning').classList.add('hidden');
-        updatePreview();
+        try {
+            renderCommands();
+            // Force autoSync active because we successfully parsed entirely client-side
+            autoSyncEnabled = true;
+            const syncWarn = document.getElementById('sync-warning');
+            if (syncWarn) syncWarn.classList.add('hidden');
+            updatePreview();
+        } catch (syncErr) {
+            console.warn('Parser succeeded but UI sync failed:', syncErr);
+        }
 
         if (pluginData.commands.length === 0) {
             alert('Loaded plugin metadata, but could not automatically parse commands.');
@@ -1019,7 +1211,7 @@ function parseLuaToForm(text) {
 
     } catch (e) {
         console.error('Error parsing Lua:', e);
-        alert('Failed to parse the provided .iy file correctly.');
+        alert('Failed to parse the provided .iy file correctly. Check the console for details.');
     }
 }
 
