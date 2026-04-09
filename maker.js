@@ -359,6 +359,7 @@ document.getElementById('resume-sync-btn').addEventListener('click', () => {
 
 function generateLua() {
     let lua = "";
+
     if (pluginData.headerCode && pluginData.headerCode.trim().length > 0) {
         lua += pluginData.headerCode.trim() + "\n\n";
     }
@@ -725,7 +726,18 @@ document.getElementById('save-cmd-btn').addEventListener('click', () => {
 
 // Download
 document.getElementById('download-btn').addEventListener('click', () => {
-    const luaCode = previewEditor ? previewEditor.getValue() : generateLua();
+    let luaCode = previewEditor ? previewEditor.getValue() : generateLua();
+    
+    // Final enforcement of the signature on export
+    const signature = "MADE WITH IY PLUGIN MAKER";
+    if (!luaCode.includes(signature)) {
+        const header = "--------------------------------------------------------------------------------\n" +
+                       "-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)\n" +
+                       "-- This plugin was generated automatically using IY Plugin Maker.\n" +
+                       "--------------------------------------------------------------------------------\n\n";
+        luaCode = header + luaCode;
+    }
+
     const blob = new Blob([luaCode], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
