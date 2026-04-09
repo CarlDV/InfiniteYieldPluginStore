@@ -30,6 +30,36 @@ let cmdEditor = null;
 let currentEditingCmdId = null;
 let isProgrammaticUpdate = false;
 let autoSyncEnabled = true;
+let cmdSearchQuery = '';
+
+const tourSteps = [
+    {
+        target: '.maker-header',
+        title: 'Welcome to Plugin Maker!',
+        desc: 'This tool lets you build Infinite Yield plugins visually without writing the boilerplate code yourself.'
+    },
+    {
+        target: '.usage-steps',
+        title: 'Follow the Steps',
+        desc: 'We\'ve outlined 4 simple steps to get your plugin from idea to .iy file. Use these as your checklist!'
+    },
+    {
+        target: '.commands-header',
+        title: 'Create Your Commands',
+        desc: 'This is the heart of your plugin. Add multiple commands here. You can even search through them if you have many!'
+    },
+    {
+        target: '.maker-preview-section',
+        title: 'Live Preview',
+        desc: 'As you make changes, the Lua code updates in real-time here. You can even manually edit this code if you need total control.'
+    },
+    {
+        target: '#download-btn',
+        title: 'Ready to Go?',
+        desc: 'Once you\'re happy, click Download to save your plugin and place it in your exploit\'s workspace folder.'
+    }
+];
+let currentTourStep = -1;
 
 const MONACO_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.46.0/min';
 
@@ -172,6 +202,55 @@ initMonaco().then(() => {
     });
 
     renderCommands(); // Render the initial template command
+
+    // Attach search listener
+    const cmdSearch = document.getElementById('cmd-search');
+    if (cmdSearch) {
+        cmdSearch.addEventListener('input', (e) => {
+            cmdSearchQuery = e.target.value.toLowerCase().trim();
+            renderCommands();
+        });
+    }
+
+    // Attach tour listeners
+    document.getElementById('start-tour-btn').addEventListener('click', startTour);
+    document.getElementById('tour-next').addEventListener('click', nextTourStep);
+    document.getElementById('tour-skip').addEventListener('click', endTour);
+
+    // Attach IDE mode listener
+    const ideToggle = document.getElementById('ide-mode-toggle');
+    if (ideToggle) {
+        ideToggle.addEventListener('click', () => {
+            document.body.classList.toggle('ide-mode');
+            
+            // Resize Monaco editors
+            const resizeEditors = () => {
+                if (previewEditor) previewEditor.layout();
+                if (cmdEditor) cmdEditor.layout();
+            };
+
+            // Instant layout for better feel
+            resizeEditors();
+            
+            // Broader safety checks as the grid settles
+            setTimeout(resizeEditors, 100);
+            setTimeout(resizeEditors, 500);
+
+            // End tour if active to prevent misalignment
+            if (currentTourStep !== -1) endTour();
+        });
+    }
+
+    // Handle window resizing
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (previewEditor) previewEditor.layout();
+            if (cmdEditor) cmdEditor.layout();
+        }, 100);
+    });
+
 }).catch(err => {
     console.error('Monaco failed to load:', err);
     document.getElementById('monaco-preview').innerHTML = '<pre style="padding:16px;color:#ccc;font-family:monospace;">Monaco editor failed to load. Please use a local HTTP server (e.g. npx serve) instead of file://</pre>';
@@ -252,7 +331,18 @@ function renderCommands() {
     const list = document.getElementById('commands-list');
     list.innerHTML = '';
 
-    pluginData.commands.forEach(cmd => {
+    const filtered = pluginData.commands.filter(cmd => {
+        if (!cmdSearchQuery) return true;
+        return (cmd.key && cmd.key.toLowerCase().includes(cmdSearchQuery)) || 
+               (cmd.listName && cmd.listName.toLowerCase().includes(cmdSearchQuery)) ||
+               (cmd.desc && cmd.desc.toLowerCase().includes(cmdSearchQuery));
+    });
+
+    if (filtered.length === 0 && pluginData.commands.length > 0) {
+        list.innerHTML = '<div class="empty-search">No commands match your search.</div>';
+    }
+
+    filtered.forEach(cmd => {
         const div = document.createElement('div');
         div.className = 'cmd-item';
         div.innerHTML = `
@@ -261,12 +351,109 @@ function renderCommands() {
                 <p>Key: <code>${cmd.key}</code></p>
             </div>
             <div class="cmd-actions">
+                <button class="btn btn-secondary btn-sm" onclick="gotoCommand('${escLua(cmd.key)}')" title="Go to Code">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                </button>
                 <button class="btn btn-secondary btn-sm" onclick="editCommand('${cmd.id}')">Edit</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteCommand('${cmd.id}')">Delete</button>
             </div>
         `;
         list.appendChild(div);
     });
+}
+
+// --- Tour Logic ---
+let tourRaf = null;
+
+function startTour() {
+    currentTourStep = 0;
+    document.getElementById('tour-overlay').classList.remove('hidden');
+    updateTourUI();
+    if (tourRaf) cancelAnimationFrame(tourRaf);
+    tourRaf = requestAnimationFrame(trackTour);
+}
+
+function nextTourStep() {
+    currentTourStep++;
+    if (currentTourStep >= tourSteps.length) {
+        endTour();
+    } else {
+        updateTourUI();
+    }
+}
+
+function endTour() {
+    currentTourStep = -1;
+    document.getElementById('tour-overlay').classList.add('hidden');
+    if (tourRaf) cancelAnimationFrame(tourRaf);
+    tourRaf = null;
+}
+
+function updateTourUI() {
+    const step = tourSteps[currentTourStep];
+    const target = document.querySelector(step.target);
+    
+    if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    document.getElementById('tour-title').textContent = step.title;
+    document.getElementById('tour-desc').textContent = step.desc;
+    document.getElementById('tour-progress').textContent = `${currentTourStep + 1} / ${tourSteps.length}`;
+    document.getElementById('tour-next').textContent = (currentTourStep === tourSteps.length - 1) ? 'Finish' : 'Next';
+}
+
+function trackTour() {
+    if (currentTourStep === -1) return;
+    
+    const step = tourSteps[currentTourStep];
+    const target = document.querySelector(step.target);
+    const spotlight = document.getElementById('tour-spotlight');
+    const card = document.getElementById('tour-card');
+    
+    if (target) {
+        const rect = target.getBoundingClientRect();
+        const padding = 10;
+        
+        // Spotlight calculation (overlay is fixed, so relative to viewport constraints)
+        spotlight.style.top = (rect.top - padding) + 'px';
+        spotlight.style.left = (rect.left - padding) + 'px';
+        spotlight.style.width = (rect.width + padding * 2) + 'px';
+        spotlight.style.height = (rect.height + padding * 2) + 'px';
+        
+        // Card positioning constraints
+        const cardRect = card.getBoundingClientRect();
+        let cardTop = rect.bottom + 20;
+        let cardLeft = rect.left + (rect.width / 2) - (cardRect.width / 2);
+        
+        // Horizontal constraint
+        if (cardLeft < 20) cardLeft = 20;
+        if (cardLeft + cardRect.width > window.innerWidth - 20) {
+            cardLeft = window.innerWidth - cardRect.width - 20;
+        }
+
+        // Vertical flip check: if doesn't fit below, try above
+        if (cardTop + cardRect.height > window.innerHeight - 20) {
+            let topTry = rect.top - cardRect.height - 20;
+            if (topTry > 20) {
+                cardTop = topTry;
+            } else {
+                // If it doesn't fit above OR below, just center it in the screen or pick the one with more space
+                cardTop = Math.max(20, (window.innerHeight / 2) - (cardRect.height / 2));
+            }
+        }
+
+        // Final sanity check for top
+        if (cardTop < 20) cardTop = 20;
+
+        card.style.top = cardTop + 'px';
+        card.style.left = cardLeft + 'px';
+    }
+    
+    tourRaf = requestAnimationFrame(trackTour);
 }
 
 function generateId() {
@@ -301,6 +488,48 @@ window.editCommand = function (id) {
     document.getElementById('cmd-modal').classList.remove('hidden');
 };
 
+window.gotoCommand = function (key) {
+    if (!previewEditor) return;
+    const model = previewEditor.getModel();
+    const content = model.getValue();
+    
+    // Pattern used in generateLua: ["key"] = {
+    const searchStr = `["${key}"] = {`;
+    const index = content.indexOf(searchStr);
+    
+    if (index !== -1) {
+        const pos = model.getPositionAt(index);
+        previewEditor.revealLineInCenter(pos.lineNumber);
+        previewEditor.setSelection({
+            startLineNumber: pos.lineNumber,
+            startColumn: pos.column,
+            endLineNumber: pos.lineNumber,
+            endColumn: pos.column + searchStr.length
+        });
+        
+        // Brief visual highlight
+        const decorations = previewEditor.deltaDecorations([], [
+            {
+                range: new monaco.Range(pos.lineNumber, 1, pos.lineNumber, model.getLineMaxColumn(pos.lineNumber)),
+                options: {
+                    isWholeLine: true,
+                    className: 'editor-goto-highlight'
+                }
+            }
+        ]);
+        setTimeout(() => {
+            previewEditor.deltaDecorations(decorations, []);
+        }, 2000);
+    } else {
+        // Fallback search if manual edits changed the structure
+        const match = model.findNextMatch(key, { lineNumber: 1, column: 1 }, false, false, null, true);
+        if (match) {
+            previewEditor.revealLineInCenter(match.range.startLineNumber);
+            previewEditor.setSelection(match.range);
+        }
+    }
+};
+
 window.deleteCommand = function (id) {
     if (confirm('Are you sure you want to delete this command?')) {
         pluginData.commands = pluginData.commands.filter(c => c.id !== id);
@@ -310,8 +539,22 @@ window.deleteCommand = function (id) {
 };
 
 document.getElementById('cmd-modal-close').addEventListener('click', () => {
-    document.getElementById('cmd-modal').classList.add('hidden');
+    const modal = document.getElementById('cmd-modal');
+    modal.classList.add('hidden');
+    // modal.classList.remove('expanded'); // Optional if we want it to reset
 });
+
+const expandBtn = document.getElementById('cmd-modal-expand');
+if (expandBtn) {
+    expandBtn.addEventListener('click', () => {
+        const modal = document.getElementById('cmd-modal');
+        modal.classList.toggle('expanded');
+        const resizeEditor = () => { if (cmdEditor) cmdEditor.layout(); };
+        resizeEditor();
+        setTimeout(resizeEditor, 100);
+        setTimeout(resizeEditor, 300);
+    });
+}
 
 document.getElementById('cancel-cmd-btn').addEventListener('click', () => {
     document.getElementById('cmd-modal').classList.add('hidden');
@@ -625,6 +868,7 @@ function parseLuaToForm(text) {
 
         cleanup = () => {
             isAborted = true;
+            document.body.classList.remove('ide-mode');
             document.removeEventListener('dragover', onDragOver);
             if (previewEditor) previewEditor.dispose();
             if (cmdEditor) cmdEditor.dispose();
