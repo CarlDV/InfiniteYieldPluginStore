@@ -100,35 +100,8 @@
                 return;
             }
 
-            // Route matching
-            const urlObj = new URL(url);
-            let path = urlObj.pathname;
-            if (path.endsWith('.html')) path = path.slice(0, -5);
-            if (path.endsWith('/') && path !== '/') path = path.slice(0, -1);
-
-            if (path === '/' || path === '/index') {
-                if (window.initHome) window.initHome();
-                else loadScript('app.js', () => window.initHome && window.initHome());
-            } else if (path === '/authors') {
-                if (window.initAuthors) window.initAuthors();
-                else loadScript('authors.js', () => window.initAuthors && window.initAuthors());
-            } else if (path === '/maker') {
-                if (window.initMaker) window.initMaker();
-                else loadScript('maker.js', () => window.initMaker && window.initMaker());
-            } else if (path === '/api' || path === '/tutorial') {
-                // Check if they need prism.js
-                if (doc.querySelector('script[src*="prism.min.js"]')) {
-                    if (!window.Prism) {
-                        loadScript('https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js', () => {
-                            loadScript('https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js', () => {
-                                if (window.Prism) Prism.highlightAll();
-                            });
-                        });
-                    } else {
-                        Prism.highlightAll();
-                    }
-                }
-            }
+            // Use shared routing logic
+            handleRoute(url);
 
             // Close mobile menu
             const btn = document.getElementById('burger-btn');
@@ -137,6 +110,7 @@
             if (links) links.classList.remove('open');
 
             // Handle hash after load
+            const urlObj = new URL(url, location.origin);
             if (urlObj.hash) {
                 setTimeout(() => window.dispatchEvent(new Event('hashchange')), 100);
             } else {
@@ -150,6 +124,37 @@
             window.location.href = url;
         } finally {
             contentArea.style.opacity = '1';
+        }
+    }
+
+    function handleRoute(url) {
+        const urlObj = new URL(url, location.origin);
+        let path = urlObj.pathname;
+        if (path.endsWith('.html')) path = path.slice(0, -5);
+        if (path.endsWith('/') && path !== '/') path = path.slice(0, -1);
+
+        if (path === '/' || path === '/index' || path === '') {
+            if (window.initHome) window.initHome();
+            else loadScript('app.js', () => window.initHome && window.initHome());
+        } else if (path === '/authors') {
+            if (window.initAuthors) window.initAuthors();
+            else loadScript('authors.js', () => window.initAuthors && window.initAuthors());
+        } else if (path === '/maker') {
+            if (window.initMaker) window.initMaker();
+            else loadScript('maker.js', () => window.initMaker && window.initMaker());
+        } else if (path === '/api' || path === '/tutorial') {
+            // Check if they need prism.js for highlighting
+            if (document.querySelector('script[src*="prism.min.js"]') || document.querySelector('pre code')) {
+                if (!window.Prism) {
+                    loadScript('https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js', () => {
+                        loadScript('https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js', () => {
+                            if (window.Prism) Prism.highlightAll();
+                        });
+                    });
+                } else {
+                    Prism.highlightAll();
+                }
+            }
         }
     }
 
@@ -188,6 +193,7 @@
     // Global utility for api.html and others
     window.copyCode = function(btn) {
         const pre = btn.closest('.api-code').querySelector('pre code');
+        if (!pre) return;
         const text = pre.innerText;
         navigator.clipboard.writeText(text).then(() => {
             const original = btn.innerText;
@@ -199,4 +205,7 @@
             }, 2000);
         });
     };
+
+    // Perform initial routing on load
+    handleRoute(location.href);
 })();

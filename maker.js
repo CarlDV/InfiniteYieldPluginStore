@@ -44,9 +44,66 @@ const tourSteps = [
         desc: 'We\'ve outlined 4 simple steps to get your plugin from idea to .iy file. Use these as your checklist!'
     },
     {
+        target: '#import-area',
+        title: 'Import Existing Plugins',
+        desc: 'Already have a .iy file? Drag and drop it here or click to import. You can edit any existing plugin with ease!'
+    },
+    {
+        target: '#ide-mode-toggle',
+        title: 'IDE Mode',
+        desc: 'Toggle this for a code-centric focus. It maximizes your screen real estate for a true developer experience.'
+    },
+    {
         target: '.commands-header',
         title: 'Create Your Commands',
         desc: 'This is the heart of your plugin. Add multiple commands here. You can even search through them if you have many!'
+    },
+    {
+        target: '#add-cmd-btn',
+        title: 'Launch the Editor',
+        desc: 'Clicking here opens the Command Editor modal. Let\'s see what\'s inside!'
+    },
+    {
+        target: '.cmd-editor-modal',
+        title: 'The Command Editor',
+        desc: 'Everything you define here goes directly into your plugin\'s command list.',
+        requiresModal: true
+    },
+    {
+        target: '#cmd-key',
+        title: 'Internal Name (Key)',
+        desc: 'The unique ID used by IY. For example, if you set this to "fly", the code will be associated with that command ID internally.',
+        requiresModal: true
+    },
+    {
+        target: '#cmd-list-name',
+        title: 'Usage Format',
+        desc: 'This is how users see your command in the list. Use brackets like [arg] to show that your command accepts inputs!',
+        requiresModal: true
+    },
+    {
+        target: '#cmd-desc',
+        title: 'Command Description',
+        desc: 'Explain what your command does. This text appears when a user types "help" in the Infinite Yield console.',
+        requiresModal: true
+    },
+    {
+        target: '#cmd-aliases',
+        title: 'Command Aliases',
+        desc: 'Add shortcuts for your command! Separate multiple aliases with commas (e.g. "f" for "fly").',
+        requiresModal: true
+    },
+    {
+        target: '#monaco-cmd-editor',
+        title: 'Logic Editor',
+        desc: 'Write your Lua code here. You have access to "args" for inputs and "speaker" for the player running the command.',
+        requiresModal: true
+    },
+    {
+        target: '#save-cmd-btn',
+        title: 'Save and Close',
+        desc: 'Save your command to immediately see it in your list and update the live preview on the right!',
+        requiresModal: true
     },
     {
         target: '.maker-preview-section',
@@ -79,32 +136,48 @@ function initMonaco() {
     if (window.monacoInitPromise) return window.monacoInitPromise;
 
     window.monacoInitPromise = new Promise((resolve, reject) => {
-        if (window.require && window.monaco) {
+        // 1. If already globally available
+        if (window.monaco) {
             resolve();
             return;
         }
+
+        // 2. If the loader script is already present but not finished, wait for it
         if (document.getElementById('monaco-loader-script')) {
-            let check = setInterval(() => {
+            const check = setInterval(() => {
                 if (window.monaco) {
                     clearInterval(check);
                     resolve();
                 }
-            }, 100);
+            }, 50);
+            
+            // Timeout after 10s to avoid infinite loop
+            setTimeout(() => {
+                clearInterval(check);
+                if (!window.monaco) reject(new Error('Monaco loading timed out'));
+            }, 10000);
             return;
         }
+
+        // 3. Inject loader script
         const loaderScript = document.createElement('script');
         loaderScript.id = 'monaco-loader-script';
         loaderScript.src = `${MONACO_BASE}/vs/loader.min.js`;
-        loaderScript.onload = function () {
-            require.config({ paths: { 'vs': `${MONACO_BASE}/vs` } });
-            require(['vs/editor/editor.main'], function () {
+        loaderScript.onload = () => {
+            // Configure the loader to use CDNs for workers
+            require.config({ 
+                paths: { 'vs': `${MONACO_BASE}/vs` }
+            });
+
+            // Load main editor
+            require(['vs/editor/editor.main'], () => {
                 resolve();
-            }, function (err) {
+            }, (err) => {
                 reject(err);
             });
         };
-        loaderScript.onerror = function () {
-            reject(new Error('Failed to load Monaco loader script'));
+        loaderScript.onerror = () => {
+            reject(new Error('Failed to load Monaco loader script from CDN'));
         };
         document.head.appendChild(loaderScript);
     });
@@ -215,6 +288,7 @@ initMonaco().then(() => {
     // Attach tour listeners
     document.getElementById('start-tour-btn').addEventListener('click', startTour);
     document.getElementById('tour-next').addEventListener('click', nextTourStep);
+    document.getElementById('tour-back').addEventListener('click', prevTourStep);
     document.getElementById('tour-skip').addEventListener('click', endTour);
 
     // Attach IDE mode listener
@@ -253,7 +327,17 @@ initMonaco().then(() => {
 
 }).catch(err => {
     console.error('Monaco failed to load:', err);
-    document.getElementById('monaco-preview').innerHTML = '<pre style="padding:16px;color:#ccc;font-family:monospace;">Monaco editor failed to load. Please use a local HTTP server (e.g. npx serve) instead of file://</pre>';
+    const previewEl = document.getElementById('monaco-preview');
+    if (previewEl) {
+        previewEl.innerHTML = `
+            <div style="padding:24px; color:#ef4444; background:rgba(239, 68, 68, 0.1); border-radius:8px; border:1px solid rgba(239, 68, 68, 0.2); font-family:sans-serif;">
+                <h3 style="margin-top:0; font-size:1.1rem;">Monaco Editor Error</h3>
+                <p style="font-size:0.9rem; line-height:1.5; margin-bottom:12px;">The code editor failed to initialize. This usually happens due to network issues or restrictive security protocols (like <code>file://</code>).</p>
+                <div style="font-family:monospace; font-size:0.8rem; background:rgba(0,0,0,0.2); padding:8px; border-radius:4px; margin-bottom:16px;">${err.message || 'Unknown Error'}</div>
+                <button class="btn btn-primary btn-sm" onclick="location.reload()">Reload Page</button>
+            </div>
+        `;
+    }
 });
 
 // Setup listeners
@@ -385,15 +469,60 @@ function nextTourStep() {
     }
 }
 
+function prevTourStep() {
+    if (currentTourStep > 0) {
+        currentTourStep--;
+        updateTourUI();
+    }
+}
+
 function endTour() {
+    // Final Exit Hook
+    if (lastTourStep !== -1 && tourSteps[lastTourStep] && tourSteps[lastTourStep].onExit) {
+        tourSteps[lastTourStep].onExit();
+    }
+
     currentTourStep = -1;
+    lastTourStep = -1;
     document.getElementById('tour-overlay').classList.add('hidden');
     if (tourRaf) cancelAnimationFrame(tourRaf);
     tourRaf = null;
+
+    // Ensure state cleanup if modal was open
+    const modal = document.getElementById('cmd-modal');
+    if (modal && !modal.classList.contains('hidden')) {
+        document.getElementById('cancel-cmd-btn').click();
+    }
 }
 
+let lastTourStep = -1;
+
 function updateTourUI() {
+    const prevStep = lastTourStep !== -1 ? tourSteps[lastTourStep] : null;
     const step = tourSteps[currentTourStep];
+    
+    // Lifecycle Exit
+    if (prevStep && prevStep.onExit) {
+        prevStep.onExit();
+    }
+
+    // Lifecycle Enter
+    if (step.onEnter) {
+        step.onEnter();
+    }
+
+    // Modal state management
+    const modal = document.getElementById('cmd-modal');
+    if (step.requiresModal) {
+        if (modal.classList.contains('hidden')) {
+            document.getElementById('add-cmd-btn').click();
+        }
+    } else {
+        if (!modal.classList.contains('hidden')) {
+            document.getElementById('cancel-cmd-btn').click();
+        }
+    }
+
     const target = document.querySelector(step.target);
     
     if (target) {
@@ -404,6 +533,11 @@ function updateTourUI() {
     document.getElementById('tour-desc').textContent = step.desc;
     document.getElementById('tour-progress').textContent = `${currentTourStep + 1} / ${tourSteps.length}`;
     document.getElementById('tour-next').textContent = (currentTourStep === tourSteps.length - 1) ? 'Finish' : 'Next';
+    
+    // Toggle back button visibility
+    document.getElementById('tour-back').classList.toggle('hidden', currentTourStep === 0);
+
+    lastTourStep = currentTourStep;
 }
 
 function trackTour() {
@@ -875,11 +1009,4 @@ function parseLuaToForm(text) {
         };
         window.currentRouteCleanup = cleanup;
     };
-    let path = location.pathname;
-    if (path.endsWith('.html')) path = path.slice(0, -5);
-    if (path.endsWith('/') && path !== '/') path = path.slice(0, -1);
-
-    if (path === '/maker') {
-        window.initMaker();
-    }
 })();

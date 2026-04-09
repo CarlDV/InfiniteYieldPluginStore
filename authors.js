@@ -638,11 +638,4 @@
         };
         window.currentRouteCleanup = cleanup;
     };
-    let path = location.pathname;
-    if (path.endsWith('.html')) path = path.slice(0, -5);
-    if (path.endsWith('/') && path !== '/') path = path.slice(0, -1);
-
-    if (path === '/authors') {
-        window.initAuthors();
-    }
 })();

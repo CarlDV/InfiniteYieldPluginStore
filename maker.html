@@ -71,14 +71,12 @@
                 <div class="maker-header">
                     <div class="maker-title-row">
                         <h1>Plugin Maker</h1>
-                        <button class="btn btn-secondary btn-sm" id="start-tour-btn">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                            </svg>
-                            View Tutorial
-                        </button>
+                        <div class="tour-launcher">
+                            <span class="btn-arrow">→</span>
+                            <button class="btn btn-primary" id="start-tour-btn">
+                                Start Tutorial
+                            </button>
+                        </div>
                     </div>
                     <p>Create a new Infinite Yield plugin visually. Use the import area below to load an existing <code>.iy</code> file for editing.</p>
                 </div>
@@ -250,6 +248,7 @@
                     <span id="tour-progress">1 / 4</span>
                     <div class="tour-btns">
                         <button class="btn btn-secondary btn-sm" id="tour-skip">Skip</button>
+                        <button class="btn btn-secondary btn-sm hidden" id="tour-back">Back</button>
                         <button class="btn btn-primary btn-sm" id="tour-next">Next</button>
                     </div>
                 </div>

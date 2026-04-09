@@ -591,6 +591,38 @@
 }
 
 /* ---- Responsive ---- */
+/* ---- Tutorial Button Enhancements ---- */
+.tour-launcher {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#start-tour-btn {
+    position: relative;
+    overflow: hidden;
+    animation: btn-glow-pulse 3s infinite ease-in-out;
+}
+
+.btn-arrow {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: #fff;
+    line-height: 1;
+    animation: arrow-bounce-x 1s infinite ease-in-out;
+}
+
+@keyframes arrow-bounce-x {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(4px); }
+}
+
+@keyframes btn-glow-pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+    50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+}
+
+
 /* ---- Tour Overlay ---- */
 .tour-overlay {
     position: fixed;
