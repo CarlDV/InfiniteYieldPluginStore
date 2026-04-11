@@ -617,6 +617,12 @@
                 <p>Key: <code>${cmd.key}</code></p>
             </div>
             <div class="cmd-actions">
+                <button class="btn btn-secondary btn-sm btn-icon" onclick="copySingleCommand('${cmd.id}', this)" title="Copy Description">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
                 <button class="btn btn-secondary btn-sm" onclick="gotoCommand('${escLua(cmd.key)}')" title="Go to Code">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="16 18 22 12 16 6"></polyline>
@@ -630,6 +636,26 @@
                 list.appendChild(div);
             });
         }
+
+        window.copySingleCommand = function (id, btn) {
+            let cmd = pluginData.commands.find(c => c.id === id);
+            if (!cmd) return;
+
+            const text = `${cmd.listName} - ${cmd.desc}`;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.classList.add('btn-success');
+                btn.innerHTML = `
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                `;
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('btn-success');
+                }, 2000);
+            });
+        };
 
         // --- Tour Logic ---
         let tourRaf = null;
@@ -777,6 +803,36 @@
         }
 
         // Commands logic
+        const copyCmdsBtn = document.getElementById('copy-cmds-btn');
+        if (copyCmdsBtn) {
+            copyCmdsBtn.addEventListener('click', () => {
+                if (pluginData.commands.length === 0) {
+                    alert('No commands to copy!');
+                    return;
+                }
+                const listText = pluginData.commands
+                    .map(cmd => `${cmd.listName} - ${cmd.desc}`)
+                    .join('\n');
+
+                navigator.clipboard.writeText(listText).then(() => {
+                    const originalHTML = copyCmdsBtn.innerHTML;
+                    copyCmdsBtn.classList.add('btn-success');
+                    copyCmdsBtn.innerHTML = `
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    `;
+                    setTimeout(() => {
+                        copyCmdsBtn.innerHTML = originalHTML;
+                        copyCmdsBtn.classList.remove('btn-success');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    alert('Failed to copy to clipboard.');
+                });
+            });
+        }
+
         const addCmdBtn = document.getElementById('add-cmd-btn');
         if (addCmdBtn) {
             addCmdBtn.addEventListener('click', () => {

@@ -618,7 +618,8 @@
 
 /* Buttons */
 .btn {
-    padding: 8px 16px;
+    height: 38px;
+    padding: 0 16px;
     border-radius: 6px;
     font-size: 0.9rem;
     font-weight: 500;
@@ -627,12 +628,26 @@
     border: 1px solid transparent;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
+    line-height: 1;
 }
 
 .btn-sm {
-    padding: 4px 10px;
+    height: 28px;
+    padding: 0 10px;
     font-size: 0.8rem;
+}
+
+.btn-icon {
+    width: 38px;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.btn-icon.btn-sm {
+    width: 28px;
+    padding: 0;
 }
 
 .btn-primary {
