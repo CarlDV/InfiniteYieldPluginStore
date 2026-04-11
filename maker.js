@@ -2,6 +2,7 @@
     let cleanup = null;
 
     window.initMaker = function () {
+        if (!document.querySelector('.maker-main')) return;
         if (cleanup) cleanup();
         let isAborted = false;
 
@@ -306,10 +307,15 @@
             }
 
             // Attach tour listeners
-            document.getElementById('start-tour-btn').addEventListener('click', startTour);
-            document.getElementById('tour-next').addEventListener('click', nextTourStep);
-            document.getElementById('tour-back').addEventListener('click', prevTourStep);
-            document.getElementById('tour-skip').addEventListener('click', endTour);
+            const startTourBtn = document.getElementById('start-tour-btn');
+            const tourNextBtn = document.getElementById('tour-next');
+            const tourBackBtn = document.getElementById('tour-back');
+            const tourSkipBtn = document.getElementById('tour-skip');
+
+            if (startTourBtn) startTourBtn.addEventListener('click', startTour);
+            if (tourNextBtn) tourNextBtn.addEventListener('click', nextTourStep);
+            if (tourBackBtn) tourBackBtn.addEventListener('click', prevTourStep);
+            if (tourSkipBtn) tourSkipBtn.addEventListener('click', endTour);
 
             // Store Integration Logic
             let allStorePlugins = [];
@@ -514,22 +520,16 @@
             }
         });
 
-        // Setup listeners
-        document.getElementById('plugin-name').addEventListener('input', (e) => {
-            pluginData.name = e.target.value;
-            updatePreview();
-        });
-
-        document.getElementById('plugin-desc').addEventListener('input', (e) => {
-            pluginData.description = e.target.value;
-            updatePreview();
-        });
-
-        document.getElementById('resume-sync-btn').addEventListener('click', () => {
-            autoSyncEnabled = true;
-            document.getElementById('sync-warning').classList.add('hidden');
-            updatePreview();
-        });
+        // More listeners are handled via setupEditorListeners or deferred attachment after element presence check
+        const resumeSyncBtn = document.getElementById('resume-sync-btn');
+        if (resumeSyncBtn) {
+            resumeSyncBtn.addEventListener('click', () => {
+                autoSyncEnabled = true;
+                const syncWarning = document.getElementById('sync-warning');
+                if (syncWarning) syncWarning.classList.add('hidden');
+                updatePreview();
+            });
+        }
 
         function generateLua() {
             let lua = "";
@@ -770,31 +770,48 @@
         }
 
         // Commands logic
-        document.getElementById('add-cmd-btn').addEventListener('click', () => {
-            currentEditingCmdId = generateId();
-            document.getElementById('cmd-key').value = '';
-            document.getElementById('cmd-list-name').value = '';
-            document.getElementById('cmd-desc').value = '';
-            document.getElementById('cmd-aliases').value = '';
-            if (cmdEditor) cmdEditor.setValue('-- code here');
+        const addCmdBtn = document.getElementById('add-cmd-btn');
+        if (addCmdBtn) {
+            addCmdBtn.addEventListener('click', () => {
+                currentEditingCmdId = generateId();
+                const keyInput = document.getElementById('cmd-key');
+                const nameInput = document.getElementById('cmd-list-name');
+                const descInput = document.getElementById('cmd-desc');
+                const aliasesInput = document.getElementById('cmd-aliases');
+                const modalTitle = document.getElementById('cmd-modal-title');
+                const modal = document.getElementById('cmd-modal');
 
-            document.getElementById('cmd-modal-title').textContent = 'Add Command';
-            document.getElementById('cmd-modal').classList.remove('hidden');
-        });
+                if (keyInput) keyInput.value = '';
+                if (nameInput) nameInput.value = '';
+                if (descInput) descInput.value = '';
+                if (aliasesInput) aliasesInput.value = '';
+                if (cmdEditor) cmdEditor.setValue('-- code here');
+
+                if (modalTitle) modalTitle.textContent = 'Add Command';
+                if (modal) modal.classList.remove('hidden');
+            });
+        }
 
         window.editCommand = function (id) {
             let cmd = pluginData.commands.find(c => c.id === id);
             if (!cmd) return;
 
             currentEditingCmdId = id;
-            document.getElementById('cmd-key').value = cmd.key;
-            document.getElementById('cmd-list-name').value = cmd.listName;
-            document.getElementById('cmd-desc').value = cmd.desc;
-            document.getElementById('cmd-aliases').value = cmd.aliases.join(', ');
+            const keyInput = document.getElementById('cmd-key');
+            const nameInput = document.getElementById('cmd-list-name');
+            const descInput = document.getElementById('cmd-desc');
+            const aliasesInput = document.getElementById('cmd-aliases');
+            const modalTitle = document.getElementById('cmd-modal-title');
+            const modal = document.getElementById('cmd-modal');
+
+            if (keyInput) keyInput.value = cmd.key;
+            if (nameInput) nameInput.value = cmd.listName;
+            if (descInput) descInput.value = cmd.desc;
+            if (aliasesInput) aliasesInput.value = cmd.aliases.join(', ');
             if (cmdEditor) cmdEditor.setValue(cmd.code);
 
-            document.getElementById('cmd-modal-title').textContent = 'Edit Command';
-            document.getElementById('cmd-modal').classList.remove('hidden');
+            if (modalTitle) modalTitle.textContent = 'Edit Command';
+            if (modal) modal.classList.remove('hidden');
         };
 
         window.gotoCommand = function (key) {
@@ -847,11 +864,13 @@
             }
         };
 
-        document.getElementById('cmd-modal-close').addEventListener('click', () => {
-            const modal = document.getElementById('cmd-modal');
-            modal.classList.add('hidden');
-            // modal.classList.remove('expanded'); // Optional if we want it to reset
-        });
+        const cmdModalClose = document.getElementById('cmd-modal-close');
+        if (cmdModalClose) {
+            cmdModalClose.addEventListener('click', () => {
+                const modal = document.getElementById('cmd-modal');
+                if (modal) modal.classList.add('hidden');
+            });
+        }
 
         const expandBtn = document.getElementById('cmd-modal-expand');
         if (expandBtn) {
@@ -865,41 +884,56 @@
             });
         }
 
-        document.getElementById('cancel-cmd-btn').addEventListener('click', () => {
-            document.getElementById('cmd-modal').classList.add('hidden');
-        });
+        const cancelCmdBtn = document.getElementById('cancel-cmd-btn');
+        if (cancelCmdBtn) {
+            cancelCmdBtn.addEventListener('click', () => {
+                const modal = document.getElementById('cmd-modal');
+                if (modal) modal.classList.add('hidden');
+            });
+        }
 
-        document.getElementById('save-cmd-btn').addEventListener('click', () => {
-            let key = document.getElementById('cmd-key').value || 'cmd';
-            let listName = document.getElementById('cmd-list-name').value || 'cmd';
-            let desc = document.getElementById('cmd-desc').value || 'No description';
-            let aliasesRaw = document.getElementById('cmd-aliases').value;
-            let aliases = aliasesRaw.split(',').map(s => s.trim()).filter(x => x);
-            let code = cmdEditor ? cmdEditor.getValue() : '-- code here';
+        const saveCmdBtn = document.getElementById('save-cmd-btn');
+        if (saveCmdBtn) {
+            saveCmdBtn.addEventListener('click', () => {
+                const keyInput = document.getElementById('cmd-key');
+                const nameInput = document.getElementById('cmd-list-name');
+                const descInput = document.getElementById('cmd-desc');
+                const aliasesInput = document.getElementById('cmd-aliases');
 
-            let existingIndex = pluginData.commands.findIndex(c => c.id === currentEditingCmdId);
-            let newCmd = {
-                id: currentEditingCmdId,
-                key: key,
-                listName: listName,
-                desc: desc,
-                aliases: aliases,
-                code: code
-            };
+                let key = (keyInput ? keyInput.value : '') || 'cmd';
+                let listName = (nameInput ? nameInput.value : '') || 'cmd';
+                let desc = (descInput ? descInput.value : '') || 'No description';
+                let aliasesRaw = aliasesInput ? aliasesInput.value : '';
+                let aliases = aliasesRaw.split(',').map(s => s.trim()).filter(x => x);
+                let code = cmdEditor ? cmdEditor.getValue() : '-- code here';
 
-            if (existingIndex >= 0) {
-                pluginData.commands[existingIndex] = newCmd;
-            } else {
-                pluginData.commands.push(newCmd);
-            }
+                let existingIndex = pluginData.commands.findIndex(c => c.id === currentEditingCmdId);
+                let newCmd = {
+                    id: currentEditingCmdId,
+                    key: key,
+                    listName: listName,
+                    desc: desc,
+                    aliases: aliases,
+                    code: code
+                };
 
-            document.getElementById('cmd-modal').classList.add('hidden');
-            renderCommands();
-            updatePreview();
-        });
+                if (existingIndex >= 0) {
+                    pluginData.commands[existingIndex] = newCmd;
+                } else {
+                    pluginData.commands.push(newCmd);
+                }
+
+                const modal = document.getElementById('cmd-modal');
+                if (modal) modal.classList.add('hidden');
+                renderCommands();
+                updatePreview();
+            });
+        }
 
         // Download
-        document.getElementById('download-btn').addEventListener('click', () => {
+        const downloadBtn = document.getElementById('download-btn');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
             let luaCode = previewEditor ? previewEditor.getValue() : generateLua();
 
             // Final enforcement of the signature on export
@@ -923,6 +957,7 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         });
+    }
 
         // Drag and drop / Upload File overrides
         const dropZone = document.getElementById('drop-zone');
@@ -934,14 +969,16 @@
             });
         }
 
-        document.getElementById('upload-plugin-file').addEventListener('change', (e) => {
-            if (e.target.files.length) {
-                let file = e.target.files[0];
-                if (!file.name.endsWith('.iy')) {
-                    alert('Please select a valid .iy plugin file.');
-                    e.target.value = '';
-                    return;
-                }
+        const uploadInput = document.getElementById('upload-plugin-file');
+        if (uploadInput) {
+            uploadInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    let file = e.target.files[0];
+                    if (!file.name.endsWith('.iy')) {
+                        alert('Please select a valid .iy plugin file.');
+                        e.target.value = '';
+                        return;
+                    }
 
                 let reader = new FileReader();
                 reader.onload = (evt) => {
@@ -951,6 +988,7 @@
                 e.target.value = '';
             }
         });
+    }
 
         const onDragOver = (e) => {
             e.preventDefault();
@@ -958,29 +996,33 @@
         };
         document.addEventListener('dragover', onDragOver);
 
-        dropZone?.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('hidden');
-        });
+        if (dropZone) {
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('hidden');
+            });
+        }
 
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.classList.add('hidden');
+        if (dropZone) {
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('hidden');
 
-            if (e.dataTransfer.files.length) {
-                let file = e.dataTransfer.files[0];
-                if (!file.name.endsWith('.iy')) {
-                    alert('Please drop a valid .iy plugin file.');
-                    return;
+                if (e.dataTransfer.files.length) {
+                    let file = e.dataTransfer.files[0];
+                    if (!file.name.endsWith('.iy')) {
+                        alert('Please drop a valid .iy plugin file.');
+                        return;
+                    }
+
+                    let reader = new FileReader();
+                    reader.onload = (evt) => {
+                        parseLuaToForm(evt.target.result);
+                    };
+                    reader.readAsText(file);
                 }
-
-                let reader = new FileReader();
-                reader.onload = (evt) => {
-                    parseLuaToForm(evt.target.result);
-                };
-                reader.readAsText(file);
-            }
-        });
+            });
+        }
 
         function extractGlobalCode(text) {
             let header = "";
@@ -1045,13 +1087,15 @@
 
                 let nameMatch = text.match(/\[(["'])PluginName\1\]\s*=\s*(["'])(.*?)\2/);
                 if (nameMatch) {
-                    document.getElementById('plugin-name').value = nameMatch[3];
+                    const nameInput = document.getElementById('plugin-name');
+                    if (nameInput) nameInput.value = nameMatch[3];
                     pluginData.name = nameMatch[3];
                 }
 
                 let descMatch = text.match(/\[(["'])PluginDescription\1\]\s*=\s*(["'])(.*?)\2/);
                 if (descMatch) {
-                    document.getElementById('plugin-desc').value = descMatch[3];
+                    const descInput = document.getElementById('plugin-desc');
+                    if (descInput) descInput.value = descMatch[3];
                     pluginData.description = descMatch[3];
                 }
 
@@ -1071,28 +1115,33 @@
                             urlPreview.textContent = url.length > 50 ? url.substring(0, 47) + '...' : url;
                             loaderUI.classList.add('active');
 
-                            document.getElementById('loader-ui-dismiss').onclick = () => {
-                                loaderUI.classList.remove('active');
-                            };
+                            const dismissBtn = document.getElementById('loader-ui-dismiss');
+                            if (dismissBtn) {
+                                dismissBtn.onclick = () => {
+                                    loaderUI.classList.remove('active');
+                                };
+                            }
 
-                            let fetchBtn = document.getElementById('loader-ui-fetch');
-                            fetchBtn.onclick = async () => {
-                                fetchBtn.disabled = true;
-                                fetchBtn.innerHTML = '<span class="loader-shimmer">Fetching...</span>';
-                                loaderUI.classList.add('loader-shimmer');
-                                try {
-                                    const resp = await fetch(url);
-                                    if (!resp.ok) throw new Error('Fetch failed');
-                                    const remoteCode = await resp.text();
-                                    loaderUI.classList.remove('active', 'loader-shimmer');
-                                    parseLuaToForm(remoteCode);
-                                } catch (e) {
-                                    alert('Failed to fetch source: ' + e.message);
-                                    fetchBtn.textContent = 'Fetch & Edit';
-                                    fetchBtn.disabled = false;
-                                    loaderUI.classList.remove('loader-shimmer');
-                                }
-                            };
+                            const fetchBtn = document.getElementById('loader-ui-fetch');
+                            if (fetchBtn) {
+                                fetchBtn.onclick = async () => {
+                                    fetchBtn.disabled = true;
+                                    fetchBtn.innerHTML = '<span class="loader-shimmer">Fetching...</span>';
+                                    loaderUI.classList.add('loader-shimmer');
+                                    try {
+                                        const resp = await fetch(url);
+                                        if (!resp.ok) throw new Error('Fetch failed');
+                                        const remoteCode = await resp.text();
+                                        loaderUI.classList.remove('active', 'loader-shimmer');
+                                        parseLuaToForm(remoteCode);
+                                    } catch (e) {
+                                        alert('Failed to fetch source: ' + e.message);
+                                        fetchBtn.textContent = 'Fetch & Edit';
+                                        fetchBtn.disabled = false;
+                                        loaderUI.classList.remove('loader-shimmer');
+                                    }
+                                };
+                            }
                         }
                     } else {
                         renderCommands();
