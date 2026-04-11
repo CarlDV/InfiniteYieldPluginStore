@@ -267,42 +267,41 @@
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
-
-    <!-- Tour Overlay -->
-    <div id="tour-overlay" class="tour-overlay hidden">
-        <div id="tour-spotlight" class="tour-spotlight"></div>
-        <div id="tour-card" class="tour-card">
-            <div class="tour-card-content">
-                <h3 id="tour-title">Step Title</h3>
-                <p id="tour-desc">Step description goes here.</p>
-            </div>
-            <div class="tour-footer">
-                <span id="tour-progress">1 / 4</span>
-                <div class="tour-btns">
-                    <button class="btn btn-secondary btn-sm" id="tour-skip">Skip</button>
-                    <button class="btn btn-secondary btn-sm hidden" id="tour-back">Back</button>
-                    <button class="btn btn-primary btn-sm" id="tour-next">Next</button>
+            <!-- Tour Overlay -->
+            <div id="tour-overlay" class="tour-overlay hidden">
+                <div id="tour-spotlight" class="tour-spotlight"></div>
+                <div id="tour-card" class="tour-card">
+                    <div class="tour-card-content">
+                        <h3 id="tour-title">Step Title</h3>
+                        <p id="tour-desc">Step description goes here.</p>
+                    </div>
+                    <div class="tour-footer">
+                        <span id="tour-progress">1 / 4</span>
+                        <div class="tour-btns">
+                            <button class="btn btn-secondary btn-sm" id="tour-skip">Skip</button>
+                            <button class="btn btn-secondary btn-sm hidden" id="tour-back">Back</button>
+                            <button class="btn btn-primary btn-sm" id="tour-next">Next</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Store Browser Modal -->
-    <div id="store-modal" class="overlay hidden">
-        <div class="modal store-modal">
-            <div class="modal-top">
-                <h2>Browse Community Plugins</h2>
-                <button class="close-btn" id="store-modal-close">×</button>
+            <!-- Store Browser Modal -->
+            <div id="store-modal" class="overlay hidden">
+                <div class="modal store-modal">
+                    <div class="modal-top">
+                        <h2>Browse Community Plugins</h2>
+                        <button class="close-btn" id="store-modal-close">×</button>
+                    </div>
+                    <div class="store-modal-search">
+                        <input type="text" id="store-search-input" placeholder="Search by name or author...">
+                    </div>
+                    <div class="modal-content store-modal-content" id="store-plugins-list">
+                        <div class="loading-state">Loading plugins...</div>
+                    </div>
+                </div>
             </div>
-            <div class="store-modal-search">
-                <input type="text" id="store-search-input" placeholder="Search by name or author...">
-            </div>
-            <div class="modal-content store-modal-content" id="store-plugins-list">
-                <div class="loading-state">Loading plugins...</div>
-            </div>
-        </div>
+        </main>
     </div>
 
     <script src="maker.js"></script>

@@ -1226,7 +1226,7 @@ span.author-click:hover,
 
 /* ---- FAQ Section ---- */
 .faq-section {
-    margin-top: 80px;
+    margin-top: 60px;
     padding-top: 60px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -1234,7 +1234,7 @@ span.author-click:hover,
 .faq-section h2 {
     font-size: 2.25rem;
     font-weight: 700;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
     text-align: center;
     letter-spacing: -0.03em;
     color: #fff;
@@ -1334,6 +1334,37 @@ span.author-click:hover,
     transition: opacity 0.2s;
 }
 
+.faq-share {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: var(--text3);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+}
+
+.faq-share:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--accent);
+    transform: scale(1.05);
+}
+
+.faq-share.copied {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+}
+
 .faq-answer a:hover {
     opacity: 0.8;
 }
@@ -1369,7 +1400,7 @@ span.author-click:hover,
 }
 
 .api-code pre {
-    padding: 16px;
+    padding: 20px 24px;
     font-family: var(--mono);
     font-size: 0.8rem;
     line-height: 1.5;
@@ -1517,7 +1548,34 @@ span.author-click:hover,
     color: #f87171;
 }
 
-.executor-loading, .executor-error {
+.price-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap;
+}
+
+.price-free {
+    background: rgba(52, 211, 153, 0.05);
+    border-color: rgba(52, 211, 153, 0.2);
+    color: #34d399;
+}
+
+.price-paid {
+    background: rgba(251, 191, 36, 0.05);
+    border-color: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+}
+
+.status-outdated {
+    background: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+}
+
+.executor-loading,
+.executor-error {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1542,14 +1600,16 @@ span.author-click:hover,
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 768px) {
     .faq-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .faq-item {
         padding: 24px;
     }

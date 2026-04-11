@@ -326,8 +326,8 @@
             async function fetchStorePlugins() {
                 if (allStorePlugins.length > 0) return;
                 try {
-                    // Use absolute path to ensure fetching from root across routes
-                    const resp = await fetch('/data/plugins.json');
+                    // Use relative path to ensure fetching works across different hosting routes
+                    const resp = await fetch('data/plugins.json');
                     if (!resp.ok) throw new Error('Network response was not ok');
                     const data = await resp.json();
                     allStorePlugins = (data.plugins || []).sort((a, b) => {
@@ -445,9 +445,16 @@
             const browseStoreBtn = document.getElementById('browse-store-btn');
             if (browseStoreBtn) {
                 browseStoreBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevents importArea from triggering file upload
-                    if (storeModal) storeModal.classList.remove('hidden');
-                    fetchStorePlugins();
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+
+                    const modal = document.getElementById('store-modal');
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                        fetchStorePlugins();
+                    } else {
+                        console.error('Maker: Store modal not found in DOM.');
+                    }
                 });
             }
 
@@ -934,30 +941,30 @@
         const downloadBtn = document.getElementById('download-btn');
         if (downloadBtn) {
             downloadBtn.addEventListener('click', () => {
-            let luaCode = previewEditor ? previewEditor.getValue() : generateLua();
+                let luaCode = previewEditor ? previewEditor.getValue() : generateLua();
 
-            // Final enforcement of the signature on export
-            const signature = "MADE WITH IY PLUGIN MAKER";
-            if (!luaCode.includes(signature)) {
-                const header = "--------------------------------------------------------------------------------\n" +
-                    "-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)\n" +
-                    "-- This plugin was generated automatically using IY Plugin Maker.\n" +
-                    "--------------------------------------------------------------------------------\n\n";
-                luaCode = header + luaCode;
-            }
+                // Final enforcement of the signature on export
+                const signature = "MADE WITH IY PLUGIN MAKER";
+                if (!luaCode.includes(signature)) {
+                    const header = "--------------------------------------------------------------------------------\n" +
+                        "-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)\n" +
+                        "-- This plugin was generated automatically using IY Plugin Maker.\n" +
+                        "--------------------------------------------------------------------------------\n\n";
+                    luaCode = header + luaCode;
+                }
 
-            const blob = new Blob([luaCode], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            let safeName = pluginData.name.replace(/[^a-zA-Z0-9_-]/g, '') || 'plugin';
-            a.download = safeName + '.iy';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        });
-    }
+                const blob = new Blob([luaCode], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                let safeName = pluginData.name.replace(/[^a-zA-Z0-9_-]/g, '') || 'plugin';
+                a.download = safeName + '.iy';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        }
 
         // Drag and drop / Upload File overrides
         const dropZone = document.getElementById('drop-zone');
@@ -980,15 +987,15 @@
                         return;
                     }
 
-                let reader = new FileReader();
-                reader.onload = (evt) => {
-                    parseLuaToForm(evt.target.result);
-                };
-                reader.readAsText(file);
-                e.target.value = '';
-            }
-        });
-    }
+                    let reader = new FileReader();
+                    reader.onload = (evt) => {
+                        parseLuaToForm(evt.target.result);
+                    };
+                    reader.readAsText(file);
+                    e.target.value = '';
+                }
+            });
+        }
 
         const onDragOver = (e) => {
             e.preventDefault();

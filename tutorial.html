@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Help & FAQ — Infinite Yield Plugins</title>
-    <meta name="description" content="Get help with Infinite Yield. Learn how to install plugins, troubleshoot issues, and check live executor status.">
+    <meta name="description"
+        content="Get help with Infinite Yield. Learn how to install plugins, troubleshoot issues, and check live executor status.">
 
     <!-- Open Graph / Discord Embed Meta Tags -->
     <meta property="og:title" content="Help & FAQ — Infinite Yield Plugins">
@@ -100,67 +101,143 @@
                 <h2>Frequently Asked Questions</h2>
 
                 <div class="faq-grid">
-                    <div class="faq-item" style="grid-column: 1 / -1;">
+                    <div class="faq-item" id="faq-run" style="grid-column: 1 / -1;">
+                        <button class="faq-share" onclick="copyFAQLink('faq-run', this)" title="Copy Link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </button>
                         <div class="faq-question">How do I run Infinite Yield? (Quick Start)</div>
                         <div class="faq-answer">
-                            <p>To start using Infinite Yield, simply copy the code below and paste it into your Roblox exploit's script box, then click <strong>Execute</strong>.</p>
-                            <div class="api-code" style="margin: 16px 0;">
+                            <p>To start using Infinite Yield, simply copy the code below and paste it into your Roblox
+                                exploit's script box, then click <strong>Execute</strong>.</p>
+                            <div class="api-code">
                                 <div class="api-code-bar">
                                     <span class="api-code-lang">Infinite Yield Loadstring</span>
                                     <button class="copy-btn" onclick="copyCode(this)">Copy Script</button>
                                 </div>
                                 <pre><code class="language-lua">loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()</code></pre>
                             </div>
-                            <p style="font-size: 0.85rem; color: var(--text3);">Don't have an exploit? Check out some popular ones like <strong>Solara, JJSploit, or Wave</strong> to get started.</p>
+                            <p style="font-size: 0.85rem; color: var(--text3);">Don't have an exploit? Check out some
+                                popular ones like <strong>Solara, JJSploit, or Wave</strong> to get started.</p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">How do I add new plugins?</div>
-                        <div class="faq-answer">
-                            <p>Plugins add more features to IY. Here is the easiest way to add them:</p>
-                            <ul>
-                                <li><strong>Download:</strong> Find a <code>.iy</code> plugin file you like on this site.</li>
-                                <li><strong>Move:</strong> Put that file into the <code>workspace</code> folder inside your exploit's main folder.</li>
-                                <li><strong>Open IY:</strong> In Roblox, open IY and click <strong>Settings > Plugins > Add Plugin</strong>.</li>
-                                <li><strong>Type Name:</strong> Type the file name (like <code>fly.iy</code>) and click 'Add'. You're done!</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">Why did it freeze or stop working?</div>
-                        <div class="faq-answer">
-                            <p>Don't worry! This usually happens for one of two reasons:</p>
-                            <ul>
-                                <li><strong>Old Exploit:</strong> Your script runner might be outdated. Try using a newer or different one.</li>
-                                <li><strong>Settings Glitch:</strong> Sometimes the saved settings get messy. Go to your exploit's <code>workspace</code> folder and delete the file named <code>IY_FE.iy</code>. This will reset everything to normal.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
+                    <div class="faq-item" id="faq-executors" style="grid-column: 1 / -1;">
+                        <button class="faq-share" onclick="copyFAQLink('faq-executors', this)" title="Copy Link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </button>
                         <div class="faq-question">What are the currently active executors?</div>
                         <div class="faq-answer">
-                            <p>Here are some of the most popular and recently updated executors, powered by <a href="https://weao.gg" target="_blank">WEAO</a>.</p>
+                            <p>Here are some of the most popular and recently updated executors, powered by <a
+                                    href="https://weao.gg" target="_blank">WEAO</a>.</p>
                             <div id="executor-list" class="executor-list">
                                 <div class="executor-loading">
                                     <div class="spinner"></div>
                                     <span>Fetching live status...</span>
                                 </div>
                             </div>
-                            <p style="font-size: 0.8rem; margin-top: 12px; opacity: 0.7;">Check <a href="https://weao.gg" target="_blank">weao.gg</a> for the full list of 30+ executors.</p>
+                            <p style="font-size: 0.8rem; margin-top: 12px; opacity: 0.7;">Check <a
+                                    href="https://weao.gg" target="_blank">weao.gg</a> for the full list of 30+
+                                executors.</p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
+                    <div class="faq-item" id="faq-corruption" style="grid-column: 1 / -1;">
+                        <button class="faq-share" onclick="copyFAQLink('faq-corruption', this)" title="Copy Link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-question">Why did it freeze or stop working?</div>
+                        <div class="faq-answer">
+                            <p>This is usually caused by <strong>File Corruption</strong>. Don't worry, it's easy to
+                                fix, but please read the warning below first.</p>
+
+                            <div
+                                style="background: rgba(248, 113, 113, 0.1); border-left: 4px solid #f87171; padding: 12px; margin: 16px 0; border-radius: 4px;">
+                                <p
+                                    style="color: #f87171; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                                    <span>⚠️ CRITICAL WARNING</span>
+                                </p>
+                                <p style="font-size: 0.85rem; color: #f87171; opacity: 0.9;">Following these steps will
+                                    <strong>delete ALL your saved Infinite Yield settings</strong> (Prefix, Waypoints,
+                                    keybinds, etc.).
+                                </p>
+                            </div>
+
+                            <p><strong>Option 1: Quick Fix (Script)</strong></p>
+                            <p>Make sure Infinite Yield is not running, then execute this script in your exploitbox:</p>
+                            <div class="api-code">
+                                <div class="api-code-bar">
+                                    <span class="api-code-lang">Fix Script</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy Script</button>
+                                </div>
+                                <pre><code class="language-lua">loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/infinite-yield-save-fix.lua"))()</code></pre>
+                            </div>
+
+                            <p style="margin-top: 16px;"><strong>Option 2: Manual Fix</strong></p>
+                            <ul>
+                                <li>Open your executor's folder and go into the <code>workspace</code> folder.</li>
+                                <li>Find the file named <code>IY_FE.iy</code> and delete it.</li>
+                                <li><strong>Tip:</strong> If you can't find the file, run
+                                    <code>delfile("IY_FE.iy")</code> in your executor.
+                                </li>
+                                <li>Optionally, send the file to one of the mods or devs to help them find out why it
+                                    broke.</li>
+                                <li>Restart Infinite Yield in a new game!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" id="faq-plugins">
+                        <button class="faq-share" onclick="copyFAQLink('faq-plugins', this)" title="Copy Link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-question">How do I add new plugins?</div>
+                        <div class="faq-answer">
+                            <p>Plugins add more features to IY. Here is the easiest way to add them:</p>
+                            <ul>
+                                <li><strong>Download:</strong> Find a <code>.iy</code> plugin file you like on this
+                                    site.</li>
+                                <li><strong>Move:</strong> Put that file into the <code>workspace</code> folder inside
+                                    your exploit's main folder.</li>
+                                <li><strong>Open IY:</strong> In Roblox, open IY and click <strong>Settings > Plugins >
+                                        Add Plugin</strong>.</li>
+                                <li><strong>Type Name:</strong> Type the file name (like <code>fly.iy</code>) and click
+                                    'Add'. You're done!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" id="faq-bugs">
+                        <button class="faq-share" onclick="copyFAQLink('faq-bugs', this)" title="Copy Link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </button>
                         <div class="faq-question">What if I find a bug?</div>
                         <div class="faq-answer">
                             <p>We love fixing things! Reach out to us if you see a problem:</p>
                             <ul>
-                                <li><strong>Small Bugs:</strong> Tell us about it in the <a href="https://discord.gg/78ZuWSq" target="_blank">#bug-reports</a> channel.</li>
-                                <li><strong>Big Problems:</strong> If something is totally broken, send a message to the developers on Discord.</li>
-                                <li><strong>Specific Plugins:</strong> If a specific plugin is broken, try to find the author's name on our store.</li>
+                                <li><strong>Small Bugs:</strong> Tell us about it in the <a
+                                        href="https://discord.gg/78ZuWSq" target="_blank">#bug-reports</a> channel.</li>
+                                <li><strong>Big Problems:</strong> If something is totally broken, send a message to the
+                                    developers on Discord.</li>
                             </ul>
                         </div>
                     </div>

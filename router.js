@@ -186,20 +186,27 @@
                     return a.title.localeCompare(b.title);
                 });
 
-            list.innerHTML = exploits.map(ex => `
+            list.innerHTML = exploits.map(ex => {
+                const isFree = ex.free === true;
+                const priceLabel = isFree ? 'Free' : (ex.cost || 'Paid');
+                const priceClass = isFree ? 'price-free' : 'price-paid';
+
+                return `
                 <div class="executor-item">
                     <div class="executor-main">
                         <a href="${ex.websitelink || 'https://weao.gg'}" target="_blank" class="executor-name">${ex.title}</a>
                         <div style="font-size: 0.65rem; color: var(--text3); margin-top: 2px;">${ex.version || 'Unknown version'}</div>
                     </div>
                     <div class="executor-meta">
+                        <span class="price-badge ${priceClass}">${priceLabel}</span>
                         <span class="executor-platform">${ex.platform}</span>
                         <span class="status-badge ${ex.updateStatus ? 'status-updated' : 'status-outdated'}">
                             ${ex.updateStatus ? 'Updated' : 'Outdated'}
                         </span>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
         } catch (e) {
             console.error('WEAO API Error:', e);
@@ -264,6 +271,31 @@
             }, 2000);
         });
     };
+
+    window.copyFAQLink = function(id, btn) {
+        const url = window.location.origin + window.location.pathname + '#' + id;
+        navigator.clipboard.writeText(url).then(() => {
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    };
+
+    // Handle hash scrolling
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash;
+        if (hash) {
+            const el = document.querySelector(hash);
+            if (el) {
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.style.borderColor = 'var(--accent)';
+                    setTimeout(() => el.style.borderColor = '', 2000);
+                }, 100);
+            }
+        }
+    });
 
     // Perform initial routing on load
     handleRoute(location.href);
