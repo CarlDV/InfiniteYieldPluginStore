@@ -4,8 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutorials — Infinite Yield Plugins</title>
-    <meta name="description" content="Learn how to install and use Infinite Yield plugins on PC and Mobile.">
+    <title>Help & FAQ — Infinite Yield Plugins</title>
+    <meta name="description" content="Get help with Infinite Yield. Learn how to install plugins, troubleshoot issues, and check live executor status.">
+
+    <!-- Open Graph / Discord Embed Meta Tags -->
+    <meta property="og:title" content="Help & FAQ — Infinite Yield Plugins">
+    <meta property="og:description"
+        content="Get help with Infinite Yield. Learn how to install plugins, troubleshoot issues, and check live executor status.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://iyplugins.pages.dev/tutorial.html">
+    <meta property="og:image" content="https://iyplugins.pages.dev/emb/emb.webp">
+    <meta name="theme-color" content="#00f7ff">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Help & FAQ — Infinite Yield Plugins">
+    <meta name="twitter:description"
+        content="Get help with Infinite Yield. Learn how to install plugins, troubleshoot issues, and check live executor status.">
+    <meta name="twitter:image" content="https://iyplugins.pages.dev/emb/emb.webp">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -30,7 +47,7 @@
             <div class="header-links" id="header-links">
                 <a href="authors.html" class="h-link">Authors</a>
                 <a href="maker.html" class="h-link">Plugin Maker</a>
-                <a href="tutorial.html" class="h-link">Installing Plugins</a>
+                <a href="tutorial.html" class="h-link">Help & FAQ</a>
                 <a href="api.html" class="h-link h-link-api">API</a>
                 <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link">IY Discord</a>
                 <a href="https://github.com/CarlDV/InfiniteYieldPluginStore" target="_blank" rel="noopener"
@@ -42,38 +59,114 @@
     </header>
 
     <div id="content-area">
-    <div class="tutor-container">
-        <div class="tutor-hero">
-            <h1>Tutorial on how to install</h1>
-            <p>Step-by-step video guides on how to download and install community plugins for Infinite Yield.</p>
-        </div>
-
-        <div class="tutor-grid">
-            <div class="tutor-card">
-                <div class="tutor-video-wrap">
-                    <video src="tutor/pc.mp4" controls preload="metadata"></video>
-                </div>
-                <div class="tutor-info">
-                    <div class="tutor-type">Desktop Guide</div>
-                    <h2 class="tutor-title">PC Installation</h2>
-                    <p class="tutor-desc">Learn how to manually add .iy files to your workspace and load them via the IY
-                        command bar on Windows</p>
+        <div class="tutor-container">
+            <div class="tutor-hero">
+                <h1>Need some help?</h1>
+                <p>Learn how to use Infinite Yield, install plugins, and troubleshoot common issues.</p>
+                <div class="hero-links">
+                    <a href="https://infyiff.github.io" target="_blank" class="h-btn">Official Website</a>
+                    <a href="https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source" target="_blank"
+                        class="h-btn btn-alt">View Source Code</a>
                 </div>
             </div>
 
-            <div class="tutor-card">
-                <div class="tutor-video-wrap">
-                    <video src="tutor/mobile.mp4" controls preload="metadata"></video>
+            <div class="tutor-grid">
+                <div class="tutor-card">
+                    <div class="tutor-video-wrap">
+                        <video src="tutor/pc.mp4" controls preload="metadata"></video>
+                    </div>
+                    <div class="tutor-info">
+                        <div class="tutor-type">Desktop Guide</div>
+                        <h2 class="tutor-title">PC Installation</h2>
+                        <p class="tutor-desc">Learn how to manually add .iy files to your exploit's folder and load them
+                            on Windows.</p>
+                    </div>
                 </div>
-                <div class="tutor-info">
-                    <div class="tutor-type">Mobile Guide</div>
-                    <h2 class="tutor-title">Mobile Installation</h2>
-                    <p class="tutor-desc">A detailed guide for mobile executors on how to manage plugin files within
-                        your mobile file system.</p>
+
+                <div class="tutor-card">
+                    <div class="tutor-video-wrap">
+                        <video src="tutor/mobile.mp4" controls preload="metadata"></video>
+                    </div>
+                    <div class="tutor-info">
+                        <div class="tutor-type">Mobile Guide</div>
+                        <h2 class="tutor-title">Mobile Installation</h2>
+                        <p class="tutor-desc">A step-by-step guide for mobile users on how to manage plugin files on
+                            Android/iOS.</p>
+                    </div>
                 </div>
             </div>
+
+            <section class="faq-section">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="faq-grid">
+                    <div class="faq-item" style="grid-column: 1 / -1;">
+                        <div class="faq-question">How do I run Infinite Yield? (Quick Start)</div>
+                        <div class="faq-answer">
+                            <p>To start using Infinite Yield, simply copy the code below and paste it into your Roblox exploit's script box, then click <strong>Execute</strong>.</p>
+                            <div class="api-code" style="margin: 16px 0;">
+                                <div class="api-code-bar">
+                                    <span class="api-code-lang">Infinite Yield Loadstring</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy Script</button>
+                                </div>
+                                <pre><code class="language-lua">loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()</code></pre>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--text3);">Don't have an exploit? Check out some popular ones like <strong>Solara, JJSploit, or Wave</strong> to get started.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">How do I add new plugins?</div>
+                        <div class="faq-answer">
+                            <p>Plugins add more features to IY. Here is the easiest way to add them:</p>
+                            <ul>
+                                <li><strong>Download:</strong> Find a <code>.iy</code> plugin file you like on this site.</li>
+                                <li><strong>Move:</strong> Put that file into the <code>workspace</code> folder inside your exploit's main folder.</li>
+                                <li><strong>Open IY:</strong> In Roblox, open IY and click <strong>Settings > Plugins > Add Plugin</strong>.</li>
+                                <li><strong>Type Name:</strong> Type the file name (like <code>fly.iy</code>) and click 'Add'. You're done!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">Why did it freeze or stop working?</div>
+                        <div class="faq-answer">
+                            <p>Don't worry! This usually happens for one of two reasons:</p>
+                            <ul>
+                                <li><strong>Old Exploit:</strong> Your script runner might be outdated. Try using a newer or different one.</li>
+                                <li><strong>Settings Glitch:</strong> Sometimes the saved settings get messy. Go to your exploit's <code>workspace</code> folder and delete the file named <code>IY_FE.iy</code>. This will reset everything to normal.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">What are the currently active executors?</div>
+                        <div class="faq-answer">
+                            <p>Here are some of the most popular and recently updated executors, powered by <a href="https://weao.gg" target="_blank">WEAO</a>.</p>
+                            <div id="executor-list" class="executor-list">
+                                <div class="executor-loading">
+                                    <div class="spinner"></div>
+                                    <span>Fetching live status...</span>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.8rem; margin-top: 12px; opacity: 0.7;">Check <a href="https://weao.gg" target="_blank">weao.gg</a> for the full list of 30+ executors.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">What if I find a bug?</div>
+                        <div class="faq-answer">
+                            <p>We love fixing things! Reach out to us if you see a problem:</p>
+                            <ul>
+                                <li><strong>Small Bugs:</strong> Tell us about it in the <a href="https://discord.gg/78ZuWSq" target="_blank">#bug-reports</a> channel.</li>
+                                <li><strong>Big Problems:</strong> If something is totally broken, send a message to the developers on Discord.</li>
+                                <li><strong>Specific Plugins:</strong> If a specific plugin is broken, try to find the author's name on our store.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>
     </div>
     <script src="router.js"></script>
 </body>

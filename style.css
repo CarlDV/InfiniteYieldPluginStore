@@ -1224,6 +1224,337 @@ span.author-click:hover,
     color: var(--text2);
 }
 
+/* ---- FAQ Section ---- */
+.faq-section {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.faq-section h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 48px;
+    text-align: center;
+    letter-spacing: -0.03em;
+    color: #fff;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 450px), 1fr));
+    gap: 32px;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 32px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.faq-question {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 16px;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.faq-question::before {
+    content: "Q";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--accent);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.faq-answer {
+    font-size: 0.95rem;
+    color: var(--text2);
+    line-height: 1.7;
+}
+
+.faq-answer p {
+    margin-bottom: 14px;
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+.faq-answer ul {
+    margin: 12px 0;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.faq-answer li {
+    margin-bottom: 8px;
+    padding-left: 18px;
+    position: relative;
+}
+
+.faq-answer li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.faq-answer a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: opacity 0.2s;
+}
+
+.faq-answer a:hover {
+    opacity: 0.8;
+}
+
+.faq-answer strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* ---- Shared Code Blocks ---- */
+.api-code {
+    background: #0a0a0a;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 16px 0;
+}
+
+.api-code-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: #161616;
+    border-bottom: 1px solid var(--border);
+}
+
+.api-code-lang {
+    font-size: 0.68rem;
+    color: var(--text3);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.api-code pre {
+    padding: 16px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #f8f8f2;
+    background: #0a0a0a;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0;
+}
+
+.copy-btn {
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text2);
+    font-size: 0.7rem;
+    font-family: var(--font);
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.copy-btn.copied {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* ---- Hero Links ---- */
+.hero-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.h-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.h-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    opacity: 0.9;
+}
+
+.h-btn.btn-alt {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.h-btn.btn-alt:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+
+/* ---- Executor List ---- */
+.executor-list {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 12px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.executor-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+}
+
+.executor-item:last-child {
+    border-bottom: none;
+}
+
+.executor-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.executor-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.executor-name:hover {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.executor-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.executor-platform {
+    font-size: 0.7rem;
+    color: var(--text3);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.status-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+}
+
+.status-updated {
+    background: rgba(52, 211, 153, 0.1);
+    color: #34d399;
+}
+
+.status-outdated {
+    background: rgba(248, 113, 113, 0.1);
+    color: #f87171;
+}
+
+.executor-loading, .executor-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    gap: 12px;
+    text-align: center;
+}
+
+.executor-error span {
+    color: var(--text3);
+    font-size: 0.85rem;
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .faq-item {
+        padding: 24px;
+    }
+}
+
 /* ---- Burger Menu ---- */
 .burger-btn {
     display: none;

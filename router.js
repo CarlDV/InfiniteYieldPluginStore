@@ -143,6 +143,8 @@
             if (window.initMaker) window.initMaker();
             else loadScript('maker.js', () => window.initMaker && window.initMaker());
         } else if (path === '/api' || path === '/tutorial') {
+            if (path === '/tutorial') initTutorial();
+            
             // Check if they need prism.js for highlighting
             if (document.querySelector('script[src*="prism.min.js"]') || document.querySelector('pre code')) {
                 if (!window.Prism) {
@@ -155,6 +157,63 @@
                     Prism.highlightAll();
                 }
             }
+        }
+    }
+
+    async function initTutorial() {
+        const list = document.getElementById('executor-list');
+        if (!list) return;
+
+        try {
+            // Use abort controller to prevent multiple simultaneous fetches
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            
+            const res = await fetch('https://weao.xyz/api/status/exploits', { signal: controller.signal });
+            clearTimeout(timeoutId);
+            
+            const data = await res.json();
+            
+            if (!Array.isArray(data)) throw new Error('Invalid data');
+
+            // Sort by popularity/relevance (some have high index) and update status
+            const exploits = data
+                .filter(ex => !ex.hidden)
+                .sort((a, b) => {
+                    // Updated first, then by index, then by title
+                    if (a.updateStatus !== b.updateStatus) return b.updateStatus ? 1 : -1;
+                    if (a.index !== b.index) return (b.index || 0) - (a.index || 0);
+                    return a.title.localeCompare(b.title);
+                });
+
+            list.innerHTML = exploits.map(ex => `
+                <div class="executor-item">
+                    <div class="executor-main">
+                        <a href="${ex.websitelink || 'https://weao.gg'}" target="_blank" class="executor-name">${ex.title}</a>
+                        <div style="font-size: 0.65rem; color: var(--text3); margin-top: 2px;">${ex.version || 'Unknown version'}</div>
+                    </div>
+                    <div class="executor-meta">
+                        <span class="executor-platform">${ex.platform}</span>
+                        <span class="status-badge ${ex.updateStatus ? 'status-updated' : 'status-outdated'}">
+                            ${ex.updateStatus ? 'Updated' : 'Outdated'}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+
+        } catch (e) {
+            console.error('WEAO API Error:', e);
+            list.innerHTML = `
+                <div class="executor-error">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.5">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>Could not load live status.</span>
+                    <a href="https://weao.gg" target="_blank" class="h-btn btn-alt" style="margin-top: 8px; font-size: 0.8rem; padding: 6px 12px;">View on WEAO.gg</a>
+                </div>
+            `;
         }
     }
 
