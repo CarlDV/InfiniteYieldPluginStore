@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-04-09T04:38:10.575702+00:00",
-  "total": 537,
+  "updated_at": "2026-04-11T13:11:26.134299+00:00",
+  "total": 520,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -2738,21 +2738,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "727539117516128266",
-      "name": "GameID",
-      "author": "Deleted User",
-      "date": "2020-06-30T15:00:42.639000+00:00",
-      "files": [
-        {
-          "filename": "GameID.iy",
-          "url": "plugins/727539117516128266/GameID.iy",
-          "size": 452,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "727567272457142332",
       "name": "cutestring",
       "author": "Deleted User",
@@ -5049,7 +5034,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=69d85062&is=69d6fee2&hm=d4c504ba6fbd14c733d0a71411a5ce8fcdefc4dda38bc9475348f767590401b8&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=69daf362&is=69d9a1e2&hm=a66e20eb05c7d261e5bf449822f6071da5d4f314730b3894b45fa081d59c892b&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -5600,27 +5585,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "971743357774729276",
-      "name": "WriteFileIY",
-      "author": "Deleted User",
-      "date": "2022-05-05T12:01:10.612000+00:00",
-      "files": [
-        {
-          "filename": "unknown.png",
-          "url": "plugins/971743357774729276/unknown.png",
-          "size": 4179,
-          "is_plugin": false
-        },
-        {
-          "filename": "WriteFileIY.iy",
-          "url": "plugins/971743357774729276/WriteFileIY.iy",
-          "size": 1321,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "972860110495973396",
       "name": "spotify2",
       "author": "Deleted User",
@@ -5693,21 +5657,6 @@
           "filename": "prediction.iy",
           "url": "plugins/993299711995949166/prediction.iy",
           "size": 3788,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "993896946622267472",
-      "name": "spoofmemory",
-      "author": "Deleted User",
-      "date": "2022-07-05T15:11:37.787000+00:00",
-      "files": [
-        {
-          "filename": "spoofmemory.iy",
-          "url": "plugins/993896946622267472/spoofmemory.iy",
-          "size": 909,
           "is_plugin": true
         }
       ],
@@ -5819,27 +5768,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "1009053479614025868",
-      "name": "pipe",
-      "author": "arsura",
-      "date": "2022-08-16T10:58:16.847000+00:00",
-      "files": [
-        {
-          "filename": "Roblox_2022-08-11_14-05-24.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1009053478930366484/Roblox_2022-08-11_14-05-24.mp4?ex=69d82f08&is=69d6dd88&hm=bac66d829c1805afedfecba37500925e97574bdb9e646c9883d6d784a2e8010b&",
-          "size": 37318716,
-          "is_plugin": false
-        },
-        {
-          "filename": "pipe.iy",
-          "url": "plugins/1009053479614025868/pipe.iy",
-          "size": 992,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "1012662823274422352",
       "name": "shake",
       "author": "Deleted User",
@@ -5877,7 +5805,7 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=69d853ae&is=69d7022e&hm=89e677f580f03ceb4c688644006a39cc1f4ab843fd45c722fd9f58f5c9383050&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=69daf6ae&is=69d9a52e&hm=13b06bfb9f9d12dc7b4ed5acdfd5b31f1ce300ca6db116663950bd1ae3f78d88&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -5889,29 +5817,6 @@
         }
       ],
       "loadstring_urls": []
-    },
-    {
-      "id": "1028383930979717162",
-      "name": "IYcontroller",
-      "author": "arsura",
-      "date": "2022-10-08T19:10:35.595000+00:00",
-      "files": [
-        {
-          "filename": "oE3nU0Nz.mp4",
-          "url": "plugins/1028383930979717162/oE3nU0Nz.mp4",
-          "size": 9036515,
-          "is_plugin": false
-        },
-        {
-          "filename": "IYcontroller.iy",
-          "url": "plugins/1028383930979717162/IYcontroller.iy",
-          "size": 6139,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/MRMANSCRIpt/SSAF/main/IY_ControllerSupport"
-      ]
     },
     {
       "id": "1029554088226074654",
@@ -5944,29 +5849,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "1033059465643167774",
-      "name": "chatbot",
-      "author": "arsura",
-      "date": "2022-10-21T16:49:29.926000+00:00",
-      "files": [
-        {
-          "filename": "chatbot.iy",
-          "url": "plugins/1033059465643167774/chatbot.iy",
-          "size": 839,
-          "is_plugin": true
-        },
-        {
-          "filename": "H7vuB9FG.mp4",
-          "url": "plugins/1033059465643167774/H7vuB9FG.mp4",
-          "size": 15411123,
-          "is_plugin": false
-        }
-      ],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/MRMANSCRIpt/SSAF/main/ChatBot"
-      ]
-    },
-    {
       "id": "1035260586579202128",
       "name": "smallshop",
       "author": "Toon",
@@ -5976,21 +5858,6 @@
           "filename": "smallshop.iy",
           "url": "plugins/1035260586579202128/smallshop.iy",
           "size": 936,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1035666623643787345",
-      "name": "name",
-      "author": "arsura",
-      "date": "2022-10-28T21:29:24.832000+00:00",
-      "files": [
-        {
-          "filename": "name.iy",
-          "url": "plugins/1035666623643787345/name.iy",
-          "size": 1282,
           "is_plugin": true
         }
       ],
@@ -6123,21 +5990,6 @@
       ]
     },
     {
-      "id": "1054464632187797510",
-      "name": "customIY",
-      "author": "arsura",
-      "date": "2022-12-19T18:25:59.319000+00:00",
-      "files": [
-        {
-          "filename": "customIY.iy",
-          "url": "plugins/1054464632187797510/customIY.iy",
-          "size": 7092,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "1054574569312239696",
       "name": "coinflip",
       "author": "joshycuteball",
@@ -6162,21 +6014,6 @@
           "filename": "Netless.iy",
           "url": "plugins/1054868045480349737/Netless.iy",
           "size": 1065,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1060285923406913606",
-      "name": "iydestroy",
-      "author": "arsura",
-      "date": "2023-01-04T19:57:43.300000+00:00",
-      "files": [
-        {
-          "filename": "iydestroy.iy",
-          "url": "plugins/1060285923406913606/iydestroy.iy",
-          "size": 1009,
           "is_plugin": true
         }
       ],
@@ -6243,21 +6080,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "1066751391382646784",
-      "name": "replacesounds",
-      "author": "arsura",
-      "date": "2023-01-22T16:09:10.988000+00:00",
-      "files": [
-        {
-          "filename": "replacesounds.iy",
-          "url": "plugins/1066751391382646784/replacesounds.iy",
-          "size": 904,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "1066769416513130617",
       "name": "imitate",
       "author": "Deleted User",
@@ -6267,27 +6089,6 @@
           "filename": "imitate.iy",
           "url": "plugins/1066769416513130617/imitate.iy",
           "size": 3595,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1066848102276931624",
-      "name": "gethats",
-      "author": "arsura",
-      "date": "2023-01-22T22:33:28.662000+00:00",
-      "files": [
-        {
-          "filename": "ZW5JEtIs.mp4",
-          "url": "plugins/1066848102276931624/ZW5JEtIs.mp4",
-          "size": 5229647,
-          "is_plugin": false
-        },
-        {
-          "filename": "gethats.iy",
-          "url": "plugins/1066848102276931624/gethats.iy",
-          "size": 2385,
           "is_plugin": true
         }
       ],
@@ -6339,27 +6140,6 @@
           "filename": "bp.iy",
           "url": "plugins/1069797087643975701/bp.iy",
           "size": 5658,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1071399978754375760",
-      "name": "chatfix",
-      "author": "arsura",
-      "date": "2023-02-04T12:01:00.584000+00:00",
-      "files": [
-        {
-          "filename": "CnG6M0nx.mp4",
-          "url": "plugins/1071399978754375760/CnG6M0nx.mp4",
-          "size": 7589211,
-          "is_plugin": false
-        },
-        {
-          "filename": "chatfix.iy",
-          "url": "plugins/1071399978754375760/chatfix.iy",
-          "size": 2096,
           "is_plugin": true
         }
       ],
@@ -6426,21 +6206,6 @@
       "loadstring_urls": [
         "https://pastebin.com/raw/Zf64fu3W"
       ]
-    },
-    {
-      "id": "1072884810802008094",
-      "name": "retard",
-      "author": "arsura",
-      "date": "2023-02-08T14:21:12.131000+00:00",
-      "files": [
-        {
-          "filename": "retard.iy",
-          "url": "plugins/1072884810802008094/retard.iy",
-          "size": 439,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
     },
     {
       "id": "1074690745098829944",
@@ -6548,21 +6313,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "1083445248207880254",
-      "name": "yomomma",
-      "author": "arsura",
-      "date": "2023-03-09T17:44:36.612000+00:00",
-      "files": [
-        {
-          "filename": "yomomma.iy",
-          "url": "plugins/1083445248207880254/yomomma.iy",
-          "size": 17086,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "1083961436222521415",
       "name": "heatseeker",
       "author": "Deleted User",
@@ -6603,27 +6353,6 @@
           "url": "plugins/1092277185114558554/af2023.iy",
           "size": 587,
           "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1111283247301799947",
-      "name": "blackesp",
-      "author": "arsura",
-      "date": "2023-05-25T13:22:52.801000+00:00",
-      "files": [
-        {
-          "filename": "blackesp.iy",
-          "url": "plugins/1111283247301799947/blackesp.iy",
-          "size": 834,
-          "is_plugin": true
-        },
-        {
-          "filename": "skRPok7H_1.mp4",
-          "url": "plugins/1111283247301799947/skRPok7H_1.mp4",
-          "size": 7990853,
-          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -6762,21 +6491,6 @@
           "filename": "customIY.iy",
           "url": "plugins/1155023113650708541/customIY.iy",
           "size": 7092,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1175866106729222154",
-      "name": "joinjobid",
-      "author": "arsura",
-      "date": "2023-11-19T18:32:06.380000+00:00",
-      "files": [
-        {
-          "filename": "joinjobid.iy",
-          "url": "plugins/1175866106729222154/joinjobid.iy",
-          "size": 687,
           "is_plugin": true
         }
       ],
@@ -7054,7 +6768,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=69d84bd9&is=69d6fa59&hm=d92a024a8b9c6d5c56f9e1a27a73f7fa7644fd76b2fc70c9a6fa3245509127ea&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=69db9799&is=69da4619&hm=9d390bb0b879f64fc4b77546bde08becc7bb22265a043982483178ff849c23b4&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -7173,27 +6887,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "1341516010137849977",
-      "name": "coloresp",
-      "author": "arsura",
-      "date": "2025-02-18T21:05:40.979000+00:00",
-      "files": [
-        {
-          "filename": "RobloxPlayerBeta_THmIjrw3Op.mp4",
-          "url": "plugins/1341516010137849977/RobloxPlayerBeta_THmIjrw3Op.mp4",
-          "size": 19691607,
-          "is_plugin": false
-        },
-        {
-          "filename": "coloresp.iy",
-          "url": "plugins/1341516010137849977/coloresp.iy",
-          "size": 4891,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "1342104008273170522",
       "name": "bbinds",
       "author": "Real.",
@@ -7225,27 +6918,6 @@
           "url": "plugins/1342563287325347921/TweenFlight.iy",
           "size": 9848,
           "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1342991481690128455",
-      "name": "killiy",
-      "author": "arsura",
-      "date": "2025-02-22T22:48:40.810000+00:00",
-      "files": [
-        {
-          "filename": "killiy.iy",
-          "url": "plugins/1342991481690128455/killiy.iy",
-          "size": 694,
-          "is_plugin": true
-        },
-        {
-          "filename": "RobloxPlayerBeta_SpzMtoyFc5.mp4",
-          "url": "plugins/1342991481690128455/RobloxPlayerBeta_SpzMtoyFc5.mp4",
-          "size": 3447538,
-          "is_plugin": false
         }
       ],
       "loadstring_urls": []
@@ -7381,7 +7053,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69d81f39&is=69d6cdb9&hm=b57f4b0237e2442afd67e736619ca26796250f40647aa6faf41024a58a170962&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69db6af9&is=69da1979&hm=9ca2d21be1130627f93cc895b8be511fca8af07dc1682fae9b3c6e89c48ae234&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -8371,7 +8043,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=69d84a38&is=69d6f8b8&hm=80a912e9f1923c68857608c9b5a9a258a67c0108f822e189029279574bc3eb09&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=69db95f8&is=69da4478&hm=a378508c1da10c1b644f15b8fe4748fd06d4bbd453da1083b120c84582329014&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -8479,6 +8151,21 @@
       "loadstring_urls": [
         "https://raw.githubusercontent.com/Exunys/AirHub/main/AirHub.lua"
       ]
+    },
+    {
+      "id": "1492428717929267231",
+      "name": "vc-crasher-signal",
+      "author": "Agent666_0",
+      "date": "2026-04-11T07:38:54.339000+00:00",
+      "files": [
+        {
+          "filename": "vc-crasher-signal.iy",
+          "url": "plugins/1492428717929267231/vc-crasher-signal.iy",
+          "size": 576,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
     }
   ]
 }
