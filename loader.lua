@@ -5,13 +5,11 @@ local Players = game:GetService("Players")
 local BASE = "https://iyplugins.pages.dev"
 local API_URL = BASE .. "/data/plugins.json"
 local isMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
-
 task.spawn(function()
     pcall(function()
         loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
     end)
 end)
-
 local function fmtBytes(b)
     if not b or b == 0 then return "0 B" end
     local units = {"B", "KB", "MB", "GB"}
@@ -19,7 +17,6 @@ local function fmtBytes(b)
     i = math.min(i, #units - 1)
     return string.format("%.1f %s", b / (1024 ^ i), units[i + 1])
 end
-
 local function fmtDate(iso)
     if not iso then return "" end
     local y, m, d = iso:match("(%d+)-(%d+)-(%d+)")
@@ -27,14 +24,12 @@ local function fmtDate(iso)
     local months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"}
     return string.format("%s %d, %s", months[tonumber(m)] or "???", tonumber(d), y)
 end
-
 local function parseDate(iso)
     if not iso then return 0 end
     local y, m, d, h, mi, s = iso:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)")
     if not y then return 0 end
     return tonumber(y) * 31536000 + tonumber(m) * 2592000 + tonumber(d) * 86400 + tonumber(h) * 3600 + tonumber(mi) * 60 + tonumber(s)
 end
-
 local function cleanDesc(s)
     if not s or s == "" then return "" end
     s = s:gsub("<@!?%d+>", "@user")
@@ -46,7 +41,6 @@ local function cleanDesc(s)
     s = s:gsub("~~(.-)~~", "%1")
     return s
 end
-
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "IYPluginStore"
 screenGui.ResetOnSpawn = false
@@ -56,9 +50,6 @@ pcall(function() screenGui.Parent = game:GetService("CoreGui") end)
 if not screenGui.Parent then
     screenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
 end
-
--- Overlay removed
-
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
 mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -69,16 +60,13 @@ mainFrame.BorderSizePixel = 0
 mainFrame.Visible = false
 mainFrame.ClipsDescendants = false
 mainFrame.Parent = screenGui
-
 local mainCorner = Instance.new("UICorner")
 mainCorner.CornerRadius = UDim.new(0, 16)
 mainCorner.Parent = mainFrame
-
 local mainStroke = Instance.new("UIStroke")
 mainStroke.Color = Color3.fromRGB(42, 42, 42)
 mainStroke.Thickness = 1
 mainStroke.Parent = mainFrame
-
 local topBar = Instance.new("Frame")
 topBar.Name = "TopBar"
 topBar.Size = UDim2.new(1, 0, 0, 34)
@@ -86,11 +74,9 @@ topBar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 topBar.BorderSizePixel = 0
 topBar.ZIndex = 2
 topBar.Parent = mainFrame
-
 local topCorner = Instance.new("UICorner")
 topCorner.CornerRadius = UDim.new(0, 16)
 topCorner.Parent = topBar
-
 local topBarFiller = Instance.new("Frame")
 topBarFiller.Name = "Filler"
 topBarFiller.Size = UDim2.new(1, 0, 0, 18)
@@ -99,7 +85,6 @@ topBarFiller.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 topBarFiller.BorderSizePixel = 0
 topBarFiller.ZIndex = 1
 topBarFiller.Parent = topBar
-
 local topSep = Instance.new("Frame")
 topSep.Size = UDim2.new(1, 0, 0, 1)
 topSep.Position = UDim2.new(0, 0, 1, -1)
@@ -107,7 +92,6 @@ topSep.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
 topSep.BorderSizePixel = 0
 topSep.ZIndex = 3
 topSep.Parent = topBar
-
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Text = "Plugins"
 titleLabel.Font = Enum.Font.GothamBold
@@ -118,7 +102,6 @@ titleLabel.Size = UDim2.new(0, 60, 1, 0)
 titleLabel.Position = UDim2.new(0, 14, 0, 0)
 titleLabel.TextXAlignment = Enum.TextXAlignment.Left
 titleLabel.Parent = topBar
-
 local statLabel = Instance.new("TextLabel")
 statLabel.Name = "Stats"
 statLabel.Text = ""
@@ -130,7 +113,6 @@ statLabel.Size = UDim2.new(0, 150, 1, 0)
 statLabel.Position = UDim2.new(0, 80, 0, 0)
 statLabel.TextXAlignment = Enum.TextXAlignment.Left
 statLabel.Parent = topBar
-
 local dlAllBtn = Instance.new("TextButton")
 dlAllBtn.Name = "DlAll"
 dlAllBtn.Text = "Get All"
@@ -143,9 +125,6 @@ dlAllBtn.Position = UDim2.new(1, -130, 0.5, -11)
 dlAllBtn.Visible = false
 dlAllBtn.Parent = topBar
 Instance.new("UICorner", dlAllBtn).CornerRadius = UDim.new(0, 6)
-
--- counterLabel removed (merged into stats)
-
 local minimizeBtn = Instance.new("TextButton")
 minimizeBtn.Name = "Minimize"
 minimizeBtn.Text = "—"
@@ -158,7 +137,6 @@ minimizeBtn.Size = UDim2.new(0, 26, 0, 26)
 minimizeBtn.Position = UDim2.new(1, -64, 0, 4)
 minimizeBtn.Parent = topBar
 Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
-
 local closeBtn = Instance.new("TextButton")
 closeBtn.Name = "Close"
 closeBtn.Text = "×"
@@ -171,10 +149,8 @@ closeBtn.Size = UDim2.new(0, 26, 0, 26)
 closeBtn.Position = UDim2.new(1, -30, 0, 4)
 closeBtn.Parent = topBar
 Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
-
 local dragging = false
 local dragStart, startPos
-
 topBar.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true
@@ -182,22 +158,17 @@ topBar.InputBegan:Connect(function(input)
         startPos = mainFrame.Position
     end
 end)
-
 topBar.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = false
     end
 end)
-
 UserInputService.InputChanged:Connect(function(input)
     if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
         local delta = input.Position - dragStart
         mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
     end
 end)
-
--- statsStrip removed
-
 local searchFrame = Instance.new("Frame")
 searchFrame.Size = UDim2.new(1, -32, 0, 32)
 searchFrame.Position = UDim2.new(0, 16, 0, 48)
@@ -209,7 +180,6 @@ local searchS = Instance.new("UIStroke")
 searchS.Color = Color3.fromRGB(42, 42, 42)
 searchS.Thickness = 1
 searchS.Parent = searchFrame
-
 local searchBox = Instance.new("TextBox")
 searchBox.PlaceholderText = "Search plugins..."
 searchBox.PlaceholderColor3 = Color3.fromRGB(102, 102, 102)
@@ -223,7 +193,6 @@ searchBox.Position = UDim2.new(0, 14, 0, 0)
 searchBox.TextXAlignment = Enum.TextXAlignment.Left
 searchBox.ClearTextOnFocus = false
 searchBox.Parent = searchFrame
-
 local listFrame = Instance.new("ScrollingFrame")
 listFrame.Name = "PluginList"
 listFrame.Size = UDim2.new(1, -32, 1, -100)
@@ -235,14 +204,12 @@ listFrame.ScrollBarImageColor3 = Color3.fromRGB(51, 51, 51)
 listFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 listFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
 listFrame.Parent = mainFrame
-
 local listLayout = Instance.new("UIGridLayout")
 listLayout.CellPadding = UDim2.new(0, 8, 0, 8)
 listLayout.CellSize = UDim2.new(0.5, -4, 0, 68)
 listLayout.SortOrder = Enum.SortOrder.LayoutOrder
 listLayout.Parent = listFrame
 Instance.new("UIPadding", listFrame).PaddingBottom = UDim.new(0, 16)
-
 local loadingLabel = Instance.new("TextLabel")
 loadingLabel.Name = "Loading"
 loadingLabel.Text = "Loading plugins..."
@@ -252,7 +219,6 @@ loadingLabel.TextColor3 = Color3.fromRGB(102, 102, 102)
 loadingLabel.BackgroundTransparency = 1
 loadingLabel.Size = UDim2.new(1, 0, 0, 60)
 loadingLabel.Parent = listFrame
-
 local progressFrame = Instance.new("Frame")
 progressFrame.Size = UDim2.new(1, -32, 0, 36)
 progressFrame.Position = UDim2.new(0, 16, 1, -48)
@@ -265,7 +231,6 @@ local progS = Instance.new("UIStroke")
 progS.Color = Color3.fromRGB(42, 42, 42)
 progS.Thickness = 1
 progS.Parent = progressFrame
-
 local progressBg = Instance.new("Frame")
 progressBg.Size = UDim2.new(1, -16, 0, 4)
 progressBg.Position = UDim2.new(0, 8, 1, -10)
@@ -273,14 +238,12 @@ progressBg.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
 progressBg.BorderSizePixel = 0
 progressBg.Parent = progressFrame
 Instance.new("UICorner", progressBg).CornerRadius = UDim.new(0, 2)
-
 local progressBar = Instance.new("Frame")
 progressBar.Size = UDim2.new(0, 0, 1, 0)
 progressBar.BackgroundColor3 = Color3.fromRGB(229, 229, 229)
 progressBar.BorderSizePixel = 0
 progressBar.Parent = progressBg
 Instance.new("UICorner", progressBar).CornerRadius = UDim.new(0, 2)
-
 local progressLabel = Instance.new("TextLabel")
 progressLabel.Text = ""
 progressLabel.Font = Enum.Font.GothamMedium
@@ -291,7 +254,6 @@ progressLabel.Size = UDim2.new(1, -16, 0, 22)
 progressLabel.Position = UDim2.new(0, 8, 0, 2)
 progressLabel.TextXAlignment = Enum.TextXAlignment.Left
 progressLabel.Parent = progressFrame
-
 local detailOverlay = Instance.new("Frame")
 detailOverlay.Name = "DetailOverlay"
 detailOverlay.Size = UDim2.new(1, 0, 1, 0)
@@ -301,7 +263,6 @@ detailOverlay.BorderSizePixel = 0
 detailOverlay.Visible = false
 detailOverlay.ZIndex = 10
 detailOverlay.Parent = mainFrame
-
 local detailPanel = Instance.new("Frame")
 detailPanel.Name = "DetailPanel"
 detailPanel.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -317,14 +278,12 @@ local detailS = Instance.new("UIStroke")
 detailS.Color = Color3.fromRGB(42, 42, 42)
 detailS.Thickness = 1
 detailS.Parent = detailPanel
-
 local detailTopBar = Instance.new("Frame")
 detailTopBar.Size = UDim2.new(1, 0, 0, 80)
 detailTopBar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 detailTopBar.BorderSizePixel = 0
 detailTopBar.ZIndex = 12
 detailTopBar.Parent = detailPanel
-
 local detailTopSep = Instance.new("Frame")
 detailTopSep.Size = UDim2.new(1, 0, 0, 1)
 detailTopSep.Position = UDim2.new(0, 0, 1, -1)
@@ -332,7 +291,6 @@ detailTopSep.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
 detailTopSep.BorderSizePixel = 0
 detailTopSep.ZIndex = 12
 detailTopSep.Parent = detailTopBar
-
 local detailAvatar = Instance.new("Frame")
 detailAvatar.Size = UDim2.new(0, 44, 0, 44)
 detailAvatar.Position = UDim2.new(0, 20, 0, 18)
@@ -341,7 +299,6 @@ detailAvatar.BorderSizePixel = 0
 detailAvatar.ZIndex = 13
 detailAvatar.Parent = detailTopBar
 Instance.new("UICorner", detailAvatar).CornerRadius = UDim.new(1, 0)
-
 local detailAvatarLbl = Instance.new("TextLabel")
 detailAvatarLbl.Text = ""
 detailAvatarLbl.Font = Enum.Font.GothamBold
@@ -351,7 +308,6 @@ detailAvatarLbl.BackgroundTransparency = 1
 detailAvatarLbl.Size = UDim2.new(1, 0, 1, 0)
 detailAvatarLbl.ZIndex = 14
 detailAvatarLbl.Parent = detailAvatar
-
 local detailTitle = Instance.new("TextLabel")
 detailTitle.Text = ""
 detailTitle.Font = Enum.Font.GothamBold
@@ -364,7 +320,6 @@ detailTitle.TextXAlignment = Enum.TextXAlignment.Left
 detailTitle.TextTruncate = Enum.TextTruncate.AtEnd
 detailTitle.ZIndex = 13
 detailTitle.Parent = detailTopBar
-
 local detailMeta = Instance.new("TextLabel")
 detailMeta.Text = ""
 detailMeta.Font = Enum.Font.Gotham
@@ -376,7 +331,6 @@ detailMeta.Position = UDim2.new(0, 76, 0, 40)
 detailMeta.TextXAlignment = Enum.TextXAlignment.Left
 detailMeta.ZIndex = 13
 detailMeta.Parent = detailTopBar
-
 local detailDateLbl = Instance.new("TextLabel")
 detailDateLbl.Text = ""
 detailDateLbl.Font = Enum.Font.Gotham
@@ -388,7 +342,6 @@ detailDateLbl.Position = UDim2.new(0, 76, 0, 58)
 detailDateLbl.TextXAlignment = Enum.TextXAlignment.Left
 detailDateLbl.ZIndex = 13
 detailDateLbl.Parent = detailTopBar
-
 local detailCloseBtn = Instance.new("TextButton")
 detailCloseBtn.Text = "×"
 detailCloseBtn.Font = Enum.Font.GothamBold
@@ -401,7 +354,6 @@ detailCloseBtn.Position = UDim2.new(1, -48, 0, 22)
 detailCloseBtn.ZIndex = 13
 detailCloseBtn.Parent = detailTopBar
 Instance.new("UICorner", detailCloseBtn).CornerRadius = UDim.new(0, 6)
-
 local detailDlBtn = Instance.new("TextButton")
 detailDlBtn.Text = "Get"
 detailDlBtn.Font = Enum.Font.GothamMedium
@@ -413,7 +365,6 @@ detailDlBtn.Position = UDim2.new(1, -110, 0, 26)
 detailDlBtn.ZIndex = 13
 detailDlBtn.Parent = detailTopBar
 Instance.new("UICorner", detailDlBtn).CornerRadius = UDim.new(0, 6)
-
 local detailScroll = Instance.new("ScrollingFrame")
 detailScroll.Size = UDim2.new(1, 0, 1, -80)
 detailScroll.Position = UDim2.new(0, 0, 0, 80)
@@ -425,19 +376,16 @@ detailScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
 detailScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
 detailScroll.ZIndex = 12
 detailScroll.Parent = detailPanel
-
 local detailLayout = Instance.new("UIListLayout")
 detailLayout.Padding = UDim.new(0, 0)
 detailLayout.SortOrder = Enum.SortOrder.LayoutOrder
 detailLayout.Parent = detailScroll
-
 local detailPad = Instance.new("UIPadding")
 detailPad.PaddingTop = UDim.new(0, 16)
 detailPad.PaddingBottom = UDim.new(0, 16)
 detailPad.PaddingLeft = UDim.new(0, 20)
 detailPad.PaddingRight = UDim.new(0, 20)
 detailPad.Parent = detailScroll
-
 local miniBtn = Instance.new("TextButton")
 miniBtn.Name = "MiniRestore"
 miniBtn.Text = "IY Plugins"
@@ -454,10 +402,8 @@ local miniS = Instance.new("UIStroke")
 miniS.Color = Color3.fromRGB(42, 42, 42)
 miniS.Thickness = 1
 miniS.Parent = miniBtn
-
 local miniDragging = false
 local miniDragStart, miniStartPos
-
 miniBtn.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         miniDragging = true
@@ -465,29 +411,24 @@ miniBtn.InputBegan:Connect(function(input)
         miniStartPos = miniBtn.Position
     end
 end)
-
 miniBtn.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         miniDragging = false
     end
 end)
-
 UserInputService.InputChanged:Connect(function(input)
     if miniDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
         local delta = input.Position - miniDragStart
         miniBtn.Position = UDim2.new(miniStartPos.X.Scale, miniStartPos.X.Offset + delta.X, miniStartPos.Y.Scale, miniStartPos.Y.Offset + delta.Y)
     end
 end)
-
 local allPlugins = {}
 local filteredPlugins = {}
 local downloadedCount = 0
 local downloadedPlugins = {}
 local cards = {}
 local currentDetailPlugin = nil
-
 local CONFIG_FILE = "iy_store_plugins.json"
-
 local function loadConfig()
     if readfile and isfile and isfile(CONFIG_FILE) then
         pcall(function()
@@ -499,7 +440,6 @@ local function loadConfig()
         end)
     end
 end
-
 local function saveConfig()
     if writefile then
         pcall(function()
@@ -507,11 +447,8 @@ local function saveConfig()
         end)
     end
 end
-
 local function updateCounter()
-    -- Counter removed
 end
-
 local function clearDetailBody()
     for _, child in ipairs(detailScroll:GetChildren()) do
         if child:IsA("Frame") or child:IsA("TextLabel") then
@@ -519,7 +456,6 @@ local function clearDetailBody()
         end
     end
 end
-
 local function addSection(labelText, order)
     local lbl = Instance.new("TextLabel")
     lbl.Text = string.upper(labelText)
@@ -534,7 +470,6 @@ local function addSection(labelText, order)
     lbl.Parent = detailScroll
     return lbl
 end
-
 local function addTextBlock(text, order)
     local lbl = Instance.new("TextLabel")
     lbl.Text = text
@@ -552,7 +487,6 @@ local function addTextBlock(text, order)
     lbl.Parent = detailScroll
     return lbl
 end
-
 local function addFileRow(file, order)
     local row = Instance.new("Frame")
     row.Size = UDim2.new(1, 0, 0, 40)
@@ -566,7 +500,6 @@ local function addFileRow(file, order)
     rs.Color = Color3.fromRGB(42, 42, 42)
     rs.Thickness = 1
     rs.Parent = row
-
     local fname = Instance.new("TextLabel")
     fname.Text = file.filename or "?"
     fname.Font = Enum.Font.GothamMedium
@@ -579,7 +512,6 @@ local function addFileRow(file, order)
     fname.TextTruncate = Enum.TextTruncate.AtEnd
     fname.ZIndex = 13
     fname.Parent = row
-
     local fsize = Instance.new("TextLabel")
     fsize.Text = fmtBytes(file.size or 0)
     fsize.Font = Enum.Font.Gotham
@@ -591,10 +523,8 @@ local function addFileRow(file, order)
     fsize.TextXAlignment = Enum.TextXAlignment.Right
     fsize.ZIndex = 13
     fsize.Parent = row
-
     return row
 end
-
 local function addSpacer(h, order)
     local sp = Instance.new("Frame")
     sp.Size = UDim2.new(1, 0, 0, h)
@@ -603,7 +533,6 @@ local function addSpacer(h, order)
     sp.ZIndex = 12
     sp.Parent = detailScroll
 end
-
 local function showDetail(plugin)
     currentDetailPlugin = plugin
     clearDetailBody()
@@ -628,9 +557,7 @@ local function showDetail(plugin)
         detailDlBtn.Text = "Get"
         detailDlBtn.TextColor3 = Color3.fromRGB(229, 229, 229)
     end
-
     local order = 1
-
     local desc = cleanDesc(plugin.description or "")
     if desc ~= "" then
         addSection("Description", order)
@@ -669,12 +596,10 @@ local function showDetail(plugin)
 
     detailOverlay.Visible = true
 end
-
 local function hideDetail()
     detailOverlay.Visible = false
     currentDetailPlugin = nil
 end
-
 detailCloseBtn.MouseButton1Click:Connect(hideDetail)
 detailCloseBtn.MouseEnter:Connect(function()
     TweenService:Create(detailCloseBtn, TweenInfo.new(0.15), {BackgroundTransparency = 0}):Play()
@@ -682,7 +607,6 @@ end)
 detailCloseBtn.MouseLeave:Connect(function()
     TweenService:Create(detailCloseBtn, TweenInfo.new(0.15), {BackgroundTransparency = 1}):Play()
 end)
-
 detailDlBtn.MouseButton1Click:Connect(function()
     if not currentDetailPlugin or not writefile then
         detailDlBtn.Text = "N/A"
@@ -725,33 +649,24 @@ detailDlBtn.MouseButton1Click:Connect(function()
         end
     end)
 end)
-
 detailDlBtn.MouseEnter:Connect(function()
     TweenService:Create(detailDlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(51, 51, 51)}):Play()
 end)
 detailDlBtn.MouseLeave:Connect(function()
     TweenService:Create(detailDlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(42, 42, 42)}):Play()
 end)
-
 local function uninstallPlugin(plugin, dlBtn, unBtn)
-    if not (delfile or isfile) then return end
+    if not (delfile and isfile) then return end
     for _, file in ipairs(plugin.files or {}) do
-        pcall(function()
-            if isfile and isfile(file.filename) then
-                delfile(file.filename)
-            elseif delfile then
-                delfile(file.filename)
-            end
-        end)
+        pcall(function() delfile(file.filename) end)
     end
     downloadedPlugins[plugin.id] = nil
     downloadedCount = downloadedCount - 1
     saveConfig()
     dlBtn.Text = "Get"
     dlBtn.TextColor3 = Color3.fromRGB(229, 229, 229)
-    unBtn.Visible = false
+    unBtn.Visible = false   
 end
-
 local function createPluginCard(plugin, index)
     local card = Instance.new("TextButton")
     card.Name = "Card_" .. (plugin.name or tostring(index))
@@ -762,20 +677,16 @@ local function createPluginCard(plugin, index)
     card.LayoutOrder = index
     card.AutoButtonColor = false
     card.Parent = listFrame
-
     local cardCorner = Instance.new("UICorner")
     cardCorner.CornerRadius = UDim.new(0, 8)
     cardCorner.Parent = card
-
     local cardStroke = Instance.new("UIStroke")
     cardStroke.Color = Color3.fromRGB(255, 255, 255)
     cardStroke.Transparency = 0.96
     cardStroke.Thickness = 1
     cardStroke.Parent = card
-
     local authorName = plugin.author and plugin.author.name or "Unknown"
     local initial = string.upper(string.sub(authorName, 1, 1))
-
     local avatar = Instance.new("Frame")
     avatar.Size = UDim2.new(0, 20, 0, 20)
     avatar.Position = UDim2.new(0, 10, 0, 10)
@@ -783,7 +694,6 @@ local function createPluginCard(plugin, index)
     avatar.BorderSizePixel = 0
     avatar.Parent = card
     Instance.new("UICorner", avatar).CornerRadius = UDim.new(1, 0)
-
     local avatarLbl = Instance.new("TextLabel")
     avatarLbl.Text = initial
     avatarLbl.Font = Enum.Font.GothamBold
@@ -792,7 +702,6 @@ local function createPluginCard(plugin, index)
     avatarLbl.BackgroundTransparency = 1
     avatarLbl.Size = UDim2.new(1, 0, 1, 0)
     avatarLbl.Parent = avatar
-
     local nameLabel = Instance.new("TextLabel")
     nameLabel.Text = plugin.name or "Untitled"
     nameLabel.Font = Enum.Font.GothamBold
@@ -804,7 +713,6 @@ local function createPluginCard(plugin, index)
     nameLabel.TextXAlignment = Enum.TextXAlignment.Left
     nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
     nameLabel.Parent = card
-
     local authorLabel = Instance.new("TextLabel")
     authorLabel.Text = authorName
     authorLabel.Font = Enum.Font.Gotham
@@ -816,7 +724,6 @@ local function createPluginCard(plugin, index)
     authorLabel.TextXAlignment = Enum.TextXAlignment.Left
     authorLabel.TextTruncate = Enum.TextTruncate.AtEnd
     authorLabel.Parent = card
-
     local metaLabel = Instance.new("TextLabel")
     metaLabel.Text = fmtDate(plugin.date)
     metaLabel.Font = Enum.Font.Gotham
@@ -827,7 +734,6 @@ local function createPluginCard(plugin, index)
     metaLabel.Position = UDim2.new(0, 10, 1, -20)
     metaLabel.TextXAlignment = Enum.TextXAlignment.Left
     metaLabel.Parent = card
-
     local dlBtn = Instance.new("TextButton")
     dlBtn.Name = "DL"
     if downloadedPlugins[plugin.id] then
@@ -845,7 +751,6 @@ local function createPluginCard(plugin, index)
     dlBtn.ZIndex = 2
     dlBtn.Parent = card
     Instance.new("UICorner", dlBtn).CornerRadius = UDim.new(0, 5)
-
     local unBtn = Instance.new("TextButton")
     unBtn.Name = "UN"
     unBtn.Text = "🗑️"
@@ -859,21 +764,18 @@ local function createPluginCard(plugin, index)
     unBtn.Visible = downloadedPlugins[plugin.id] and true or false
     unBtn.Parent = card
     Instance.new("UICorner", unBtn).CornerRadius = UDim.new(0, 5)
-
     dlBtn.MouseEnter:Connect(function()
         TweenService:Create(dlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(51, 51, 51)}):Play()
     end)
     dlBtn.MouseLeave:Connect(function()
         TweenService:Create(dlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(38, 38, 38)}):Play()
     end)
-
     unBtn.MouseEnter:Connect(function()
         TweenService:Create(unBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(51, 51, 51)}):Play()
     end)
     unBtn.MouseLeave:Connect(function()
         TweenService:Create(unBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(38, 38, 38)}):Play()
     end)
-
     card.MouseEnter:Connect(function()
         TweenService:Create(card, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(17, 18, 22)}):Play()
         TweenService:Create(cardStroke, TweenInfo.new(0.2), {Transparency = 0.8}):Play()
@@ -882,11 +784,9 @@ local function createPluginCard(plugin, index)
         TweenService:Create(card, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(0, 0, 0)}):Play()
         TweenService:Create(cardStroke, TweenInfo.new(0.2), {Transparency = 0.96}):Play()
     end)
-
     card.MouseButton1Click:Connect(function()
         showDetail(plugin)
     end)
-
     return card, dlBtn, unBtn
 end
 
@@ -912,7 +812,6 @@ end)
 dlAllBtn.MouseLeave:Connect(function()
     TweenService:Create(dlAllBtn, TweenInfo.new(0.15), {TextColor3 = Color3.fromRGB(153, 153, 153)}):Play()
 end)
-
 local function downloadPlugin(plugin, dlBtn)
     if not writefile then
         dlBtn.Text = "N/A"
@@ -938,7 +837,6 @@ local function downloadPlugin(plugin, dlBtn)
         dlBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
     end
 end
-
 local function renderList(pluginList)
     for _, child in ipairs(listFrame:GetChildren()) do
         if child:IsA("TextButton") and child.Name:match("^Card_") then child:Destroy() end
@@ -987,7 +885,6 @@ local function renderList(pluginList)
         end)
     end
 end
-
 local function filterPlugins(query)
     if not query or query == "" then
         filteredPlugins = allPlugins
@@ -1004,7 +901,6 @@ local function filterPlugins(query)
     end
     renderList(filteredPlugins)
 end
-
 local function downloadAll()
     if not writefile then
         progressLabel.Text = "writefile not supported"
@@ -1047,7 +943,6 @@ local function downloadAll()
         dlAllBtn.Visible = true
     end)
 end
-
 local function autoLoadPlugins()
     if not listfiles or not isfolder then return end
     for _, filePath in ipairs(listfiles("")) do
@@ -1057,7 +952,6 @@ local function autoLoadPlugins()
         end
     end
 end
-
 minimizeBtn.MouseButton1Click:Connect(function()
     mainFrame.Visible = false
     miniBtn.Visible = true
@@ -1074,7 +968,6 @@ closeBtn.MouseButton1Click:Connect(function()
         screenGui:Destroy()
     end)
 end)
-
 searchBox:GetPropertyChangedSignal("Text"):Connect(function()
     filterPlugins(searchBox.Text)
 end)
