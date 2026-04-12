@@ -487,10 +487,11 @@ local function addTextBlock(text, order)
     lbl.Parent = detailScroll
     return lbl
 end
-local function addFileRow(file, order)
+local function addEmbedRow(embed, order)
     local row = Instance.new("Frame")
-    row.Size = UDim2.new(1, 0, 0, 40)
-    row.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+    row.Size = UDim2.new(1, 0, 0, 0)
+    row.AutomaticSize = Enum.AutomaticSize.Y
+    row.BackgroundColor3 = Color3.fromRGB(20, 20, 24)
     row.BorderSizePixel = 0
     row.LayoutOrder = order
     row.ZIndex = 12
@@ -500,29 +501,69 @@ local function addFileRow(file, order)
     rs.Color = Color3.fromRGB(42, 42, 42)
     rs.Thickness = 1
     rs.Parent = row
-    local fname = Instance.new("TextLabel")
-    fname.Text = file.filename or "?"
-    fname.Font = Enum.Font.GothamMedium
-    fname.TextSize = 11
-    fname.TextColor3 = Color3.fromRGB(229, 229, 229)
-    fname.BackgroundTransparency = 1
-    fname.Size = UDim2.new(0.6, 0, 1, 0)
-    fname.Position = UDim2.new(0, 12, 0, 0)
-    fname.TextXAlignment = Enum.TextXAlignment.Left
-    fname.TextTruncate = Enum.TextTruncate.AtEnd
-    fname.ZIndex = 13
-    fname.Parent = row
-    local fsize = Instance.new("TextLabel")
-    fsize.Text = fmtBytes(file.size or 0)
-    fsize.Font = Enum.Font.Gotham
-    fsize.TextSize = 10
-    fsize.TextColor3 = Color3.fromRGB(102, 102, 102)
-    fsize.BackgroundTransparency = 1
-    fsize.Size = UDim2.new(0.3, -12, 1, 0)
-    fsize.Position = UDim2.new(0.6, 0, 0, 0)
-    fsize.TextXAlignment = Enum.TextXAlignment.Right
-    fsize.ZIndex = 13
-    fsize.Parent = row
+    local pad = Instance.new("UIPadding", row)
+    pad.PaddingTop = UDim.new(0, 8)
+    pad.PaddingBottom = UDim.new(0, 8)
+    pad.PaddingLeft = UDim.new(0, 10)
+    pad.PaddingRight = UDim.new(0, 10)
+    local list = Instance.new("UIListLayout", row)
+    list.Padding = UDim.new(0, 4)
+    list.SortOrder = Enum.SortOrder.LayoutOrder
+    if embed.title then
+        local t = Instance.new("TextLabel")
+        t.Text = embed.title
+        t.Font = Enum.Font.GothamBold
+        t.TextSize = 12
+        t.TextColor3 = Color3.fromRGB(59, 130, 246)
+        t.BackgroundTransparency = 1
+        t.Size = UDim2.new(1, 0, 0, 0)
+        t.AutomaticSize = Enum.AutomaticSize.Y
+        t.TextXAlignment = Enum.TextXAlignment.Left
+        t.TextWrapped = true
+        t.LayoutOrder = 1
+        t.Parent = row
+    end
+    if embed.description then
+        local d = Instance.new("TextLabel")
+        d.Text = cleanDesc(embed.description)
+        d.Font = Enum.Font.Gotham
+        d.TextSize = 11
+        d.TextColor3 = Color3.fromRGB(209, 213, 219)
+        d.BackgroundTransparency = 1
+        d.Size = UDim2.new(1, 0, 0, 0)
+        d.AutomaticSize = Enum.AutomaticSize.Y
+        d.TextXAlignment = Enum.TextXAlignment.Left
+        d.TextWrapped = true
+        d.LayoutOrder = 2
+        d.Parent = row
+    end
+    if embed.video and embed.video.url then
+        local v = Instance.new("TextLabel")
+        v.Text = "Video: " .. embed.video.url
+        v.Font = Enum.Font.GothamMedium
+        v.TextSize = 10
+        v.TextColor3 = Color3.fromRGB(156, 163, 175)
+        v.BackgroundTransparency = 1
+        v.Size = UDim2.new(1, 0, 0, 0)
+        v.AutomaticSize = Enum.AutomaticSize.Y
+        v.TextXAlignment = Enum.TextXAlignment.Left
+        v.TextWrapped = true
+        v.LayoutOrder = 3
+        v.Parent = row
+    elseif embed.image and embed.image.url then
+        local i = Instance.new("TextLabel")
+        i.Text = "Image: " .. embed.image.url
+        i.Font = Enum.Font.GothamMedium
+        i.TextSize = 10
+        i.TextColor3 = Color3.fromRGB(156, 163, 175)
+        i.BackgroundTransparency = 1
+        i.Size = UDim2.new(1, 0, 0, 0)
+        i.AutomaticSize = Enum.AutomaticSize.Y
+        i.TextXAlignment = Enum.TextXAlignment.Left
+        i.TextWrapped = true
+        i.LayoutOrder = 3
+        i.Parent = row
+    end
     return row
 end
 local function addSpacer(h, order)
@@ -542,12 +583,13 @@ local function showDetail(plugin)
     detailAvatarLbl.Text = initial
     detailTitle.Text = plugin.name or "Untitled"
 
-    local fileCount = plugin.files and #plugin.files or 0
-    local totalSize = 0
-    if plugin.files then
-        for _, f in ipairs(plugin.files) do totalSize = totalSize + (f.size or 0) end
+    local pluginFiles = {}
+    for _, f in ipairs(plugin.files or {}) do
+        if f.filename:lower():match("%.iy$") then
+            table.insert(pluginFiles, f)
+        end
     end
-    detailMeta.Text = authorName .. "  ·  " .. fileCount .. " file" .. (fileCount ~= 1 and "s" or "") .. "  ·  " .. fmtBytes(totalSize)
+    detailMeta.Text = authorName .. "  ·  " .. #pluginFiles .. " plugin file" .. (#pluginFiles ~= 1 and "s" or "")
     detailDateLbl.Text = fmtDate(plugin.date)
 
     if downloadedPlugins[plugin.id] then
@@ -568,17 +610,62 @@ local function showDetail(plugin)
         order = order + 1
     end
 
-    if plugin.files and #plugin.files > 0 then
+    if #pluginFiles > 0 then
         addSection("Files", order)
         order = order + 1
-        for _, file in ipairs(plugin.files) do
-            addFileRow(file, order)
+        for _, file in ipairs(pluginFiles) do
+            local row = Instance.new("Frame")
+            row.Size = UDim2.new(1, 0, 0, 40)
+            row.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+            row.BorderSizePixel = 0
+            row.LayoutOrder = order
+            row.ZIndex = 12
+            row.Parent = detailScroll
+            Instance.new("UICorner", row).CornerRadius = UDim.new(0, 8)
+            local rs = Instance.new("UIStroke")
+            rs.Color = Color3.fromRGB(42, 42, 42)
+            rs.Thickness = 1
+            rs.Parent = row
+            local fname = Instance.new("TextLabel")
+            fname.Text = file.filename or "?"
+            fname.Font = Enum.Font.GothamMedium
+            fname.TextSize = 11
+            fname.TextColor3 = Color3.fromRGB(229, 229, 229)
+            fname.BackgroundTransparency = 1
+            fname.Size = UDim2.new(0.6, 0, 1, 0)
+            fname.Position = UDim2.new(0, 12, 0, 0)
+            fname.TextXAlignment = Enum.TextXAlignment.Left
+            fname.TextTruncate = Enum.TextTruncate.AtEnd
+            fname.ZIndex = 13
+            fname.Parent = row
+            local fsize = Instance.new("TextLabel")
+            fsize.Text = fmtBytes(file.size or 0)
+            fsize.Font = Enum.Font.Gotham
+            fsize.TextSize = 10
+            fsize.TextColor3 = Color3.fromRGB(102, 102, 102)
+            fsize.BackgroundTransparency = 1
+            fsize.Size = UDim2.new(0.3, -12, 1, 0)
+            fsize.Position = UDim2.new(0.6, 0, 0, 0)
+            fsize.TextXAlignment = Enum.TextXAlignment.Right
+            fsize.ZIndex = 13
+            fsize.Parent = row
             order = order + 1
             addSpacer(4, order)
             order = order + 1
         end
         addSpacer(8, order)
         order = order + 1
+    end
+
+    if plugin.embeds and #plugin.embeds > 0 then
+        addSection("Embeds", order)
+        order = order + 1
+        for _, emb in ipairs(plugin.embeds) do
+            addEmbedRow(emb, order)
+            order = order + 1
+            addSpacer(8, order)
+            order = order + 1
+        end
     end
 
     if plugin.loadstring_urls and #plugin.loadstring_urls > 0 then
@@ -619,7 +706,18 @@ detailDlBtn.MouseButton1Click:Connect(function()
     task.spawn(function()
         local plugin = currentDetailPlugin
         local success = true
+        local filesToDownload = {}
         for _, file in ipairs(plugin.files or {}) do
+            if file.filename:lower():match("%.iy$") then
+                table.insert(filesToDownload, file)
+            end
+        end
+        if #filesToDownload == 0 then
+            detailDlBtn.Text = "No .iy"
+            detailDlBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
+            return
+        end
+        for _, file in ipairs(filesToDownload) do
             local ok, content = pcall(function() return game:HttpGet(BASE .. "/" .. file.url) end)
             if ok then
                 pcall(function() writefile(file.filename, content) end)
@@ -640,7 +738,7 @@ detailDlBtn.MouseButton1Click:Connect(function()
                 cards[plugin.id].dlBtn.TextColor3 = Color3.fromRGB(110, 231, 183)
                 if cards[plugin.id].unBtn then cards[plugin.id].unBtn.Visible = true end
             end
-            for _, file in ipairs(plugin.files or {}) do
+            for _, file in ipairs(filesToDownload) do
                 pcall(function() if addPlugin then addPlugin(file.filename) end end)
             end
         else
@@ -658,7 +756,9 @@ end)
 local function uninstallPlugin(plugin, dlBtn, unBtn)
     if not (delfile and isfile) then return end
     for _, file in ipairs(plugin.files or {}) do
-        pcall(function() delfile(file.filename) end)
+        if file.filename:lower():match("%.iy$") then
+            pcall(function() delfile(file.filename) end)
+        end
     end
     downloadedPlugins[plugin.id] = nil
     downloadedCount = downloadedCount - 1
@@ -821,7 +921,18 @@ local function downloadPlugin(plugin, dlBtn)
     dlBtn.Text = "..."
     dlBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
     local success = true
+    local filesToDownload = {}
     for _, file in ipairs(plugin.files or {}) do
+        if file.filename:lower():match("%.iy$") then
+            table.insert(filesToDownload, file)
+        end
+    end
+    if #filesToDownload == 0 then
+        dlBtn.Text = "No .iy"
+        dlBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
+        return
+    end
+    for _, file in ipairs(filesToDownload) do
         local ok, content = pcall(function() return game:HttpGet(BASE .. "/" .. file.url) end)
         if ok then
             pcall(function() writefile(file.filename, content) end)
@@ -876,7 +987,9 @@ local function renderList(pluginList)
                 end
                 if unBtn then unBtn.Visible = true end
                 for _, file in ipairs(plugin.files or {}) do
-                    pcall(function() if addPlugin then addPlugin(file.filename) end end)
+                    if file.filename:lower():match("%.iy$") then
+                        pcall(function() if addPlugin then addPlugin(file.filename) end end)
+                    end
                 end
             end)
         end)
@@ -915,7 +1028,13 @@ local function downloadAll()
     for i, plugin in ipairs(plugins) do
         progressLabel.Text = string.format("%d/%d  %s", i, total, plugin.name or "?")
         TweenService:Create(progressBar, TweenInfo.new(0.15), {Size = UDim2.new(i / total, 0, 1, 0)}):Play()
+        local filesToDownload = {}
         for _, file in ipairs(plugin.files or {}) do
+            if file.filename:lower():match("%.iy$") then
+                table.insert(filesToDownload, file)
+            end
+        end
+        for _, file in ipairs(filesToDownload) do
             local ok, content = pcall(function() return game:HttpGet(BASE .. "/" .. file.url) end)
             if ok then pcall(function() writefile(file.filename, content) end) end
         end
@@ -930,7 +1049,9 @@ local function downloadAll()
             if cards[plugin.id].unBtn then cards[plugin.id].unBtn.Visible = true end
         end
         for _, file in ipairs(plugin.files or {}) do
-            pcall(function() if addPlugin then addPlugin(file.filename) end end)
+            if file.filename:lower():match("%.iy$") then
+                pcall(function() if addPlugin then addPlugin(file.filename) end end)
+            end
         end
         task.wait()
     end
