@@ -1,1125 +1,318 @@
-local HttpService = game:GetService("HttpService")
-local TweenService = game:GetService("TweenService")
-local UserInputService = game:GetService("UserInputService")
-local Players = game:GetService("Players")
-local BASE = "https://iyplugins.pages.dev"
-local API_URL = BASE .. "/data/plugins.json"
-local isMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
-task.spawn(function()
-    pcall(function()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    end)
-end)
-local function fmtBytes(b)
-    if not b or b == 0 then return "0 B" end
-    local units = {"B", "KB", "MB", "GB"}
-    local i = math.floor(math.log(b) / math.log(1024))
-    i = math.min(i, #units - 1)
-    return string.format("%.1f %s", b / (1024 ^ i), units[i + 1])
-end
-local function fmtDate(iso)
-    if not iso then return "" end
-    local y, m, d = iso:match("(%d+)-(%d+)-(%d+)")
-    if not y then return "" end
-    local months = {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"}
-    return string.format("%s %d, %s", months[tonumber(m)] or "???", tonumber(d), y)
-end
-local function parseDate(iso)
-    if not iso then return 0 end
-    local y, m, d, h, mi, s = iso:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)")
-    if not y then return 0 end
-    return tonumber(y) * 31536000 + tonumber(m) * 2592000 + tonumber(d) * 86400 + tonumber(h) * 3600 + tonumber(mi) * 60 + tonumber(s)
-end
-local function cleanDesc(s)
-    if not s or s == "" then return "" end
-    s = s:gsub("<@!?%d+>", "@user")
-    s = s:gsub("<#%d+>", "#channel")
-    s = s:gsub("<:.+:%d+>", "")
-    s = s:gsub("```%w*\n?", ""):gsub("```", "")
-    s = s:gsub("%*%*(.-)%*%*", "%1")
-    s = s:gsub("__(.-)__", "%1")
-    s = s:gsub("~~(.-)~~", "%1")
-    return s
-end
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "IYPluginStore"
-screenGui.ResetOnSpawn = false
-screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-screenGui.DisplayOrder = 999
-pcall(function() screenGui.Parent = game:GetService("CoreGui") end)
-if not screenGui.Parent then
-    screenGui.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
-end
-local mainFrame = Instance.new("Frame")
-mainFrame.Name = "MainFrame"
-mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-mainFrame.Size = isMobile and UDim2.new(0.96, 0, 0.88, 0) or UDim2.new(0, 580, 0, 500)
-mainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-mainFrame.BorderSizePixel = 0
-mainFrame.Visible = false
-mainFrame.ClipsDescendants = false
-mainFrame.Parent = screenGui
-local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 16)
-mainCorner.Parent = mainFrame
-local mainStroke = Instance.new("UIStroke")
-mainStroke.Color = Color3.fromRGB(42, 42, 42)
-mainStroke.Thickness = 1
-mainStroke.Parent = mainFrame
-local topBar = Instance.new("Frame")
-topBar.Name = "TopBar"
-topBar.Size = UDim2.new(1, 0, 0, 34)
-topBar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-topBar.BorderSizePixel = 0
-topBar.ZIndex = 2
-topBar.Parent = mainFrame
-local topCorner = Instance.new("UICorner")
-topCorner.CornerRadius = UDim.new(0, 16)
-topCorner.Parent = topBar
-local topBarFiller = Instance.new("Frame")
-topBarFiller.Name = "Filler"
-topBarFiller.Size = UDim2.new(1, 0, 0, 18)
-topBarFiller.Position = UDim2.new(0, 0, 1, -18)
-topBarFiller.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-topBarFiller.BorderSizePixel = 0
-topBarFiller.ZIndex = 1
-topBarFiller.Parent = topBar
-local topSep = Instance.new("Frame")
-topSep.Size = UDim2.new(1, 0, 0, 1)
-topSep.Position = UDim2.new(0, 0, 1, -1)
-topSep.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-topSep.BorderSizePixel = 0
-topSep.ZIndex = 3
-topSep.Parent = topBar
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Text = "Plugins"
-titleLabel.Font = Enum.Font.GothamBold
-titleLabel.TextSize = isMobile and 13 or 14
-titleLabel.TextColor3 = Color3.fromRGB(229, 229, 229)
-titleLabel.BackgroundTransparency = 1
-titleLabel.Size = UDim2.new(0, 60, 1, 0)
-titleLabel.Position = UDim2.new(0, 14, 0, 0)
-titleLabel.TextXAlignment = Enum.TextXAlignment.Left
-titleLabel.Parent = topBar
-local statLabel = Instance.new("TextLabel")
-statLabel.Name = "Stats"
-statLabel.Text = ""
-statLabel.Font = Enum.Font.Gotham
-statLabel.TextSize = 10
-statLabel.TextColor3 = Color3.fromRGB(102, 102, 102)
-statLabel.BackgroundTransparency = 1
-statLabel.Size = UDim2.new(0, 150, 1, 0)
-statLabel.Position = UDim2.new(0, 80, 0, 0)
-statLabel.TextXAlignment = Enum.TextXAlignment.Left
-statLabel.Parent = topBar
-local dlAllBtn = Instance.new("TextButton")
-dlAllBtn.Name = "DlAll"
-dlAllBtn.Text = "Get All"
-dlAllBtn.Font = Enum.Font.GothamMedium
-dlAllBtn.TextSize = 10
-dlAllBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
-dlAllBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-dlAllBtn.Size = UDim2.new(0, 56, 0, 22)
-dlAllBtn.Position = UDim2.new(1, -130, 0.5, -11)
-dlAllBtn.Visible = false
-dlAllBtn.Parent = topBar
-Instance.new("UICorner", dlAllBtn).CornerRadius = UDim.new(0, 6)
-local minimizeBtn = Instance.new("TextButton")
-minimizeBtn.Name = "Minimize"
-minimizeBtn.Text = "—"
-minimizeBtn.Font = Enum.Font.GothamBold
-minimizeBtn.TextSize = 15
-minimizeBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
-minimizeBtn.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-minimizeBtn.BackgroundTransparency = 1
-minimizeBtn.Size = UDim2.new(0, 26, 0, 26)
-minimizeBtn.Position = UDim2.new(1, -64, 0, 4)
-minimizeBtn.Parent = topBar
-Instance.new("UICorner", minimizeBtn).CornerRadius = UDim.new(0, 6)
-local closeBtn = Instance.new("TextButton")
-closeBtn.Name = "Close"
-closeBtn.Text = "×"
-closeBtn.Font = Enum.Font.GothamBold
-closeBtn.TextSize = 18
-closeBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
-closeBtn.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-closeBtn.BackgroundTransparency = 1
-closeBtn.Size = UDim2.new(0, 26, 0, 26)
-closeBtn.Position = UDim2.new(1, -30, 0, 4)
-closeBtn.Parent = topBar
-Instance.new("UICorner", closeBtn).CornerRadius = UDim.new(0, 6)
-local dragging = false
-local dragStart, startPos
-topBar.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = true
-        dragStart = input.Position
-        startPos = mainFrame.Position
-    end
-end)
-topBar.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        dragging = false
-    end
-end)
-UserInputService.InputChanged:Connect(function(input)
-    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local delta = input.Position - dragStart
-        mainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-end)
-local searchFrame = Instance.new("Frame")
-searchFrame.Size = UDim2.new(1, -32, 0, 32)
-searchFrame.Position = UDim2.new(0, 16, 0, 48)
-searchFrame.BackgroundColor3 = Color3.fromRGB(2, 0, 0)
-searchFrame.BorderSizePixel = 0
-searchFrame.Parent = mainFrame
-Instance.new("UICorner", searchFrame).CornerRadius = UDim.new(0, 8)
-local searchS = Instance.new("UIStroke")
-searchS.Color = Color3.fromRGB(42, 42, 42)
-searchS.Thickness = 1
-searchS.Parent = searchFrame
-local searchBox = Instance.new("TextBox")
-searchBox.PlaceholderText = "Search plugins..."
-searchBox.PlaceholderColor3 = Color3.fromRGB(102, 102, 102)
-searchBox.Text = ""
-searchBox.Font = Enum.Font.Gotham
-searchBox.TextSize = isMobile and 12 or 13
-searchBox.TextColor3 = Color3.fromRGB(229, 229, 229)
-searchBox.BackgroundTransparency = 1
-searchBox.Size = UDim2.new(1, -16, 1, 0)
-searchBox.Position = UDim2.new(0, 14, 0, 0)
-searchBox.TextXAlignment = Enum.TextXAlignment.Left
-searchBox.ClearTextOnFocus = false
-searchBox.Parent = searchFrame
-local listFrame = Instance.new("ScrollingFrame")
-listFrame.Name = "PluginList"
-listFrame.Size = UDim2.new(1, -32, 1, -100)
-listFrame.Position = UDim2.new(0, 16, 0, 88)
-listFrame.BackgroundTransparency = 1
-listFrame.BorderSizePixel = 0
-listFrame.ScrollBarThickness = 4
-listFrame.ScrollBarImageColor3 = Color3.fromRGB(51, 51, 51)
-listFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-listFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
-listFrame.Parent = mainFrame
-local listLayout = Instance.new("UIGridLayout")
-listLayout.CellPadding = UDim2.new(0, 8, 0, 8)
-listLayout.CellSize = UDim2.new(0.5, -4, 0, 68)
-listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-listLayout.Parent = listFrame
-Instance.new("UIPadding", listFrame).PaddingBottom = UDim.new(0, 16)
-local loadingLabel = Instance.new("TextLabel")
-loadingLabel.Name = "Loading"
-loadingLabel.Text = "Loading plugins..."
-loadingLabel.Font = Enum.Font.Gotham
-loadingLabel.TextSize = 13
-loadingLabel.TextColor3 = Color3.fromRGB(102, 102, 102)
-loadingLabel.BackgroundTransparency = 1
-loadingLabel.Size = UDim2.new(1, 0, 0, 60)
-loadingLabel.Parent = listFrame
-local progressFrame = Instance.new("Frame")
-progressFrame.Size = UDim2.new(1, -32, 0, 36)
-progressFrame.Position = UDim2.new(0, 16, 1, -48)
-progressFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-progressFrame.BorderSizePixel = 0
-progressFrame.Visible = false
-progressFrame.Parent = mainFrame
-Instance.new("UICorner", progressFrame).CornerRadius = UDim.new(0, 8)
-local progS = Instance.new("UIStroke")
-progS.Color = Color3.fromRGB(42, 42, 42)
-progS.Thickness = 1
-progS.Parent = progressFrame
-local progressBg = Instance.new("Frame")
-progressBg.Size = UDim2.new(1, -16, 0, 4)
-progressBg.Position = UDim2.new(0, 8, 1, -10)
-progressBg.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-progressBg.BorderSizePixel = 0
-progressBg.Parent = progressFrame
-Instance.new("UICorner", progressBg).CornerRadius = UDim.new(0, 2)
-local progressBar = Instance.new("Frame")
-progressBar.Size = UDim2.new(0, 0, 1, 0)
-progressBar.BackgroundColor3 = Color3.fromRGB(229, 229, 229)
-progressBar.BorderSizePixel = 0
-progressBar.Parent = progressBg
-Instance.new("UICorner", progressBar).CornerRadius = UDim.new(0, 2)
-local progressLabel = Instance.new("TextLabel")
-progressLabel.Text = ""
-progressLabel.Font = Enum.Font.GothamMedium
-progressLabel.TextSize = 11
-progressLabel.TextColor3 = Color3.fromRGB(153, 153, 153)
-progressLabel.BackgroundTransparency = 1
-progressLabel.Size = UDim2.new(1, -16, 0, 22)
-progressLabel.Position = UDim2.new(0, 8, 0, 2)
-progressLabel.TextXAlignment = Enum.TextXAlignment.Left
-progressLabel.Parent = progressFrame
-local detailOverlay = Instance.new("Frame")
-detailOverlay.Name = "DetailOverlay"
-detailOverlay.Size = UDim2.new(1, 0, 1, 0)
-detailOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-detailOverlay.BackgroundTransparency = 0.15
-detailOverlay.BorderSizePixel = 0
-detailOverlay.Visible = false
-detailOverlay.ZIndex = 10
-detailOverlay.Parent = mainFrame
-local detailPanel = Instance.new("Frame")
-detailPanel.Name = "DetailPanel"
-detailPanel.AnchorPoint = Vector2.new(0.5, 0.5)
-detailPanel.Position = UDim2.new(0.5, 0, 0.5, 0)
-detailPanel.Size = UDim2.new(1, -24, 1, -24)
-detailPanel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-detailPanel.BorderSizePixel = 0
-detailPanel.ClipsDescendants = true
-detailPanel.ZIndex = 11
-detailPanel.Parent = detailOverlay
-Instance.new("UICorner", detailPanel).CornerRadius = UDim.new(0, 12)
-local detailS = Instance.new("UIStroke")
-detailS.Color = Color3.fromRGB(42, 42, 42)
-detailS.Thickness = 1
-detailS.Parent = detailPanel
-local detailTopBar = Instance.new("Frame")
-detailTopBar.Size = UDim2.new(1, 0, 0, 80)
-detailTopBar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-detailTopBar.BorderSizePixel = 0
-detailTopBar.ZIndex = 12
-detailTopBar.Parent = detailPanel
-local detailTopSep = Instance.new("Frame")
-detailTopSep.Size = UDim2.new(1, 0, 0, 1)
-detailTopSep.Position = UDim2.new(0, 0, 1, -1)
-detailTopSep.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-detailTopSep.BorderSizePixel = 0
-detailTopSep.ZIndex = 12
-detailTopSep.Parent = detailTopBar
-local detailAvatar = Instance.new("Frame")
-detailAvatar.Size = UDim2.new(0, 44, 0, 44)
-detailAvatar.Position = UDim2.new(0, 20, 0, 18)
-detailAvatar.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
-detailAvatar.BorderSizePixel = 0
-detailAvatar.ZIndex = 13
-detailAvatar.Parent = detailTopBar
-Instance.new("UICorner", detailAvatar).CornerRadius = UDim.new(1, 0)
-local detailAvatarLbl = Instance.new("TextLabel")
-detailAvatarLbl.Text = ""
-detailAvatarLbl.Font = Enum.Font.GothamBold
-detailAvatarLbl.TextSize = 16
-detailAvatarLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-detailAvatarLbl.BackgroundTransparency = 1
-detailAvatarLbl.Size = UDim2.new(1, 0, 1, 0)
-detailAvatarLbl.ZIndex = 14
-detailAvatarLbl.Parent = detailAvatar
-local detailTitle = Instance.new("TextLabel")
-detailTitle.Text = ""
-detailTitle.Font = Enum.Font.GothamBold
-detailTitle.TextSize = isMobile and 15 or 17
-detailTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-detailTitle.BackgroundTransparency = 1
-detailTitle.Size = UDim2.new(0.65, -80, 0, 22)
-detailTitle.Position = UDim2.new(0, 76, 0, 16)
-detailTitle.TextXAlignment = Enum.TextXAlignment.Left
-detailTitle.TextTruncate = Enum.TextTruncate.AtEnd
-detailTitle.ZIndex = 13
-detailTitle.Parent = detailTopBar
-local detailMeta = Instance.new("TextLabel")
-detailMeta.Text = ""
-detailMeta.Font = Enum.Font.Gotham
-detailMeta.TextSize = isMobile and 10 or 11
-detailMeta.TextColor3 = Color3.fromRGB(102, 102, 102)
-detailMeta.BackgroundTransparency = 1
-detailMeta.Size = UDim2.new(0.7, -80, 0, 16)
-detailMeta.Position = UDim2.new(0, 76, 0, 40)
-detailMeta.TextXAlignment = Enum.TextXAlignment.Left
-detailMeta.ZIndex = 13
-detailMeta.Parent = detailTopBar
-local detailDateLbl = Instance.new("TextLabel")
-detailDateLbl.Text = ""
-detailDateLbl.Font = Enum.Font.Gotham
-detailDateLbl.TextSize = 10
-detailDateLbl.TextColor3 = Color3.fromRGB(102, 102, 102)
-detailDateLbl.BackgroundTransparency = 1
-detailDateLbl.Size = UDim2.new(0.7, -80, 0, 14)
-detailDateLbl.Position = UDim2.new(0, 76, 0, 58)
-detailDateLbl.TextXAlignment = Enum.TextXAlignment.Left
-detailDateLbl.ZIndex = 13
-detailDateLbl.Parent = detailTopBar
-local detailCloseBtn = Instance.new("TextButton")
-detailCloseBtn.Text = "×"
-detailCloseBtn.Font = Enum.Font.GothamBold
-detailCloseBtn.TextSize = 22
-detailCloseBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
-detailCloseBtn.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-detailCloseBtn.BackgroundTransparency = 1
-detailCloseBtn.Size = UDim2.new(0, 36, 0, 36)
-detailCloseBtn.Position = UDim2.new(1, -48, 0, 22)
-detailCloseBtn.ZIndex = 13
-detailCloseBtn.Parent = detailTopBar
-Instance.new("UICorner", detailCloseBtn).CornerRadius = UDim.new(0, 6)
-local detailDlBtn = Instance.new("TextButton")
-detailDlBtn.Text = "Get"
-detailDlBtn.Font = Enum.Font.GothamMedium
-detailDlBtn.TextSize = 12
-detailDlBtn.TextColor3 = Color3.fromRGB(229, 229, 229)
-detailDlBtn.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
-detailDlBtn.Size = UDim2.new(0, 56, 0, 28)
-detailDlBtn.Position = UDim2.new(1, -110, 0, 26)
-detailDlBtn.ZIndex = 13
-detailDlBtn.Parent = detailTopBar
-Instance.new("UICorner", detailDlBtn).CornerRadius = UDim.new(0, 6)
-local detailScroll = Instance.new("ScrollingFrame")
-detailScroll.Size = UDim2.new(1, 0, 1, -80)
-detailScroll.Position = UDim2.new(0, 0, 0, 80)
-detailScroll.BackgroundTransparency = 1
-detailScroll.BorderSizePixel = 0
-detailScroll.ScrollBarThickness = 4
-detailScroll.ScrollBarImageColor3 = Color3.fromRGB(51, 51, 51)
-detailScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
-detailScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
-detailScroll.ZIndex = 12
-detailScroll.Parent = detailPanel
-local detailLayout = Instance.new("UIListLayout")
-detailLayout.Padding = UDim.new(0, 0)
-detailLayout.SortOrder = Enum.SortOrder.LayoutOrder
-detailLayout.Parent = detailScroll
-local detailPad = Instance.new("UIPadding")
-detailPad.PaddingTop = UDim.new(0, 16)
-detailPad.PaddingBottom = UDim.new(0, 16)
-detailPad.PaddingLeft = UDim.new(0, 20)
-detailPad.PaddingRight = UDim.new(0, 20)
-detailPad.Parent = detailScroll
-local miniBtn = Instance.new("TextButton")
-miniBtn.Name = "MiniRestore"
-miniBtn.Text = "IY Plugins"
-miniBtn.Font = Enum.Font.GothamBold
-miniBtn.TextSize = 12
-miniBtn.TextColor3 = Color3.fromRGB(229, 229, 229)
-miniBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-miniBtn.Size = UDim2.new(0, 100, 0, 30)
-miniBtn.Position = UDim2.new(1, -116, 0.05, 0)
-miniBtn.Visible = true
-miniBtn.Parent = screenGui
-Instance.new("UICorner", miniBtn).CornerRadius = UDim.new(0, 8)
-local miniS = Instance.new("UIStroke")
-miniS.Color = Color3.fromRGB(42, 42, 42)
-miniS.Thickness = 1
-miniS.Parent = miniBtn
-local miniDragging = false
-local miniDragStart, miniStartPos
-miniBtn.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        miniDragging = true
-        miniDragStart = input.Position
-        miniStartPos = miniBtn.Position
-    end
-end)
-miniBtn.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        miniDragging = false
-    end
-end)
-UserInputService.InputChanged:Connect(function(input)
-    if miniDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-        local delta = input.Position - miniDragStart
-        miniBtn.Position = UDim2.new(miniStartPos.X.Scale, miniStartPos.X.Offset + delta.X, miniStartPos.Y.Scale, miniStartPos.Y.Offset + delta.Y)
-    end
-end)
-local allPlugins = {}
-local filteredPlugins = {}
-local downloadedCount = 0
-local downloadedPlugins = {}
-local cards = {}
-local currentDetailPlugin = nil
-local CONFIG_FILE = "iy_store_plugins.json"
-local function loadConfig()
-    if readfile and isfile and isfile(CONFIG_FILE) then
-        pcall(function()
-            local data = HttpService:JSONDecode(readfile(CONFIG_FILE))
-            if type(data) == "table" then
-                downloadedPlugins = data
-                for _ in pairs(downloadedPlugins) do downloadedCount = downloadedCount + 1 end
-            end
-        end)
-    end
-end
-local function saveConfig()
-    if writefile then
-        pcall(function()
-            writefile(CONFIG_FILE, HttpService:JSONEncode(downloadedPlugins))
-        end)
-    end
-end
-local function updateCounter()
-end
-local function clearDetailBody()
-    for _, child in ipairs(detailScroll:GetChildren()) do
-        if child:IsA("Frame") or child:IsA("TextLabel") then
-            child:Destroy()
-        end
-    end
-end
-local function addSection(labelText, order)
-    local lbl = Instance.new("TextLabel")
-    lbl.Text = string.upper(labelText)
-    lbl.Font = Enum.Font.GothamBold
-    lbl.TextSize = 10
-    lbl.TextColor3 = Color3.fromRGB(102, 102, 102)
-    lbl.BackgroundTransparency = 1
-    lbl.Size = UDim2.new(1, 0, 0, 28)
-    lbl.TextXAlignment = Enum.TextXAlignment.Left
-    lbl.LayoutOrder = order
-    lbl.ZIndex = 12
-    lbl.Parent = detailScroll
-    return lbl
-end
-local function addTextBlock(text, order)
-    local lbl = Instance.new("TextLabel")
-    lbl.Text = text
-    lbl.Font = Enum.Font.Gotham
-    lbl.TextSize = 12
-    lbl.TextColor3 = Color3.fromRGB(153, 153, 153)
-    lbl.BackgroundTransparency = 1
-    lbl.Size = UDim2.new(1, 0, 0, 0)
-    lbl.AutomaticSize = Enum.AutomaticSize.Y
-    lbl.TextWrapped = true
-    lbl.TextXAlignment = Enum.TextXAlignment.Left
-    lbl.TextYAlignment = Enum.TextYAlignment.Top
-    lbl.LayoutOrder = order
-    lbl.ZIndex = 12
-    lbl.Parent = detailScroll
-    return lbl
-end
-local function addEmbedRow(embed, order)
-    local row = Instance.new("Frame")
-    row.Size = UDim2.new(1, 0, 0, 0)
-    row.AutomaticSize = Enum.AutomaticSize.Y
-    row.BackgroundColor3 = Color3.fromRGB(20, 20, 24)
-    row.BorderSizePixel = 0
-    row.LayoutOrder = order
-    row.ZIndex = 12
-    row.Parent = detailScroll
-    Instance.new("UICorner", row).CornerRadius = UDim.new(0, 8)
-    local rs = Instance.new("UIStroke")
-    rs.Color = Color3.fromRGB(42, 42, 42)
-    rs.Thickness = 1
-    rs.Parent = row
-    local pad = Instance.new("UIPadding", row)
-    pad.PaddingTop = UDim.new(0, 8)
-    pad.PaddingBottom = UDim.new(0, 8)
-    pad.PaddingLeft = UDim.new(0, 10)
-    pad.PaddingRight = UDim.new(0, 10)
-    local list = Instance.new("UIListLayout", row)
-    list.Padding = UDim.new(0, 4)
-    list.SortOrder = Enum.SortOrder.LayoutOrder
-    if embed.title then
-        local t = Instance.new("TextLabel")
-        t.Text = embed.title
-        t.Font = Enum.Font.GothamBold
-        t.TextSize = 12
-        t.TextColor3 = Color3.fromRGB(59, 130, 246)
-        t.BackgroundTransparency = 1
-        t.Size = UDim2.new(1, 0, 0, 0)
-        t.AutomaticSize = Enum.AutomaticSize.Y
-        t.TextXAlignment = Enum.TextXAlignment.Left
-        t.TextWrapped = true
-        t.LayoutOrder = 1
-        t.Parent = row
-    end
-    if embed.description then
-        local d = Instance.new("TextLabel")
-        d.Text = cleanDesc(embed.description)
-        d.Font = Enum.Font.Gotham
-        d.TextSize = 11
-        d.TextColor3 = Color3.fromRGB(209, 213, 219)
-        d.BackgroundTransparency = 1
-        d.Size = UDim2.new(1, 0, 0, 0)
-        d.AutomaticSize = Enum.AutomaticSize.Y
-        d.TextXAlignment = Enum.TextXAlignment.Left
-        d.TextWrapped = true
-        d.LayoutOrder = 2
-        d.Parent = row
-    end
-    if embed.video and embed.video.url then
-        local v = Instance.new("TextLabel")
-        v.Text = "Video: " .. embed.video.url
-        v.Font = Enum.Font.GothamMedium
-        v.TextSize = 10
-        v.TextColor3 = Color3.fromRGB(156, 163, 175)
-        v.BackgroundTransparency = 1
-        v.Size = UDim2.new(1, 0, 0, 0)
-        v.AutomaticSize = Enum.AutomaticSize.Y
-        v.TextXAlignment = Enum.TextXAlignment.Left
-        v.TextWrapped = true
-        v.LayoutOrder = 3
-        v.Parent = row
-    elseif embed.image and embed.image.url then
-        local i = Instance.new("TextLabel")
-        i.Text = "Image: " .. embed.image.url
-        i.Font = Enum.Font.GothamMedium
-        i.TextSize = 10
-        i.TextColor3 = Color3.fromRGB(156, 163, 175)
-        i.BackgroundTransparency = 1
-        i.Size = UDim2.new(1, 0, 0, 0)
-        i.AutomaticSize = Enum.AutomaticSize.Y
-        i.TextXAlignment = Enum.TextXAlignment.Left
-        i.TextWrapped = true
-        i.LayoutOrder = 3
-        i.Parent = row
-    end
-    return row
-end
-local function addSpacer(h, order)
-    local sp = Instance.new("Frame")
-    sp.Size = UDim2.new(1, 0, 0, h)
-    sp.BackgroundTransparency = 1
-    sp.LayoutOrder = order
-    sp.ZIndex = 12
-    sp.Parent = detailScroll
-end
-local function showDetail(plugin)
-    currentDetailPlugin = plugin
-    clearDetailBody()
+-- IY plugin store 
 
-    local authorName = plugin.author and plugin.author.name or "Unknown"
-    local initial = string.upper(string.sub(authorName, 1, 1))
-    detailAvatarLbl.Text = initial
-    detailTitle.Text = plugin.name or "Untitled"
-
-    local pluginFiles = {}
-    for _, f in ipairs(plugin.files or {}) do
-        if f.filename:lower():match("%.iy$") then
-            table.insert(pluginFiles, f)
-        end
-    end
-    detailMeta.Text = authorName .. "  ·  " .. #pluginFiles .. " plugin file" .. (#pluginFiles ~= 1 and "s" or "")
-    detailDateLbl.Text = fmtDate(plugin.date)
-
-    if downloadedPlugins[plugin.id] then
-        detailDlBtn.Text = "Done"
-        detailDlBtn.TextColor3 = Color3.fromRGB(110, 231, 183)
-    else
-        detailDlBtn.Text = "Get"
-        detailDlBtn.TextColor3 = Color3.fromRGB(229, 229, 229)
-    end
-    local order = 1
-    local desc = cleanDesc(plugin.description or "")
-    if desc ~= "" then
-        addSection("Description", order)
-        order = order + 1
-        addTextBlock(desc, order)
-        order = order + 1
-        addSpacer(12, order)
-        order = order + 1
-    end
-
-    if #pluginFiles > 0 then
-        addSection("Files", order)
-        order = order + 1
-        for _, file in ipairs(pluginFiles) do
-            local row = Instance.new("Frame")
-            row.Size = UDim2.new(1, 0, 0, 40)
-            row.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
-            row.BorderSizePixel = 0
-            row.LayoutOrder = order
-            row.ZIndex = 12
-            row.Parent = detailScroll
-            Instance.new("UICorner", row).CornerRadius = UDim.new(0, 8)
-            local rs = Instance.new("UIStroke")
-            rs.Color = Color3.fromRGB(42, 42, 42)
-            rs.Thickness = 1
-            rs.Parent = row
-            local fname = Instance.new("TextLabel")
-            fname.Text = file.filename or "?"
-            fname.Font = Enum.Font.GothamMedium
-            fname.TextSize = 11
-            fname.TextColor3 = Color3.fromRGB(229, 229, 229)
-            fname.BackgroundTransparency = 1
-            fname.Size = UDim2.new(0.6, 0, 1, 0)
-            fname.Position = UDim2.new(0, 12, 0, 0)
-            fname.TextXAlignment = Enum.TextXAlignment.Left
-            fname.TextTruncate = Enum.TextTruncate.AtEnd
-            fname.ZIndex = 13
-            fname.Parent = row
-            local fsize = Instance.new("TextLabel")
-            fsize.Text = fmtBytes(file.size or 0)
-            fsize.Font = Enum.Font.Gotham
-            fsize.TextSize = 10
-            fsize.TextColor3 = Color3.fromRGB(102, 102, 102)
-            fsize.BackgroundTransparency = 1
-            fsize.Size = UDim2.new(0.3, -12, 1, 0)
-            fsize.Position = UDim2.new(0.6, 0, 0, 0)
-            fsize.TextXAlignment = Enum.TextXAlignment.Right
-            fsize.ZIndex = 13
-            fsize.Parent = row
-            order = order + 1
-            addSpacer(4, order)
-            order = order + 1
-        end
-        addSpacer(8, order)
-        order = order + 1
-    end
-
-    if plugin.embeds and #plugin.embeds > 0 then
-        addSection("Embeds", order)
-        order = order + 1
-        for _, emb in ipairs(plugin.embeds) do
-            addEmbedRow(emb, order)
-            order = order + 1
-            addSpacer(8, order)
-            order = order + 1
-        end
-    end
-
-    if plugin.loadstring_urls and #plugin.loadstring_urls > 0 then
-        addSection("Loadstring URLs", order)
-        order = order + 1
-        for _, url in ipairs(plugin.loadstring_urls) do
-            local u = addTextBlock(url, order)
-            u.TextColor3 = Color3.fromRGB(251, 191, 36)
-            u.TextSize = 11
-            order = order + 1
-            addSpacer(4, order)
-            order = order + 1
-        end
-    end
-
-    detailOverlay.Visible = true
-end
-local function hideDetail()
-    detailOverlay.Visible = false
-    currentDetailPlugin = nil
-end
-detailCloseBtn.MouseButton1Click:Connect(hideDetail)
-detailCloseBtn.MouseEnter:Connect(function()
-    TweenService:Create(detailCloseBtn, TweenInfo.new(0.15), {BackgroundTransparency = 0}):Play()
-end)
-detailCloseBtn.MouseLeave:Connect(function()
-    TweenService:Create(detailCloseBtn, TweenInfo.new(0.15), {BackgroundTransparency = 1}):Play()
-end)
-detailDlBtn.MouseButton1Click:Connect(function()
-    if not currentDetailPlugin or not writefile then
-        detailDlBtn.Text = "N/A"
-        detailDlBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
-        return
-    end
-    if detailDlBtn.Text == "Done" or detailDlBtn.Text == "..." then return end
-    detailDlBtn.Text = "..."
-    detailDlBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
-    task.spawn(function()
-        local plugin = currentDetailPlugin
-        local success = true
-        local filesToDownload = {}
-        for _, file in ipairs(plugin.files or {}) do
-            if file.filename:lower():match("%.iy$") then
-                table.insert(filesToDownload, file)
-            end
-        end
-        if #filesToDownload == 0 then
-            detailDlBtn.Text = "No .iy"
-            detailDlBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
-            return
-        end
-        for _, file in ipairs(filesToDownload) do
-            local ok, content = pcall(function() return game:HttpGet(BASE .. "/" .. file.url) end)
-            if ok then
-                pcall(function() writefile(file.filename, content) end)
-            else
-                success = false
-            end
-        end
-        if success then
-            if not downloadedPlugins[plugin.id] then
-                downloadedPlugins[plugin.id] = true
-                downloadedCount = downloadedCount + 1
-                saveConfig()
-            end
-            detailDlBtn.Text = "Installed"
-            detailDlBtn.TextColor3 = Color3.fromRGB(110, 231, 183)
-            if cards[plugin.id] then
-                cards[plugin.id].dlBtn.Text = "Installed"
-                cards[plugin.id].dlBtn.TextColor3 = Color3.fromRGB(110, 231, 183)
-                if cards[plugin.id].unBtn then cards[plugin.id].unBtn.Visible = true end
-            end
-            for _, file in ipairs(filesToDownload) do
-                pcall(function() if addPlugin then addPlugin(file.filename) end end)
-            end
-        else
-            detailDlBtn.Text = "Fail"
-            detailDlBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
-        end
-    end)
-end)
-detailDlBtn.MouseEnter:Connect(function()
-    TweenService:Create(detailDlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(51, 51, 51)}):Play()
-end)
-detailDlBtn.MouseLeave:Connect(function()
-    TweenService:Create(detailDlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(42, 42, 42)}):Play()
-end)
-local function uninstallPlugin(plugin, dlBtn, unBtn)
-    if not (delfile and isfile) then return end
-    for _, file in ipairs(plugin.files or {}) do
-        if file.filename:lower():match("%.iy$") then
-            pcall(function() delfile(file.filename) end)
-        end
-    end
-    downloadedPlugins[plugin.id] = nil
-    downloadedCount = downloadedCount - 1
-    saveConfig()
-    dlBtn.Text = "Get"
-    dlBtn.TextColor3 = Color3.fromRGB(229, 229, 229)
-    unBtn.Visible = false   
-end
-local function createPluginCard(plugin, index)
-    local card = Instance.new("TextButton")
-    card.Name = "Card_" .. (plugin.name or tostring(index))
-    card.Text = ""
-    card.Size = UDim2.new(1, 0, 1, 0)
-    card.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    card.BorderSizePixel = 0
-    card.LayoutOrder = index
-    card.AutoButtonColor = false
-    card.Parent = listFrame
-    local cardCorner = Instance.new("UICorner")
-    cardCorner.CornerRadius = UDim.new(0, 8)
-    cardCorner.Parent = card
-    local cardStroke = Instance.new("UIStroke")
-    cardStroke.Color = Color3.fromRGB(255, 255, 255)
-    cardStroke.Transparency = 0.96
-    cardStroke.Thickness = 1
-    cardStroke.Parent = card
-    local authorName = plugin.author and plugin.author.name or "Unknown"
-    local initial = string.upper(string.sub(authorName, 1, 1))
-    local avatar = Instance.new("Frame")
-    avatar.Size = UDim2.new(0, 20, 0, 20)
-    avatar.Position = UDim2.new(0, 10, 0, 10)
-    avatar.BackgroundColor3 = Color3.fromRGB(30, 30, 36)
-    avatar.BorderSizePixel = 0
-    avatar.Parent = card
-    Instance.new("UICorner", avatar).CornerRadius = UDim.new(1, 0)
-    local avatarLbl = Instance.new("TextLabel")
-    avatarLbl.Text = initial
-    avatarLbl.Font = Enum.Font.GothamBold
-    avatarLbl.TextSize = 9
-    avatarLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-    avatarLbl.BackgroundTransparency = 1
-    avatarLbl.Size = UDim2.new(1, 0, 1, 0)
-    avatarLbl.Parent = avatar
-    local nameLabel = Instance.new("TextLabel")
-    nameLabel.Text = plugin.name or "Untitled"
-    nameLabel.Font = Enum.Font.GothamBold
-    nameLabel.TextSize = 11
-    nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    nameLabel.BackgroundTransparency = 1
-    nameLabel.Size = UDim2.new(1, -40, 0, 14)
-    nameLabel.Position = UDim2.new(0, 36, 0, 8)
-    nameLabel.TextXAlignment = Enum.TextXAlignment.Left
-    nameLabel.TextTruncate = Enum.TextTruncate.AtEnd
-    nameLabel.Parent = card
-    local authorLabel = Instance.new("TextLabel")
-    authorLabel.Text = authorName
-    authorLabel.Font = Enum.Font.Gotham
-    authorLabel.TextSize = 9
-    authorLabel.TextColor3 = Color3.fromRGB(161, 161, 170)
-    authorLabel.BackgroundTransparency = 1
-    authorLabel.Size = UDim2.new(1, -40, 0, 12)
-    authorLabel.Position = UDim2.new(0, 36, 0, 22)
-    authorLabel.TextXAlignment = Enum.TextXAlignment.Left
-    authorLabel.TextTruncate = Enum.TextTruncate.AtEnd
-    authorLabel.Parent = card
-    local metaLabel = Instance.new("TextLabel")
-    metaLabel.Text = fmtDate(plugin.date)
-    metaLabel.Font = Enum.Font.Gotham
-    metaLabel.TextSize = 8
-    metaLabel.TextColor3 = Color3.fromRGB(80, 80, 80)
-    metaLabel.BackgroundTransparency = 1
-    metaLabel.Size = UDim2.new(0.5, 0, 0, 12)
-    metaLabel.Position = UDim2.new(0, 10, 1, -20)
-    metaLabel.TextXAlignment = Enum.TextXAlignment.Left
-    metaLabel.Parent = card
-    local dlBtn = Instance.new("TextButton")
-    dlBtn.Name = "DL"
-    if downloadedPlugins[plugin.id] then
-        dlBtn.Text = "Installed"
-        dlBtn.TextColor3 = Color3.fromRGB(110, 231, 183)
-    else
-        dlBtn.Text = "Get"
-        dlBtn.TextColor3 = Color3.fromRGB(229, 229, 229)
-    end
-    dlBtn.Font = Enum.Font.GothamMedium
-    dlBtn.TextSize = 9
-    dlBtn.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-    dlBtn.Size = UDim2.new(0, 52, 0, 20)
-    dlBtn.Position = UDim2.new(1, -58, 1, -26)
-    dlBtn.ZIndex = 2
-    dlBtn.Parent = card
-    Instance.new("UICorner", dlBtn).CornerRadius = UDim.new(0, 5)
-    local unBtn = Instance.new("TextButton")
-    unBtn.Name = "UN"
-    unBtn.Text = "🗑️"
-    unBtn.Font = Enum.Font.GothamBold
-    unBtn.TextSize = 10
-    unBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
-    unBtn.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
-    unBtn.Size = UDim2.new(0, 20, 0, 20)
-    unBtn.Position = UDim2.new(1, -82, 1, -26)
-    unBtn.ZIndex = 2
-    unBtn.Visible = downloadedPlugins[plugin.id] and true or false
-    unBtn.Parent = card
-    Instance.new("UICorner", unBtn).CornerRadius = UDim.new(0, 5)
-    dlBtn.MouseEnter:Connect(function()
-        TweenService:Create(dlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(51, 51, 51)}):Play()
-    end)
-    dlBtn.MouseLeave:Connect(function()
-        TweenService:Create(dlBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(38, 38, 38)}):Play()
-    end)
-    unBtn.MouseEnter:Connect(function()
-        TweenService:Create(unBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(51, 51, 51)}):Play()
-    end)
-    unBtn.MouseLeave:Connect(function()
-        TweenService:Create(unBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(38, 38, 38)}):Play()
-    end)
-    card.MouseEnter:Connect(function()
-        TweenService:Create(card, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(17, 18, 22)}):Play()
-        TweenService:Create(cardStroke, TweenInfo.new(0.2), {Transparency = 0.8}):Play()
-    end)
-    card.MouseLeave:Connect(function()
-        TweenService:Create(card, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(0, 0, 0)}):Play()
-        TweenService:Create(cardStroke, TweenInfo.new(0.2), {Transparency = 0.96}):Play()
-    end)
-    card.MouseButton1Click:Connect(function()
-        showDetail(plugin)
-    end)
-    return card, dlBtn, unBtn
-end
-
-minimizeBtn.MouseEnter:Connect(function()
-    TweenService:Create(minimizeBtn, TweenInfo.new(0.15), {BackgroundTransparency = 0}):Play()
-    TweenService:Create(minimizeBtn, TweenInfo.new(0.15), {TextColor3 = Color3.fromRGB(229, 229, 229)}):Play()
-end)
-minimizeBtn.MouseLeave:Connect(function()
-    TweenService:Create(minimizeBtn, TweenInfo.new(0.15), {BackgroundTransparency = 1}):Play()
-    TweenService:Create(minimizeBtn, TweenInfo.new(0.15), {TextColor3 = Color3.fromRGB(153, 153, 153)}):Play()
-end)
-closeBtn.MouseEnter:Connect(function()
-    TweenService:Create(closeBtn, TweenInfo.new(0.15), {BackgroundTransparency = 0}):Play()
-    TweenService:Create(closeBtn, TweenInfo.new(0.15), {TextColor3 = Color3.fromRGB(229, 229, 229)}):Play()
-end)
-closeBtn.MouseLeave:Connect(function()
-    TweenService:Create(closeBtn, TweenInfo.new(0.15), {BackgroundTransparency = 1}):Play()
-    TweenService:Create(closeBtn, TweenInfo.new(0.15), {TextColor3 = Color3.fromRGB(153, 153, 153)}):Play()
-end)
-dlAllBtn.MouseEnter:Connect(function()
-    TweenService:Create(dlAllBtn, TweenInfo.new(0.15), {TextColor3 = Color3.fromRGB(229, 229, 229)}):Play()
-end)
-dlAllBtn.MouseLeave:Connect(function()
-    TweenService:Create(dlAllBtn, TweenInfo.new(0.15), {TextColor3 = Color3.fromRGB(153, 153, 153)}):Play()
-end)
-local function downloadPlugin(plugin, dlBtn)
-    if not writefile then
-        dlBtn.Text = "N/A"
-        dlBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
-        return
-    end
-    dlBtn.Text = "..."
-    dlBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
-    local success = true
-    local filesToDownload = {}
-    for _, file in ipairs(plugin.files or {}) do
-        if file.filename:lower():match("%.iy$") then
-            table.insert(filesToDownload, file)
-        end
-    end
-    if #filesToDownload == 0 then
-        dlBtn.Text = "No .iy"
-        dlBtn.TextColor3 = Color3.fromRGB(153, 153, 153)
-        return
-    end
-    for _, file in ipairs(filesToDownload) do
-        local ok, content = pcall(function() return game:HttpGet(BASE .. "/" .. file.url) end)
-        if ok then
-            pcall(function() writefile(file.filename, content) end)
-        else success = false end
-    end
-    if success then
-        downloadedCount = downloadedCount + 1
-        updateCounter()
-        dlBtn.Text = "Done"
-        dlBtn.TextColor3 = Color3.fromRGB(110, 231, 183)
-    else
-        dlBtn.Text = "Fail"
-        dlBtn.TextColor3 = Color3.fromRGB(248, 113, 113)
-    end
-end
-local function renderList(pluginList)
-    for _, child in ipairs(listFrame:GetChildren()) do
-        if child:IsA("TextButton") and child.Name:match("^Card_") then child:Destroy() end
-    end
-    if listFrame:FindFirstChild("Loading") then listFrame.Loading:Destroy() end
-    cards = {}
-    if #pluginList == 0 then
-        local empty = Instance.new("TextButton")
-        empty.Name = "Card_Empty"
-        empty.Text = ""
-        empty.Size = UDim2.new(1, 0, 0, 60)
-        empty.BackgroundTransparency = 1
-        empty.LayoutOrder = 1
-        empty.AutoButtonColor = false
-        empty.Parent = listFrame
-        local emptyLbl = Instance.new("TextLabel")
-        emptyLbl.Text = "No plugins found."
-        emptyLbl.Font = Enum.Font.Gotham
-        emptyLbl.TextSize = 13
-        emptyLbl.TextColor3 = Color3.fromRGB(102, 102, 102)
-        emptyLbl.BackgroundTransparency = 1
-        emptyLbl.Size = UDim2.new(1, 0, 1, 0)
-        emptyLbl.Parent = empty
-        return
-    end
-    for i, plugin in ipairs(pluginList) do
-        local card, dlBtn, unBtn = createPluginCard(plugin, i)
-        cards[plugin.id] = {card = card, dlBtn = dlBtn, unBtn = unBtn}
-        dlBtn.MouseButton1Click:Connect(function()
-            if dlBtn.Text == "Installed" or dlBtn.Text == "..." then return end
-            task.spawn(function() 
-                downloadPlugin(plugin, dlBtn)
-                if not downloadedPlugins[plugin.id] then
-                    downloadedPlugins[plugin.id] = true
-                    downloadedCount = downloadedCount + 1
-                    saveConfig()
-                end
-                if unBtn then unBtn.Visible = true end
-                for _, file in ipairs(plugin.files or {}) do
-                    if file.filename:lower():match("%.iy$") then
-                        pcall(function() if addPlugin then addPlugin(file.filename) end end)
-                    end
-                end
-            end)
-        end)
-        unBtn.MouseButton1Click:Connect(function()
-            uninstallPlugin(plugin, dlBtn, unBtn)
-        end)
-    end
-end
-local function filterPlugins(query)
-    if not query or query == "" then
-        filteredPlugins = allPlugins
-    else
-        local q = query:lower()
-        filteredPlugins = {}
-        for _, p in ipairs(allPlugins) do
-            local name = (p.name or ""):lower()
-            local author = (p.author and p.author.name or ""):lower()
-            if name:find(q, 1, true) or author:find(q, 1, true) then
-                table.insert(filteredPlugins, p)
-            end
-        end
-    end
-    renderList(filteredPlugins)
-end
-local function downloadAll()
-    if not writefile then
-        progressLabel.Text = "writefile not supported"
-        return
-    end
-    local plugins = filteredPlugins
-    local total = #plugins
-    if total == 0 then return end
-    dlAllBtn.Visible = false
-    progressFrame.Visible = true
-    listFrame.Size = UDim2.new(1, -32, 1, -200)
-    for i, plugin in ipairs(plugins) do
-        progressLabel.Text = string.format("%d/%d  %s", i, total, plugin.name or "?")
-        TweenService:Create(progressBar, TweenInfo.new(0.15), {Size = UDim2.new(i / total, 0, 1, 0)}):Play()
-        local filesToDownload = {}
-        for _, file in ipairs(plugin.files or {}) do
-            if file.filename:lower():match("%.iy$") then
-                table.insert(filesToDownload, file)
-            end
-        end
-        for _, file in ipairs(filesToDownload) do
-            local ok, content = pcall(function() return game:HttpGet(BASE .. "/" .. file.url) end)
-            if ok then pcall(function() writefile(file.filename, content) end) end
-        end
-        if not downloadedPlugins[plugin.id] then
-            downloadedPlugins[plugin.id] = true
-            downloadedCount = downloadedCount + 1
-        end
-        updateCounter()
-        if cards[plugin.id] then
-            cards[plugin.id].dlBtn.Text = "Installed"
-            cards[plugin.id].dlBtn.TextColor3 = Color3.fromRGB(110, 231, 183)
-            if cards[plugin.id].unBtn then cards[plugin.id].unBtn.Visible = true end
-        end
-        for _, file in ipairs(plugin.files or {}) do
-            if file.filename:lower():match("%.iy$") then
-                pcall(function() if addPlugin then addPlugin(file.filename) end end)
-            end
-        end
-        task.wait()
-    end
-    saveConfig()
-    progressLabel.Text = string.format("Done — %d plugins", total)
-    TweenService:Create(progressBar, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(110, 231, 183)}):Play()
-    task.delay(2, function()
-        progressFrame.Visible = false
-        listFrame.Size = UDim2.new(1, -32, 1, -100)
-        dlAllBtn.Visible = true
-    end)
-end
-local function autoLoadPlugins()
-    if not listfiles or not isfolder then return end
-    for _, filePath in ipairs(listfiles("")) do
-        local fileName = filePath:match("([^/\\]+%.iy)$")
-        if fileName and fileName:lower() ~= "iy_fe.iy" and not isfolder(fileName) and (not PluginsTable or not table.find(PluginsTable, fileName)) then
-            pcall(function() if addPlugin then addPlugin(fileName) end end)
-        end
-    end
-end
-minimizeBtn.MouseButton1Click:Connect(function()
-    mainFrame.Visible = false
-    miniBtn.Visible = true
-end)
-miniBtn.MouseButton1Click:Connect(function()
-    mainFrame.Visible = true
-    miniBtn.Visible = false
-end)
-
-closeBtn.MouseButton1Click:Connect(function()
-    mainFrame.Visible = false
-    miniBtn.Visible = false
-    task.delay(0.1, function()
-        screenGui:Destroy()
-    end)
-end)
-searchBox:GetPropertyChangedSignal("Text"):Connect(function()
-    filterPlugins(searchBox.Text)
-end)
-
-dlAllBtn.MouseButton1Click:Connect(function()
-    task.spawn(downloadAll)
-end)
+local HS = game:GetService("HttpService")
+local UIS = game:GetService("UserInputService")
+local CORE = game:GetService("CoreGui")
+local PLR = game:GetService("Players").LocalPlayer
 
 task.spawn(function()
-    loadConfig()
-    local ok, response = pcall(function() return game:HttpGet(API_URL) end)
-    if not ok then
-        loadingLabel.Text = "Failed to load plugins."
-        return
-    end
-    local data = HttpService:JSONDecode(response)
-    allPlugins = data.plugins or {}
+    pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end)
+end)
 
-    table.sort(allPlugins, function(a, b)
-        return parseDate(a.date) > parseDate(b.date)
-    end)
+local API = "https://iyplugins.pages.dev"
+local all = {}
+local got_plugs = {}
+local cfg = "iy_store_plugins.json"
+local cur = nil
 
-    local authors = {}
-    for _, p in ipairs(allPlugins) do
-        local aName = p.author and p.author.name or nil
-        if aName then authors[aName] = true end
-    end
-    local authorCount = 0
-    for _ in pairs(authors) do authorCount = authorCount + 1 end
-    statLabel.Text = tostring(#allPlugins) .. " plugins · " .. tostring(authorCount) .. " authors"
-    dlAllBtn.Visible = true
-    filteredPlugins = allPlugins
-    renderList(allPlugins)
+if isfile and isfile(cfg) then 
+	pcall(function() got_plugs = HS:JSONDecode(readfile(cfg)) end) 
+end
+
+local function save()
+	if writefile then pcall(function() writefile(cfg, HS:JSONEncode(got_plugs)) end) end
+end
+
+local function dragGUI(obj)
+	local d,ds,dp = false,nil,nil
+	obj.InputBegan:Connect(function(i)
+		if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then
+			d = true; ds = i.Position; dp = obj.Position
+		end
+	end)
+	UIS.InputChanged:Connect(function(i)
+		if d and (i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch) then
+			local dt = i.Position - ds
+			obj.Position = UDim2.new(dp.X.Scale, dp.X.Offset+dt.X, dp.Y.Scale, dp.Y.Offset+dt.Y)
+		end
+	end)
+	UIS.InputEnded:Connect(function(i)
+		if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then d = false end
+	end)
+end
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "IYStoreUI"
+gui.ResetOnSpawn = false
+pcall(function() gui.Parent = CORE end)
+if not gui.Parent then gui.Parent = PLR:WaitForChild("PlayerGui") end
+
+-- main ui
+local win = Instance.new("Frame")
+win.Size = UDim2.new(0,520,0,420)
+win.Position = UDim2.new(0.5,-260,0.5,-210)
+win.BackgroundColor3 = Color3.fromRGB(15,15,15)
+win.BorderSizePixel = 0
+win.Parent = gui
+win.Visible = false
+local stroke = Instance.new("UIStroke") stroke.Color=Color3.fromRGB(45,45,45); stroke.Parent=win
+dragGUI(win)
+
+local top = Instance.new("Frame",win)
+top.Size=UDim2.new(1,0,0,30); top.BackgroundColor3=Color3.fromRGB(25,25,25)
+top.BorderSizePixel=0
+
+local txt = Instance.new("TextLabel")
+txt.Text = "  Plugin" txt.TextColor3 = Color3.fromRGB(255,255,255)
+txt.BackgroundTransparency = 1; txt.Size = UDim2.new(1,-60,1,0)
+txt.TextXAlignment = Enum.TextXAlignment.Left; txt.Font = Enum.Font.GothamBold
+txt.TextSize = 14; txt.Parent = top
+
+local close = Instance.new("TextButton",top)
+close.Text="X"; close.Size=UDim2.new(0,30,1,0); close.Position=UDim2.new(1,-30,0,0)
+close.BackgroundColor3=Color3.fromRGB(180,50,50); close.TextColor3=Color3.fromRGB(255,255,255)
+close.Font=Enum.Font.GothamBold; close.BorderSizePixel=0
+
+local min = Instance.new("TextButton")
+min.Text="-" min.Size=UDim2.new(0,30,1,0); min.Position=UDim2.new(1,-60,0,0)
+min.BackgroundColor3=Color3.fromRGB(45,45,45); min.TextColor3=Color3.fromRGB(255,255,255)
+min.Font=Enum.Font.GothamBold; min.BorderSizePixel=0; min.Parent=top
+
+local box = Instance.new("TextBox")
+box.PlaceholderText = " search..." box.Text = ""
+box.Size = UDim2.new(1,-16,0,26); box.Position = UDim2.new(0,8,0,36)
+box.BackgroundColor3 = Color3.fromRGB(30,30,30); box.TextColor3 = Color3.fromRGB(255,255,255)
+box.BorderSizePixel = 0; box.Font = Enum.Font.Gotham; box.TextSize = 13
+box.TextXAlignment = Enum.TextXAlignment.Left; box.Parent = win
+
+local scrl = Instance.new("ScrollingFrame",win)
+scrl.Size = UDim2.new(1,-16,1,-72); scrl.Position = UDim2.new(0,8,0,68)
+scrl.BackgroundColor3 = Color3.fromRGB(12,12,12); scrl.BorderSizePixel = 0
+scrl.ScrollBarThickness = 2; scrl.CanvasSize = UDim2.new(0,0,0,0)
+scrl.AutomaticCanvasSize = Enum.AutomaticSize.Y
+
+local gl = Instance.new("UIGridLayout")
+gl.CellPadding = UDim2.new(0,4,0,4); gl.CellSize = UDim2.new(0.5,-2,0,42); gl.Parent = scrl
+
+-- info popup
+local info = Instance.new("Frame")
+info.Size=UDim2.new(0,360,0,300); info.Position=UDim2.new(0.5,-180,0.5,-150)
+info.BackgroundColor3=Color3.fromRGB(18,18,18); info.BorderSizePixel=0; info.Visible=false 
+info.Parent=gui
+local strk2 = Instance.new("UIStroke") strk2.Color=Color3.fromRGB(50,50,50) strk2.Parent=info
+
+local ititle = Instance.new("TextLabel",info)
+ititle.Size=UDim2.new(1,-16,0,26); ititle.Position=UDim2.new(0,8,0,4)
+ititle.BackgroundTransparency=1; ititle.TextColor3=Color3.fromRGB(255,255,255)
+ititle.Font=Enum.Font.GothamBold; ititle.TextSize=15; ititle.TextXAlignment=Enum.TextXAlignment.Left
+
+local iscroll = Instance.new("ScrollingFrame",info)
+iscroll.Size=UDim2.new(1,-16,1,-96); iscroll.Position=UDim2.new(0,8,0,32)
+iscroll.BackgroundTransparency=1; iscroll.CanvasSize=UDim2.new(0,0,0,0)
+iscroll.AutomaticCanvasSize=Enum.AutomaticSize.Y; iscroll.ScrollBarThickness=2
+local uill = Instance.new("UIListLayout",iscroll) uill.Padding=UDim.new(0,4)
+
+local downbtn = Instance.new("TextButton",info)
+downbtn.Text="get"; downbtn.Size=UDim2.new(0.5,-12,0,26); downbtn.Position=UDim2.new(0,8,1,-32)
+downbtn.BackgroundColor3=Color3.fromRGB(0,120,0); downbtn.TextColor3=Color3.fromRGB(255,255,255)
+downbtn.Font=Enum.Font.GothamBold; downbtn.TextSize=12; downbtn.BorderSizePixel=0
+
+local bckbtn = Instance.new("TextButton")
+bckbtn.Text="back"; bckbtn.Size=UDim2.new(0.5,-12,0,26); bckbtn.Position=UDim2.new(0.5,4,1,-32)
+bckbtn.BackgroundColor3=Color3.fromRGB(35,35,35); bckbtn.TextColor3=Color3.fromRGB(255,255,255)
+bckbtn.BorderSizePixel=0; bckbtn.Font=Enum.Font.Gotham; bckbtn.TextSize=12; bckbtn.Parent=info
+
+-- floaty button for minimized
+local fbtn = Instance.new("TextButton",gui)
+fbtn.Text="Plugin"; fbtn.Size=UDim2.new(0,80,0,26); fbtn.Position=UDim2.new(1,-90,0,8)
+fbtn.BackgroundColor3=Color3.fromRGB(20,20,20); fbtn.TextColor3=Color3.fromRGB(255,255,255)
+fbtn.Visible=true; fbtn.Font=Enum.Font.GothamBold; fbtn.TextSize=11
+local strk3 = Instance.new("UIStroke") strk3.Color=Color3.fromRGB(50,50,50) strk3.Parent=fbtn
+local crn = Instance.new("UICorner") crn.CornerRadius=UDim.new(0,5) crn.Parent=fbtn
+
+local drag_f, org = false, nil
+fbtn.InputBegan:Connect(function(i)
+	if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then
+		drag_f = true; org = i.Position
+		local sp = fbtn.Position
+		local c
+		c = UIS.InputChanged:Connect(function(j)
+			if not drag_f then c:Disconnect() return end
+			if j.UserInputType == Enum.UserInputType.MouseMovement or j.UserInputType == Enum.UserInputType.Touch then
+				local d = j.Position - org
+				fbtn.Position = UDim2.new(sp.X.Scale,sp.X.Offset+d.X,sp.Y.Scale,sp.Y.Offset+d.Y)
+			end
+		end)
+	end
+end)
+fbtn.InputEnded:Connect(function(i)
+	if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then
+		if org and (i.Position - org).Magnitude < 5 then
+			win.Visible = true; fbtn.Visible = false
+		end
+		drag_f = false; org = nil
+	end
+end)
+
+local function gettime(iso) -- sort datesx
+	if not iso then return 0 end
+	local y,m,d,h,mi,s = iso:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)")
+	if not y then return 0 end
+	return y*31536000+m*2592000+d*86400+h*3600+mi*60+s
+end
+
+local function dl_plugin(p, b)
+	task.spawn(function()
+		if b then b.Text = "..." end
+		local s = {}
+		for _,f in pairs(p.files or {}) do
+			if f.filename:lower():match("%.iy$") then
+				local o,c = pcall(function() return game:HttpGet(API.."/"..f.url) end)
+				if o and c then
+					pcall(function() writefile(f.filename, c) end)
+					table.insert(s, f.filename)
+				end
+			end
+		end
+		if #s > 0 then
+			got_plugs[p.id] = true; save()
+			if b then b.Text = "got"; b.TextColor3 = Color3.fromRGB(100,255,100) end
+			task.wait(0.2)
+			for _,n in pairs(s) do
+				pcall(function() 
+					local func = addPlugin or (shared and shared.addPlugin)
+					if func then func(n) end 
+				end)
+			end
+		else
+			if b then b.Text = "err"; b.TextColor3 = Color3.fromRGB(255,80,80) end
+		end
+	end)
+end
+
+local function rem_plugin(p, gb, db)
+	if not delfile then return end
+	for _,f in pairs(p.files or {}) do
+		if f.filename:lower():match("%.iy$") then pcall(function() delfile(f.filename) end) end
+	end
+	got_plugs[p.id] = nil; save()
+	if gb then gb.Text="get"; gb.TextColor3=Color3.fromRGB(255,255,255) end
+	if db then db.Visible=false end
+end
+
+local function fixStr(s) -- clear discord markdow
+	if not s or s=="" then return "" end
+	return s:gsub("<@!?%d+>","@user"):gsub("```%w*\n?",""):gsub("```",""):gsub("%*%*",""):gsub("__",""):gsub("~~","")
+end
+
+local function showInfo(p)
+	cur = p
+	for _,x in pairs(iscroll:GetChildren()) do if not x:IsA("UIListLayout") then x:Destroy() end end
+	ititle.Text = p.name or "idk"
+	info.Visible = true
+
+	local txt = fixStr(p.description)
+	if txt ~= "" then
+		local t = Instance.new("TextLabel")
+		t.Text = txt; t.Size = UDim2.new(1,0,0,0); t.AutomaticSize = Enum.AutomaticSize.Y
+		t.TextWrapped = true; t.TextColor3 = Color3.fromRGB(180,180,180)
+		t.BackgroundTransparency = 1; t.Font = Enum.Font.Gotham; t.TextSize = 12
+		t.TextXAlignment = Enum.TextXAlignment.Left; t.Parent = iscroll
+	end
+
+	if p.embeds then
+		for _,em in pairs(p.embeds) do
+			if em.title or (em.video and em.video.url) then
+				local f = Instance.new("Frame",iscroll); f.Size=UDim2.new(1,0,0,0)
+				f.AutomaticSize=Enum.AutomaticSize.Y; f.BackgroundColor3=Color3.fromRGB(28,28,28); f.BorderSizePixel=0
+				local lay = Instance.new("UIListLayout",f) lay.Padding=UDim.new(0,2)
+				if em.title then
+					local tt = Instance.new("TextLabel",f); tt.Text = em.title; tt.Size = UDim2.new(1,0,0,16)
+					tt.TextColor3 = Color3.fromRGB(80,140,255); tt.BackgroundTransparency = 1
+					tt.Font = Enum.Font.GothamBold; tt.TextSize = 11; tt.TextXAlignment = Enum.TextXAlignment.Left
+				end
+				if em.video and em.video.url then
+					local vv = Instance.new("TextLabel",f); vv.Text = em.video.url; vv.Size = UDim2.new(1,0,0,14)
+					vv.TextColor3 = Color3.fromRGB(120,120,120); vv.BackgroundTransparency = 1
+					vv.TextSize = 9; vv.TextXAlignment = Enum.TextXAlignment.Left
+				end
+			end
+		end
+	end
+
+	downbtn.Text = got_plugs[p.id] and "got" or "get"
+	downbtn.TextColor3 = got_plugs[p.id] and Color3.fromRGB(100,255,100) or Color3.fromRGB(255,255,255)
+	downbtn.BackgroundColor3 = got_plugs[p.id] and Color3.fromRGB(35,35,35) or Color3.fromRGB(0,120,0)
+end
+
+downbtn.MouseButton1Click:Connect(function()
+	if not cur then return end
+	if got_plugs[cur.id] then return end
+	dl_plugin(cur, downbtn)
+end)
+bckbtn.MouseButton1Click:Connect(function() info.Visible = false cur = nil end)
+
+function draw_list(ls)
+	for _,c in pairs(scrl:GetChildren()) do if c:IsA("Frame") then c:Destroy() end end
+	for _,p in pairs(ls) do
+		local c = Instance.new("Frame",scrl)
+		c.BackgroundColor3=Color3.fromRGB(20,20,20); c.BorderSizePixel=0
+
+		local h = Instance.new("TextButton",c); h.Text=""; h.Size=UDim2.new(1,-65,1,0); h.BackgroundTransparency=1
+		h.MouseButton1Click:Connect(function() showInfo(p) end)
+
+		local n = Instance.new("TextLabel",h); n.Text = p.name or "nan"
+		n.Size = UDim2.new(1,0,0,20); n.Position = UDim2.new(0,6,0,2)
+		n.TextColor3 = Color3.fromRGB(255,255,255); n.Font = Enum.Font.GothamBold; n.TextSize = 11
+		n.TextXAlignment = Enum.TextXAlignment.Left; n.BackgroundTransparency = 1; n.TextTruncate = Enum.TextTruncate.AtEnd
+
+		local a = Instance.new("TextLabel",h); a.Text = p.author and p.author.name or "nan"
+		a.Size = UDim2.new(1,0,0,12); a.Position = UDim2.new(0,6,0,21)
+		a.TextColor3 = Color3.fromRGB(100,100,100); a.Font = Enum.Font.Gotham; a.TextSize = 9
+		a.TextXAlignment = Enum.TextXAlignment.Left; a.BackgroundTransparency = 1
+
+		local gb = Instance.new("TextButton",c); gb.Size=UDim2.new(0,32,0,18); gb.Position=UDim2.new(1,-62,0.5,-9)
+		gb.BackgroundColor3=Color3.fromRGB(35,35,35); gb.Font=Enum.Font.GothamBold; gb.TextSize=9; gb.BorderSizePixel=0
+		gb.Text = got_plugs[p.id] and "got" or "get"
+		gb.TextColor3 = got_plugs[p.id] and Color3.fromRGB(100,255,100) or Color3.fromRGB(255,255,255)
+
+		local db = Instance.new("TextButton",c); db.Size=UDim2.new(0,18,0,18); db.Position=UDim2.new(1,-26,0.5,-9)
+		db.BackgroundColor3=Color3.fromRGB(35,35,35); db.Text="x"; db.TextColor3=Color3.fromRGB(255,80,80)
+		db.Font=Enum.Font.GothamBold; db.TextSize=10; db.BorderSizePixel=0
+		db.Visible = got_plugs[p.id] and true or false
+
+		gb.MouseButton1Click:Connect(function()
+			if gb.Text ~= "get" then return end
+			dl_plugin(p, gb)
+			task.delay(1.5, function() db.Visible = got_plugs[p.id] and true or false end)
+		end)
+		db.MouseButton1Click:Connect(function() rem_plugin(p, gb, db) end)
+	end
+end
+
+box:GetPropertyChangedSignal("Text"):Connect(function()
+	local q = box.Text:lower()
+	if q == "" then draw_list(all) return end
+	local r = {}
+	for _,p in pairs(all) do
+		if (p.name or ""):lower():find(q,1,true) or (p.author and p.author.name or ""):lower():find(q,1,true) then
+			table.insert(r, p)
+		end
+	end
+	draw_list(r)
+end)
+
+close.MouseButton1Click:Connect(function() gui:Destroy() end)
+min.MouseButton1Click:Connect(function() win.Visible = false; fbtn.Visible = true end)
+
+-- load data
+pcall(function()
+	--print("fetching plugins...")
+	local raw = game:HttpGet(API.."/data/plugins.json")
+	local dat = HS:JSONDecode(raw)
+	all = dat.plugins or {}
+	table.sort(all, function(x,y) return gettime(x.date) > gettime(y.date) end)
+	win.Visible = true
+	fbtn.Visible = false
+	draw_list(all)
 end)
