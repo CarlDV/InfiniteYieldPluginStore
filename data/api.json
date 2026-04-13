@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-04-12T16:52:55.447692+00:00",
-  "total": 522,
+  "updated_at": "2026-04-12T23:17:22.657537+00:00",
+  "total": 523,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -7053,7 +7053,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69dcbc79&is=69db6af9&hm=2b12962c57e5200de8d1329654be1275b1a4680818d5bab5dde5a72761303a31&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69dd6539&is=69dc13b9&hm=413068e9cd4e24c33e9c8050503166a74d0ae03dcb18950b4eb2bfea05578cc2&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -8204,6 +8204,27 @@
       "loadstring_urls": [
         "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua"
       ]
+    },
+    {
+      "id": "1493008413389619240",
+      "name": "UselessFactNotification",
+      "author": "Pops",
+      "date": "2026-04-12T22:02:24.507000+00:00",
+      "files": [
+        {
+          "filename": "UselessFactNotification.iy",
+          "url": "plugins/1493008413389619240/UselessFactNotification.iy",
+          "size": 880,
+          "is_plugin": true
+        },
+        {
+          "filename": "Screen_Recording_2026-04-12_055839.mp4",
+          "url": "plugins/1493008413389619240/Screen_Recording_2026-04-12_055839.mp4",
+          "size": 718900,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": []
     }
   ]
 }
