@@ -1,0 +1,299 @@
+local S = {
+	Workspace = cloneref(game:GetService("Workspace")),
+	RunService = cloneref(game:GetService("RunService")),
+	CoreGui = cloneref(game:GetService("CoreGui")),
+	Players = cloneref(game:GetService("Players")),
+}
+
+local ME = S.Players.LocalPlayer
+local Char = ME.Character or ME.CharacterAdded:Wait()
+
+local raknet_desync = {
+	showServerPosition = true,
+	ghostActive = false,
+	ghostModel = nil,
+}
+
+function raknet_desync.createGhostCharacter()
+	if raknet_desync.ghostModel then
+		raknet_desync.ghostModel:Destroy()
+	end
+
+	local realChar = Char
+	if not realChar then
+		return
+	end
+
+	raknet_desync.ghostActive = true
+
+	raknet_desync.ghostModel = Instance.new("Model")
+	raknet_desync.ghostModel.Name = "DesyncGhost"
+	raknet_desync.ghostModel.Parent = S.Workspace
+
+	local distanceBillboard = nil
+	local ghostRootPart = nil
+	local adornments = {}
+
+	for _, part in ipairs(realChar:GetChildren()) do
+		if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" and part.Transparency < 1 then
+			local clone = Instance.new("Part")
+			clone.Name = part.Name
+			clone.Size = part.Size
+			clone.CFrame = part.CFrame
+			clone.Anchored = true
+			clone.CanCollide = false
+			clone.CastShadow = false
+			clone.Transparency = 1
+			clone.Parent = raknet_desync.ghostModel
+
+			local glowColor = Color3.fromRGB(0, 180, 255)
+
+			local glowAdorn = Instance.new("BoxHandleAdornment", S.CoreGui)
+			glowAdorn.Size = clone.Size + Vector3.new(0.05, 0.05, 0.05)
+			glowAdorn.AlwaysOnTop = true
+			glowAdorn.ZIndex = 9
+			glowAdorn.Adornee = clone
+			glowAdorn.Color3 = glowColor
+			glowAdorn.Transparency = 0.4
+			table.insert(adornments, glowAdorn)
+
+			local fillAdorn = Instance.new("BoxHandleAdornment", S.CoreGui)
+			fillAdorn.Size = clone.Size
+			fillAdorn.AlwaysOnTop = true
+			fillAdorn.ZIndex = 10
+			fillAdorn.Adornee = clone
+			fillAdorn.Color3 = glowColor
+			fillAdorn.Transparency = 0.5
+			table.insert(adornments, fillAdorn)
+
+			if part.Name == "UpperTorso" or part.Name == "Torso" then
+				ghostRootPart = clone
+
+				local billboard = Instance.new("BillboardGui")
+				billboard.Name = "DesyncDistLabel"
+				billboard.Size = UDim2.new(0, 120, 0, 36)
+				billboard.StudsOffset = Vector3.new(0, 3.5, 0)
+				billboard.AlwaysOnTop = true
+				billboard.LightInfluence = 0
+				billboard.MaxDistance = 2000
+				billboard.Adornee = clone
+				billboard.Enabled = false
+				billboard.Parent = clone
+
+				local frame = Instance.new("Frame")
+				frame.Size = UDim2.fromScale(1, 1)
+				frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+				frame.BackgroundTransparency = 0.3
+				frame.BorderSizePixel = 0
+				frame.Parent = billboard
+
+				local corner = Instance.new("UICorner")
+				corner.CornerRadius = UDim.new(0, 7)
+				corner.Parent = frame
+
+				local stroke = Instance.new("UIStroke")
+				stroke.Color = Color3.fromRGB(0, 180, 255)
+				stroke.Thickness = 1.5
+				stroke.Transparency = 0.1
+				stroke.Parent = frame
+
+				local dot = Instance.new("Frame")
+				dot.Size = UDim2.new(0, 7, 0, 7)
+				dot.Position = UDim2.new(0, 8, 0.5, -3)
+				dot.BackgroundColor3 = Color3.fromRGB(0, 180, 255)
+				dot.BorderSizePixel = 0
+				dot.Parent = frame
+				Instance.new("UICorner", dot).CornerRadius = UDim.new(1, 0)
+
+				local label = Instance.new("TextLabel")
+				label.Name = "DistText"
+				label.Size = UDim2.new(1, -22, 1, 0)
+				label.Position = UDim2.new(0, 22, 0, 0)
+				label.BackgroundTransparency = 1
+				label.Text = "Server ⊙ 0.0m"
+				label.TextColor3 = Color3.fromRGB(255, 255, 255)
+				label.TextSize = 13
+				label.Font = Enum.Font.GothamMedium
+				label.TextXAlignment = Enum.TextXAlignment.Left
+				label.Parent = frame
+
+				distanceBillboard = billboard
+			end
+		end
+	end
+
+	if not (distanceBillboard and ghostRootPart) then
+		return
+	end
+
+	local tracerPart = Instance.new("Part")
+	tracerPart.Name = "DesyncTracer"
+	tracerPart.Anchored = true
+	tracerPart.CanCollide = false
+	tracerPart.CastShadow = false
+	tracerPart.Transparency = 1
+	tracerPart.Size = Vector3.new(0.05, 0.05, 1)
+	tracerPart.Parent = S.Workspace
+
+	local tracerCylinder = Instance.new("CylinderHandleAdornment")
+	tracerCylinder.Radius = 0.04
+	tracerCylinder.Height = 1
+	tracerCylinder.Color3 = Color3.fromRGB(0, 180, 255)
+	tracerCylinder.Transparency = 0.55
+	tracerCylinder.AlwaysOnTop = true
+	tracerCylinder.ZIndex = 8
+	tracerCylinder.Adornee = tracerPart
+	tracerCylinder.Parent = S.CoreGui
+
+	local tracerDash = Instance.new("CylinderHandleAdornment")
+	tracerDash.Radius = 0.04
+	tracerDash.Height = 1
+	tracerDash.Color3 = Color3.fromRGB(180, 230, 255)
+	tracerDash.Transparency = 0.75
+	tracerDash.AlwaysOnTop = true
+	tracerDash.ZIndex = 9
+	tracerDash.Adornee = tracerPart
+	tracerDash.Parent = S.CoreGui
+
+	local camera = S.Workspace.CurrentCamera
+	local distLabel = distanceBillboard.Frame:FindFirstChild("DistText")
+	local lastVisible = nil
+	local VEC_UP = Vector3.new(0, 1, 0)
+
+	local connection
+	connection = S.RunService.Heartbeat:Connect(function()
+		if not raknet_desync.ghostActive then
+			connection:Disconnect()
+			tracerCylinder:Destroy()
+			tracerDash:Destroy()
+			tracerPart:Destroy()
+			return
+		end
+
+		local localRoot = realChar:FindFirstChild("HumanoidRootPart")
+		if not localRoot then
+			return
+		end
+
+		local camCF = camera.CFrame
+		local ghostPos = ghostRootPart.Position
+		local localPos = localRoot.Position
+
+		local toGhost = (ghostPos - camCF.Position).Unit
+		local isVisible = camCF.LookVector:Dot(toGhost) > 0.3
+
+		if isVisible ~= lastVisible then
+			lastVisible = isVisible
+			distanceBillboard.Enabled = isVisible
+			local glowT = isVisible and 0.4 or 1
+			local fillT = isVisible and 0.5 or 1
+			for i, adorn in ipairs(adornments) do
+				adorn.Transparency = (i % 2 == 1) and glowT or fillT
+			end
+			tracerCylinder.Transparency = isVisible and 0.55 or 1
+			tracerDash.Transparency = isVisible and 0.75 or 1
+		end
+
+		if not isVisible then
+			return
+		end
+
+		local dist = (ghostPos - localPos).Magnitude
+		distLabel.Text = string.format("Server ⊙ %.1fm", dist)
+
+		local fromPos = localPos
+		local toPos = ghostPos
+		local mid = (fromPos + toPos) / 2
+		local length = (toPos - fromPos).Magnitude
+		local direction = (toPos - fromPos).Unit
+
+		local right = VEC_UP:Cross(direction)
+		if right.Magnitude < 0.001 then
+			right = Vector3.new(1, 0, 0)
+		else
+			right = right.Unit
+		end
+		local up = direction:Cross(right).Unit
+
+		tracerPart.CFrame = CFrame.fromMatrix(mid, right, up, -direction)
+		tracerPart.Size = Vector3.new(0.05, 0.05, length)
+		tracerCylinder.Height = length
+		tracerDash.Height = length
+
+		local t = tick() % 1
+		tracerDash.Transparency = 0.55 + 0.35 * math.abs(math.sin(t * math.pi * 4))
+	end)
+end
+
+function raknet_desync.destroyGhost()
+	if raknet_desync.ghostModel then
+		raknet_desync.ghostActive = false
+		raknet_desync.ghostModel:Destroy()
+		raknet_desync.ghostModel = nil
+	end
+end
+
+function raknet_desync.rakhook(packet)
+	if packet.PacketId == 0x1B then
+		local buf = packet.AsBuffer
+		buffer.writeu32(buf, 1, 0xFFFFFFFF)
+		packet:SetData(buf)
+	end
+end
+
+if not raknet then
+	return notify("Raknet Desync:", "Your executor does not support RakNet library, which are required for this plugin to work.")
+end
+
+local Plugin = {
+	["PluginName"] = "raknet desync",
+	["PluginDescription"] = "Desyncs you from the server by sending a modified RakNet packet. Makes you invisible to other players and prevents you from taking damage. You can still interact with the world and other players, but they won't see you.",
+	["Commands"] = {
+		["rdesync"] = {
+			["ListName"] = "rdesync / raknetdesync",
+			["Description"] = "Desyncs your character from the server",
+			["Aliases"] = { "raknetdesync" },
+			["Function"] = function(args, speaker)
+				if raknet and raknet.add_send_hook then
+					raknet.add_send_hook(raknet_desync.rakhook)
+				elseif raknet and raknet.desync then
+					raknet.desync(true)
+				end
+				if raknet_desync.showServerPosition then
+					raknet_desync.createGhostCharacter()
+				end
+				notify("Raknet Desync:", "Your character is now desynced from the server.")
+			end,
+		},
+		["rresync"] = {
+			["ListName"] = "rresync / raknetresync",
+			["Description"] = "Resyncs your character with the server",
+			["Aliases"] = { "raknetresync" },
+			["Function"] = function(args, speaker)
+				if raknet and raknet.remove_send_hook then
+					raknet.remove_send_hook(raknet_desync.rakhook)
+				elseif raknet and raknet.desync then
+					raknet.desync(false)
+				end
+				raknet_desync.destroyGhost()
+				notify("Raknet Desync:", "Your character is now resynced with the server.")
+			end,
+		},
+		["ssp"] = {
+			["ListName"] = "ssp / showserverposition",
+			["Description"] = "Toggles the ghost character that shows your server position while desynced",
+			["Aliases"] = { "showserverposition" },
+			["Function"] = function(args, speaker)
+				raknet_desync.showServerPosition = not raknet_desync.showServerPosition
+				if raknet_desync.showServerPosition then
+					notify("Raknet Desync:", "Server position ghost enabled.")
+				else
+					notify("Raknet Desync:", "Server position ghost disabled.")
+					raknet_desync.destroyGhost()
+				end
+			end,
+		},
+	},
+}
+
+return Plugin
