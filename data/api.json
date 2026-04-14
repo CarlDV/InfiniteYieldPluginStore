@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-04-14T17:02:07.237902+00:00",
-  "total": 525,
+  "updated_at": "2026-04-14T22:33:13.993907+00:00",
+  "total": 526,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -7053,7 +7053,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69df5f79&is=69de0df9&hm=b2f1c8a7b225abc09536f146de0f663da1102f39b5af69d11562e58afe0e8bd3&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69e00839&is=69deb6b9&hm=d85976b35ff04526313556ed296aceea1ddfe2d2ff5d67cf2d5b00f99709defe&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -8258,6 +8258,21 @@
           "url": "https://cdn.discordapp.com/attachments/551846012310782014/1493656873398964416/Desktop_2026.04.14_-_11.55.39.05.mp4?ex=69dfc3dd&is=69de725d&hm=5779dfdc1f2e651f8682af47e423525655fd4704dada22f1b5c53500e933c527&",
           "size": 37640361,
           "is_plugin": false
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1493739503507210392",
+      "name": "Speedometer2",
+      "author": "weapponofchoice",
+      "date": "2026-04-14T22:27:29.974000+00:00",
+      "files": [
+        {
+          "filename": "Speedometer2.iy",
+          "url": "plugins/1493739503507210392/Speedometer2.iy",
+          "size": 6185,
+          "is_plugin": true
         }
       ],
       "loadstring_urls": []
