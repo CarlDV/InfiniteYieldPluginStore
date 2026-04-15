@@ -158,7 +158,8 @@
 
             // Tags
             let tags = '';
-            const dlCount = pluginStats[p.id] || 0;
+            const statData = pluginStats[p.id];
+            const dlCount = typeof statData === 'object' ? statData.total : (statData || 0);
             if (dlCount > 0) tags += `<span class="tag" style="background:#113333;color:var(--cyan);border:1px solid #1a5555" title="${dlCount} Downloads"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>${dlCount}</span>`;
             if (p.code_blocks?.length) tags += '<span class="tag tag-code"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>Code</span>';
             if (p.links?.length) tags += '<span class="tag tag-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Link</span>';
