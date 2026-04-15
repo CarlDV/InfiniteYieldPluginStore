@@ -167,7 +167,9 @@ local function dl_plugin(p, b)
 		local s = {}
 		for _,f in pairs(p.files or {}) do
 			if f.filename:lower():match("%.iy$") then
-				local o,c = pcall(function() return game:HttpGet(API.."/"..f.url) end)
+				local targetUrl = HS:UrlEncode(API.."/"..f.url)
+				local trackerUrl = "https://iy-analytics.renern.workers.dev/load/"..p.id.."?url="..targetUrl
+				local o,c = pcall(function() return game:HttpGet(trackerUrl) end)
 				if o and c then
 					pcall(function() writefile(f.filename, c) end)
 					table.insert(s, f.filename)
