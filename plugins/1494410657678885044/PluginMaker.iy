@@ -1,0 +1,21 @@
+--------------------------------------------------------------------------------
+-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)
+-- This plugin was generated automatically using IY Plugin Maker.
+--------------------------------------------------------------------------------
+
+local Plugin = {
+    ["PluginName"] = "PluginMaker",
+    ["PluginDescription"] = "A tool to help you make, modify, and overwrite a plugin easily in game.",
+    ["Commands"] = {
+        ["IYPluginMaker"] = {
+            ["ListName"] = "pmake / makeplugin / pluginmake",
+            ["Description"] = "Opens the plugin maker UI",
+            ["Aliases"] = {"pmake", "makeplugin", "pluginmake"},
+            ["Function"] = function(args, speaker)
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/pluginmaker.lua'))()
+            end
+        }
+    }
+}
+
+return Plugin
