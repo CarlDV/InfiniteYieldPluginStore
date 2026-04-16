@@ -546,7 +546,8 @@ local function draw_list(ls)
 		n.Parent = c
 
 		local a = Instance.new("TextLabel")
-		a.Text = p.author and p.author.name or "Unknown"
+		local dstr = p.date and p.date:sub(1,10) or "N/A"
+		a.Text = (p.author and p.author.name or "Unknown") .. " • " .. dstr
 		a.Size = UDim2.new(1,-52,0,16); a.Position = UDim2.new(0,8,0,26)
 		a.TextColor3 = Color3.fromRGB(120,120,120); a.Font = Enum.Font.Gotham; a.TextSize = 11
 		a.TextXAlignment = Enum.TextXAlignment.Left; a.BackgroundTransparency = 1; a.TextTruncate = Enum.TextTruncate.AtEnd
