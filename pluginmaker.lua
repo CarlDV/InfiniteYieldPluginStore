@@ -3,10 +3,22 @@ local UIS = game:GetService("UserInputService")
 local CORE = game:GetService("CoreGui")
 local PLR = game:GetService("Players").LocalPlayer
 local TS = game:GetService("TweenService")
+
+task.spawn(function()
+    if not (addPlugin or (shared and shared.addPlugin)) then
+        pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end)
+    end
+end)
+
+repeat task.wait(0.5) until typeof(googIY) ~= "nil" or typeof(addPlugin) == "function" or (shared and shared.addPlugin)
+
 local TIOpen = TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
 local TIClose = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 
 local hasFS = isfile and readfile and writefile and listfiles
+
+local existing = (CORE:FindFirstChild("IYPluginMakerUI") or PLR.PlayerGui:FindFirstChild("IYPluginMakerUI"))
+if existing then existing:Destroy() end
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "IYPluginMakerUI"
@@ -22,7 +34,8 @@ local pluginData = {
 }
 
 local listContainer, renderList, showEditor
-local win, fbtn
+local win, fbtn, iName, iDesc, btnExp, btnImp, btnNew
+local promptSave
 local winPos = UDim2.new(0.5, 0, 0.5, 0)
 
 local function playAnim(tgt, open, cb)
@@ -199,7 +212,7 @@ min.MouseButton1Click:Connect(function()
 	playAnim(win, false, function() fbtn.Visible = true end)
 end)
 
-local btnNew = Instance.new("TextButton")
+btnNew = Instance.new("TextButton")
 btnNew.Text="New"; btnNew.Size=UDim2.new(0,45,0,24); btnNew.Position=UDim2.new(1,-130,0,8)
 btnNew.BackgroundColor3=Color3.fromRGB(40,40,45); btnNew.TextColor3=Color3.fromRGB(220,220,220); btnNew.Font=Enum.Font.GothamMedium; btnNew.TextSize=10; cr(4).Parent=btnNew
 btnNew.Parent = top
@@ -210,13 +223,13 @@ btnNew.MouseButton1Click:Connect(function()
 	renderList()
 end)
 
-local btnExp = Instance.new("TextButton")
+btnExp = Instance.new("TextButton")
 btnExp.Text="Save"; btnExp.Size=UDim2.new(0,45,0,24); btnExp.Position=UDim2.new(1,-180,0,8)
 btnExp.BackgroundColor3=Color3.fromRGB(0,140,255); btnExp.TextColor3=Color3.fromRGB(255,255,255); btnExp.Font=Enum.Font.GothamMedium; btnExp.TextSize=10; cr(4).Parent=btnExp
 btnExp.Parent = top
 btnExp.MouseButton1Click:Connect(function() promptSave() end)
 
-local btnImp = Instance.new("TextButton")
+btnImp = Instance.new("TextButton")
 btnImp.Text="Import"; btnImp.Size=UDim2.new(0,45,0,24); btnImp.Position=UDim2.new(1,-230,0,8)
 btnImp.BackgroundColor3=Color3.fromRGB(35,35,40); btnImp.TextColor3=Color3.fromRGB(220,220,220); btnImp.Font=Enum.Font.GothamMedium; btnImp.TextSize=10; cr(4).Parent=btnImp
 btnImp.Parent = top
@@ -284,7 +297,7 @@ local lName = Instance.new("TextLabel")
 lName.Text="PLUGIN NAME"; lName.Size=UDim2.new(1,0,0,20); lName.Position=UDim2.new(0,0,0,10)
 lName.TextColor3=Color3.fromRGB(120,120,120); lName.BackgroundTransparency=1; lName.Font=Enum.Font.GothamBold; lName.TextSize=10; lName.TextXAlignment=Enum.TextXAlignment.Left; lName.Parent=side
 
-local iName = Instance.new("TextBox")
+iName = Instance.new("TextBox")
 iName.Text=pluginData.name; iName.PlaceholderText="Plugin Name..."
 iName.Size=UDim2.new(1,0,0,32); iName.Position=UDim2.new(0,0,0,30)
 iName.BackgroundColor3=Color3.fromRGB(25,25,28); iName.TextColor3=Color3.fromRGB(240,240,240)
@@ -297,7 +310,7 @@ local lDesc = Instance.new("TextLabel")
 lDesc.Text="DESCRIPTION"; lDesc.Size=UDim2.new(1,0,0,20); lDesc.Position=UDim2.new(0,0,0,72)
 lDesc.TextColor3=Color3.fromRGB(120,120,120); lDesc.BackgroundTransparency=1; lDesc.Font=Enum.Font.GothamBold; lDesc.TextSize=10; lDesc.TextXAlignment=Enum.TextXAlignment.Left; lDesc.Parent=side
 
-local iDesc = Instance.new("TextBox")
+iDesc = Instance.new("TextBox")
 iDesc.Text=pluginData.desc; iDesc.PlaceholderText="Plugin Description..."
 iDesc.Size=UDim2.new(1,0,0,60); iDesc.Position=UDim2.new(0,0,0,92)
 iDesc.BackgroundColor3=Color3.fromRGB(25,25,28); iDesc.TextColor3=Color3.fromRGB(240,240,240)
@@ -423,7 +436,7 @@ btnBack.MouseButton1Click:Connect(function()
 end)
 
 btnAdd.MouseButton1Click:Connect(function() showEditor(nil) end)
-local function promptSave()
+promptSave = function()
 	if not writefile then return end
 	local fn = pluginData.filename or (pluginData.name:gsub("[^%w_]", "") .. ".iy")
 	if fn == ".iy" then fn = "unnamed_plugin.iy" end
