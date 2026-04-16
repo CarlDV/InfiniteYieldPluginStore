@@ -83,6 +83,9 @@ local function dragGUI(obj)
 	end)
 end
 
+local existing = (CORE:FindFirstChild("IYStoreUI") or PLR.PlayerGui:FindFirstChild("IYStoreUI"))
+if existing then existing:Destroy() end
+
 local gui = Instance.new("ScreenGui")
 gui.Name = "IYStoreUI"
 gui.ResetOnSpawn = false
