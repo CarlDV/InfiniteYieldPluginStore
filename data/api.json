@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-04-16T18:57:27.835877+00:00",
-  "total": 526,
+  "updated_at": "2026-04-16T19:09:55.918169+00:00",
+  "total": 527,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -8278,6 +8278,21 @@
       "loadstring_urls": [
         "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/pluginmaker.lua"
       ]
+    },
+    {
+      "id": "1494413740807028747",
+      "name": "Weld3D",
+      "author": "Agent666_0",
+      "date": "2026-04-16T19:06:40.673000+00:00",
+      "files": [
+        {
+          "filename": "Weld3D.iy",
+          "url": "plugins/1494413740807028747/Weld3D.iy",
+          "size": 34935,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
     }
   ]
 }
