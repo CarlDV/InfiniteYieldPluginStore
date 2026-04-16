@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-04-16T03:29:32.340540+00:00",
-  "total": 523,
+  "updated_at": "2026-04-16T07:27:09.851851+00:00",
+  "total": 525,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -8189,7 +8189,7 @@
         },
         {
           "filename": "Desktop_2026.04.14_-_11.55.39.05.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1493656873398964416/Desktop_2026.04.14_-_11.55.39.05.mp4?ex=69e1155d&is=69dfc3dd&hm=4a0b38aa741be676d4342bbe8648105141725a8108b489c8d150705dfbd3cc88&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1493656873398964416/Desktop_2026.04.14_-_11.55.39.05.mp4?ex=69e1be1d&is=69e06c9d&hm=4ee8c9c76922521b7e79f0c77edc982db21a627f029180c81e77bb3444dac2a0&",
           "size": 37640361,
           "is_plugin": false
         }
@@ -8221,6 +8221,36 @@
           "filename": "wfcp.iy",
           "url": "plugins/1494092382151643207/wfcp.iy",
           "size": 7402,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1494235470991851620",
+      "name": "Headspin",
+      "author": "Agent666_0",
+      "date": "2026-04-16T07:18:17.837000+00:00",
+      "files": [
+        {
+          "filename": "Headspin.iy",
+          "url": "plugins/1494235470991851620/Headspin.iy",
+          "size": 15806,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1494236583715409960",
+      "name": "godmode",
+      "author": "Agent666_0",
+      "date": "2026-04-16T07:22:43.131000+00:00",
+      "files": [
+        {
+          "filename": "godmode.iy",
+          "url": "plugins/1494236583715409960/godmode.iy",
+          "size": 2278,
           "is_plugin": true
         }
       ],
