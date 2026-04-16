@@ -613,25 +613,6 @@ pcall(function()
 	fbtn.Visible = false
 	playAnim(win, true)
 	draw_list(all)
-
-	-- reload installed plugins into IY on startup
-	task.spawn(function()
-		for _,p in pairs(all) do
-			for _,f in pairs(p.files or {}) do
-				if f.filename:lower():match("%.iy$") and isfile and isfile(f.filename) then
-					pcall(function()
-						local del = deletePlugin or (shared and shared.deletePlugin)
-						if del then del(f.filename) end
-					end)
-					task.wait(0.5)
-					pcall(function()
-						local add = addPlugin or (shared and shared.addPlugin)
-						if add then add(f.filename) end
-					end)
-				end
-			end
-		end
-	end)
 end)
 
 -- keepalive
