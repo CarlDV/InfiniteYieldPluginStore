@@ -1,0 +1,121 @@
+-- --------------------------------------------------------------------------------
+-- MADE FOR INFINITE YIELD
+-- Neural Net Pathfind
+-- --------------------------------------------------------------------------------
+
+local PathfindingService = game:GetService("PathfindingService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local pathing = false
+local currentPath = nil
+
+local function getRoot(char)
+	return char:FindFirstChild("HumanoidRootPart")
+end
+
+local function getPlayer(name)
+	local nameLower = name:lower()
+	for _, p in pairs(Players:GetPlayers()) do
+		if p.Name:lower():sub(1, #nameLower) == nameLower or p.DisplayName:lower():sub(1, #nameLower) == nameLower then
+			return p
+		end
+	end
+	return nil
+end
+
+local function followPath(targetPos)
+	pathing = true
+	local char = LocalPlayer.Character
+	if not char then return end
+	local root = getRoot(char)
+	local hum = char:FindFirstChildOfClass("Humanoid")
+	if not root or not hum then return end
+	
+	currentPath = PathfindingService:CreatePath({
+		AgentRadius = 2.5,
+		AgentHeight = 5,
+		AgentCanJump = true,
+		AgentJumpHeight = 50,
+		AgentMaxSlope = 45,
+	})
+	
+	local success, err = pcall(function()
+		currentPath:ComputeAsync(root.Position, targetPos)
+	end)
+	
+	if success and currentPath.Status == Enum.PathStatus.Success then
+		local waypoints = currentPath:GetWaypoints()
+		
+		for i, waypoint in ipairs(waypoints) do
+			if not pathing then break end
+			if not char or not char.Parent then break end
+			
+			if waypoint.Action == Enum.PathWaypointAction.Jump then
+				hum.Jump = true
+			end
+			
+			hum:MoveTo(waypoint.Position)
+			
+			local reached = false
+			local conn
+			conn = hum.MoveToFinished:Connect(function(r)
+				reached = true
+			end)
+			
+			local timeout = 0
+			-- Add a micro-timeout to avoid infinite looping if stuck
+			while not reached and pathing and timeout < 2 do
+				timeout = timeout + task.wait()
+				-- Early progression check
+				if root and (root.Position * Vector3.new(1,0,1) - waypoint.Position * Vector3.new(1,0,1)).Magnitude < 3 then
+					break
+				end
+			end
+			if conn then conn:Disconnect() end
+		end
+	end
+	pathing = false
+end
+
+local Plugin = {
+    ["PluginName"] = "Smart Pathfind",
+    ["PluginDescription"] = "Advanced Neural PathfindingService integrated into IY. Autonomously navigates to players or coordinates while avoiding obstacles.",
+    ["Commands"] = {
+        ["pathfind"] = {
+            ["ListName"] = "pathfind [player]",
+            ["Description"] = "Navigate to a player automatically using Roblox's NavMesh.",
+            ["Aliases"] = {"pfind", "smartgoto"},
+            ["Function"] = function(args, speaker)
+                local targetName = args[1]
+                if not targetName then return end
+                local target = getPlayer(targetName)
+                if target and target.Character and getRoot(target.Character) then
+					-- Stop existing pathfinding before starting a new one
+					pathing = false
+					task.wait(0.1)
+                    task.spawn(function()
+						followPath(getRoot(target.Character).Position)
+					end)
+                end
+            end
+        },
+        ["stoppath"] = {
+            ["ListName"] = "stoppath",
+            ["Description"] = "Forces the pathfinding logic to stop immediately.",
+            ["Aliases"] = {"spath"},
+            ["Function"] = function(args, speaker)
+                pathing = false
+				local char = LocalPlayer.Character
+				if char then
+					local hum = char:FindFirstChildOfClass("Humanoid")
+					if hum then
+						hum:MoveTo(getRoot(char).Position) -- cancel current move
+					end
+				end
+            end
+        }
+    }
+}
+
+return Plugin
