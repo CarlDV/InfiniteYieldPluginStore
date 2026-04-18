@@ -1,0 +1,328 @@
+local HS = game:GetService("HttpService")
+local UIS = game:GetService("UserInputService")
+local CORE = game:GetService("CoreGui")
+local PLR = game:GetService("Players").LocalPlayer
+local TS = game:GetService("TweenService")
+
+local TIOpen = TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+local TIClose = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+
+local hasFS = isfile and readfile and writefile
+local saveFile = "iy_mobile_hotkeys.json"
+
+local hotkeyData = {}
+
+if hasFS and isfile(saveFile) then
+    pcall(function()
+        hotkeyData = HS:JSONDecode(readfile(saveFile))
+    end)
+end
+
+local existing = (CORE:FindFirstChild("IYHotkeyBridgeUI") or PLR.PlayerGui:FindFirstChild("IYHotkeyBridgeUI"))
+if existing then existing:Destroy() end
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "IYHotkeyBridgeUI"
+gui.ResetOnSpawn = false
+pcall(function() gui.Parent = CORE end)
+if not gui.Parent then gui.Parent = PLR:WaitForChild("PlayerGui") end
+
+local function cr(rad)
+	local c = Instance.new("UICorner")
+    c.CornerRadius = UDim.new(0, rad or 4)
+    return c
+end
+
+local function st(clr)
+	local s = Instance.new("UIStroke")
+    s.Color = clr
+    return s
+end
+
+local function dragGUI(obj, onDragEnd, onClick)
+	local d,ds,dp = false,nil,nil
+	local cons = {}
+	local moved = false
+	obj.InputBegan:Connect(function(i)
+		if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then
+			d = true; ds = i.Position; dp = obj.Position; moved = false
+		end
+	end)
+	table.insert(cons, UIS.InputChanged:Connect(function(i)
+		if d and (i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch) then
+			local dt = i.Position - ds
+			if dt.Magnitude > 4 then moved = true end
+			obj.Position = UDim2.new(dp.X.Scale, dp.X.Offset+dt.X, dp.Y.Scale, dp.Y.Offset+dt.Y)
+		end
+	end))
+	table.insert(cons, UIS.InputEnded:Connect(function(i)
+		if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then 
+			if d then
+				d = false
+				if moved then
+					if onDragEnd then onDragEnd(obj.Position) end
+				else
+					if onClick then onClick() end
+				end
+			end
+		end
+	end))
+	local ac; ac = obj.AncestryChanged:Connect(function(_, parent)
+		if not parent then
+			for _,c in pairs(cons) do c:Disconnect() end
+			ac:Disconnect()
+		end
+	end)
+end
+
+local actionHUD = Instance.new("Frame")
+actionHUD.Size = UDim2.new(1, 0, 1, 0)
+actionHUD.Position = UDim2.new(0, 0, 0, 0)
+actionHUD.BackgroundTransparency = 1
+actionHUD.Name = "ActionHUD"
+actionHUD.Parent = gui
+
+local winPos = UDim2.new(0.5, 0, 0.5, 0)
+local win = Instance.new("Frame")
+win.Size = UDim2.new(0.9, 0, 0.85, 0)
+win.Position = winPos
+win.AnchorPoint = Vector2.new(0.5, 0.5)
+win.BackgroundColor3 = Color3.fromRGB(15,15,17)
+win.BorderSizePixel = 0
+win.ClipsDescendants = true
+win.Visible = false
+
+local max_s = Instance.new("UISizeConstraint")
+max_s.MaxSize = Vector2.new(460, 500)
+max_s.Parent = win
+
+cr(4).Parent = win
+st(Color3.fromRGB(40,40,45)).Parent = win
+local ws = Instance.new("UIScale"); ws.Parent = win
+win.Parent = gui
+dragGUI(win)
+
+local function playAnim(tgt, open, cb)
+	local tPos = (tgt == win) and winPos or UDim2.new(0.5, 0, 0.5, 0)
+	local sc = tgt:FindFirstChildOfClass("UIScale")
+	if open then
+		tgt.Visible = true
+		tgt.Position = UDim2.new(tPos.X.Scale, tPos.X.Offset, tPos.Y.Scale, tPos.Y.Offset + 15)
+		if sc then sc.Scale = 0.9; TS:Create(sc, TIOpen, {Scale = 1}):Play() end
+		TS:Create(tgt, TIOpen, {Position = tPos}):Play()
+	else
+		local t = TS:Create(tgt, TIClose, {Position = UDim2.new(tPos.X.Scale, tPos.X.Offset, tPos.Y.Scale, tPos.Y.Offset + 15)})
+		if sc then TS:Create(sc, TIClose, {Scale = 0.9}):Play() end
+		t:Play()
+		t.Completed:Connect(function() 
+			tgt.Visible = false 
+			if cb then cb() end 
+		end)
+	end
+end
+
+local top = Instance.new("Frame")
+top.Size=UDim2.new(1,0,0,40)
+top.BackgroundColor3=Color3.fromRGB(20,20,23)
+top.BorderSizePixel=0
+local top_bline = Instance.new("Frame")
+top_bline.Size = UDim2.new(1,0,0,1); top_bline.Position = UDim2.new(0,0,1,0)
+top_bline.BackgroundColor3=Color3.fromRGB(35,35,40); top_bline.BorderSizePixel=0; top_bline.Parent = top
+local txt = Instance.new("TextLabel")
+txt.Text = "Hotkey Editor" 
+txt.TextColor3 = Color3.fromRGB(240,240,240)
+txt.BackgroundTransparency = 1 
+txt.Size = UDim2.new(1,-60,1,0); txt.Position = UDim2.new(0,14,0,0)
+txt.TextXAlignment = Enum.TextXAlignment.Left 
+txt.Font = Enum.Font.GothamMedium; txt.TextSize = 14; txt.Parent = top
+top.Parent = win
+
+local close = Instance.new("TextButton")
+close.Text="X"; close.Size=UDim2.new(0,40,1,0); close.Position=UDim2.new(1,-40,0,0)
+close.BackgroundColor3=Color3.fromRGB(20,20,23); close.TextColor3=Color3.fromRGB(220,90,90)
+close.Font=Enum.Font.GothamMedium; close.TextSize=14; close.BorderSizePixel=0; close.AutoButtonColor = true; close.Parent = top
+close.MouseButton1Click:Connect(function() playAnim(win, false) end)
+
+local btnNew = Instance.new("TextButton")
+btnNew.Text="+ Add"; btnNew.Size=UDim2.new(0,50,0,24); btnNew.Position=UDim2.new(1,-100,0,8)
+btnNew.BackgroundColor3=Color3.fromRGB(0,140,255); btnNew.TextColor3=Color3.fromRGB(255,255,255); btnNew.Font=Enum.Font.GothamMedium; btnNew.TextSize=11; cr(4).Parent=btnNew
+btnNew.Parent = top
+
+local listContainer = Instance.new("ScrollingFrame")
+listContainer.Size=UDim2.new(1,-24,1,-60); listContainer.Position=UDim2.new(0,12,0,50)
+listContainer.BackgroundTransparency=1; listContainer.ScrollBarThickness=2; listContainer.ScrollBarImageColor3=Color3.fromRGB(70,70,75)
+listContainer.CanvasSize=UDim2.new(0,0,0,0); listContainer.AutomaticCanvasSize=Enum.AutomaticSize.Y
+local uill = Instance.new("UIListLayout"); uill.Padding=UDim.new(0,8); uill.Parent=listContainer
+listContainer.Parent = win
+
+local function saveConfig()
+    if hasFS then
+        pcall(function() writefile(saveFile, HS:JSONEncode(hotkeyData)) end)
+    end
+end
+
+local editWin, iptName, iptCmd, iptUncmd, btnSaveEdit
+local currentEditIndex = nil
+
+local function execute(cmdStr)
+    local succ = pcall(function()
+        if typeof(execCmd) == "function" then
+            execCmd(cmdStr)
+        elseif typeof(game:GetService("Players").LocalPlayer) then
+            local prefix = (typeof(getgenv) == "function" and getgenv().prefix) or ";"
+            if cmdStr:sub(1, #prefix) ~= prefix then cmdStr = prefix .. cmdStr end
+            local chatRemote = game:GetService("ReplicatedStorage"):FindFirstChild("DefaultChatSystemChatEvents")
+            if chatRemote then
+                chatRemote:FindFirstChild("SayMessageRequest"):FireServer(cmdStr, "All")
+            else
+                game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(cmdStr)
+            end
+        end
+    end)
+end
+
+local function drawHUD()
+    for _, c in pairs(actionHUD:GetChildren()) do if c:IsA("TextButton") then c:Destroy() end end
+    for i, hk in ipairs(hotkeyData) do
+        local btn = Instance.new("TextButton")
+        btn.Text = hk.name:sub(1,8)
+        
+        if hk.pos then
+            btn.Position = UDim2.new(hk.pos[1], hk.pos[2], hk.pos[3], hk.pos[4])
+        else
+            btn.Position = UDim2.new(0.8, 0, 0.2 + (i * 0.1), 0)
+        end
+        
+        btn.Size = UDim2.new(0, 42, 0, 42)
+        if hk.state then
+            btn.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+        else
+            btn.BackgroundColor3 = Color3.fromRGB(22,22,25)
+        end
+        
+        btn.TextColor3 = Color3.fromRGB(240,240,240)
+        btn.Font = Enum.Font.GothamBold; btn.TextSize = 9
+        btn.ClipsDescendants = true; btn.AutoButtonColor = true
+        cr(21).Parent=btn
+        st(Color3.fromRGB(45,45,50)).Parent=btn
+        
+        dragGUI(btn, function(newPos)
+            hk.pos = {newPos.X.Scale, newPos.X.Offset, newPos.Y.Scale, newPos.Y.Offset}
+            saveConfig()
+        end, function()
+            if hk.uncmd and hk.uncmd ~= "" then
+                if hk.state then
+                    hk.state = false
+                    execute(hk.uncmd)
+                    btn.BackgroundColor3 = Color3.fromRGB(22,22,25)
+                else
+                    hk.state = true
+                    execute(hk.cmd)
+                    btn.BackgroundColor3 = Color3.fromRGB(0,140,255)
+                end
+            else
+                execute(hk.cmd)
+                btn.BackgroundColor3 = Color3.fromRGB(0,140,255)
+                task.delay(0.2, function() btn.BackgroundColor3 = Color3.fromRGB(22,22,25) end)
+            end
+        end)
+        
+        btn.Parent = actionHUD
+    end
+end
+
+local function renderList()
+    for _, c in pairs(listContainer:GetChildren()) do if c:IsA("Frame") then c:Destroy() end end
+    for i, hk in ipairs(hotkeyData) do
+        local f = Instance.new("Frame"); f.Size=UDim2.new(1,0,0,46); f.BackgroundColor3=Color3.fromRGB(22,22,26); cr(4).Parent=f; st(Color3.fromRGB(45,45,50)).Parent=f
+		local lblN = Instance.new("TextLabel"); lblN.Text=hk.name; lblN.Size=UDim2.new(1,-70,0,18); lblN.Position=UDim2.new(0,8,0,6); lblN.TextColor3=Color3.fromRGB(240,240,240); lblN.BackgroundTransparency=1; lblN.Font=Enum.Font.GothamMedium; lblN.TextSize=12; lblN.TextXAlignment=Enum.TextXAlignment.Left; lblN.TextTruncate=Enum.TextTruncate.AtEnd; lblN.Parent=f
+		local lblK = Instance.new("TextLabel"); lblK.Text="Cmd: " .. hk.cmd; lblK.Size=UDim2.new(1,-70,0,14); lblK.Position=UDim2.new(0,8,0,24); lblK.TextColor3=Color3.fromRGB(120,120,120); lblK.BackgroundTransparency=1; lblK.Font=Enum.Font.Code; lblK.TextSize=10; lblK.TextXAlignment=Enum.TextXAlignment.Left; lblK.TextTruncate=Enum.TextTruncate.AtEnd; lblK.Parent=f
+        
+        local bEdit = Instance.new("TextButton"); bEdit.Text="Edit"; bEdit.Size=UDim2.new(0,34,0,22); bEdit.Position=UDim2.new(1,-72,0.5,-11); bEdit.BackgroundColor3=Color3.fromRGB(40,40,45); bEdit.TextColor3=Color3.fromRGB(220,220,220); bEdit.Font=Enum.Font.GothamMedium; bEdit.TextSize=10; cr(4).Parent=bEdit; bEdit.Parent=f
+		
+		local bDel = Instance.new("TextButton"); bDel.Text="×"; bDel.Size=UDim2.new(0,26,0,22); bDel.Position=UDim2.new(1,-34,0.5,-11); bDel.BackgroundColor3=Color3.fromRGB(255,100,100); bDel.TextColor3=Color3.fromRGB(255,255,255); bDel.Font=Enum.Font.GothamBold; bDel.TextSize=14; cr(4).Parent=bDel; bDel.Parent=f
+		
+        bEdit.MouseButton1Click:Connect(function()
+            currentEditIndex = i
+            iptName.Text = hk.name
+            iptCmd.Text = hk.cmd
+            iptUncmd.Text = hk.uncmd or ""
+            editWin.Visible = true
+        end)
+
+        bDel.MouseButton1Click:Connect(function()
+			table.remove(hotkeyData, i)
+			renderList(); drawHUD(); saveConfig()
+		end)
+
+        f.Parent = listContainer
+    end
+end
+
+editWin = Instance.new("Frame")
+editWin.Size=UDim2.new(1,0,1,0); editWin.BackgroundColor3=Color3.fromRGB(15,15,17, 0.9); editWin.Visible=false; editWin.ZIndex=10; editWin.Parent=win
+local impC = Instance.new("Frame")
+impC.Size=UDim2.new(0.9,0,0,280); impC.Position=UDim2.new(0.5,0,0.5,0); impC.AnchorPoint=Vector2.new(0.5,0.5); impC.BackgroundColor3=Color3.fromRGB(20,20,23); impC.ZIndex=11; cr(6).Parent=impC; st(Color3.fromRGB(45,45,50)).Parent=impC
+local i_max = Instance.new("UISizeConstraint"); i_max.MaxSize = Vector2.new(340, 400); i_max.Parent = impC
+impC.Parent=editWin
+
+local l1 = Instance.new("TextLabel"); l1.Text="Button Name"; l1.Size=UDim2.new(1,-40,0,20); l1.Position=UDim2.new(0,20,0,10); l1.TextColor3=Color3.fromRGB(120,120,120); l1.Font=Enum.Font.GothamBold; l1.TextSize=10; l1.BackgroundTransparency=1; l1.TextXAlignment=Enum.TextXAlignment.Left; l1.Parent=impC; l1.ZIndex=12
+iptName = Instance.new("TextBox"); iptName.PlaceholderText="e.g. Fly"; iptName.Size=UDim2.new(1,-40,0,32); iptName.Position=UDim2.new(0,20,0,30); iptName.BackgroundColor3=Color3.fromRGB(25,25,28); iptName.TextColor3=Color3.fromRGB(240,240,240); iptName.Font=Enum.Font.Gotham; iptName.TextSize=12; iptName.ClearTextOnFocus=false; iptName.TextXAlignment=Enum.TextXAlignment.Left; local p3=Instance.new("UIPadding"); p3.PaddingLeft=UDim.new(0,8); p3.Parent=iptName; cr(4).Parent=iptName; st(Color3.fromRGB(45,45,50)).Parent=iptName; iptName.Parent=impC; iptName.ZIndex=12
+
+local l2 = Instance.new("TextLabel"); l2.Text="Command to run"; l2.Size=UDim2.new(1,-40,0,20); l2.Position=UDim2.new(0,20,0,70); l2.TextColor3=Color3.fromRGB(120,120,120); l2.Font=Enum.Font.GothamBold; l2.TextSize=10; l2.BackgroundTransparency=1; l2.TextXAlignment=Enum.TextXAlignment.Left; l2.Parent=impC; l2.ZIndex=12
+iptCmd = Instance.new("TextBox"); iptCmd.PlaceholderText="e.g. fly 50"; iptCmd.Size=UDim2.new(1,-40,0,32); iptCmd.Position=UDim2.new(0,20,0,90); iptCmd.BackgroundColor3=Color3.fromRGB(25,25,28); iptCmd.TextColor3=Color3.fromRGB(240,240,240); iptCmd.Font=Enum.Font.Code; iptCmd.TextSize=12; iptCmd.ClearTextOnFocus=false; iptCmd.TextXAlignment=Enum.TextXAlignment.Left; local p4=Instance.new("UIPadding"); p4.PaddingLeft=UDim.new(0,8); p4.Parent=iptCmd; cr(4).Parent=iptCmd; st(Color3.fromRGB(45,45,50)).Parent=iptCmd; iptCmd.Parent=impC; iptCmd.ZIndex=12
+
+local l3 = Instance.new("TextLabel"); l3.Text="Untoggle Cmd (Optional)"; l3.Size=UDim2.new(1,-40,0,20); l3.Position=UDim2.new(0,20,0,130); l3.TextColor3=Color3.fromRGB(120,120,120); l3.Font=Enum.Font.GothamBold; l3.TextSize=10; l3.BackgroundTransparency=1; l3.TextXAlignment=Enum.TextXAlignment.Left; l3.Parent=impC; l3.ZIndex=12
+iptUncmd = Instance.new("TextBox"); iptUncmd.PlaceholderText="e.g. unfly"; iptUncmd.Size=UDim2.new(1,-40,0,32); iptUncmd.Position=UDim2.new(0,20,0,150); iptUncmd.BackgroundColor3=Color3.fromRGB(25,25,28); iptUncmd.TextColor3=Color3.fromRGB(240,240,240); iptUncmd.Font=Enum.Font.Code; iptUncmd.TextSize=12; iptUncmd.ClearTextOnFocus=false; iptUncmd.TextXAlignment=Enum.TextXAlignment.Left; local p5=Instance.new("UIPadding"); p5.PaddingLeft=UDim.new(0,8); p5.Parent=iptUncmd; cr(4).Parent=iptUncmd; st(Color3.fromRGB(45,45,50)).Parent=iptUncmd; iptUncmd.Parent=impC; iptUncmd.ZIndex=12
+
+local btnCS = Instance.new("TextButton"); btnCS.Text="Cancel"; btnCS.Size=UDim2.new(0.5,-25,0,32); btnCS.Position=UDim2.new(0,20,1,-42); btnCS.BackgroundColor3=Color3.fromRGB(35,35,40); btnCS.TextColor3=Color3.fromRGB(220,220,220); btnCS.Font=Enum.Font.GothamMedium; btnCS.TextSize=12; btnCS.ZIndex=12; cr(4).Parent=btnCS; btnCS.Parent=impC
+btnSaveEdit = Instance.new("TextButton"); btnSaveEdit.Text="Save"; btnSaveEdit.Size=UDim2.new(0.5,-25,0,32); btnSaveEdit.Position=UDim2.new(0.5,5,1,-42); btnSaveEdit.BackgroundColor3=Color3.fromRGB(0,140,255); btnSaveEdit.TextColor3=Color3.fromRGB(255,255,255); btnSaveEdit.Font=Enum.Font.GothamMedium; btnSaveEdit.TextSize=12; btnSaveEdit.ZIndex=12; cr(4).Parent=btnSaveEdit; btnSaveEdit.Parent=impC
+
+btnCS.MouseButton1Click:Connect(function() editWin.Visible = false end)
+btnSaveEdit.MouseButton1Click:Connect(function()
+    if iptName.Text == "" or iptCmd.Text == "" then return end
+    if currentEditIndex then
+        local p = hotkeyData[currentEditIndex].pos
+        local s = hotkeyData[currentEditIndex].state
+        hotkeyData[currentEditIndex] = {name=iptName.Text, cmd=iptCmd.Text, uncmd=iptUncmd.Text, pos=p, state=s}
+    else
+        table.insert(hotkeyData, {name=iptName.Text, cmd=iptCmd.Text, uncmd=iptUncmd.Text, pos=nil, state=false})
+    end
+    saveConfig()
+    renderList()
+    drawHUD()
+    editWin.Visible = false
+end)
+
+btnNew.MouseButton1Click:Connect(function()
+    currentEditIndex = nil
+    iptName.Text = ""
+    iptCmd.Text = ""
+    iptUncmd.Text = ""
+    editWin.Visible = true
+end)
+
+renderList()
+drawHUD()
+
+local Plugin = {
+    ["PluginName"] = "Mobile Hotkey Bridge",
+    ["PluginDescription"] = "Customizable floating hotkey buttons for quick command execution on mobile devices.",
+    ["Commands"] = {
+        ["hotkeys"] = {
+            ["ListName"] = "hotkeys / hb",
+            ["Description"] = "Open the Mobile Hotkey editor UI",
+            ["Aliases"] = {"hb", "hotkeybridge"},
+            ["Function"] = function(args, speaker)
+                if win.Visible then
+                    playAnim(win, false)
+                else
+                    playAnim(win, true)
+                end
+            end
+        }
+    }
+}
+
+return Plugin
+
