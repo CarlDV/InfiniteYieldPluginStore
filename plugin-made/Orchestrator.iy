@@ -1,0 +1,119 @@
+local Plugin = {
+    ["PluginName"] = "Orchy",
+    ["PluginDescription"] = "Command sequencer that introduces waiting and paced loops into IY",
+    ["Commands"] = {
+        ["wait"] = {
+            ["ListName"] = "wait [seconds]",
+            ["Description"] = "Pauses IY execution for a set amount of seconds. Useful in chained commands.",
+            ["Aliases"] = {"pause"},
+            ["Function"] = function(args, speaker)
+                local t = tonumber(args[1]) or 1
+                local start = tick()
+                while tick() - start < t do
+                    if _G.IY_Orchestrator_Interrupt then break end
+                    task.wait(0.1)
+                end
+            end
+        },
+        ["sequence"] = {
+            ["ListName"] = "sequence / seq [loops/inf] [interval] [cmds separated by |]",
+            ["Description"] = "Executes commands sequentially with a strict interval between each step.",
+            ["Aliases"] = {"seq", "orch"},
+            ["Function"] = function(args, speaker)
+                local loops = tostring(args[1]):lower()
+                local interval = tonumber(args[2])
+                
+                if not interval then return end
+
+                local inf = (loops == "inf" or loops == "infinite")
+                local maxLoops = tonumber(loops) or 1
+                
+                local fullStr = ""
+                for i = 3, #args do
+                    fullStr = fullStr .. args[i] .. " "
+                end
+                
+                if fullStr == "" then return end
+                
+                local cmds = {}
+                for c in string.gmatch(fullStr, "([^|]+)") do
+                    c = c:match("^%s*(.-)%s*$")
+                    if c and c ~= "" then
+                        table.insert(cmds, c)
+                    end
+                end
+
+                _G.IY_Orchestrator_Running = _G.IY_Orchestrator_Running or {}
+                _G.IY_Orchestrator_Interrupt = false
+
+                local threadId = tostring(math.random(100000, 999999))
+                
+                _G.IY_Orchestrator_Running[threadId] = task.spawn(function()
+                    local count = 0
+                    while true do
+                        if not inf and count >= maxLoops then break end
+                        
+                        for _, c in ipairs(cmds) do
+                            -- Instant wait detection to keep sequences synchronous
+                            local wTime = c:match("^wait%s+(%d+%.?%d*)") or c:match("^pause%s+(%d+%.?%d*)")
+                            if wTime then
+                                task.wait(tonumber(wTime))
+                            else
+                                if execCmd then
+                                    pcall(function() execCmd(c, speaker) end)
+                                else
+                                    local prefix = _G.IY_PREFIX or ";"
+                                    pcall(function() game:GetService("Players").LocalPlayer.Chatted:Fire(prefix .. c) end)
+                                end
+                                task.wait(interval)
+                            end
+                        end
+                        count = count + 1
+                    end
+                    _G.IY_Orchestrator_Running[threadId] = nil
+                end)
+            end
+        },
+        ["mchain"] = {
+            ["ListName"] = "mchain [cmds separated by |]",
+            ["Description"] = "A smarter command parser that fully supports the wait command without breaking.",
+            ["Aliases"] = {"mc", "chain"},
+            ["Function"] = function(args, speaker)
+                local fullStr = table.concat(args, " ")
+                for c in string.gmatch(fullStr, "([^|]+)") do
+                    c = c:match("^%s*(.-)%s*$")
+                    if c and c ~= "" then
+                        local wTime = c:match("^wait%s+(%d+%.?%d*)") or c:match("^pause%s+(%d+%.?%d*)")
+                        if wTime then
+                            task.wait(tonumber(wTime))
+                        else
+                            if execCmd then
+                                pcall(function() execCmd(c, speaker) end)
+                            else
+                                local prefix = _G.IY_PREFIX or ";"
+                                pcall(function() game:GetService("Players").LocalPlayer.Chatted:Fire(prefix .. c) end)
+                            end
+                        end
+                    end
+                end
+            end
+        },
+        ["stopsequences"] = {
+            ["ListName"] = "stopsequences / stopseq",
+            ["Description"] = "Stops all currently running sequence instantly.",
+            ["Aliases"] = {"stopseq", "breakseq", "endseq"},
+            ["Function"] = function(args, speaker)
+                _G.IY_Orchestrator_Interrupt = true
+                if _G.IY_Orchestrator_Running then
+                    for id, thread in pairs(_G.IY_Orchestrator_Running) do
+                        pcall(function() task.cancel(thread) end)
+                        _G.IY_Orchestrator_Running[id] = nil
+                    end
+                end
+                task.delay(0.2, function() _G.IY_Orchestrator_Interrupt = false end)
+            end
+        }
+    }
+}
+
+return Plugin

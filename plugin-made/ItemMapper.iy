@@ -1,0 +1,129 @@
+local HS = game:GetService("HttpService")
+local UIS = game:GetService("UserInputService")
+local CORE = game:GetService("CoreGui")
+local PLR = game:GetService("Players").LocalPlayer
+local RS = game:GetService("RunService")
+
+local m = {}
+local act = false
+local qStr = ""
+local con
+
+local function cl(o, g, s)
+    if not g then
+        g = Instance.new("BillboardGui")
+        g.Name = "IM_G"
+        g.Size = UDim2.new(0, 80, 0, 15)
+        g.AlwaysOnTop = true
+        local t = Instance.new("TextLabel")
+        t.Size = UDim2.new(1, 0, 1, 0)
+        t.BackgroundTransparency = 1
+        t.TextColor3 = Color3.fromRGB(240, 240, 240)
+        t.TextStrokeTransparency = 0.5
+        t.Font = Enum.Font.Code
+        t.TextSize = 8
+        t.Parent = g
+        pcall(function() g.Parent = CORE end)
+        if not g.Parent then g.Parent = PLR:WaitForChild("PlayerGui") end
+    end
+    if not s then
+        s = Instance.new("SelectionBox")
+        s.Name = "IM_S"
+        s.LineThickness = 0.05
+        s.Color3 = Color3.fromRGB(0, 120, 255)
+        s.Parent = o
+    end
+    g.Adornee = o
+    g.TextLabel.Text = o.Name
+    s.Adornee = o
+    return g, s
+end
+
+local function clean()
+    if con then con:Disconnect(); con = nil end
+    for _, x in pairs(m) do
+        if x.g then x.g:Destroy() end
+        if x.s then x.s:Destroy() end
+    end
+    m = {}
+end
+
+local function upd()
+    local char = PLR.Character
+    if not char then return end
+    local root = char:FindFirstChild("HumanoidRootPart")
+    if not root then return end
+    
+    local found = {}
+    for _, v in pairs(game.Workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            if qStr == "" or v.Name:lower():find(qStr:lower()) then
+                local dist = (v.Position - root.Position).Magnitude
+                if dist < 250 then
+                    table.insert(found, {o = v, d = dist})
+                end
+            end
+        end
+    end
+    table.sort(found, function(a, b) return a.d < b.d end)
+    
+    local target = {}
+    for i = 1, math.min(#found, 60) do
+        target[i] = found[i].o
+    end
+    
+    local n_m = {}
+    for i, o in ipairs(target) do
+        local ex = m[i]
+        local g, s
+        if ex then
+            g, s = cl(o, ex.g, ex.s)
+        else
+            g, s = cl(o)
+        end
+        n_m[i] = {g = g, s = s, o = o}
+    end
+    for i = #target + 1, #m do
+        if m[i].g then m[i].g:Destroy() end
+        if m[i].s then m[i].s:Destroy() end
+    end
+    m = n_m
+end
+
+local Plugin = {
+    ["PluginName"] = "Item Mapper",
+    ["PluginDescription"] = "Highlights and labels items across the workspace for easy identification.",
+    ["Commands"] = {
+        ["mapitem"] = {
+            ["ListName"] = "mapitem [query] / mi",
+            ["Description"] = "Live developer highlight for nearby parts",
+            ["Aliases"] = {"mi", "itemmap"},
+            ["Function"] = function(args, speaker)
+                qStr = args[1] or ""
+                act = not act
+                if act then
+                    con = RS.Stepped:Connect(function()
+                        local t = tick()
+                        if not _G.IM_LAST or t - _G.IM_LAST > 0.5 then
+                            _G.IM_LAST = t
+                            upd()
+                        end
+                    end)
+                else
+                    clean()
+                end
+            end
+        },
+        ["unmap"] = {
+            ["ListName"] = "unmap",
+            ["Description"] = "Clear all item markers",
+            ["Aliases"] = {"um"},
+            ["Function"] = function(args, speaker)
+                act = false
+                clean()
+            end
+        }
+    }
+}
+
+return Plugin
