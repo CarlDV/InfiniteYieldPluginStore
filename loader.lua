@@ -8,10 +8,6 @@ local TS = game:GetService("TweenService")
 local TIOpen = TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
 local TIClose = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 
-task.spawn(function()
-    pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end)
-end)
-
 repeat task.wait(0.5) until typeof(googIY) ~= "nil" or typeof(addPlugin) == "function" or (shared and shared.addPlugin)
 
 local API = "https://iyplugins.pages.dev"
