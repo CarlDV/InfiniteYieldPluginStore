@@ -1,1 +1,151 @@
-DISCONTINUED
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Yield Plugins</title>
+    <meta name="description" content="Browse community plugins for Infinite Yield.">
+
+    <!-- Open Graph / Discord Embed Meta Tags -->
+    <meta property="og:title" content="Infinite Yield Plugins">
+    <meta property="og:description"
+        content="Browse community plugins for the Infinite Yield admin script. Discover and download plugins easily!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://iyplugins.pages.dev/">
+    <meta property="og:image" content="https://iyplugins.pages.dev/emb/emb.webp">
+    <meta name="theme-color" content="#00f7ff">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Infinite Yield Plugins">
+    <meta name="twitter:description"
+        content="Browse community plugins for the Infinite Yield admin script. Discover and download plugins easily!">
+    <meta name="twitter:image" content="https://iyplugins.pages.dev/emb/emb.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Logo_Small.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-left">
+                <a class="logo" href="/">
+                    <img src="Logo_Small.png" alt="" class="brand-logo">
+                    Plugins
+                </a>
+                <button class="burger-btn" id="burger-btn" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            <div class="header-links" id="header-links">
+                <a href="authors.html" class="h-link">Authors</a>
+                <a href="maker.html" class="h-link">Plugin Maker</a>
+                <a href="tutorial.html" class="h-link">Help & FAQ</a>
+                <a href="api.html" class="h-link h-link-api">API</a>
+                <a href="https://iy-analytics.renern.workers.dev" class="h-link">Analytics</a>
+                <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link">IY Discord</a>
+                <a href="https://github.com/CarlDV/InfiniteYieldPluginStore" target="_blank" rel="noopener"
+                    class="h-link">WebpageRepo</a>
+                <a href="https://github.com/EdgeIY/infiniteyield" target="_blank" rel="noopener" class="h-link">IY
+                    GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <div id="content-area">
+        <main>
+            <div class="stats-strip" id="stats-strip">
+                <div class="stat-item">
+                    <span id="stat-total" class="stat-num">—</span>
+                    <span class="stat-lbl">plugins</span>
+                </div>
+                <div class="sep"></div>
+                <div class="stat-item">
+                    <span id="stat-authors" class="stat-num">—</span>
+                    <span class="stat-lbl">authors</span>
+                </div>
+                <div class="sep"></div>
+                <div class="stat-item">
+                    <span class="stat-lbl">Updated:</span>
+                    <span id="stat-updated" class="stat-num">—</span>
+                </div>
+            </div>
+            <div class="toolbar">
+                <div class="search-wrap">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="m21 21-4.35-4.35" />
+                    </svg>
+                    <input type="text" id="search" placeholder="Search plugins..." autocomplete="off">
+                </div>
+                <div class="toolbar-right">
+                    <button class="dl-all-btn" id="dl-all">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" style="margin-right:6px;vertical-align:-2px">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Download All (.zip)
+                    </button>
+                    <select id="sort">
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="name">A–Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid" id="grid"></div>
+            <div id="load-more"></div>
+
+            <div class="status hidden" id="empty">No plugins found.</div>
+            <div class="status" id="loading">Loading plugins...</div>
+        </main>
+
+        <!-- Modal -->
+        <div class="overlay hidden" id="overlay">
+            <div class="modal" id="modal">
+                <div class="modal-top">
+                    <div class="modal-head">
+                        <div class="m-avatar" id="m-avatar"></div>
+                        <div class="m-meta">
+                            <h2 id="m-title"></h2>
+                            <div class="m-info">
+                                <span id="m-author"></span>
+                                <span class="sep">·</span>
+                                <span id="m-date"></span>
+                                <a id="m-msg-link" href="#" target="_blank" rel="noopener" class="msg-btn hidden">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        style="margin-right:4px">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                    Discord Message
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="close-btn" id="m-close">&times;</button>
+                </div>
+                <div class="modal-body" id="m-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="app.js"></script>
+    <script src="router.js"></script>
+</body>
+
+</html>
