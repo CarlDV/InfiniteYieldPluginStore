@@ -360,7 +360,7 @@ local function dl_plugin(p, b)
 		for _,f in pairs(p.files or {}) do
 			if f.filename:lower():match("%.iy$") then
 				local targetUrl = HS:UrlEncode(API.."/"..f.url)
-				local trackerUrl = "https://iy-analytics.renern.workers.dev/load/"..p.id.."?url="..targetUrl
+				local trackerUrl = "https://globalzen-api.renern.workers.dev/iy/load/"..p.id.."?url="..targetUrl
 				local o,c = pcall(function() return game:HttpGet(trackerUrl) end)
 				if o and c then
 					pcall(function() writefile(f.filename, c) end)
