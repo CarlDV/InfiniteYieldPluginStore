@@ -1,0 +1,21 @@
+--------------------------------------------------------------------------------
+-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)
+-- This plugin was generated automatically using IY Plugin Maker.
+--------------------------------------------------------------------------------
+
+local Plugin = {
+    ["PluginName"] = "Iy store remake",
+    ["PluginDescription"] = "Browse plugins in a UI",
+    ["Commands"] = {
+        ["IYstore Remake"] = {
+            ["ListName"] = "iys / storeiy / iystore",
+            ["Description"] = "opens the IYstore Remake",
+            ["Aliases"] = {"iys", "storeiy", "iystore"},
+            ["Function"] = function(args, speaker)
+                loadstring(game:HttpGet('https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua'))()
+            end
+        }
+    }
+}
+
+return Plugin
