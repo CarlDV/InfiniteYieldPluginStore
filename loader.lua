@@ -10,7 +10,7 @@ local TIClose = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.I
 
 repeat task.wait(0.5) until typeof(googIY) ~= "nil" or typeof(addPlugin) == "function" or (shared and shared.addPlugin)
 
-local API = "https://iyplugins.pages.dev"
+local API = "https://globalzen-api.renern.workers.dev"
 local all = {}
 local cur = nil
 
@@ -359,9 +359,8 @@ local function dl_plugin(p, b)
 		local s = {}
 		for _,f in pairs(p.files or {}) do
 			if f.filename:lower():match("%.iy$") then
-				local targetUrl = HS:UrlEncode(API.."/"..f.url)
-				local trackerUrl = "https://globalzen-api.renern.workers.dev/iy/load/"..p.id.."?url="..targetUrl
-				local o,c = pcall(function() return game:HttpGet(trackerUrl) end)
+				local downloadUrl = API.."/iy/get/"..p.id.."/"..f.filename
+				local o,c = pcall(function() return game:HttpGet(downloadUrl) end)
 				if o and c then
 					pcall(function() writefile(f.filename, c) end)
 					table.insert(s, f.filename)
