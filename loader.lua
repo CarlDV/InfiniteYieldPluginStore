@@ -1,3 +1,110 @@
+-- Maintenance Mode
+local HS = game:GetService("HttpService")
+local UIS = game:GetService("UserInputService")
+local CORE = game:GetService("CoreGui")
+local PLR = game:GetService("Players").LocalPlayer
+local TS = game:GetService("TweenService")
+
+local existing = (CORE:FindFirstChild("IYStoreUI") or PLR.PlayerGui:FindFirstChild("IYStoreUI"))
+if existing then existing:Destroy() end
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "IYStoreUI"
+gui.ResetOnSpawn = false
+pcall(function() gui.Parent = CORE end)
+if not gui.Parent then gui.Parent = PLR:WaitForChild("PlayerGui") end
+
+local win = Instance.new("Frame")
+win.Size = UDim2.new(0, 320, 0, 160)
+win.Position = UDim2.new(0.5, 0, 0.5, 0)
+win.AnchorPoint = Vector2.new(0.5, 0.5)
+win.BackgroundColor3 = Color3.fromRGB(15, 15, 17)
+win.BorderSizePixel = 0
+win.Parent = gui
+
+local crn = Instance.new("UICorner")
+crn.CornerRadius = UDim.new(0, 6)
+crn.Parent = win
+
+local stroke = Instance.new("UIStroke")
+stroke.Color = Color3.fromRGB(45, 45, 50)
+stroke.Thickness = 1
+stroke.Parent = win
+
+local title = Instance.new("TextLabel")
+title.Text = "SYSTEM MAINTENANCE"
+title.Size = UDim2.new(1, 0, 0, 45)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 14
+title.Parent = win
+
+local sep = Instance.new("Frame")
+sep.Size = UDim2.new(1, -20, 0, 1)
+sep.Position = UDim2.new(0.5, 0, 0, 45)
+sep.AnchorPoint = Vector2.new(0.5, 0)
+sep.BackgroundColor3 = Color3.fromRGB(40, 40, 45)
+sep.BorderSizePixel = 0
+sep.Parent = win
+
+local msg = Instance.new("TextLabel")
+msg.Text = "Plugin downloading is currently on maintenance. Please check back later."
+msg.Size = UDim2.new(1, -30, 1, -90)
+msg.Position = UDim2.new(0.5, 0, 0, 55)
+msg.AnchorPoint = Vector2.new(0.5, 0)
+msg.BackgroundTransparency = 1
+msg.TextColor3 = Color3.fromRGB(180, 180, 180)
+msg.Font = Enum.Font.Gotham
+msg.TextSize = 14
+msg.TextWrapped = true
+msg.Parent = win
+
+local close = Instance.new("TextButton")
+close.Text = "CLOSE"
+close.Size = UDim2.new(0, 100, 0, 32)
+close.Position = UDim2.new(0.5, 0, 1, -25)
+close.AnchorPoint = Vector2.new(0.5, 0.5)
+close.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+close.TextColor3 = Color3.fromRGB(255, 100, 100)
+close.Font = Enum.Font.GothamBold
+close.TextSize = 12
+close.BorderSizePixel = 0
+close.AutoButtonColor = true
+close.Parent = win
+
+local btn_crn = Instance.new("UICorner")
+btn_crn.CornerRadius = UDim.new(0, 4)
+btn_crn.Parent = close
+
+local btn_st = Instance.new("UIStroke")
+btn_st.Color = Color3.fromRGB(60, 40, 40)
+btn_st.Parent = close
+
+close.MouseButton1Click:Connect(function()
+    gui:Destroy()
+end)
+
+-- Draggable
+local d, ds, dp
+win.InputBegan:Connect(function(i)
+    if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then
+        d = true; ds = i.Position; dp = win.Position
+    end
+end)
+UIS.InputChanged:Connect(function(i)
+    if d and (i.UserInputType == Enum.UserInputType.MouseMovement or i.UserInputType == Enum.UserInputType.Touch) then
+        local dt = i.Position - ds
+        win.Position = UDim2.new(dp.X.Scale, dp.X.Offset + dt.X, dp.Y.Scale, dp.Y.Offset + dt.Y)
+    end
+end)
+UIS.InputEnded:Connect(function(i)
+    if i.UserInputType == Enum.UserInputType.MouseButton1 or i.UserInputType == Enum.UserInputType.Touch then 
+        d = false
+    end
+end)
+
+--[[
 -- IY plugin store 
 
 local HS = game:GetService("HttpService")
@@ -199,6 +306,7 @@ scrl.ScrollBarThickness = 2
 scrl.ScrollBarImageColor3 = Color3.fromRGB(70,70,75)
 scrl.CanvasSize = UDim2.new(0,0,0,0)
 scrl.AutomaticCanvasSize = Enum.AutomaticSize.Y
+scrl.Parent = scrl
 
 local gl = Instance.new("UIGridLayout")
 gl.CellPadding = UDim2.new(0,8,0,8)
@@ -616,3 +724,4 @@ end)
 
 -- keepalive
 while gui and gui.Parent do task.wait(5) end
+]]
