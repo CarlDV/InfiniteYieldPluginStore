@@ -282,9 +282,9 @@
                     const isImage = a.filename.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/);
                     const isVideo = a.filename.toLowerCase().match(/\.(mp4|webm|mov)$/);
 
-                    const prevBtn = isCode ? `<button class="att-prev-btn" data-url="${escAttr(a.url)}" data-id="prev-${p.id}-${i}">Preview</button>` : '';
-                    const downloadUrl = `https://globalzen-api.renern.workers.dev/iy/get/${p.id}/${a.filename}`;
-                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${downloadUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Download</a>`;
+                    const fileUrl = `https://globalzen-api.renern.workers.dev/iy/get/${p.id}/${a.filename}`;
+                    const prevBtn = isCode ? `<button class="att-prev-btn" data-url="${escAttr(fileUrl)}" data-id="prev-${p.id}-${i}">Preview</button>` : '';
+                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${fileUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Download</a>`;
 
                     html += `<div class="att-row">
                     <span class="att-name">${esc(a.filename)}</span>
