@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-04-25T06:35:15.967158+00:00",
+  "scraped_at": "2026-04-27T00:02:42.070358+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 528,
+  "total_plugins": 530,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -5804,7 +5804,7 @@
         },
         {
           "emoji": "💩",
-          "count": 11
+          "count": 12
         },
         {
           "emoji": "🇼",
@@ -5824,7 +5824,7 @@
         },
         {
           "emoji": "👎",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "<:joethumbsup:536319307798413323>",
@@ -13664,7 +13664,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=69ed84a5&is=69ec3325&hm=3ad2d9c291a259ad29f44f63c6225821aadbf0f6c36bdc5591c303aaf8d87dab&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=69ef7ee5&is=69ee2d65&hm=4b84870d9725bdf8a4b660101d32ae3d821dc16f59b704d856736b231c552cf8&"
           },
           "image": null,
           "video": null
@@ -16858,7 +16858,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=69ed0a32&is=69ebb8b2&hm=934e827e932e903f3f46698677bdc7b942b16d4243c2a8797df068b3d155e2af&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=69efad32&is=69ee5bb2&hm=1c131ee00f785b599c35faadc42c20d5300289611a59ddfa9fbed2850fbf0928&"
           },
           "image": null,
           "video": null
@@ -16872,7 +16872,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=69ed0a49&is=69ebb8c9&hm=598d16ac714b5826ae4732874c0e3fecd4efdf2e1c8c041b944c88fcf3bc4a25&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=69efad49&is=69ee5bc9&hm=12a74f878bebb23a3a24932a0088d4efa53a9f87719d6ca1695b22ca2af1eeec&"
           },
           "image": null,
           "video": null
@@ -17233,7 +17233,7 @@
       "author": {
         "name": "Amo",
         "username": "amokah",
-        "avatar": "https://cdn.discordapp.com/avatars/633839919550300170/bc1d4b09e2c9f445961248aa4141deae.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/633839919550300170/5b3395f67be139223c5610d859c73c5d.png?size=1024"
       },
       "date": "2021-11-18T22:46:34.437000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/911024615848034314",
@@ -17374,7 +17374,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=69ed6862&is=69ec16e2&hm=0e6b2ef97fd40c03cc517f41e13dd26ad29d970b4d3b48a3c73f5ee246e61df3&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=69ef62a2&is=69ee1122&hm=50350c5a5570feee47ca8bc05f4145f7f59168d8d2ff775224acd42f54894a59&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -18704,7 +18704,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=69ed0a32&is=69ebb8b2&hm=934e827e932e903f3f46698677bdc7b942b16d4243c2a8797df068b3d155e2af&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=69efad32&is=69ee5bb2&hm=1c131ee00f785b599c35faadc42c20d5300289611a59ddfa9fbed2850fbf0928&"
           },
           "image": null,
           "video": null
@@ -18718,7 +18718,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=69ed0a49&is=69ebb8c9&hm=598d16ac714b5826ae4732874c0e3fecd4efdf2e1c8c041b944c88fcf3bc4a25&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=69efad49&is=69ee5bc9&hm=12a74f878bebb23a3a24932a0088d4efa53a9f87719d6ca1695b22ca2af1eeec&"
           },
           "image": null,
           "video": null
@@ -20093,7 +20093,7 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=69ed6bae&is=69ec1a2e&hm=1c520657e75851ffdcbc061fd11f8bfe43b8c83779dbfa108fe35c9694e1b57f&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=69ef65ee&is=69ee146e&hm=c2bacf968f9f1cc124164cf1c9cb250da549c0ad539a1e6dac9d873a1a77f462&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -22521,7 +22521,7 @@
       "author": {
         "name": "Lilith 𐙚",
         "username": "lilithqt",
-        "avatar": "https://cdn.discordapp.com/avatars/601508234632888320/af87716b8680b57de471ee0d8519e542.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/601508234632888320/72c9230970f9b859e983eb52e7bb6454.png?size=1024"
       },
       "date": "2024-07-03T22:50:21.902000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1258193145150046319",
@@ -23327,7 +23327,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=69ed63d9&is=69ec1259&hm=c9005de3017b253960645944a440d99843b2e7574eeca73530d995a0fca417d5&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=69ef5e19&is=69ee0c99&hm=242b1ac62ce3426c06754e172d1326c10332e33ffe44b933e099e5cb6bd7c080&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -24181,7 +24181,7 @@
       "author": {
         "name": "*+❀ Mochi ❀+*",
         "username": "mochimreow",
-        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/c0dd41d5f92c1daab1b38ea9e5ce7431.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/1c24fdb95708b56a523320db0039f393.png?size=1024"
       },
       "date": "2025-03-11T00:10:35.312000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1348810300455125124",
@@ -24464,7 +24464,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69ed3739&is=69ebe5b9&hm=0e535e84b470554405f227aaa7e8d50fa42f9412640b64ea71f55241e17bff24&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69efda39&is=69ee88b9&hm=e535e56c2446edc2796e66972795a7f2db748fd960eff79f251d8e1721b2dcbc&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -24564,7 +24564,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 70
+          "count": 71
         },
         {
           "emoji": "<:eyespoppingout:1336975661813993472>",
@@ -25452,7 +25452,7 @@
       "author": {
         "name": "An",
         "username": "anbubu",
-        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/974533e47d6a737b838a96dcdc64eaba.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/5269804c91560f29883a5d401de3668a.png?size=1024"
       },
       "date": "2025-08-05T23:27:15.220000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1402432798987653141",
@@ -26814,7 +26814,7 @@
       "author": {
         "name": "An",
         "username": "anbubu",
-        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/974533e47d6a737b838a96dcdc64eaba.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/5269804c91560f29883a5d401de3668a.png?size=1024"
       },
       "date": "2025-12-30T13:19:36.630000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1455550896820846664",
@@ -26867,7 +26867,7 @@
       "author": {
         "name": "An",
         "username": "anbubu",
-        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/974533e47d6a737b838a96dcdc64eaba.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/5269804c91560f29883a5d401de3668a.png?size=1024"
       },
       "date": "2025-12-30T15:47:26.842000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1455588101186523288",
@@ -26898,7 +26898,7 @@
       "author": {
         "name": "An",
         "username": "anbubu",
-        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/974533e47d6a737b838a96dcdc64eaba.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/5269804c91560f29883a5d401de3668a.png?size=1024"
       },
       "date": "2025-12-31T18:49:36.249000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1455996330307616778",
@@ -26929,7 +26929,7 @@
       "author": {
         "name": "An",
         "username": "anbubu",
-        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/974533e47d6a737b838a96dcdc64eaba.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/5269804c91560f29883a5d401de3668a.png?size=1024"
       },
       "date": "2025-12-31T19:14:41.031000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1456002641820913675",
@@ -26984,7 +26984,7 @@
       "author": {
         "name": "An",
         "username": "anbubu",
-        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/974533e47d6a737b838a96dcdc64eaba.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/463321359741616149/5269804c91560f29883a5d401de3668a.png?size=1024"
       },
       "date": "2026-01-09T09:57:29.423000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1459123910283890708",
@@ -27213,7 +27213,7 @@
       "name": "Welder",
       "description": "",
       "author": {
-        "name": "avery",
+        "name": "indefinite hiatus",
         "username": "r0lling_girl.",
         "avatar": "https://cdn.discordapp.com/avatars/1310975856587571260/aa82f5bb763d73380b96c941faefebb9.png?size=1024"
       },
@@ -27334,7 +27334,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-02-27T00:53:31.057000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476744020469481554",
@@ -27365,7 +27365,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-02-27T15:58:20.228000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476971725756563548",
@@ -27396,7 +27396,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-02-27T17:26:49.418000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476993994113286195",
@@ -27431,7 +27431,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-02-27T18:11:03.845000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477005127586939044",
@@ -27462,7 +27462,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-02-28T16:54:53.381000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477348345537368204",
@@ -27481,7 +27481,7 @@
       "reactions": [
         {
           "emoji": "👀",
-          "count": 2
+          "count": 3
         }
       ],
       "loadstring_urls": []
@@ -27493,7 +27493,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-03-01T12:55:59.335000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477650612056231938",
@@ -27528,7 +27528,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-03-03T01:25:15.917000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478201561493541048",
@@ -27563,7 +27563,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-03-03T20:02:01.315000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478482602502525102",
@@ -27610,7 +27610,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-03-05T02:52:37.697000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478948322843562024",
@@ -27702,7 +27702,7 @@
         },
         {
           "emoji": "<a:CH_FlameBlue:715585873411965079>",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇳",
@@ -27754,7 +27754,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-03-13T15:56:48.420000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482044770804301845",
@@ -27785,7 +27785,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/6c6346f771d21f10c7b4306e40233a1f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
       },
       "date": "2026-03-13T16:49:06.980000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482057934878937169",
@@ -27987,7 +27987,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=69ed6238&is=69ec10b8&hm=0199173de8caa9d36a54d27f7ae99a0c34fff7bb070c6313ada999ae953e96af&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=69ef5c78&is=69ee0af8&hm=459ef9ba056c110b590281905927dfd2bde2d2172b2ed5df7abe8bd7df75d5e9&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -28205,7 +28205,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 12
+          "count": 13
         },
         {
           "emoji": "🇳🇮",
@@ -28465,7 +28465,7 @@
       "reactions": [
         {
           "emoji": "🏳️‍⚧️",
-          "count": 2
+          "count": 3
         }
       ],
       "loadstring_urls": []
@@ -28624,7 +28624,7 @@
         },
         {
           "filename": "Desktop_2026.04.14_-_11.55.39.05.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1493656873398964416/Desktop_2026.04.14_-_11.55.39.05.mp4?ex=69ed9b9d&is=69ec4a1d&hm=ded80ad91dadffde87404a240823ab855ab096c6657bc1beff8275fc793a93e5&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1493656873398964416/Desktop_2026.04.14_-_11.55.39.05.mp4?ex=69ef95dd&is=69ee445d&hm=64004d875ce6d6ff565b86e9596682d988212070c4f8ff09d9d983246b8b289b&",
           "size": 37640361,
           "is_plugin": false
         }
@@ -28833,7 +28833,7 @@
     {
       "id": "1494429733063233678",
       "name": "raknet_desync",
-      "description": "# RakNet Desync\n\n- Desyncs you from the server by sending a modified RakNet packet. Makes you invisible to other players and prevents you from taking damage. You can still interact with the world and other players, but they won't see you.\n\n**Last update for today**\n\n- Yeah I just noticed the show server position ghost isn't glowing fixed that\n- Added another command for the server position to change its color example: spc 86 3 252 / serverpositioncolor 86 3 252 \n\nUsage:\n```\nrdesync / raknetdesync\n- Desyncs your character from the server\n```\n\n```\nrresync / raknetresync\n- Resyncs your character with the server\n```\n\n```\nssp / showserverposition\n- Toggles the ghost character that shows your server position while desynced\n```\n\n```\nspc / serverpositioncolor\n- Change color of the ghost character server position R G B\n```\n\n**Your executor must have RakNet library in order to work**\n\n**Recommended Executors: Delta, Madium, YUB X, Potassium, Cosmic, Volt, Synapse Z, and MacSploit**\n\nHow to/Showcase: https://streamable.com/g3e42l",
+      "description": "# RakNet Desync\n\n- Desyncs you from the server by sending a modified RakNet packet. Makes you invisible to other players and prevents you from taking damage. You can still interact with the world and other players, but they won't see you.\n\nUsage:\n```\nrdesync / raknetdesync\n- Desyncs your character from the server\n```\n\n```\nrresync / raknetresync\n- Resyncs your character with the server\n```\n\n```\nssp / showserverposition\n- Toggles the ghost character that shows your server position while desynced\n```\n\n```\nspc / serverpositioncolor\n- Change color of the ghost character server position R G B\n```\n\n**Your executor must have RakNet library in order to work**\n\n**Recommended Executors: Delta, Madium, YUB X, Potassium, Seliware, Cosmic, Volt, Synapse Z, and MacSploit**\n\n**I’ve come to the conclusion that Roblox may be cracking down on anyone using RakNet, and it could be detected. Please be cautious when using it on accounts that are important to you. I’m not taking responsibility for any consequences, since you are choosing to use it. Always use an alt account when using anything related to RakNet.**",
       "author": {
         "name": "lxcie",
         "username": "lec1e",
@@ -28856,30 +28856,8 @@
         "ssp / showserverposition\n- Toggles the ghost character that shows your server position while desynced",
         "spc / serverpositioncolor\n- Change color of the ghost character server position R G B"
       ],
-      "links": [
-        "https://streamable.com/g3e42l"
-      ],
-      "embeds": [
-        {
-          "type": "video",
-          "url": "https://streamable.com/g3e42l",
-          "title": "Watch raknet desync showcase | Streamable",
-          "description": "Watch \"raknet desync showcase\" on Streamable.",
-          "color": null,
-          "provider": {
-            "name": "Streamable",
-            "url": "https://streamable.com/"
-          },
-          "author": null,
-          "thumbnail": {
-            "url": "https://images-ext-1.discordapp.net/external/aBc_s4hJjsNyZlVGo1H772XsoJO02f04X2ocQm8xP24/%3FExpires%3D1776433903654%26Key-Pair-Id%3DAPKAIEYUVEN4EVB2OKEQ%26Signature%3DjaZQywRsX5GRQjUA05ESkDp9RYV0xPY5jOeuuLsnrgm~AEPpzhEHk4gmPgULKCq6vaR1kAkdiTG6utvL8mKwCzLDl4CUti1eCIf5IRrIS9iGdPNPjZW97Y0EZ6wocw3jiJQNs1BVZqzfF1HdqMk25K7VksYDtAUt0iihocoOUQyLLxEccQFLqUup5ikMl81AS5GA-WLkWm0-tW6PZSgeIRIQWTKfZ1w3lWCALmwtE3CuxEdRTwtqucVLAo0oJ8PLUVKR76EW685Ud2YKbwWEl511iO2s3F2FEdoDx~JMe1Wn215AXv4dUPAuMZrAztOXm4cDuRugs3RgZ~DjIvoMYg__/https/cdn-cf-east.streamable.com/image/g3e42l.jpg"
-          },
-          "image": null,
-          "video": {
-            "url": "https://api-f.streamable.com/api/v1/videos/g3e42l/mp4"
-          }
-        }
-      ],
+      "links": [],
+      "embeds": [],
       "reactions": [
         {
           "emoji": "<:eyespoppingout:1417949633648263172>",
@@ -28891,7 +28869,7 @@
         },
         {
           "emoji": "🫃",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🫡",
@@ -28959,6 +28937,88 @@
           "size": 11019,
           "is_plugin": true,
           "code": "local Plugin = {\n    [\"PluginName\"] = \"NPC Controller\",\n    [\"PluginDescription\"] = \"Advanced NPC Control\",\n    [\"Commands\"] = {}\n}\n\nlocal TargetNPC = nil\nlocal ControlConnection = nil\nlocal PhysicsConnections = {}\nlocal SelectedBox = nil\nlocal HoverBox = nil\n\nlocal InputService = Services.UserInputService\nlocal RunService = Services.RunService\nlocal Players = Services.Players\nlocal Workspace = Services.Workspace\nlocal Camera = Workspace.CurrentCamera\n\nlocal FlingPower = 50e35\nlocal IsFlinging = false\nlocal ControlMode = false\nlocal RideOffset = CFrame.new()\n\nlocal realcharacter = nil\nlocal fakecharacter = nil\nlocal originalUIStates = {}\nlocal originalPhysics = {}\n\nlocal function getCoreUI(speaker)\n    local gui = nil\n    pcall(function() gui = gethui() end)\n    return gui or Services.CoreGui or speaker:FindFirstChildWhichIsA(\"PlayerGui\")\nend\n\nlocal function enforcePhysics(part, prop, targetValue)\n    local conn = part:GetPropertyChangedSignal(prop):Connect(function()\n        if part[prop] ~= targetValue then\n            part[prop] = targetValue\n        end\n    end)\n    table.insert(PhysicsConnections, conn)\nend\n\nlocal function setCharPhysics(speaker, enabled)\n    if not realcharacter then return end\n    \n    for _, conn in pairs(PhysicsConnections) do\n        conn:Disconnect()\n    end\n    table.clear(PhysicsConnections)\n\n    for _, v in pairs(realcharacter:GetDescendants()) do\n        if v:IsA(\"BasePart\") then\n            if not enabled then\n                if not originalPhysics[v] then\n                    originalPhysics[v] = {\n                        CanCollide = v.CanCollide,\n                        CanTouch = v.CanTouch,\n                        CanQuery = v.CanQuery,\n                        Massless = v.Massless\n                    }\n                end\n                v.CanCollide = false\n                v.CanTouch = false\n                v.CanQuery = false\n                v.Massless = true\n                enforcePhysics(v, \"CanCollide\", false)\n                enforcePhysics(v, \"CanTouch\", false)\n                enforcePhysics(v, \"CanQuery\", false)\n                enforcePhysics(v, \"Massless\", true)\n            else\n                if originalPhysics[v] then\n                    v.CanCollide = originalPhysics[v].CanCollide\n                    v.CanTouch = originalPhysics[v].CanTouch\n                    v.CanQuery = originalPhysics[v].CanQuery\n                    v.Massless = originalPhysics[v].Massless\n                end\n            end\n        end\n    end\n    \n    if enabled then table.clear(originalPhysics) end\nend\n\nlocal function handleUI(speaker, isControlling)\n    local gui = speaker:FindFirstChildWhichIsA(\"PlayerGui\")\n    if not gui then return end\n    \n    if isControlling then\n        for _, v in pairs(gui:GetChildren()) do\n            if v:IsA(\"ScreenGui\") then\n                originalUIStates[v] = v.ResetOnSpawn\n                v.ResetOnSpawn = false\n            end\n        end\n    else\n        for v, state in pairs(originalUIStates) do\n            if v and v.Parent then\n                v.ResetOnSpawn = state\n            end\n        end\n        table.clear(originalUIStates)\n    end\nend\n\nlocal function getMoveVector()\n    if InputService:GetFocusedTextBox() then return Vector3.zero end\n    \n    local moveVec = Vector3.new(0, 0, 0)\n    if InputService:IsKeyDown(Enum.KeyCode.W) then moveVec = moveVec + Camera.CFrame.LookVector end\n    if InputService:IsKeyDown(Enum.KeyCode.S) then moveVec = moveVec - Camera.CFrame.LookVector end\n    if InputService:IsKeyDown(Enum.KeyCode.A) then moveVec = moveVec - Camera.CFrame.RightVector end\n    if InputService:IsKeyDown(Enum.KeyCode.D) then moveVec = moveVec + Camera.CFrame.RightVector end\n    \n    if moveVec.Magnitude > 0 then\n        return Vector3.new(moveVec.X, 0, moveVec.Z).Unit\n    end\n    \n    return Vector3.zero\nend\n\nPlugin.Commands[\"npcpath\"] = {\n    [\"ListName\"] = \"npcpath\",\n    [\"Description\"] = \"Select an NPC\",\n    [\"Aliases\"] = {\"selectnpc\"},\n    [\"Function\"] = function(args, speaker)\n        local ui = getCoreUI(speaker)\n        if not HoverBox then\n            HoverBox = Instance.new(\"SelectionBox\", ui)\n            HoverBox.Color3 = Color3.new(1, 1, 1)\n            SelectedBox = Instance.new(\"SelectionBox\", ui)\n            SelectedBox.Color3 = Color3.new(0, 1, 0)\n        end\n\n        local mouse = IYMouse\n        local moveConn, clickConn\n        \n        moveConn = mouse.Move:Connect(function()\n            local target = mouse.Target\n            if target and target.Parent:FindFirstChildOfClass(\"Humanoid\") then\n                if not Players:GetPlayerFromCharacter(target.Parent) then\n                    HoverBox.Adornee = target.Parent\n                else\n                    HoverBox.Adornee = nil\n                end\n            else\n                HoverBox.Adornee = nil\n            end\n        end)\n\n        clickConn = mouse.Button1Down:Connect(function()\n            local target = mouse.Target\n            if target and target.Parent:FindFirstChildOfClass(\"Humanoid\") then\n                if not Players:GetPlayerFromCharacter(target.Parent) then\n                    TargetNPC = target.Parent\n                    SelectedBox.Adornee = TargetNPC\n                    moveConn:Disconnect()\n                    clickConn:Disconnect()\n                    HoverBox.Adornee = nil\n                    \n                    if toClipboard then\n                        toClipboard(TargetNPC:GetFullName())\n                    end\n                    \n                    task.delay(5, function()\n                        if SelectedBox then SelectedBox.Adornee = nil end\n                    end)\n                end\n            else\n                moveConn:Disconnect()\n                clickConn:Disconnect()\n                HoverBox.Adornee = nil\n            end\n        end)\n    end\n}\n\nPlugin.Commands[\"controlnpcmode\"] = {\n    [\"ListName\"] = \"controlnpcmode [true/false]\",\n    [\"Description\"] = \"Toggle method of control\",\n    [\"Aliases\"] = {\"cnpcmode\"},\n    [\"Function\"] = function(args, speaker)\n        if args[1] and (args[1]:lower() == \"true\" or args[1]:lower() == \"on\") then\n            ControlMode = true\n        else\n            ControlMode = false\n        end\n    end\n}\n\nPlugin.Commands[\"controlnpc\"] = {\n    [\"ListName\"] = \"controlnpc [path] [x] [y] [z] [rx] [ry] [rz]\",\n    [\"Description\"] = \"Take control of the selected NPC\",\n    [\"Aliases\"] = {\"cnpc\"},\n    [\"Function\"] = function(args, speaker)\n        if not TargetNPC then return end\n        if Players:GetPlayerFromCharacter(TargetNPC) then return end\n        \n        realcharacter = speaker.Character\n        fakecharacter = TargetNPC\n\n        if not realcharacter or not fakecharacter then return end\n\n        local ox = tonumber(args[2]) or 0\n        local oy = tonumber(args[3]) or 0\n        local oz = tonumber(args[4]) or 0\n        local rx = tonumber(args[5]) or 0\n        local ry = tonumber(args[6]) or 0\n        local rz = tonumber(args[7]) or 0\n\n        RideOffset = CFrame.new(ox, oy, oz) * CFrame.Angles(math.rad(rx), math.rad(ry), math.rad(rz))\n\n        execCmd(\"noclipping\")\n        setCharPhysics(speaker, false)\n\n        if ControlMode then\n            handleUI(speaker, true)\n            speaker.Character = fakecharacter\n        end\n\n        ControlConnection = RunService.Heartbeat:Connect(function()\n            if not fakecharacter or not fakecharacter.Parent or not realcharacter.Parent then\n                execCmd(\"uncontrolnpc\")\n                return\n            end\n\n            if sethidden then\n                pcall(sethidden, speaker, \"SimulationRadius\", 100000000)\n            end\n\n            local realRoot = realcharacter:FindFirstChild(\"HumanoidRootPart\")\n            local fakeRoot = fakecharacter:FindFirstChild(\"HumanoidRootPart\") or fakecharacter:FindFirstChild(\"Torso\")\n            local fakeHum = fakecharacter:FindFirstChildOfClass(\"Humanoid\")\n\n            if not realRoot or not fakeRoot or not fakeHum then return end\n\n            if not ControlMode then\n                realRoot.CFrame = fakeRoot.CFrame * RideOffset\n                if sethidden then\n                    pcall(sethidden, realRoot, \"PhysicsRepRootPart\", fakeRoot:GetPivot() * RideOffset)\n                end\n                realRoot.AssemblyLinearVelocity = fakeRoot.AssemblyLinearVelocity\n                realRoot.AssemblyAngularVelocity = fakeRoot.AssemblyAngularVelocity\n            end\n\n            local moveVec = getMoveVector()\n            \n            if moveVec.Magnitude > 0 then\n                if IsFlinging and not ControlMode then\n                    fakeHum:Move(Vector3.one * FlingPower)\n                else\n                    fakeHum:Move(moveVec)\n                end\n            else\n                fakeHum:Move(Vector3.zero)\n            end\n\n            if InputService:IsKeyDown(Enum.KeyCode.Space) and not InputService:GetFocusedTextBox() then\n                fakeHum.Jump = true\n            end\n        end)\n    end\n}\n\nPlugin.Commands[\"ridenpc\"] = {\n    [\"ListName\"] = \"ridenpc [x] [y] [z] [rx] [ry] [rz]\",\n    [\"Description\"] = \"Ride the selected NPC\",\n    [\"Aliases\"] = {\"npcride\"},\n    [\"Function\"] = function(args, speaker)\n        if not TargetNPC then return end\n        execCmd(\"controlnpc\")\n        \n        local hum = realcharacter and realcharacter:FindFirstChildWhichIsA(\"Humanoid\")\n        if hum then hum.Sit = true end\n    end\n}\n\nPlugin.Commands[\"uncontrolnpc\"] = {\n    [\"ListName\"] = \"uncontrolnpc\",\n    [\"Description\"] = \"Return character control\",\n    [\"Aliases\"] = {\"uncnpc\"},\n    [\"Function\"] = function(args, speaker)\n        if ControlConnection then ControlConnection:Disconnect() end\n        \n        if ControlMode and realcharacter then\n            speaker.Character = realcharacter\n            handleUI(speaker, false)\n        end\n\n        setCharPhysics(speaker, true)\n        \n        if realcharacter then\n            local hum = realcharacter:FindFirstChildWhichIsA(\"Humanoid\")\n            if hum then hum.Sit = false end\n        end\n        \n        if fakecharacter then\n            local fakeHum = fakecharacter:FindFirstChildWhichIsA(\"Humanoid\")\n            if fakeHum then fakeHum:Move(Vector3.zero) end\n        end\n        \n        execCmd(\"unnoclip\")\n        realcharacter = nil\n        fakecharacter = nil\n        ControlMode = false\n        RideOffset = CFrame.new()\n    end\n}\n\nPlugin.Commands[\"npcflingmode\"] = {\n    [\"ListName\"] = \"npcflingmode [power]\",\n    [\"Description\"] = \"Toggle NaN fling for NPC\",\n    [\"Aliases\"] = {\"nfmode\"},\n    [\"Function\"] = function(args, speaker)\n        IsFlinging = not IsFlinging\n        if args[1] then FlingPower = tonumber(args[1]) end\n    end\n}\n\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1498052008245198960",
+      "name": "pluginstore",
+      "description": "# Plugin Store\nA plugin where you can browse other plugins!\nTo use:\n``` iys / storeiy / iystore \n- opens the plugin store UI\n```\n> Data from: https://iyplugins.pages.dev/data/plugins.json\n> This collects user platform for analytics at: https://globalzen-api.renern.workers.dev/iy\n> Plugin generated from: https://iyplugins.pages.dev/maker\n> Main store: https://iyplugins.pages.dev/\n> Source code: https://github.com/CarlDV/InfiniteYieldPluginStore/blob/main/loader.lua\n> Repository: https://github.com/CarlDV/InfiniteYieldPluginStore\n\n\n-# for plugin devs, please upload your shit in 1 message and NOT FORWARDED.\n-# REPOSTED -",
+      "author": {
+        "name": "Kreutzer",
+        "username": "ymaw.1",
+        "avatar": "https://cdn.discordapp.com/avatars/857699215278866492/783ee8947d87992385f26238c425db43.png?size=1024"
+      },
+      "date": "2026-04-26T20:03:51.226000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1498052008245198960",
+      "files": [
+        {
+          "filename": "pluginstore.iy",
+          "url": "plugins/1498052008245198960/pluginstore.iy",
+          "size": 865,
+          "is_plugin": true,
+          "code": "--------------------------------------------------------------------------------\n-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)\n-- This plugin was generated automatically using IY Plugin Maker.\n--------------------------------------------------------------------------------\n\nlocal Plugin = {\n    [\"PluginName\"] = \"Iy store remake\",\n    [\"PluginDescription\"] = \"Browse plugins in a UI\",\n    [\"Commands\"] = {\n        [\"IYstore Remake\"] = {\n            [\"ListName\"] = \"iys / storeiy / iystore\",\n            [\"Description\"] = \"opens the IYstore Remake\",\n            [\"Aliases\"] = {\"iys\", \"storeiy\", \"iystore\"},\n            [\"Function\"] = function(args, speaker)\n                loadstring(game:HttpGet('https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua'))()\n            end\n        }\n    }\n}\n\nreturn Plugin\n"
+        },
+        {
+          "filename": "Screen_Recording_20260416_201445.mp4",
+          "url": "plugins/1498052008245198960/Screen_Recording_20260416_201445.mp4",
+          "size": 13502640,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [
+        "iys / storeiy / iystore \n- opens the plugin store UI"
+      ],
+      "links": [
+        "https://iyplugins.pages.dev/data/plugins.json",
+        "https://globalzen-api.renern.workers.dev/iy",
+        "https://iyplugins.pages.dev/maker",
+        "https://iyplugins.pages.dev/",
+        "https://github.com/CarlDV/InfiniteYieldPluginStore/blob/main/loader.lua",
+        "https://github.com/CarlDV/InfiniteYieldPluginStore"
+      ],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "🇼",
+          "count": 2
+        },
+        {
+          "emoji": "🇹",
+          "count": 1
+        },
+        {
+          "emoji": "🇫",
+          "count": 1
+        }
+      ],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua"
+      ]
+    },
+    {
+      "id": "1498107877125128322",
+      "name": "ColorESP",
+      "description": "ColorESP, highlights players based on total body part colors, includes an option to highlight all humanoids instead of just players.",
+      "author": {
+        "name": "SteamUser#9483",
+        "username": "steamuser9483",
+        "avatar": "https://cdn.discordapp.com/avatars/602608719829663775/59eb68fb1a1e256d9db1043a83658070.png?size=1024"
+      },
+      "date": "2026-04-26T23:45:51.405000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1498107877125128322",
+      "files": [
+        {
+          "filename": "ColorESP.iy",
+          "url": "plugins/1498107877125128322/ColorESP.iy",
+          "size": 8370,
+          "is_plugin": true,
+          "code": "local Plugin = {\n    [\"PluginName\"] = \"ColorESP\",\n    [\"PluginDescription\"] = \"ESP players or all humanoids based on dominant body color.\",\n    [\"Commands\"] = {\n        [\"loadColorESP\"] = {\n            [\"ListName\"] = \"loadColorESP\",\n            [\"Description\"] = \"Loads Color ESP. Optional argument: true = all humanoids, false = players only.\",\n            [\"Aliases\"] = {\"coloresp\", \"cesp\", \"loadesp\"},\n            [\"Function\"] = function(args, speaker)\n                print(\"Loading ColorESP...\")\n\n                local Players = game:GetService(\"Players\")\n                local Workspace = game:GetService(\"Workspace\")\n                local LocalPlayer = Players.LocalPlayer\n                if not LocalPlayer then\n                    warn(\"No LocalPlayer found.\")\n                    return\n                end\n\n                local SCRIPT_TAG = \"COLOR_ESP_PLUGIN_RUNNING\"\n                local ESP_TAG = \"COLOR_ESP_HL\"\n\n                local highlightAllHumanoids = false\n                if args and args[1] ~= nil then\n                    local value = tostring(args[1]):lower()\n                    if value == \"true\" then\n                        highlightAllHumanoids = true\n                    elseif value == \"false\" then\n                        highlightAllHumanoids = false\n                    end\n                end\n\n                local old = LocalPlayer:FindFirstChild(SCRIPT_TAG)\n                if old and old:IsA(\"BindableEvent\") then\n                    pcall(function() old:Fire() end)\n                    pcall(function() old:Destroy() end)\n                end\n\n                local control = Instance.new(\"BindableEvent\")\n                control.Name = SCRIPT_TAG\n                control.Parent = LocalPlayer\n\n                local maid = {}\n                local running = true\n\n                local function giveTask(task)\n                    maid[#maid + 1] = task\n                    return task\n                end\n\n                local function cleanup()\n                    for i = #maid, 1, -1 do\n                        local t = maid[i]\n                        maid[i] = nil\n\n                        local tt = typeof(t)\n                        if tt == \"RBXScriptConnection\" then\n                            pcall(function() t:Disconnect() end)\n                        elseif tt == \"Instance\" then\n                            pcall(function() t:Destroy() end)\n                        elseif tt == \"function\" then\n                            pcall(t)\n                        end\n                    end\n                end\n\n                local function isCharacterModel(model)\n                    return model\n                        and model:IsA(\"Model\")\n                        and model:FindFirstChildOfClass(\"Humanoid\") ~= nil\n                end\n\n                local function dominantColor(character)\n                    local counts = {}\n\n                    for _, inst in ipairs(character:GetDescendants()) do\n                        if inst:IsA(\"BasePart\") then\n                            local c = inst.Color\n                            local key = string.format(\n                                \"%d,%d,%d\",\n                                math.floor(c.R * 255 + 0.5),\n                                math.floor(c.G * 255 + 0.5),\n                                math.floor(c.B * 255 + 0.5)\n                            )\n\n                            if counts[key] then\n                                counts[key].count = counts[key].count + 1\n                            else\n                                counts[key] = {\n                                    count = 1,\n                                    color = c\n                                }\n                            end\n                        end\n                    end\n\n                    local best = nil\n                    for _, entry in pairs(counts) do\n                        if not best or entry.count > best.count then\n                            best = entry\n                        end\n                    end\n\n                    return best and best.color or Color3.new(1, 1, 1)\n                end\n\n                local function applyESPToModel(model)\n                    task.wait(0.15)\n                    if not running then return end\n                    if not model or not model.Parent then return end\n                    if not isCharacterModel(model) then return end\n\n                    local hl = model:FindFirstChild(ESP_TAG)\n                    if not hl then\n                        hl = Instance.new(\"Highlight\")\n                        hl.Name = ESP_TAG\n                        hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop\n                        hl.FillTransparency = 0.6\n                        hl.OutlineTransparency = 0\n                        hl.Parent = model\n                    end\n\n                    local dom = dominantColor(model)\n                    hl.Adornee = model\n                    hl.FillColor = dom\n                    hl.OutlineColor = dom\n                end\n\n                local function watchPlayer(player)\n                    local function onCharacterAdded(char)\n                        applyESPToModel(char)\n                    end\n\n                    if player.Character then\n                        onCharacterAdded(player.Character)\n                    end\n\n                    giveTask(player.CharacterAdded:Connect(onCharacterAdded))\n                end\n\n                local function watchHumanoidModel(model)\n                    applyESPToModel(model)\n                end\n\n                local function removeAllESP()\n                    for _, inst in ipairs(Workspace:GetDescendants()) do\n                        if inst:IsA(\"Highlight\") and inst.Name == ESP_TAG then\n                            pcall(function() inst:Destroy() end)\n                        end\n                    end\n                end\n\n                local function unload()\n                    if not running then return end\n                    running = false\n                    removeAllESP()\n                    cleanup()\n\n                    if control then\n                        pcall(function() control:Destroy() end)\n                    end\n\n                    print(\"ColorESP unloaded.\")\n                end\n\n                giveTask(control.Event:Connect(unload))\n\n                if highlightAllHumanoids then\n                    for _, inst in ipairs(Workspace:GetDescendants()) do\n                        if isCharacterModel(inst) then\n                            watchHumanoidModel(inst)\n                        end\n                    end\n\n                    giveTask(Workspace.DescendantAdded:Connect(function(inst)\n                        if isCharacterModel(inst) then\n                            watchHumanoidModel(inst)\n                        end\n                    end))\n\n                    print(\"ColorESP loaded for all humanoids.\")\n                else\n                    for _, player in ipairs(Players:GetPlayers()) do\n                        watchPlayer(player)\n                    end\n\n                    giveTask(Players.PlayerAdded:Connect(watchPlayer))\n\n                    print(\"ColorESP loaded for players only.\")\n                end\n            end\n        },\n\n        [\"unloadColorESP\"] = {\n            [\"ListName\"] = \"unloadColorESP\",\n            [\"Description\"] = \"Unloads Color ESP\",\n            [\"Aliases\"] = {\"unloadesp\", \"stopcoloresp\", \"stopesp\", \"uncesp\"},\n            [\"Function\"] = function(args, speaker)\n                local Players = game:GetService(\"Players\")\n                local lp = Players.LocalPlayer\n                if not lp then\n                    warn(\"No LocalPlayer found.\")\n                    return\n                end\n\n                local ev = lp:FindFirstChild(\"COLOR_ESP_PLUGIN_RUNNING\")\n                if ev and ev:IsA(\"BindableEvent\") then\n                    pcall(function() ev:Fire() end)\n                    print(\"Unload signal sent.\")\n                else\n                    print(\"No running ColorESP instance found.\")\n                end\n            end\n        }\n    }\n}\n\nreturn Plugin"
         }
       ],
       "code_blocks": [],
