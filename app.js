@@ -33,7 +33,7 @@
 
         async function init() {
             try {
-                const res = await fetch(`https://globalzen-api.renern.workers.dev/data/plugins.json?v=${Date.now()}`);
+                const res = await fetch(`https://globalzen-api.renern.workers.dev/api/iy/plugins?v=${Date.now()}`);
 
                 const data = await res.json();
 
