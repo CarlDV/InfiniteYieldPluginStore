@@ -33,9 +33,7 @@
 
         async function init() {
             try {
-                const [res] = await Promise.all([
-                    fetch('https://globalzen-api.renern.workers.dev/data/plugins.json')
-                ]);
+                const res = await fetch(`https://globalzen-api.renern.workers.dev/data/plugins.json?v=${Date.now()}`);
 
                 const data = await res.json();
 
