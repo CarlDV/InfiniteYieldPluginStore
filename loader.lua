@@ -1,3 +1,4 @@
+--[[
 -- Maintenance Mode
 local HS = game:GetService("HttpService")
 local UIS = game:GetService("UserInputService")
@@ -103,10 +104,9 @@ UIS.InputEnded:Connect(function(i)
         d = false
     end
 end)
+]]
 
---[[
 -- IY plugin store 
-
 local HS = game:GetService("HttpService")
 local UIS = game:GetService("UserInputService")
 local CORE = game:GetService("CoreGui")
@@ -724,4 +724,3 @@ end)
 
 -- keepalive
 while gui and gui.Parent do task.wait(5) end
-]]
