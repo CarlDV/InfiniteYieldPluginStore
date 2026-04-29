@@ -615,7 +615,7 @@
             return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
         }
 
-        // init();
+        init();
 
         cleanup = () => {
             isAborted = true;

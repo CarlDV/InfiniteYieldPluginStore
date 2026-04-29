@@ -134,17 +134,14 @@
         if (path.endsWith('/') && path !== '/') path = path.slice(0, -1);
 
         if (path === '/' || path === '/index' || path === '') {
-            // Maintenance Mode: Disabled initialization
-            // if (window.initHome) window.initHome();
-            // else loadScript('app.js', () => window.initHome && window.initHome());
+            if (window.initHome) window.initHome();
+            else loadScript('app.js', () => window.initHome && window.initHome());
         } else if (path === '/authors') {
-            // Maintenance Mode: Disabled initialization
-            // if (window.initAuthors) window.initAuthors();
-            // else loadScript('authors.js', () => window.initAuthors && window.initAuthors());
+            if (window.initAuthors) window.initAuthors();
+            else loadScript('authors.js', () => window.initAuthors && window.initAuthors());
         } else if (path === '/maker') {
-            // Maintenance Mode: Disabled initialization
-            // if (window.initMaker) window.initMaker();
-            // else loadScript('maker.js', () => window.initMaker && window.initMaker());
+            if (window.initMaker) window.initMaker();
+            else loadScript('maker.js', () => window.initMaker && window.initMaker());
         } else if (path === '/api' || path === '/tutorial') {
             if (path === '/tutorial') initTutorial();
             
