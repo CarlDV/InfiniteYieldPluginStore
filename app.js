@@ -41,6 +41,7 @@
                 allPlugins = data.plugins || [];
                 // Statistics display removed
 
+
                 if (data.scraped_at) {
                     const scrapedDate = new Date(data.scraped_at);
                     const updateLiveTime = () => {
