@@ -3,8 +3,6 @@
 
     // Wait for DOM
     document.addEventListener('DOMContentLoaded', () => {
-        // Init mobile menu globally
-        initMobileMenu();
 
         // Check if we need to load any script dynamically for the current route on first load
         // Only if it wasn't loaded (e.g. going directly to /authors.html loads authors.js natively)
@@ -33,19 +31,7 @@
         updateActiveNavbarLink();
     });
 
-    function initMobileMenu() {
-        const btn = document.getElementById('burger-btn');
-        const links = document.getElementById('header-links');
-        if (btn && links) {
-            // Remove old listeners by replacing clone
-            const newBtn = btn.cloneNode(true);
-            btn.parentNode.replaceChild(newBtn, btn);
-            newBtn.addEventListener('click', function () {
-                newBtn.classList.toggle('active');
-                links.classList.toggle('open');
-            });
-        }
-    }
+
 
     async function navigate(url, push = true) {
         if (push) history.pushState({}, '', url);
@@ -103,11 +89,7 @@
             // Use shared routing logic
             handleRoute(url);
 
-            // Close mobile menu
-            const btn = document.getElementById('burger-btn');
-            const links = document.getElementById('header-links');
-            if (btn) btn.classList.remove('active');
-            if (links) links.classList.remove('open');
+
 
             // Handle hash after load
             const urlObj = new URL(url, location.origin);

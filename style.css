@@ -8,16 +8,16 @@
 }
 
 :root {
-    --bg: #000000;
-    --bg2: #020000;
-    --border: #2a2a2a;
-    --text: #e5e5e5;
-    --text2: #999;
-    --text3: #666;
+    --bg: #1e1e1e;
+    --bg2: #2a2a2a;
+    --border: #070807;
+    --text: #eaeaea;
+    --text2: #a0a0a0;
+    --text3: #757575;
     --accent: #ffffff;
-    --accent-dim: rgb(0, 0, 0);
-    --cyan: #5eead4;
-    --green: #6ee7b7;
+    --accent-dim: #333333;
+    --cyan: #eaeaea;
+    --green: #ffffff;
     --radius: 8px;
     --font: 'Inter', system-ui, sans-serif;
     --mono: 'JetBrains Mono', monospace;
@@ -101,6 +101,9 @@ header {
     padding: 8px 14px;
     border-radius: 8px;
     border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .h-link:hover,
@@ -109,14 +112,21 @@ header {
     background: rgba(255, 255, 255, 0.06);
 }
 
-.h-link-api {
-    color: var(--text);
-    background: rgba(255, 255, 255, 0.04);
+.h-divider {
+    width: 1px;
+    height: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0 4px;
 }
 
-.h-link-api:hover {
-    background: rgba(255, 255, 255, 0.1);
+.h-icon {
+    padding: 8px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+
 
 .logo {
     display: flex;
@@ -331,7 +341,7 @@ main {
 
 /* ---- Card ---- */
 .card {
-    background: #000000;
+    background: #333333;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     padding: 24px;
@@ -355,8 +365,8 @@ main {
 }
 
 .card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: #111216;
+    border-color: #515151;
+    background: #424242;
     transform: translateY(-5px);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
@@ -394,7 +404,7 @@ main {
     font-size: 1.15rem;
     font-weight: 700;
     color: var(--accent);
-    background: linear-gradient(135deg, #2a2a35, #1e1e24);
+    background: #515151;
     box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.05), 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -1615,53 +1625,7 @@ span.author-click:hover,
     }
 }
 
-/* ---- Burger Menu ---- */
-.burger-btn {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    cursor: pointer;
-    gap: 5px;
-    padding: 0;
-    transition: background 0.2s, border-color 0.2s;
-    flex-shrink: 0;
-}
 
-.burger-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.burger-btn span {
-    display: block;
-    width: 18px;
-    height: 2px;
-    background: var(--text);
-    border-radius: 2px;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 0.2s ease,
-        width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-}
-
-.burger-btn.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-
-.burger-btn.active span:nth-child(2) {
-    opacity: 0;
-    width: 0;
-}
-
-.burger-btn.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-}
 
 /* ---- Responsive ---- */
 @media (max-width: 850px) {
@@ -1672,10 +1636,6 @@ span.author-click:hover,
 
 @media (max-width: 1000px) {
 
-    .burger-btn {
-        display: flex;
-    }
-
     header {
         top: 8px;
         width: calc(100% - 16px);
@@ -1683,16 +1643,9 @@ span.author-click:hover,
     }
 
     .header-inner {
-        padding: 12px 16px;
+        padding: 8px 12px;
         height: auto;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-    }
-
-    .header-left {
-        flex-direction: row;
-        align-items: center;
+        flex-wrap: wrap;
         justify-content: space-between;
         gap: 12px;
     }
@@ -1703,29 +1656,6 @@ span.author-click:hover,
 
     .stats-strip {
         display: none !important;
-    }
-
-    .header-links {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        padding: 0;
-        margin: 0;
-        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-            opacity 0.3s ease,
-            padding 0.3s ease,
-            margin 0.3s ease;
-    }
-
-    .header-links.open {
-        max-height: 400px;
-        opacity: 1;
-        padding-top: 12px;
-        margin-top: 12px;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .h-link {
