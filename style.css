@@ -62,9 +62,7 @@ header {
     margin: 0 auto;
     width: calc(100% - 32px);
     max-width: 1500px;
-    background: rgba(10, 10, 12, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: var(--bg2);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -578,7 +576,7 @@ span.author-click:hover,
     max-width: 680px;
     height: auto;
     max-height: 90%;
-    background: #000000;
+    background: #333333;
     border: 1px solid var(--border);
     border-radius: 12px;
     display: flex;
@@ -593,7 +591,7 @@ span.author-click:hover,
     justify-content: space-between;
     padding: 24px 28px 20px;
     border-bottom: 1px solid var(--border);
-    background: #000000;
+    background: #333333;
     gap: 12px;
 }
 
@@ -1879,7 +1877,7 @@ span.author-click:hover,
 }
 
 .author-card {
-    background: #000;
+    background: #333333;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     padding: 28px 24px;
@@ -2195,6 +2193,7 @@ span.author-click:hover,
 .hidden {
     display: none !important;
 }
+
 /* ---- Maintenance ---- */
 .maintenance-overlay {
     position: fixed;
@@ -2216,8 +2215,15 @@ span.author-click:hover,
 }
 
 @keyframes maintenanceFade {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .maintenance-logo {
