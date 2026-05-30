@@ -22,7 +22,7 @@ local function applyImage(url, img)
     end)
 end
 
-local API = "https://globalzen-api.renern.workers.dev"
+local API = "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main"
 
 local existing = (CORE:FindFirstChild("IYStoreUI") or PLR.PlayerGui:FindFirstChild("IYStoreUI"))
 if existing then existing:Destroy() end
@@ -244,7 +244,7 @@ local function dl_plugin(p, b)
         b.Text = "..."; local s = {}
         for _, f in pairs(p.files or {}) do
             if f.filename:lower():match("%.iy$") then
-                local o, c = pcall(function() return game:HttpGet(API .. "/iy/get/" .. p.id .. "/" .. f.filename) end)
+                local o, c = pcall(function() return game:HttpGet(API .. "/plugins/" .. p.id .. "/" .. f.filename) end)
                 if o and c then
                     pcall(function() writefile(f.filename, c) end); table.insert(s, f.filename)
                 end

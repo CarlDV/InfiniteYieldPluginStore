@@ -24,7 +24,7 @@
 
         async function init() {
         try {
-            const res = await fetch(`https://globalzen-api.renern.workers.dev/api/iy/plugins?v=${Date.now()}`);
+            const res = await fetch(`./data/plugins.json?v=${Date.now()}`);
             const data = await res.json();
             if (isAborted) return;
             allPlugins = data.plugins || [];

@@ -33,7 +33,7 @@
 
         async function init() {
             try {
-                const res = await fetch(`https://globalzen-api.renern.workers.dev/api/iy/plugins?v=${Date.now()}`);
+                const res = await fetch(`./data/plugins.json?v=${Date.now()}`);
 
                 const data = await res.json();
 
@@ -283,7 +283,7 @@
                     const isImage = a.filename.toLowerCase().match(/\.(png|jpg|jpeg|gif|webp)$/);
                     const isVideo = a.filename.toLowerCase().match(/\.(mp4|webm|mov)$/);
 
-                    const fileUrl = `https://globalzen-api.renern.workers.dev/iy/get/${p.id}/${a.filename}`;
+                    const fileUrl = a.url;
                     const prevBtn = isCode ? `<button class="att-prev-btn" data-url="${escAttr(fileUrl)}" data-id="prev-${p.id}-${i}">Preview</button>` : '';
                     const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${fileUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Download</a>`;
 
