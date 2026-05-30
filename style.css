@@ -149,6 +149,17 @@ header {
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.15));
 }
 
+.plugin-count {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text2);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-family: var(--mono);
+}
+
 /* ---- Stats Strip (index.html only) ---- */
 .stats-strip {
     display: flex;

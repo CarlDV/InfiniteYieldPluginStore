@@ -335,6 +335,8 @@
                         const dateB = new Date(b.date || 0);
                         return dateB - dateA;
                     });
+                    const counter = document.getElementById('plugin-count');
+                    if (counter) counter.textContent = `${allStorePlugins.length} plugins`;
                     renderStorePlugins();
                 } catch (e) {
                     console.error('Failed to fetch plugins', e);

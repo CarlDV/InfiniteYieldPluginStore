@@ -39,7 +39,8 @@
 
                 if (isAborted) return;
                 allPlugins = data.plugins || [];
-                // Statistics display removed
+                const counter = $('plugin-count');
+                if (counter) counter.textContent = `${allPlugins.length} plugins`;
 
 
                 if (data.scraped_at) {

@@ -28,6 +28,8 @@
             const data = await res.json();
             if (isAborted) return;
             allPlugins = data.plugins || [];
+            const counter = document.getElementById('plugin-count');
+            if (counter) counter.textContent = `${allPlugins.length} plugins`;
 
             // Build unique authors map
             const authorMap = new Map();
