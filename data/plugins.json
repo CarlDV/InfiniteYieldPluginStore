@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-04-27T00:02:42.070358+00:00",
+  "scraped_at": "2026-05-30T09:58:59.783730+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 530,
+  "total_plugins": 532,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -2518,7 +2518,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/91c1423e28ea22c1180a7876c7a1d2e7.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/a_56042fc4b19e1464315622be9aaa685e.gif?size=1024"
       },
       "date": "2020-01-23T03:15:12.032000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800",
@@ -3034,7 +3034,7 @@
       "author": {
         "name": "liyo",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/6cec5244e6209f0283944f75aaec55b8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/b1186719fefb1db2a31817bc514cedf9.png?size=1024"
       },
       "date": "2020-02-14T22:03:06.169000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/677998278398312511",
@@ -3232,7 +3232,7 @@
       "author": {
         "name": "liyo",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/6cec5244e6209f0283944f75aaec55b8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/b1186719fefb1db2a31817bc514cedf9.png?size=1024"
       },
       "date": "2020-02-22T10:27:30.087000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/680722327507304485",
@@ -3452,7 +3452,7 @@
       "author": {
         "name": "liyo",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/6cec5244e6209f0283944f75aaec55b8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/b1186719fefb1db2a31817bc514cedf9.png?size=1024"
       },
       "date": "2020-02-29T18:14:43.939000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/683376625064214538",
@@ -4874,6 +4874,10 @@
         {
           "emoji": "<:furblank:700082717928325120>",
           "count": 2
+        },
+        {
+          "emoji": "🇮🇱",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -4964,7 +4968,7 @@
       "author": {
         "name": "liyo",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/6cec5244e6209f0283944f75aaec55b8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/b1186719fefb1db2a31817bc514cedf9.png?size=1024"
       },
       "date": "2020-04-21T20:21:19.479000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/702252652079349900",
@@ -5017,7 +5021,7 @@
       "author": {
         "name": "lynn",
         "username": "splynnters",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/162e2b5269f9d38865ec0d7e8665d74e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/350562911f803bebc52d97249fffc712.png?size=1024"
       },
       "date": "2020-04-23T22:55:33.851000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/703016243459915826",
@@ -5421,7 +5425,7 @@
       "author": {
         "name": "liyo",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/6cec5244e6209f0283944f75aaec55b8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/b1186719fefb1db2a31817bc514cedf9.png?size=1024"
       },
       "date": "2020-05-11T18:32:32.106000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/709473031604404235",
@@ -5765,7 +5769,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/91c1423e28ea22c1180a7876c7a1d2e7.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/a_56042fc4b19e1464315622be9aaa685e.gif?size=1024"
       },
       "date": "2020-05-20T13:39:38.179000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556",
@@ -6040,7 +6044,7 @@
       "author": {
         "name": "liyo",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/6cec5244e6209f0283944f75aaec55b8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/b1186719fefb1db2a31817bc514cedf9.png?size=1024"
       },
       "date": "2020-05-24T16:05:22.926000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/714147041592213744",
@@ -9043,9 +9047,9 @@
       "name": "Ninja_Legends_Best_Free_Hack",
       "description": "Hello ,i created for you the best free hack of ninja legends it is imperatively necessary to have a level 7 executor you give me your opinions if you want",
       "author": {
-        "name": "mdlk",
-        "username": "mdlk.x",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/7ebac489fbf8d2bd2bb112d011061568.png?size=1024"
+        "name": "m'",
+        "username": "mdlk.74k",
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/2479c6b753cf2a0d0864bab0ae9ca29a.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -9411,7 +9415,7 @@
       "author": {
         "name": "lynn",
         "username": "splynnters",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/162e2b5269f9d38865ec0d7e8665d74e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/350562911f803bebc52d97249fffc712.png?size=1024"
       },
       "date": "2020-07-18T08:28:55.627000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/733963503542468618",
@@ -10331,7 +10335,7 @@
       "author": {
         "name": "lynn",
         "username": "splynnters",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/162e2b5269f9d38865ec0d7e8665d74e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/350562911f803bebc52d97249fffc712.png?size=1024"
       },
       "date": "2020-08-13T02:07:23.484000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/743289571441377390",
@@ -10384,7 +10388,7 @@
       "author": {
         "name": "lynn",
         "username": "splynnters",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/162e2b5269f9d38865ec0d7e8665d74e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/350562911f803bebc52d97249fffc712.png?size=1024"
       },
       "date": "2020-08-13T09:03:36.878000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/743394317447462933",
@@ -10655,7 +10659,7 @@
       "author": {
         "name": "lynn",
         "username": "splynnters",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/162e2b5269f9d38865ec0d7e8665d74e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/350562911f803bebc52d97249fffc712.png?size=1024"
       },
       "date": "2020-08-19T01:26:34.097000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/745453625161285802",
@@ -11963,7 +11967,7 @@
       "author": {
         "name": "sevie",
         "username": "sehvie",
-        "avatar": "https://cdn.discordapp.com/avatars/763528086271557643/3bdf034877a9d485c258b7a2d54a0428.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/763528086271557643/bb59e8a9a18241b259c8fcfe112722a2.png?size=1024"
       },
       "date": "2020-10-31T19:29:06.615000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/772180369956012084",
@@ -12437,7 +12441,7 @@
       "author": {
         "name": "marcus",
         "username": "profility",
-        "avatar": "https://cdn.discordapp.com/avatars/768264821874884608/d1615845827f6d2354e685e238ae6e79.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/768264821874884608/360c64651dbfa0800d85eae97df557ef.png?size=1024"
       },
       "date": "2020-11-20T15:28:18.772000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/779367528622718996",
@@ -13664,7 +13668,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=69ef7ee5&is=69ee2d65&hm=4b84870d9725bdf8a4b660101d32ae3d821dc16f59b704d856736b231c552cf8&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a1ba925&is=6a1a57a5&hm=48d965c80b2e64a55885ca94c2f9ab37d06c84cdceb71a4310b6a728dffa1c4f&"
           },
           "image": null,
           "video": null
@@ -14170,7 +14174,7 @@
       "name": "partflashback",
       "description": "Part Flashback,\n\nbasically you can place down a part then press a button on your keyboard to teleport to the part, it can be useful in some situations. \n\npress \"H\" to teleport the part to your HumanoidRootPart\npress \"G\" to teleport yourself to the part\n\nuse the command \"PFlash\" to execute the script thingy, when you die it deletes the script and part from the workspace. dm me if there are any questions.",
       "author": {
-        "name": "ear",
+        "name": "poopurt",
         "username": "hotdogmuncher38",
         "avatar": "https://cdn.discordapp.com/avatars/626910141459202063/f0ca5a1da6bccd55ca55bdb27851655e.png?size=1024"
       },
@@ -14914,7 +14918,7 @@
       "author": {
         "name": "ap",
         "username": "aerdraco",
-        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/34d26899ecb55e8b1d51e9e97714a13b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/000bd9155f9a90267c73c41b4579801c.png?size=1024"
       },
       "date": "2021-03-11T14:49:21.135000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/819582776944361502",
@@ -15178,7 +15182,7 @@
       "author": {
         "name": "ap",
         "username": "aerdraco",
-        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/34d26899ecb55e8b1d51e9e97714a13b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/000bd9155f9a90267c73c41b4579801c.png?size=1024"
       },
       "date": "2021-03-27T01:34:13.058000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/825180880616161311",
@@ -15630,7 +15634,7 @@
       "author": {
         "name": "ap",
         "username": "aerdraco",
-        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/34d26899ecb55e8b1d51e9e97714a13b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/000bd9155f9a90267c73c41b4579801c.png?size=1024"
       },
       "date": "2021-04-23T23:18:35.706000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/835293610324000808",
@@ -16170,7 +16174,7 @@
       "author": {
         "name": "ap",
         "username": "aerdraco",
-        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/34d26899ecb55e8b1d51e9e97714a13b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/000bd9155f9a90267c73c41b4579801c.png?size=1024"
       },
       "date": "2021-06-12T05:44:50.698000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/853147818700701706",
@@ -16858,7 +16862,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=69efad32&is=69ee5bb2&hm=1c131ee00f785b599c35faadc42c20d5300289611a59ddfa9fbed2850fbf0928&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a1bd772&is=6a1a85f2&hm=bf64a36f5383b45196abf248e1b2ab64d6399203859e74795ab7053933489a85&"
           },
           "image": null,
           "video": null
@@ -16872,7 +16876,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=69efad49&is=69ee5bc9&hm=12a74f878bebb23a3a24932a0088d4efa53a9f87719d6ca1695b22ca2af1eeec&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a1bd789&is=6a1a8609&hm=64b5e60a782edeb14368ab5f1d79116bd39cd0ea0d90d63333fd870001400117&"
           },
           "image": null,
           "video": null
@@ -17186,7 +17190,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/3cc85ea1a5dc0cd4f90e3acb253947c5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/e193ffb179e3827ccc410c16779834b8.png?size=1024"
       },
       "date": "2021-11-13T02:46:59.722000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/908910792684994562",
@@ -17233,7 +17237,7 @@
       "author": {
         "name": "Amo",
         "username": "amokah",
-        "avatar": "https://cdn.discordapp.com/avatars/633839919550300170/5b3395f67be139223c5610d859c73c5d.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/633839919550300170/9755fdf02acbe8a6de0af97a6b9e2300.png?size=1024"
       },
       "date": "2021-11-18T22:46:34.437000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/911024615848034314",
@@ -17374,7 +17378,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=69ef62a2&is=69ee1122&hm=50350c5a5570feee47ca8bc05f4145f7f59168d8d2ff775224acd42f54894a59&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a1b8ce2&is=6a1a3b62&hm=7d26ee325a5a4cbd003914ccfe8f8dcfea127e27d458ce894522b52b8869586c&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -18328,7 +18332,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/3cc85ea1a5dc0cd4f90e3acb253947c5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/e193ffb179e3827ccc410c16779834b8.png?size=1024"
       },
       "date": "2022-03-28T09:20:39.498000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/957932223061950465",
@@ -18418,7 +18422,7 @@
         },
         {
           "emoji": "👍",
-          "count": 6
+          "count": 7
         }
       ],
       "loadstring_urls": []
@@ -18704,7 +18708,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=69efad32&is=69ee5bb2&hm=1c131ee00f785b599c35faadc42c20d5300289611a59ddfa9fbed2850fbf0928&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a1bd772&is=6a1a85f2&hm=bf64a36f5383b45196abf248e1b2ab64d6399203859e74795ab7053933489a85&"
           },
           "image": null,
           "video": null
@@ -18718,7 +18722,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=69efad49&is=69ee5bc9&hm=12a74f878bebb23a3a24932a0088d4efa53a9f87719d6ca1695b22ca2af1eeec&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a1bd789&is=6a1a8609&hm=64b5e60a782edeb14368ab5f1d79116bd39cd0ea0d90d63333fd870001400117&"
           },
           "image": null,
           "video": null
@@ -18727,7 +18731,7 @@
       "reactions": [
         {
           "emoji": "🤨",
-          "count": 54
+          "count": 55
         },
         {
           "emoji": "<:yb_verycool:907083861391986718>",
@@ -18751,7 +18755,7 @@
         },
         {
           "emoji": "<:milk:519734768892510212>",
-          "count": 4
+          "count": 5
         }
       ],
       "loadstring_urls": []
@@ -18970,7 +18974,7 @@
       "reactions": [
         {
           "emoji": "👎",
-          "count": 48
+          "count": 49
         },
         {
           "emoji": "🗿",
@@ -19136,7 +19140,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/3cc85ea1a5dc0cd4f90e3acb253947c5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/e193ffb179e3827ccc410c16779834b8.png?size=1024"
       },
       "date": "2022-05-05T05:24:58.991000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/971643652369707018",
@@ -19711,7 +19715,7 @@
         },
         {
           "emoji": "<:manly:686028078597799956>",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "🤓",
@@ -20007,7 +20011,7 @@
       "author": {
         "name": "jenson",
         "username": "shlexr",
-        "avatar": "https://cdn.discordapp.com/avatars/837791888643588136/43e698157e3e2938c9171c40438668e4.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/837791888643588136/caa68484bcd6b647ca4517deda8eb25f.png?size=1024"
       },
       "date": "2022-08-30T21:54:21.026000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1014292015065866321",
@@ -20026,7 +20030,7 @@
       "reactions": [
         {
           "emoji": "👍",
-          "count": 31
+          "count": 32
         },
         {
           "emoji": "👎",
@@ -20086,14 +20090,14 @@
       "author": {
         "name": "zamb",
         "username": "z4mb",
-        "avatar": "https://cdn.discordapp.com/avatars/324982563569401856/47d2ec06e5b3864fc8943a91b907ea96.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/324982563569401856/6397046eed6e78a83b7505b107504cdf.png?size=1024"
       },
       "date": "2022-10-07T01:34:39.007000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1027755806323638366",
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=69ef65ee&is=69ee146e&hm=c2bacf968f9f1cc124164cf1c9cb250da549c0ad539a1e6dac9d873a1a77f462&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a1b902e&is=6a1a3eae&hm=a244f89b2aaebea2f26fc09f7b83fbca8c37b9c6f58808a76905c7cfb97afcba&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -20175,7 +20179,7 @@
       "author": {
         "name": "zamb",
         "username": "z4mb",
-        "avatar": "https://cdn.discordapp.com/avatars/324982563569401856/47d2ec06e5b3864fc8943a91b907ea96.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/324982563569401856/6397046eed6e78a83b7505b107504cdf.png?size=1024"
       },
       "date": "2022-10-12T00:40:22.823000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1029554088226074654",
@@ -20318,7 +20322,7 @@
       "author": {
         "name": "ap",
         "username": "aerdraco",
-        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/34d26899ecb55e8b1d51e9e97714a13b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/633099188414185512/000bd9155f9a90267c73c41b4579801c.png?size=1024"
       },
       "date": "2022-11-09T04:44:32.837000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1039762395075190804",
@@ -20388,7 +20392,7 @@
         },
         {
           "emoji": "😍",
-          "count": 7
+          "count": 8
         },
         {
           "emoji": "🤑",
@@ -20768,7 +20772,7 @@
       "reactions": [
         {
           "emoji": "<:baller:1032764077698719744>",
-          "count": 95
+          "count": 96
         },
         {
           "emoji": "✅",
@@ -20807,7 +20811,7 @@
         },
         {
           "emoji": "💀",
-          "count": 3
+          "count": 4
         }
       ],
       "loadstring_urls": []
@@ -20871,11 +20875,11 @@
       "reactions": [
         {
           "emoji": "🤔",
-          "count": 21
+          "count": 22
         },
         {
           "emoji": "💀",
-          "count": 4
+          "count": 5
         }
       ],
       "loadstring_urls": []
@@ -20906,7 +20910,7 @@
       "reactions": [
         {
           "emoji": "<:CR_Trash:595716733881286677>",
-          "count": 75
+          "count": 77
         },
         {
           "emoji": "👍",
@@ -20924,9 +20928,9 @@
       "name": "bodydeletor",
       "description": "body deletor\nDeletes all presents of body +more\n\ncommands list:\n> notorso - deletes your torso (kills you)\n> norightleg - deletes your right leg\n> noleftleg - deletes your left leg\n> norightarm (korblox) - deletes your right arm\n> noleftarm - deletes your left arm\n> rightHand - deletes all parts of left arm, but doesn't deletes RightHand\n> leftHand - deletes all parts of left arm, but doesn't deletes LeftHand\n> nolrighthand - Removes Lower part of right arm, it's looks f u n n y\n> nolleftarm - same as nolrighthand\n> noohead - deletes your head (kills you)\n> notorsoR6 - deletes your torso (R6) (kills you)\n> norightlegR6 (korbloxR6) - deletes your right leg (R6)\n> noleftlegR6 - deletes your left leg (R6)\n> norightarmR6 - deletes your right arm (R6)\n> noleftarmR6 - deletes your left arm (R6)\n> \n> -- Universal\n> noblur - deletes blur on screen\n> noragdoll - no ragdoll in shit ragdoll engine games\n> invisiblebodyR6 - makes your body invisible (R6) (CLIENT) (maybe dont work)\n> visiblebodyR6 - makes your body visible (R6) (CLIENT) (maybe dont work)\n> invisiblebody - makes your body invisible (CLIENT) (maybe dont work)\n> visiblebody - makes your body visible (CLIENT) (maybe dont work)",
       "author": {
-        "name": "Invisibility",
+        "name": "ٴ",
         "username": "displayname_2",
-        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/86865e1801d676df0f7e8507f923e22e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/1e3b09a781e8a3382a1bb83b58f365d2.png?size=1024"
       },
       "date": "2023-02-08T06:15:52.148000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1072762672740847677",
@@ -20963,9 +20967,9 @@
       "name": "vrmobile",
       "description": "> vrmobile \n> \n> vr but for mobile (works on pc too)\n> \n> command:\n`vrmobile`",
       "author": {
-        "name": "Invisibility",
+        "name": "ٴ",
         "username": "displayname_2",
-        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/86865e1801d676df0f7e8507f923e22e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/1e3b09a781e8a3382a1bb83b58f365d2.png?size=1024"
       },
       "date": "2023-02-08T06:19:28.922000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1072763581956894781",
@@ -21175,7 +21179,7 @@
       "reactions": [
         {
           "emoji": "👍",
-          "count": 8
+          "count": 11
         },
         {
           "emoji": "🫃",
@@ -21306,7 +21310,12 @@
       "code_blocks": [],
       "links": [],
       "embeds": [],
-      "reactions": [],
+      "reactions": [
+        {
+          "emoji": "🔥",
+          "count": 1
+        }
+      ],
       "loadstring_urls": []
     },
     {
@@ -21534,7 +21543,7 @@
       "reactions": [
         {
           "emoji": "🇼",
-          "count": 66
+          "count": 67
         },
         {
           "emoji": "👎🏿",
@@ -21773,11 +21782,11 @@
         },
         {
           "emoji": "🇲",
-          "count": 10
+          "count": 11
         },
         {
           "emoji": "🇫",
-          "count": 11
+          "count": 12
         },
         {
           "emoji": "☝️",
@@ -21862,9 +21871,9 @@
       "name": "AnimationSpeed",
       "description": "Animation speed looper (The same as animspeed but looped basically)\n\ncommands:\n```animspeedloop [numb]\nstopanimspeed```",
       "author": {
-        "name": "subspace",
+        "name": "thr",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/9450a61267a685e59b09cb5b40ae6ac1.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/58f320bac608ac9157c0bce76022e44f.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -22599,7 +22608,7 @@
       "reactions": [
         {
           "emoji": "💀",
-          "count": 58
+          "count": 59
         },
         {
           "emoji": "<:potatopumpkin:1168712563077431366>",
@@ -22713,15 +22722,15 @@
       "reactions": [
         {
           "emoji": "💀",
-          "count": 290
+          "count": 293
         },
         {
           "emoji": "👅",
-          "count": 60
+          "count": 61
         },
         {
           "emoji": "👎",
-          "count": 24
+          "count": 25
         },
         {
           "emoji": "<:milk:519734768892510212>",
@@ -22782,6 +22791,10 @@
         {
           "emoji": "💔",
           "count": 1
+        },
+        {
+          "emoji": "✅",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -22822,11 +22835,11 @@
         },
         {
           "emoji": "✅",
-          "count": 24
+          "count": 25
         },
         {
           "emoji": "💀",
-          "count": 40
+          "count": 41
         },
         {
           "emoji": "🇿",
@@ -22943,7 +22956,7 @@
         },
         {
           "emoji": "<:leal:1277442455360241756>",
-          "count": 13
+          "count": 14
         },
         {
           "emoji": "<:quan:1228830281281044490>",
@@ -22963,7 +22976,7 @@
         },
         {
           "emoji": "<a:Clown:1249943355656245270>",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "<:sigh:1030163627719798815>",
@@ -23308,7 +23321,7 @@
       "reactions": [
         {
           "emoji": "✅",
-          "count": 22
+          "count": 23
         }
       ],
       "loadstring_urls": []
@@ -23327,7 +23340,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=69ef5e19&is=69ee0c99&hm=242b1ac62ce3426c06754e172d1326c10332e33ffe44b933e099e5cb6bd7c080&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a1b8859&is=6a1a36d9&hm=ca591cd77c6616ab444e9a7905c59deb3be4b89ac38c3f96080b0a49f4b416da&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -23452,7 +23465,7 @@
       "reactions": [
         {
           "emoji": "<a:ronaldthumbsdown2:1288890611750932623>",
-          "count": 24
+          "count": 25
         },
         {
           "emoji": "<:funnythumbsup:1030163626285350992>",
@@ -23757,7 +23770,7 @@
         },
         {
           "emoji": "❌",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "🐟",
@@ -23804,7 +23817,7 @@
       "reactions": [
         {
           "emoji": "❌",
-          "count": 42
+          "count": 44
         },
         {
           "emoji": "✅",
@@ -23820,7 +23833,7 @@
         },
         {
           "emoji": "🇳",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "🇪",
@@ -23828,7 +23841,7 @@
         },
         {
           "emoji": "🇷",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "👍",
@@ -23836,7 +23849,7 @@
         },
         {
           "emoji": "🇫",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🔥",
@@ -23871,7 +23884,7 @@
       "reactions": [
         {
           "emoji": "<:funnythumbsup:1030163626285350992>",
-          "count": 46
+          "count": 47
         },
         {
           "emoji": "👌",
@@ -24002,7 +24015,7 @@
         },
         {
           "emoji": "🇾",
-          "count": 14
+          "count": 15
         },
         {
           "emoji": "😇",
@@ -24118,7 +24131,7 @@
       "reactions": [
         {
           "emoji": "👻",
-          "count": 33
+          "count": 34
         },
         {
           "emoji": "<:CatRaisedEyebrow:1274870761693122590>",
@@ -24181,7 +24194,7 @@
       "author": {
         "name": "*+❀ Mochi ❀+*",
         "username": "mochimreow",
-        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/1c24fdb95708b56a523320db0039f393.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/a1f18189539428887083a62883701c46.png?size=1024"
       },
       "date": "2025-03-11T00:10:35.312000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1348810300455125124",
@@ -24257,7 +24270,7 @@
         },
         {
           "emoji": "😭",
-          "count": 7
+          "count": 8
         },
         {
           "emoji": "✅",
@@ -24320,7 +24333,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 46
+          "count": 48
         },
         {
           "emoji": "✅",
@@ -24328,7 +24341,7 @@
         },
         {
           "emoji": "<:Skullgoof:1344731995758002246>",
-          "count": 25
+          "count": 26
         },
         {
           "emoji": "<:CatRaisedEyebrow:1274870761693122590>",
@@ -24379,7 +24392,7 @@
       "reactions": [
         {
           "emoji": "👍",
-          "count": 17
+          "count": 18
         },
         {
           "emoji": "🥂",
@@ -24414,7 +24427,7 @@
       "reactions": [
         {
           "emoji": "🎉",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "👂",
@@ -24426,7 +24439,7 @@
         },
         {
           "emoji": "<:eyespoppingout:1336975661813993472>",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "🫃",
@@ -24448,9 +24461,9 @@
       "name": "Find-Places",
       "description": "# Place Finder\nA command that opens a UI that will find all the secret places on the game.\nThis is based to my script __Place Finder__ but implemented in Infinite Yield.\nLoadstring: `loadstring(game:HttpGet(\"https://raw.githubusercontent.com/ACEtheSOLID/NoobyHub-Reborn/refs/heads/main/PlaceFinder-v0.1.lua\"))()`\n## Usage:\n```md\n;findplaces\n  - Opens the UI.\n```\n## Installation:\n```\n;plugin Find-Places\n```",
       "author": {
-        "name": "crine",
+        "name": "Dazy",
         "username": "dazy0349",
-        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/24d95ba39f58190ca47fc4a21b7801b5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/397785305118be747de8001db11fe280.png?size=1024"
       },
       "date": "2025-04-05T09:50:50.491000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1358016022539403456",
@@ -24464,7 +24477,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=69efda39&is=69ee88b9&hm=e535e56c2446edc2796e66972795a7f2db748fd960eff79f251d8e1721b2dcbc&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a1c0479&is=6a1ab2f9&hm=089949b5b1b7aa5aaecc273d970b591e1ec22120005c0ad525d25dc151cdf367&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -24480,11 +24493,11 @@
       "reactions": [
         {
           "emoji": "❤️",
-          "count": 73
+          "count": 75
         },
         {
           "emoji": "👍",
-          "count": 18
+          "count": 19
         },
         {
           "emoji": "<:funnythumbsup:1030163626285350992>",
@@ -24492,11 +24505,11 @@
         },
         {
           "emoji": "🍆",
-          "count": 7
+          "count": 8
         },
         {
           "emoji": "🔥",
-          "count": 13
+          "count": 14
         },
         {
           "emoji": "<:Yeah:1262733121221034046>",
@@ -24564,11 +24577,11 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 71
+          "count": 73
         },
         {
           "emoji": "<:eyespoppingout:1336975661813993472>",
-          "count": 40
+          "count": 41
         },
         {
           "emoji": "🍆",
@@ -24580,35 +24593,35 @@
         },
         {
           "emoji": "<:Skullgoof:1344731995758002246>",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "🇫",
-          "count": 18
-        },
-        {
-          "emoji": "🇪",
-          "count": 18
-        },
-        {
-          "emoji": "🇳",
-          "count": 18
-        },
-        {
-          "emoji": "🇹",
           "count": 19
         },
         {
+          "emoji": "🇪",
+          "count": 19
+        },
+        {
+          "emoji": "🇳",
+          "count": 19
+        },
+        {
+          "emoji": "🇹",
+          "count": 20
+        },
+        {
           "emoji": "🇦",
-          "count": 16
+          "count": 17
         },
         {
           "emoji": "🇾",
-          "count": 15
+          "count": 16
         },
         {
           "emoji": "🇱",
-          "count": 15
+          "count": 16
         },
         {
           "emoji": "<:misc_crashout:1403016355850223648>",
@@ -24651,11 +24664,11 @@
         },
         {
           "emoji": "🇹",
-          "count": 10
+          "count": 11
         },
         {
           "emoji": "🇾",
-          "count": 10
+          "count": 11
         },
         {
           "emoji": "❤️",
@@ -24679,7 +24692,7 @@
         },
         {
           "emoji": "😹",
-          "count": 6
+          "count": 7
         },
         {
           "emoji": "🍆",
@@ -24788,7 +24801,7 @@
       "author": {
         "name": "0xOffset",
         "username": "0xoffset_",
-        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/8dd6b03ca3186a978e34dc39ad5bd815.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/a9a844d76f75dd61241ab6654d0718f0.png?size=1024"
       },
       "date": "2025-04-29T23:31:30.325000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1366919858146639892",
@@ -24809,7 +24822,7 @@
       "reactions": [
         {
           "emoji": "<:funnythumbsup:1030163626285350992>",
-          "count": 32
+          "count": 33
         },
         {
           "emoji": "<:bluethumbsup:1273036446361456731>",
@@ -24845,7 +24858,7 @@
       "author": {
         "name": "0xOffset",
         "username": "0xoffset_",
-        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/8dd6b03ca3186a978e34dc39ad5bd815.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/a9a844d76f75dd61241ab6654d0718f0.png?size=1024"
       },
       "date": "2025-04-30T02:21:16.329000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1366962581343961119",
@@ -24871,7 +24884,7 @@
       "author": {
         "name": "0xOffset",
         "username": "0xoffset_",
-        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/8dd6b03ca3186a978e34dc39ad5bd815.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/a9a844d76f75dd61241ab6654d0718f0.png?size=1024"
       },
       "date": "2025-04-30T03:00:32.999000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1366972465934499951",
@@ -24910,7 +24923,7 @@
       "author": {
         "name": "0xOffset",
         "username": "0xoffset_",
-        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/8dd6b03ca3186a978e34dc39ad5bd815.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1321065566659940364/a9a844d76f75dd61241ab6654d0718f0.png?size=1024"
       },
       "date": "2025-04-30T12:29:39.171000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1367115685360173179",
@@ -24958,6 +24971,10 @@
         {
           "emoji": "🫃🏿",
           "count": 2
+        },
+        {
+          "emoji": "🫃",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -24965,7 +24982,7 @@
     {
       "id": "1382042301471129681",
       "name": "ServerFinder",
-      "description": "Server Finder allows you to have a better experience in joining servers in games without needing to quit the game and relaunch it, and without needing to attach your exploit again lol. If sometimes the script doesn't load, don't worry; it's a Roblox servers error and not a script issue. Wait a bit and try again, and enjoy using it.\n\nCommand name : ServerFinder\n\nAliases : sfinder\",\"serverfinder\",\n\n\nhttps://github.com/MaxproGlitcher/Finds-Servers",
+      "description": "Server Finder allows you to have a better experience in joining servers in games without needing to quit the game and relaunch it, and without needing to attach your exploit again lol. If sometimes the script doesn't load, don't worry; it's a Roblox servers error and not a script issue. Wait a bit and try again, and enjoy using it.\n\nCommand name : ServerFinder\n\nAliases : sfinder\",\"serverfinder\",\n\n\nNew site web : https://github.com/MaxproGlitcher/Server-Finder-Deluxe\n\nPlease stop using the loadstring – I accidentally broke it... Please switch to the version above it’s the latest version of the Finder server and the one and only real version. \n\n⬇️\n\nhttps://discord.com/channels/503045718102114305/551846012310782014/1440749263943372850",
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
@@ -24984,7 +25001,8 @@
       ],
       "code_blocks": [],
       "links": [
-        "https://github.com/MaxproGlitcher/Finds-Servers"
+        "https://github.com/MaxproGlitcher/Server-Finder-Deluxe",
+        "https://discord.com/channels/503045718102114305/551846012310782014/1440749263943372850"
       ],
       "embeds": [],
       "reactions": [
@@ -25041,7 +25059,7 @@
       "reactions": [
         {
           "emoji": "🇲",
-          "count": 11
+          "count": 12
         },
         {
           "emoji": "🇴",
@@ -25146,7 +25164,7 @@
         },
         {
           "emoji": "👍",
-          "count": 12
+          "count": 13
         }
       ],
       "loadstring_urls": []
@@ -25158,7 +25176,7 @@
       "author": {
         "name": "Chillz",
         "username": ".chill.z.",
-        "avatar": "https://cdn.discordapp.com/avatars/1136569806389264405/9cec4f25671d59f80580267780d10c9e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1136569806389264405/b8c0b5935e5855c2491e58ec2770eedc.png?size=1024"
       },
       "date": "2025-07-26T19:32:14.132000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1398749776081588324",
@@ -25242,7 +25260,7 @@
       "reactions": [
         {
           "emoji": "💀",
-          "count": 20
+          "count": 22
         },
         {
           "emoji": "<:JEWMOJI:1371864291120250960>",
@@ -25250,7 +25268,7 @@
         },
         {
           "emoji": "🖕",
-          "count": 10
+          "count": 11
         },
         {
           "emoji": "<:bluelmfao:1273036509343256618>",
@@ -25258,7 +25276,7 @@
         },
         {
           "emoji": "<:pointandlaugh:1030162859759517808>",
-          "count": 9
+          "count": 10
         },
         {
           "emoji": "💩",
@@ -25266,7 +25284,7 @@
         },
         {
           "emoji": "<:stinker:1171875425371312278>",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "<:sigh:1030163627719798815>",
@@ -25345,7 +25363,7 @@
       "reactions": [
         {
           "emoji": "<:confused:1292538742380298240>",
-          "count": 22
+          "count": 23
         },
         {
           "emoji": "❓",
@@ -25365,7 +25383,7 @@
       "author": {
         "name": "Nexus",
         "username": "j5vz",
-        "avatar": "https://cdn.discordapp.com/avatars/1011492950884221049/48b2dcb3b497877b5095b743567ba029.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1011492950884221049/e541e8d2023038f327d8183104891871.png?size=1024"
       },
       "date": "2025-08-05T07:37:59.344000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1402193908729118733",
@@ -25404,11 +25422,11 @@
         },
         {
           "emoji": "💩",
-          "count": 23
+          "count": 24
         },
         {
           "emoji": "👎",
-          "count": 13
+          "count": 14
         },
         {
           "emoji": "<:EVILSHADE:1344908700418183198>",
@@ -25428,7 +25446,7 @@
         },
         {
           "emoji": "🥶",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🦶",
@@ -25440,6 +25458,10 @@
         },
         {
           "emoji": "🇴",
+          "count": 1
+        },
+        {
+          "emoji": "❤️",
           "count": 1
         }
       ],
@@ -25687,11 +25709,11 @@
       "reactions": [
         {
           "emoji": "6️⃣",
-          "count": 38
+          "count": 39
         },
         {
           "emoji": "7️⃣",
-          "count": 38
+          "count": 39
         },
         {
           "emoji": "🕕",
@@ -25810,19 +25832,19 @@
         },
         {
           "emoji": "❤️",
-          "count": 11
+          "count": 12
         },
         {
           "emoji": "🇪",
-          "count": 11
+          "count": 12
         },
         {
           "emoji": "🇷",
-          "count": 10
+          "count": 11
         },
         {
           "emoji": "🇲",
-          "count": 9
+          "count": 10
         },
         {
           "emoji": "<:LAJUPO:1112475051426598942>",
@@ -25885,19 +25907,19 @@
       "reactions": [
         {
           "emoji": "🐧",
-          "count": 30
+          "count": 31
         },
         {
           "emoji": "💀",
-          "count": 56
+          "count": 58
         },
         {
           "emoji": "<:WHAR:1386603699027050617>",
-          "count": 18
+          "count": 19
         },
         {
           "emoji": "🫃",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "❤️",
@@ -25929,7 +25951,7 @@
         },
         {
           "emoji": "🇵🇸",
-          "count": 15
+          "count": 16
         },
         {
           "emoji": "<:JEWPLAN:1421688590282395668>",
@@ -25961,7 +25983,7 @@
         },
         {
           "emoji": "<:JEWMOJI:1417949638626906162>",
-          "count": 14
+          "count": 15
         }
       ],
       "loadstring_urls": []
@@ -25973,7 +25995,7 @@
       "author": {
         "name": "Akgazi",
         "username": "akgazii",
-        "avatar": "https://cdn.discordapp.com/avatars/705667947900960778/40456bbae13aeda77d4f6525ac7d4cd9.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/705667947900960778/8bfcdf5c0389fd225b8a83ddd8c761a0.png?size=1024"
       },
       "date": "2025-10-25T19:30:56.914000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1431726747975684248",
@@ -26063,11 +26085,11 @@
       "reactions": [
         {
           "emoji": "😭",
-          "count": 38
+          "count": 42
         },
         {
           "emoji": "⭐",
-          "count": 14
+          "count": 16
         },
         {
           "emoji": "<:EVILSHADE:1344908700418183198>",
@@ -26176,7 +26198,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/7430935b66d0cde3ee2a948a49613032.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a_bc199d8db0547eba4a2ffc5519e33f3c.gif?size=1024"
       },
       "date": "2025-11-01T13:31:14.811000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434172941133680670",
@@ -26286,7 +26308,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/7430935b66d0cde3ee2a948a49613032.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a_bc199d8db0547eba4a2ffc5519e33f3c.gif?size=1024"
       },
       "date": "2025-11-02T06:01:29.844000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434422145844514886",
@@ -26362,7 +26384,7 @@
         },
         {
           "emoji": "🧐",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "❌",
@@ -26378,7 +26400,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/7430935b66d0cde3ee2a948a49613032.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a_bc199d8db0547eba4a2ffc5519e33f3c.gif?size=1024"
       },
       "date": "2025-11-19T12:24:35.056000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440679146526343312",
@@ -26409,7 +26431,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/7430935b66d0cde3ee2a948a49613032.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a_bc199d8db0547eba4a2ffc5519e33f3c.gif?size=1024"
       },
       "date": "2025-11-19T14:39:50.620000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440713185668890714",
@@ -26463,9 +26485,9 @@
       "name": "Find-Places",
       "description": "## Place Finder v0.2\nUI rework.\n\n## Installation:\nMove both `.iy` and `.rbxm` file to the workspace of your executor.\nAfter that, enter the command `;plugin Find-Places` and you are good to go.",
       "author": {
-        "name": "crine",
+        "name": "Dazy",
         "username": "dazy0349",
-        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/24d95ba39f58190ca47fc4a21b7801b5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/397785305118be747de8001db11fe280.png?size=1024"
       },
       "date": "2025-11-23T11:03:33.899000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1442108308818231316",
@@ -26542,6 +26564,10 @@
         },
         {
           "emoji": "😭",
+          "count": 1
+        },
+        {
+          "emoji": "💀",
           "count": 1
         }
       ],
@@ -26637,27 +26663,27 @@
         },
         {
           "emoji": "🇲",
-          "count": 6
+          "count": 7
         },
         {
           "emoji": "⭕",
-          "count": 3
-        },
-        {
-          "emoji": "🅱️",
-          "count": 3
-        },
-        {
-          "emoji": "<:Legendary_dotgg_femz:1216170849548107958>",
           "count": 4
         },
         {
+          "emoji": "🅱️",
+          "count": 4
+        },
+        {
+          "emoji": "<:Legendary_dotgg_femz:1216170849548107958>",
+          "count": 5
+        },
+        {
           "emoji": "🇪",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "<:question_white:1140492039407009803>",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "❌",
@@ -26681,7 +26707,7 @@
       "author": {
         "name": "bleedingiv",
         "username": "bleedingiv",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/9234ce7166178407483ffbadf9f8124e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/4169a10d5207dde8cc0011a0bd52598b.png?size=1024"
       },
       "date": "2025-12-24T21:41:15.365000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453502812871987333",
@@ -26707,7 +26733,7 @@
       "author": {
         "name": "bleedingiv",
         "username": "bleedingiv",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/9234ce7166178407483ffbadf9f8124e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/4169a10d5207dde8cc0011a0bd52598b.png?size=1024"
       },
       "date": "2025-12-26T03:45:29.686000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453956864403443784",
@@ -27050,7 +27076,7 @@
       "reactions": [
         {
           "emoji": "🥶",
-          "count": 27
+          "count": 31
         },
         {
           "emoji": "<:catosus:1288195651280306198>",
@@ -27074,15 +27100,15 @@
         },
         {
           "emoji": "🇬",
-          "count": 6
+          "count": 7
         },
         {
           "emoji": "🅰️",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "🇾",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "<:JOYE:519728804696948757>",
@@ -27114,6 +27140,10 @@
         },
         {
           "emoji": "🇪",
+          "count": 1
+        },
+        {
+          "emoji": "✅",
           "count": 1
         }
       ],
@@ -27151,7 +27181,7 @@
       "reactions": [
         {
           "emoji": "❌",
-          "count": 71
+          "count": 73
         },
         {
           "emoji": "✅",
@@ -27199,7 +27229,7 @@
         },
         {
           "emoji": "💀",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "🌚",
@@ -27213,7 +27243,7 @@
       "name": "Welder",
       "description": "",
       "author": {
-        "name": "indefinite hiatus",
+        "name": "avery",
         "username": "r0lling_girl.",
         "avatar": "https://cdn.discordapp.com/avatars/1310975856587571260/aa82f5bb763d73380b96c941faefebb9.png?size=1024"
       },
@@ -27238,7 +27268,7 @@
         },
         {
           "emoji": "👍",
-          "count": 9
+          "count": 10
         },
         {
           "emoji": "😱",
@@ -27281,15 +27311,15 @@
       "reactions": [
         {
           "emoji": "✅",
-          "count": 10
+          "count": 11
         },
         {
           "emoji": "🔥",
-          "count": 13
+          "count": 15
         },
         {
           "emoji": "👍",
-          "count": 5
+          "count": 6
         }
       ],
       "loadstring_urls": [
@@ -27322,7 +27352,7 @@
       "reactions": [
         {
           "emoji": "❤️",
-          "count": 8
+          "count": 9
         }
       ],
       "loadstring_urls": []
@@ -27334,7 +27364,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-02-27T00:53:31.057000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476744020469481554",
@@ -27365,7 +27395,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-02-27T15:58:20.228000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476971725756563548",
@@ -27384,7 +27414,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 13
+          "count": 16
         }
       ],
       "loadstring_urls": []
@@ -27396,7 +27426,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-02-27T17:26:49.418000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476993994113286195",
@@ -27415,7 +27445,7 @@
       "reactions": [
         {
           "emoji": "❤️",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "✅",
@@ -27431,7 +27461,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-02-27T18:11:03.845000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477005127586939044",
@@ -27450,7 +27480,7 @@
       "reactions": [
         {
           "emoji": "♥️",
-          "count": 11
+          "count": 13
         }
       ],
       "loadstring_urls": []
@@ -27462,7 +27492,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-02-28T16:54:53.381000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477348345537368204",
@@ -27481,7 +27511,7 @@
       "reactions": [
         {
           "emoji": "👀",
-          "count": 3
+          "count": 4
         }
       ],
       "loadstring_urls": []
@@ -27493,7 +27523,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-03-01T12:55:59.335000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477650612056231938",
@@ -27528,7 +27558,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-03-03T01:25:15.917000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478201561493541048",
@@ -27563,7 +27593,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-03-03T20:02:01.315000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478482602502525102",
@@ -27610,7 +27640,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-03-05T02:52:37.697000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478948322843562024",
@@ -27686,7 +27716,7 @@
       "reactions": [
         {
           "emoji": "🥺",
-          "count": 29
+          "count": 31
         },
         {
           "emoji": "🍆",
@@ -27706,23 +27736,23 @@
         },
         {
           "emoji": "🇳",
-          "count": 15
-        },
-        {
-          "emoji": "🇮",
-          "count": 15
-        },
-        {
-          "emoji": "🇬",
           "count": 16
         },
         {
+          "emoji": "🇮",
+          "count": 16
+        },
+        {
+          "emoji": "🇬",
+          "count": 17
+        },
+        {
           "emoji": "🇪",
-          "count": 15
+          "count": 16
         },
         {
           "emoji": "🇷",
-          "count": 15
+          "count": 16
         },
         {
           "emoji": "<:absolutecinema:1426167661443944498>",
@@ -27743,6 +27773,10 @@
         {
           "emoji": "👍🏻",
           "count": 1
+        },
+        {
+          "emoji": "🫃",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -27754,7 +27788,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-03-13T15:56:48.420000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482044770804301845",
@@ -27785,7 +27819,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/de2f580011f2c459f6be9101a7c7ce1a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
       },
       "date": "2026-03-13T16:49:06.980000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482057934878937169",
@@ -27804,10 +27838,14 @@
       "reactions": [
         {
           "emoji": "<:freaky:1336372444100952104>",
-          "count": 8
+          "count": 9
         },
         {
           "emoji": "😭",
+          "count": 1
+        },
+        {
+          "emoji": "✅",
           "count": 1
         }
       ],
@@ -27839,7 +27877,7 @@
       "reactions": [
         {
           "emoji": "<:confused:1292538742380298240>",
-          "count": 4
+          "count": 6
         },
         {
           "emoji": "❓",
@@ -27915,6 +27953,10 @@
         {
           "emoji": "🤓",
           "count": 2
+        },
+        {
+          "emoji": "✅",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -27971,9 +28013,9 @@
       "name": "instant-prompts",
       "description": "# Instant Prompts\nAn alternative version of the command `;instantproximityprompts`, but supported on executors that doesn't have the `fireproximityprompt()` function\n## Usage:\n```md\n;instantprompts / ipp\n  - Enables the command\n;uninstantprompts / unipp\n  - Disables the command\n```\n## Installation:\nPut the `.iy` inside of your executor's workspace, and then execute this command on Infinite Yield\n```\n;plugin instant-prompts\n```",
       "author": {
-        "name": "crine",
+        "name": "Dazy",
         "username": "dazy0349",
-        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/24d95ba39f58190ca47fc4a21b7801b5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/397785305118be747de8001db11fe280.png?size=1024"
       },
       "date": "2026-04-01T12:54:16.861000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1488884206082851048",
@@ -27987,7 +28029,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=69ef5c78&is=69ee0af8&hm=459ef9ba056c110b590281905927dfd2bde2d2172b2ed5df7abe8bd7df75d5e9&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a1b86b8&is=6a1a3538&hm=8f7ec868e43dfd8245027e822abe8a6c0f3dfdf0500f7a0342f18e7df32925d6&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -28001,43 +28043,43 @@
       "reactions": [
         {
           "emoji": "<:bluecheer:1228924688105734257>",
-          "count": 15
+          "count": 16
         },
         {
           "emoji": "<:scam:1402528041200255016>",
-          "count": 5
-        },
-        {
-          "emoji": "<:eyespoppingout:1417949633648263172>",
-          "count": 4
-        },
-        {
-          "emoji": "❤️",
           "count": 6
         },
         {
+          "emoji": "<:eyespoppingout:1417949633648263172>",
+          "count": 5
+        },
+        {
+          "emoji": "❤️",
+          "count": 7
+        },
+        {
           "emoji": "🤔",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🔥",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇳",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🇺",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🇹",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "<:milk:519734768892510212>",
-          "count": 4
+          "count": 6
         }
       ],
       "loadstring_urls": []
@@ -28047,9 +28089,9 @@
       "name": "Speedometer",
       "description": "speedometer that tracks your speed in studs per second. rightalt to hide, rightclick to reset position idk if rightctrl for close works https://medal.tv/games/roblox/clips/mqMFjvniiVzmZhLtQ?invite=cr-MSw2cE0sNDA4OTMwNzYy&v=5",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/4c634c43198960c17ff359bbb0528d74.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
       },
       "date": "2026-04-02T20:16:01.790000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1489357763678310441",
@@ -28159,11 +28201,11 @@
         },
         {
           "emoji": "🔥",
-          "count": 14
+          "count": 17
         },
         {
           "emoji": "<:wut:1030162857968549909>",
-          "count": 3
+          "count": 4
         }
       ],
       "loadstring_urls": [
@@ -28177,7 +28219,7 @@
       "author": {
         "name": "Lemonnn",
         "username": ".lemonnn",
-        "avatar": "https://cdn.discordapp.com/avatars/500006712926011413/5d2488ea9bcd74862f9544e7cf5cf7fc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/500006712926011413/8dbcab2dbcc298b2702e2a51ae19258b.png?size=1024"
       },
       "date": "2026-04-05T19:03:06.755000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1490426577048047736",
@@ -28205,7 +28247,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 13
+          "count": 15
         },
         {
           "emoji": "🇳🇮",
@@ -28213,7 +28255,7 @@
         },
         {
           "emoji": "🫃",
-          "count": 3
+          "count": 2
         },
         {
           "emoji": "🇮🇱",
@@ -28221,7 +28263,7 @@
         },
         {
           "emoji": "❌",
-          "count": 5
+          "count": 6
         },
         {
           "emoji": "🖕",
@@ -28264,7 +28306,7 @@
       "reactions": [
         {
           "emoji": "🏳️‍⚧️",
-          "count": 5
+          "count": 7
         }
       ],
       "loadstring_urls": []
@@ -28321,19 +28363,19 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 17
+          "count": 21
         },
         {
           "emoji": "🇰",
-          "count": 8
+          "count": 11
         },
         {
           "emoji": "🇾",
-          "count": 8
+          "count": 11
         },
         {
           "emoji": "🇸",
-          "count": 11
+          "count": 14
         },
         {
           "emoji": "💀",
@@ -28345,7 +28387,7 @@
         },
         {
           "emoji": "🛫",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "⏸️",
@@ -28365,9 +28407,9 @@
       "name": "aimbot",
       "description": "a port of **exuny's** aimbot v1, not mine (yes it works. atleast for xeno) ||https://medal.tv/games/roblox/clips/mtnoJ1Zj5_OUjDVlZ?invite=cr-MSxHNzUsNDA4OTMwNzYy&v=12|| IGNORE THE 1'S U CAN TYPE IT LIKE NORMAL IDK HOW THAT HAPPENED",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/4c634c43198960c17ff359bbb0528d74.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
       },
       "date": "2026-04-09T03:25:43.613000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1491640227675115601",
@@ -28432,7 +28474,7 @@
         },
         {
           "emoji": "✅",
-          "count": 3
+          "count": 2
         }
       ],
       "loadstring_urls": [
@@ -28465,7 +28507,7 @@
       "reactions": [
         {
           "emoji": "🏳️‍⚧️",
-          "count": 3
+          "count": 5
         }
       ],
       "loadstring_urls": []
@@ -28496,10 +28538,14 @@
       "reactions": [
         {
           "emoji": "🏳️‍⚧️",
-          "count": 6
+          "count": 10
         },
         {
           "emoji": "❤️",
+          "count": 2
+        },
+        {
+          "emoji": "🇮🇱",
           "count": 1
         }
       ],
@@ -28537,27 +28583,27 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 6
+          "count": 10
         },
         {
           "emoji": "💯",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🅿️",
-          "count": 3
+          "count": 5
         },
         {
           "emoji": "🇪",
-          "count": 3
+          "count": 5
         },
         {
           "emoji": "🅰️",
-          "count": 3
+          "count": 6
         },
         {
           "emoji": "🇰",
-          "count": 3
+          "count": 5
         },
         {
           "emoji": "🗣️",
@@ -28565,6 +28611,10 @@
         },
         {
           "emoji": "😭",
+          "count": 3
+        },
+        {
+          "emoji": "❤️",
           "count": 2
         }
       ],
@@ -28598,56 +28648,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 7
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1493656875311431933",
-      "name": "raknet_desync",
-      "description": "# RakNet Desync\n\n- Desyncs you from the server by sending a modified RakNet packet. Makes you invisible to other players and prevents you from taking damage. You can still interact with the world and other players, but they won't see you.\n\nUsage:\n```\nrdesync / raknetdesync\n- Desyncs your character from the server\n```\n\n```\nrresync / raknetresync\n- Resyncs your character with the server\n```\n\n```\nssp / showserverposition\n- Toggles the ghost character that shows your server position while desynced\n```\n\n**Your executor must have RakNet library in order to work**\n\n**Recommended Executors: Delta, Madium, Potassium, Cosmic, Volt, Synapse Z, and MacSploit**\n\n**WARNING: Please be mindful when using this. I will not be responsible if your account gets banned. Always use an alt account. Also, I doubt RakNet is detected—I’ve been using it for 7 days now—but still, please use an alt.**",
-      "author": {
-        "name": "lxcie",
-        "username": "lec1e",
-        "avatar": "https://cdn.discordapp.com/avatars/1291958758670602403/d13006b27178814573c0a5d104277b47.png?size=1024"
-      },
-      "date": "2026-04-14T16:59:09.877000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493656875311431933",
-      "files": [
-        {
-          "filename": "raknet_desync.iy",
-          "url": "plugins/1493656875311431933/raknet_desync.iy",
-          "size": 9377,
-          "is_plugin": true,
-          "code": "local S = {\n\tWorkspace = cloneref(game:GetService(\"Workspace\")),\n\tRunService = cloneref(game:GetService(\"RunService\")),\n\tCoreGui = cloneref(game:GetService(\"CoreGui\")),\n\tPlayers = cloneref(game:GetService(\"Players\")),\n}\n\nlocal ME = S.Players.LocalPlayer\nlocal Char = ME.Character or ME.CharacterAdded:Wait()\n\nlocal raknet_desync = {\n\tshowServerPosition = true,\n\tghostActive = false,\n\tghostModel = nil,\n}\n\nfunction raknet_desync.createGhostCharacter()\n\tif raknet_desync.ghostModel then\n\t\traknet_desync.ghostModel:Destroy()\n\tend\n\n\tlocal realChar = Char\n\tif not realChar then\n\t\treturn\n\tend\n\n\traknet_desync.ghostActive = true\n\n\traknet_desync.ghostModel = Instance.new(\"Model\")\n\traknet_desync.ghostModel.Name = \"DesyncGhost\"\n\traknet_desync.ghostModel.Parent = S.Workspace\n\n\tlocal distanceBillboard = nil\n\tlocal ghostRootPart = nil\n\tlocal adornments = {}\n\n\tfor _, part in ipairs(realChar:GetChildren()) do\n\t\tif part:IsA(\"BasePart\") and part.Name ~= \"HumanoidRootPart\" and part.Transparency < 1 then\n\t\t\tlocal clone = Instance.new(\"Part\")\n\t\t\tclone.Name = part.Name\n\t\t\tclone.Size = part.Size\n\t\t\tclone.CFrame = part.CFrame\n\t\t\tclone.Anchored = true\n\t\t\tclone.CanCollide = false\n\t\t\tclone.CastShadow = false\n\t\t\tclone.Transparency = 1\n\t\t\tclone.Parent = raknet_desync.ghostModel\n\n\t\t\tlocal glowColor = Color3.fromRGB(0, 180, 255)\n\n\t\t\tlocal glowAdorn = Instance.new(\"BoxHandleAdornment\", S.CoreGui)\n\t\t\tglowAdorn.Size = clone.Size + Vector3.new(0.05, 0.05, 0.05)\n\t\t\tglowAdorn.AlwaysOnTop = true\n\t\t\tglowAdorn.ZIndex = 9\n\t\t\tglowAdorn.Adornee = clone\n\t\t\tglowAdorn.Color3 = glowColor\n\t\t\tglowAdorn.Transparency = 0.4\n\t\t\ttable.insert(adornments, glowAdorn)\n\n\t\t\tlocal fillAdorn = Instance.new(\"BoxHandleAdornment\", S.CoreGui)\n\t\t\tfillAdorn.Size = clone.Size\n\t\t\tfillAdorn.AlwaysOnTop = true\n\t\t\tfillAdorn.ZIndex = 10\n\t\t\tfillAdorn.Adornee = clone\n\t\t\tfillAdorn.Color3 = glowColor\n\t\t\tfillAdorn.Transparency = 0.5\n\t\t\ttable.insert(adornments, fillAdorn)\n\n\t\t\tif part.Name == \"UpperTorso\" or part.Name == \"Torso\" then\n\t\t\t\tghostRootPart = clone\n\n\t\t\t\tlocal billboard = Instance.new(\"BillboardGui\")\n\t\t\t\tbillboard.Name = \"DesyncDistLabel\"\n\t\t\t\tbillboard.Size = UDim2.new(0, 120, 0, 36)\n\t\t\t\tbillboard.StudsOffset = Vector3.new(0, 3.5, 0)\n\t\t\t\tbillboard.AlwaysOnTop = true\n\t\t\t\tbillboard.LightInfluence = 0\n\t\t\t\tbillboard.MaxDistance = 2000\n\t\t\t\tbillboard.Adornee = clone\n\t\t\t\tbillboard.Enabled = false\n\t\t\t\tbillboard.Parent = clone\n\n\t\t\t\tlocal frame = Instance.new(\"Frame\")\n\t\t\t\tframe.Size = UDim2.fromScale(1, 1)\n\t\t\t\tframe.BackgroundColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\tframe.BackgroundTransparency = 0.3\n\t\t\t\tframe.BorderSizePixel = 0\n\t\t\t\tframe.Parent = billboard\n\n\t\t\t\tlocal corner = Instance.new(\"UICorner\")\n\t\t\t\tcorner.CornerRadius = UDim.new(0, 7)\n\t\t\t\tcorner.Parent = frame\n\n\t\t\t\tlocal stroke = Instance.new(\"UIStroke\")\n\t\t\t\tstroke.Color = Color3.fromRGB(0, 180, 255)\n\t\t\t\tstroke.Thickness = 1.5\n\t\t\t\tstroke.Transparency = 0.1\n\t\t\t\tstroke.Parent = frame\n\n\t\t\t\tlocal dot = Instance.new(\"Frame\")\n\t\t\t\tdot.Size = UDim2.new(0, 7, 0, 7)\n\t\t\t\tdot.Position = UDim2.new(0, 8, 0.5, -3)\n\t\t\t\tdot.BackgroundColor3 = Color3.fromRGB(0, 180, 255)\n\t\t\t\tdot.BorderSizePixel = 0\n\t\t\t\tdot.Parent = frame\n\t\t\t\tInstance.new(\"UICorner\", dot).CornerRadius = UDim.new(1, 0)\n\n\t\t\t\tlocal label = Instance.new(\"TextLabel\")\n\t\t\t\tlabel.Name = \"DistText\"\n\t\t\t\tlabel.Size = UDim2.new(1, -22, 1, 0)\n\t\t\t\tlabel.Position = UDim2.new(0, 22, 0, 0)\n\t\t\t\tlabel.BackgroundTransparency = 1\n\t\t\t\tlabel.Text = \"Server ⊙ 0.0m\"\n\t\t\t\tlabel.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\tlabel.TextSize = 13\n\t\t\t\tlabel.Font = Enum.Font.GothamMedium\n\t\t\t\tlabel.TextXAlignment = Enum.TextXAlignment.Left\n\t\t\t\tlabel.Parent = frame\n\n\t\t\t\tdistanceBillboard = billboard\n\t\t\tend\n\t\tend\n\tend\n\n\tif not (distanceBillboard and ghostRootPart) then\n\t\treturn\n\tend\n\n\tlocal tracerPart = Instance.new(\"Part\")\n\ttracerPart.Name = \"DesyncTracer\"\n\ttracerPart.Anchored = true\n\ttracerPart.CanCollide = false\n\ttracerPart.CastShadow = false\n\ttracerPart.Transparency = 1\n\ttracerPart.Size = Vector3.new(0.05, 0.05, 1)\n\ttracerPart.Parent = S.Workspace\n\n\tlocal tracerCylinder = Instance.new(\"CylinderHandleAdornment\")\n\ttracerCylinder.Radius = 0.04\n\ttracerCylinder.Height = 1\n\ttracerCylinder.Color3 = Color3.fromRGB(0, 180, 255)\n\ttracerCylinder.Transparency = 0.55\n\ttracerCylinder.AlwaysOnTop = true\n\ttracerCylinder.ZIndex = 8\n\ttracerCylinder.Adornee = tracerPart\n\ttracerCylinder.Parent = S.CoreGui\n\n\tlocal tracerDash = Instance.new(\"CylinderHandleAdornment\")\n\ttracerDash.Radius = 0.04\n\ttracerDash.Height = 1\n\ttracerDash.Color3 = Color3.fromRGB(180, 230, 255)\n\ttracerDash.Transparency = 0.75\n\ttracerDash.AlwaysOnTop = true\n\ttracerDash.ZIndex = 9\n\ttracerDash.Adornee = tracerPart\n\ttracerDash.Parent = S.CoreGui\n\n\tlocal camera = S.Workspace.CurrentCamera\n\tlocal distLabel = distanceBillboard.Frame:FindFirstChild(\"DistText\")\n\tlocal lastVisible = nil\n\tlocal VEC_UP = Vector3.new(0, 1, 0)\n\n\tlocal connection\n\tconnection = S.RunService.Heartbeat:Connect(function()\n\t\tif not raknet_desync.ghostActive then\n\t\t\tconnection:Disconnect()\n\t\t\ttracerCylinder:Destroy()\n\t\t\ttracerDash:Destroy()\n\t\t\ttracerPart:Destroy()\n\t\t\treturn\n\t\tend\n\n\t\tlocal localRoot = realChar:FindFirstChild(\"HumanoidRootPart\")\n\t\tif not localRoot then\n\t\t\treturn\n\t\tend\n\n\t\tlocal camCF = camera.CFrame\n\t\tlocal ghostPos = ghostRootPart.Position\n\t\tlocal localPos = localRoot.Position\n\n\t\tlocal toGhost = (ghostPos - camCF.Position).Unit\n\t\tlocal isVisible = camCF.LookVector:Dot(toGhost) > 0.3\n\n\t\tif isVisible ~= lastVisible then\n\t\t\tlastVisible = isVisible\n\t\t\tdistanceBillboard.Enabled = isVisible\n\t\t\tlocal glowT = isVisible and 0.4 or 1\n\t\t\tlocal fillT = isVisible and 0.5 or 1\n\t\t\tfor i, adorn in ipairs(adornments) do\n\t\t\t\tadorn.Transparency = (i % 2 == 1) and glowT or fillT\n\t\t\tend\n\t\t\ttracerCylinder.Transparency = isVisible and 0.55 or 1\n\t\t\ttracerDash.Transparency = isVisible and 0.75 or 1\n\t\tend\n\n\t\tif not isVisible then\n\t\t\treturn\n\t\tend\n\n\t\tlocal dist = (ghostPos - localPos).Magnitude\n\t\tdistLabel.Text = string.format(\"Server ⊙ %.1fm\", dist)\n\n\t\tlocal fromPos = localPos\n\t\tlocal toPos = ghostPos\n\t\tlocal mid = (fromPos + toPos) / 2\n\t\tlocal length = (toPos - fromPos).Magnitude\n\t\tlocal direction = (toPos - fromPos).Unit\n\n\t\tlocal right = VEC_UP:Cross(direction)\n\t\tif right.Magnitude < 0.001 then\n\t\t\tright = Vector3.new(1, 0, 0)\n\t\telse\n\t\t\tright = right.Unit\n\t\tend\n\t\tlocal up = direction:Cross(right).Unit\n\n\t\ttracerPart.CFrame = CFrame.fromMatrix(mid, right, up, -direction)\n\t\ttracerPart.Size = Vector3.new(0.05, 0.05, length)\n\t\ttracerCylinder.Height = length\n\t\ttracerDash.Height = length\n\n\t\tlocal t = tick() % 1\n\t\ttracerDash.Transparency = 0.55 + 0.35 * math.abs(math.sin(t * math.pi * 4))\n\tend)\nend\n\nfunction raknet_desync.destroyGhost()\n\tif raknet_desync.ghostModel then\n\t\traknet_desync.ghostActive = false\n\t\traknet_desync.ghostModel:Destroy()\n\t\traknet_desync.ghostModel = nil\n\tend\nend\n\nfunction raknet_desync.rakhook(packet)\n\tif packet.PacketId == 0x1B then\n\t\tlocal buf = packet.AsBuffer\n\t\tbuffer.writeu32(buf, 1, 0xFFFFFFFF)\n\t\tpacket:SetData(buf)\n\tend\nend\n\nif not raknet then\n\treturn notify(\"Raknet Desync:\", \"Your executor does not support RakNet library, which are required for this plugin to work.\")\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"raknet desync\",\n\t[\"PluginDescription\"] = \"Desyncs you from the server by sending a modified RakNet packet. Makes you invisible to other players and prevents you from taking damage. You can still interact with the world and other players, but they won't see you.\",\n\t[\"Commands\"] = {\n\t\t[\"rdesync\"] = {\n\t\t\t[\"ListName\"] = \"rdesync / raknetdesync\",\n\t\t\t[\"Description\"] = \"Desyncs your character from the server\",\n\t\t\t[\"Aliases\"] = { \"raknetdesync\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif raknet and raknet.add_send_hook then\n\t\t\t\t\traknet.add_send_hook(raknet_desync.rakhook)\n\t\t\t\telseif raknet and raknet.desync then\n\t\t\t\t\traknet.desync(true)\n\t\t\t\tend\n\t\t\t\tif raknet_desync.showServerPosition then\n\t\t\t\t\traknet_desync.createGhostCharacter()\n\t\t\t\tend\n\t\t\t\tnotify(\"Raknet Desync:\", \"Your character is now desynced from the server.\")\n\t\t\tend,\n\t\t},\n\t\t[\"rresync\"] = {\n\t\t\t[\"ListName\"] = \"rresync / raknetresync\",\n\t\t\t[\"Description\"] = \"Resyncs your character with the server\",\n\t\t\t[\"Aliases\"] = { \"raknetresync\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif raknet and raknet.remove_send_hook then\n\t\t\t\t\traknet.remove_send_hook(raknet_desync.rakhook)\n\t\t\t\telseif raknet and raknet.desync then\n\t\t\t\t\traknet.desync(false)\n\t\t\t\tend\n\t\t\t\traknet_desync.destroyGhost()\n\t\t\t\tnotify(\"Raknet Desync:\", \"Your character is now resynced with the server.\")\n\t\t\tend,\n\t\t},\n\t\t[\"ssp\"] = {\n\t\t\t[\"ListName\"] = \"ssp / showserverposition\",\n\t\t\t[\"Description\"] = \"Toggles the ghost character that shows your server position while desynced\",\n\t\t\t[\"Aliases\"] = { \"showserverposition\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\traknet_desync.showServerPosition = not raknet_desync.showServerPosition\n\t\t\t\tif raknet_desync.showServerPosition then\n\t\t\t\t\tnotify(\"Raknet Desync:\", \"Server position ghost enabled.\")\n\t\t\t\telse\n\t\t\t\t\tnotify(\"Raknet Desync:\", \"Server position ghost disabled.\")\n\t\t\t\t\traknet_desync.destroyGhost()\n\t\t\t\tend\n\t\t\tend,\n\t\t},\n\t},\n}\n\nreturn Plugin\n"
-        },
-        {
-          "filename": "Desktop_2026.04.14_-_11.55.39.05.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1493656873398964416/Desktop_2026.04.14_-_11.55.39.05.mp4?ex=69ef95dd&is=69ee445d&hm=64004d875ce6d6ff565b86e9596682d988212070c4f8ff09d9d983246b8b289b&",
-          "size": 37640361,
-          "is_plugin": false
-        }
-      ],
-      "code_blocks": [
-        "rdesync / raknetdesync\n- Desyncs your character from the server",
-        "rresync / raknetresync\n- Resyncs your character with the server",
-        "ssp / showserverposition\n- Toggles the ghost character that shows your server position while desynced"
-      ],
-      "links": [],
-      "embeds": [],
-      "reactions": [
-        {
-          "emoji": "🔥",
           "count": 9
-        },
-        {
-          "emoji": "<:BOOYAH:1434401767751422023>",
-          "count": 4
-        },
-        {
-          "emoji": "✅",
-          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -28657,9 +28658,9 @@
       "name": "Speedometer2",
       "description": "# Updated the speedometer to (i think) work for mobile, but i cant brainstorm a way reset to original position quickly.\nno resizing cuz like I'd rather not try that shit...... also i made some minor changes to where you can close it\nplease tell me if this doesn't work mobile users\n||typing pneumonoultramicroscopicsilicovolcanoconiosis can exit the speedometer if you really want that|| \n||https://medal.tv/games/roblox/clips/mvJjirmVFMajMJ_vR?invite=cr-MSxseGIsNDA4OTMwNzYy||",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/4c634c43198960c17ff359bbb0528d74.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
       },
       "date": "2026-04-14T22:27:29.974000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493739503507210392",
@@ -28708,11 +28709,39 @@
         },
         {
           "emoji": "✅",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "❤️",
+          "count": 3
+        },
+        {
+          "emoji": "🔥",
           "count": 1
+        },
+        {
+          "emoji": "7️⃣",
+          "count": 2
+        },
+        {
+          "emoji": "🇼",
+          "count": 2
+        },
+        {
+          "emoji": "🇴",
+          "count": 2
+        },
+        {
+          "emoji": "🇷",
+          "count": 2
+        },
+        {
+          "emoji": "🇩",
+          "count": 2
+        },
+        {
+          "emoji": "🇸",
+          "count": 2
         }
       ],
       "loadstring_urls": []
@@ -28722,9 +28751,9 @@
       "name": "wfcp",
       "description": "i lowk uploaded a diff version and i didnt realize i think this one is the right one",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/4c634c43198960c17ff359bbb0528d74.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
       },
       "date": "2026-04-15T21:49:42.799000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494092382151643207",
@@ -28795,11 +28824,11 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 6
+          "count": 12
         },
         {
           "emoji": "😭",
-          "count": 1
+          "count": 3
         }
       ],
       "loadstring_urls": []
@@ -28831,65 +28860,13 @@
       "loadstring_urls": []
     },
     {
-      "id": "1494429733063233678",
-      "name": "raknet_desync",
-      "description": "# RakNet Desync\n\n- Desyncs you from the server by sending a modified RakNet packet. Makes you invisible to other players and prevents you from taking damage. You can still interact with the world and other players, but they won't see you.\n\nUsage:\n```\nrdesync / raknetdesync\n- Desyncs your character from the server\n```\n\n```\nrresync / raknetresync\n- Resyncs your character with the server\n```\n\n```\nssp / showserverposition\n- Toggles the ghost character that shows your server position while desynced\n```\n\n```\nspc / serverpositioncolor\n- Change color of the ghost character server position R G B\n```\n\n**Your executor must have RakNet library in order to work**\n\n**Recommended Executors: Delta, Madium, YUB X, Potassium, Seliware, Cosmic, Volt, Synapse Z, and MacSploit**\n\n**I’ve come to the conclusion that Roblox may be cracking down on anyone using RakNet, and it could be detected. Please be cautious when using it on accounts that are important to you. I’m not taking responsibility for any consequences, since you are choosing to use it. Always use an alt account when using anything related to RakNet.**",
-      "author": {
-        "name": "lxcie",
-        "username": "lec1e",
-        "avatar": "https://cdn.discordapp.com/avatars/1291958758670602403/d13006b27178814573c0a5d104277b47.png?size=1024"
-      },
-      "date": "2026-04-16T20:10:13.524000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494429733063233678",
-      "files": [
-        {
-          "filename": "raknet_desync.iy",
-          "url": "plugins/1494429733063233678/raknet_desync.iy",
-          "size": 11859,
-          "is_plugin": true,
-          "code": "local S = {\n\tWorkspace = cloneref(game:GetService(\"Workspace\")),\n\tRunService = cloneref(game:GetService(\"RunService\")),\n\tCoreGui = cloneref(game:GetService(\"CoreGui\")),\n\tPlayers = cloneref(game:GetService(\"Players\")),\n}\n\nlocal ME = S.Players.LocalPlayer\nlocal Char = ME.Character\n\nlocal raknet_desync = {\n\tshowServerPosition = true,\n\tghostActive = false,\n\tghostModel = nil,\n\tDesyncAdornment = nil,\n\tglowColor = Color3.fromRGB(0, 200, 255),\n\touterColor = Color3.fromRGB(120, 230, 255),\n}\n\nraknet_desync.DesyncAdornment = Instance.new(\"Folder\")\nraknet_desync.DesyncAdornment.Parent = S.CoreGui\n\nfunction raknet_desync.clearDesyncAdornments()\n\tfor _, child in ipairs(raknet_desync.DesyncAdornment:GetChildren()) do\n\t\tchild:Destroy()\n\tend\nend\n\nfunction raknet_desync.createGhostCharacter()\n\tif raknet_desync.ghostModel then\n\t\traknet_desync.ghostActive = false\n\t\traknet_desync.ghostModel:Destroy()\n\t\traknet_desync.ghostModel = nil\n\tend\n\n\traknet_desync.clearDesyncAdornments()\n\n\tlocal realChar = Char\n\tif not realChar then\n\t\treturn\n\tend\n\n\traknet_desync.ghostActive = true\n\n\traknet_desync.ghostModel = Instance.new(\"Model\", S.Workspace)\n\traknet_desync.ghostModel.Name = \"DesyncGhost\"\n\n\tlocal distanceBillboard = nil\n\tlocal ghostRootPart = nil\n\tlocal adornments = {}\n\n\tlocal partClones = {}\n\n\tlocal layers = {\n\t\t{ offset = Vector3.new(0, 0, 0), transparency = 0.15, color = raknet_desync.glowColor, zIndex = 11 },\n\t\t{ offset = Vector3.new(0.08, 0.08, 0.08), transparency = 0.38, color = raknet_desync.glowColor, zIndex = 10 },\n\t\t{ offset = Vector3.new(0.18, 0.18, 0.18), transparency = 0.60, color = raknet_desync.glowColor, zIndex = 9 },\n\t\t{ offset = Vector3.new(0.35, 0.35, 0.35), transparency = 0.80, color = raknet_desync.outerColor, zIndex = 8 },\n\t}\n\n\tfor _, part in ipairs(realChar:GetChildren()) do\n\t\tif part:IsA(\"BasePart\") and part.Name ~= \"HumanoidRootPart\" and part.Transparency < 1 then\n\t\t\tlocal clone = Instance.new(\"Part\", raknet_desync.ghostModel)\n\t\t\tclone.Name = part.Name\n\t\t\tclone.Size = part.Size\n\t\t\tclone.CFrame = part.CFrame\n\t\t\tclone.Anchored = true\n\t\t\tclone.CanCollide = false\n\t\t\tclone.CastShadow = false\n\t\t\tclone.Transparency = 1\n\n\t\t\tpartClones[part.Name] = clone\n\n\t\t\tfor _, layer in ipairs(layers) do\n\t\t\t\tlocal adorn = Instance.new(\"BoxHandleAdornment\", raknet_desync.DesyncAdornment)\n\t\t\t\tadorn.Size = clone.Size + layer.offset\n\t\t\t\tadorn.AlwaysOnTop = true\n\t\t\t\tadorn.ZIndex = layer.zIndex\n\t\t\t\tadorn.Adornee = clone\n\t\t\t\tadorn.Color3 = layer.color\n\t\t\t\tadorn.Transparency = layer.transparency\n\t\t\t\ttable.insert(adornments, { adorn = adorn, baseT = layer.transparency })\n\t\t\tend\n\n\t\t\tif part.Name == \"UpperTorso\" or part.Name == \"Torso\" then\n\t\t\t\tghostRootPart = clone\n\n\t\t\t\tlocal billboard = Instance.new(\"BillboardGui\", raknet_desync.DesyncAdornment)\n\t\t\t\tbillboard.Name = \"DesyncDistLabel\"\n\t\t\t\tbillboard.Size = UDim2.new(0, 120, 0, 36)\n\t\t\t\tbillboard.StudsOffset = Vector3.new(0, 3.5, 0)\n\t\t\t\tbillboard.AlwaysOnTop = true\n\t\t\t\tbillboard.LightInfluence = 0\n\t\t\t\tbillboard.MaxDistance = 2000\n\t\t\t\tbillboard.Adornee = clone\n\t\t\t\tbillboard.Enabled = false\n\n\t\t\t\tlocal frame = Instance.new(\"Frame\", billboard)\n\t\t\t\tframe.Size = UDim2.fromScale(1, 1)\n\t\t\t\tframe.BackgroundColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\tframe.BackgroundTransparency = 0.3\n\t\t\t\tframe.BorderSizePixel = 0\n\n\t\t\t\tlocal corner = Instance.new(\"UICorner\", frame)\n\t\t\t\tcorner.CornerRadius = UDim.new(0, 7)\n\n\t\t\t\tlocal stroke = Instance.new(\"UIStroke\", frame)\n\t\t\t\tstroke.Color = raknet_desync.glowColor\n\t\t\t\tstroke.Thickness = 1.5\n\t\t\t\tstroke.Transparency = 0.1\n\n\t\t\t\tlocal dot = Instance.new(\"Frame\", frame)\n\t\t\t\tdot.Size = UDim2.new(0, 7, 0, 7)\n\t\t\t\tdot.Position = UDim2.new(0, 8, 0.5, -3)\n\t\t\t\tdot.BackgroundColor3 = raknet_desync.glowColor\n\t\t\t\tdot.BorderSizePixel = 0\n\t\t\t\tInstance.new(\"UICorner\", dot).CornerRadius = UDim.new(1, 0)\n\n\t\t\t\tlocal label = Instance.new(\"TextLabel\", frame)\n\t\t\t\tlabel.Name = \"DistText\"\n\t\t\t\tlabel.Size = UDim2.new(1, -22, 1, 0)\n\t\t\t\tlabel.Position = UDim2.new(0, 22, 0, 0)\n\t\t\t\tlabel.BackgroundTransparency = 1\n\t\t\t\tlabel.Text = \"Server ⊙ 0.0m\"\n\t\t\t\tlabel.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\tlabel.TextSize = 13\n\t\t\t\tlabel.Font = Enum.Font.GothamMedium\n\t\t\t\tlabel.TextXAlignment = Enum.TextXAlignment.Left\n\n\t\t\t\tdistanceBillboard = billboard\n\t\t\tend\n\t\tend\n\tend\n\n\tif not (distanceBillboard and ghostRootPart) then\n\t\traknet_desync.ghostActive = false\n\t\traknet_desync.ghostModel:Destroy()\n\t\traknet_desync.ghostModel = nil\n\t\traknet_desync.clearDesyncAdornments()\n\t\treturn\n\tend\n\n\tlocal tracerPart = Instance.new(\"Part\", raknet_desync.ghostModel)\n\ttracerPart.Name = \"DesyncTracer\"\n\ttracerPart.Anchored = true\n\ttracerPart.CanCollide = false\n\ttracerPart.CastShadow = false\n\ttracerPart.Transparency = 1\n\ttracerPart.Size = Vector3.new(0.05, 0.05, 1)\n\n\tlocal tracerCylinder = Instance.new(\"CylinderHandleAdornment\", raknet_desync.DesyncAdornment)\n\ttracerCylinder.Radius = 0.04\n\ttracerCylinder.Height = 1\n\ttracerCylinder.Color3 = raknet_desync.glowColor\n\ttracerCylinder.Transparency = 0.55\n\ttracerCylinder.AlwaysOnTop = true\n\ttracerCylinder.ZIndex = 8\n\ttracerCylinder.Adornee = tracerPart\n\n\tlocal tracerDash = Instance.new(\"CylinderHandleAdornment\", raknet_desync.DesyncAdornment)\n\ttracerDash.Radius = 0.04\n\ttracerDash.Height = 1\n\ttracerDash.Color3 = raknet_desync.outerColor\n\ttracerDash.Transparency = 0.75\n\ttracerDash.AlwaysOnTop = true\n\ttracerDash.ZIndex = 9\n\ttracerDash.Adornee = tracerPart\n\n\tlocal tracerGlowMid = Instance.new(\"CylinderHandleAdornment\", raknet_desync.DesyncAdornment)\n\ttracerGlowMid.Radius = 0.09\n\ttracerGlowMid.Height = 1\n\ttracerGlowMid.Color3 = raknet_desync.glowColor\n\ttracerGlowMid.Transparency = 0.65\n\ttracerGlowMid.AlwaysOnTop = true\n\ttracerGlowMid.ZIndex = 7\n\ttracerGlowMid.Adornee = tracerPart\n\n\tlocal tracerGlowOuter = Instance.new(\"CylinderHandleAdornment\", raknet_desync.DesyncAdornment)\n\ttracerGlowOuter.Radius = 0.18\n\ttracerGlowOuter.Height = 1\n\ttracerGlowOuter.Color3 = raknet_desync.outerColor\n\ttracerGlowOuter.Transparency = 0.82\n\ttracerGlowOuter.AlwaysOnTop = true\n\ttracerGlowOuter.ZIndex = 6\n\ttracerGlowOuter.Adornee = tracerPart\n\n\tlocal camera = S.Workspace.CurrentCamera\n\tlocal distLabel = distanceBillboard.Frame:FindFirstChild(\"DistText\")\n\tlocal lastVisible = nil\n\tlocal VEC_UP = Vector3.new(0, 1, 0)\n\n\tlocal connection\n\tconnection = S.RunService.Heartbeat:Connect(function()\n\t\tif not raknet_desync.ghostActive then\n\t\t\tconnection:Disconnect()\n\t\t\traknet_desync.clearDesyncAdornments()\n\t\t\treturn\n\t\tend\n\n\t\tlocal localRoot = realChar:FindFirstChild(\"HumanoidRootPart\")\n\t\tif not localRoot then\n\t\t\treturn\n\t\tend\n\n\t\tlocal camCF = camera.CFrame\n\t\tlocal ghostPos = ghostRootPart.Position\n\t\tlocal localPos = localRoot.Position\n\n\t\tlocal toGhost = (ghostPos - camCF.Position).Unit\n\t\tlocal isVisible = camCF.LookVector:Dot(toGhost) > 0.3\n\n\t\tif isVisible ~= lastVisible then\n\t\t\tlastVisible = isVisible\n\t\t\tdistanceBillboard.Enabled = isVisible\n\t\t\tfor _, entry in ipairs(adornments) do\n\t\t\t\tentry.adorn.Transparency = isVisible and entry.baseT or 1\n\t\t\tend\n\t\t\ttracerCylinder.Transparency = isVisible and 0.55 or 1\n\t\t\ttracerDash.Transparency = isVisible and 0.75 or 1\n\t\t\ttracerGlowMid.Transparency = isVisible and 0.65 or 1\n\t\t\ttracerGlowOuter.Transparency = isVisible and 0.82 or 1\n\t\tend\n\n\t\tif not isVisible then\n\t\t\treturn\n\t\tend\n\n\t\tlocal pulse = 0.5 + 0.5 * math.sin(tick() * 4)\n\t\tlocal pulseAmt = { 0.08, 0.12, 0.15, 0.10 }\n\t\tfor i, entry in ipairs(adornments) do\n\t\t\tlocal layerIdx = ((i - 1) % 4) + 1\n\t\t\tentry.adorn.Transparency = entry.baseT - pulseAmt[layerIdx] * pulse\n\t\tend\n\n\t\tlocal dist = (ghostPos - localPos).Magnitude\n\t\tdistLabel.Text = string.format(\"Server ⊙ %.1fm\", dist)\n\n\t\tlocal fromPos = localPos\n\t\tlocal toPos = ghostPos\n\t\tlocal mid = (fromPos + toPos) / 2\n\t\tlocal length = (toPos - fromPos).Magnitude\n\t\tlocal direction = (toPos - fromPos).Unit\n\n\t\tlocal right = VEC_UP:Cross(direction)\n\t\tif right.Magnitude < 0.001 then\n\t\t\tright = Vector3.new(1, 0, 0)\n\t\telse\n\t\t\tright = right.Unit\n\t\tend\n\t\tlocal up = direction:Cross(right).Unit\n\n\t\ttracerPart.CFrame = CFrame.fromMatrix(mid, right, up, -direction)\n\t\ttracerPart.Size = Vector3.new(0.05, 0.05, length)\n\t\ttracerCylinder.Height = length\n\t\ttracerDash.Height = length\n\t\ttracerGlowMid.Height = length\n\t\ttracerGlowOuter.Height = length\n\n\t\tlocal t = tick()\n\t\tlocal pulse2 = 0.5 + 0.5 * math.sin(t * math.pi * 4)\n\t\ttracerCylinder.Transparency = 0.55 - 0.15 * pulse2\n\t\ttracerDash.Transparency = 0.60 - 0.20 * pulse2\n\t\ttracerGlowMid.Transparency = 0.65 - 0.18 * pulse2\n\t\ttracerGlowOuter.Transparency = 0.82 - 0.12 * pulse2\n\tend)\nend\n\nfunction raknet_desync.destroyGhost()\n\tif raknet_desync.ghostModel then\n\t\traknet_desync.ghostActive = false\n\t\traknet_desync.ghostModel:Destroy()\n\t\traknet_desync.ghostModel = nil\n\t\traknet_desync.clearDesyncAdornments()\n\tend\nend\n\nfunction raknet_desync.rakhook(packet)\n\tif packet.PacketId == 0x1B then\n\t\tlocal buf = packet.AsBuffer\n\t\tbuffer.writeu32(buf, 1, 0xFFFFFFFF)\n\t\tpacket:SetData(buf)\n\tend\nend\n\nif not raknet then\n\treturn notify(\"Raknet Desync\", \"Your executor does not support RakNet library, which are required for this plugin to work.\")\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"raknet desync\",\n\t[\"PluginDescription\"] = \"Desyncs you from the server by sending a modified RakNet packet. Makes you invisible to other players and prevents you from taking damage. You can still interact with the world and other players, but they won't see you.\",\n\t[\"Commands\"] = {\n\t\t[\"rdesync\"] = {\n\t\t\t[\"ListName\"] = \"rdesync / raknetdesync\",\n\t\t\t[\"Description\"] = \"Desyncs your character from the server\",\n\t\t\t[\"Aliases\"] = { \"raknetdesync\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif raknet and raknet.add_send_hook then\n\t\t\t\t\traknet.add_send_hook(raknet_desync.rakhook)\n\t\t\t\telseif raknet and raknet.desync then\n\t\t\t\t\traknet.desync(true)\n\t\t\t\tend\n\t\t\t\tif raknet_desync.showServerPosition then\n\t\t\t\t\traknet_desync.createGhostCharacter()\n\t\t\t\tend\n\t\t\t\tnotify(\"Raknet Desync\", \"Your character is now desynced from the server.\")\n\t\t\tend,\n\t\t},\n\t\t[\"rresync\"] = {\n\t\t\t[\"ListName\"] = \"rresync / raknetresync\",\n\t\t\t[\"Description\"] = \"Resyncs your character with the server\",\n\t\t\t[\"Aliases\"] = { \"raknetresync\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif raknet and raknet.remove_send_hook then\n\t\t\t\t\traknet.remove_send_hook(raknet_desync.rakhook)\n\t\t\t\telseif raknet and raknet.desync then\n\t\t\t\t\traknet.desync(false)\n\t\t\t\tend\n\t\t\t\traknet_desync.destroyGhost()\n\t\t\t\tnotify(\"Raknet Desync\", \"Your character is now resynced with the server.\")\n\t\t\tend,\n\t\t},\n\t\t[\"ssp\"] = {\n\t\t\t[\"ListName\"] = \"ssp / showserverposition\",\n\t\t\t[\"Description\"] = \"Toggles the ghost character that shows your server position while desynced\",\n\t\t\t[\"Aliases\"] = { \"showserverposition\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\traknet_desync.showServerPosition = not raknet_desync.showServerPosition\n\t\t\t\tif raknet_desync.showServerPosition then\n\t\t\t\t\tnotify(\"Raknet Desync\", \"Server position ghost enabled.\")\n\t\t\t\telse\n\t\t\t\t\tnotify(\"Raknet Desync\", \"Server position ghost disabled.\")\n\t\t\t\t\traknet_desync.destroyGhost()\n\t\t\t\tend\n\t\t\tend,\n\t\t},\n\t\t[\"spc\"] = {\n\t\t\t[\"ListName\"] = \"spc / serverpositioncolor\",\n\t\t\t[\"Description\"] = \"Change color of the ghost character server position R G B\",\n\t\t\t[\"Aliases\"] = { \"serverpositioncolor\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal r, g, b = args[1], args[2], args[3]\n\t\t\t\tlocal lightenFactor = 1.5\n\n\t\t\t\traknet_desync.glowColor = Color3.fromRGB(r, g, b)\n\t\t\t\traknet_desync.outerColor = Color3.fromRGB(math.min(r * lightenFactor, 255), math.min(g * lightenFactor, 255), math.min(b * lightenFactor, 255))\n\t\t\tend,\n\t\t},\n\t},\n}\n\nreturn Plugin"
-        }
-      ],
-      "code_blocks": [
-        "rdesync / raknetdesync\n- Desyncs your character from the server",
-        "rresync / raknetresync\n- Resyncs your character with the server",
-        "ssp / showserverposition\n- Toggles the ghost character that shows your server position while desynced",
-        "spc / serverpositioncolor\n- Change color of the ghost character server position R G B"
-      ],
-      "links": [],
-      "embeds": [],
-      "reactions": [
-        {
-          "emoji": "<:eyespoppingout:1417949633648263172>",
-          "count": 9
-        },
-        {
-          "emoji": "🤓",
-          "count": 3
-        },
-        {
-          "emoji": "🫃",
-          "count": 3
-        },
-        {
-          "emoji": "🫡",
-          "count": 2
-        },
-        {
-          "emoji": "❤️",
-          "count": 1
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "1494806257230417920",
       "name": "wfcp",
       "description": "# WFCP V1.1 (Weappon's Fun Camera Plugins)\n(please remove the previous version if you want the newest one to work)\n||because some of you have a problem with me yapping im gonna yap more||\n\nexecute once = enabled, twice = disabled\n\n## Commands\n\n**hideacc / accessories**\n\ntries to make your accessories clientsidedly transparent, *should* work for most games\n\n**rearview / rear / f5**\n\nturns your camera 180 degrees, flips controls. not reccomended for use with shift lock or first person\n\n**realfirstperson / fp / worldmodelfp**\n\nputs you in my custom first person where you can see your body.\nedit the number in bold to put the camera up or down more:\nCamera.CFrame = HeadPosOnly * CamRotation * CFrame.new(0, **0.3**, -0.2)\n\n**frontview / resetcam**\n\nstraightens your camera. cuz why not???\n\nhttps://medal.tv/games/roblox/clips/mwYJITbj9hZ4y_4bW?invite=cr-MSxYclosNDA4OTMwNzYy&v=43",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/4c634c43198960c17ff359bbb0528d74.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
       },
       "date": "2026-04-17T21:06:23.881000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494806257230417920",
@@ -28914,6 +28891,14 @@
         },
         {
           "emoji": "<:vecorbe:1084216618365751406>",
+          "count": 1
+        },
+        {
+          "emoji": "👍",
+          "count": 1
+        },
+        {
+          "emoji": "🫃",
           "count": 1
         }
       ],
@@ -28946,62 +28931,6 @@
       "loadstring_urls": []
     },
     {
-      "id": "1498052008245198960",
-      "name": "pluginstore",
-      "description": "# Plugin Store\nA plugin where you can browse other plugins!\nTo use:\n``` iys / storeiy / iystore \n- opens the plugin store UI\n```\n> Data from: https://iyplugins.pages.dev/data/plugins.json\n> This collects user platform for analytics at: https://globalzen-api.renern.workers.dev/iy\n> Plugin generated from: https://iyplugins.pages.dev/maker\n> Main store: https://iyplugins.pages.dev/\n> Source code: https://github.com/CarlDV/InfiniteYieldPluginStore/blob/main/loader.lua\n> Repository: https://github.com/CarlDV/InfiniteYieldPluginStore\n\n\n-# for plugin devs, please upload your shit in 1 message and NOT FORWARDED.\n-# REPOSTED -",
-      "author": {
-        "name": "Kreutzer",
-        "username": "ymaw.1",
-        "avatar": "https://cdn.discordapp.com/avatars/857699215278866492/783ee8947d87992385f26238c425db43.png?size=1024"
-      },
-      "date": "2026-04-26T20:03:51.226000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1498052008245198960",
-      "files": [
-        {
-          "filename": "pluginstore.iy",
-          "url": "plugins/1498052008245198960/pluginstore.iy",
-          "size": 865,
-          "is_plugin": true,
-          "code": "--------------------------------------------------------------------------------\n-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)\n-- This plugin was generated automatically using IY Plugin Maker.\n--------------------------------------------------------------------------------\n\nlocal Plugin = {\n    [\"PluginName\"] = \"Iy store remake\",\n    [\"PluginDescription\"] = \"Browse plugins in a UI\",\n    [\"Commands\"] = {\n        [\"IYstore Remake\"] = {\n            [\"ListName\"] = \"iys / storeiy / iystore\",\n            [\"Description\"] = \"opens the IYstore Remake\",\n            [\"Aliases\"] = {\"iys\", \"storeiy\", \"iystore\"},\n            [\"Function\"] = function(args, speaker)\n                loadstring(game:HttpGet('https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua'))()\n            end\n        }\n    }\n}\n\nreturn Plugin\n"
-        },
-        {
-          "filename": "Screen_Recording_20260416_201445.mp4",
-          "url": "plugins/1498052008245198960/Screen_Recording_20260416_201445.mp4",
-          "size": 13502640,
-          "is_plugin": false
-        }
-      ],
-      "code_blocks": [
-        "iys / storeiy / iystore \n- opens the plugin store UI"
-      ],
-      "links": [
-        "https://iyplugins.pages.dev/data/plugins.json",
-        "https://globalzen-api.renern.workers.dev/iy",
-        "https://iyplugins.pages.dev/maker",
-        "https://iyplugins.pages.dev/",
-        "https://github.com/CarlDV/InfiniteYieldPluginStore/blob/main/loader.lua",
-        "https://github.com/CarlDV/InfiniteYieldPluginStore"
-      ],
-      "embeds": [],
-      "reactions": [
-        {
-          "emoji": "🇼",
-          "count": 2
-        },
-        {
-          "emoji": "🇹",
-          "count": 1
-        },
-        {
-          "emoji": "🇫",
-          "count": 1
-        }
-      ],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua"
-      ]
-    },
-    {
       "id": "1498107877125128322",
       "name": "ColorESP",
       "description": "ColorESP, highlights players based on total body part colors, includes an option to highlight all humanoids instead of just players.",
@@ -29024,7 +28953,334 @@
       "code_blocks": [],
       "links": [],
       "embeds": [],
-      "reactions": [],
+      "reactions": [
+        {
+          "emoji": "🅱️",
+          "count": 3
+        },
+        {
+          "emoji": "🐦‍⬛",
+          "count": 2
+        },
+        {
+          "emoji": "🅰️",
+          "count": 2
+        },
+        {
+          "emoji": "🇨",
+          "count": 2
+        },
+        {
+          "emoji": "🔙",
+          "count": 2
+        },
+        {
+          "emoji": "🫃",
+          "count": 3
+        },
+        {
+          "emoji": "🧠",
+          "count": 1
+        },
+        {
+          "emoji": "🔥",
+          "count": 1
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1500828781567545495",
+      "name": "IYAI",
+      "description": "# IYAI\n-# Made by urluri\n\nAn AI assistant plugin for Infinite Yield. Talk to it in plain English and it'll inspect instances, read properties, run code, and modify the game world using live data from your session.\n\n## Commands\n`;ai` (alias: `;iyai`)\nOpens or closes the IYAI window.\n\n**Tested on Xeno, Madium, Delta mobile**\n\n## If you have any questions, feel free to dm <@640556322194063434>\n\n<https://github.com/imluri/IYAI>\nhttps://cdn.discordapp.com/attachments/1246327044715970611/1508584205339332730/2026-05-26_05-32-26.mp4?ex=6a161206&is=6a14c086&hm=72bf5c270f083dfe44ff4a81155181578c2496a6a5691941a02515e181d0680e&",
+      "author": {
+        "name": "luri",
+        "username": "urluri",
+        "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/b6bebc96d597a4de901e2e880d14c5f6.png?size=1024"
+      },
+      "date": "2026-05-04T11:57:45.576000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1500828781567545495",
+      "files": [
+        {
+          "filename": "IYAI.iy",
+          "url": "plugins/1500828781567545495/IYAI.iy",
+          "size": 1135,
+          "is_plugin": true,
+          "code": "local GITHUB_BASE_URL = \"https://raw.githubusercontent.com/imluri/IYAI/main/IYAI\"\n\nlocal function httpGet(url)\n\tlocal p = { Url = url, Method = \"GET\" }\n\tlocal ok, res\n\tif syn and syn.request then\n\t\tok, res = pcall(syn.request, p)\n\telseif request then\n\t\tok, res = pcall(request, p)\n\telse\n\t\treturn nil, \"No HTTP function available\"\n\tend\n\tif not ok                                    then return nil, \"Request error: \" .. tostring(res) end\n\tif not res or not res.Body or res.Body == \"\" then return nil, \"Empty response\" end\n\tif res.StatusCode and res.StatusCode ~= 200  then return nil, \"HTTP \" .. tostring(res.StatusCode) end\n\treturn res.Body, nil\nend\n\nlocal src, err = httpGet(GITHUB_BASE_URL .. \"/IYAI_Core.iy\")\nif not src then error(\"[IYAI] Failed to fetch core: \" .. tostring(err)) end\n\nlocal fn, ce = loadstring(src)\nif not fn then error(\"[IYAI] Compile error: \" .. tostring(ce)) end\n\nlocal coreFn = fn()\nif type(coreFn) ~= \"function\" then error(\"[IYAI] Core must return a function.\") end\n\nlocal Plugin = coreFn(GITHUB_BASE_URL)\nif type(Plugin) ~= \"table\" then error(\"[IYAI] Core did not return a Plugin table.\") end\n\nreturn Plugin\n"
+        }
+      ],
+      "code_blocks": [],
+      "links": [
+        "https://github.com/imluri/IYAI",
+        "https://cdn.discordapp.com/attachments/1246327044715970611/1508584205339332730/2026-05-26_05-32-26.mp4?ex=6a161206&is=6a14c086&hm=72bf5c270f083dfe44ff4a81155181578c2496a6a5691941a02515e181d0680e&"
+      ],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "<:WHAR:1386603699027050617>",
+          "count": 52
+        },
+        {
+          "emoji": "<:biting:1472081217410170900>",
+          "count": 20
+        },
+        {
+          "emoji": "👍",
+          "count": 17
+        },
+        {
+          "emoji": "<:BOOYAH:1434401767751422023>",
+          "count": 13
+        },
+        {
+          "emoji": "💀",
+          "count": 4
+        },
+        {
+          "emoji": "🇦",
+          "count": 5
+        },
+        {
+          "emoji": "🇮",
+          "count": 5
+        },
+        {
+          "emoji": "✡️",
+          "count": 4
+        },
+        {
+          "emoji": "✅",
+          "count": 5
+        },
+        {
+          "emoji": "😭",
+          "count": 2
+        },
+        {
+          "emoji": "💩",
+          "count": 1
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1502228536537124927",
+      "name": "sayfact",
+      "description": "# sayfact\nOriginally from https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240 but sends the fact to the Roblox game in default channel",
+      "author": {
+        "name": "luri",
+        "username": "urluri",
+        "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/b6bebc96d597a4de901e2e880d14c5f6.png?size=1024"
+      },
+      "date": "2026-05-08T08:39:53.167000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1502228536537124927",
+      "files": [
+        {
+          "filename": "sayfact.iy",
+          "url": "plugins/1502228536537124927/sayfact.iy",
+          "size": 966,
+          "is_plugin": true,
+          "code": "local Plugin = {\n    [\"PluginName\"] = \"sayfact\",\n    [\"PluginDescription\"] = \"Send a random fact to the game\",\n    [\"Commands\"] = {\n        [\"sayfact\"] = {\n            [\"ListName\"] = \"sayfact\",\n            [\"Description\"] = \"Sends a random fact to the game\",\n            [\"Aliases\"] = {\"\"},\n            [\"Function\"] = function(args, speaker)\n                local Response = request({\n    Url = \"https://uselessfacts.jsph.pl/random\",\n    Method = \"GET\",\n    Headers = {\n        [\"Content-Type\"] = \"application/html\"\n    },\n})\nlocal Start = string.find(Response.Body, '<blockquote>') + 12\nlocal End = string.find(Response.Body,'</blockquote>',Start) - 1\nlocal Finish = string.sub(Response.Body,Start,End)\nlocal TextChatService = game:GetService(\"TextChatService\")\nlocal generalChannel = TextChatService:WaitForChild(\"TextChannels\"):WaitForChild(\"RBXGeneral\")\ngeneralChannel:SendAsync(Finish)\n            end\n        }\n    }\n}\n\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [
+        "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240"
+      ],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "🫡",
+          "count": 3
+        },
+        {
+          "emoji": "🏳️‍🌈",
+          "count": 2
+        },
+        {
+          "emoji": "🇬",
+          "count": 1
+        },
+        {
+          "emoji": "🇺",
+          "count": 2
+        },
+        {
+          "emoji": "🇷",
+          "count": 2
+        },
+        {
+          "emoji": "🇹",
+          "count": 1
+        },
+        {
+          "emoji": "🫄",
+          "count": 3
+        },
+        {
+          "emoji": "<:sansShrug:1344729461568049153>",
+          "count": 2
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1502704413976821881",
+      "name": "ProductExploiter",
+      "description": "ProductExploiter\nBasically the free gamepass script but as a plugin (only works on games with weak security)\nTo use:\n`getproducts / scan / products` gives u a gui of found products & their prices\n`buyproduct [id] [type]` sends a signal to buy the product, type is optional.\n(gamepass or product.)\n`productinfo [id]` tells you the price of a product\n`buyallproducts / buyall / buydev` buys all products the plugin can find.",
+      "author": {
+        "name": "SteamUser#9483",
+        "username": "steamuser9483",
+        "avatar": "https://cdn.discordapp.com/avatars/602608719829663775/59eb68fb1a1e256d9db1043a83658070.png?size=1024"
+      },
+      "date": "2026-05-09T16:10:51.190000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1502704413976821881",
+      "files": [
+        {
+          "filename": "ProductExploiter.iy",
+          "url": "plugins/1502704413976821881/ProductExploiter.iy",
+          "size": 7199,
+          "is_plugin": true,
+          "code": "local function createProductGUI()\n    print(\"[ProductExploiter] createProductGUI called\")\n    \n    local success, err = pcall(function()\n        local source = game:HttpGet(\"https://pastebin.com/raw/91icZH75\")\n        local func, loaderr = loadstring(source)\n        if not func then\n            error(\"Failed to load GUI library: \" .. tostring(loaderr))\n        end\n        local CopyGuiLib = func()\n        \n        local gui = CopyGuiLib:Create(\"Product Exploiter - Scanner\")\n        print(\"[ProductExploiter] GUI Library loaded and window created\")\n        \n        gui:AddText(\"Status\", \"Scanning products...\")\n\n        local MarketplaceService = game:GetService(\"MarketplaceService\")\n        local success2, pages = pcall(function()\n            return MarketplaceService:GetDeveloperProductsAsync()\n        end)\n\n        if not success2 then\n            gui:AddText(\"Error\", \"Failed to fetch developer products\")\n            notify(\"Error\", \"Could not fetch products\", 5)\n            print(\"[ProductExploiter] Scan ERROR: Failed to get developer products\")\n            return\n        end\n\n        local total = 0\n        repeat\n            local page = pages:GetCurrentPage()\n            for _, prod in ipairs(page) do\n                local name = prod.Name or \"Unnamed\"\n                local id = prod.ProductId or prod.Id\n                local price = prod.PriceInRobux or 0\n                \n                gui:AddText(name, \"ID: \" .. id .. \" | \" .. price .. \" R$\")\n                print(\"[ProductExploiter] Added product:\", name, id)\n                total = total + 1\n            end\n            if pages.IsFinished then break end\n            pages:AdvanceToNextPageAsync()\n        until false\n\n        gui:AddText(\"Total\", \"Found \" .. total .. \" products\")\n        notify(\"Scan Complete\", \"Loaded \" .. total .. \" products\", 8)\n        print(\"[ProductExploiter] Scan finished. Total products:\", total)\n    end)\n\n    if not success then\n        print(\"[ProductExploiter] CRITICAL ERROR in createProductGUI:\", err)\n        warn(\"[ProductExploiter] GUI Error: \" .. tostring(err))\n        notify(\"GUI Error\", \"Check console (F9)\", 10)\n    end\nend\n\nlocal Plugin = {\n    [\"PluginName\"] = \"Product Exploiter\",\n    [\"PluginDescription\"] = \"Developer Product & GamePass fake purchase signal tool + scanner.\",\n    [\"Commands\"] = {\n        [\"getproducts\"] = {\n            [\"ListName\"] = \"getproducts / scan / products\",\n            [\"Description\"] = \"Opens the Product Scanner GUI with copy buttons\",\n            [\"Aliases\"] = {\"scan\", \"products\", \"scanner\"},\n            [\"Function\"] = function(args, speaker)\n                print(\"[ProductExploiter] getproducts command executed\")\n                createProductGUI()\n            end\n        },\n        [\"buyproduct\"] = {\n            [\"ListName\"] = \"buyproduct [id] [type]\",\n            [\"Description\"] = \"Send fake purchase signal. Type: product (default), gamepass, bulk, purchase\",\n            [\"Aliases\"] = {\"buy\", \"signalbuy\"},\n            [\"Function\"] = function(args, speaker)\n                local id = tonumber(args[1])\n                if not id then\n                    notify(\"Error\", \"Invalid Product ID\", 5)\n                    print(\"[ProductExploiter] buyproduct: Invalid ID\")\n                    return\n                end\n                local ptype = args[2] and string.lower(args[2]) or \"product\"\n                local MS = game:GetService(\"MarketplaceService\")\n                local LP = game.Players.LocalPlayer\n                if ptype == \"gamepass\" or ptype == \"pass\" then\n                    MS:SignalPromptGamePassPurchaseFinished(LP, id, true)\n                elseif ptype == \"bulk\" then\n                    MS:SignalPromptBulkPurchaseFinished(LP.UserId, id, true)\n                elseif ptype == \"purchase\" then\n                    MS:SignalPromptPurchaseFinished(LP.UserId, id, true)\n                else\n                    MS:SignalPromptProductPurchaseFinished(LP.UserId, id, true)\n                end\n                notify(\"Signal Sent\", \"ID: \" .. id .. \" (\" .. ptype .. \")\", 6)\n                print(\"[ProductExploiter] buyproduct: Signal sent for ID\", id, \"Type:\", ptype)\n            end\n        },\n        [\"buyallproducts\"] = {\n            [\"ListName\"] = \"buyallproducts / buyall / buydev\",\n            [\"Description\"] = \"Fake buy every developer product found in the game\",\n            [\"Aliases\"] = {\"buyall\", \"buydev\"},\n            [\"Function\"] = function(args, speaker)\n                print(\"[ProductExploiter] buyallproducts started\")\n                local MS = game:GetService(\"MarketplaceService\")\n                local LP = game.Players.LocalPlayer\n                local count = 0\n                local success, pages = pcall(function()\n                    return MS:GetDeveloperProductsAsync()\n                end)\n                if not success then\n                    notify(\"Error\", \"Failed to fetch developer products\", 6)\n                    print(\"[ProductExploiter] buyallproducts ERROR: Failed to get products\")\n                    return\n                end\n                repeat\n                    local current = pages:GetCurrentPage()\n                    for _, prod in ipairs(current) do\n                        local id = prod.ProductId or prod.Id\n                        if id then\n                            MS:SignalPromptProductPurchaseFinished(LP.UserId, id, true)\n                            count = count + 1\n                            task.wait(0.08)\n                        end\n                    end\n                    if pages.IsFinished then break end\n                    pages:AdvanceToNextPageAsync()\n                until false\n                notify(\"Buy All Finished\", \"Sent signals for \" .. count .. \" products\", 8)\n                print(\"[ProductExploiter] buyallproducts completed. Total signals:\", count)\n            end\n        },\n        [\"productinfo\"] = {\n            [\"ListName\"] = \"productinfo [id]\",\n            [\"Description\"] = \"Get product info for a given ID\",\n            [\"Aliases\"] = {\"pinfo\"},\n            [\"Function\"] = function(args, speaker)\n                local id = tonumber(args[1])\n                if not id then\n                    notify(\"Error\", \"Invalid ID\", 4)\n                    print(\"[ProductExploiter] productinfo: Invalid ID\")\n                    return\n                end\n                local success, info = pcall(function()\n                    return game:GetService(\"MarketplaceService\"):GetProductInfo(id, Enum.InfoType.Product)\n                end)\n                if success and info then\n                    notify(info.Name or \"Unknown\", \"Price: \" .. (info.PriceInRobux or 0) .. \" R$\", 8)\n                    print(\"[ProductExploiter] productinfo success for ID\", id)\n                else\n                    notify(\"Error\", \"Failed to get product info\", 5)\n                    print(\"[ProductExploiter] productinfo ERROR for ID\", id)\n                end\n            end\n        }\n    }\n}\n\nprint(\"[ProductExploiter] Plugin loaded successfully\")\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "✡️",
+          "count": 17
+        },
+        {
+          "emoji": "🫃",
+          "count": 13
+        },
+        {
+          "emoji": "🐔",
+          "count": 3
+        },
+        {
+          "emoji": "🐟",
+          "count": 3
+        },
+        {
+          "emoji": "❌",
+          "count": 8
+        },
+        {
+          "emoji": "🏳️‍🌈",
+          "count": 2
+        },
+        {
+          "emoji": "🇱",
+          "count": 2
+        },
+        {
+          "emoji": "🇦",
+          "count": 2
+        },
+        {
+          "emoji": "🇷",
+          "count": 2
+        },
+        {
+          "emoji": "🅿️",
+          "count": 2
+        },
+        {
+          "emoji": "😭",
+          "count": 1
+        },
+        {
+          "emoji": "<:funnythumbsup:1030163626285350992>",
+          "count": 1
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1508597116988035272",
+      "name": "StopSound",
+      "description": "StopSound\nStops currently playing sounds but does not prevent future sounds from playing, basically just helps u stop a sound that shouldn't be playing.\nTo use:\n`stopsound` stops currently playing sounds.",
+      "author": {
+        "name": "SteamUser#9483",
+        "username": "steamuser9483",
+        "avatar": "https://cdn.discordapp.com/avatars/602608719829663775/59eb68fb1a1e256d9db1043a83658070.png?size=1024"
+      },
+      "date": "2026-05-25T22:26:21.069000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1508597116988035272",
+      "files": [
+        {
+          "filename": "StopSound.iy",
+          "url": "plugins/1508597116988035272/StopSound.iy",
+          "size": 1101,
+          "is_plugin": true,
+          "code": "local Plugin = {\n\t[\"PluginName\"] = \"StopSound\",\n\t[\"PluginDescription\"] = \"Stops all sounds currently playing without muting or blocking future sounds.\",\n\t[\"Commands\"] = {\n\t\t[\"stopsound\"] = {\n\t\t\t[\"ListName\"] = \"stopsound\",\n\t\t\t[\"Description\"] = \"Stops all currently playing sounds.\",\n\t\t\t[\"Aliases\"] = {},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal stopped = 0\n\t\t\t\tlocal failed = 0\n\n\t\t\t\tfor _, obj in ipairs(game:GetDescendants()) do\n\t\t\t\t\tif obj:IsA(\"Sound\") then\n\t\t\t\t\t\tlocal isPlaying = false\n\n\t\t\t\t\t\tpcall(function()\n\t\t\t\t\t\t\tisPlaying = obj.IsPlaying or obj.Playing\n\t\t\t\t\t\tend)\n\n\t\t\t\t\t\tif isPlaying then\n\t\t\t\t\t\t\tlocal success = pcall(function()\n\t\t\t\t\t\t\t\tobj:Stop()\n\t\t\t\t\t\t\tend)\n\n\t\t\t\t\t\t\tif success then\n\t\t\t\t\t\t\t\tstopped += 1\n\t\t\t\t\t\t\telse\n\t\t\t\t\t\t\t\tfailed += 1\n\t\t\t\t\t\t\tend\n\t\t\t\t\t\tend\n\t\t\t\t\tend\n\t\t\t\tend\n\n\t\t\t\tif typeof(notify) == \"function\" then\n\t\t\t\t\tnotify(\"StopSound\", \"Stopped \" .. stopped .. \" currently playing sound(s).\")\n\t\t\t\tend\n\n\t\t\t\tif failed > 0 then\n\t\t\t\t\twarn(\"[StopSound] Failed to stop \" .. failed .. \" sound(s).\")\n\t\t\t\tend\n\t\t\tend\n\t\t}\n\t}\n}\n\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "🐟",
+          "count": 2
+        },
+        {
+          "emoji": "<:shh:1393737934494109716>",
+          "count": 9
+        },
+        {
+          "emoji": "<:joethumbsup:536319307798413323>",
+          "count": 2
+        },
+        {
+          "emoji": "✅",
+          "count": 1
+        },
+        {
+          "emoji": "🗯️",
+          "count": 1
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1510003931760033843",
+      "name": "pluginstore",
+      "description": "## Plugin Store\n\nEver tried to download a plugin but had to scroll way up in <#551846012310782014> to find it?\nDon't worry, my plugin fixes that.\nTo use:\n`pluginstore / ps` and search for the plugin you want to install and click on the plugin",
+      "author": {
+        "name": "Equs",
+        "username": "equsss",
+        "avatar": "https://cdn.discordapp.com/avatars/1243018736626176055/711dd7c1eceeb77ee4ff7c3f0381297d.png?size=1024"
+      },
+      "date": "2026-05-29T19:36:31.848000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510003931760033843",
+      "files": [
+        {
+          "filename": "pluginstore.iy",
+          "url": "plugins/1510003931760033843/pluginstore.iy",
+          "size": 17597,
+          "is_plugin": true,
+          "code": "local Plugin = {\n\t[\"PluginName\"] = \"PluginStore\",\n\t[\"PluginDescription\"] = \"Browse and install plugins from the plugin store.\",\n\t[\"Commands\"] = {\n\t\t[\"pluginstore\"] = {\n\t\t\t[\"ListName\"] = \"pluginstore / ps / store\",\n\t\t\t[\"Description\"] = \"Open the plugin store GUI to browse and install .iy plugins.\",\n\t\t\t[\"Aliases\"] = {\"ps\", \"store\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif not writefileExploit() then\n\t\t\t\t\tnotify('Plugin Store', 'Your exploit does not support plugins (missing writefile)')\n\t\t\t\t\treturn\n\t\t\t\tend\n\n\t\t\t\ttask.spawn(function()\n\t\t\t\t\tlocal PLUGIN_URL = 'https://raw.githubusercontent.com/corecommit/plugin-store/main/plugins.json'\n\t\t\t\t\tlocal plugins\n\t\t\t\t\tlocal success, result = pcall(function()\n\t\t\t\t\t\treturn game:HttpGet(PLUGIN_URL, true)\n\t\t\t\t\tend)\n\t\t\t\t\tif not success then\n\t\t\t\t\t\tnotify('Plugin Store','Failed to connect to plugin store')\n\t\t\t\t\t\treturn\n\t\t\t\t\tend\n\t\t\t\t\tlocal success2, data = pcall(function()\n\t\t\t\t\t\treturn HttpService:JSONDecode(result)\n\t\t\t\t\tend)\n\t\t\t\t\tif not success2 then\n\t\t\t\t\t\tnotify('Plugin Store','Failed to parse plugin data')\n\t\t\t\t\t\treturn\n\t\t\t\t\tend\n\t\t\t\t\tplugins = data\n\n\t\t\t\t\tlocal storeGui = Instance.new(\"ScreenGui\")\n\t\t\t\t\tstoreGui.Name = \"Plugin Store\"\n\t\t\t\t\tstoreGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling\n\t\t\t\t\tstoreGui.ResetOnSpawn = false\n\t\t\t\t\tstoreGui.Parent = game:GetService(\"CoreGui\")\n\n\t\t\t\t\tlocal function showError(title, message)\n\t\t\t\t\t\tlocal errGui = Instance.new(\"ScreenGui\")\n\t\t\t\t\t\terrGui.Name = \"ErrorPopup\"\n\t\t\t\t\t\terrGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling\n\t\t\t\t\t\terrGui.ResetOnSpawn = false\n\t\t\t\t\t\terrGui.Parent = game:GetService(\"CoreGui\")\n\n\t\t\t\t\t\tlocal box = Instance.new(\"Frame\")\n\t\t\t\t\t\tbox.Size = UDim2.new(0.275, 0, 0.199, 0)\n\t\t\t\t\t\tbox.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\t\tbox.Position = UDim2.new(0.5, 0, 0.5, 0)\n\t\t\t\t\t\tbox.BackgroundColor3 = Color3.fromRGB(31, 31, 31)\n\t\t\t\t\t\tbox.BorderSizePixel = 0\n\t\t\t\t\t\tbox.ZIndex = 11\n\t\t\t\t\t\tbox.Parent = errGui\n\n\t\t\t\t\t\tlocal corner = Instance.new(\"UICorner\")\n\t\t\t\t\t\tcorner.CornerRadius = UDim.new(0.08, 0)\n\t\t\t\t\t\tcorner.Parent = box\n\n\t\t\t\t\t\tlocal bar = Instance.new(\"Frame\")\n\t\t\t\t\t\tbar.Size = UDim2.new(1, 0, 0.25, 0)\n\t\t\t\t\t\tbar.Position = UDim2.new(0.5, 0, 0.125, 0)\n\t\t\t\t\t\tbar.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\t\tbar.BackgroundColor3 = Color3.fromRGB(180, 40, 40)\n\t\t\t\t\t\tbar.BorderSizePixel = 0\n\t\t\t\t\t\tbar.ZIndex = 12\n\t\t\t\t\t\tbar.Parent = box\n\n\t\t\t\t\t\tlocal barCorner = Instance.new(\"UICorner\")\n\t\t\t\t\t\tbarCorner.CornerRadius = UDim.new(0.3, 0)\n\t\t\t\t\t\tbarCorner.Parent = bar\n\n\t\t\t\t\t\tlocal barFix = Instance.new(\"Frame\")\n\t\t\t\t\t\tbarFix.Size = UDim2.new(1, 0, 0.5, 0)\n\t\t\t\t\t\tbarFix.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\t\tbarFix.Position = UDim2.new(0.5, 0, 0.75, 0)\n\t\t\t\t\t\tbarFix.BackgroundColor3 = Color3.fromRGB(180, 40, 40)\n\t\t\t\t\t\tbarFix.BorderSizePixel = 0\n\t\t\t\t\t\tbarFix.ZIndex = 12\n\t\t\t\t\t\tbarFix.Parent = bar\n\n\t\t\t\t\t\tlocal titleLbl = Instance.new(\"TextLabel\")\n\t\t\t\t\t\ttitleLbl.Text = \"⚠ \" .. title\n\t\t\t\t\t\ttitleLbl.Size = UDim2.new(0.971, 0, 1, 0)\n\t\t\t\t\t\ttitleLbl.Position = UDim2.new(0.515, 0, 0.5, 0)\n\t\t\t\t\t\ttitleLbl.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\t\ttitleLbl.BackgroundTransparency = 1\n\t\t\t\t\t\ttitleLbl.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\t\ttitleLbl.TextScaled = true\n\t\t\t\t\t\ttitleLbl.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\")\n\t\t\t\t\t\ttitleLbl.TextXAlignment = Enum.TextXAlignment.Left\n\t\t\t\t\t\ttitleLbl.ZIndex = 13\n\t\t\t\t\t\ttitleLbl.Parent = bar\n\n\t\t\t\t\t\tlocal msgLbl = Instance.new(\"TextLabel\")\n\t\t\t\t\t\tmsgLbl.Text = message\n\t\t\t\t\t\tmsgLbl.Size = UDim2.new(0.941, 0, 0.438, 0)\n\t\t\t\t\t\tmsgLbl.Position = UDim2.new(0.5, 0, 0.519, 0)\n\t\t\t\t\t\tmsgLbl.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\t\tmsgLbl.BackgroundTransparency = 1\n\t\t\t\t\t\tmsgLbl.TextColor3 = Color3.fromRGB(220, 220, 220)\n\t\t\t\t\t\tmsgLbl.TextWrapped = true\n\t\t\t\t\t\tmsgLbl.TextSize = 30\n\t\t\t\t\t\tmsgLbl.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\")\n\t\t\t\t\t\tmsgLbl.TextXAlignment = Enum.TextXAlignment.Center\n\t\t\t\t\t\tmsgLbl.TextYAlignment = Enum.TextYAlignment.Center\n\t\t\t\t\t\tmsgLbl.ZIndex = 12\n\t\t\t\t\t\tmsgLbl.Parent = box\n\n\t\t\t\t\t\tlocal okBtn = Instance.new(\"TextButton\")\n\t\t\t\t\t\tokBtn.Text = \"OK\"\n\t\t\t\t\t\tokBtn.Size = UDim2.new(0.294, 0, 0.2, 0)\n\t\t\t\t\t\tokBtn.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\t\tokBtn.Position = UDim2.new(0.5, 0, 0.838, 0)\n\t\t\t\t\t\tokBtn.BackgroundColor3 = Color3.fromRGB(180, 40, 40)\n\t\t\t\t\t\tokBtn.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\t\tokBtn.TextScaled = true\n\t\t\t\t\t\tokBtn.BorderSizePixel = 0\n\t\t\t\t\t\tokBtn.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\")\n\t\t\t\t\t\tokBtn.ZIndex = 12\n\t\t\t\t\t\tokBtn.Parent = box\n\n\t\t\t\t\t\tlocal okCorner = Instance.new(\"UICorner\")\n\t\t\t\t\t\tokCorner.CornerRadius = UDim.new(0.3, 0)\n\t\t\t\t\t\tokCorner.Parent = okBtn\n\n\t\t\t\t\t\tokBtn.MouseButton1Click:Connect(function()\n\t\t\t\t\t\t\terrGui:Destroy()\n\t\t\t\t\t\tend)\n\t\t\t\t\tend\n\n\t\t\t\t\tlocal function setGuiVisible(gui, state)\n\t\t\t\t\t\tif gui and gui.Parent then\n\t\t\t\t\t\t\tpcall(function()\n\t\t\t\t\t\t\t\tgui.Visible = state\n\t\t\t\t\t\t\tend)\n\t\t\t\t\t\tend\n\t\t\t\t\tend\n\n\t\t\t\t\tlocal MainFrame = Instance.new(\"Frame\")\n\t\t\t\t\tMainFrame.Name = \"Main Frame\"\n\t\t\t\t\tMainFrame.BorderSizePixel = 0\n\t\t\t\t\tMainFrame.BackgroundColor3 = Color3.fromRGB(31, 31, 31)\n\t\t\t\t\tMainFrame.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\tMainFrame.Size = UDim2.new(0.5, 0, 0.55, 0)\n\t\t\t\t\tMainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)\n\t\t\t\t\tMainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tMainFrame.Parent = storeGui\n\n\t\t\t\t\tlocal MainFrameAspectRatio = Instance.new(\"UIAspectRatioConstraint\")\n\t\t\t\t\tMainFrameAspectRatio.AspectRatio = 1.40279\n\t\t\t\t\tMainFrameAspectRatio.Parent = MainFrame\n\n\t\t\t\t\tlocal SearchBar = Instance.new(\"TextBox\")\n\t\t\t\t\tSearchBar.Name = \"SearchBar\"\n\t\t\t\t\tSearchBar.CursorPosition = -1\n\t\t\t\t\tSearchBar.PlaceholderColor3 = Color3.fromRGB(61, 61, 61)\n\t\t\t\t\tSearchBar.PlaceholderText = \"Search for plugins...\"\n\t\t\t\t\tSearchBar.Text = \"\"\n\t\t\t\t\tSearchBar.BorderSizePixel = 0\n\t\t\t\t\tSearchBar.TextWrapped = true\n\t\t\t\t\tSearchBar.TextSize = 35\n\t\t\t\t\tSearchBar.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tSearchBar.TextScaled = true\n\t\t\t\t\tSearchBar.BackgroundColor3 = Color3.fromRGB(36, 36, 36)\n\t\t\t\t\tSearchBar.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\", Enum.FontWeight.Regular, Enum.FontStyle.Normal)\n\t\t\t\t\tSearchBar.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\tSearchBar.Size = UDim2.new(1, 0, 0.08, 0)\n\t\t\t\t\tSearchBar.Position = UDim2.new(0.5, 0, 0.03957, 0)\n\t\t\t\t\tSearchBar.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tSearchBar.Visible = false\n\t\t\t\t\tSearchBar.ZIndex = 3\n\t\t\t\t\tSearchBar.Parent = MainFrame\n\n\t\t\t\t\tlocal SearchBarAspectRatio = Instance.new(\"UIAspectRatioConstraint\")\n\t\t\t\t\tSearchBarAspectRatio.AspectRatio = 17.5349\n\t\t\t\t\tSearchBarAspectRatio.Parent = SearchBar\n\n\t\t\t\t\tlocal Header = Instance.new(\"TextLabel\")\n\t\t\t\t\tHeader.Name = \"Header\"\n\t\t\t\t\tHeader.Text = \"Plugin Store\"\n\t\t\t\t\tHeader.TextWrapped = true\n\t\t\t\t\tHeader.ZIndex = 2\n\t\t\t\t\tHeader.BorderSizePixel = 0\n\t\t\t\t\tHeader.TextSize = 14\n\t\t\t\t\tHeader.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tHeader.TextScaled = true\n\t\t\t\t\tHeader.BackgroundColor3 = Color3.fromRGB(41, 41, 41)\n\t\t\t\t\tHeader.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\", Enum.FontWeight.Regular, Enum.FontStyle.Normal)\n\t\t\t\t\tHeader.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tHeader.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\tHeader.Size = UDim2.new(1, 0, 0.08, 0)\n\t\t\t\t\tHeader.Position = UDim2.new(0.5, 0, 0.04, 0)\n\t\t\t\t\tHeader.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tHeader.Parent = MainFrame\n\n\t\t\t\t\tlocal HeaderAspectRatio = Instance.new(\"UIAspectRatioConstraint\")\n\t\t\t\t\tHeaderAspectRatio.AspectRatio = 17.5349\n\t\t\t\t\tHeaderAspectRatio.Parent = Header\n\n\t\t\t\t\tlocal CloseButton = Instance.new(\"TextButton\")\n\t\t\t\t\tCloseButton.Text = \"X\"\n\t\t\t\t\tCloseButton.TextWrapped = true\n\t\t\t\t\tCloseButton.BorderSizePixel = 0\n\t\t\t\t\tCloseButton.TextSize = 14\n\t\t\t\t\tCloseButton.AutoButtonColor = false\n\t\t\t\t\tCloseButton.TextScaled = true\n\t\t\t\t\tCloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tCloseButton.BackgroundColor3 = Color3.fromRGB(41, 41, 41)\n\t\t\t\t\tCloseButton.BackgroundTransparency = 1\n\t\t\t\t\tCloseButton.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\", Enum.FontWeight.Regular, Enum.FontStyle.Normal)\n\t\t\t\t\tCloseButton.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\tCloseButton.Size = UDim2.new(0.05793, 0, 1.00796, 0)\n\t\t\t\t\tCloseButton.Position = UDim2.new(0.97104, 0, 0.49602, 0)\n\t\t\t\t\tCloseButton.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tCloseButton.Parent = Header\n\n\t\t\t\t\tCloseButton.MouseButton1Click:Connect(function()\n\t\t\t\t\t\tstoreGui:Destroy()\n\t\t\t\t\tend)\n\n\t\t\t\t\tlocal CloseButtonAspectRatio = Instance.new(\"UIAspectRatioConstraint\")\n\t\t\t\t\tCloseButtonAspectRatio.AspectRatio = 1.00776\n\t\t\t\t\tCloseButtonAspectRatio.Parent = CloseButton\n\n\t\t\t\t\tlocal IconButton = Instance.new(\"ImageButton\")\n\t\t\t\t\tIconButton.BorderSizePixel = 0\n\t\t\t\t\tIconButton.ScaleType = Enum.ScaleType.Fit\n\t\t\t\t\tIconButton.BackgroundTransparency = 1\n\t\t\t\t\tIconButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tIconButton.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\tIconButton.Image = \"rbxassetid://129011728174193\"\n\t\t\t\t\tIconButton.Size = UDim2.new(0.05663, 0, 0.99308, 0)\n\t\t\t\t\tIconButton.Position = UDim2.new(0.91359, 0, 0.5, 0)\n\t\t\t\t\tIconButton.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tIconButton.Parent = Header\n\n\t\t\t\t\tIconButton.MouseButton1Click:Connect(function()\n\t\t\t\t\t\tSearchBar.Visible = not SearchBar.Visible\n\t\t\t\t\t\tif SearchBar.Visible then\n\t\t\t\t\t\t\tSearchBar:CaptureFocus()\n\t\t\t\t\t\telse\n\t\t\t\t\t\t\tSearchBar.Text = ''\n\t\t\t\t\t\tend\n\t\t\t\t\tend)\n\n\t\t\t\t\tSearchBar.FocusLost:Connect(function(enterPressed)\n\t\t\t\t\t\tif enterPressed then\n\t\t\t\t\t\t\tSearchBar.Visible = false\n\t\t\t\t\t\t\tSearchBar.Text = ''\n\t\t\t\t\t\tend\n\t\t\t\t\tend)\n\n\t\t\t\t\tgame:GetService(\"UserInputService\").InputBegan:Connect(function(input, processed)\n\t\t\t\t\t\tif processed then return end\n\t\t\t\t\t\tif input.KeyCode == Enum.KeyCode.Escape and SearchBar.Visible then\n\t\t\t\t\t\t\tSearchBar.Visible = false\n\t\t\t\t\t\t\tSearchBar.Text = ''\n\t\t\t\t\t\tend\n\t\t\t\t\tend)\n\n\t\t\t\t\tlocal IconButtonAspectRatio = Instance.new(\"UIAspectRatioConstraint\")\n\t\t\t\t\tIconButtonAspectRatio.Parent = IconButton\n\n\t\t\t\t\tlocal ScrollingFrame = Instance.new(\"ScrollingFrame\")\n\t\t\t\t\tScrollingFrame.Active = true\n\t\t\t\t\tScrollingFrame.ScrollingDirection = Enum.ScrollingDirection.Y\n\t\t\t\t\tScrollingFrame.BorderSizePixel = 0\n\t\t\t\t\tScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)\n\t\t\t\t\tScrollingFrame.VerticalScrollBarInset = Enum.ScrollBarInset.None\n\t\t\t\t\tScrollingFrame.ElasticBehavior = Enum.ElasticBehavior.Always\n\t\t\t\t\tScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tScrollingFrame.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\tScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y\n\t\t\t\t\tScrollingFrame.Size = UDim2.new(1, 0, 0.88141, 0)\n\t\t\t\t\tScrollingFrame.Position = UDim2.new(0.5, 0, 0.5366, 0)\n\t\t\t\t\tScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tScrollingFrame.ScrollBarThickness = 7\n\t\t\t\t\tScrollingFrame.BackgroundTransparency = 1\n\t\t\t\t\tScrollingFrame.Parent = MainFrame\n\n\t\t\t\t\tlocal ScrollingFrameLayout = Instance.new(\"UIListLayout\")\n\t\t\t\t\tScrollingFrameLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center\n\t\t\t\t\tScrollingFrameLayout.Padding = UDim.new(0, 5)\n\t\t\t\t\tScrollingFrameLayout.Parent = ScrollingFrame\n\n\t\t\t\t\tlocal CardTemplate = Instance.new(\"TextButton\")\n\t\t\t\t\tCardTemplate.Name = \"CardTemplate\"\n\t\t\t\t\tCardTemplate.Text = \"\"\n\t\t\t\t\tCardTemplate.AutoButtonColor = false\n\t\t\t\t\tCardTemplate.BorderSizePixel = 0\n\t\t\t\t\tCardTemplate.BackgroundColor3 = Color3.fromRGB(41, 41, 41)\n\t\t\t\t\tCardTemplate.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\t\tCardTemplate.AutomaticSize = Enum.AutomaticSize.Y\n\t\t\t\t\tCardTemplate.Size = UDim2.new(0.967, 0, 0, 0)\n\t\t\t\t\tCardTemplate.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\n\t\t\t\t\tlocal CardCorner = Instance.new(\"UICorner\")\n\t\t\t\t\tCardCorner.CornerRadius = UDim.new(0.1, 0)\n\t\t\t\t\tCardCorner.Parent = CardTemplate\n\n\t\t\t\t\tlocal CardLayout = Instance.new(\"UIListLayout\")\n\t\t\t\t\tCardLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center\n\t\t\t\t\tCardLayout.SortOrder = Enum.SortOrder.Name\n\t\t\t\t\tCardLayout.VerticalFlex = Enum.UIFlexAlignment.SpaceEvenly\n\t\t\t\t\tCardLayout.VerticalAlignment = Enum.VerticalAlignment.Center\n\t\t\t\t\tCardLayout.Parent = CardTemplate\n\n\t\t\t\t\tlocal CardPadding = Instance.new(\"UIPadding\")\n\t\t\t\t\tCardPadding.PaddingTop = UDim.new(0, 6)\n\t\t\t\t\tCardPadding.PaddingBottom = UDim.new(0, 6)\n\t\t\t\t\tCardPadding.Parent = CardTemplate\n\n\t\t\t\t\tlocal CardTitle = Instance.new(\"TextLabel\")\n\t\t\t\t\tCardTitle.Name = \"1\"\n\t\t\t\t\tCardTitle.Text = \"\"\n\t\t\t\t\tCardTitle.TextWrapped = true\n\t\t\t\t\tCardTitle.BorderSizePixel = 0\n\t\t\t\t\tCardTitle.TextSize = 14\n\t\t\t\t\tCardTitle.TextScaled = true\n\t\t\t\t\tCardTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tCardTitle.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\", Enum.FontWeight.Regular, Enum.FontStyle.Normal)\n\t\t\t\t\tCardTitle.TextColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tCardTitle.BackgroundTransparency = 1\n\t\t\t\t\tCardTitle.Size = UDim2.new(0.967, 0, 0, 22)\n\t\t\t\t\tCardTitle.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tCardTitle.Parent = CardTemplate\n\n\t\t\t\t\tlocal CardDesc = Instance.new(\"TextLabel\")\n\t\t\t\t\tCardDesc.Name = \"2\"\n\t\t\t\t\tCardDesc.Text = \"\"\n\t\t\t\t\tCardDesc.TextWrapped = true\n\t\t\t\t\tCardDesc.BorderSizePixel = 0\n\t\t\t\t\tCardDesc.TextScaled = false\n\t\t\t\t\tCardDesc.TextSize = 12\n\t\t\t\t\tCardDesc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tCardDesc.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\", Enum.FontWeight.Regular, Enum.FontStyle.Normal)\n\t\t\t\t\tCardDesc.TextColor3 = Color3.fromRGB(201, 201, 201)\n\t\t\t\t\tCardDesc.BackgroundTransparency = 1\n\t\t\t\t\tCardDesc.AutomaticSize = Enum.AutomaticSize.Y\n\t\t\t\t\tCardDesc.Size = UDim2.new(0.967, 0, 0, 0)\n\t\t\t\t\tCardDesc.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tCardDesc.Parent = CardTemplate\n\n\t\t\t\t\tlocal CardAuthor = Instance.new(\"TextLabel\")\n\t\t\t\t\tCardAuthor.Name = \"3\"\n\t\t\t\t\tCardAuthor.Text = \"\"\n\t\t\t\t\tCardAuthor.TextWrapped = true\n\t\t\t\t\tCardAuthor.BorderSizePixel = 0\n\t\t\t\t\tCardAuthor.TextSize = 11\n\t\t\t\t\tCardAuthor.BackgroundColor3 = Color3.fromRGB(255, 255, 255)\n\t\t\t\t\tCardAuthor.FontFace = Font.new(\"rbxasset://fonts/families/ComicNeueAngular.json\", Enum.FontWeight.Regular, Enum.FontStyle.Normal)\n\t\t\t\t\tCardAuthor.TextColor3 = Color3.fromRGB(95, 95, 95)\n\t\t\t\t\tCardAuthor.BackgroundTransparency = 1\n\t\t\t\t\tCardAuthor.Size = UDim2.new(0.967, 0, 0, 16)\n\t\t\t\t\tCardAuthor.BorderColor3 = Color3.fromRGB(0, 0, 0)\n\t\t\t\t\tCardAuthor.Parent = CardTemplate\n\n\t\t\t\t\tlocal allCards = {}\n\t\t\t\t\tlocal cardIndex = 0\n\t\t\t\t\tlocal LOAD_BATCH = 25\n\t\t\t\t\tlocal loadingMore = false\n\n\t\t\t\t\tlocal function buildCard(p)\n\t\t\t\t\t\tlocal card = CardTemplate:Clone()\n\t\t\t\t\t\tcard.Name = p.name\n\t\t\t\t\t\tcard.Parent = ScrollingFrame\n\n\t\t\t\t\t\tlocal titleLabel  = card:FindFirstChild(\"1\")\n\t\t\t\t\t\tlocal descLabel   = card:FindFirstChild(\"2\")\n\t\t\t\t\t\tlocal authorLabel = card:FindFirstChild(\"3\")\n\n\t\t\t\t\t\tif titleLabel  then titleLabel.Text  = p.name:gsub('%.iy$', '') end\n\t\t\t\t\t\tif descLabel   then descLabel.Text   = p.description or '' end\n\t\t\t\t\t\tif authorLabel then\n\t\t\t\t\t\t\tlocal a = p.author or ''\n\t\t\t\t\t\t\tauthorLabel.Text = a ~= '' and 'by ' .. a or ''\n\t\t\t\t\t\tend\n\n\t\t\t\t\t\tcard.MouseButton1Click:Connect(function()\n\t\t\t\t\t\t\tlocal name = p.name\n\t\t\t\t\t\t\tlocal pluginPath = 'plugins/' .. name\n\t\t\t\t\t\t\tif isfile(pluginPath) then\n\t\t\t\t\t\t\t\tshowError('Plugin Store', '\"' .. name .. '\" is already installed.')\n\t\t\t\t\t\t\t\treturn\n\t\t\t\t\t\t\tend\n\n\t\t\t\t\t\t\tsetGuiVisible(storeGui, false)\n\n\t\t\t\t\t\t\tlocal dlSuccess, dlResult = pcall(function()\n\t\t\t\t\t\t\t\treturn game:HttpGet(p.url, true)\n\t\t\t\t\t\t\tend)\n\t\t\t\t\t\t\tif not dlSuccess then\n\t\t\t\t\t\t\t\tshowError('Plugin Store', 'Failed to download \"' .. name .. '\".\\n' .. tostring(dlResult))\n\t\t\t\t\t\t\t\tsetGuiVisible(storeGui, true)\n\t\t\t\t\t\t\t\treturn\n\t\t\t\t\t\t\tend\n\n\t\t\t\t\t\t\tlocal writeSuccess, writeErr = pcall(function()\n\t\t\t\t\t\t\t\twritefile(pluginPath, dlResult)\n\t\t\t\t\t\t\tend)\n\t\t\t\t\t\t\tif not writeSuccess then\n\t\t\t\t\t\t\t\tshowError('Plugin Store', 'Failed to save \"' .. name .. '\".\\n' .. tostring(writeErr))\n\t\t\t\t\t\t\t\tsetGuiVisible(storeGui, true)\n\t\t\t\t\t\t\t\treturn\n\t\t\t\t\t\t\tend\n\n\t\t\t\t\t\t\tnotify('Plugin Store', 'Downloaded ' .. name)\n\t\t\t\t\t\t\taddPlugin(pluginPath)\n\t\t\t\t\t\t\tsetGuiVisible(storeGui, true)\n\t\t\t\t\t\tend)\n\n\t\t\t\t\t\treturn card\n\t\t\t\t\tend\n\n\t\t\t\t\tlocal function loadBatch()\n\t\t\t\t\t\tif loadingMore or cardIndex >= #plugins then return end\n\t\t\t\t\t\tloadingMore = true\n\t\t\t\t\t\tlocal count = 0\n\t\t\t\t\t\twhile cardIndex < #plugins and count < LOAD_BATCH do\n\t\t\t\t\t\t\tcardIndex = cardIndex + 1\n\t\t\t\t\t\t\tlocal card = buildCard(plugins[cardIndex])\n\t\t\t\t\t\t\tcard.Visible = true\n\t\t\t\t\t\t\tallCards[#allCards + 1] = card\n\t\t\t\t\t\t\tcount = count + 1\n\t\t\t\t\t\tend\n\t\t\t\t\t\tloadingMore = false\n\t\t\t\t\tend\n\n\t\t\t\t\tlocal function clearCards()\n\t\t\t\t\t\tfor _, card in ipairs(allCards) do\n\t\t\t\t\t\t\tcard:Destroy()\n\t\t\t\t\t\tend\n\t\t\t\t\t\tallCards = {}\n\t\t\t\t\t\tcardIndex = 0\n\t\t\t\t\t\tloadingMore = false\n\t\t\t\t\tend\n\n\t\t\t\t\tloadBatch()\n\n\t\t\t\t\tScrollingFrame:GetPropertyChangedSignal('CanvasPosition'):Connect(function()\n\t\t\t\t\t\tlocal viewHeight   = ScrollingFrame.AbsoluteSize.Y\n\t\t\t\t\t\tlocal canvasHeight = ScrollingFrame.AbsoluteCanvasSize.Y\n\t\t\t\t\t\tif canvasHeight > 0 and ScrollingFrame.CanvasPosition.Y + viewHeight * 2 >= canvasHeight then\n\t\t\t\t\t\t\tloadBatch()\n\t\t\t\t\t\tend\n\t\t\t\t\tend)\n\n\t\t\t\t\tSearchBar:GetPropertyChangedSignal('Text'):Connect(function()\n\t\t\t\t\t\tlocal q = SearchBar.Text:lower()\n\t\t\t\t\t\tclearCards()\n\t\t\t\t\t\tif q == '' then\n\t\t\t\t\t\t\tloadBatch()\n\t\t\t\t\t\t\treturn\n\t\t\t\t\t\tend\n\t\t\t\t\t\tfor _, p in ipairs(plugins) do\n\t\t\t\t\t\t\tlocal name    = p.name:gsub('%.iy$', ''):lower()\n\t\t\t\t\t\t\tlocal pdesc   = (p.description or ''):lower()\n\t\t\t\t\t\t\tlocal pauthor = (p.author or ''):lower()\n\t\t\t\t\t\t\tif name:find(q, 1, true) or pdesc:find(q, 1, true) or pauthor:find(q, 1, true) then\n\t\t\t\t\t\t\t\tlocal card = buildCard(p)\n\t\t\t\t\t\t\t\tcard.Visible = true\n\t\t\t\t\t\t\t\tallCards[#allCards + 1] = card\n\t\t\t\t\t\t\tend\n\t\t\t\t\t\tend\n\t\t\t\t\tend)\n\t\t\t\tend)\n\t\t\tend\n\t\t}\n\t}\n}\n\nreturn Plugin"
+        },
+        {
+          "filename": "image-1.png",
+          "url": "plugins/1510003931760033843/image-1.png",
+          "size": 88958,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "🎉",
+          "count": 6
+        }
+      ],
       "loadstring_urls": []
     }
   ]
