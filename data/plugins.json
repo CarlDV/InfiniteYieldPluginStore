@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-06-01T10:37:41.531749+00:00",
+  "scraped_at": "2026-06-02T19:48:28.587280+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 536,
+  "total_plugins": 537,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -2518,7 +2518,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/a_56042fc4b19e1464315622be9aaa685e.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/70aa21dc5c28ccbc85394cb3eb304258.png?size=1024"
       },
       "date": "2020-01-23T03:15:12.032000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800",
@@ -5769,7 +5769,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/a_56042fc4b19e1464315622be9aaa685e.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/70aa21dc5c28ccbc85394cb3eb304258.png?size=1024"
       },
       "date": "2020-05-20T13:39:38.179000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556",
@@ -7864,7 +7864,7 @@
           "count": 5
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 6
         },
         {
@@ -8367,7 +8367,7 @@
           "count": 2
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 9
         },
         {
@@ -9049,7 +9049,7 @@
       "author": {
         "name": "m'",
         "username": "mdlk.74k",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/2479c6b753cf2a0d0864bab0ae9ca29a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/820e8614bfc00eba802bef443e5b92a6.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -9567,7 +9567,7 @@
           "count": 3
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 9
         },
         {
@@ -10371,7 +10371,7 @@
           "count": 5
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 10
         },
         {
@@ -13668,7 +13668,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a1e4c25&is=6a1cfaa5&hm=d300a6e3df0c69d43e660529130026c6da22ff1bcae90203a68d295b1a283788&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a204665&is=6a1ef4e5&hm=d7582e7273e5e76c9becf8014f1ff006476bbea3fd691fba5f9f478fc9dc9c6f&"
           },
           "image": null,
           "video": null
@@ -16862,7 +16862,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a1e7a72&is=6a1d28f2&hm=9d24e772ff07ff9bc7958c272f0d158e4b74baf559897ebe32f5da9267af7b87&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a2074b2&is=6a1f2332&hm=65789a32863c4f3725934d6d5815e54f4eb3fe6f6f054b45305bed32fd7610de&"
           },
           "image": null,
           "video": null
@@ -16876,7 +16876,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a1e7a89&is=6a1d2909&hm=0ff8c02d5b880f7c767159557dad9c61a6323f082cc4e6b588ff61d278e55d09&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a2074c9&is=6a1f2349&hm=b1d9ce96c407d949a917234c90cf09e7e102a8ca06061163034b5abe86b15906&"
           },
           "image": null,
           "video": null
@@ -17378,7 +17378,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a1e2fe2&is=6a1cde62&hm=5f4997b1bf13d1f9692fc7f8d25460dca5911fa16e0229d09f94706b5e1ce386&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a202a22&is=6a1ed8a2&hm=f353c2d6c8840629d515ae5e4fd4570b6ed59f38b211cf36702c90b588ecbbce&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -18708,7 +18708,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a1e7a72&is=6a1d28f2&hm=9d24e772ff07ff9bc7958c272f0d158e4b74baf559897ebe32f5da9267af7b87&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a2074b2&is=6a1f2332&hm=65789a32863c4f3725934d6d5815e54f4eb3fe6f6f054b45305bed32fd7610de&"
           },
           "image": null,
           "video": null
@@ -18722,7 +18722,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a1e7a89&is=6a1d2909&hm=0ff8c02d5b880f7c767159557dad9c61a6323f082cc4e6b588ff61d278e55d09&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a2074c9&is=6a1f2349&hm=b1d9ce96c407d949a917234c90cf09e7e102a8ca06061163034b5abe86b15906&"
           },
           "image": null,
           "video": null
@@ -20101,7 +20101,7 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a1e332e&is=6a1ce1ae&hm=1ca9392cdcead4473c5483fec84dac8c0eb81b4071e89de10ce7d4d9d78449d0&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a202d6e&is=6a1edbee&hm=a89b6331714c768913751efa80fdb535749d396353cf7f8f9c64750370b29a45&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -20934,7 +20934,7 @@
       "author": {
         "name": "Coco",
         "username": "displayname_2",
-        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/ed6a87226724a928175c17b97f7c36e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/26e1a9016de7d4abb7df62a996ce49c0.png?size=1024"
       },
       "date": "2023-02-08T06:15:52.148000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1072762672740847677",
@@ -20973,7 +20973,7 @@
       "author": {
         "name": "Coco",
         "username": "displayname_2",
-        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/ed6a87226724a928175c17b97f7c36e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/26e1a9016de7d4abb7df62a996ce49c0.png?size=1024"
       },
       "date": "2023-02-08T06:19:28.922000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1072763581956894781",
@@ -21703,7 +21703,7 @@
         },
         {
           "emoji": "🐱",
-          "count": 6
+          "count": 7
         },
         {
           "emoji": "<:catwalk:967306009267822682>",
@@ -21875,7 +21875,7 @@
       "name": "AnimationSpeed",
       "description": "Animation speed looper (The same as animspeed but looped basically)\n\ncommands:\n```animspeedloop [numb]\nstopanimspeed```",
       "author": {
-        "name": "cat",
+        "name": "looker bee",
         "username": "ucatte",
         "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/58f320bac608ac9157c0bce76022e44f.png?size=1024"
       },
@@ -23344,7 +23344,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a1e2b59&is=6a1cd9d9&hm=03711d8e2ccc1073adb2da5fba5528999539b0900228bcd685abea238331dc54&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a202599&is=6a1ed419&hm=907aa90159c354f0e35039717a59b97ad16b646e81f1b5234569cecbaa935f82&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -24481,7 +24481,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a1ea779&is=6a1d55f9&hm=91c07b831683ccd646040841b9f33d565543fda6ca2331c0da181707a7d22485&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a1ff8f9&is=6a1ea779&hm=1031cefd43d32e1c0ce709001cef68431fe96f8a5e413a915ff9e32457f3eb98&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -26113,15 +26113,15 @@
         },
         {
           "emoji": "🇫",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🇺",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "Ⓜ️",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "🥀",
@@ -27041,7 +27041,7 @@
         },
         {
           "emoji": "🫥",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🤯",
@@ -27368,7 +27368,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T00:53:31.057000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476744020469481554",
@@ -27399,7 +27399,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T15:58:20.228000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476971725756563548",
@@ -27430,7 +27430,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T17:26:49.418000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476993994113286195",
@@ -27465,7 +27465,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T18:11:03.845000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477005127586939044",
@@ -27496,7 +27496,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-28T16:54:53.381000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477348345537368204",
@@ -27527,7 +27527,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-01T12:55:59.335000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477650612056231938",
@@ -27562,7 +27562,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-03T01:25:15.917000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478201561493541048",
@@ -27597,7 +27597,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-03T20:02:01.315000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478482602502525102",
@@ -27624,7 +27624,7 @@
         },
         {
           "emoji": "🤣",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "❤️",
@@ -27644,7 +27644,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-05T02:52:37.697000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478948322843562024",
@@ -27720,7 +27720,7 @@
       "reactions": [
         {
           "emoji": "🥺",
-          "count": 31
+          "count": 32
         },
         {
           "emoji": "🍆",
@@ -27792,7 +27792,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-13T15:56:48.420000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482044770804301845",
@@ -27823,7 +27823,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-13T16:49:06.980000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482057934878937169",
@@ -28033,7 +28033,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a1e29b8&is=6a1cd838&hm=af040da979e0672fac1a18d4c69fdad7521fe1ece5af9a3823da46300c7a3d74&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a2023f8&is=6a1ed278&hm=0f6eb77498640bfcdc0e4e32d27694125f80e4cfeca5a390b27cad899e5575d0&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -28729,23 +28729,23 @@
         },
         {
           "emoji": "🇼",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇴",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇷",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇩",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇸",
-          "count": 2
+          "count": 3
         }
       ],
       "loadstring_urls": []
@@ -28828,7 +28828,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 12
+          "count": 13
         },
         {
           "emoji": "😭",
@@ -29022,7 +29022,7 @@
       "reactions": [
         {
           "emoji": "<:WHAR:1386603699027050617>",
-          "count": 53
+          "count": 55
         },
         {
           "emoji": "<:biting:1472081217410170900>",
@@ -29154,7 +29154,7 @@
       "reactions": [
         {
           "emoji": "✡️",
-          "count": 17
+          "count": 18
         },
         {
           "emoji": "🫃",
@@ -29245,7 +29245,7 @@
         },
         {
           "emoji": "✅",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🗯️",
@@ -29286,10 +29286,22 @@
       "reactions": [
         {
           "emoji": "🎉",
-          "count": 14
+          "count": 16
         },
         {
           "emoji": "🔥",
+          "count": 3
+        },
+        {
+          "emoji": "🇵",
+          "count": 1
+        },
+        {
+          "emoji": "🇮",
+          "count": 1
+        },
+        {
+          "emoji": "🇳",
           "count": 1
         }
       ],
@@ -29302,7 +29314,7 @@
       "author": {
         "name": "h",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/5f82d7c4af2ba436f7ed3dd540a69d37.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
       },
       "date": "2026-05-31T09:44:33.574000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510579733052788867",
@@ -29327,7 +29339,7 @@
       "reactions": [
         {
           "emoji": "<:darkskull:1362660601960337428>",
-          "count": 9
+          "count": 13
         },
         {
           "emoji": "🍬",
@@ -29335,7 +29347,7 @@
         },
         {
           "emoji": "🔥",
-          "count": 2
+          "count": 1
         },
         {
           "emoji": "🏳️‍⚧️",
@@ -29346,24 +29358,16 @@
           "count": 1
         },
         {
-          "emoji": "6️⃣",
-          "count": 1
-        },
-        {
-          "emoji": "7️⃣",
-          "count": 1
-        },
-        {
           "emoji": "<:elonmusk:1425333671145246720>",
           "count": 1
         },
         {
           "emoji": "❌",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "👎",
-          "count": 1
+          "count": 2
         }
       ],
       "loadstring_urls": []
@@ -29375,7 +29379,7 @@
       "author": {
         "name": "h",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/5f82d7c4af2ba436f7ed3dd540a69d37.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
       },
       "date": "2026-05-31T21:17:22.813000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510754087078072540",
@@ -29405,7 +29409,7 @@
         },
         {
           "emoji": "🏳️‍⚧️",
-          "count": 2
+          "count": 5
         }
       ],
       "loadstring_urls": []
@@ -29433,7 +29437,12 @@
       "code_blocks": [],
       "links": [],
       "embeds": [],
-      "reactions": [],
+      "reactions": [
+        {
+          "emoji": "👍",
+          "count": 1
+        }
+      ],
       "loadstring_urls": []
     },
     {
@@ -29443,7 +29452,7 @@
       "author": {
         "name": "h",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/5f82d7c4af2ba436f7ed3dd540a69d37.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
       },
       "date": "2026-06-01T08:50:32.414000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510928526507773952",
@@ -29468,9 +29477,49 @@
       "reactions": [
         {
           "emoji": "🇮🇱",
-          "count": 1
+          "count": 7
+        },
+        {
+          "emoji": "🏳️‍⚧️",
+          "count": 5
+        },
+        {
+          "emoji": "🏳️‍🌈",
+          "count": 3
         }
       ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1511436269719126090",
+      "name": "cmdBarSuggestion",
+      "description": "sorry for my grave mistake of `uwuify`, but anyways\n\n# cmdBarSuggestion\n attempt to predict your next command, and autofill for you (super nice qol)\n||(a \"finite yield\" plugin collection)||\n\n## usage\n-try to predict command based on your input\n-autofill by pressing tab (or touch CmdBar for mobile)\n\n## note\n-no need to config\n-to disable, remove plugin and rejoin\n-auto align based on CmdBar's TextXAlignment (for custom theme people)\n-uses iy's func and variables (`CmdBar`, `autoComplete()`) for best cross-compatibility across recent versions",
+      "author": {
+        "name": "h",
+        "username": "openbridge",
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
+      },
+      "date": "2026-06-02T18:28:07.829000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511436269719126090",
+      "files": [
+        {
+          "filename": "cmdBarSuggestion.iy",
+          "url": "plugins/1511436269719126090/cmdBarSuggestion.iy",
+          "size": 3753,
+          "is_plugin": true,
+          "code": "local UserInputService = game:GetService(\"UserInputService\")\nlocal TextService = game:GetService(\"TextService\")\n\n-- cmdBar: used for hook\n-- Cmdbar: original and property of iy's var (as mentioned 3000 years ago)\nlocal cmdBar = Cmdbar and Cmdbar.ClassName == \"TextBox\" and Cmdbar or nil\n\nlocal function isDesktop()\n\tif UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled then\n\t\treturn false\n\tend\n\treturn true\nend\n\nlocal function getTopCommand()\n\tif cmdBar and cmdBar.Text == \"\" then\n\t\treturn nil\n\tend\n\tlocal typed = cmdBar.Text\n\n\t-- customaliases (I)\n\tfor alias, entry in pairs(customAlias) do\n\t\tif alias:sub(1, #typed) == typed then\n\t\t\treturn alias\n\t\tend\n\tend\n\n\t-- cmdaliases (II)\n\tfor _, entry in ipairs(cmds) do\n\t\tlocal name = entry.NAME\n\t\tif not name then\n\t\t\tcontinue\n\t\tend\n\t\tfor _, alias in ipairs(entry.ALIAS or {}) do\n\t\t\tif alias:sub(1, #typed) == typed then\n\t\t\t\treturn name\n\t\t\tend\n\t\tend\n\tend\n\n\t-- cmd names (III)\n\tfor _, entry in ipairs(cmds) do\n\t\tlocal name = entry.NAME\n\t\tif not name then\n\t\t\tcontinue\n\t\tend\n\t\tif name:sub(1, #typed) == typed then\n\t\t\treturn name\n\t\tend\n\tend\n\n\treturn nil\nend\n\nfunction partialAutoComplete()\n\tif not cmdBar then\n\t\tnotify(\"cmdbarsuggest\", \"cant find CmdBar, please try on different version of infinite yield\", 10)\n\t\treturn\n\tend\n\tlocal overlay = Instance.new(\"TextButton\")\n\n\toverlay.AutoButtonColor = false\n\toverlay.Parent = cmdBar.Parent\n\toverlay.BackgroundTransparency = 1\n\toverlay.TextColor3 = cmdBar.TextColor3:Lerp(Color3.new(0.5, 0.5, 0.5), 0.5)\n\toverlay.TextXAlignment = Enum.TextXAlignment.Left\n\toverlay.Font = cmdBar.Font\n\toverlay.TextSize = cmdBar.TextSize\n\toverlay.ZIndex = cmdBar.ZIndex + 1\n\toverlay.Size = UDim2.new(1, -4, 1, 0)\n\toverlay.Position = UDim2.new(0, 0, 0, 0)\n\toverlay.Text = \"\"\n\toverlay.Name = \"fyAutoComplete\"\n\n\tcmdBar:GetPropertyChangedSignal(\"Text\"):Connect(function()\n\t\tlocal text = cmdBar.Text\n\t\tlocal suggestion = getTopCommand()\n\n\t\tif text ~= \"\" and suggestion and suggestion ~= text then\n\t\t\tlocal remainder = suggestion:sub(#text + 1)\n\t\t\tlocal typedWidth = TextService:GetTextSize(text, cmdBar.TextSize, cmdBar.Font, Vector2.new(9999, 9999))\n\t\t\tlocal typedWidthX = typedWidth.X -- char's x width\n\n\t\t\tlocal xPos\n\t\t\tif cmdBar.TextXAlignment == Enum.TextXAlignment.Center then\n\t\t\t\tlocal containerWidth = cmdBar.Parent.AbsoluteSize.X\n\t\t\t\txPos = (containerWidth / 2) + (typedWidthX / 2) + 4\n\t\t\telse\n\t\t\t\txPos = typedWidthX + 4\n\t\t\tend\n\n\t\t\toverlay.Text = remainder .. `  ({isDesktop() and \"TAB\" or \"TAP\"})`\n\t\t\toverlay.Position = UDim2.new(0, xPos, 0, 0)\n\t\t\toverlay.Visible = true\n\t\telse\n\t\t\toverlay.Visible = false\n\t\tend\n\tend)\n\n\toverlay.MouseButton1Click:Connect(function()\n\t\tlocal topCommand = getTopCommand()\n\t\tif topCommand then\n\t\t\tautoComplete(topCommand, cmdBar.Text)\n\t\tend\n\tend)\n\n\tUserInputService.InputBegan:Connect(function(input, gameProcessed)\n\t\tif gameProcessed then\n\t\t\treturn\n\t\tend\n\t\tif not cmdBar:IsFocused() then\n\t\t\treturn\n\t\tend\n\n\t\tlocal suggestion = getTopCommand()\n\t\tif not suggestion then\n\t\t\treturn\n\t\tend\n\n\t\tif input.KeyCode == Enum.KeyCode.Tab or input.KeyCode == Enum.KeyCode.Right then\n\t\t\tautoComplete(suggestion, cmdBar.Text)\n\t\tend\n\tend)\nend\npartialAutoComplete()\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"cmdBarSuggestion\",\n\t[\"PluginDescription\"] = \"suggests commands to your command bar, finite yield!\",\n\t[\"Commands\"] = {\n\t\t[\"cmdbarsuggest\"] = {\n\t\t\t[\"ListName\"] = \"cmdbarsuggest\",\n\t\t\t[\"Description\"] = \"suggests commands to your command bar\",\n\t\t\t[\"Aliases\"] = { \"ALIAS1\", \"ALIAS2\", \"ALIAS3\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tnotify(\n\t\t\t\t\t\"cmdbarsuggest\",\n\t\t\t\t\t`{cmdBar and \"already ran, u can remove plugin to stop\" or \"cant find CmdBar, please try on different version of infinite yield\"}`,\n\t\t\t\t\t10\n\t\t\t\t)\n\t\t\tend,\n\t\t},\n\t},\n}\n\nreturn Plugin\n"
+        },
+        {
+          "filename": "out.gif",
+          "url": "plugins/1511436269719126090/out.gif",
+          "size": 2542804,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [],
       "loadstring_urls": []
     }
   ]
