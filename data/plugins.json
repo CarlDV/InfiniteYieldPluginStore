@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-05-30T09:58:59.783730+00:00",
+  "scraped_at": "2026-06-03T13:40:13.060400+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 532,
+  "total_plugins": 539,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -2518,7 +2518,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/a_56042fc4b19e1464315622be9aaa685e.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/70aa21dc5c28ccbc85394cb3eb304258.png?size=1024"
       },
       "date": "2020-01-23T03:15:12.032000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800",
@@ -5769,7 +5769,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/a_56042fc4b19e1464315622be9aaa685e.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/70aa21dc5c28ccbc85394cb3eb304258.png?size=1024"
       },
       "date": "2020-05-20T13:39:38.179000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556",
@@ -7864,7 +7864,7 @@
           "count": 5
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 6
         },
         {
@@ -8367,7 +8367,7 @@
           "count": 2
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 9
         },
         {
@@ -9049,7 +9049,7 @@
       "author": {
         "name": "m'",
         "username": "mdlk.74k",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/2479c6b753cf2a0d0864bab0ae9ca29a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/23fd17c2d06e19dad106b5010a1f9f6a.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -9567,7 +9567,7 @@
           "count": 3
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 9
         },
         {
@@ -10371,7 +10371,7 @@
           "count": 5
         },
         {
-          "emoji": "<a:twerk:693886141706797126>",
+          "emoji": "<:twerk:693886141706797126>",
           "count": 10
         },
         {
@@ -13668,7 +13668,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a1ba925&is=6a1a57a5&hm=48d965c80b2e64a55885ca94c2f9ab37d06c84cdceb71a4310b6a728dffa1c4f&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a20ef25&is=6a1f9da5&hm=5e87196e22d0a41e6e417feef557a3b8725c3e3b470124a767194ff2cf4356f7&"
           },
           "image": null,
           "video": null
@@ -16862,7 +16862,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a1bd772&is=6a1a85f2&hm=bf64a36f5383b45196abf248e1b2ab64d6399203859e74795ab7053933489a85&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a211d72&is=6a1fcbf2&hm=212c28c54c7b87c57d8884ca40d6b5e2b9469e0bf99d84a4aec88a233f0fbec9&"
           },
           "image": null,
           "video": null
@@ -16876,7 +16876,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a1bd789&is=6a1a8609&hm=64b5e60a782edeb14368ab5f1d79116bd39cd0ea0d90d63333fd870001400117&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a211d89&is=6a1fcc09&hm=c3974f7dd96e3cc0460180aa03e12756b6d83e48adfff4c3c17ca33f859a4c41&"
           },
           "image": null,
           "video": null
@@ -17378,7 +17378,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a1b8ce2&is=6a1a3b62&hm=7d26ee325a5a4cbd003914ccfe8f8dcfea127e27d458ce894522b52b8869586c&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a217ba2&is=6a202a22&hm=517428553b319d4a98ad3dbd7f52e2bc86b7a1665878823fc86efdfef577a71a&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -18708,7 +18708,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a1bd772&is=6a1a85f2&hm=bf64a36f5383b45196abf248e1b2ab64d6399203859e74795ab7053933489a85&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a211d72&is=6a1fcbf2&hm=212c28c54c7b87c57d8884ca40d6b5e2b9469e0bf99d84a4aec88a233f0fbec9&"
           },
           "image": null,
           "video": null
@@ -18722,7 +18722,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a1bd789&is=6a1a8609&hm=64b5e60a782edeb14368ab5f1d79116bd39cd0ea0d90d63333fd870001400117&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a211d89&is=6a1fcc09&hm=c3974f7dd96e3cc0460180aa03e12756b6d83e48adfff4c3c17ca33f859a4c41&"
           },
           "image": null,
           "video": null
@@ -18793,6 +18793,10 @@
         {
           "emoji": "👍",
           "count": 32
+        },
+        {
+          "emoji": "<:darkskull:1362660601960337428>",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -20097,7 +20101,7 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a1b902e&is=6a1a3eae&hm=a244f89b2aaebea2f26fc09f7b83fbca8c37b9c6f58808a76905c7cfb97afcba&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a217eee&is=6a202d6e&hm=58045660e53cbb831db56b8ce9e488445098cd4ee899a27989e99696d6ab33c5&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -20928,9 +20932,9 @@
       "name": "bodydeletor",
       "description": "body deletor\nDeletes all presents of body +more\n\ncommands list:\n> notorso - deletes your torso (kills you)\n> norightleg - deletes your right leg\n> noleftleg - deletes your left leg\n> norightarm (korblox) - deletes your right arm\n> noleftarm - deletes your left arm\n> rightHand - deletes all parts of left arm, but doesn't deletes RightHand\n> leftHand - deletes all parts of left arm, but doesn't deletes LeftHand\n> nolrighthand - Removes Lower part of right arm, it's looks f u n n y\n> nolleftarm - same as nolrighthand\n> noohead - deletes your head (kills you)\n> notorsoR6 - deletes your torso (R6) (kills you)\n> norightlegR6 (korbloxR6) - deletes your right leg (R6)\n> noleftlegR6 - deletes your left leg (R6)\n> norightarmR6 - deletes your right arm (R6)\n> noleftarmR6 - deletes your left arm (R6)\n> \n> -- Universal\n> noblur - deletes blur on screen\n> noragdoll - no ragdoll in shit ragdoll engine games\n> invisiblebodyR6 - makes your body invisible (R6) (CLIENT) (maybe dont work)\n> visiblebodyR6 - makes your body visible (R6) (CLIENT) (maybe dont work)\n> invisiblebody - makes your body invisible (CLIENT) (maybe dont work)\n> visiblebody - makes your body visible (CLIENT) (maybe dont work)",
       "author": {
-        "name": "ٴ",
+        "name": "Coco",
         "username": "displayname_2",
-        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/1e3b09a781e8a3382a1bb83b58f365d2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/26e1a9016de7d4abb7df62a996ce49c0.png?size=1024"
       },
       "date": "2023-02-08T06:15:52.148000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1072762672740847677",
@@ -20967,9 +20971,9 @@
       "name": "vrmobile",
       "description": "> vrmobile \n> \n> vr but for mobile (works on pc too)\n> \n> command:\n`vrmobile`",
       "author": {
-        "name": "ٴ",
+        "name": "Coco",
         "username": "displayname_2",
-        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/1e3b09a781e8a3382a1bb83b58f365d2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/827128303189360660/26e1a9016de7d4abb7df62a996ce49c0.png?size=1024"
       },
       "date": "2023-02-08T06:19:28.922000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1072763581956894781",
@@ -21699,7 +21703,7 @@
         },
         {
           "emoji": "🐱",
-          "count": 6
+          "count": 7
         },
         {
           "emoji": "<:catwalk:967306009267822682>",
@@ -21735,7 +21739,7 @@
       "author": {
         "name": "NZ-Linix",
         "username": "com.nzlinix",
-        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/10a4ba878a14385fe9081b9d6b511a14.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/4c74f161742fdc32964cdd6d9be1bfa4.png?size=1024"
       },
       "date": "2023-09-15T19:24:07.025000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1152323984399015936",
@@ -21812,7 +21816,7 @@
       "author": {
         "name": "NZ-Linix",
         "username": "com.nzlinix",
-        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/10a4ba878a14385fe9081b9d6b511a14.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/4c74f161742fdc32964cdd6d9be1bfa4.png?size=1024"
       },
       "date": "2023-09-15T19:47:00.304000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1152329744348622898",
@@ -21871,7 +21875,7 @@
       "name": "AnimationSpeed",
       "description": "Animation speed looper (The same as animspeed but looped basically)\n\ncommands:\n```animspeedloop [numb]\nstopanimspeed```",
       "author": {
-        "name": "thr",
+        "name": "looker bee",
         "username": "ucatte",
         "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/58f320bac608ac9157c0bce76022e44f.png?size=1024"
       },
@@ -22722,7 +22726,7 @@
       "reactions": [
         {
           "emoji": "💀",
-          "count": 293
+          "count": 294
         },
         {
           "emoji": "👅",
@@ -22887,7 +22891,7 @@
         },
         {
           "emoji": "<:RAHHHHH:1137693586381611058>",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "<:Noway:1177603430236299455>",
@@ -23340,7 +23344,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a1b8859&is=6a1a36d9&hm=ca591cd77c6616ab444e9a7905c59deb3be4b89ac38c3f96080b0a49f4b416da&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a217719&is=6a202599&hm=440c721d2a9dcd542b6e7cd712e0d826ddc9f22c6d6ba2535a50f8e0cadbc599&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -24477,7 +24481,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a1c0479&is=6a1ab2f9&hm=089949b5b1b7aa5aaecc273d970b591e1ec22120005c0ad525d25dc151cdf367&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a214a79&is=6a1ff8f9&hm=c8a4b2a4aaf69da5026b80cd1f41ccb61a0d25d5e824db19e083c306c89640ea&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -26109,15 +26113,15 @@
         },
         {
           "emoji": "🇫",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🇺",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "Ⓜ️",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "🥀",
@@ -27037,7 +27041,7 @@
         },
         {
           "emoji": "🫥",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🤯",
@@ -27364,7 +27368,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T00:53:31.057000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476744020469481554",
@@ -27395,7 +27399,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T15:58:20.228000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476971725756563548",
@@ -27426,7 +27430,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T17:26:49.418000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476993994113286195",
@@ -27461,7 +27465,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-27T18:11:03.845000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477005127586939044",
@@ -27492,7 +27496,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-02-28T16:54:53.381000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477348345537368204",
@@ -27523,7 +27527,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-01T12:55:59.335000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477650612056231938",
@@ -27558,7 +27562,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-03T01:25:15.917000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478201561493541048",
@@ -27593,7 +27597,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-03T20:02:01.315000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478482602502525102",
@@ -27620,7 +27624,7 @@
         },
         {
           "emoji": "🤣",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "❤️",
@@ -27640,7 +27644,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-05T02:52:37.697000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478948322843562024",
@@ -27716,7 +27720,7 @@
       "reactions": [
         {
           "emoji": "🥺",
-          "count": 31
+          "count": 32
         },
         {
           "emoji": "🍆",
@@ -27788,7 +27792,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-13T15:56:48.420000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482044770804301845",
@@ -27819,7 +27823,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/cbb70db5c78e9b7ea5f1872e49f44d16.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
       },
       "date": "2026-03-13T16:49:06.980000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482057934878937169",
@@ -28029,7 +28033,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a1b86b8&is=6a1a3538&hm=8f7ec868e43dfd8245027e822abe8a6c0f3dfdf0500f7a0342f18e7df32925d6&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a217578&is=6a2023f8&hm=2ac2e0cb04a3462d50f4c2025ef0ba7393e285ac575df8963e0f86d4c2cd292a&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -28454,27 +28458,27 @@
       "reactions": [
         {
           "emoji": "6️⃣",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "7️⃣",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🇩",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "🇽",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "9️⃣",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "✅",
-          "count": 2
+          "count": 3
         }
       ],
       "loadstring_urls": [
@@ -28725,23 +28729,23 @@
         },
         {
           "emoji": "🇼",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇴",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇷",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇩",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🇸",
-          "count": 2
+          "count": 3
         }
       ],
       "loadstring_urls": []
@@ -28824,7 +28828,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 12
+          "count": 13
         },
         {
           "emoji": "😭",
@@ -28992,7 +28996,7 @@
     {
       "id": "1500828781567545495",
       "name": "IYAI",
-      "description": "# IYAI\n-# Made by urluri\n\nAn AI assistant plugin for Infinite Yield. Talk to it in plain English and it'll inspect instances, read properties, run code, and modify the game world using live data from your session.\n\n## Commands\n`;ai` (alias: `;iyai`)\nOpens or closes the IYAI window.\n\n**Tested on Xeno, Madium, Delta mobile**\n\n## If you have any questions, feel free to dm <@640556322194063434>\n\n<https://github.com/imluri/IYAI>\nhttps://cdn.discordapp.com/attachments/1246327044715970611/1508584205339332730/2026-05-26_05-32-26.mp4?ex=6a161206&is=6a14c086&hm=72bf5c270f083dfe44ff4a81155181578c2496a6a5691941a02515e181d0680e&",
+      "description": "# IYAI\n-# Made by urluri\n\nAn AI assistant plugin for Infinite Yield. Talk to it in plain English and it'll inspect instances, read properties, run code, and modify the game world using live data from your session.\n\n## Commands\n`;ai` (alias: `;iyai`)\nOpens or closes the IYAI window.\n\n**Tested on Xeno, Madium, Delta, Velocity, Potassium, Volt**\n\n## If you have any questions, feel free to dm <@640556322194063434>\n\n<https://github.com/imluri/IYAI>\nhttps://cdn.discordapp.com/attachments/1246327044715970611/1508584205339332730/2026-05-26_05-32-26.mp4?ex=6a161206&is=6a14c086&hm=72bf5c270f083dfe44ff4a81155181578c2496a6a5691941a02515e181d0680e&",
       "author": {
         "name": "luri",
         "username": "urluri",
@@ -29018,7 +29022,7 @@
       "reactions": [
         {
           "emoji": "<:WHAR:1386603699027050617>",
-          "count": 52
+          "count": 56
         },
         {
           "emoji": "<:biting:1472081217410170900>",
@@ -29030,7 +29034,7 @@
         },
         {
           "emoji": "<:BOOYAH:1434401767751422023>",
-          "count": 13
+          "count": 14
         },
         {
           "emoji": "💀",
@@ -29150,7 +29154,7 @@
       "reactions": [
         {
           "emoji": "✡️",
-          "count": 17
+          "count": 18
         },
         {
           "emoji": "🫃",
@@ -29158,7 +29162,7 @@
         },
         {
           "emoji": "🐔",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🐟",
@@ -29194,6 +29198,10 @@
         },
         {
           "emoji": "<:funnythumbsup:1030163626285350992>",
+          "count": 1
+        },
+        {
+          "emoji": "<:confused:1292538742380298240>",
           "count": 1
         }
       ],
@@ -29237,7 +29245,7 @@
         },
         {
           "emoji": "✅",
-          "count": 1
+          "count": 3
         },
         {
           "emoji": "🗯️",
@@ -29278,7 +29286,308 @@
       "reactions": [
         {
           "emoji": "🎉",
-          "count": 6
+          "count": 17
+        },
+        {
+          "emoji": "🔥",
+          "count": 3
+        },
+        {
+          "emoji": "🇵",
+          "count": 3
+        },
+        {
+          "emoji": "🇮",
+          "count": 3
+        },
+        {
+          "emoji": "🇳",
+          "count": 3
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1510579733052788867",
+      "name": "sigmasedit",
+      "description": "# sigmasedit\nan interesting edit i saw on twitter out of all places, triggers randomly based on ur input\n\n## commands\n-`sigmasedit` toggle edit\n-`sigmathreshold [num]` set threshold (420 baseline, higher > less chance to trigger)\n\n## note\n-if stuck (too low threshold, getting annoyed...), then **rejoin** or toggle using `sigmasedit`",
+      "author": {
+        "name": "h",
+        "username": "openbridge",
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
+      },
+      "date": "2026-05-31T09:44:33.574000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510579733052788867",
+      "files": [
+        {
+          "filename": "sigmasedit.iy",
+          "url": "plugins/1510579733052788867/sigmasedit.iy",
+          "size": 8770,
+          "is_plugin": true,
+          "code": "-- change file type to .iy before import!\n\nlocal isEnabled, isPreloaded = false, false\nlocal TRIGGERTHRESHOLD = 420\nlocal DURATIONTHRESHOLD = 5\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"sigma's edit\",\n\t[\"PluginDescription\"] = \"this is how alpha plays roblox\",\n\t[\"Commands\"] = {\n\t\t[\"sigmasedit\"] = {\n\t\t\t[\"ListName\"] = \"sigmasedit\",\n\t\t\t[\"Description\"] = \"this is how you as an alpha plays roblox?\",\n\t\t\t[\"Aliases\"] = { \"sigmaedit\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif isEnabled then\n\t\t\t\t\tisEnabled = not isEnabled\n\t\t\t\t\tnotify(\"sigma's edit\", \"is \" .. (isEnabled and \"on\" or \"off\"))\n\t\t\t\t\treturn\n\t\t\t\tend\n\n\t\t\t\tisEnabled = true\n\t\t\t\tnotify(\"sigma's edit\", \"enabled! stay frosty me frens (cmd + q if stuck in low framerate)\")\n\n\t\t\t\tlocal userInputService = game:GetService(\"UserInputService\")\n\t\t\t\tlocal contextActionService = game:GetService(\"ContextActionService\")\n\t\t\t\tlocal workspace = game:GetService(\"Workspace\")\n\t\t\t\tlocal players = game:GetService(\"Players\")\n\t\t\t\t-- local ContentProvider = game:GetService(\"ContentProvider\")\n\n\t\t\t\tlocal equipEvent = contextActionService.LocalToolEquipped\n\t\t\t\tlocal unequipEvent = contextActionService.LocalToolUnequipped\n\t\t\t\tlocal inputEvent = userInputService.InputBegan\n\n\t\t\t\t-- personally, i think luau's table is nicer than whatever js is\n\t\t\t\tlocal sigmas = {\n\t\t\t\t\t[\"image\"] = {\n\t\t\t\t\t\t17334028110,\n\t\t\t\t\t\t15729950259,\n\t\t\t\t\t\t137892003660281,\n\t\t\t\t\t\t98357432058989,\n\t\t\t\t\t\t12552431195,\n\t\t\t\t\t\t76090971615079,\n\t\t\t\t\t\t18735477147,\n\t\t\t\t\t\t15563091890,\n\t\t\t\t\t\t13497658487,\n\t\t\t\t\t\t78906920386708,\n\t\t\t\t\t\t18383312122,\n\t\t\t\t\t\t18924353209,\n\t\t\t\t\t\t17337974860,\n\t\t\t\t\t\t16211045192,\n\t\t\t\t\t\t13304453336,\n\t\t\t\t\t\t11393121553,\n\t\t\t\t\t\t127678838552035,\n\t\t\t\t\t\t77987465336971,\n\t\t\t\t\t\t6970682513,\n\t\t\t\t\t\t99747784406996,\n\t\t\t\t\t\t10177679701,\n\t\t\t\t\t\t16740418002,\n\t\t\t\t\t\t7783359239,\n\t\t\t\t\t\t18849681057,\n\t\t\t\t\t\t10009449194,\n\t\t\t\t\t\t122354736220591,\n\t\t\t\t\t\t127588103445571,\n\t\t\t\t\t\t17307559228,\n\t\t\t\t\t\t5274729037,\n\t\t\t\t\t},\n\t\t\t\t\t[\"music\"] = { -- struct: [id, [point(s) of interest]]\n\t\t\t\t\t\t{ 140667339171815, [\"duration\"] = { 0, 18, 54 } },\n\t\t\t\t\t\t{ 140521045204459, [\"duration\"] = { 0, 14, 103 } },\n\t\t\t\t\t\t{ 140667339171815, [\"duration\"] = { 26, 60 } },\n\t\t\t\t\t},\n\t\t\t\t}\n\n\t\t\t\tfunction preload()\n\t\t\t\t\t-- should only call once per init\n\t\t\t\t\tif isPreloaded then\n\t\t\t\t\t\treturn\n\t\t\t\t\tend\n\n\t\t\t\t\t-- \tContentProvider:PreloadAsync(contents, function(assetId, status)\n\t\t\t\t\t-- \t\tprint(status)\n\t\t\t\t\t-- \tend)\n\n\t\t\t\t\tnotify(\"sigma's edit (first time init)\", \"preloading (may slow a lil bit)\")\n\t\t\t\t\tlocal mainContainer = Instance.new(\"ScreenGui\", players.LocalPlayer.PlayerGui)\n\t\t\t\t\tlocal preloadFrame = Instance.new(\"Frame\", mainContainer)\n\t\t\t\t\tlocal preloadImg = Instance.new(\"ImageLabel\")\n\t\t\t\t\tlocal preloadAudio = Instance.new(\"Sound\")\n\n\t\t\t\t\tmainContainer.Name = randomString()\n\n\t\t\t\t\tpreloadFrame.Name = \"preloadFrame\"\n\t\t\t\t\tpreloadFrame.Size = UDim2.new(0, 1, 0, 1)\n\t\t\t\t\tpreloadFrame.BackgroundTransparency = 1\n\n\t\t\t\t\tpreloadImg.Name = randomString()\n\t\t\t\t\tpreloadImg.Parent = preloadFrame\n\t\t\t\t\tpreloadImg.Size = UDim2.new(0, 1, 0, 1)\n\t\t\t\t\tpreloadImg.BackgroundTransparency = 1\n\n\t\t\t\t\tpreloadAudio.Name = randomString()\n\t\t\t\t\tpreloadAudio.Parent = preloadFrame\n\t\t\t\t\tpreloadAudio.Volume = 0.1\n\n\t\t\t\t\tfor _, id in ipairs(sigmas[\"image\"]) do\n\t\t\t\t\t\tpreloadImg.Image = \"rbxassetid://\" .. id\n\t\t\t\t\t\ttask.wait(0.1)\n\t\t\t\t\tend\n\t\t\t\t\tfor _, entry in ipairs(sigmas[\"music\"]) do\n\t\t\t\t\t\tpreloadAudio.SoundId = \"rbxassetid://\" .. entry[1]\n\t\t\t\t\t\ttask.wait(0.1)\n\t\t\t\t\t\tpreloadAudio:Play()\n\t\t\t\t\t\ttask.wait(0.1)\n\t\t\t\t\t\tpreloadAudio:Stop()\n\t\t\t\t\tend\n\n\t\t\t\t\tmainContainer:Destroy()\n\n\t\t\t\t\tisPreloaded = true\n\t\t\t\t\tnotify(\"sigma's edit (first time init)\", \"preloaded!!\")\n\t\t\t\tend\n\t\t\t\tpreload()\n\n\t\t\t\tlocal randomPicked = function(type: \"image\" | \"music\" | \"duration\"): number\n\t\t\t\t\tif type == \"duration\" then\n\t\t\t\t\t\tlocal entry = sigmas[\"music\"][math.random(1, #sigmas[\"music\"])]\n\t\t\t\t\t\tlocal durations = entry[\"duration\"]\n\t\t\t\t\t\treturn durations[math.random(1, #durations)]\n\t\t\t\t\tend\n\n\t\t\t\t\tif type == \"image\" then\n\t\t\t\t\t\treturn sigmas[\"image\"][math.random(1, #sigmas[\"image\"])]\n\t\t\t\t\tend\n\n\t\t\t\t\treturn sigmas[\"music\"][math.random(1, #sigmas[\"music\"])][1]\n\t\t\t\tend\n\n\t\t\t\tlocal shouldBeTriggered = function(): boolean\n\t\t\t\t\treturn math.random(1, TRIGGERTHRESHOLD) == 1\n\t\t\t\tend\n\n\t\t\t\t-- local img: ImageLabel = workspace:WaitForChild(\"d\").main.img\n\n\t\t\t\tlocal localPlayer = (game:GetService(\"Players\")).LocalPlayer\n\t\t\t\tlocal mainContainer = Instance.new(\"ScreenGui\", localPlayer.PlayerGui)\n\t\t\t\tlocal imageLabel = Instance.new(\"ImageLabel\", mainContainer)\n\t\t\t\tlocal musicPlayer = Instance.new(\"Sound\", mainContainer)\n\t\t\t\tlocal fadeOverlay = Instance.new(\"Frame\", mainContainer)\n\n\t\t\t\tmainContainer.Name = randomString()\n\n\t\t\t\timageLabel.Name = randomString()\n\t\t\t\timageLabel.AnchorPoint = Vector2.new(0.5, 1)\n\t\t\t\timageLabel.Position = UDim2.new(0.5, 0, 0.95, 0)\n\t\t\t\timageLabel.Size = UDim2.new(0.2, 0, 0.3, 0)\n\t\t\t\timageLabel.ZIndex = 2\n\t\t\t\timageLabel.BorderSizePixel = 0\n\t\t\t\timageLabel.BackgroundTransparency = 1\n\n\t\t\t\tfadeOverlay.Name = randomString()\n\t\t\t\tfadeOverlay.Visible = false\n\t\t\t\tfadeOverlay.AnchorPoint = Vector2.new(0.5, 0.5)\n\t\t\t\tfadeOverlay.Position = UDim2.new(0.5, 0, 0.5, 0)\n\t\t\t\tfadeOverlay.Size = UDim2.new(2, 0, 2, 0)\n\t\t\t\tfadeOverlay.BackgroundColor3 = Color3.new(119, 119, 119)\n\t\t\t\tfadeOverlay.BackgroundTransparency = 0.4\n\n\t\t\t\tmusicPlayer.Name = \"sigma_audio\"\n\t\t\t\tmusicPlayer.Volume = 0.67\n\t\t\t\tmusicPlayer.Playing = false\n\t\t\t\tmusicPlayer.Parent = workspace\n\n\t\t\t\tlocal fpsCapThread: thread | nil = nil\n\t\t\t\tfunction fpsCap(target: number | nil)\n\t\t\t\t\tif fpsCapThread then\n\t\t\t\t\t\ttask.cancel(fpsCapThread)\n\t\t\t\t\tend\n\n\t\t\t\t\tif not target then\n\t\t\t\t\t\tfpsCap(math.huge)\n\t\t\t\t\t\treturn\n\t\t\t\t\tend\n\n\t\t\t\t\tlocal targetFps = math.floor(target) <= 0 and 1 or math.floor(target)\n\t\t\t\t\t-- built in setfpscap is... so-so\n\t\t\t\t\t-- lets torment cpu\n\n\t\t\t\t\t-- if setfpscap and type(setfpscap) == \"function\" then\n\t\t\t\t\t-- \tsetfpscap(targetFps)\n\t\t\t\t\t-- else\n\n\t\t\t\t\tfpsCapThread = task.spawn(function()\n\t\t\t\t\t\tlocal timer = os.clock()\n\t\t\t\t\t\twhile true do\n\t\t\t\t\t\t\tif os.clock() >= timer + 1 / targetFps then\n\t\t\t\t\t\t\t\ttimer = os.clock()\n\t\t\t\t\t\t\t\ttask.wait()\n\t\t\t\t\t\t\tend\n\t\t\t\t\t\tend\n\t\t\t\t\tend)\n\t\t\t\tend\n\n\t\t\t\tlocal isDebaunce: boolean = false\n\t\t\t\tlocal function playRandom()\n\t\t\t\t\tif not shouldBeTriggered() or isDebaunce then\n\t\t\t\t\t\treturn\n\t\t\t\t\tend\n\n\t\t\t\t\tisDebaunce = true\n\n\t\t\t\t\t-- preloadElement({\n\t\t\t\t\t-- \t\"rbxtextureid://\" .. randomPicked(\"image\"),\n\t\t\t\t\t-- \t\"rbxassetid://\" .. randomPicked(\"music\"),\n\t\t\t\t\t-- })\n\n\t\t\t\t\timageLabel.Image = \"rbxassetid://\" .. randomPicked(\"image\")\n\t\t\t\t\tmusicPlayer.SoundId = \"rbxassetid://\" .. randomPicked(\"music\")\n\t\t\t\t\tmusicPlayer.TimePosition = randomPicked(\"duration\")\n\n\t\t\t\t\tmusicPlayer.Playing = true\n\t\t\t\t\tfadeOverlay.Visible = true\n\t\t\t\t\timageLabel.Visible = true\n\n\t\t\t\t\t-- .1 hangs the whole engine\n\t\t\t\t\t-- 1 looks like powerpoint\n\t\t\t\t\ttask.wait(0.45)\n\t\t\t\t\tfpsCap(0.6)\n\n\t\t\t\t\ttask.delay(DURATIONTHRESHOLD, function()\n\t\t\t\t\t\tfpsCap()\n\t\t\t\t\t\tfadeOverlay.Visible = false\n\n\t\t\t\t\t\timageLabel.Visible = false\n\t\t\t\t\t\timageLabel.Image = \"\"\n\n\t\t\t\t\t\tmusicPlayer.Playing = false\n\t\t\t\t\t\tmusicPlayer.TimePosition = 0\n\n\t\t\t\t\t\tisDebaunce = false\n\t\t\t\t\tend)\n\n\t\t\t\t\t-- print(\"stopping...\")\n\t\t\t\tend\n\n\t\t\t\tif isEnabled then\n\t\t\t\t\ttask.delay(0.5, function()\n\t\t\t\t\t\tequipEvent:Connect(function(_)\n\t\t\t\t\t\t\tplayRandom()\n\t\t\t\t\t\tend)\n\n\t\t\t\t\t\tunequipEvent:Connect(function(_)\n\t\t\t\t\t\t\tplayRandom()\n\t\t\t\t\t\tend)\n\n\t\t\t\t\t\tinputEvent:Connect(function(_, __)\n\t\t\t\t\t\t\tplayRandom()\n\t\t\t\t\t\tend)\n\t\t\t\t\tend)\n\t\t\t\telse\n\t\t\t\t\tequipEvent:Disconnect()\n\t\t\t\t\tunequipEvent:Disconnect()\n\t\t\t\t\tinputEvent:Disconnect()\n\t\t\t\tend\n\t\t\tend,\n\t\t},\n\t\t[\"sigmathreshold\"] = {\n\t\t\t[\"ListName\"] = \"sigmathreshold [number]\",\n\t\t\t[\"Description\"] = \"define the threshold to trigger the sigma's edit (default is \"\n\t\t\t\t.. TRIGGERTHRESHOLD\n\t\t\t\t.. \") (higher = less frequent)\",\n\t\t\t[\"Aliases\"] = { \"sigmaamount\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal numArg = tonumber(args[1])\n\t\t\t\tif type(numArg) ~= \"number\" or numArg <= 0 then\n\t\t\t\t\tnotify(\n\t\t\t\t\t\t\"sigma's edit (threshold val err)\",\n\t\t\t\t\t\t\"expected CORRECT number argument ( n num > 0 , type as 'number')\"\n\t\t\t\t\t)\n\t\t\t\t\treturn\n\t\t\t\tend\n\n\t\t\t\tif numArg <= 50 then\n\t\t\t\t\tnotify(\"sigma's edit (low threshold val warn)\", \"might cause significant inconvenience\")\n\t\t\t\tend\n\n\t\t\t\tTRIGGERTHRESHOLD = numArg or TRIGGERTHRESHOLD\n\t\t\t\tnotify(\n\t\t\t\t\t\"sigma's edit (threshold changed)\",\n\t\t\t\t\t\"threshold set to \"\n\t\t\t\t\t\t.. TRIGGERTHRESHOLD\n\t\t\t\t\t\t.. \".\"\n\t\t\t\t\t\t.. (TRIGGERTHRESHOLD > 1000 and \" (..and okay i can tell that you are mad)\" or \"\")\n\t\t\t\t)\n\t\t\tend,\n\t\t},\n\t\t-- [\"togglesigmasedit\"] = {\n\t\t-- \t[\"ListName\"] = \"togglesigmasedit\",\n\t\t-- \t[\"Description\"] = \"toggle the sigma's edit\",\n\t\t-- \t[\"Aliases\"] = { \"togglesigmaedit\" },\n\t\t-- \t[\"Function\"] = function(args, speaker)\n\t\t-- \t\tisEnabled = not isEnabled\n\t\t-- \t\tnotify(\"sigma's edit\", \"effect: \" .. tostring(isEnabled))\n\t\t-- \tend,\n\t\t-- },\n\t},\n}\n\nreturn Plugin\n"
+        },
+        {
+          "filename": "Screen_Recording_2026-05-31_at_16.24.18.mov",
+          "url": "plugins/1510579733052788867/Screen_Recording_2026-05-31_at_16.24.18.mov",
+          "size": 13632775,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "<:darkskull:1362660601960337428>",
+          "count": 13
+        },
+        {
+          "emoji": "🍬",
+          "count": 3
+        },
+        {
+          "emoji": "🔥",
+          "count": 1
+        },
+        {
+          "emoji": "🏳️‍⚧️",
+          "count": 1
+        },
+        {
+          "emoji": "🤍",
+          "count": 1
+        },
+        {
+          "emoji": "<:elonmusk:1425333671145246720>",
+          "count": 1
+        },
+        {
+          "emoji": "❌",
+          "count": 2
+        },
+        {
+          "emoji": "👎",
+          "count": 2
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1510754087078072540",
+      "name": "uwuify",
+      "description": "# uwuify (based on `cutestring()`)\nspices ur chat for some reason ⁉️ \n\n## commands\n-`uwuify [string]`: uwuify input then send out via chat\n-`autouwuify [boolean?]`: auto uwuify ur chat messages (⚠️ :: original msg will be sent out along, pls use `uwuify` if ure not that lazy)\n\n## credit\nfrom [deleted user] for the original idea \n(i literally add extra spices, update to use roblox's new `textChatService` and the half baked `autouwuify` 😭)\n\n## linkie\nhttps://cdn.discordapp.com/attachments/510246773965455360/1510746930337021972/qwqx066.mov?ex=6a1df038&is=6a1c9eb8&hm=2d8756c0e634687975c0281285d53c29c5839451aff87e3f659b4dd1b531e9bb&\nhttps://discord.com/channels/503045718102114305/551846012310782014/727567272457142332",
+      "author": {
+        "name": "h",
+        "username": "openbridge",
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
+      },
+      "date": "2026-05-31T21:17:22.813000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510754087078072540",
+      "files": [
+        {
+          "filename": "uwuify.iy",
+          "url": "plugins/1510754087078072540/uwuify.iy",
+          "size": 4354,
+          "is_plugin": true,
+          "code": "local textChatService = game:GetService(\"TextChatService\")\nlocal chatChannel = textChatService.TextChannels.RBXGeneral\nlocal chatConnection = nil\n\nlocal isAutoCutie = false\nlocal speakerUserId = nil\n\n-- cant figure out a way to intercept (or at least stop) msg before firing so...\n-- + let the server be with the og msg\n-- + from msg back, we uwuify and fire out\n\nlocal function uwuifyString(input, speaker)\n\tlocal result = input\n\tlocal seed = os.time()\n\tmath.randomseed(seed)\n\n\tresult = string.gsub(result, \"r\", \"w\")\n\tresult = string.gsub(result, \"R\", \"W\")\n\tresult = string.gsub(result, \"l\", \"w\")\n\tresult = string.gsub(result, \"L\", \"W\")\n\tresult = string.gsub(result, \"n\", \"ny\")\n\tresult = string.gsub(result, \"N\", \"Ny\")\n\tresult = string.gsub(result, \"ove\", \"uv\")\n\tresult = string.gsub(result, \"OVE\", \"UV\")\n\tresult = string.gsub(result, \"th\", \"d\")\n\tresult = string.gsub(result, \"Th\", \"D\")\n\tresult = string.gsub(result, \"TH\", \"D\")\n\tresult = string.gsub(result, \"v\", \"w\")\n\tresult = string.gsub(result, \"V\", \"W\")\n\tresult = string.gsub(result, \"you\", \"youw\")\n\tresult = string.gsub(result, \"You\", \"Youw\")\n\n\tlocal chars = {}\n\tfor i = 1, #result do\n\t\ttable.insert(chars, result:sub(i, i))\n\t\tif math.random() > 0.7 and result:sub(i, i):match(\"[a-zA-Z]\") then\n\t\t\t-- ad-add p-pa-pauses int-o output l-lik-like th-thisssss\n\t\t\ttable.insert(chars, result:sub(i, i) .. \"-\")\n\t\tend\n\tend\n\tresult = table.concat(chars)\n\n\tlocal affixes = {\n\t\t\" :3\",\n\t\t\" >:3\",\n\t\t\" :333\",\n\t\t\" :3c\",\n\t\t\"!11!!\",\n\t\t\"!!!!\",\n\t\t\"!!!\",\n\t\t\"~~\",\n\t\t\"!!??!\",\n\t\t\"?!?!??\",\n\t\t\" >w<\",\n\t\t\" >.<\",\n\t\t\" owo\",\n\t\t\" OwO\",\n\t\t\" UwU\",\n\t\t\" nyaa~\",\n\t\t\" ^w^\",\n\t\t\" <3\",\n\t\t\" x3\",\n\t\t\" muah~\",\n\t\t\" :D\",\n\t\t\" hehe\",\n\t\t\" rawr\",\n\t\t\" prrr~\",\n\t\t\" ✧w✧\",\n\t\t\" hehehehe\",\n\t\t\" chu~\",\n\t\t\" ~nya\",\n\t\t\" kawaii~\",\n\t\t\" yay!!\",\n\t\t\" :DD\",\n\t\t\" *excited noises*\",\n\t\t\" wheee~~\",\n\t\t\" eheheheheheheh!\",\n\t\t\" heheheheh!!\",\n\t\t\" uheheheheheh!!\",\n\t\t\" uehh\",\n\t}\n\tresult = result .. affixes[math.random(#affixes)]\n\n\treturn result\nend\n\nlocal function sendMessage(message)\n\ttextChatService.TextChannels.RBXGeneral:SendAsync(message)\nend\n\nlocal function onChatEvent(state)\n\tif state then\n\t\tlocal alreadySentUwuified = false\n\t\tchatConnection = chatChannel.MessageReceived:Connect(function(messageObject)\n\t\t\tif not messageObject.TextSource or messageObject.TextSource.UserId ~= speakerUserId then\n\t\t\t\treturn\n\t\t\tend\n\t\t\tif alreadySentUwuified then\n\t\t\t\talreadySentUwuified = false\n\t\t\t\treturn\n\t\t\tend\n\t\t\tif isAutoCutie then\n\t\t\t\tlocal original = messageObject.Text or \"\"\n\t\t\t\tlocal cutified = uwuifyString(original)\n\t\t\t\tif cutified ~= original then\n\t\t\t\t\talreadySentUwuified = true\n\t\t\t\t\tchatChannel:SendAsync(cutified)\n\t\t\t\tend\n\t\t\tend\n\t\tend)\n\telse\n\t\tif chatConnection then\n\t\t\tchatConnection:Disconnect()\n\t\t\tchatConnection = nil\n\t\tend\n\tend\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"uwuify (formerly cutestring)\",\n\t[\"PluginDescription\"] = \"format chat with cute uwu!!11~\",\n\t[\"Commands\"] = {\n\t\t[\"uwuify\"] = {\n\t\t\t[\"ListName\"] = \"uwuify [string] / cuteify [string]\",\n\t\t\t[\"Description\"] = \"makes a string cute\",\n\t\t\t[\"Aliases\"] = { \"cuteify\", \"cutestring\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tspeakerUserId = speaker.UserId\n\t\t\t\tlocal output = uwuifyString(table.concat(args, \" \") or args[1])\n\t\t\t\tif output then\n\t\t\t\t\tsendMessage(output)\n\t\t\t\t\t-- if setclipboard and type(setclipboard) == \"function\" then\n\t\t\t\t\t-- \tsetclipboard(output)\n\t\t\t\t\t-- \t-- literally only sirhurt has this, hallo??\n\t\t\t\t\t-- end\n\t\t\t\telse\n\t\t\t\t\tnotify(\"no output to send\")\n\t\t\t\tend\n\t\t\tend,\n\t\t},\n\t\t[\"autouwuify\"] = {\n\t\t\t[\"ListName\"] = \"autouwuify [boolean?]\",\n\t\t\t[\"Description\"] = \"toggle uwuify per chat message >:3c\",\n\t\t\t[\"Aliases\"] = { \"autocutie\", \"autouwu\", \"autocutestring\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tspeakerUserId = speaker.UserId\n\t\t\t\tlocal toggle = (args[1] or \"\"):lower()\n\t\t\t\tif toggle == \"true\" then\n\t\t\t\t\tisAutoCutie = true\n\t\t\t\t\tonChatEvent(true)\n\t\t\t\t\tnotify(\n\t\t\t\t\t\t\"auto-cutie mode on  (warn: original msg will be sent along, use uwuify instead if ure not lazy)\"\n\t\t\t\t\t)\n\t\t\t\telseif toggle == \"false\" then\n\t\t\t\t\tisAutoCutie = false\n\t\t\t\t\tonChatEvent(false)\n\t\t\t\t\tnotify(\"auto-cutie mode off\")\n\t\t\t\telse\n\t\t\t\t\tisAutoCutie = not isAutoCutie\n\t\t\t\t\tonChatEvent(isAutoCutie)\n\t\t\t\t\tnotify(\n\t\t\t\t\t\t`auto-cutie mode toggled {isAutoCutie and \"on  (warn: original msg will be sent along, use uwuify instead if ure not lazy)\" or \"off\"}`\n\t\t\t\t\t)\n\t\t\t\tend\n\t\t\tend,\n\t\t},\n\t},\n}\n\nreturn Plugin\n"
+        }
+      ],
+      "code_blocks": [],
+      "links": [
+        "https://cdn.discordapp.com/attachments/510246773965455360/1510746930337021972/qwqx066.mov?ex=6a1df038&is=6a1c9eb8&hm=2d8756c0e634687975c0281285d53c29c5839451aff87e3f659b4dd1b531e9bb&",
+        "https://discord.com/channels/503045718102114305/551846012310782014/727567272457142332"
+      ],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "👍",
+          "count": 2
+        },
+        {
+          "emoji": "🔞",
+          "count": 1
+        },
+        {
+          "emoji": "🏳️‍⚧️",
+          "count": 5
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1510893434045464668",
+      "name": "HealthESP",
+      "description": "HealthESP, allows u to better visualize the health of players if you're looking to do some kill stealing 😈 \nUse `hesp` to show all players’ HP, `hesp team` for only your team, `hesp nteam` for enemies, add a number like `hesp nteam 3` to show only the lowest-HP targets, and use `unhesp` to turn it off.",
+      "author": {
+        "name": "SteamUser#9483",
+        "username": "steamuser9483",
+        "avatar": "https://cdn.discordapp.com/avatars/602608719829663775/59eb68fb1a1e256d9db1043a83658070.png?size=1024"
+      },
+      "date": "2026-06-01T06:31:05.719000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510893434045464668",
+      "files": [
+        {
+          "filename": "HealthESP.iy",
+          "url": "plugins/1510893434045464668/HealthESP.iy",
+          "size": 15680,
+          "is_plugin": true,
+          "code": "local Plugin = {\n    [\"PluginName\"] = \"HealthESP\",\n    [\"PluginDescription\"] = \"Highlights players based on HP and shows their actual HP above their heads.\",\n    [\"Commands\"] = {\n        [\"hesp\"] = {\n            [\"ListName\"] = \"hesp [team/nteam] [limit]\",\n            [\"Description\"] = \"Loads Health ESP. Examples: hesp, hesp team, hesp nteam, hesp 3, hesp team 3, hesp nteam 3.\",\n            [\"Aliases\"] = {\"healthesp\", \"loadhesp\"},\n            [\"Function\"] = function(args, speaker)\n                local Players = game:GetService(\"Players\")\n                local RunService = game:GetService(\"RunService\")\n                local LocalPlayer = Players.LocalPlayer\n\n                if not LocalPlayer then\n                    warn(\"HealthESP: No LocalPlayer found.\")\n                    return\n                end\n\n                local SCRIPT_TAG = \"HEALTH_ESP_PLUGIN_RUNNING\"\n                local HIGHLIGHT_TAG = \"HEALTH_ESP_HL\"\n                local BILLBOARD_TAG = \"HEALTH_ESP_BB\"\n\n                local teamMode = \"all\"\n                local limitCount = nil\n\n                if args then\n                    for _, arg in ipairs(args) do\n                        local value = tostring(arg):lower()\n\n                        if value == \"off\" or value == \"stop\" or value == \"false\" or value == \"unload\" then\n                            local oldControl = LocalPlayer:FindFirstChild(SCRIPT_TAG)\n                            if oldControl and oldControl:IsA(\"BindableEvent\") then\n                                pcall(function()\n                                    oldControl:Fire()\n                                end)\n                                print(\"HealthESP unloaded.\")\n                            else\n                                print(\"No running HealthESP instance found.\")\n                            end\n                            return\n                        elseif value == \"team\" or value == \"same\" or value == \"friendly\" or value == \"friendlies\" then\n                            teamMode = \"team\"\n                        elseif value == \"nteam\" or value == \"enemy\" or value == \"enemies\" or value == \"other\" or value == \"others\" then\n                            teamMode = \"nteam\"\n                        else\n                            local numberValue = tonumber(value)\n                            if numberValue then\n                                limitCount = math.max(1, math.floor(numberValue))\n                            end\n                        end\n                    end\n                end\n\n                local old = LocalPlayer:FindFirstChild(SCRIPT_TAG)\n                if old and old:IsA(\"BindableEvent\") then\n                    pcall(function()\n                        old:Fire()\n                    end)\n                    pcall(function()\n                        old:Destroy()\n                    end)\n                end\n\n                local control = Instance.new(\"BindableEvent\")\n                control.Name = SCRIPT_TAG\n                control.Parent = LocalPlayer\n\n                local maid = {}\n                local visuals = {}\n                local running = true\n                local lastUpdate = 0\n\n                local function giveTask(taskItem)\n                    maid[#maid + 1] = taskItem\n                    return taskItem\n                end\n\n                local function cleanupTasks()\n                    for i = #maid, 1, -1 do\n                        local taskItem = maid[i]\n                        maid[i] = nil\n\n                        local taskType = typeof(taskItem)\n                        if taskType == \"RBXScriptConnection\" then\n                            pcall(function()\n                                taskItem:Disconnect()\n                            end)\n                        elseif taskType == \"Instance\" then\n                            pcall(function()\n                                taskItem:Destroy()\n                            end)\n                        elseif taskType == \"function\" then\n                            pcall(taskItem)\n                        end\n                    end\n                end\n\n                local function hpColor(health, maxHealth)\n                    maxHealth = math.max(maxHealth or 100, 1)\n                    local ratio = math.clamp(health / maxHealth, 0, 1)\n\n                    local red = Color3.fromRGB(255, 60, 60)\n                    local yellow = Color3.fromRGB(255, 220, 70)\n                    local green = Color3.fromRGB(70, 255, 90)\n\n                    if ratio <= 0.5 then\n                        return red:Lerp(yellow, ratio * 2)\n                    end\n\n                    return yellow:Lerp(green, (ratio - 0.5) * 2)\n                end\n\n                local function removeVisual(player)\n                    local visual = visuals[player]\n                    if visual then\n                        if visual.Highlight then\n                            pcall(function()\n                                visual.Highlight:Destroy()\n                            end)\n                        end\n\n                        if visual.Billboard then\n                            pcall(function()\n                                visual.Billboard:Destroy()\n                            end)\n                        end\n\n                        visuals[player] = nil\n                    end\n                end\n\n                local function removeAllESP()\n                    for player in pairs(visuals) do\n                        removeVisual(player)\n                    end\n\n                    for _, player in ipairs(Players:GetPlayers()) do\n                        local character = player.Character\n                        if character then\n                            local oldHighlight = character:FindFirstChild(HIGHLIGHT_TAG)\n                            if oldHighlight then\n                                pcall(function()\n                                    oldHighlight:Destroy()\n                                end)\n                            end\n\n                            local oldBillboard = character:FindFirstChild(BILLBOARD_TAG)\n                            if oldBillboard then\n                                pcall(function()\n                                    oldBillboard:Destroy()\n                                end)\n                            end\n                        end\n                    end\n                end\n\n                local function getHumanoidData(player)\n                    local character = player.Character\n                    if not character or not character.Parent then\n                        return nil\n                    end\n\n                    local humanoid = character:FindFirstChildOfClass(\"Humanoid\")\n                    if not humanoid or humanoid.Health <= 0 then\n                        return nil\n                    end\n\n                    local adornee = character:FindFirstChild(\"Head\") or character:FindFirstChild(\"HumanoidRootPart\")\n                    if not adornee then\n                        return nil\n                    end\n\n                    return {\n                        [\"Player\"] = player,\n                        [\"Character\"] = character,\n                        [\"Humanoid\"] = humanoid,\n                        [\"Adornee\"] = adornee,\n                        [\"Health\"] = humanoid.Health,\n                        [\"MaxHealth\"] = humanoid.MaxHealth\n                    }\n                end\n\n                local function isValidTarget(player)\n                    if player == LocalPlayer then\n                        return false\n                    end\n\n                    if teamMode == \"all\" then\n                        return true\n                    end\n\n                    if teamMode == \"team\" then\n                        if not LocalPlayer.Team then\n                            return false\n                        end\n                        return player.Team == LocalPlayer.Team\n                    end\n\n                    if teamMode == \"nteam\" then\n                        if not LocalPlayer.Team then\n                            return true\n                        end\n                        return player.Team ~= LocalPlayer.Team\n                    end\n\n                    return true\n                end\n\n                local function getTargets()\n                    local targets = {}\n\n                    for _, player in ipairs(Players:GetPlayers()) do\n                        if isValidTarget(player) then\n                            local data = getHumanoidData(player)\n                            if data then\n                                targets[#targets + 1] = data\n                            end\n                        end\n                    end\n\n                    table.sort(targets, function(a, b)\n                        if a.Health == b.Health then\n                            return a.Player.Name < b.Player.Name\n                        end\n\n                        return a.Health < b.Health\n                    end)\n\n                    if limitCount and #targets > limitCount then\n                        local limited = {}\n                        for i = 1, limitCount do\n                            limited[i] = targets[i]\n                        end\n                        targets = limited\n                    end\n\n                    return targets\n                end\n\n                local function getOrCreateVisual(player, character)\n                    local visual = visuals[player]\n\n                    if visual and visual.Character == character and visual.Highlight and visual.Billboard and visual.Label then\n                        return visual\n                    end\n\n                    removeVisual(player)\n\n                    local highlight = Instance.new(\"Highlight\")\n                    highlight.Name = HIGHLIGHT_TAG\n                    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop\n                    highlight.FillTransparency = 0.55\n                    highlight.OutlineTransparency = 0\n                    highlight.Parent = character\n\n                    local billboard = Instance.new(\"BillboardGui\")\n                    billboard.Name = BILLBOARD_TAG\n                    billboard.AlwaysOnTop = true\n                    billboard.Size = UDim2.new(0, 180, 0, 42)\n                    billboard.StudsOffset = Vector3.new(0, 3.15, 0)\n                    billboard.Parent = character\n\n                    local label = Instance.new(\"TextLabel\")\n                    label.Name = \"HPLabel\"\n                    label.BackgroundTransparency = 1\n                    label.Size = UDim2.new(1, 0, 1, 0)\n                    label.Font = Enum.Font.GothamBold\n                    label.TextScaled = true\n                    label.TextStrokeTransparency = 0.25\n                    label.TextStrokeColor3 = Color3.new(0, 0, 0)\n                    label.Parent = billboard\n\n                    visual = {\n                        [\"Character\"] = character,\n                        [\"Highlight\"] = highlight,\n                        [\"Billboard\"] = billboard,\n                        [\"Label\"] = label\n                    }\n\n                    visuals[player] = visual\n                    return visual\n                end\n\n                local function updateESP()\n                    if not running then\n                        return\n                    end\n\n                    local targets = getTargets()\n                    local active = {}\n\n                    for _, data in ipairs(targets) do\n                        local player = data.Player\n                        active[player] = true\n\n                        local visual = getOrCreateVisual(player, data.Character)\n                        local color = hpColor(data.Health, data.MaxHealth)\n                        local health = math.floor(data.Health + 0.5)\n                        local maxHealth = math.floor(data.MaxHealth + 0.5)\n\n                        visual.Highlight.Adornee = data.Character\n                        visual.Highlight.FillColor = color\n                        visual.Highlight.OutlineColor = color\n\n                        visual.Billboard.Adornee = data.Adornee\n                        visual.Label.TextColor3 = color\n                        visual.Label.Text = string.format(\"%s | %d/%d HP\", player.DisplayName or player.Name, health, maxHealth)\n                    end\n\n                    for player in pairs(visuals) do\n                        if not active[player] or not player.Parent then\n                            removeVisual(player)\n                        end\n                    end\n                end\n\n                local function unload()\n                    if not running then\n                        return\n                    end\n\n                    running = false\n                    removeAllESP()\n                    cleanupTasks()\n\n                    if control then\n                        pcall(function()\n                            control:Destroy()\n                        end)\n                    end\n\n                    print(\"HealthESP unloaded.\")\n                end\n\n                giveTask(control.Event:Connect(unload))\n\n                giveTask(RunService.Heartbeat:Connect(function()\n                    if not running then\n                        return\n                    end\n\n                    local now = os.clock()\n                    if now - lastUpdate >= 0.15 then\n                        lastUpdate = now\n                        updateESP()\n                    end\n                end))\n\n                giveTask(Players.PlayerAdded:Connect(function(player)\n                    giveTask(player.CharacterAdded:Connect(function()\n                        task.wait(0.25)\n                        updateESP()\n                    end))\n                end))\n\n                giveTask(Players.PlayerRemoving:Connect(function(player)\n                    removeVisual(player)\n                end))\n\n                for _, player in ipairs(Players:GetPlayers()) do\n                    giveTask(player.CharacterAdded:Connect(function()\n                        task.wait(0.25)\n                        updateESP()\n                    end))\n                end\n\n                updateESP()\n\n                local modeText = \"all players\"\n                if teamMode == \"team\" then\n                    modeText = \"your team only\"\n                elseif teamMode == \"nteam\" then\n                    modeText = \"not your team only\"\n                end\n\n                local limitText = limitCount and (\", lowest HP limit: \" .. tostring(limitCount)) or \"\"\n                print(\"HealthESP loaded for \" .. modeText .. limitText .. \".\")\n            end\n        },\n\n        [\"unhesp\"] = {\n            [\"ListName\"] = \"unhesp\",\n            [\"Description\"] = \"Unloads Health ESP.\",\n            [\"Aliases\"] = {\"hespoff\", \"unloadhesp\", \"stophesp\", \"nohesp\"},\n            [\"Function\"] = function(args, speaker)\n                local Players = game:GetService(\"Players\")\n                local LocalPlayer = Players.LocalPlayer\n\n                if not LocalPlayer then\n                    warn(\"HealthESP: No LocalPlayer found.\")\n                    return\n                end\n\n                local ev = LocalPlayer:FindFirstChild(\"HEALTH_ESP_PLUGIN_RUNNING\")\n                if ev and ev:IsA(\"BindableEvent\") then\n                    pcall(function()\n                        ev:Fire()\n                    end)\n                    print(\"Unload signal sent.\")\n                else\n                    print(\"No running HealthESP instance found.\")\n                end\n            end\n        }\n    }\n}\n\nreturn Plugin\n"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "👍",
+          "count": 1
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1510928526507773952",
+      "name": "uwuify",
+      "description": "# uwuify\nnow version 1.1 with changelogs:\n\n## removal:\n-`ShouldDeliverCallback` and `OnIncomingMessage`, now directly hooks into roblox's `ChatExperience` UI (thx <@1222180548592795702> )\n\n## addendum:\n-`uwuifyFlag` stutter/cuteaffix toggles (with demo in image)",
+      "author": {
+        "name": "h",
+        "username": "openbridge",
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
+      },
+      "date": "2026-06-01T08:50:32.414000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510928526507773952",
+      "files": [
+        {
+          "filename": "Screenshot_2026-06-01_at_15.39.43.png",
+          "url": "plugins/1510928526507773952/Screenshot_2026-06-01_at_15.39.43.png",
+          "size": 175772,
+          "is_plugin": false
+        },
+        {
+          "filename": "uwuify.iy",
+          "url": "plugins/1510928526507773952/uwuify.iy",
+          "size": 6152,
+          "is_plugin": true,
+          "code": "local textChatService = game:GetService(\"TextChatService\")\nlocal chatChannel = textChatService.TextChannels.RBXGeneral\nlocal chatConnection = nil\n\nlocal isAutoCutie = false\nlocal isRobloxChatExperienceUI = false\nlocal speakerUserId = nil\n\nlocal uwuifyFlag = {\n\t[\"stutter\"] = true,\n\t[\"cuteaffix\"] = true,\n}\n\n-- still cant figure out a way to intercept (or at least stop) msg on textChatService level so...\n-- + hook into chat box + send btn\n-- + handle sending chat out manually\n\nlocal function uwuifyString(input, speaker)\n\tlocal result = input\n\tlocal seed = os.time()\n\tmath.randomseed(seed)\n\n\tresult = string.gsub(result, \"r\", \"w\")\n\tresult = string.gsub(result, \"R\", \"W\")\n\tresult = string.gsub(result, \"l\", \"w\")\n\tresult = string.gsub(result, \"L\", \"W\")\n\tresult = string.gsub(result, \"n\", \"ny\")\n\tresult = string.gsub(result, \"N\", \"Ny\")\n\tresult = string.gsub(result, \"ove\", \"uv\")\n\tresult = string.gsub(result, \"OVE\", \"UV\")\n\tresult = string.gsub(result, \"th\", \"d\")\n\tresult = string.gsub(result, \"Th\", \"D\")\n\tresult = string.gsub(result, \"TH\", \"D\")\n\tresult = string.gsub(result, \"v\", \"w\")\n\tresult = string.gsub(result, \"V\", \"W\")\n\tresult = string.gsub(result, \"ou\", \"ouw\")\n\n\tif uwuifyFlag.stutter then\n\t\tlocal chars = {}\n\t\tfor i = 1, #result do\n\t\t\ttable.insert(chars, result:sub(i, i))\n\t\t\tif math.random() > 0.7 and result:sub(i, i):match(\"[a-zA-Z]\") then\n\t\t\t\t-- ad-add p-pa-pauses int-o output l-lik-like th-thisssss\n\t\t\t\ttable.insert(chars, result:sub(i, i) .. \"-\")\n\t\t\tend\n\t\tend\n\t\tresult = table.concat(chars)\n\tend\n\n\tif uwuifyFlag.cuteaffix then\n\t\tlocal affixes = {\n\t\t\t\" :3\",\n\t\t\t\" >:3\",\n\t\t\t\" :333\",\n\t\t\t\" :3c\",\n\t\t\t\"!11!!\",\n\t\t\t\"!!!!\",\n\t\t\t\"!!!\",\n\t\t\t\"~~\",\n\t\t\t\"!!??!\",\n\t\t\t\"?!?!??\",\n\t\t\t\" >w<\",\n\t\t\t\" >.<\",\n\t\t\t\" owo\",\n\t\t\t\" OwO\",\n\t\t\t\" UwU\",\n\t\t\t\" nyaa~\",\n\t\t\t\" ^w^\",\n\t\t\t\" <3\",\n\t\t\t\" x3\",\n\t\t\t\" muah~\",\n\t\t\t\" :D\",\n\t\t\t\" hehe\",\n\t\t\t\" rawr\",\n\t\t\t\" mmm~\",\n\t\t\t\" ✧w✧\",\n\t\t\t\" hehehehe\",\n\t\t\t\" chu~\",\n\t\t\t\" ~nya\",\n\t\t\t\" kawaii~\",\n\t\t\t\" yay!!\",\n\t\t\t\" :DD\",\n\t\t\t\" *excited*\",\n\t\t\t\" wheee~~\",\n\t\t\t\" eheheheheheheh!\",\n\t\t\t\" heheheheh!!\",\n\t\t\t\" uheheheheheh!!\",\n\t\t\t\" uehh\",\n\t\t}\n\t\tresult = result .. affixes[math.random(#affixes)]\n\tend\n\n\treturn result\nend\n\nlocal function sendMessage(message)\n\ttextChatService.TextChannels.RBXGeneral:SendAsync(message)\nend\n\nlocal function detectChatExperience()\n\tlocal success, result = pcall(function()\n\t\treturn game:GetService(\"CoreGui\"):FindFirstChild(\"ExperienceChat\")\n\tend)\n\tif success and result then\n\t\tisRobloxChatExperienceUI = true\n\telse\n\t\tisRobloxChatExperienceUI = false\n\t\tnotify(\"failed to find default experienceChat, please use `uwuify [string] instead`... \")\n\tend\nend\n\ndetectChatExperience()\n\nlocal function onChatEvent(state)\n\tif state then\n\t\tif not isRobloxChatExperienceUI then\n\t\t\tisAutoCutie = true\n\t\t\treturn\n\t\tend\n\n\t\tlocal coreGui = game:GetService(\"CoreGui\")\n\t\tlocal experienceChat = coreGui:FindFirstChild(\"ExperienceChat\")\n\t\tif not experienceChat then\n\t\t\treturn\n\t\tend\n\n\t\tlocal textBox =\n\t\t\texperienceChat.appLayout.chatInputBar.Background.Container.TextContainer.TextBoxContainer.TextBox\n\t\tlocal sendBtn = experienceChat.appLayout.chatInputBar.Background.Container.SendButton\n\t\tif not textBox or not sendBtn then\n\t\t\treturn\n\t\tend\n\n\t\ttextBox.FocusLost:Connect(function(enterPressed)\n\t\t\tif enterPressed and isAutoCutie then\n\t\t\t\tlocal connections = getconnections(textBox.FocusLost)\n\t\t\t\tfor _, con in pairs(connections) do\n\t\t\t\t\tcon:Disable()\n\t\t\t\tend\n\n\t\t\t\tlocal msg = textBox.Text\n\t\t\t\tmsg = uwuifyString(msg)\n\t\t\t\tsendMessage(msg)\n\t\t\t\ttextBox.Text = \"\"\n\n\t\t\t\tfor _, con in pairs(connections) do\n\t\t\t\t\tcon:Enable()\n\t\t\t\tend\n\t\t\tend\n\t\tend)\n\n\t\tsendBtn.Activated:Connect(function()\n\t\t\tif isAutoCutie then\n\t\t\t\tlocal connections = getconnections(sendBtn.Activated)\n\t\t\t\tfor _, con in pairs(connections) do\n\t\t\t\t\tcon:Disable()\n\t\t\t\tend\n\n\t\t\t\tlocal msg = textBox.Text\n\t\t\t\tmsg = uwuifyString(msg)\n\t\t\t\tsendMessage(msg)\n\t\t\t\ttextBox.Text = \"\"\n\n\t\t\t\tfor _, con in pairs(connections) do\n\t\t\t\t\tcon:Enable()\n\t\t\t\tend\n\t\t\tend\n\t\tend)\n\n\t\tisAutoCutie = true\n\telse\n\t\tisAutoCutie = false\n\tend\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"uwuify (formerly cutestring)\",\n\t[\"PluginDescription\"] = \"spices up your chat with cute uwus!!11~ (v1.1)\",\n\t[\"Commands\"] = {\n\t\t[\"uwuify\"] = {\n\t\t\t[\"ListName\"] = \"uwuify [string] / cuteify [string]\",\n\t\t\t[\"Description\"] = \"makes a string cute\",\n\t\t\t[\"Aliases\"] = { \"cuteify\", \"cutestring\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tspeakerUserId = speaker.UserId\n\t\t\t\tlocal output = uwuifyString(table.concat(args, \" \") or args[1])\n\t\t\t\tif output then\n\t\t\t\t\tsendMessage(output)\n\t\t\t\t\tif setclipboard and type(setclipboard) == \"function\" then\n\t\t\t\t\t\tsetclipboard(output)\n\t\t\t\t\t\t-- literally only sirhurt has this, hallo??\n\t\t\t\t\tend\n\t\t\t\telse\n\t\t\t\t\tnotify(\"no output to send\")\n\t\t\t\tend\n\t\t\tend,\n\t\t},\n\t\t[\"autouwuify\"] = {\n\t\t\t[\"ListName\"] = \"autouwuify [boolean?]\",\n\t\t\t[\"Description\"] = \"toggle uwuify per chat message >:3c\",\n\t\t\t[\"Aliases\"] = { \"autocutie\", \"autouwu\", \"autocutestring\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tspeakerUserId = speaker.UserId\n\t\t\t\tlocal toggle = (args[1] or \"\"):lower()\n\t\t\t\tif toggle == \"true\" then\n\t\t\t\t\tisAutoCutie = true\n\t\t\t\t\tonChatEvent(true)\n\t\t\t\t\tnotify(\"auto-cutie mode on!\")\n\t\t\t\telseif toggle == \"false\" then\n\t\t\t\t\tisAutoCutie = false\n\t\t\t\t\tonChatEvent(false)\n\t\t\t\t\tnotify(\"auto-cutie mode off!\")\n\t\t\t\telse\n\t\t\t\t\tisAutoCutie = not isAutoCutie\n\t\t\t\t\tonChatEvent(isAutoCutie)\n\t\t\t\t\tnotify(`auto-cutie mode toggled {isAutoCutie and \"on!\" or \"off!\"}`)\n\t\t\t\tend\n\t\t\tend,\n\t\t},\n\t\t[\"uwuifyFlag\"] = {\n\t\t\t[\"ListName\"] = \"uwuifyflag [stutter | cuteAffix] [boolean?]\",\n\t\t\t[\"Description\"] = \"toggle uwuify flag (stutter/cuteaffix)\",\n\t\t\t[\"Aliases\"] = { \"cutestringflag\", \"uwuflag\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal flag = (args[1] or \"\"):lower()\n\t\t\t\tlocal toggle = (args[2] or \"\"):lower()\n\n\t\t\t\tif flag ~= \"stutter\" and flag ~= \"cuteaffix\" then\n\t\t\t\t\tnotify(\"invalid flag: \" .. flag .. \" required (stutter/cuteaffix)\")\n\t\t\t\t\treturn\n\t\t\t\tend\n\n\t\t\t\tif toggle == \"true\" or toggle == \"false\" then\n\t\t\t\t\tuwuifyFlag[flag] = toggle == \"true\" and true or false\n\t\t\t\telse\n\t\t\t\t\tuwuifyFlag[flag] = not uwuifyFlag[flag]\n\t\t\t\tend\n\t\t\t\tnotify(`flag {flag} set to {uwuifyFlag[flag] and \"on!\" or \"off!\"}`)\n\t\t\tend,\n\t\t},\n\t},\n}\n\nreturn Plugin\n"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "🇮🇱",
+          "count": 7
+        },
+        {
+          "emoji": "🏳️‍⚧️",
+          "count": 5
+        },
+        {
+          "emoji": "🏳️‍🌈",
+          "count": 3
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1511436269719126090",
+      "name": "cmdBarSuggestion",
+      "description": "sorry for my grave mistake of `uwuify`, but anyways\n\n# cmdBarSuggestion\n attempt to predict your next command, and autofill for you (super nice qol)\n||(a \"finite yield\" plugin collection)||\n\n## usage\n-try to predict command based on your input\n-autofill by pressing tab (or touch CmdBar for mobile)\n\n## note\n-no need to config\n-to disable, remove plugin and rejoin\n-auto align based on CmdBar's TextXAlignment (for custom theme people)\n-uses iy's func and variables (`CmdBar`, `autoComplete()`) for best cross-compatibility across recent versions",
+      "author": {
+        "name": "h",
+        "username": "openbridge",
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/b69a680e6250a6e27a0a4df6e070b0f7.png?size=1024"
+      },
+      "date": "2026-06-02T18:28:07.829000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511436269719126090",
+      "files": [
+        {
+          "filename": "cmdBarSuggestion.iy",
+          "url": "plugins/1511436269719126090/cmdBarSuggestion.iy",
+          "size": 3753,
+          "is_plugin": true,
+          "code": "local UserInputService = game:GetService(\"UserInputService\")\nlocal TextService = game:GetService(\"TextService\")\n\n-- cmdBar: used for hook\n-- Cmdbar: original and property of iy's var (as mentioned 3000 years ago)\nlocal cmdBar = Cmdbar and Cmdbar.ClassName == \"TextBox\" and Cmdbar or nil\n\nlocal function isDesktop()\n\tif UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled then\n\t\treturn false\n\tend\n\treturn true\nend\n\nlocal function getTopCommand()\n\tif cmdBar and cmdBar.Text == \"\" then\n\t\treturn nil\n\tend\n\tlocal typed = cmdBar.Text\n\n\t-- customaliases (I)\n\tfor alias, entry in pairs(customAlias) do\n\t\tif alias:sub(1, #typed) == typed then\n\t\t\treturn alias\n\t\tend\n\tend\n\n\t-- cmdaliases (II)\n\tfor _, entry in ipairs(cmds) do\n\t\tlocal name = entry.NAME\n\t\tif not name then\n\t\t\tcontinue\n\t\tend\n\t\tfor _, alias in ipairs(entry.ALIAS or {}) do\n\t\t\tif alias:sub(1, #typed) == typed then\n\t\t\t\treturn name\n\t\t\tend\n\t\tend\n\tend\n\n\t-- cmd names (III)\n\tfor _, entry in ipairs(cmds) do\n\t\tlocal name = entry.NAME\n\t\tif not name then\n\t\t\tcontinue\n\t\tend\n\t\tif name:sub(1, #typed) == typed then\n\t\t\treturn name\n\t\tend\n\tend\n\n\treturn nil\nend\n\nfunction partialAutoComplete()\n\tif not cmdBar then\n\t\tnotify(\"cmdbarsuggest\", \"cant find CmdBar, please try on different version of infinite yield\", 10)\n\t\treturn\n\tend\n\tlocal overlay = Instance.new(\"TextButton\")\n\n\toverlay.AutoButtonColor = false\n\toverlay.Parent = cmdBar.Parent\n\toverlay.BackgroundTransparency = 1\n\toverlay.TextColor3 = cmdBar.TextColor3:Lerp(Color3.new(0.5, 0.5, 0.5), 0.5)\n\toverlay.TextXAlignment = Enum.TextXAlignment.Left\n\toverlay.Font = cmdBar.Font\n\toverlay.TextSize = cmdBar.TextSize\n\toverlay.ZIndex = cmdBar.ZIndex + 1\n\toverlay.Size = UDim2.new(1, -4, 1, 0)\n\toverlay.Position = UDim2.new(0, 0, 0, 0)\n\toverlay.Text = \"\"\n\toverlay.Name = \"fyAutoComplete\"\n\n\tcmdBar:GetPropertyChangedSignal(\"Text\"):Connect(function()\n\t\tlocal text = cmdBar.Text\n\t\tlocal suggestion = getTopCommand()\n\n\t\tif text ~= \"\" and suggestion and suggestion ~= text then\n\t\t\tlocal remainder = suggestion:sub(#text + 1)\n\t\t\tlocal typedWidth = TextService:GetTextSize(text, cmdBar.TextSize, cmdBar.Font, Vector2.new(9999, 9999))\n\t\t\tlocal typedWidthX = typedWidth.X -- char's x width\n\n\t\t\tlocal xPos\n\t\t\tif cmdBar.TextXAlignment == Enum.TextXAlignment.Center then\n\t\t\t\tlocal containerWidth = cmdBar.Parent.AbsoluteSize.X\n\t\t\t\txPos = (containerWidth / 2) + (typedWidthX / 2) + 4\n\t\t\telse\n\t\t\t\txPos = typedWidthX + 4\n\t\t\tend\n\n\t\t\toverlay.Text = remainder .. `  ({isDesktop() and \"TAB\" or \"TAP\"})`\n\t\t\toverlay.Position = UDim2.new(0, xPos, 0, 0)\n\t\t\toverlay.Visible = true\n\t\telse\n\t\t\toverlay.Visible = false\n\t\tend\n\tend)\n\n\toverlay.MouseButton1Click:Connect(function()\n\t\tlocal topCommand = getTopCommand()\n\t\tif topCommand then\n\t\t\tautoComplete(topCommand, cmdBar.Text)\n\t\tend\n\tend)\n\n\tUserInputService.InputBegan:Connect(function(input, gameProcessed)\n\t\tif gameProcessed then\n\t\t\treturn\n\t\tend\n\t\tif not cmdBar:IsFocused() then\n\t\t\treturn\n\t\tend\n\n\t\tlocal suggestion = getTopCommand()\n\t\tif not suggestion then\n\t\t\treturn\n\t\tend\n\n\t\tif input.KeyCode == Enum.KeyCode.Tab or input.KeyCode == Enum.KeyCode.Right then\n\t\t\tautoComplete(suggestion, cmdBar.Text)\n\t\tend\n\tend)\nend\npartialAutoComplete()\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"cmdBarSuggestion\",\n\t[\"PluginDescription\"] = \"suggests commands to your command bar, finite yield!\",\n\t[\"Commands\"] = {\n\t\t[\"cmdbarsuggest\"] = {\n\t\t\t[\"ListName\"] = \"cmdbarsuggest\",\n\t\t\t[\"Description\"] = \"suggests commands to your command bar\",\n\t\t\t[\"Aliases\"] = { \"ALIAS1\", \"ALIAS2\", \"ALIAS3\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tnotify(\n\t\t\t\t\t\"cmdbarsuggest\",\n\t\t\t\t\t`{cmdBar and \"already ran, u can remove plugin to stop\" or \"cant find CmdBar, please try on different version of infinite yield\"}`,\n\t\t\t\t\t10\n\t\t\t\t)\n\t\t\tend,\n\t\t},\n\t},\n}\n\nreturn Plugin\n"
+        },
+        {
+          "filename": "out.gif",
+          "url": "plugins/1511436269719126090/out.gif",
+          "size": 2542804,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "🔥",
+          "count": 3
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1511663093611237507",
+      "name": "FeatherFalling",
+      "description": "# Feather Falling\nMakes you fall more slowly.\n## Usage:\n```md\n;featherfall / fef\n  - Enables the command\n\n;unfeatherfall / unfef\n  - Disables the command\n\n;featherfallgravity / fefg [num]\n  - Inputs the fall floatiness\n\n;featherfallfallingpoint / feffp [num]\n  - Inputs the linear velocity falling point\n```\n## Installation:\nPut the `.iy` inside of your executor's workspace, and then execute this command on Infinite Yield\n```\n;plugin FeatherFalling\n```",
+      "author": {
+        "name": "Dazy",
+        "username": "dazy0349",
+        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/397785305118be747de8001db11fe280.png?size=1024"
+      },
+      "date": "2026-06-03T09:29:26.859000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511663093611237507",
+      "files": [
+        {
+          "filename": "FeatherFalling.iy",
+          "url": "plugins/1511663093611237507/FeatherFalling.iy",
+          "size": 1763,
+          "is_plugin": true,
+          "code": "local oldGravity = workspace.Gravity\nlocal velocityTarget = -1\nlocal targetGravity = 20\n\nlocal loop\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"Feather Falling\",\n\t[\"PluginDescription\"] = \"Makes you fall more slowly\",\n\t[\"Commands\"] = {\n\t\t[\"featherfall\"] = {\n\t\t\t[\"ListName\"] = \"featherfall / fef\",\n\t\t\t[\"Description\"] = \"Enables feather falling\",\n\t\t\t[\"Aliases\"] = {\"fef\"},\n\t\t\t[\"Function\"] = function(args, speaker: Player)\n\t\t\t\tif not speaker.Character then return end\n\n\t\t\t\tlocal root: Part = getRoot(speaker.Character)\n\t\t\t\tif not root then return end\n\n\t\t\t\tloop = RunService.Stepped:Connect(function()\n\t\t\t\t\tif not root then\n\t\t\t\t\t\tloop:Disconnect()\n\t\t\t\t\t\treturn\n\t\t\t\t\tend\n\t\t\t\t\t\n\t\t\t\t\tif root.AssemblyLinearVelocity.Y < velocityTarget then\n\t\t\t\t\t\tworkspace.Gravity = targetGravity\n\t\t\t\t\telse\n\t\t\t\t\t\tworkspace.Gravity = oldGravity\n\t\t\t\t\tend\n\t\t\t\tend)\n\t\t\tend\n\t\t},\n\t\t[\"unfeatherfall\"] = {\n\t\t\t[\"ListName\"] = \"unfeatherfall / unfef\",\n\t\t\t[\"Description\"] = \"Disables your feather falling\",\n\t\t\t[\"Aliases\"] = {\"unfef\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif loop then loop:Disconnect() end\n\t\t\t\t\n\t\t\t\tworkspace.Gravity = oldGravity\n\t\t\tend\n\t\t},\n\t\t[\"featherfallgravity\"] = {\n\t\t\t[\"ListName\"] = \"featherfallgravity / fefg [num]\",\n\t\t\t[\"Description\"] = \"Inputs your target gravity\",\n\t\t\t[\"Aliases\"] = {\"fefg\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\ttargetGravity = tonumber(args[1]) or targetGravity\n\t\t\tend\n\t\t},\n\t\t[\"featherfallfallingpoint\"] = {\n\t\t\t[\"ListName\"] = \"featherfallfallingpoint / feffp [num]\",\n\t\t\t[\"Description\"] = \"Inputs your target falling point\",\n\t\t\t[\"Aliases\"] = {\"feffp\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tvelocityTarget = tonumber(args[1]) or velocityTarget\n\t\t\tend\n\t\t}\n\t}\n}\n\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [
+        "md\n;featherfall / fef\n  - Enables the command\n\n;unfeatherfall / unfef\n  - Disables the command\n\n;featherfallgravity / fefg [num]\n  - Inputs the fall floatiness\n\n;featherfallfallingpoint / feffp [num]\n  - Inputs the linear velocity falling point",
+        ";plugin FeatherFalling"
+      ],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "✅",
+          "count": 3
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1511676858205474866",
+      "name": "WelderRemake",
+      "description": "## 🛠️ WelderRemake (.iy Plugin)\nUpgraded remake of the Original **Welder.iy** plugin for Infinite Yield. Features highly stable velocity synchronization, advanced expression parsing, and full string/index support.\n\n## 📜 Commands:\n\n* ;weld [plr] [x] [y] [z] [rx] [ry] [rz] [anim] — Weld to player with custom CFrame offset and animation ID.\n* ;weldp [path] [offsets] [anim] — Directly teleports to, syncs velocity, and sets Weld to target path with custom offsets and an animation.\n* ;weldcopyvelocity — Toggles assembly velocity replication synchronization on/off.\n* ;stand [plr] — Positions you near the player using rig-specific offsets.\n* ;attack [plr] — Rapidly attaches to the target's rear and executes an offensive sequence.\n* ;betterheadsit [plr] — Sits perfectly on top of the player's head.\n* ;betterbang [plr] — Classic position attachment with custom looped animation sequences.\n* ;backpack [plr] — Locks your character onto the player's back as a functional backpack.\n* ;bettercarpet [plr] — Spreads your character horizontally beneath the target player.\n* ;unweld — Disconnects active loops, restores collision, and resets workspace parameters.",
+      "author": {
+        "name": "Agent666_0",
+        "username": "agent6660",
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+      },
+      "date": "2026-06-03T10:24:08.594000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511676858205474866",
+      "files": [
+        {
+          "filename": "WelderRemake.iy",
+          "url": "plugins/1511676858205474866/WelderRemake.iy",
+          "size": 10740,
+          "is_plugin": true,
+          "code": "local PhysicsService = Services.PhysicsService\nlocal RunService = Services.RunService\nlocal Players = Services.Players\nlocal Workspace = Services.Workspace\n\nlocal CurrentWeld = nil\nlocal OriginalFPDH = Workspace.FallenPartsDestroyHeight\nlocal weldcopyvelocity = true\n\nlocal function getTargetRoot(character)\n\tif not character then return nil end\n\tlocal humanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then return nil end\n\t\n\tif humanoid.RigType == Enum.HumanoidRigType.R15 then\n\t\treturn character:FindFirstChild(\"UpperTorso\") or character:FindFirstChild(\"HumanoidRootPart\")\n\telse\n\t\treturn character:FindFirstChild(\"Torso\") or character:FindFirstChild(\"HumanoidRootPart\")\n\tend\nend\n\nlocal function WeldTo(TargetPart, Offset, Speaker, AnimationId)\n\tlocal Character = Speaker.Character\n\tif not Character then return nil end\n\n\tlocal Humanoid = Character:FindFirstChildOfClass(\"Humanoid\")\n\tlocal Root = Character:FindFirstChild(\"HumanoidRootPart\") or (Humanoid and Humanoid.RootPart)\n\n\tif not Root or not Humanoid then return nil end\n\t\n\tlocal AnimTrack = nil\n\tif AnimationId and tostring(AnimationId) ~= \"0\" then\n\t\tlocal Animator = Character:FindFirstChildWhichIsA(\"Animator\", true)\n\t\tif Animator then\n\t\t\tlocal Animation = Instance.new(\"Animation\")\n\t\t\tAnimation.AnimationId = \"rbxassetid://\" .. tostring(AnimationId)\n\t\t\tpcall(function()\n\t\t\t\tAnimTrack = Animator:LoadAnimation(Animation)\n\t\t\t\tif AnimTrack then AnimTrack:Play() end\n\t\t\tend)\n\t\tend\n\tend\n\n\tlocal Weld = {}\n\tlocal Connection = nil\n\t\n\tfor _, v in pairs(Character:GetDescendants()) do\n\t\tif v:IsA(\"BasePart\") then\n\t\t\tv.CanCollide = false\n\t\t\tv.Massless = true\n\t\tend\n\tend\n\t\n\tConnection = RunService.Heartbeat:Connect(function()\n\t\tif not Character.Parent or not TargetPart.Parent then\n\t\t\tif Weld.Destroy then Weld:Destroy() end\n\t\t\treturn\n\t\tend\n\n\t\tRoot.CFrame = TargetPart.CFrame * Offset\n\t\t\n\t\tif weldcopyvelocity then\n\t\t\tRoot.AssemblyLinearVelocity = TargetPart.AssemblyLinearVelocity\n\t\t\tRoot.AssemblyAngularVelocity = TargetPart.AssemblyAngularVelocity\n\t\tend\n\t\t\n\t\tif sethiddenproperty then\n\t\t\tpcall(function()\n\t\t\t\tsethiddenproperty(Root, \"PhysicsRepRootPart\", TargetPart)\n\t\t\tend)\n\t\tend\n\tend)\n\n\tfunction Weld:Destroy()\n\t\tif Connection then Connection:Disconnect() end\n\t\tif AnimTrack then AnimTrack:Stop(); AnimTrack:Destroy() end\n\t\t\n\t\tif Root then\n\t\t\tRoot.AssemblyLinearVelocity = Vector3.zero\n\t\t\tRoot.AssemblyAngularVelocity = Vector3.zero\n\t\tend\n\tend\n\n\treturn Weld\nend\n\nlocal function justweld(FakePart, Offset, Speaker, AnimationId)\n\tlocal Character = Speaker.Character\n\tif not Character then return nil end\n\n\tlocal Humanoid = Character:FindFirstChildOfClass(\"Humanoid\")\n\tlocal Root = Character:FindFirstChild(\"HumanoidRootPart\") or (Humanoid and Humanoid.RootPart)\n\n\tif not Root or not Humanoid then return nil end\n\n\tlocal AnimTrack = nil\n\tif AnimationId and tostring(AnimationId) ~= \"0\" then\n\t\tlocal Animator = Character:FindFirstChildWhichIsA(\"Animator\", true)\n\t\tif Animator then\n\t\t\tlocal Animation = Instance.new(\"Animation\")\n\t\t\tAnimation.AnimationId = \"rbxassetid://\" .. tostring(AnimationId)\n\t\t\tpcall(function()\n\t\t\t\tAnimTrack = Animator:LoadAnimation(Animation)\n\t\t\t\tif AnimTrack then AnimTrack:Play() end\n\t\t\tend)\n\t\tend\n\tend\n\n\tlocal Weld = {}\n\tlocal Connection = nil\n\n\tfor _, v in pairs(Character:GetDescendants()) do\n\t\tif v:IsA(\"BasePart\") then\n\t\t\tv.CanCollide = false\n\t\t\tv.Massless = true\n\t\tend\n\tend\n\n\tConnection = RunService.Heartbeat:Connect(function()\n\t\tif not Character.Parent or not FakePart.Parent then\n\t\t\tif Weld.Destroy then Weld:Destroy() end\n\t\t\treturn\n\t\tend\n\n\t\tRoot.CFrame = FakePart.CFrame * Offset\n\t\t\n\t\tif weldcopyvelocity then\n\t\t\tRoot.AssemblyLinearVelocity = FakePart.AssemblyLinearVelocity\n\t\t\tRoot.AssemblyAngularVelocity = FakePart.AssemblyAngularVelocity\n\t\tend\n\n\t\tif sethiddenproperty then\n\t\t\tpcall(function()\n\t\t\t\tsethiddenproperty(Root, \"PhysicsRepRootPart\", FakePart)\n\t\t\tend)\n\t\tend\n\tend)\n\n\tfunction Weld:Destroy()\n\t\tif Connection then Connection:Disconnect() end\n\t\tif AnimTrack then AnimTrack:Stop(); AnimTrack:Destroy() end\n\t\t\n\t\tif Root then\n\t\t\tRoot.AssemblyLinearVelocity = Vector3.zero\n\t\t\tRoot.AssemblyAngularVelocity = Vector3.zero\n\t\tend\n\tend\n\n\treturn Weld\nend\n\nlocal function cuhh(args, speaker)\n\tif not args or #args == 0 then return notify('Path Required', 'Provide instance path!') end\n\n\tlocal rawArg = getstring(1, args)\n\tlocal pathStr = rawArg\n\tlocal x, y, z, rx, ry, rz = 0, 0, 0, 0, 0, 0\n\tlocal customAnim = 0\n\t\n\tlocal parts = splitString(rawArg, \" \")\n\t\n\tlocal numCount = 0\n\tfor i = #parts, 1, -1 do\n\t\tif tonumber(parts[i]) then\n\t\t\tnumCount = numCount + 1\n\t\telse\n\t\t\tbreak\n\t\tend\n\tend\n\t\n\tif numCount > 0 then\n\t\tlocal textParts = {}\n\t\tfor i = 1, #parts - numCount do\n\t\t\ttable.insert(textParts, parts[i])\n\t\tend\n\t\tpathStr = table.concat(textParts, \" \")\n\t\t\n\t\tlocal nums = {}\n\t\tfor i = #parts - numCount + 1, #parts do\n\t\t\ttable.insert(nums, tonumber(parts[i]))\n\t\tend\n\t\t\n\t\tif numCount >= 7 then\n\t\t\tx = nums[1] or 0\n\t\t\ty = nums[2] or 0\n\t\t\tz = nums[3] or 0\n\t\t\trx = math.rad(nums[4] or 0)\n\t\t\try = math.rad(nums[5] or 0)\n\t\t\trz = math.rad(nums[6] or 0)\n\t\t\tcustomAnim = nums[7] or 0\n\t\telse\n\t\t\tx = nums[1] or 0\n\t\t\ty = nums[2] or 0\n\t\t\tz = nums[3] or 0\n\t\t\trx = math.rad(nums[4] or 0)\n\t\t\try = math.rad(nums[5] or 0)\n\t\t\trz = math.rad(nums[6] or 0)\n\t\tend\n\tend\n\n\tlocal success, result = pcall(function()\n\t\tlocal f, err = loadstring(\"return \" .. pathStr)\n\t\tif f then return f() end\n\t\tf, err = loadstring(pathStr)\n\t\tif f then return f() end\n\t\treturn nil\n\tend)\n\n\tif not success or typeof(result) ~= \"Instance\" or not result:IsA(\"BasePart\") then\n\t\treturn notify('Error', 'Invalid part path or code execution failed!')\n\tend\n\n\tif CurrentWeld then CurrentWeld:Destroy() end\n\n\tlocal customOffset = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)\n\n\ttask.spawn(function()\n\t\tWorkspace.FallenPartsDestroyHeight = 0/0 \n\t\tCurrentWeld = justweld(result, customOffset, speaker, customAnim)\n\t\t\n\t\tif CurrentWeld then\n\t\t\tnotify(\"Welder\", \"Welded physics directly with vectors synced.\")\n\t\tend\n\tend)\nend\n\nlocal function cuh(args, speaker, offset, animId)\n\tif not args or #args == 0 then return notify('Player Required', 'No player provided!') end\n\n\tfor _, v in pairs(getPlayer(args[1], speaker)) do\n\t\tlocal TPlayer = Players[v]\n\t\tif not TPlayer or not TPlayer.Character or TPlayer == speaker then continue end\n\n\t\tif CurrentWeld then CurrentWeld:Destroy() end\n\n\t\tlocal TRoot = getTargetRoot(TPlayer.Character)\n\t\tif not TRoot then continue end\n\n\t\ttask.spawn(function()\n\t\t\tWorkspace.FallenPartsDestroyHeight = 0/0 \n\t\t\tCurrentWeld = WeldTo(TRoot, offset, speaker, animId)\n\t\t\t\n\t\t\tif CurrentWeld then\n\t\t\t\tnotify(\"Welder\", \"Welded to \" .. TPlayer.Name)\n\t\t\tend\n\t\tend)\n\tend\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"Welder\",\n\t[\"PluginDescription\"] = \"Weld yourself to anyone or something.\",\n\t[\"Commands\"] = {\n\t\t[\"weld\"] = {\n\t\t\t[\"ListName\"] = \"weld [plr] [x] [y] [z] [rx] [ry] [rz] [anim]\",\n\t\t\t[\"Description\"] = \"Weld to a player.\",\n\t\t\t[\"Aliases\"] = {\"weld\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal x = tonumber(args[2]) or 0\n\t\t\t\tlocal y = tonumber(args[3]) or 0\n\t\t\t\tlocal z = tonumber(args[4]) or 1.3\n\t\t\t\tlocal rx = math.rad(tonumber(args[5]) or 0)\n\t\t\t\tlocal ry = math.rad(tonumber(args[6]) or 0)\n\t\t\t\tlocal rz = math.rad(tonumber(args[7]) or 0)\n\t\t\t\tlocal customanimbruhhhhh = tonumber(args[8]) or 0\n\t\t\t\tlocal customCFrame = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)\n\t\t\t\tcuh(args, speaker, customCFrame, customanimbruhhhhh)\n\t\t\tend\n\t\t},\n\t\t[\"weldp\"] = {\n\t\t\t[\"ListName\"] = \"weldproperty [path] [offsets] [anim]\",\n\t\t\t[\"Description\"] = \"Directly teleports to, syncs velocity, and sets Weld to target path with custom offsets.\",\n\t\t\t[\"Aliases\"] = {\"weldp\", \"weldproperty\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuhh(args, speaker)\n\t\t\tend\n\t\t},\n\t\t[\"weldcopyvelocity\"] = {\n\t\t\t[\"ListName\"] = \"weldcopyvelocity\",\n\t\t\t[\"Description\"] = \"Toggle assembly velocity replication synchronization.\",\n\t\t\t[\"Aliases\"] = {\"weldcopyvelocity\", \"weldvelocity\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tweldcopyvelocity = not weldcopyvelocity\n\t\t\t\tnotify(\"Welder\", \"Velocity copying set to: \" .. tostring(weldcopyvelocity))\n\t\t\tend\n\t\t},\n\t\t[\"stand\"] = {\n\t\t\t[\"ListName\"] = \"stand [plr]\",\n\t\t\t[\"Description\"] = \"wtf.\",\n\t\t\t[\"Aliases\"] = {\"stand\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif r15(speaker) then\n\t\t\t\t\tcuh({args[1]}, speaker, CFrame.new(1.8, 1.8, 2), 96658788627102)\n\t\t\t\telse\n\t\t\t\t\tcuh({args[1]}, speaker, CFrame.new(1.5, 1.25, 2), 313762630)\n\t\t\t\tend\n\t\t\tend\n\t\t},\n\t\t[\"attack\"] = {\n\t\t\t[\"ListName\"] = \"attack [plr]\",\n\t\t\t[\"Description\"] = \"wtf.\",\n\t\t\t[\"Aliases\"] = {\"attack\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal rotate180 = CFrame.Angles(0, math.rad(180), 0)\n\t\t\t\tif r15(speaker) then\n\t\t\t\t\tlocal bpOffset = CFrame.new(0, 0.5, -2.55) * rotate180\n\t\t\t\t\tcuh({args[1]}, speaker, bpOffset, 117183737438245)\n\t\t\t\telse\n\t\t\t\t\tlocal bpOffset = CFrame.new(0, 0, -1.25) * rotate180\n\t\t\t\t\tcuh({args[1]}, speaker, bpOffset, 259438880)\n\t\t\t\tend\n\t\t\tend\n\t\t},\n\t\t[\"betterheadsit\"] = {\n\t\t\t[\"ListName\"] = \"betterheadsit [plr]\",\n\t\t\t[\"Description\"] = \"Sit on a player's head.\",\n\t\t\t[\"Aliases\"] = {\"headsit\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuh({args[1]}, speaker, CFrame.new(0, 3, 0), 178130996)\n\t\t\tend\n\t\t},\n\t\t[\"betterbang\"] = {\n\t\t\t[\"ListName\"] = \"betterbang [plr]\",\n\t\t\t[\"Description\"] = \"lol.\",\n\t\t\t[\"Aliases\"] = {\"bang\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuh({args[1]}, speaker, CFrame.new(0, 0, 1.3), 148840371)\n\t\t\tend\n\t\t},\n\t\t[\"backpack\"] = {\n\t\t\t[\"ListName\"] = \"backpack [plr]\",\n\t\t\t[\"Description\"] = \"Become someone's backpack! :3\",\n\t\t\t[\"Aliases\"] = {\"backpack\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal rotate180 = CFrame.Angles(0, math.rad(180), 0)\n\t\t\t\tlocal bpOffset = CFrame.new(0, 0, 1.05) * rotate180\n\t\t\t\tcuh({args[1]}, speaker, bpOffset, 178130996)\n\t\t\tend\n\t\t},\n\t\t[\"bettercarpet\"] = {\n\t\t\t[\"ListName\"] = \"bettercarpet [plr]\",\n\t\t\t[\"Description\"] = \"Become a player's carpet.\",\n\t\t\t[\"Aliases\"] = {\"carpet\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuh({args[1]}, speaker, CFrame.new(0, -1, 0), 282574440)\n\t\t\tend\n\t\t},\n\t\t[\"unweld\"] = {\n\t\t\t[\"ListName\"] = \"unweld\",\n\t\t\t[\"Description\"] = \"Stop all welds\",\n\t\t\t[\"Aliases\"] = {\"unweld\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif CurrentWeld then\n\t\t\t\t\tCurrentWeld:Destroy()\n\t\t\t\t\tCurrentWeld = nil\n\t\t\t\tend\n\t\t\t\tWorkspace.FallenPartsDestroyHeight = OriginalFPDH\n\t\t\t\tnotify(\"Unwelded\", \"Stopped.\")\n\t\t\tend\n\t\t}\n\t}\n}\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "<:shambles:1494336319743332483>",
+          "count": 1
         }
       ],
       "loadstring_urls": []
