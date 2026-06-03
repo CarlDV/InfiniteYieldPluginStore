@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-06-02T19:48:28.587280+00:00",
+  "scraped_at": "2026-06-03T13:40:13.060400+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 537,
+  "total_plugins": 539,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -9049,7 +9049,7 @@
       "author": {
         "name": "m'",
         "username": "mdlk.74k",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/820e8614bfc00eba802bef443e5b92a6.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/23fd17c2d06e19dad106b5010a1f9f6a.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -13668,7 +13668,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a204665&is=6a1ef4e5&hm=d7582e7273e5e76c9becf8014f1ff006476bbea3fd691fba5f9f478fc9dc9c6f&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a20ef25&is=6a1f9da5&hm=5e87196e22d0a41e6e417feef557a3b8725c3e3b470124a767194ff2cf4356f7&"
           },
           "image": null,
           "video": null
@@ -16862,7 +16862,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a2074b2&is=6a1f2332&hm=65789a32863c4f3725934d6d5815e54f4eb3fe6f6f054b45305bed32fd7610de&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a211d72&is=6a1fcbf2&hm=212c28c54c7b87c57d8884ca40d6b5e2b9469e0bf99d84a4aec88a233f0fbec9&"
           },
           "image": null,
           "video": null
@@ -16876,7 +16876,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a2074c9&is=6a1f2349&hm=b1d9ce96c407d949a917234c90cf09e7e102a8ca06061163034b5abe86b15906&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a211d89&is=6a1fcc09&hm=c3974f7dd96e3cc0460180aa03e12756b6d83e48adfff4c3c17ca33f859a4c41&"
           },
           "image": null,
           "video": null
@@ -17378,7 +17378,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a202a22&is=6a1ed8a2&hm=f353c2d6c8840629d515ae5e4fd4570b6ed59f38b211cf36702c90b588ecbbce&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a217ba2&is=6a202a22&hm=517428553b319d4a98ad3dbd7f52e2bc86b7a1665878823fc86efdfef577a71a&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -18708,7 +18708,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a2074b2&is=6a1f2332&hm=65789a32863c4f3725934d6d5815e54f4eb3fe6f6f054b45305bed32fd7610de&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a211d72&is=6a1fcbf2&hm=212c28c54c7b87c57d8884ca40d6b5e2b9469e0bf99d84a4aec88a233f0fbec9&"
           },
           "image": null,
           "video": null
@@ -18722,7 +18722,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a2074c9&is=6a1f2349&hm=b1d9ce96c407d949a917234c90cf09e7e102a8ca06061163034b5abe86b15906&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a211d89&is=6a1fcc09&hm=c3974f7dd96e3cc0460180aa03e12756b6d83e48adfff4c3c17ca33f859a4c41&"
           },
           "image": null,
           "video": null
@@ -20101,7 +20101,7 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a202d6e&is=6a1edbee&hm=a89b6331714c768913751efa80fdb535749d396353cf7f8f9c64750370b29a45&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a217eee&is=6a202d6e&hm=58045660e53cbb831db56b8ce9e488445098cd4ee899a27989e99696d6ab33c5&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -23344,7 +23344,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a202599&is=6a1ed419&hm=907aa90159c354f0e35039717a59b97ad16b646e81f1b5234569cecbaa935f82&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a217719&is=6a202599&hm=440c721d2a9dcd542b6e7cd712e0d826ddc9f22c6d6ba2535a50f8e0cadbc599&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -24481,7 +24481,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a1ff8f9&is=6a1ea779&hm=1031cefd43d32e1c0ce709001cef68431fe96f8a5e413a915ff9e32457f3eb98&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a214a79&is=6a1ff8f9&hm=c8a4b2a4aaf69da5026b80cd1f41ccb61a0d25d5e824db19e083c306c89640ea&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -28033,7 +28033,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a2023f8&is=6a1ed278&hm=0f6eb77498640bfcdc0e4e32d27694125f80e4cfeca5a390b27cad899e5575d0&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a217578&is=6a2023f8&hm=2ac2e0cb04a3462d50f4c2025ef0ba7393e285ac575df8963e0f86d4c2cd292a&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -29022,7 +29022,7 @@
       "reactions": [
         {
           "emoji": "<:WHAR:1386603699027050617>",
-          "count": 55
+          "count": 56
         },
         {
           "emoji": "<:biting:1472081217410170900>",
@@ -29286,7 +29286,7 @@
       "reactions": [
         {
           "emoji": "🎉",
-          "count": 16
+          "count": 17
         },
         {
           "emoji": "🔥",
@@ -29294,15 +29294,15 @@
         },
         {
           "emoji": "🇵",
-          "count": 1
+          "count": 3
         },
         {
           "emoji": "🇮",
-          "count": 1
+          "count": 3
         },
         {
           "emoji": "🇳",
-          "count": 1
+          "count": 3
         }
       ],
       "loadstring_urls": []
@@ -29343,7 +29343,7 @@
         },
         {
           "emoji": "🍬",
-          "count": 2
+          "count": 3
         },
         {
           "emoji": "🔥",
@@ -29519,7 +29519,77 @@
       "code_blocks": [],
       "links": [],
       "embeds": [],
-      "reactions": [],
+      "reactions": [
+        {
+          "emoji": "🔥",
+          "count": 3
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1511663093611237507",
+      "name": "FeatherFalling",
+      "description": "# Feather Falling\nMakes you fall more slowly.\n## Usage:\n```md\n;featherfall / fef\n  - Enables the command\n\n;unfeatherfall / unfef\n  - Disables the command\n\n;featherfallgravity / fefg [num]\n  - Inputs the fall floatiness\n\n;featherfallfallingpoint / feffp [num]\n  - Inputs the linear velocity falling point\n```\n## Installation:\nPut the `.iy` inside of your executor's workspace, and then execute this command on Infinite Yield\n```\n;plugin FeatherFalling\n```",
+      "author": {
+        "name": "Dazy",
+        "username": "dazy0349",
+        "avatar": "https://cdn.discordapp.com/avatars/1151873820286787614/397785305118be747de8001db11fe280.png?size=1024"
+      },
+      "date": "2026-06-03T09:29:26.859000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511663093611237507",
+      "files": [
+        {
+          "filename": "FeatherFalling.iy",
+          "url": "plugins/1511663093611237507/FeatherFalling.iy",
+          "size": 1763,
+          "is_plugin": true,
+          "code": "local oldGravity = workspace.Gravity\nlocal velocityTarget = -1\nlocal targetGravity = 20\n\nlocal loop\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"Feather Falling\",\n\t[\"PluginDescription\"] = \"Makes you fall more slowly\",\n\t[\"Commands\"] = {\n\t\t[\"featherfall\"] = {\n\t\t\t[\"ListName\"] = \"featherfall / fef\",\n\t\t\t[\"Description\"] = \"Enables feather falling\",\n\t\t\t[\"Aliases\"] = {\"fef\"},\n\t\t\t[\"Function\"] = function(args, speaker: Player)\n\t\t\t\tif not speaker.Character then return end\n\n\t\t\t\tlocal root: Part = getRoot(speaker.Character)\n\t\t\t\tif not root then return end\n\n\t\t\t\tloop = RunService.Stepped:Connect(function()\n\t\t\t\t\tif not root then\n\t\t\t\t\t\tloop:Disconnect()\n\t\t\t\t\t\treturn\n\t\t\t\t\tend\n\t\t\t\t\t\n\t\t\t\t\tif root.AssemblyLinearVelocity.Y < velocityTarget then\n\t\t\t\t\t\tworkspace.Gravity = targetGravity\n\t\t\t\t\telse\n\t\t\t\t\t\tworkspace.Gravity = oldGravity\n\t\t\t\t\tend\n\t\t\t\tend)\n\t\t\tend\n\t\t},\n\t\t[\"unfeatherfall\"] = {\n\t\t\t[\"ListName\"] = \"unfeatherfall / unfef\",\n\t\t\t[\"Description\"] = \"Disables your feather falling\",\n\t\t\t[\"Aliases\"] = {\"unfef\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif loop then loop:Disconnect() end\n\t\t\t\t\n\t\t\t\tworkspace.Gravity = oldGravity\n\t\t\tend\n\t\t},\n\t\t[\"featherfallgravity\"] = {\n\t\t\t[\"ListName\"] = \"featherfallgravity / fefg [num]\",\n\t\t\t[\"Description\"] = \"Inputs your target gravity\",\n\t\t\t[\"Aliases\"] = {\"fefg\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\ttargetGravity = tonumber(args[1]) or targetGravity\n\t\t\tend\n\t\t},\n\t\t[\"featherfallfallingpoint\"] = {\n\t\t\t[\"ListName\"] = \"featherfallfallingpoint / feffp [num]\",\n\t\t\t[\"Description\"] = \"Inputs your target falling point\",\n\t\t\t[\"Aliases\"] = {\"feffp\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tvelocityTarget = tonumber(args[1]) or velocityTarget\n\t\t\tend\n\t\t}\n\t}\n}\n\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [
+        "md\n;featherfall / fef\n  - Enables the command\n\n;unfeatherfall / unfef\n  - Disables the command\n\n;featherfallgravity / fefg [num]\n  - Inputs the fall floatiness\n\n;featherfallfallingpoint / feffp [num]\n  - Inputs the linear velocity falling point",
+        ";plugin FeatherFalling"
+      ],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "✅",
+          "count": 3
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1511676858205474866",
+      "name": "WelderRemake",
+      "description": "## 🛠️ WelderRemake (.iy Plugin)\nUpgraded remake of the Original **Welder.iy** plugin for Infinite Yield. Features highly stable velocity synchronization, advanced expression parsing, and full string/index support.\n\n## 📜 Commands:\n\n* ;weld [plr] [x] [y] [z] [rx] [ry] [rz] [anim] — Weld to player with custom CFrame offset and animation ID.\n* ;weldp [path] [offsets] [anim] — Directly teleports to, syncs velocity, and sets Weld to target path with custom offsets and an animation.\n* ;weldcopyvelocity — Toggles assembly velocity replication synchronization on/off.\n* ;stand [plr] — Positions you near the player using rig-specific offsets.\n* ;attack [plr] — Rapidly attaches to the target's rear and executes an offensive sequence.\n* ;betterheadsit [plr] — Sits perfectly on top of the player's head.\n* ;betterbang [plr] — Classic position attachment with custom looped animation sequences.\n* ;backpack [plr] — Locks your character onto the player's back as a functional backpack.\n* ;bettercarpet [plr] — Spreads your character horizontally beneath the target player.\n* ;unweld — Disconnects active loops, restores collision, and resets workspace parameters.",
+      "author": {
+        "name": "Agent666_0",
+        "username": "agent6660",
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+      },
+      "date": "2026-06-03T10:24:08.594000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511676858205474866",
+      "files": [
+        {
+          "filename": "WelderRemake.iy",
+          "url": "plugins/1511676858205474866/WelderRemake.iy",
+          "size": 10740,
+          "is_plugin": true,
+          "code": "local PhysicsService = Services.PhysicsService\nlocal RunService = Services.RunService\nlocal Players = Services.Players\nlocal Workspace = Services.Workspace\n\nlocal CurrentWeld = nil\nlocal OriginalFPDH = Workspace.FallenPartsDestroyHeight\nlocal weldcopyvelocity = true\n\nlocal function getTargetRoot(character)\n\tif not character then return nil end\n\tlocal humanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then return nil end\n\t\n\tif humanoid.RigType == Enum.HumanoidRigType.R15 then\n\t\treturn character:FindFirstChild(\"UpperTorso\") or character:FindFirstChild(\"HumanoidRootPart\")\n\telse\n\t\treturn character:FindFirstChild(\"Torso\") or character:FindFirstChild(\"HumanoidRootPart\")\n\tend\nend\n\nlocal function WeldTo(TargetPart, Offset, Speaker, AnimationId)\n\tlocal Character = Speaker.Character\n\tif not Character then return nil end\n\n\tlocal Humanoid = Character:FindFirstChildOfClass(\"Humanoid\")\n\tlocal Root = Character:FindFirstChild(\"HumanoidRootPart\") or (Humanoid and Humanoid.RootPart)\n\n\tif not Root or not Humanoid then return nil end\n\t\n\tlocal AnimTrack = nil\n\tif AnimationId and tostring(AnimationId) ~= \"0\" then\n\t\tlocal Animator = Character:FindFirstChildWhichIsA(\"Animator\", true)\n\t\tif Animator then\n\t\t\tlocal Animation = Instance.new(\"Animation\")\n\t\t\tAnimation.AnimationId = \"rbxassetid://\" .. tostring(AnimationId)\n\t\t\tpcall(function()\n\t\t\t\tAnimTrack = Animator:LoadAnimation(Animation)\n\t\t\t\tif AnimTrack then AnimTrack:Play() end\n\t\t\tend)\n\t\tend\n\tend\n\n\tlocal Weld = {}\n\tlocal Connection = nil\n\t\n\tfor _, v in pairs(Character:GetDescendants()) do\n\t\tif v:IsA(\"BasePart\") then\n\t\t\tv.CanCollide = false\n\t\t\tv.Massless = true\n\t\tend\n\tend\n\t\n\tConnection = RunService.Heartbeat:Connect(function()\n\t\tif not Character.Parent or not TargetPart.Parent then\n\t\t\tif Weld.Destroy then Weld:Destroy() end\n\t\t\treturn\n\t\tend\n\n\t\tRoot.CFrame = TargetPart.CFrame * Offset\n\t\t\n\t\tif weldcopyvelocity then\n\t\t\tRoot.AssemblyLinearVelocity = TargetPart.AssemblyLinearVelocity\n\t\t\tRoot.AssemblyAngularVelocity = TargetPart.AssemblyAngularVelocity\n\t\tend\n\t\t\n\t\tif sethiddenproperty then\n\t\t\tpcall(function()\n\t\t\t\tsethiddenproperty(Root, \"PhysicsRepRootPart\", TargetPart)\n\t\t\tend)\n\t\tend\n\tend)\n\n\tfunction Weld:Destroy()\n\t\tif Connection then Connection:Disconnect() end\n\t\tif AnimTrack then AnimTrack:Stop(); AnimTrack:Destroy() end\n\t\t\n\t\tif Root then\n\t\t\tRoot.AssemblyLinearVelocity = Vector3.zero\n\t\t\tRoot.AssemblyAngularVelocity = Vector3.zero\n\t\tend\n\tend\n\n\treturn Weld\nend\n\nlocal function justweld(FakePart, Offset, Speaker, AnimationId)\n\tlocal Character = Speaker.Character\n\tif not Character then return nil end\n\n\tlocal Humanoid = Character:FindFirstChildOfClass(\"Humanoid\")\n\tlocal Root = Character:FindFirstChild(\"HumanoidRootPart\") or (Humanoid and Humanoid.RootPart)\n\n\tif not Root or not Humanoid then return nil end\n\n\tlocal AnimTrack = nil\n\tif AnimationId and tostring(AnimationId) ~= \"0\" then\n\t\tlocal Animator = Character:FindFirstChildWhichIsA(\"Animator\", true)\n\t\tif Animator then\n\t\t\tlocal Animation = Instance.new(\"Animation\")\n\t\t\tAnimation.AnimationId = \"rbxassetid://\" .. tostring(AnimationId)\n\t\t\tpcall(function()\n\t\t\t\tAnimTrack = Animator:LoadAnimation(Animation)\n\t\t\t\tif AnimTrack then AnimTrack:Play() end\n\t\t\tend)\n\t\tend\n\tend\n\n\tlocal Weld = {}\n\tlocal Connection = nil\n\n\tfor _, v in pairs(Character:GetDescendants()) do\n\t\tif v:IsA(\"BasePart\") then\n\t\t\tv.CanCollide = false\n\t\t\tv.Massless = true\n\t\tend\n\tend\n\n\tConnection = RunService.Heartbeat:Connect(function()\n\t\tif not Character.Parent or not FakePart.Parent then\n\t\t\tif Weld.Destroy then Weld:Destroy() end\n\t\t\treturn\n\t\tend\n\n\t\tRoot.CFrame = FakePart.CFrame * Offset\n\t\t\n\t\tif weldcopyvelocity then\n\t\t\tRoot.AssemblyLinearVelocity = FakePart.AssemblyLinearVelocity\n\t\t\tRoot.AssemblyAngularVelocity = FakePart.AssemblyAngularVelocity\n\t\tend\n\n\t\tif sethiddenproperty then\n\t\t\tpcall(function()\n\t\t\t\tsethiddenproperty(Root, \"PhysicsRepRootPart\", FakePart)\n\t\t\tend)\n\t\tend\n\tend)\n\n\tfunction Weld:Destroy()\n\t\tif Connection then Connection:Disconnect() end\n\t\tif AnimTrack then AnimTrack:Stop(); AnimTrack:Destroy() end\n\t\t\n\t\tif Root then\n\t\t\tRoot.AssemblyLinearVelocity = Vector3.zero\n\t\t\tRoot.AssemblyAngularVelocity = Vector3.zero\n\t\tend\n\tend\n\n\treturn Weld\nend\n\nlocal function cuhh(args, speaker)\n\tif not args or #args == 0 then return notify('Path Required', 'Provide instance path!') end\n\n\tlocal rawArg = getstring(1, args)\n\tlocal pathStr = rawArg\n\tlocal x, y, z, rx, ry, rz = 0, 0, 0, 0, 0, 0\n\tlocal customAnim = 0\n\t\n\tlocal parts = splitString(rawArg, \" \")\n\t\n\tlocal numCount = 0\n\tfor i = #parts, 1, -1 do\n\t\tif tonumber(parts[i]) then\n\t\t\tnumCount = numCount + 1\n\t\telse\n\t\t\tbreak\n\t\tend\n\tend\n\t\n\tif numCount > 0 then\n\t\tlocal textParts = {}\n\t\tfor i = 1, #parts - numCount do\n\t\t\ttable.insert(textParts, parts[i])\n\t\tend\n\t\tpathStr = table.concat(textParts, \" \")\n\t\t\n\t\tlocal nums = {}\n\t\tfor i = #parts - numCount + 1, #parts do\n\t\t\ttable.insert(nums, tonumber(parts[i]))\n\t\tend\n\t\t\n\t\tif numCount >= 7 then\n\t\t\tx = nums[1] or 0\n\t\t\ty = nums[2] or 0\n\t\t\tz = nums[3] or 0\n\t\t\trx = math.rad(nums[4] or 0)\n\t\t\try = math.rad(nums[5] or 0)\n\t\t\trz = math.rad(nums[6] or 0)\n\t\t\tcustomAnim = nums[7] or 0\n\t\telse\n\t\t\tx = nums[1] or 0\n\t\t\ty = nums[2] or 0\n\t\t\tz = nums[3] or 0\n\t\t\trx = math.rad(nums[4] or 0)\n\t\t\try = math.rad(nums[5] or 0)\n\t\t\trz = math.rad(nums[6] or 0)\n\t\tend\n\tend\n\n\tlocal success, result = pcall(function()\n\t\tlocal f, err = loadstring(\"return \" .. pathStr)\n\t\tif f then return f() end\n\t\tf, err = loadstring(pathStr)\n\t\tif f then return f() end\n\t\treturn nil\n\tend)\n\n\tif not success or typeof(result) ~= \"Instance\" or not result:IsA(\"BasePart\") then\n\t\treturn notify('Error', 'Invalid part path or code execution failed!')\n\tend\n\n\tif CurrentWeld then CurrentWeld:Destroy() end\n\n\tlocal customOffset = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)\n\n\ttask.spawn(function()\n\t\tWorkspace.FallenPartsDestroyHeight = 0/0 \n\t\tCurrentWeld = justweld(result, customOffset, speaker, customAnim)\n\t\t\n\t\tif CurrentWeld then\n\t\t\tnotify(\"Welder\", \"Welded physics directly with vectors synced.\")\n\t\tend\n\tend)\nend\n\nlocal function cuh(args, speaker, offset, animId)\n\tif not args or #args == 0 then return notify('Player Required', 'No player provided!') end\n\n\tfor _, v in pairs(getPlayer(args[1], speaker)) do\n\t\tlocal TPlayer = Players[v]\n\t\tif not TPlayer or not TPlayer.Character or TPlayer == speaker then continue end\n\n\t\tif CurrentWeld then CurrentWeld:Destroy() end\n\n\t\tlocal TRoot = getTargetRoot(TPlayer.Character)\n\t\tif not TRoot then continue end\n\n\t\ttask.spawn(function()\n\t\t\tWorkspace.FallenPartsDestroyHeight = 0/0 \n\t\t\tCurrentWeld = WeldTo(TRoot, offset, speaker, animId)\n\t\t\t\n\t\t\tif CurrentWeld then\n\t\t\t\tnotify(\"Welder\", \"Welded to \" .. TPlayer.Name)\n\t\t\tend\n\t\tend)\n\tend\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"Welder\",\n\t[\"PluginDescription\"] = \"Weld yourself to anyone or something.\",\n\t[\"Commands\"] = {\n\t\t[\"weld\"] = {\n\t\t\t[\"ListName\"] = \"weld [plr] [x] [y] [z] [rx] [ry] [rz] [anim]\",\n\t\t\t[\"Description\"] = \"Weld to a player.\",\n\t\t\t[\"Aliases\"] = {\"weld\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal x = tonumber(args[2]) or 0\n\t\t\t\tlocal y = tonumber(args[3]) or 0\n\t\t\t\tlocal z = tonumber(args[4]) or 1.3\n\t\t\t\tlocal rx = math.rad(tonumber(args[5]) or 0)\n\t\t\t\tlocal ry = math.rad(tonumber(args[6]) or 0)\n\t\t\t\tlocal rz = math.rad(tonumber(args[7]) or 0)\n\t\t\t\tlocal customanimbruhhhhh = tonumber(args[8]) or 0\n\t\t\t\tlocal customCFrame = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)\n\t\t\t\tcuh(args, speaker, customCFrame, customanimbruhhhhh)\n\t\t\tend\n\t\t},\n\t\t[\"weldp\"] = {\n\t\t\t[\"ListName\"] = \"weldproperty [path] [offsets] [anim]\",\n\t\t\t[\"Description\"] = \"Directly teleports to, syncs velocity, and sets Weld to target path with custom offsets.\",\n\t\t\t[\"Aliases\"] = {\"weldp\", \"weldproperty\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuhh(args, speaker)\n\t\t\tend\n\t\t},\n\t\t[\"weldcopyvelocity\"] = {\n\t\t\t[\"ListName\"] = \"weldcopyvelocity\",\n\t\t\t[\"Description\"] = \"Toggle assembly velocity replication synchronization.\",\n\t\t\t[\"Aliases\"] = {\"weldcopyvelocity\", \"weldvelocity\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tweldcopyvelocity = not weldcopyvelocity\n\t\t\t\tnotify(\"Welder\", \"Velocity copying set to: \" .. tostring(weldcopyvelocity))\n\t\t\tend\n\t\t},\n\t\t[\"stand\"] = {\n\t\t\t[\"ListName\"] = \"stand [plr]\",\n\t\t\t[\"Description\"] = \"wtf.\",\n\t\t\t[\"Aliases\"] = {\"stand\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif r15(speaker) then\n\t\t\t\t\tcuh({args[1]}, speaker, CFrame.new(1.8, 1.8, 2), 96658788627102)\n\t\t\t\telse\n\t\t\t\t\tcuh({args[1]}, speaker, CFrame.new(1.5, 1.25, 2), 313762630)\n\t\t\t\tend\n\t\t\tend\n\t\t},\n\t\t[\"attack\"] = {\n\t\t\t[\"ListName\"] = \"attack [plr]\",\n\t\t\t[\"Description\"] = \"wtf.\",\n\t\t\t[\"Aliases\"] = {\"attack\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal rotate180 = CFrame.Angles(0, math.rad(180), 0)\n\t\t\t\tif r15(speaker) then\n\t\t\t\t\tlocal bpOffset = CFrame.new(0, 0.5, -2.55) * rotate180\n\t\t\t\t\tcuh({args[1]}, speaker, bpOffset, 117183737438245)\n\t\t\t\telse\n\t\t\t\t\tlocal bpOffset = CFrame.new(0, 0, -1.25) * rotate180\n\t\t\t\t\tcuh({args[1]}, speaker, bpOffset, 259438880)\n\t\t\t\tend\n\t\t\tend\n\t\t},\n\t\t[\"betterheadsit\"] = {\n\t\t\t[\"ListName\"] = \"betterheadsit [plr]\",\n\t\t\t[\"Description\"] = \"Sit on a player's head.\",\n\t\t\t[\"Aliases\"] = {\"headsit\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuh({args[1]}, speaker, CFrame.new(0, 3, 0), 178130996)\n\t\t\tend\n\t\t},\n\t\t[\"betterbang\"] = {\n\t\t\t[\"ListName\"] = \"betterbang [plr]\",\n\t\t\t[\"Description\"] = \"lol.\",\n\t\t\t[\"Aliases\"] = {\"bang\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuh({args[1]}, speaker, CFrame.new(0, 0, 1.3), 148840371)\n\t\t\tend\n\t\t},\n\t\t[\"backpack\"] = {\n\t\t\t[\"ListName\"] = \"backpack [plr]\",\n\t\t\t[\"Description\"] = \"Become someone's backpack! :3\",\n\t\t\t[\"Aliases\"] = {\"backpack\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal rotate180 = CFrame.Angles(0, math.rad(180), 0)\n\t\t\t\tlocal bpOffset = CFrame.new(0, 0, 1.05) * rotate180\n\t\t\t\tcuh({args[1]}, speaker, bpOffset, 178130996)\n\t\t\tend\n\t\t},\n\t\t[\"bettercarpet\"] = {\n\t\t\t[\"ListName\"] = \"bettercarpet [plr]\",\n\t\t\t[\"Description\"] = \"Become a player's carpet.\",\n\t\t\t[\"Aliases\"] = {\"carpet\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tcuh({args[1]}, speaker, CFrame.new(0, -1, 0), 282574440)\n\t\t\tend\n\t\t},\n\t\t[\"unweld\"] = {\n\t\t\t[\"ListName\"] = \"unweld\",\n\t\t\t[\"Description\"] = \"Stop all welds\",\n\t\t\t[\"Aliases\"] = {\"unweld\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tif CurrentWeld then\n\t\t\t\t\tCurrentWeld:Destroy()\n\t\t\t\t\tCurrentWeld = nil\n\t\t\t\tend\n\t\t\t\tWorkspace.FallenPartsDestroyHeight = OriginalFPDH\n\t\t\t\tnotify(\"Unwelded\", \"Stopped.\")\n\t\t\tend\n\t\t}\n\t}\n}\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [
+        {
+          "emoji": "<:shambles:1494336319743332483>",
+          "count": 1
+        }
+      ],
       "loadstring_urls": []
     }
   ]

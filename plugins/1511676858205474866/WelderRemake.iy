@@ -1,0 +1,363 @@
+local PhysicsService = Services.PhysicsService
+local RunService = Services.RunService
+local Players = Services.Players
+local Workspace = Services.Workspace
+
+local CurrentWeld = nil
+local OriginalFPDH = Workspace.FallenPartsDestroyHeight
+local weldcopyvelocity = true
+
+local function getTargetRoot(character)
+	if not character then return nil end
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+	if not humanoid then return nil end
+	
+	if humanoid.RigType == Enum.HumanoidRigType.R15 then
+		return character:FindFirstChild("UpperTorso") or character:FindFirstChild("HumanoidRootPart")
+	else
+		return character:FindFirstChild("Torso") or character:FindFirstChild("HumanoidRootPart")
+	end
+end
+
+local function WeldTo(TargetPart, Offset, Speaker, AnimationId)
+	local Character = Speaker.Character
+	if not Character then return nil end
+
+	local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+	local Root = Character:FindFirstChild("HumanoidRootPart") or (Humanoid and Humanoid.RootPart)
+
+	if not Root or not Humanoid then return nil end
+	
+	local AnimTrack = nil
+	if AnimationId and tostring(AnimationId) ~= "0" then
+		local Animator = Character:FindFirstChildWhichIsA("Animator", true)
+		if Animator then
+			local Animation = Instance.new("Animation")
+			Animation.AnimationId = "rbxassetid://" .. tostring(AnimationId)
+			pcall(function()
+				AnimTrack = Animator:LoadAnimation(Animation)
+				if AnimTrack then AnimTrack:Play() end
+			end)
+		end
+	end
+
+	local Weld = {}
+	local Connection = nil
+	
+	for _, v in pairs(Character:GetDescendants()) do
+		if v:IsA("BasePart") then
+			v.CanCollide = false
+			v.Massless = true
+		end
+	end
+	
+	Connection = RunService.Heartbeat:Connect(function()
+		if not Character.Parent or not TargetPart.Parent then
+			if Weld.Destroy then Weld:Destroy() end
+			return
+		end
+
+		Root.CFrame = TargetPart.CFrame * Offset
+		
+		if weldcopyvelocity then
+			Root.AssemblyLinearVelocity = TargetPart.AssemblyLinearVelocity
+			Root.AssemblyAngularVelocity = TargetPart.AssemblyAngularVelocity
+		end
+		
+		if sethiddenproperty then
+			pcall(function()
+				sethiddenproperty(Root, "PhysicsRepRootPart", TargetPart)
+			end)
+		end
+	end)
+
+	function Weld:Destroy()
+		if Connection then Connection:Disconnect() end
+		if AnimTrack then AnimTrack:Stop(); AnimTrack:Destroy() end
+		
+		if Root then
+			Root.AssemblyLinearVelocity = Vector3.zero
+			Root.AssemblyAngularVelocity = Vector3.zero
+		end
+	end
+
+	return Weld
+end
+
+local function justweld(FakePart, Offset, Speaker, AnimationId)
+	local Character = Speaker.Character
+	if not Character then return nil end
+
+	local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+	local Root = Character:FindFirstChild("HumanoidRootPart") or (Humanoid and Humanoid.RootPart)
+
+	if not Root or not Humanoid then return nil end
+
+	local AnimTrack = nil
+	if AnimationId and tostring(AnimationId) ~= "0" then
+		local Animator = Character:FindFirstChildWhichIsA("Animator", true)
+		if Animator then
+			local Animation = Instance.new("Animation")
+			Animation.AnimationId = "rbxassetid://" .. tostring(AnimationId)
+			pcall(function()
+				AnimTrack = Animator:LoadAnimation(Animation)
+				if AnimTrack then AnimTrack:Play() end
+			end)
+		end
+	end
+
+	local Weld = {}
+	local Connection = nil
+
+	for _, v in pairs(Character:GetDescendants()) do
+		if v:IsA("BasePart") then
+			v.CanCollide = false
+			v.Massless = true
+		end
+	end
+
+	Connection = RunService.Heartbeat:Connect(function()
+		if not Character.Parent or not FakePart.Parent then
+			if Weld.Destroy then Weld:Destroy() end
+			return
+		end
+
+		Root.CFrame = FakePart.CFrame * Offset
+		
+		if weldcopyvelocity then
+			Root.AssemblyLinearVelocity = FakePart.AssemblyLinearVelocity
+			Root.AssemblyAngularVelocity = FakePart.AssemblyAngularVelocity
+		end
+
+		if sethiddenproperty then
+			pcall(function()
+				sethiddenproperty(Root, "PhysicsRepRootPart", FakePart)
+			end)
+		end
+	end)
+
+	function Weld:Destroy()
+		if Connection then Connection:Disconnect() end
+		if AnimTrack then AnimTrack:Stop(); AnimTrack:Destroy() end
+		
+		if Root then
+			Root.AssemblyLinearVelocity = Vector3.zero
+			Root.AssemblyAngularVelocity = Vector3.zero
+		end
+	end
+
+	return Weld
+end
+
+local function cuhh(args, speaker)
+	if not args or #args == 0 then return notify('Path Required', 'Provide instance path!') end
+
+	local rawArg = getstring(1, args)
+	local pathStr = rawArg
+	local x, y, z, rx, ry, rz = 0, 0, 0, 0, 0, 0
+	local customAnim = 0
+	
+	local parts = splitString(rawArg, " ")
+	
+	local numCount = 0
+	for i = #parts, 1, -1 do
+		if tonumber(parts[i]) then
+			numCount = numCount + 1
+		else
+			break
+		end
+	end
+	
+	if numCount > 0 then
+		local textParts = {}
+		for i = 1, #parts - numCount do
+			table.insert(textParts, parts[i])
+		end
+		pathStr = table.concat(textParts, " ")
+		
+		local nums = {}
+		for i = #parts - numCount + 1, #parts do
+			table.insert(nums, tonumber(parts[i]))
+		end
+		
+		if numCount >= 7 then
+			x = nums[1] or 0
+			y = nums[2] or 0
+			z = nums[3] or 0
+			rx = math.rad(nums[4] or 0)
+			ry = math.rad(nums[5] or 0)
+			rz = math.rad(nums[6] or 0)
+			customAnim = nums[7] or 0
+		else
+			x = nums[1] or 0
+			y = nums[2] or 0
+			z = nums[3] or 0
+			rx = math.rad(nums[4] or 0)
+			ry = math.rad(nums[5] or 0)
+			rz = math.rad(nums[6] or 0)
+		end
+	end
+
+	local success, result = pcall(function()
+		local f, err = loadstring("return " .. pathStr)
+		if f then return f() end
+		f, err = loadstring(pathStr)
+		if f then return f() end
+		return nil
+	end)
+
+	if not success or typeof(result) ~= "Instance" or not result:IsA("BasePart") then
+		return notify('Error', 'Invalid part path or code execution failed!')
+	end
+
+	if CurrentWeld then CurrentWeld:Destroy() end
+
+	local customOffset = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
+
+	task.spawn(function()
+		Workspace.FallenPartsDestroyHeight = 0/0 
+		CurrentWeld = justweld(result, customOffset, speaker, customAnim)
+		
+		if CurrentWeld then
+			notify("Welder", "Welded physics directly with vectors synced.")
+		end
+	end)
+end
+
+local function cuh(args, speaker, offset, animId)
+	if not args or #args == 0 then return notify('Player Required', 'No player provided!') end
+
+	for _, v in pairs(getPlayer(args[1], speaker)) do
+		local TPlayer = Players[v]
+		if not TPlayer or not TPlayer.Character or TPlayer == speaker then continue end
+
+		if CurrentWeld then CurrentWeld:Destroy() end
+
+		local TRoot = getTargetRoot(TPlayer.Character)
+		if not TRoot then continue end
+
+		task.spawn(function()
+			Workspace.FallenPartsDestroyHeight = 0/0 
+			CurrentWeld = WeldTo(TRoot, offset, speaker, animId)
+			
+			if CurrentWeld then
+				notify("Welder", "Welded to " .. TPlayer.Name)
+			end
+		end)
+	end
+end
+
+local Plugin = {
+	["PluginName"] = "Welder",
+	["PluginDescription"] = "Weld yourself to anyone or something.",
+	["Commands"] = {
+		["weld"] = {
+			["ListName"] = "weld [plr] [x] [y] [z] [rx] [ry] [rz] [anim]",
+			["Description"] = "Weld to a player.",
+			["Aliases"] = {"weld"},
+			["Function"] = function(args, speaker)
+				local x = tonumber(args[2]) or 0
+				local y = tonumber(args[3]) or 0
+				local z = tonumber(args[4]) or 1.3
+				local rx = math.rad(tonumber(args[5]) or 0)
+				local ry = math.rad(tonumber(args[6]) or 0)
+				local rz = math.rad(tonumber(args[7]) or 0)
+				local customanimbruhhhhh = tonumber(args[8]) or 0
+				local customCFrame = CFrame.new(x, y, z) * CFrame.Angles(rx, ry, rz)
+				cuh(args, speaker, customCFrame, customanimbruhhhhh)
+			end
+		},
+		["weldp"] = {
+			["ListName"] = "weldproperty [path] [offsets] [anim]",
+			["Description"] = "Directly teleports to, syncs velocity, and sets Weld to target path with custom offsets.",
+			["Aliases"] = {"weldp", "weldproperty"},
+			["Function"] = function(args, speaker)
+				cuhh(args, speaker)
+			end
+		},
+		["weldcopyvelocity"] = {
+			["ListName"] = "weldcopyvelocity",
+			["Description"] = "Toggle assembly velocity replication synchronization.",
+			["Aliases"] = {"weldcopyvelocity", "weldvelocity"},
+			["Function"] = function(args, speaker)
+				weldcopyvelocity = not weldcopyvelocity
+				notify("Welder", "Velocity copying set to: " .. tostring(weldcopyvelocity))
+			end
+		},
+		["stand"] = {
+			["ListName"] = "stand [plr]",
+			["Description"] = "wtf.",
+			["Aliases"] = {"stand"},
+			["Function"] = function(args, speaker)
+				if r15(speaker) then
+					cuh({args[1]}, speaker, CFrame.new(1.8, 1.8, 2), 96658788627102)
+				else
+					cuh({args[1]}, speaker, CFrame.new(1.5, 1.25, 2), 313762630)
+				end
+			end
+		},
+		["attack"] = {
+			["ListName"] = "attack [plr]",
+			["Description"] = "wtf.",
+			["Aliases"] = {"attack"},
+			["Function"] = function(args, speaker)
+				local rotate180 = CFrame.Angles(0, math.rad(180), 0)
+				if r15(speaker) then
+					local bpOffset = CFrame.new(0, 0.5, -2.55) * rotate180
+					cuh({args[1]}, speaker, bpOffset, 117183737438245)
+				else
+					local bpOffset = CFrame.new(0, 0, -1.25) * rotate180
+					cuh({args[1]}, speaker, bpOffset, 259438880)
+				end
+			end
+		},
+		["betterheadsit"] = {
+			["ListName"] = "betterheadsit [plr]",
+			["Description"] = "Sit on a player's head.",
+			["Aliases"] = {"headsit"},
+			["Function"] = function(args, speaker)
+				cuh({args[1]}, speaker, CFrame.new(0, 3, 0), 178130996)
+			end
+		},
+		["betterbang"] = {
+			["ListName"] = "betterbang [plr]",
+			["Description"] = "lol.",
+			["Aliases"] = {"bang"},
+			["Function"] = function(args, speaker)
+				cuh({args[1]}, speaker, CFrame.new(0, 0, 1.3), 148840371)
+			end
+		},
+		["backpack"] = {
+			["ListName"] = "backpack [plr]",
+			["Description"] = "Become someone's backpack! :3",
+			["Aliases"] = {"backpack"},
+			["Function"] = function(args, speaker)
+				local rotate180 = CFrame.Angles(0, math.rad(180), 0)
+				local bpOffset = CFrame.new(0, 0, 1.05) * rotate180
+				cuh({args[1]}, speaker, bpOffset, 178130996)
+			end
+		},
+		["bettercarpet"] = {
+			["ListName"] = "bettercarpet [plr]",
+			["Description"] = "Become a player's carpet.",
+			["Aliases"] = {"carpet"},
+			["Function"] = function(args, speaker)
+				cuh({args[1]}, speaker, CFrame.new(0, -1, 0), 282574440)
+			end
+		},
+		["unweld"] = {
+			["ListName"] = "unweld",
+			["Description"] = "Stop all welds",
+			["Aliases"] = {"unweld"},
+			["Function"] = function(args, speaker)
+				if CurrentWeld then
+					CurrentWeld:Destroy()
+					CurrentWeld = nil
+				end
+				Workspace.FallenPartsDestroyHeight = OriginalFPDH
+				notify("Unwelded", "Stopped.")
+			end
+		}
+	}
+}
+return Plugin
