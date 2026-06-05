@@ -29,6 +29,11 @@
         
         // Set initial active link
         updateActiveNavbarLink();
+        
+        // Trigger initial hash scroll on load
+        if (location.hash) {
+            setTimeout(() => window.dispatchEvent(new Event('hashchange')), 200);
+        }
     });
 
 
@@ -126,6 +131,7 @@
             else loadScript('maker.js', () => window.initMaker && window.initMaker());
         } else if (path === '/api' || path === '/tutorial') {
             if (path === '/tutorial') initTutorial();
+            if (path === '/api') initApi();
             
             // Check if they need prism.js for highlighting
             if (document.querySelector('script[src*="prism.min.js"]') || document.querySelector('pre code')) {
@@ -140,6 +146,56 @@
                 }
             }
         }
+    }
+
+    function initApi() {
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const sections = document.querySelectorAll('.docs-section, .docs-hero');
+
+        if (!sidebarLinks.length || !sections.length) return;
+
+        function makeActive(link) {
+            sidebarLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+        }
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                makeActive(link);
+            });
+        });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -60% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    if (!id) return;
+                    const activeLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+                    if (activeLink) {
+                        makeActive(activeLink);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            if (section.id) {
+                observer.observe(section);
+            } else {
+                const heading = section.querySelector('h1[id], h2[id]');
+                if (heading) observer.observe(heading);
+            }
+        });
+
+        window.currentRouteCleanup = () => {
+            observer.disconnect();
+        };
     }
 
     async function initTutorial() {

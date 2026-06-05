@@ -1667,6 +1667,10 @@ span.author-click:hover,
         display: none !important;
     }
 
+    .header-updated {
+        display: none !important;
+    }
+
     .h-link {
         text-align: left;
         padding: 10px 14px;

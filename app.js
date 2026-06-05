@@ -46,10 +46,13 @@
                 if (data.scraped_at) {
                     const scrapedDate = new Date(data.scraped_at);
                     const updateLiveTime = () => {
-                        if (isAborted || !$('stat-updated')) return;
+                        const hu = $('header-updated');
+                        const su = $('stat-updated');
+                        if (isAborted || (!hu && !su)) return;
                         const diff = Math.floor((new Date() - scrapedDate) / 1000);
                         if (diff < 0) {
-                            $('stat-updated').textContent = 'Just now';
+                            if(su) su.textContent = 'Just now';
+                            if(hu) hu.textContent = 'Last updated: Just now';
                             return;
                         }
                         const d = Math.floor(diff / 86400);
@@ -63,13 +66,20 @@
                         if (m > 0 || h > 0 || d > 0) str += `${m}m `;
                         str += `${s}s ago`;
 
-                        $('stat-updated').textContent = str;
-                        $('stat-updated').title = scrapedDate.toLocaleString();
+                        if (su) {
+                            su.textContent = str;
+                            su.title = scrapedDate.toLocaleString();
+                        }
+                        if (hu) {
+                            hu.textContent = `Last updated: ${str}`;
+                            hu.title = scrapedDate.toLocaleString();
+                        }
                     };
                     updateLiveTime();
                     intervalId = setInterval(updateLiveTime, 1000);
                 } else {
-                    $('stat-updated').textContent = 'Unknown';
+                    if ($('stat-updated')) $('stat-updated').textContent = 'Unknown';
+                    if ($('header-updated')) $('header-updated').textContent = 'Last updated: Unknown';
                 }
 
                 loading.classList.add('hidden');
