@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-06-03T13:40:13.060400+00:00",
+  "scraped_at": "2026-06-05T13:41:22.508373+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 539,
+  "total_plugins": 540,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -13668,7 +13668,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a20ef25&is=6a1f9da5&hm=5e87196e22d0a41e6e417feef557a3b8725c3e3b470124a767194ff2cf4356f7&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a239225&is=6a2240a5&hm=564b806a9c6116a11171d25d96ecc83df6b788c44bb9330ebb429bcc5f76f2b2&"
           },
           "image": null,
           "video": null
@@ -16862,7 +16862,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a211d72&is=6a1fcbf2&hm=212c28c54c7b87c57d8884ca40d6b5e2b9469e0bf99d84a4aec88a233f0fbec9&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a23c072&is=6a226ef2&hm=448ec7009fcbb1636200649b7ed2dd60fd4e06fe6ad5bf9d86cd229b55428f5b&"
           },
           "image": null,
           "video": null
@@ -16876,7 +16876,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a211d89&is=6a1fcc09&hm=c3974f7dd96e3cc0460180aa03e12756b6d83e48adfff4c3c17ca33f859a4c41&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a23c089&is=6a226f09&hm=7fdb9217718546c88230a0822dd34cb64ae102ed8ad11fdd0b32f6231d2b7471&"
           },
           "image": null,
           "video": null
@@ -17378,7 +17378,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a217ba2&is=6a202a22&hm=517428553b319d4a98ad3dbd7f52e2bc86b7a1665878823fc86efdfef577a71a&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a241ea2&is=6a22cd22&hm=1818254c7065dea632ddce7e678929f182fb6a00dc05537f7ae6929282d8f0a0&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -17932,7 +17932,7 @@
       "author": {
         "name": "Arato",
         "username": "notarato",
-        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/4ee108a4ec01767d491cb36233c35343.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/5177917f7691dbb3bcb6ecb097bb9e82.png?size=1024"
       },
       "date": "2022-02-15T04:20:18.484000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/942998734961270824",
@@ -18708,7 +18708,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a211d72&is=6a1fcbf2&hm=212c28c54c7b87c57d8884ca40d6b5e2b9469e0bf99d84a4aec88a233f0fbec9&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a23c072&is=6a226ef2&hm=448ec7009fcbb1636200649b7ed2dd60fd4e06fe6ad5bf9d86cd229b55428f5b&"
           },
           "image": null,
           "video": null
@@ -18722,7 +18722,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a211d89&is=6a1fcc09&hm=c3974f7dd96e3cc0460180aa03e12756b6d83e48adfff4c3c17ca33f859a4c41&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a23c089&is=6a226f09&hm=7fdb9217718546c88230a0822dd34cb64ae102ed8ad11fdd0b32f6231d2b7471&"
           },
           "image": null,
           "video": null
@@ -20101,7 +20101,7 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a217eee&is=6a202d6e&hm=58045660e53cbb831db56b8ce9e488445098cd4ee899a27989e99696d6ab33c5&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a2421ee&is=6a22d06e&hm=d21d717529cd82b0f8dfc19aa8c636be76c2741263117642e7e8bbb114093923&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -22726,7 +22726,7 @@
       "reactions": [
         {
           "emoji": "💀",
-          "count": 294
+          "count": 295
         },
         {
           "emoji": "👅",
@@ -23344,7 +23344,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a217719&is=6a202599&hm=440c721d2a9dcd542b6e7cd712e0d826ddc9f22c6d6ba2535a50f8e0cadbc599&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a241a19&is=6a22c899&hm=ad1bd085b9e112e0980cbd265046db7a280c529853b94a990797b920f09ce01d&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -24481,7 +24481,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a214a79&is=6a1ff8f9&hm=c8a4b2a4aaf69da5026b80cd1f41ccb61a0d25d5e824db19e083c306c89640ea&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a23ed79&is=6a229bf9&hm=62751c599706c59057b495095ccb3ce451101563aed79e379c80c1590aa324f2&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -28033,7 +28033,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a217578&is=6a2023f8&hm=2ac2e0cb04a3462d50f4c2025ef0ba7393e285ac575df8963e0f86d4c2cd292a&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a241878&is=6a22c6f8&hm=a6078737f8f69cf09bf6dd36db55ede01fbc94908e7c41d47f6041800220eb33&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -28251,7 +28251,7 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 15
+          "count": 16
         },
         {
           "emoji": "🇳🇮",
@@ -29339,7 +29339,7 @@
       "reactions": [
         {
           "emoji": "<:darkskull:1362660601960337428>",
-          "count": 13
+          "count": 17
         },
         {
           "emoji": "🍬",
@@ -29368,6 +29368,10 @@
         {
           "emoji": "👎",
           "count": 2
+        },
+        {
+          "emoji": "👍",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -29485,7 +29489,7 @@
         },
         {
           "emoji": "🏳️‍🌈",
-          "count": 3
+          "count": 4
         }
       ],
       "loadstring_urls": []
@@ -29522,7 +29526,19 @@
       "reactions": [
         {
           "emoji": "🔥",
-          "count": 3
+          "count": 4
+        },
+        {
+          "emoji": "❌",
+          "count": 1
+        },
+        {
+          "emoji": "👎",
+          "count": 1
+        },
+        {
+          "emoji": "🥺",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -29556,7 +29572,7 @@
       "reactions": [
         {
           "emoji": "✅",
-          "count": 3
+          "count": 5
         }
       ],
       "loadstring_urls": []
@@ -29587,9 +29603,57 @@
       "reactions": [
         {
           "emoji": "<:shambles:1494336319743332483>",
-          "count": 1
+          "count": 4
+        },
+        {
+          "emoji": "<:biting:1472081217410170900>",
+          "count": 4
+        },
+        {
+          "emoji": "❌",
+          "count": 4
+        },
+        {
+          "emoji": "🅰️",
+          "count": 4
+        },
+        {
+          "emoji": "🇮",
+          "count": 4
         }
       ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1512441020053196835",
+      "name": "ExecutorGUI",
+      "description": "For those of you who somehow end up in a situation with only IY and no proper executor.\n`loadstring [url]` loadstrings a url\n`executor` opens executor\n`closeexecutor` closes executor\nexecutor also just has a button to close it.\nExtremely large scripts are cached due to issues that I couldn't resolve normally.",
+      "author": {
+        "name": "SteamUser#9483",
+        "username": "steamuser9483",
+        "avatar": "https://cdn.discordapp.com/avatars/602608719829663775/59eb68fb1a1e256d9db1043a83658070.png?size=1024"
+      },
+      "date": "2026-06-05T13:00:38.976000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1512441020053196835",
+      "files": [
+        {
+          "filename": "ExecutorGUI.iy",
+          "url": "plugins/1512441020053196835/ExecutorGUI.iy",
+          "size": 12270,
+          "is_plugin": true,
+          "code": "local Plugin = {\n    [\"PluginName\"] = \"ExecutorGUI\",\n    [\"PluginDescription\"] = \"Opens an executor GUI and adds a URL loadstring command.\",\n    [\"Commands\"] = {}\n}\n\nlocal Players = game:GetService(\"Players\")\nlocal CoreGui = game:GetService(\"CoreGui\")\nlocal StarterGui = game:GetService(\"StarterGui\")\nlocal HttpService = game:GetService(\"HttpService\")\n\nlocal LocalPlayer = Players.LocalPlayer\nlocal ENV = (getgenv and getgenv()) or _G\n\nlocal GUI_NAME = \"IY_EXECUTOR_GUI_V6\"\nlocal CACHE_KEY = \"__IY_EXECUTOR_GUI_LAST_SOURCE_V6\"\nlocal PLACEHOLDER = \"-- Cached script stored internally.\\n-- Press Execute again to run the same full script.\\n-- Paste new code here to replace the cached script.\"\n\nlocal guiRef = nil\nlocal codeBoxRef = nil\nlocal statusRef = nil\n\nlocal function trim(text)\n    return tostring(text or \"\"):match(\"^%s*(.-)%s*$\") or \"\"\nend\n\nlocal function iyNotify(title, text)\n    local didNotify = false\n\n    if type(notify) == \"function\" then\n        didNotify = pcall(function()\n            notify(tostring(title), tostring(text))\n        end)\n    end\n\n    if not didNotify then\n        pcall(function()\n            StarterGui:SetCore(\"SendNotification\", {\n                Title = tostring(title),\n                Text = tostring(text),\n                Duration = 4\n            })\n        end)\n    end\nend\n\nlocal function setStatus(text)\n    text = tostring(text or \"\")\n    if statusRef and statusRef.Parent then\n        pcall(function()\n            statusRef.Text = text\n        end)\n    end\nend\n\nlocal function getGuiParent()\n    local ok = pcall(function()\n        local test = Instance.new(\"ScreenGui\")\n        test.Parent = CoreGui\n        test:Destroy()\n    end)\n\n    if ok then\n        return CoreGui\n    end\n\n    return LocalPlayer and LocalPlayer:WaitForChild(\"PlayerGui\") or CoreGui\nend\n\nlocal function closeExecutor()\n    local parent = getGuiParent()\n    local old = parent:FindFirstChild(GUI_NAME)\n    if old then\n        old:Destroy()\n    end\n    guiRef = nil\n    codeBoxRef = nil\n    statusRef = nil\nend\n\nlocal function getCachedSource()\n    local cached = ENV[CACHE_KEY]\n    if type(cached) == \"table\" and type(cached.Source) == \"string\" then\n        return cached.Source, cached\n    elseif type(cached) == \"string\" then\n        return cached, { Source = cached, Label = \"cached\", Size = #cached }\n    end\n    return nil, nil\nend\n\nlocal function setCachedSource(source, label)\n    source = tostring(source or \"\")\n    ENV[CACHE_KEY] = {\n        Source = source,\n        Label = tostring(label or \"editor\"),\n        Size = #source,\n        SavedAt = os.time()\n    }\nend\n\nlocal function isPlaceholderText(text)\n    text = tostring(text or \"\")\n    return text:find(\"Cached script stored internally\", 1, true) ~= nil\n        or text:find(\"Press Execute again to run the same full script\", 1, true) ~= nil\nend\n\nlocal function looksLikeCorruptedEditorText(text)\n    local clean = trim(text)\n    if clean == \"\" then\n        return false\n    end\n\n    return clean:match(\"^Current%s+autoload%s+config%s*:\") ~= nil\n        or clean:match(\"^Current%s+auto%-load%s+config%s*:\") ~= nil\n        or clean:match(\"^Auto%-load%s*:\") ~= nil\nend\n\nlocal function firstLine(text)\n    text = tostring(text or \"\")\n    return (text:match(\"([^\\n\\r]*)\") or \"\")\nend\n\nlocal function runSource(inputSource, label, forceCached)\n    label = tostring(label or \"editor\")\n\n    local source = tostring(inputSource or \"\")\n    local cachedSource = getCachedSource()\n\n    if forceCached then\n        if not cachedSource then\n            iyNotify(\"Executor\", \"No cached script found.\")\n            setStatus(\"No cached script found.\")\n            return false\n        end\n        source = cachedSource\n        label = \"cached\"\n    elseif isPlaceholderText(source) or looksLikeCorruptedEditorText(source) then\n        if cachedSource then\n            source = cachedSource\n            label = \"cached fallback\"\n        end\n    end\n\n    if trim(source) == \"\" then\n        iyNotify(\"Executor\", \"No code entered.\")\n        setStatus(\"No code entered.\")\n        return false\n    end\n\n    if type(loadstring) ~= \"function\" then\n        iyNotify(\"Executor\", \"loadstring is unavailable.\")\n        warn(\"ExecutorGUI: loadstring is unavailable in this environment.\")\n        setStatus(\"loadstring unavailable.\")\n        return false\n    end\n\n    local fn, compileErr = loadstring(source)\n\n    if not fn and cachedSource and source ~= cachedSource then\n        local retryFn, retryErr = loadstring(cachedSource)\n        if retryFn then\n            source = cachedSource\n            label = \"cached compile fallback\"\n            fn = retryFn\n            compileErr = nil\n        else\n            compileErr = compileErr or retryErr\n        end\n    end\n\n    if not fn then\n        iyNotify(\"Executor\", \"Compile Error\")\n        warn((\"ExecutorGUI Compile Error [%s, %d chars]: %s\"):format(label, #source, tostring(compileErr)))\n        warn(\"ExecutorGUI first 200 chars:\", source:sub(1, 200))\n        setStatus(\"Compile error. First line: \" .. firstLine(source):sub(1, 90))\n        return false\n    end\n\n    setCachedSource(source, label)\n\n    if codeBoxRef and codeBoxRef.Parent and #source >= 10000 then\n        pcall(function()\n            codeBoxRef.Text = PLACEHOLDER\n        end)\n    end\n\n    setStatus((\"Running %s (%d chars)...\"):format(label, #source))\n\n    task.spawn(function()\n        local ok, runtimeErr = pcall(fn)\n        if ok then\n            iyNotify(\"Executor\", \"Executed.\")\n            setStatus((\"Executed %s (%d chars). Cached internally.\"):format(label, #source))\n        else\n            iyNotify(\"Executor\", \"Runtime Error\")\n            warn((\"ExecutorGUI Runtime Error [%s, %d chars]: %s\"):format(label, #source, tostring(runtimeErr)))\n            setStatus(\"Runtime error: \" .. tostring(runtimeErr):sub(1, 120))\n        end\n    end)\n\n    return true\nend\n\nlocal function normalizeUrl(url)\n    url = trim(url)\n\n    if url == \"\" then\n        return \"\"\n    end\n\n    if not url:match(\"^https?://\") then\n        url = \"https://\" .. url\n    end\n\n    if url:find(\"pastebin.com/\", 1, true) and not url:find(\"pastebin.com/raw/\", 1, true) then\n        local id = url:match(\"pastebin%.com/([%w%d]+)\")\n        if id and id ~= \"raw\" then\n            url = \"https://pastebin.com/raw/\" .. id\n        end\n    end\n\n    return url\nend\n\nlocal function runUrl(url)\n    url = normalizeUrl(url)\n\n    if url == \"\" then\n        iyNotify(\"Loadstring\", \"Missing URL.\")\n        return false\n    end\n\n    setStatus(\"Fetching URL...\")\n\n    local ok, result = pcall(function()\n        return game:HttpGet(url)\n    end)\n\n    if not ok then\n        iyNotify(\"Loadstring\", \"HttpGet failed.\")\n        warn(\"ExecutorGUI HttpGet Error:\", result)\n        setStatus(\"HttpGet failed.\")\n        return false\n    end\n\n    return runSource(result, \"url\")\nend\n\nlocal function openExecutor()\n    closeExecutor()\n\n    local parent = getGuiParent()\n\n    local screenGui = Instance.new(\"ScreenGui\")\n    screenGui.Name = GUI_NAME\n    screenGui.ResetOnSpawn = false\n    screenGui.Parent = parent\n    guiRef = screenGui\n\n    local main = Instance.new(\"Frame\")\n    main.Name = \"Main\"\n    main.Size = UDim2.new(0, 610, 0, 410)\n    main.Position = UDim2.new(0.5, -305, 0.5, -205)\n    main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)\n    main.BorderSizePixel = 0\n    main.Active = true\n    main.Draggable = true\n    main.ClipsDescendants = true\n    main.Parent = screenGui\n\n    local title = Instance.new(\"TextLabel\")\n    title.Name = \"Title\"\n    title.Size = UDim2.new(1, -55, 0, 38)\n    title.Position = UDim2.new(0, 12, 0, 0)\n    title.BackgroundTransparency = 1\n    title.Text = \"IY Executor\"\n    title.TextColor3 = Color3.fromRGB(255, 255, 255)\n    title.TextSize = 20\n    title.Font = Enum.Font.SourceSansBold\n    title.TextXAlignment = Enum.TextXAlignment.Left\n    title.Parent = main\n\n    local closeButton = Instance.new(\"TextButton\")\n    closeButton.Name = \"CloseButton\"\n    closeButton.Size = UDim2.new(0, 40, 0, 32)\n    closeButton.Position = UDim2.new(1, -46, 0, 4)\n    closeButton.BackgroundColor3 = Color3.fromRGB(165, 35, 35)\n    closeButton.BorderSizePixel = 0\n    closeButton.Text = \"X\"\n    closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)\n    closeButton.TextSize = 20\n    closeButton.Font = Enum.Font.SourceSansBold\n    closeButton.Parent = main\n\n    local editorFrame = Instance.new(\"Frame\")\n    editorFrame.Name = \"EditorFrame\"\n    editorFrame.Size = UDim2.new(1, -24, 1, -122)\n    editorFrame.Position = UDim2.new(0, 12, 0, 44)\n    editorFrame.BackgroundColor3 = Color3.fromRGB(32, 32, 32)\n    editorFrame.BorderSizePixel = 0\n    editorFrame.ClipsDescendants = true\n    editorFrame.Parent = main\n\n    local codeBox = Instance.new(\"TextBox\")\n    codeBox.Name = \"CodeBox\"\n    codeBox.Size = UDim2.new(1, -12, 1, -12)\n    codeBox.Position = UDim2.new(0, 6, 0, 6)\n    codeBox.BackgroundTransparency = 1\n    codeBox.Text = \"\"\n    codeBox.PlaceholderText = \"Paste Lua code here...\"\n    codeBox.TextColor3 = Color3.fromRGB(245, 245, 245)\n    codeBox.PlaceholderColor3 = Color3.fromRGB(145, 145, 145)\n    codeBox.TextSize = 15\n    codeBox.Font = Enum.Font.Code\n    codeBox.TextXAlignment = Enum.TextXAlignment.Left\n    codeBox.TextYAlignment = Enum.TextYAlignment.Top\n    codeBox.ClearTextOnFocus = false\n    codeBox.MultiLine = true\n    codeBox.TextWrapped = false\n    codeBox.ClipsDescendants = true\n    codeBox.Parent = editorFrame\n    codeBoxRef = codeBox\n\n    local status = Instance.new(\"TextLabel\")\n    status.Name = \"Status\"\n    status.Size = UDim2.new(1, -24, 0, 22)\n    status.Position = UDim2.new(0, 12, 1, -74)\n    status.BackgroundTransparency = 1\n    status.Text = \"Ready. Large scripts are cached internally after compile.\"\n    status.TextColor3 = Color3.fromRGB(210, 210, 210)\n    status.TextSize = 14\n    status.Font = Enum.Font.SourceSans\n    status.TextXAlignment = Enum.TextXAlignment.Left\n    status.TextTruncate = Enum.TextTruncate.AtEnd\n    status.Parent = main\n    statusRef = status\n\n    local executeButton = Instance.new(\"TextButton\")\n    executeButton.Name = \"ExecuteButton\"\n    executeButton.Size = UDim2.new(0.5, -18, 0, 42)\n    executeButton.Position = UDim2.new(0, 12, 1, -48)\n    executeButton.BackgroundColor3 = Color3.fromRGB(35, 105, 55)\n    executeButton.BorderSizePixel = 0\n    executeButton.Text = \"Execute\"\n    executeButton.TextColor3 = Color3.fromRGB(255, 255, 255)\n    executeButton.TextSize = 17\n    executeButton.Font = Enum.Font.SourceSansBold\n    executeButton.Parent = main\n\n    local clearButton = Instance.new(\"TextButton\")\n    clearButton.Name = \"ClearButton\"\n    clearButton.Size = UDim2.new(0.5, -18, 0, 42)\n    clearButton.Position = UDim2.new(0.5, 6, 1, -48)\n    clearButton.BackgroundColor3 = Color3.fromRGB(75, 75, 75)\n    clearButton.BorderSizePixel = 0\n    clearButton.Text = \"Clear\"\n    clearButton.TextColor3 = Color3.fromRGB(255, 255, 255)\n    clearButton.TextSize = 17\n    clearButton.Font = Enum.Font.SourceSansBold\n    clearButton.Parent = main\n\n    closeButton.MouseButton1Click:Connect(function()\n        closeExecutor()\n    end)\n\n    executeButton.MouseButton1Click:Connect(function()\n        runSource(codeBox.Text, \"editor\", false)\n    end)\n\n\n    clearButton.MouseButton1Click:Connect(function()\n        codeBox.Text = \"\"\n        setStatus(\"Editor cleared. Cache is still kept internally.\")\n    end)\n\n    iyNotify(\"Executor\", \"GUI opened.\")\nend\n\nPlugin[\"Commands\"][\"executor\"] = {\n    [\"ListName\"] = \"executor\",\n    [\"Description\"] = \"Opens the executor GUI.\",\n    [\"Aliases\"] = { \"execgui\", \"openexecutor\", \"opengui\" },\n    [\"Function\"] = function(args, speaker)\n        openExecutor()\n    end\n}\n\nPlugin[\"Commands\"][\"closeexecutor\"] = {\n    [\"ListName\"] = \"closeexecutor\",\n    [\"Description\"] = \"Closes the executor GUI.\",\n    [\"Aliases\"] = { \"unexecutor\", \"cexec\", \"closeexec\", \"execoff\" },\n    [\"Function\"] = function(args, speaker)\n        closeExecutor()\n        iyNotify(\"Executor\", \"GUI closed.\")\n    end\n}\n\nPlugin[\"Commands\"][\"loadstring\"] = {\n    [\"ListName\"] = \"loadstring [url]\",\n    [\"Description\"] = \"Fetches code from a website URL and executes it.\",\n    [\"Aliases\"] = { \"lsurl\", \"runurl\", \"webexec\" },\n    [\"Function\"] = function(args, speaker)\n        runUrl(table.concat(args or {}, \" \"))\n    end\n}\n\nreturn Plugin\n"
+        },
+        {
+          "filename": "image.png",
+          "url": "plugins/1512441020053196835/image.png",
+          "size": 11614,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [],
       "loadstring_urls": []
     }
   ]
