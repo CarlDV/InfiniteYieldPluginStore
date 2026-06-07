@@ -16,10 +16,12 @@ An unofficial directory and workspace for Infinite Yield plugins.
 Upload your plugin file to the appropriate channel in the Infinite Yield Discord server. The site is synchronized periodically. Mention @ymaw.1 (syh) on Discord to request a manual sync.
 
 ## Project Structure
+- `/assets`: Images and media.
+- `/css`: Stylesheets.
 - `/data`: JSON databases (plugins.json, api.json).
+- `/js`: Frontend controllers and logic (`app.js`, `maker.js`, `router.js`, etc.).
+- `/lua`: Standalone Lua scripts and setup files.
 - `/plugins`: Raw plugin files.
-- `/maker.js`: Core logic for the plugin IDE.
-- `/app.js`: Main store frontend controller.
 
 ---
 *Disclaimer: This is a community project and is not affiliated with the main Infinite Yield thing.*

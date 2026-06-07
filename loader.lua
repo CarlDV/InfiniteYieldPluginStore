@@ -48,7 +48,7 @@ slog.Size = UDim2.new(0, 36, 0, 36)
 slog.Position = UDim2.new(0.5, -18, 0, 15)
 slog.BackgroundTransparency = 1
 slog.ScaleType = Enum.ScaleType.Fit
-applyImage("https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main/Logo_Small.png", slog)
+applyImage("https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main/assets/Logo_Small.png", slog)
 
 local stitle = Instance.new("TextLabel")
 stitle.Text = "Plugin Store"; stitle.Size = UDim2.new(1, 0, 0, 32); stitle.Position = UDim2.new(0, 0, 0, 52)

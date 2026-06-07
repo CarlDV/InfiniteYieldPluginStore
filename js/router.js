@@ -122,13 +122,13 @@
 
         if (path === '/' || path === '/index' || path === '') {
             if (window.initHome) window.initHome();
-            else loadScript('app.js', () => window.initHome && window.initHome());
+            else loadScript('js/app.js', () => window.initHome && window.initHome());
         } else if (path === '/authors') {
             if (window.initAuthors) window.initAuthors();
-            else loadScript('authors.js', () => window.initAuthors && window.initAuthors());
+            else loadScript('js/authors.js', () => window.initAuthors && window.initAuthors());
         } else if (path === '/maker') {
             if (window.initMaker) window.initMaker();
-            else loadScript('maker.js', () => window.initMaker && window.initMaker());
+            else loadScript('js/maker.js', () => window.initMaker && window.initMaker());
         } else if (path === '/api' || path === '/tutorial') {
             if (path === '/tutorial') initTutorial();
             if (path === '/api') initApi();
