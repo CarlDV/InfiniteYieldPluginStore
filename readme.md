@@ -13,7 +13,7 @@ An unofficial directory and workspace for Infinite Yield plugins.
 - **Developer API:** Lightweight JSON endpoints for fetching catalog data in Luau.
 
 ## Adding Plugins
-Upload your plugin file to the appropriate channel in the Infinite Yield Discord server. The site is synchronized periodically. Mention @dein2fl (david) on Discord to request a manual sync.
+Upload your plugin file to the appropriate channel in the Infinite Yield Discord server. The site is synchronized periodically. Mention @ymaw.1 (syh) on Discord to request a manual sync.
 
 ## Project Structure
 - `/data`: JSON databases (plugins.json, api.json).
