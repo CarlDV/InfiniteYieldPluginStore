@@ -136,6 +136,33 @@
                         </div>
                     </div>
 
+                    <div class="faq-item" id="faq-store-setup" style="grid-column: 1 / -1;">
+                        <button class="faq-share" onclick="copyFAQLink('faq-store-setup', this)" title="Copy Link">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                        </button>
+                        <div class="faq-question">How do I install the Plugin Store? (Quick Setup)</div>
+                        <div class="faq-answer">
+                            <p>You can automatically set up the Plugin Store in a single click using our setup script. Here is how:</p>
+                            <ol style="margin-left: 20px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px;">
+                                <li>Copy the script below.</li>
+                                <li>Execute it in your Roblox executor.</li>
+                                <li>Use the <code>;iystore</code> command in Infinite Yield to open the Plugin Store.</li>
+                                <li>Browse, search, and click install on any plugin you like!</li>
+                            </ol>
+                            <div class="api-code">
+                                <div class="api-code-bar">
+                                    <span class="api-code-lang">Plugin Store Setup Script</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy Script</button>
+                                </div>
+                                <pre><code class="language-lua">loadstring(game:HttpGet('https://iyplugins.pages.dev/pluginsetup.lua'))()</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="faq-item" id="faq-executors" style="grid-column: 1 / -1;">
                         <button class="faq-share" onclick="copyFAQLink('faq-executors', this)" title="Copy Link">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
