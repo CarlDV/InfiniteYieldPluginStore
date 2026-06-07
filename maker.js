@@ -32,84 +32,67 @@
         let isProgrammaticUpdate = false;
         let autoSyncEnabled = true;
         let cmdSearchQuery = '';
+        let activeTabType = 'plugin';
+        let activeTabCmdId = null;
 
         const tourSteps = [
             {
                 target: '.maker-header',
                 title: 'Welcome to Plugin Maker!',
-                desc: 'This tool lets you build Infinite Yield plugins visually without writing the boilerplate code yourself.'
+                desc: 'Create, customize, and export Infinite Yield plugins visually without writing the boilerplate code yourself.'
             },
             {
                 target: '#import-area',
-                title: 'Import Existing Plugins',
-                desc: 'Already have a .iy file? Drag and drop it here or click to import. You can edit any existing plugin with ease!'
+                title: 'Import Plugins',
+                desc: 'Have an existing .iy plugin? Drag-and-drop it here or click to upload and edit it immediately.'
+            },
+            {
+                target: '.form-group',
+                title: 'Configure Plugin Info',
+                desc: 'Set your plugin\'s name and description. These values define the signature and name of the exported script.'
             },
             {
                 target: '#ide-mode-toggle',
-                title: 'IDE Mode',
-                desc: 'Toggle this for a code-centric focus. It maximizes your screen real estate for a true developer experience.'
+                title: 'Full Web IDE Mode',
+                desc: 'Toggle this button to swap into a full-screen, code-centric workspace optimized for larger viewports.'
             },
             {
                 target: '.commands-header',
-                title: 'Create Your Commands',
-                desc: 'This is the heart of your plugin. Add multiple commands here. You can even search through them if you have many!'
+                title: 'Manage Custom Commands',
+                desc: 'Filter commands with the search bar, copy command lists, or add as many custom commands as you want.'
             },
             {
                 target: '#add-cmd-btn',
-                title: 'Launch the Editor',
-                desc: 'Clicking here opens the Command Editor modal. Let\'s see what\'s inside!'
+                title: 'Launch Command Editor',
+                desc: 'Let\'s open the command details workspace where you define metadata and script logic.'
             },
             {
-                target: '.cmd-editor-modal',
-                title: 'The Command Editor',
-                desc: 'Everything you define here goes directly into your plugin\'s command list.',
-                requiresModal: true
-            },
-            {
-                target: '#cmd-key',
-                title: 'Internal Name (Key)',
-                desc: 'The unique ID used by IY. For example, if you set this to "fly", the code will be associated with that command ID internally.',
-                requiresModal: true
-            },
-            {
-                target: '#cmd-list-name',
-                title: 'Usage Format',
-                desc: 'This is how users see your command in the list. Use brackets like [arg] to show that your command accepts inputs!',
-                requiresModal: true
-            },
-            {
-                target: '#cmd-desc',
-                title: 'Command Description',
-                desc: 'Explain what your command does. This text appears when a user types "help" in the Infinite Yield console.',
-                requiresModal: true
-            },
-            {
-                target: '#cmd-aliases',
-                title: 'Command Aliases',
-                desc: 'Add shortcuts for your command! Separate multiple aliases with commas (e.g. "f" for "fly").',
+                target: '.modal-fields-sidebar',
+                title: 'Define Command Details',
+                desc: 'Set the command\'s internal key, usage format (including arguments like [arg]), description, and optional comma-separated aliases.',
                 requiresModal: true
             },
             {
                 target: '#monaco-cmd-editor',
-                title: 'Logic Editor',
-                desc: 'Write your Lua code here. You have access to "args" for inputs and "speaker" for the player running the command.',
+                title: 'Write Lua Logic',
+                desc: 'Write your custom Lua logic here. You have access to "args" for input values and "speaker" for the player running the command.',
                 requiresModal: true
             },
             {
                 target: '#save-cmd-btn',
-                title: 'Save and Close',
-                desc: 'Save your command to immediately see it in your list and update the live preview on the right!',
+                title: 'Save & Update',
+                desc: 'Click Save to record your command. The modal will close, and your command will instantly update in the live preview.',
                 requiresModal: true
             },
             {
                 target: '.maker-preview-section',
-                title: 'Live Preview',
-                desc: 'As you make changes, the Lua code updates in real-time here. You can even manually edit this code if you need total control.'
+                title: 'Real-time Code Preview',
+                desc: 'Watch your Lua plugin code generate automatically in real-time. You can manually edit the code here or expand the view.'
             },
             {
                 target: '#download-btn',
-                title: 'Ready to Go?',
-                desc: 'Once you\'re happy, click Download to save your plugin and place it in your exploit\'s workspace folder.'
+                title: 'Export Plugin',
+                desc: 'Once you are happy, click Download to save the compiled .iy plugin file directly into your exploit\'s workspace folder.'
             }
         ];
         let currentTourStep = -1;
@@ -142,6 +125,14 @@
             if (descInput) {
                 descInput.addEventListener('input', () => {
                     pluginData.description = descInput.value;
+                    updatePreview();
+                });
+            }
+
+            const headersInput = document.getElementById('plugin-headers');
+            if (headersInput) {
+                headersInput.addEventListener('input', () => {
+                    pluginData.headerCode = headersInput.value;
                     updatePreview();
                 });
             }
@@ -271,9 +262,23 @@
             });
 
             previewEditor.onDidChangeModelContent(e => {
-                if (!isProgrammaticUpdate && autoSyncEnabled) {
-                    autoSyncEnabled = false;
-                    document.getElementById('sync-warning').classList.remove('hidden');
+                if (isProgrammaticUpdate) return;
+
+                const val = previewEditor.getValue();
+                if (activeTabType === 'plugin') {
+                    if (autoSyncEnabled) {
+                        autoSyncEnabled = false;
+                        document.getElementById('sync-warning').classList.remove('hidden');
+                    }
+                } else if (activeTabType === 'globals') {
+                    pluginData.headerCode = val;
+                    const headersInput = document.getElementById('plugin-headers');
+                    if (headersInput) headersInput.value = val;
+                } else if (activeTabType === 'command') {
+                    let cmd = pluginData.commands.find(c => c.id === activeTabCmdId);
+                    if (cmd) {
+                        cmd.code = val;
+                    }
                 }
             });
 
@@ -293,6 +298,114 @@
             });
 
             renderCommands(); // Render the initial template command
+
+            // Enable Alt+Z to toggle word wrap
+            const enableAltZWordWrap = (editor) => {
+                editor.addCommand(monaco.KeyMod.Alt | monaco.KeyCode.KeyZ, () => {
+                    const currentWrap = editor.getOption(monaco.editor.EditorOption.wordWrap);
+                    editor.updateOptions({ wordWrap: currentWrap === 'on' ? 'off' : 'on' });
+                });
+            };
+            enableAltZWordWrap(previewEditor);
+            enableAltZWordWrap(cmdEditor);
+
+            // Expand preview button listener
+            const expandPreviewBtn = document.getElementById('expand-preview-btn');
+            if (expandPreviewBtn) {
+                expandPreviewBtn.addEventListener('click', () => {
+                    const container = document.querySelector('.maker-container');
+                    container.classList.toggle('preview-expanded');
+                    
+                    const isExpanded = container.classList.contains('preview-expanded');
+                    expandPreviewBtn.innerHTML = isExpanded 
+                        ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/></svg> Collapse`
+                        : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> Expand`;
+                    
+                    if (previewEditor) {
+                        previewEditor.layout();
+                        setTimeout(() => previewEditor.layout(), 100);
+                        setTimeout(() => previewEditor.layout(), 300);
+                    }
+                });
+            }
+
+            // IDE mode additional controls
+            const ideFormatBtn = document.getElementById('ide-format-btn');
+            if (ideFormatBtn) {
+                ideFormatBtn.addEventListener('click', () => {
+                    if (previewEditor) {
+                        const currentVal = previewEditor.getValue();
+                        const formatted = formatLuaCode(currentVal);
+                        
+                        isProgrammaticUpdate = true;
+                        previewEditor.setValue(formatted);
+                        isProgrammaticUpdate = false;
+                        
+                        // Also trigger state update if it was a command or globals tab
+                        if (activeTabType === 'globals') {
+                            pluginData.headerCode = formatted;
+                            const headersInput = document.getElementById('plugin-headers');
+                            if (headersInput) headersInput.value = formatted;
+                            updatePreview();
+                        } else if (activeTabType === 'command') {
+                            let cmd = pluginData.commands.find(c => c.id === activeTabCmdId);
+                            if (cmd) {
+                                cmd.code = formatted;
+                            }
+                            updatePreview();
+                        } else if (activeTabType === 'plugin') {
+                            // Can't save back fully generated preview since it includes wrapper code, 
+                            // so we show a brief visual cue or warning
+                            alert('Formatted full plugin source preview. Note: changes here will be overwritten on the next state sync.');
+                        }
+                    }
+                });
+            }
+            const ideWrapBtn = document.getElementById('ide-wrap-btn');
+            if (ideWrapBtn) {
+                let previewWordWrap = false;
+                ideWrapBtn.addEventListener('click', () => {
+                    previewWordWrap = !previewWordWrap;
+                    if (previewEditor) {
+                        previewEditor.updateOptions({ wordWrap: previewWordWrap ? 'on' : 'off' });
+                    }
+                    ideWrapBtn.classList.toggle('active', previewWordWrap);
+                });
+            }
+
+            const ideMinimapBtn = document.getElementById('ide-minimap-btn');
+            if (ideMinimapBtn) {
+                let previewMinimap = false;
+                ideMinimapBtn.addEventListener('click', () => {
+                    previewMinimap = !previewMinimap;
+                    if (previewEditor) {
+                        previewEditor.updateOptions({ minimap: { enabled: previewMinimap } });
+                    }
+                    ideMinimapBtn.classList.toggle('active', previewMinimap);
+                });
+            }
+
+            const ideCopyBtn = document.getElementById('ide-copy-btn');
+            if (ideCopyBtn) {
+                ideCopyBtn.addEventListener('click', () => {
+                    let code = previewEditor ? previewEditor.getValue() : generateLua();
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalHTML = ideCopyBtn.innerHTML;
+                        ideCopyBtn.innerHTML = `✓ Copied!`;
+                        setTimeout(() => {
+                            ideCopyBtn.innerHTML = originalHTML;
+                        }, 2000);
+                    });
+                });
+            }
+
+            const ideDownloadBtn = document.getElementById('ide-download-btn');
+            if (ideDownloadBtn) {
+                ideDownloadBtn.addEventListener('click', () => {
+                    const downloadBtn = document.getElementById('download-btn');
+                    if (downloadBtn) downloadBtn.click();
+                });
+            }
 
 
 
@@ -484,7 +597,11 @@
             const ideToggle = document.getElementById('ide-mode-toggle');
             if (ideToggle) {
                 ideToggle.addEventListener('click', () => {
-                    document.body.classList.toggle('ide-mode');
+                    const entering = document.body.classList.toggle('ide-mode');
+
+                    if (entering) {
+                        switchIDETab('plugin');
+                    }
 
                     // Resize Monaco editors
                     const resizeEditors = () => {
@@ -504,11 +621,23 @@
                 });
             }
 
+            const ideExitBtn = document.getElementById('ide-exit-btn');
+            if (ideExitBtn && ideToggle) {
+                ideExitBtn.addEventListener('click', () => {
+                    ideToggle.click();
+                });
+            }
+
             // Handle window resizing
             let resizeTimer;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(() => {
+                    // Disable IDE mode on mobile/tablet viewports
+                    if (window.innerWidth <= 900 && document.body.classList.contains('ide-mode')) {
+                        const ideToggle = document.getElementById('ide-mode-toggle');
+                        if (ideToggle) ideToggle.click();
+                    }
                     if (previewEditor) previewEditor.layout();
                     if (cmdEditor) cmdEditor.layout();
                 }, 100);
@@ -588,11 +717,104 @@
         }
 
         function updatePreview() {
-            if (previewEditor && autoSyncEnabled) {
+            if (previewEditor) {
+                if (activeTabType === 'plugin' && autoSyncEnabled) {
+                    isProgrammaticUpdate = true;
+                    previewEditor.setValue(generateLua());
+                    isProgrammaticUpdate = false;
+                }
+            }
+            renderIDETabs();
+        }
+
+        function renderIDETabs() {
+            const tabBar = document.getElementById('ide-tab-bar');
+            if (!tabBar) return;
+
+            let html = '';
+
+            // Main Plugin tab
+            const safeName = (pluginData.name || '').replace(/[^a-zA-Z0-9_-]/g, '') || 'plugin';
+            const mainActive = activeTabType === 'plugin' ? 'active' : '';
+            html += `
+                <div class="ide-tab ${mainActive}" data-type="plugin" title="Main plugin bundle (Everything compiled)">
+                    <svg class="lua-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px; pointer-events: none;">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    <span>${safeName}.iy</span>
+                </div>
+            `;
+
+            // Globals tab
+            const globalsActive = activeTabType === 'globals' ? 'active' : '';
+            html += `
+                <div class="ide-tab ${globalsActive}" data-type="globals" title="Global Variables & Helper scripts">
+                    <span style="font-weight: bold; color: #f59e0b; margin-right: 4px; pointer-events: none;">⚙</span>
+                    <span>globals.lua</span>
+                </div>
+            `;
+
+            // Commands tabs
+            for (let cmd of pluginData.commands) {
+                const cmdActive = (activeTabType === 'command' && activeTabCmdId === cmd.id) ? 'active' : '';
+                html += `
+                    <div class="ide-tab ${cmdActive}" data-type="command" data-cmd-id="${cmd.id}" title="Code logic for command: ${cmd.key}">
+                        <span style="color: #60a5fa; margin-right: 4px; pointer-events: none;">{}</span>
+                        <span>${cmd.key}.lua</span>
+                    </div>
+                `;
+            }
+
+            tabBar.innerHTML = html;
+
+            // Add event listeners to tabs
+            tabBar.querySelectorAll('.ide-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const type = tab.getAttribute('data-type');
+                    const cmdId = tab.getAttribute('data-cmd-id');
+                    switchIDETab(type, cmdId);
+                });
+            });
+        }
+
+        function switchIDETab(type, cmdId) {
+            // Save current code to state before switching
+            if (previewEditor) {
+                const val = previewEditor.getValue();
+                if (activeTabType === 'globals') {
+                    pluginData.headerCode = val;
+                    const headersInput = document.getElementById('plugin-headers');
+                    if (headersInput) headersInput.value = val;
+                } else if (activeTabType === 'command') {
+                    let cmd = pluginData.commands.find(c => c.id === activeTabCmdId);
+                    if (cmd) {
+                        cmd.code = val;
+                    }
+                }
+            }
+
+            activeTabType = type;
+            activeTabCmdId = cmdId;
+
+            // Switch Monaco model value
+            if (previewEditor) {
                 isProgrammaticUpdate = true;
-                previewEditor.setValue(generateLua());
+                if (type === 'plugin') {
+                    previewEditor.setValue(generateLua());
+                    previewEditor.updateOptions({ readOnly: false });
+                } else if (type === 'globals') {
+                    previewEditor.setValue(pluginData.headerCode || '');
+                    previewEditor.updateOptions({ readOnly: false });
+                } else if (type === 'command') {
+                    let cmd = pluginData.commands.find(c => c.id === cmdId);
+                    previewEditor.setValue(cmd ? cmd.code : '');
+                    previewEditor.updateOptions({ readOnly: false });
+                }
                 isProgrammaticUpdate = false;
             }
+
+            renderIDETabs();
         }
 
         function renderCommands() {
@@ -625,7 +847,7 @@
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
                 </button>
-                <button class="btn btn-secondary btn-sm" onclick="gotoCommand('${escLua(cmd.key)}')" title="Go to Code">
+                <button class="btn btn-secondary btn-sm btn-icon" onclick="gotoCommand('${escLua(cmd.key)}')" title="Go to Code">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="16 18 22 12 16 6"></polyline>
                         <polyline points="8 6 2 12 8 18"></polyline>
@@ -663,6 +885,19 @@
         let tourRaf = null;
 
         function startTour() {
+            // Exit IDE Mode to align spotlights correctly
+            if (document.body.classList.contains('ide-mode')) {
+                const ideToggle = document.getElementById('ide-mode-toggle');
+                if (ideToggle) ideToggle.click();
+            }
+
+            // Exit expanded preview mode to align spotlights correctly
+            const container = document.querySelector('.maker-container');
+            if (container && container.classList.contains('preview-expanded')) {
+                const expandBtn = document.getElementById('expand-preview-btn');
+                if (expandBtn) expandBtn.click();
+            }
+
             currentTourStep = 0;
             document.getElementById('tour-overlay').classList.remove('hidden');
             updateTourUI();
@@ -845,12 +1080,14 @@
                 const aliasesInput = document.getElementById('cmd-aliases');
                 const modalTitle = document.getElementById('cmd-modal-title');
                 const modal = document.getElementById('cmd-modal');
+                const validationError = document.getElementById('cmd-validation-error');
 
                 if (keyInput) keyInput.value = '';
                 if (nameInput) nameInput.value = '';
                 if (descInput) descInput.value = '';
                 if (aliasesInput) aliasesInput.value = '';
                 if (cmdEditor) cmdEditor.setValue('-- code here');
+                if (validationError) validationError.classList.add('hidden');
 
                 if (modalTitle) modalTitle.textContent = 'Add Command';
                 if (modal) modal.classList.remove('hidden');
@@ -868,18 +1105,25 @@
             const aliasesInput = document.getElementById('cmd-aliases');
             const modalTitle = document.getElementById('cmd-modal-title');
             const modal = document.getElementById('cmd-modal');
+            const validationError = document.getElementById('cmd-validation-error');
 
             if (keyInput) keyInput.value = cmd.key;
             if (nameInput) nameInput.value = cmd.listName;
             if (descInput) descInput.value = cmd.desc;
             if (aliasesInput) aliasesInput.value = cmd.aliases.join(', ');
             if (cmdEditor) cmdEditor.setValue(cmd.code);
+            if (validationError) validationError.classList.add('hidden');
 
             if (modalTitle) modalTitle.textContent = 'Edit Command';
             if (modal) modal.classList.remove('hidden');
         };
 
         window.gotoCommand = function (key) {
+            const cmd = pluginData.commands.find(c => c.key === key);
+            if (document.body.classList.contains('ide-mode') && cmd) {
+                switchIDETab('command', cmd.id);
+                return;
+            }
             if (!previewEditor) return;
             const model = previewEditor.getModel();
             const content = model.getValue();
@@ -924,6 +1168,9 @@
         window.deleteCommand = function (id) {
             if (confirm('Are you sure you want to delete this command?')) {
                 pluginData.commands = pluginData.commands.filter(c => c.id !== id);
+                if (activeTabType === 'command' && activeTabCmdId === id) {
+                    switchIDETab('plugin');
+                }
                 renderCommands();
                 updatePreview();
             }
@@ -957,6 +1204,15 @@
             });
         }
 
+        // Clear validation error when user types in key input
+        const keyInput = document.getElementById('cmd-key');
+        if (keyInput) {
+            keyInput.addEventListener('input', () => {
+                const validationError = document.getElementById('cmd-validation-error');
+                if (validationError) validationError.classList.add('hidden');
+            });
+        }
+
         const saveCmdBtn = document.getElementById('save-cmd-btn');
         if (saveCmdBtn) {
             saveCmdBtn.addEventListener('click', () => {
@@ -965,12 +1221,23 @@
                 const descInput = document.getElementById('cmd-desc');
                 const aliasesInput = document.getElementById('cmd-aliases');
 
-                let key = (keyInput ? keyInput.value : '') || 'cmd';
+                let key = (keyInput ? keyInput.value : '').trim() || 'cmd';
                 let listName = (nameInput ? nameInput.value : '') || 'cmd';
                 let desc = (descInput ? descInput.value : '') || 'No description';
                 let aliasesRaw = aliasesInput ? aliasesInput.value : '';
                 let aliases = aliasesRaw.split(',').map(s => s.trim()).filter(x => x);
                 let code = cmdEditor ? cmdEditor.getValue() : '-- code here';
+
+                // Check duplicate command key name
+                const isDuplicate = pluginData.commands.some(c => c.id !== currentEditingCmdId && c.key.toLowerCase().trim() === key.toLowerCase());
+                if (isDuplicate) {
+                    const validationError = document.getElementById('cmd-validation-error');
+                    if (validationError) {
+                        validationError.classList.remove('hidden');
+                        validationError.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                    return;
+                }
 
                 let existingIndex = pluginData.commands.findIndex(c => c.id === currentEditingCmdId);
                 let newCmd = {
@@ -1149,6 +1416,9 @@
                 let globals = extractGlobalCode(text);
                 pluginData.headerCode = globals.header;
                 pluginData.footerCode = globals.footer;
+
+                const headersInput = document.getElementById('plugin-headers');
+                if (headersInput) headersInput.value = globals.header || '';
 
                 let nameMatch = text.match(/\[(["'])PluginName\1\]\s*=\s*(["'])(.*?)\2/);
                 if (nameMatch) {
@@ -1352,6 +1622,64 @@
                 console.error('Error parsing Lua:', e);
                 alert('Failed to parse the provided .iy file correctly. Check the console for details.');
             }
+        }
+
+        function formatLuaCode(code) {
+            // 1. Tokenize literals and comments to prevent them from interfering with indentation rules
+            const tokens = [];
+            let tokenIdx = 0;
+
+            function saveToken(match) {
+                const id = `__LUA_TOKEN_${tokenIdx++}__`;
+                tokens.push({ id, text: match });
+                return id;
+            }
+
+            // Matches block comments, single-line comments, block strings, double-quote strings, and single-quote strings.
+            const tokenizerRegex = /--\[(=*)\[[\s\S]*?\]\1\]|--[^\n]*|\[(=*)\[[\s\S]*?\]\2\]|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g;
+            let skeleton = code.replace(tokenizerRegex, saveToken);
+
+            // 2. Process indentation
+            let lines = skeleton.split('\n');
+            let formattedLines = [];
+            let indentLevel = 0;
+            const INDENT = "    "; // 4 spaces
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+                if (line.length === 0) {
+                    formattedLines.push("");
+                    continue;
+                }
+
+                // If current line begins with a closer, it decreases the current line's indent
+                let decreaseCurrent = 0;
+                if (/^(end|until|else|elseif)\b/.test(line) || /^}[\s,;)]*/.test(line)) {
+                    decreaseCurrent = 1;
+                }
+
+                let currentIndent = Math.max(0, indentLevel - decreaseCurrent);
+                formattedLines.push(INDENT.repeat(currentIndent) + line);
+
+                // Calculate next indent level based on openers and closers in the current line
+                let openers = (line.match(/\b(then|do|function|repeat|else)\b/g) || []).length;
+                openers += (line.match(/\{/g) || []).length;
+
+                let closers = (line.match(/\b(end|until|else|elseif)\b/g) || []).length;
+                closers += (line.match(/\}/g) || []).length;
+
+                indentLevel += (openers - closers);
+                if (indentLevel < 0) indentLevel = 0;
+            }
+
+            let result = formattedLines.join('\n');
+
+            // 3. Restore tokens
+            for (let i = tokens.length - 1; i >= 0; i--) {
+                result = result.replace(tokens[i].id, tokens[i].text);
+            }
+
+            return result;
         }
 
         cleanup = () => {

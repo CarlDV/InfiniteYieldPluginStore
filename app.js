@@ -51,8 +51,8 @@
                         if (isAborted || (!hu && !su)) return;
                         const diff = Math.floor((new Date() - scrapedDate) / 1000);
                         if (diff < 0) {
-                            if(su) su.textContent = 'Just now';
-                            if(hu) hu.textContent = 'Last updated: Just now';
+                            if (su) su.textContent = 'Just now';
+                            if (hu) hu.textContent = 'Last updated: Just now';
                             return;
                         }
                         const d = Math.floor(diff / 86400);
@@ -277,6 +277,44 @@
                 html += `<div class="section"><div class="section-label">⚡ Loadstring URLs (${p.loadstring_urls.length})</div>`;
                 p.loadstring_urls.forEach(url => {
                     html += `<a class="loadstring-link" href="${escAttr(url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(url)}</a>`;
+                });
+                html += `</div>`;
+            }
+
+            const pluginFiles = (p.files || []).filter(f => f.filename.toLowerCase().endsWith('.iy'));
+            if (pluginFiles.length) {
+                html += `<div class="section"><div class="section-label">Quick Install (paste on your executor)</div>`;
+                pluginFiles.forEach((f, i) => {
+                    const fileUrl = `https://iyplugins.pages.dev/plugins/${p.id}/${f.filename}`;
+                    
+                    const loadstringLaunch = `loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+local f = "${f.filename}"
+writefile(f, game:HttpGet("${fileUrl}"))
+local add = addPlugin or (shared and shared.addPlugin)
+if add then add(f) end`;
+
+                    const loadstringNoLaunch = `local f = "${f.filename}"
+writefile(f, game:HttpGet("${fileUrl}"))
+local add = addPlugin or (shared and shared.addPlugin)
+if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
+
+                    const cbId1 = `qi1-${p.id}-${i}`;
+                    const cbId2 = `qi2-${p.id}-${i}`;
+                    html += `
+                    <div class="code-wrap" style="margin: 8px 0;">
+                        <div class="code-bar">
+                            <span class="code-lang">Install & Launch IY</span>
+                            <button class="copy-btn" data-id="${cbId1}">Copy</button>
+                        </div>
+                        <pre class="code-block" id="${cbId1}" style="white-space: pre-wrap; word-break: break-all; padding: 10px 14px;">${esc(loadstringLaunch)}</pre>
+                    </div>
+                    <div class="code-wrap" style="margin: 8px 0;">
+                        <div class="code-bar">
+                            <span class="code-lang">Install Only (Autoload on IY)</span>
+                            <button class="copy-btn" data-id="${cbId2}">Copy</button>
+                        </div>
+                        <pre class="code-block" id="${cbId2}" style="white-space: pre-wrap; word-break: break-all; padding: 10px 14px;">${esc(loadstringNoLaunch)}</pre>
+                    </div>`;
                 });
                 html += `</div>`;
             }
