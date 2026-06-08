@@ -128,7 +128,7 @@
             else loadScript('js/authors.js', () => window.initAuthors && window.initAuthors());
         } else if (path === '/maker') {
             if (window.initMaker) window.initMaker();
-            else loadScript('js/maker.js', () => window.initMaker && window.initMaker());
+            else loadScript('js/maker.js?v=2', () => window.initMaker && window.initMaker());
         } else if (path === '/api' || path === '/tutorial') {
             if (path === '/tutorial') initTutorial();
             if (path === '/api') initApi();

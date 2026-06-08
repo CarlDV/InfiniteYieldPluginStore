@@ -407,8 +407,21 @@
                 });
             }
 
+            const tabScrollContainer = document.getElementById('ide-tab-bar');
+            if (tabScrollContainer) {
+                tabScrollContainer.addEventListener('wheel', (e) => {
+                    if (e.deltaY !== 0) {
+                        e.preventDefault();
+                        tabScrollContainer.scrollLeft += e.deltaY;
+                    }
+                });
+            }
 
-
+            document.querySelectorAll('.sidebar-collapsible-trigger').forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    trigger.parentElement.classList.toggle('active');
+                });
+            });
 
             // Attach search listener
             const cmdSearch = document.getElementById('cmd-search');
@@ -755,20 +768,23 @@
                 </div>
             `;
 
-            // Commands tabs
             for (let cmd of pluginData.commands) {
                 const cmdActive = (activeTabType === 'command' && activeTabCmdId === cmd.id) ? 'active' : '';
                 html += `
                     <div class="ide-tab ${cmdActive}" data-type="command" data-cmd-id="${cmd.id}" title="Code logic for command: ${cmd.key}">
                         <span style="color: #60a5fa; margin-right: 4px; pointer-events: none;">{}</span>
-                        <span>${cmd.key}.lua</span>
+                        <span>${cmd.key || 'untitled'}.lua</span>
                     </div>
                 `;
             }
 
             tabBar.innerHTML = html;
 
-            // Add event listeners to tabs
+            const activeTab = tabBar.querySelector('.ide-tab.active');
+            if (activeTab) {
+                activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+            }
+
             tabBar.querySelectorAll('.ide-tab').forEach(tab => {
                 tab.addEventListener('click', () => {
                     const type = tab.getAttribute('data-type');
@@ -835,6 +851,7 @@
             filtered.forEach(cmd => {
                 const div = document.createElement('div');
                 div.className = 'cmd-item';
+                div.setAttribute('title', `${cmd.listName} - ${cmd.desc}`);
                 div.innerHTML = `
             <div class="cmd-info">
                 <h4>${cmd.listName}</h4>

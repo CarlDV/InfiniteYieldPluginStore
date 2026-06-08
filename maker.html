@@ -131,64 +131,81 @@
                         </div>
                     </div>
 
-                    <div class="import-area" id="import-area">
-                        <div class="import-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="17 8 12 3 7 8"></polyline>
-                                <line x1="12" y1="3" x2="12" y2="15"></line>
-                            </svg>
-                        </div>
-                        <div class="import-text">
-                            <h3>Import Existing Plugin</h3>
-                            <p>Drag & drop or Click to upload .iy file</p>
-                        </div>
-                        <input type="file" id="upload-plugin-file" accept=".iy" style="display: none;">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plugin-name">Plugin Name</label>
-                        <input type="text" id="plugin-name" placeholder="e.g. ExamplePlugin" value="ExamplePlugin">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plugin-desc">Plugin Description</label>
-                        <textarea id="plugin-desc" rows="3" placeholder="Description of your plugin..."
-                            style="resize: vertical;">This is a helpful template created using IY Plugin Maker.</textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plugin-headers">Global Headers & Helpers (Lua)</label>
-                        <textarea id="plugin-headers" rows="4" placeholder="-- Add services, local helper functions, or variables here. They will be placed above the main Plugin table."
-                            style="resize: vertical; font-family: var(--mono); font-size: 0.8rem;"></textarea>
-                    </div>
-
-                    <div class="commands-header">
-                        <div class="ch-top-row">
-                            <h2>Commands</h2>
-                            <div class="ch-actions">
-                                <button class="btn btn-secondary btn-icon" id="copy-cmds-btn" title="Copy All Commands & Descriptions">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    <div class="sidebar-collapsible active" id="sec-info">
+                        <button class="sidebar-collapsible-trigger" type="button">
+                            <span class="trigger-arrow">▼</span>
+                            <span class="trigger-label">Plugin Settings</span>
+                        </button>
+                        <div class="sidebar-collapsible-content">
+                            <div class="import-area" id="import-area">
+                                <div class="import-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
                                     </svg>
-                                </button>
-                                <button class="btn btn-primary" id="add-cmd-btn">+ Add Command</button>
+                                </div>
+                                <div class="import-text">
+                                    <h3>Import Existing Plugin</h3>
+                                    <p>Drag & drop or Click to upload .iy file</p>
+                                </div>
+                                <input type="file" id="upload-plugin-file" accept=".iy" style="display: none;">
+                            </div>
+                            <div class="form-group">
+                                <label for="plugin-name">Plugin Name</label>
+                                <input type="text" id="plugin-name" placeholder="e.g. ExamplePlugin" value="ExamplePlugin">
+                            </div>
+                            <div class="form-group">
+                                <label for="plugin-desc">Plugin Description</label>
+                                <textarea id="plugin-desc" rows="3" placeholder="Description of your plugin..."
+                                    style="resize: vertical;">This is a helpful template created using IY Plugin Maker.</textarea>
                             </div>
                         </div>
-                        <div class="search-mini">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                            </svg>
-                            <input type="text" id="cmd-search" placeholder="Search commands...">
+                    </div>
+
+                    <div class="sidebar-collapsible active" id="sec-globals">
+                        <button class="sidebar-collapsible-trigger" type="button">
+                            <span class="trigger-arrow">▼</span>
+                            <span class="trigger-label">Global Helpers (Lua)</span>
+                        </button>
+                        <div class="sidebar-collapsible-content">
+                            <div class="form-group">
+                                <textarea id="plugin-headers" rows="4" placeholder="-- Add services, local helper functions, or variables here. They will be placed above the main Plugin table."
+                                    style="resize: vertical; font-family: var(--mono); font-size: 0.8rem;"></textarea>
+                            </div>
                         </div>
                     </div>
 
-                    <div id="commands-list" class="commands-list">
-                        <!-- Commands will be dynamically injected here -->
+                    <div class="sidebar-collapsible active" id="sec-commands">
+                        <button class="sidebar-collapsible-trigger" type="button">
+                            <span class="trigger-arrow">▼</span>
+                            <span class="trigger-label">Commands</span>
+                        </button>
+                        <div class="sidebar-collapsible-content">
+                            <div class="commands-header">
+                                <div class="ch-top-row">
+                                    <div class="ch-actions">
+                                        <button class="btn btn-secondary btn-icon" id="copy-cmds-btn" title="Copy All Commands & Descriptions">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                            </svg>
+                                        </button>
+                                        <button class="btn btn-primary" id="add-cmd-btn">+ Add Command</button>
+                                    </div>
+                                </div>
+                                <div class="search-mini">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    <input type="text" id="cmd-search" placeholder="Search commands...">
+                                </div>
+                            </div>
+                            <div id="commands-list" class="commands-list"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="maker-preview-section">
@@ -390,8 +407,8 @@
         </main>
     </div>
 
-    <script src="js/maker.js"></script>
-    <script src="js/router.js"></script>
+    <script src="js/maker.js?v=2"></script>
+    <script src="js/router.js?v=2"></script>
 </body>
 
 </html>

@@ -254,9 +254,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-top: 12px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .ch-top-row {
@@ -952,7 +949,193 @@ body.ide-mode .maker-form-section {
     overflow-y: auto;
     background: #0f0f11;
     border-right: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 32px 24px;
+    padding: 0;
+    gap: 0;
+}
+
+.sidebar-collapsible {
+    transition: all 0.2s ease;
+}
+
+.sidebar-collapsible-trigger {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-align: left;
+    color: #fff;
+    user-select: none;
+    outline: none;
+    transition: all 0.15s;
+}
+
+.sidebar-collapsible.active .sidebar-collapsible-trigger {
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.sidebar-collapsible-trigger:hover {
+    color: var(--accent);
+}
+
+.sidebar-collapsible-trigger .trigger-arrow {
+    font-size: 0.65rem;
+    color: var(--text3);
+    transition: transform 0.2s ease;
+    transform: rotate(-90deg);
+}
+
+.sidebar-collapsible.active .sidebar-collapsible-trigger .trigger-arrow {
+    transform: rotate(0deg);
+}
+
+.sidebar-collapsible-trigger .trigger-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text2);
+}
+
+.sidebar-collapsible-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0;
+}
+
+.sidebar-collapsible.active .sidebar-collapsible-content {
+    max-height: 1500px;
+    padding-top: 24px;
+    padding-bottom: 8px;
+}
+
+body.ide-mode .sidebar-collapsible {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.ide-mode .sidebar-collapsible:last-child {
+    border-bottom: none;
+}
+
+body.ide-mode .sidebar-collapsible-trigger {
+    padding: 12px 16px;
+    background: transparent;
+    border-bottom: none;
+}
+
+body.ide-mode .sidebar-collapsible-trigger:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+body.ide-mode .sidebar-collapsible-content {
+    padding: 0 16px;
+    gap: 16px;
+}
+
+body.ide-mode .sidebar-collapsible.active .sidebar-collapsible-content {
+    padding-top: 0;
+    padding-bottom: 16px;
+}
+
+body.ide-mode .sidebar-collapsible-content .form-group input,
+body.ide-mode .sidebar-collapsible-content .form-group textarea {
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+body.ide-mode .sidebar-collapsible-content .form-group label {
+    font-size: 0.7rem;
+    color: var(--text3);
+}
+
+body.ide-mode .sidebar-collapsible-content .import-area {
+    padding: 16px;
+    gap: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+body.ide-mode .sidebar-collapsible-content .import-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+}
+
+body.ide-mode .sidebar-collapsible-content .import-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+body.ide-mode .sidebar-collapsible-content .import-text h3 {
+    font-size: 0.85rem;
+}
+
+body.ide-mode .sidebar-collapsible-content .import-text p {
+    font-size: 0.72rem;
+}
+
+body.ide-mode .cmd-item {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 0;
+    padding: 10px 16px;
+    margin: 0;
+    gap: 12px;
+}
+
+body.ide-mode .cmd-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+    transform: none;
+    box-shadow: none;
+}
+
+body.ide-mode .cmd-info h4 {
+    font-size: 0.85rem;
+    font-family: var(--mono);
+    color: #e4e4e7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+body.ide-mode .cmd-info p {
+    font-size: 0.72rem;
+    margin: 2px 0 0 0;
+    color: var(--text3);
+}
+
+body.ide-mode .cmd-actions {
+    opacity: 0.3;
+    transition: opacity 0.15s ease;
+}
+
+body.ide-mode .cmd-item:hover .cmd-actions,
+body.ide-mode .cmd-item:focus-within .cmd-actions {
+    opacity: 1;
+}
+
+body.ide-mode .cmd-actions .btn {
+    height: 24px;
+    padding: 0 8px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+}
+
+body.ide-mode .cmd-actions .btn-icon {
+    width: 24px;
+    padding: 0;
 }
 
 body.ide-mode .maker-preview-section {
@@ -1426,11 +1609,11 @@ body.ide-mode #download-btn {
     height: 100%;
     margin-left: 0;
     overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
 }
 
 .ide-tab-bar::-webkit-scrollbar {
-    display: none; /* Safari/Chrome */
+    display: none;
 }
 
 body.ide-mode .preview-title {
@@ -1440,10 +1623,16 @@ body.ide-mode .preview-title {
 body.ide-mode .preview-title-container {
     height: 100%;
     margin-left: -24px;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: flex-end;
 }
 
 body.ide-mode .ide-tab-bar {
     display: flex !important;
+    flex: 1;
+    min-width: 0;
 }
 
 .ide-tab {
