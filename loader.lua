@@ -180,7 +180,7 @@ local top = Instance.new("Frame")
 top.Size = UDim2.new(1, 0, 0, 40); top.BackgroundColor3 = Color3.fromRGB(42, 42, 42); top.BorderSizePixel = 0; top.Parent =
 win
 local logo = Instance.new("ImageLabel", top); logo.Size = UDim2.new(0, 24, 0, 24); logo.Position = UDim2.new(0, 12, 0, 8); logo.BackgroundTransparency = 1; logo.ScaleType = Enum.ScaleType.Fit
-applyImage("https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main/Logo_Small.png", logo)
+applyImage("https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main/assets/Logo_Small.png", logo)
 Instance.new("TextLabel", top).Text = "Plugin Store"; top.TextLabel.TextColor3 = Color3.fromRGB(234, 234, 234); top.TextLabel.BackgroundTransparency = 1; top.TextLabel.Size =
 UDim2.new(1, -120, 1, 0); top.TextLabel.Position = UDim2.new(0, 44, 0, 0); top.TextLabel.TextXAlignment = Enum
 .TextXAlignment.Left; top.TextLabel.Font = Enum.Font.GothamMedium; top.TextLabel.TextSize = 14
