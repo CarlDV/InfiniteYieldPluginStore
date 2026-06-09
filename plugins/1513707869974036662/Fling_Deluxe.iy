@@ -1,0 +1,14 @@
+return {
+  ["PluginName"] = "Fling_Deluxe",
+  ["PluginDescription"] = "To have a better experience using IY",
+  ["Commands"] = {
+    ["Fling_Deluxe"] = {
+      ["ListName"] = "Fling_Deluxe",
+      ["Description"] = "Projet_Fling_Deluxe",
+      ["Aliases"] = {"Fling Loop","FL","Clik Fling","CF","Tween Clik Fling","TCF","FD"},
+      ["Function"] = function(args, speaker)
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/MaxproGlitcher/Projet_Fling_Deluxe/refs/heads/main/.luau"))()
+      end
+    }
+  }
+}
