@@ -1,0 +1,40 @@
+local TextChatService = game:GetService("TextChatService")
+
+local chatWindowVisibility = TextChatService.ChatWindowConfiguration.Enabled
+local function ToggleChatWindowVisibility(bool: boolean)
+	chatWindowVisibility = bool
+	TextChatService.ChatWindowConfiguration.Enabled = bool
+end
+
+local Plugin = {
+	["PluginName"] = "Toggle Chat Window",
+	["PluginDescription"] = "A simple plugin to toggle the chat window on and off.",
+	["Commands"] = {
+		["showchat"] = {
+			["ListName"] = "showchat",
+			["Description"] = "Shows the chat window",
+			["Aliases"] = {"sc"},
+			["Function"] = function(args, speaker)
+				ToggleChatWindowVisibility(true)
+			end
+		},
+		["hidechat"] = {
+			["ListName"] = "hidechat",
+			["Description"] = "Hides the chat window",
+			["Aliases"] = {"hc"},
+			["Function"] = function(args, speaker)
+				ToggleChatWindowVisibility(false)
+			end
+		},
+		["togglechat"] = {
+			["ListName"] = "togglechat",
+			["Description"] = "Toggles the chat window ON or OFF",
+			["Aliases"] = {"tc"},
+			["Function"] = function(args, speaker)
+				ToggleChatWindowVisibility(not chatWindowVisibility)
+			end
+		}
+	}
+}
+
+return Plugin

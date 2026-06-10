@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-06-09T01:48:33.357083+00:00",
+  "scraped_at": "2026-06-10T09:11:06.084601+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 541,
+  "total_plugins": 543,
   "plugins": [
     {
       "id": "551849233905614881",
@@ -1173,7 +1173,7 @@
       "author": {
         "name": "riley",
         "username": "0riley",
-        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/2dbf61c13b1bbaddc14533fcefd92121.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/a1cadd52c8343f08adb67d64098b7083.png?size=1024"
       },
       "date": "2019-06-29T05:33:30.064000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/594400027875606539",
@@ -1201,7 +1201,7 @@
       "author": {
         "name": "riley",
         "username": "0riley",
-        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/2dbf61c13b1bbaddc14533fcefd92121.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/a1cadd52c8343f08adb67d64098b7083.png?size=1024"
       },
       "date": "2019-06-29T05:37:17.410000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/594400981433712653",
@@ -13668,7 +13668,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a282f65&is=6a26dde5&hm=1132ab8bab251b8dc36c3143e59c3c0c71b30038716afbe9d8355c6e3860d410&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a2a29a5&is=6a28d825&hm=6ab79caed90c1100a783f2d2386efba3350d5a230d350760a10933b715c40144&"
           },
           "image": null,
           "video": null
@@ -16862,7 +16862,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a285db2&is=6a270c32&hm=01132bd394874cd09275bf92ef4014ec1ef03b89c4746d09a23e859ea11c5e57&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a2a57f2&is=6a290672&hm=5cb86a98c0ab92a24431c826e40684d860cc825c73b7ee451a9372f9b03e10bf&"
           },
           "image": null,
           "video": null
@@ -16876,7 +16876,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a285dc9&is=6a270c49&hm=869cddaf6244f99cb2b9a34116bf5fde2f265a888decacf78a9392a1efd7b080&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a2a5809&is=6a290689&hm=d2dc80509ebeaec2e9c54365ba8ac5a2ca0cee48f88ee26f931141128d5cc5db&"
           },
           "image": null,
           "video": null
@@ -17378,7 +17378,7 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a28bbe2&is=6a276a62&hm=448cf2f80fe266bf65d69dca418d39911b076e6dff68489de5bd502af0dfedff&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a2a0d62&is=6a28bbe2&hm=c02b297074ab692b2569ed998b9a1ef0414c29f08b54312416e561ca613df3e7&",
           "size": 42867196,
           "is_plugin": false
         }
@@ -18708,7 +18708,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a285db2&is=6a270c32&hm=01132bd394874cd09275bf92ef4014ec1ef03b89c4746d09a23e859ea11c5e57&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a2a57f2&is=6a290672&hm=5cb86a98c0ab92a24431c826e40684d860cc825c73b7ee451a9372f9b03e10bf&"
           },
           "image": null,
           "video": null
@@ -18722,7 +18722,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a285dc9&is=6a270c49&hm=869cddaf6244f99cb2b9a34116bf5fde2f265a888decacf78a9392a1efd7b080&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a2a5809&is=6a290689&hm=d2dc80509ebeaec2e9c54365ba8ac5a2ca0cee48f88ee26f931141128d5cc5db&"
           },
           "image": null,
           "video": null
@@ -20101,7 +20101,7 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a28bf2e&is=6a276dae&hm=a9d216c543262aa622abb1f199863fc73fd9e22f99846405b480f858705446b5&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a2a10ae&is=6a28bf2e&hm=47d0b26d2f5aec54ee097c5057f82df972bffba03965f2721b2d700f415388c4&",
           "size": 42719466,
           "is_plugin": false
         },
@@ -23344,7 +23344,7 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a28b759&is=6a2765d9&hm=1a78bb7db1ae780db255544f43f2f9a645999e2b0352abefb3c5a0dd0deff396&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a2a08d9&is=6a28b759&hm=57b0b61100063b742e1645d67458fdce9d76093c59221ef3f02ce32f5300339a&",
           "size": 79720817,
           "is_plugin": false
         },
@@ -24345,7 +24345,7 @@
         },
         {
           "emoji": "<:Skullgoof:1344731995758002246>",
-          "count": 26
+          "count": 27
         },
         {
           "emoji": "<:CatRaisedEyebrow:1274870761693122590>",
@@ -24481,7 +24481,7 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a288ab9&is=6a273939&hm=0712901cd3b737b5f4b7bf41e593123ae2ef1882b256e1547b25a7b7b663db17&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a29dc39&is=6a288ab9&hm=ce50f7c83706c592efac93ab8e316e8f6fff337bdc87de345c19d9758ef168ac&",
           "size": 58632246,
           "is_plugin": false
         }
@@ -27128,7 +27128,7 @@
         },
         {
           "emoji": "❌",
-          "count": 3
+          "count": 4
         },
         {
           "emoji": "🇳",
@@ -27185,7 +27185,7 @@
       "reactions": [
         {
           "emoji": "❌",
-          "count": 73
+          "count": 74
         },
         {
           "emoji": "✅",
@@ -28033,7 +28033,7 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a28b5b8&is=6a276438&hm=d66838483da692416206b2b0b0024fbf0a0c2ed20125b21e87f38b4ab76498ba&",
+          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a2a0738&is=6a28b5b8&hm=e59ee6ae7b6d0f6a5bac16d605e45402f6aeb86d26407b8d998d553cdbaf1379&",
           "size": 41635796,
           "is_plugin": false
         }
@@ -28566,7 +28566,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/ef83ddb1296cff4386e17c93db8dca0b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_8f2ef929cf8de870491d1fec3ccf82e2.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -29026,7 +29026,7 @@
       "reactions": [
         {
           "emoji": "<:WHAR:1386603699027050617>",
-          "count": 60
+          "count": 61
         },
         {
           "emoji": "<:biting:1472081217410170900>",
@@ -29207,6 +29207,10 @@
         {
           "emoji": "<:confused:1292538742380298240>",
           "count": 1
+        },
+        {
+          "emoji": "🙏",
+          "count": 1
         }
       ],
       "loadstring_urls": []
@@ -29290,11 +29294,11 @@
       "reactions": [
         {
           "emoji": "🎉",
-          "count": 19
+          "count": 20
         },
         {
           "emoji": "🔥",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "🇵",
@@ -29343,7 +29347,7 @@
       "reactions": [
         {
           "emoji": "<:darkskull:1362660601960337428>",
-          "count": 17
+          "count": 18
         },
         {
           "emoji": "🍬",
@@ -29612,11 +29616,11 @@
         },
         {
           "emoji": "❌",
-          "count": 1
+          "count": 2
         },
         {
           "emoji": "😭",
-          "count": 1
+          "count": 2
         }
       ],
       "loadstring_urls": []
@@ -29647,11 +29651,11 @@
       "reactions": [
         {
           "emoji": "<:shambles:1494336319743332483>",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "<:biting:1472081217410170900>",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "❌",
@@ -29667,7 +29671,7 @@
         },
         {
           "emoji": "👍",
-          "count": 2
+          "count": 3
         }
       ],
       "loadstring_urls": []
@@ -29708,7 +29712,7 @@
         },
         {
           "emoji": "❔",
-          "count": 4
+          "count": 5
         },
         {
           "emoji": "🅰️",
@@ -29756,7 +29760,7 @@
       "reactions": [
         {
           "emoji": "🇮🇱",
-          "count": 1
+          "count": 5
         },
         {
           "emoji": "🔥",
@@ -29771,17 +29775,109 @@
           "count": 1
         },
         {
-          "emoji": "😱",
+          "emoji": "❔",
+          "count": 5
+        },
+        {
+          "emoji": "😭",
+          "count": 8
+        },
+        {
+          "emoji": "🗑️",
+          "count": 8
+        },
+        {
+          "emoji": "<:son:1455649617386405908>",
+          "count": 6
+        },
+        {
+          "emoji": "🅰️",
+          "count": 2
+        },
+        {
+          "emoji": "ℹ️",
+          "count": 2
+        },
+        {
+          "emoji": "🇦",
           "count": 1
         },
         {
-          "emoji": "❔",
+          "emoji": "🇸",
           "count": 1
         }
       ],
       "loadstring_urls": [
         "https://raw.githubusercontent.com/MaxproGlitcher/Projet_Fling_Deluxe/refs/heads/main/.luau"
       ]
+    },
+    {
+      "id": "1514193210832846949",
+      "name": "savelogs",
+      "description": "been keeping 3 plugins for a while and now got access.\n\n# Introducing 3 plugins by me.\nI have made those plugins because i was bored so why not publish them publicly?\n\n- `savelogs.iy`\n  - It's entire purpose is to save console logs as a file in your exploit workspace.\n- `KeepIYImproved.iy`\n  - basically keepiy but *better*, it makes it whenever you leave and rejoin another game from roblox app it will still load up infinite yield, you disable it by using **unkeepiy** or **togglekeepiy**\n - `VoiceChatBypass.iy`\n  - bypass voice chat suspensions unless you rejoin but wont save you from roblox listening... okay yeah anyways idk if it still works haven't used it in awhile.",
+      "author": {
+        "name": "! FurryBoy",
+        "username": "furryboy.1",
+        "avatar": "https://cdn.discordapp.com/avatars/773291558492438578/816f97622ccc57ea1a7eedadb551d1b9.png?size=1024"
+      },
+      "date": "2026-06-10T09:03:13.812000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1514193210832846949",
+      "files": [
+        {
+          "filename": "savelogs.iy",
+          "url": "plugins/1514193210832846949/savelogs.iy",
+          "size": 2831,
+          "is_plugin": true,
+          "code": "local emojiTable = {\n    [\"Warning\"] = \"⚠️\",\n    [\"Error\"] = \"❌\",\n    [\"Info\"] = \"ℹ️\"\n}\n\nlocal LogService = game:GetService(\"LogService\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal placeName = MarketplaceService:GetProductInfo(game.PlaceId).Name\nlocal watermark = \"-- Infinite Yield console logs for '\"..placeName..\"'\\n\"\n\nlocal notify = (type(notify) == \"function\" and notify) or function(title, text, duration)\n    duration = duration or 10\n    local ok = pcall(function()\n        game:GetService(\"StarterGui\"):SetCore(\"SendNotification\", {Title = title, Text = text, Duration = duration})\n    end)\n    if not ok then\n        print((\"[Notify] %s: %s\"):format(title or \"\", text or \"\"))\n    end\nend\n\nlocal safePlaceName = CleanFileName(placeName)\n\nlocal function saveLogs()\n    local array = {}\n    local getLogs = LogService:GetLogHistory()\n\n    if writefile and readfile then\n        notify(\"Progress\", \"Saving...\", 10)\n\n        for i, v in ipairs(getLogs) do\n            local log = v.message or tostring(v.message)\n            local logName = (v.messageType and v.messageType.Name) and v.messageType.Name or tostring(v.messageType or \"Unknown\")\n            local logType = logName:gsub(\"Message\", \"\")\n            local logTimestamp = os.date(\"%H:%M:%S\", v.timestamp or os.time())\n            local logEmoji = (emojiTable[logType] and (emojiTable[logType] .. \" \") or \"\")\n            local formattedString = string.format(\"%s %s[%s] -- %s\", logTimestamp, logEmoji, logType, log) .. \"\\n\"\n\n            array[i] = formattedString\n        end\n\n        local writelogsFile = watermark .. \"\\n\" .. table.concat(array)\n\n        local fileext = 0\n        local function nameFile()\n            local file\n            pcall(function()\n                file = readfile(safePlaceName .. \" Console Logs (\" .. fileext .. \").txt\")\n            end)\n\n            if file then\n                fileext = fileext + 1\n                nameFile()\n            else\n                writefile(safePlaceName .. \" Console Logs (\" .. fileext .. \").txt\", writelogsFile)\n            end\n        end\n\n        nameFile()\n        notify(\"Success\", \"Saved console logs in the workspace within your exploit's folder.\", 10)\n    else\n        notify(\"Incompatible Exploit\", \"Your exploit does not support read/write file functions. You cannot save Console logs.\", 10)\n    end\nend\n\nlocal Plugin = {\n    [\"PluginName\"] = \"Console logs saver\",\n    [\"PluginDescription\"] = \"Saves console logs as a file in your exploit workspace.\",\n\n    [\"Commands\"] = {\n        [\"savelogs\"] = {\n            [\"ListName\"] = \"savelogs\",\n            [\"Description\"] = \"Do it.\",\n            [\"Aliases\"] = {},\n            [\"Function\"] = saveLogs\n        }\n    }\n}\n\nreturn Plugin"
+        },
+        {
+          "filename": "KeepIYImproved.iy",
+          "url": "plugins/1514193210832846949/KeepIYImproved.iy",
+          "size": 1003,
+          "is_plugin": true,
+          "code": "local plrs = game:GetService(\"Players\")\nlocal lp = plrs.LocalPlayer\n\nlocal TeleportCheck = false\nlocal function executeIY(plr)\n\tif plr ~= lp then return end\n\tif not getgenv().PLUGIN_ISKeepInfYield and KeepInfYield and (not TeleportCheck) and queueteleport then\n\t\tgetgenv().PLUGIN_ISKeepInfYield = true\n\t\tTeleportCheck = true\n\t\tqueueteleport(\"loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()\")\n\tend\nend\n\nlp.OnTeleport:Connect(executeIY)\nlp.OnTeleportInternal:Connect(executeIY)\nplrs.PlayerDisconnecting:Connect(executeIY)\nplrs.PlayerRemoving:Connect(executeIY)\nplrs.PlayerRejoining:Connect(executeIY)\n\nprint(\"KeepInfYield Improved Running\")\n\nreturn {\n\t[\"PluginName\"] = \"Improved IY Keep\",\n    [\"PluginDescription\"] = \"Fixes IYKeep to load when switching games from Roblox Home App.\",\n    [\"Commands\"] = {\n        [\"\"] = {\n            [\"Aliases\"] = {},\n            [\"Function\"] = function(args, speaker) end\n        }\n    }\n}"
+        },
+        {
+          "filename": "VoiceChatBypass.iy",
+          "url": "plugins/1514193210832846949/VoiceChatBypass.iy",
+          "size": 5397,
+          "is_plugin": true,
+          "code": "local plugin = {\n    [\"PluginName\"] = \"VoiceChat Bypass\",\n    [\"PluginDescription\"] = \"Bypasses VoiceChat, please unmute for the script to work\",\n    [\"Commands\"] = {\n        [\"vcbypass\"] = {\n            [\"Aliases\"] = {\"vcb\"},\n            [\"Function\"] = function(args, speaker)\n                local VoiceChatService = game:GetService(\"VoiceChatService\")\n                local VoiceChatInternal = game:GetService(\"VoiceChatInternal\")\n                local CoreGui = game:GetService(\"CoreGui\")\n\n                local MUTED_IMAGE = \"rbxasset://textures/ui/VoiceChat/MicLight/Muted.png\"\n                local REJOIN_COUNT = 4\n                local REJOIN_DELAY = 5\n                local CurrentlyMuted = true\n\n\n                local TopBarApp = CoreGui:WaitForChild(\"TopBarApp\"):WaitForChild(\"TopBarApp\")\n                local UnibarMenu = TopBarApp:WaitForChild(\"UnibarLeftFrame\"):WaitForChild(\"UnibarMenu\")\n                local MicContainer = UnibarMenu:WaitForChild(\"2\"):WaitForChild(\"3\")\n                local MicPath = MicContainer:FindFirstChild(\"toggle_mic_mute\")\n\n                local function get_mic_icon(micButton)\n                    micButton = micButton or MicPath\n                    return micButton:WaitForChild(\"IntegrationIconFrame\"):WaitForChild(\"IntegrationIcon\")[\"1\"]\n                end\n\n                local function is_muted()\n                    return get_mic_icon().Image == MUTED_IMAGE\n                end\n\n                local function create_unmute_prompt()\n                    local label = Instance.new(\"TextLabel\")\n                    label.Name = \"IY_VC_Prompt\"\n                    label.Text = \"Please unmute your microphone to continue.\"\n                    label.TextStrokeTransparency = 0\n                    label.BackgroundTransparency = 1\n                    label.Size = UDim2.new(1, 0, 0.03, 0)\n                    label.AnchorPoint = Vector2.new(0.5, 0.5)\n                    label.Position = UDim2.new(0.5, 0, 0.5, 0)\n                    label.TextScaled = true\n                    label.TextColor3 = Color3.fromRGB(255, 255, 255)\n                    label.Parent = TopBarApp\n                    return label\n                end\n\n\n                notify(\"VC Bypass\", \"Initializing custom mic...\")\n\n                if not MicPath then\n                    VoiceChatService:joinVoice()\n                    MicPath = MicContainer:WaitForChild(\"toggle_mic_mute\")\n                    repeat task.wait(0.1) until is_muted()\n                end\n\n                local prompt = create_unmute_prompt()\n                repeat task.wait(0.1) until not is_muted()\n                prompt:Destroy()\n\n\n                local groupId = VoiceChatInternal:GetGroupId()\n                VoiceChatInternal:JoinByGroupId(groupId, true)\n                VoiceChatService:leaveVoice()\n                task.wait()\n\n                for _ = 1, REJOIN_COUNT do\n                    VoiceChatInternal:JoinByGroupId(groupId, true)\n                end\n\n                task.wait(REJOIN_DELAY)\n                VoiceChatService:joinVoice()\n                VoiceChatInternal:JoinByGroupId(groupId, true)\n\n\n                MicPath.Visible = false\n                local newMic = MicPath:Clone()\n                newMic.Name = \"toggle_mic_mute_new\"\n                newMic.Visible = true\n                newMic.Parent = MicPath.Parent\n\n\n                MicPath:GetPropertyChangedSignal(\"Visible\"):Connect(function()\n                    if MicPath.Visible then newMic:Destroy() end\n                end)\n\n\n                local newIcon = get_mic_icon(newMic)\n                local oldIcon = get_mic_icon(MicPath)\n                local hitArea = newMic:WaitForChild(\"IconHitArea_toggle_mic_mute\")\n                local highlighter = newMic:WaitForChild(\"Highlighter\")\n                local redDot = newMic:WaitForChild(\"IntegrationIconFrame\"):WaitForChild(\"IntegrationIcon\"):WaitForChild(\"RedVoiceDot\")\n                \n                highlighter.Visible = false\n                redDot.Visible = false\n                newIcon.Image = MUTED_IMAGE\n                VoiceChatInternal:PublishPause(true)\n\n                hitArea.MouseEnter:Connect(function() highlighter.Visible = true end)\n                hitArea.MouseLeave:Connect(function() highlighter.Visible = false end)\n\n                hitArea.Activated:Connect(function()\n                    CurrentlyMuted = not CurrentlyMuted\n                    VoiceChatInternal:PublishPause(CurrentlyMuted)\n\n                    if CurrentlyMuted then\n                        newIcon.Image = MUTED_IMAGE\n                        redDot.Visible = false\n                    else\n                        newIcon.Image = oldIcon.Image\n                        redDot.Visible = true\n                    end\n                end)\n\n                oldIcon:GetPropertyChangedSignal(\"Image\"):Connect(function()\n                    if not CurrentlyMuted then\n                        newIcon.Image = oldIcon.Image\n                        redDot.Visible = true\n                    else\n                        newIcon.Image = MUTED_IMAGE\n                        redDot.Visible = false\n                    end\n                end)\n\n                notify(\"VC Bypass\", \"Voice Chat Bypassed!\")\n            end\n        }\n    }\n}\n\nreturn plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"
+      ]
+    },
+    {
+      "id": "1514194222582992927",
+      "name": "toggle_chat",
+      "description": "oh i forgot one more plugin so what it does it if you want to enable/disable roblox chat window if some games have it disabled",
+      "author": {
+        "name": "! FurryBoy",
+        "username": "furryboy.1",
+        "avatar": "https://cdn.discordapp.com/avatars/773291558492438578/816f97622ccc57ea1a7eedadb551d1b9.png?size=1024"
+      },
+      "date": "2026-06-10T09:07:15.032000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1514194222582992927",
+      "files": [
+        {
+          "filename": "toggle_chat.iy",
+          "url": "plugins/1514194222582992927/toggle_chat.iy",
+          "size": 1129,
+          "is_plugin": true,
+          "code": "local TextChatService = game:GetService(\"TextChatService\")\n\nlocal chatWindowVisibility = TextChatService.ChatWindowConfiguration.Enabled\nlocal function ToggleChatWindowVisibility(bool: boolean)\n\tchatWindowVisibility = bool\n\tTextChatService.ChatWindowConfiguration.Enabled = bool\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"Toggle Chat Window\",\n\t[\"PluginDescription\"] = \"A simple plugin to toggle the chat window on and off.\",\n\t[\"Commands\"] = {\n\t\t[\"showchat\"] = {\n\t\t\t[\"ListName\"] = \"showchat\",\n\t\t\t[\"Description\"] = \"Shows the chat window\",\n\t\t\t[\"Aliases\"] = {\"sc\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tToggleChatWindowVisibility(true)\n\t\t\tend\n\t\t},\n\t\t[\"hidechat\"] = {\n\t\t\t[\"ListName\"] = \"hidechat\",\n\t\t\t[\"Description\"] = \"Hides the chat window\",\n\t\t\t[\"Aliases\"] = {\"hc\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tToggleChatWindowVisibility(false)\n\t\t\tend\n\t\t},\n\t\t[\"togglechat\"] = {\n\t\t\t[\"ListName\"] = \"togglechat\",\n\t\t\t[\"Description\"] = \"Toggles the chat window ON or OFF\",\n\t\t\t[\"Aliases\"] = {\"tc\"},\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tToggleChatWindowVisibility(not chatWindowVisibility)\n\t\t\tend\n\t\t}\n\t}\n}\n\nreturn Plugin"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "reactions": [],
+      "loadstring_urls": []
     }
   ]
 }

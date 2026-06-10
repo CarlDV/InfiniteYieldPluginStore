@@ -1,0 +1,81 @@
+local emojiTable = {
+    ["Warning"] = "⚠️",
+    ["Error"] = "❌",
+    ["Info"] = "ℹ️"
+}
+
+local LogService = game:GetService("LogService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local placeName = MarketplaceService:GetProductInfo(game.PlaceId).Name
+local watermark = "-- Infinite Yield console logs for '"..placeName.."'\n"
+
+local notify = (type(notify) == "function" and notify) or function(title, text, duration)
+    duration = duration or 10
+    local ok = pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {Title = title, Text = text, Duration = duration})
+    end)
+    if not ok then
+        print(("[Notify] %s: %s"):format(title or "", text or ""))
+    end
+end
+
+local safePlaceName = CleanFileName(placeName)
+
+local function saveLogs()
+    local array = {}
+    local getLogs = LogService:GetLogHistory()
+
+    if writefile and readfile then
+        notify("Progress", "Saving...", 10)
+
+        for i, v in ipairs(getLogs) do
+            local log = v.message or tostring(v.message)
+            local logName = (v.messageType and v.messageType.Name) and v.messageType.Name or tostring(v.messageType or "Unknown")
+            local logType = logName:gsub("Message", "")
+            local logTimestamp = os.date("%H:%M:%S", v.timestamp or os.time())
+            local logEmoji = (emojiTable[logType] and (emojiTable[logType] .. " ") or "")
+            local formattedString = string.format("%s %s[%s] -- %s", logTimestamp, logEmoji, logType, log) .. "\n"
+
+            array[i] = formattedString
+        end
+
+        local writelogsFile = watermark .. "\n" .. table.concat(array)
+
+        local fileext = 0
+        local function nameFile()
+            local file
+            pcall(function()
+                file = readfile(safePlaceName .. " Console Logs (" .. fileext .. ").txt")
+            end)
+
+            if file then
+                fileext = fileext + 1
+                nameFile()
+            else
+                writefile(safePlaceName .. " Console Logs (" .. fileext .. ").txt", writelogsFile)
+            end
+        end
+
+        nameFile()
+        notify("Success", "Saved console logs in the workspace within your exploit's folder.", 10)
+    else
+        notify("Incompatible Exploit", "Your exploit does not support read/write file functions. You cannot save Console logs.", 10)
+    end
+end
+
+local Plugin = {
+    ["PluginName"] = "Console logs saver",
+    ["PluginDescription"] = "Saves console logs as a file in your exploit workspace.",
+
+    ["Commands"] = {
+        ["savelogs"] = {
+            ["ListName"] = "savelogs",
+            ["Description"] = "Do it.",
+            ["Aliases"] = {},
+            ["Function"] = saveLogs
+        }
+    }
+}
+
+return Plugin
