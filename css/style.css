@@ -124,6 +124,73 @@ header {
     justify-content: center;
 }
 
+.header-search-wrap {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 480px;
+    min-width: 200px;
+}
+
+.header-search-inner {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.header-search-inner .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text3);
+    pointer-events: none;
+}
+
+#header-search {
+    width: 100%;
+    padding: 7px 10px 7px 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.82rem;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+#header-search:focus {
+    border-color: #444;
+}
+
+#header-search::placeholder {
+    color: var(--text3);
+}
+
+#header-sort {
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: var(--text2);
+    font-family: var(--font);
+    font-size: 0.78rem;
+    cursor: pointer;
+    outline: none;
+}
+
+#header-sort option {
+    background: var(--bg2);
+    color: var(--text);
+}
+
+.header-search-wrap .dl-all-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
 
 
 .logo {
@@ -262,6 +329,16 @@ main {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+@media (min-width: 1300px) {
+    .header-search-wrap {
+        display: flex;
+    }
+
+    .toolbar {
+        display: none;
+    }
 }
 
 .dl-all-btn {
@@ -519,6 +596,16 @@ main {
 .tag-loadstring {
     background: #2d2012;
     color: #fbbf24;
+}
+
+.tag-video {
+    background: #121a2d;
+    color: #60a5fa;
+}
+
+.tag-image {
+    background: #0f2520;
+    color: #34d399;
 }
 
 /* Loadstring links in modal */

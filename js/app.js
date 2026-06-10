@@ -160,9 +160,11 @@
                 let desc = (p.description || '').replace(/```[\s\S]*?```/g, '').replace(/[*_~`#]/g, '').trim();
                 if (!desc && p.files?.length) desc = p.files.map(a => a.filename).join(', ');
 
-                // Tags
                 let tags = '';
-                // Download tags removed
+                const hasVid = p.files?.some(f => /\.(mp4|webm|mov|avi|mkv)$/i.test(f.filename));
+                const hasImg = p.files?.some(f => /\.(png|jpg|jpeg|gif|webp)$/i.test(f.filename));
+                if (hasVid) tags += '<span class="tag tag-video"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>Video</span>';
+                if (hasImg) tags += '<span class="tag tag-image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>Image</span>';
                 if (p.code_blocks?.length) tags += '<span class="tag tag-code"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>Code</span>';
                 if (p.links?.length) tags += '<span class="tag tag-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Link</span>';
                 if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Loadstring</span>';
@@ -450,11 +452,27 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
         }
 
         // ---- Events ----
-        const debouncedSearch = debounce(e => { query = e.target.value.trim(); render(); }, 200);
-        search?.addEventListener('input', debouncedSearch);
+        const debouncedSearch = debounce(val => { query = val.trim(); render(); }, 200);
+        const headerSearch = $('header-search');
 
-        const sortChange = e => { sort = e.target.value; render(); };
+        const syncSearch = e => {
+            const val = e.target.value;
+            if (e.target === search && headerSearch) headerSearch.value = val;
+            if (e.target === headerSearch && search) search.value = val;
+            debouncedSearch(val);
+        };
+        search?.addEventListener('input', syncSearch);
+        headerSearch?.addEventListener('input', syncSearch);
+
+        const headerSortEl = $('header-sort');
+        const sortChange = e => {
+            sort = e.target.value;
+            if (e.target === sortEl && headerSortEl) headerSortEl.value = sort;
+            if (e.target === headerSortEl && sortEl) sortEl.value = sort;
+            render();
+        };
         sortEl?.addEventListener('change', sortChange);
+        headerSortEl?.addEventListener('change', sortChange);
 
         const onCloseClick = closeModal;
         $('m-close')?.addEventListener('click', onCloseClick);
@@ -464,64 +482,65 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
 
         const onKeyDown = e => {
             if (e.key === 'Escape' && !overlay?.classList.contains('hidden')) closeModal();
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); search?.focus(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); (headerSearch?.offsetParent ? headerSearch : search)?.focus(); }
         };
         document.addEventListener('keydown', onKeyDown);
 
 
-        // ZIP Download All
-        const dlAllBtn = $('dl-all');
-        if (dlAllBtn) {
-            dlAllBtn.addEventListener('click', async () => {
-                const originalHTML = dlAllBtn.innerHTML;
-                dlAllBtn.textContent = 'Zipping files...';
-                dlAllBtn.disabled = true;
+        async function doZipDownload(btn) {
+            const originalHTML = btn.innerHTML;
+            btn.textContent = 'Zipping...';
+            btn.disabled = true;
 
-                try {
-                    if (!window.JSZip) throw new Error("JSZip library not loaded");
-                    const zip = new JSZip();
-                    const names = new Set();
-                    let count = 0;
+            try {
+                if (!window.JSZip) throw new Error("JSZip library not loaded");
+                const zip = new JSZip();
+                const names = new Set();
+                let count = 0;
 
-                    allPlugins.forEach(p => {
-                        if (p.files) {
-                            p.files.forEach(a => {
-                                if (a.is_plugin && a.code && a.code.trim()) {
-                                    let name = a.filename;
-                                    if (names.has(name)) {
-                                        const base = name.replace(/\.[^/.]+$/, "");
-                                        const ext = name.substring(base.length);
-                                        let counter = 1;
-                                        while (names.has(`${base}_${counter}${ext}`)) { counter++; }
-                                        name = `${base}_${counter}${ext}`;
-                                    }
-                                    names.add(name);
-                                    zip.file(name, a.code);
-                                    count++;
+                allPlugins.forEach(p => {
+                    if (p.files) {
+                        p.files.forEach(a => {
+                            if (a.is_plugin && a.code && a.code.trim()) {
+                                let name = a.filename;
+                                if (names.has(name)) {
+                                    const base = name.replace(/\.[^/.]+$/, "");
+                                    const ext = name.substring(base.length);
+                                    let counter = 1;
+                                    while (names.has(`${base}_${counter}${ext}`)) { counter++; }
+                                    name = `${base}_${counter}${ext}`;
                                 }
-                            });
-                        }
-                    });
+                                names.add(name);
+                                zip.file(name, a.code);
+                                count++;
+                            }
+                        });
+                    }
+                });
 
-                    if (count === 0) throw new Error("No attachments found to zip.");
+                if (count === 0) throw new Error("No attachments found to zip.");
 
-                    const blob = await zip.generateAsync({ type: 'blob' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `iy-plugins-all.zip`;
-                    document.body.appendChild(a);
-                    a.click();
-                    URL.revokeObjectURL(url);
-                    document.body.removeChild(a);
-                } catch (err) {
-                    alert('Failed to generate zip: ' + err.message);
-                } finally {
-                    dlAllBtn.innerHTML = originalHTML;
-                    dlAllBtn.disabled = false;
-                }
-            });
+                const blob = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `iy-plugins-all.zip`;
+                document.body.appendChild(a);
+                a.click();
+                URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (err) {
+                alert('Failed to generate zip: ' + err.message);
+            } finally {
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+            }
         }
+
+        const dlAllBtn = $('dl-all');
+        const headerDlBtn = $('header-dl-all');
+        dlAllBtn?.addEventListener('click', () => doZipDownload(dlAllBtn));
+        headerDlBtn?.addEventListener('click', () => doZipDownload(headerDlBtn));
 
         // ---- Util ----
         function fmtDate(iso) {
