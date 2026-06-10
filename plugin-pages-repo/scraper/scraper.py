@@ -34,11 +34,13 @@ def extract_loadstring_urls(code):
 
 
 def extract_plugin_name(plugin):
+    iy_names = []
     for att in plugin["files"]:
         if att["is_plugin"]:
-            name = att["filename"]
-            name = re.sub(r'\.(iy)$', '', name, flags=re.IGNORECASE)
-            return name
+            n = re.sub(r'\.(iy)$', '', att["filename"], flags=re.IGNORECASE)
+            iy_names.append(n)
+    if iy_names:
+        return ", ".join(iy_names)
     if plugin["description"]:
         first_line = plugin["description"].split('\n')[0].strip()
         first_line = re.sub(r'[*_~`#]', '', first_line).strip()
@@ -85,7 +87,7 @@ class PluginScraper(discord.Client):
 
             message_count = 0
             new_plugins = 0
-            async for message in channel.history(limit=None, oldest_first=True):
+            async for message in channel.history(limit=None, oldest_first=False):
                 message_count += 1
                 existing = self.existing_plugins.get(str(message.id))
                 plugin = await self.parse_message(message, existing)
@@ -132,7 +134,6 @@ class PluginScraper(discord.Client):
             "code_blocks": [],
             "links": [],
             "embeds": [],
-            "reactions": [],
             "loadstring_urls": [],
         }
 
@@ -201,11 +202,6 @@ class PluginScraper(discord.Client):
             if any([emb["title"], emb["description"], emb["image"], emb["thumbnail"]]):
                 plugin["embeds"].append(emb)
 
-        for reaction in message.reactions:
-            plugin["reactions"].append({
-                "emoji": str(reaction.emoji),
-                "count": reaction.count,
-            })
 
         plugin["name"] = extract_plugin_name(plugin)
 
