@@ -3,9 +3,9 @@
 An unofficial directory and workspace for Infinite Yield plugins.
 
 ## Links
-- **Website:** [iyplugins.pages.dev](https://iyplugins.pages.dev/)
+- **Website:** [iyplugins.pages.dev](https://iyplugins.pages.dev)
 - **Plugin Maker:** [iyplugins.pages.dev/maker](https://iyplugins.pages.dev/maker)
-- **API Documentation:** [iyplugins.pages.dev/api.html](https://iyplugins.pages.dev/api.html)
+- **API Documentation:** [iyplugins.pages.dev/api.html](https://iyplugins.pages.dev/api)
 
 ## Features
 - **Plugin Hub:** Browse community plugins synced directly from the Infinite Yield Discord server.
@@ -24,6 +24,6 @@ Upload your plugin file to the appropriate channel in the Infinite Yield Discord
 - `/plugins`: Raw plugin files.
 
 ---
-*Disclaimer: This is a community project and is not affiliated with the main Infinite Yield thing.*
+*Disclaimer: This is a community project and is not affiliated with Infinite Yield*
 ---
 *NOTE: THIS HAS BEEN MADE USING GEMINI AND CLAUDE. This is 80-85% VIBECODED.*
