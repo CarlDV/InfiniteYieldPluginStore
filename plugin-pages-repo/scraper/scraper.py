@@ -5,6 +5,7 @@ import re
 import asyncio
 import sys
 import logging
+import subprocess
 from datetime import datetime, timezone
 
 TOKEN = os.getenv("DISCORD_TOKEN")
@@ -14,6 +15,26 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 PLUGINS_DIR = os.path.join(BASE_DIR, "plugins")
 OUTPUT_PATH = os.path.join(DATA_DIR, "plugins.json")
 API_PATH = os.path.join(DATA_DIR, "api.json")
+
+
+VIDEO_EXTS = ('.mp4', '.webm', '.mov', '.avi', '.mkv')
+
+def compress_video(src, dst, max_bytes):
+    try:
+        result = subprocess.run(
+            ['ffmpeg', '-i', src, '-vf', 'scale=-2:min(ih\,720)',
+             '-c:v', 'libx264', '-crf', '28', '-preset', 'fast',
+             '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart',
+             '-y', dst],
+            capture_output=True, timeout=300
+        )
+        if result.returncode == 0 and os.path.exists(dst) and os.path.getsize(dst) <= max_bytes:
+            return True
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        pass
+    if os.path.exists(dst):
+        os.remove(dst)
+    return False
 
 
 def extract_loadstring_urls(code):
@@ -156,6 +177,18 @@ class PluginScraper(discord.Client):
                     if not (os.path.exists(filepath) and os.path.getsize(filepath) == attachment.size):
                         os.makedirs(plugin_dir, exist_ok=True)
                         await attachment.save(filepath)
+                elif attachment.filename.lower().endswith(VIDEO_EXTS):
+                    os.makedirs(plugin_dir, exist_ok=True)
+                    tmp = filepath + '.tmp'
+                    await attachment.save(tmp)
+                    if compress_video(tmp, filepath, MAX_FILE_SIZE):
+                        file_data["size"] = os.path.getsize(filepath)
+                        print(f"Compressed {attachment.filename} ({attachment.size} -> {file_data['size']} bytes)")
+                    else:
+                        print(f"Could not compress {attachment.filename} under 25MB, using CDN.")
+                        file_data["url"] = attachment.url
+                    if os.path.exists(tmp):
+                        os.remove(tmp)
                 else:
                     print(f"Skipping local save for {attachment.filename} ({attachment.size} bytes) - exceeds 25MB limit.")
                     file_data["url"] = attachment.url
