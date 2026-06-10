@@ -1,8 +1,29 @@
 {
   "version": "1.0",
-  "updated_at": "2026-06-10T12:20:32.142456+00:00",
-  "total": 542,
+  "updated_at": "2026-06-10T15:14:43.772013+00:00",
+  "total": 543,
   "plugins": [
+    {
+      "id": "1514285466193760266",
+      "name": "5k5szqt",
+      "author": "h",
+      "date": "2026-06-10T15:09:49.204000+00:00",
+      "files": [
+        {
+          "filename": "5nz0h94.png",
+          "url": "plugins/1514285466193760266/5nz0h94.png",
+          "size": 81762,
+          "is_plugin": false
+        },
+        {
+          "filename": "5k5szqt.iy",
+          "url": "plugins/1514285466193760266/5k5szqt.iy",
+          "size": 1416,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1514193210832846949",
       "name": "savelogs, KeepIYImproved, VoiceChatBypass",

@@ -1,12 +1,43 @@
 {
-  "scraped_at": "2026-06-10T12:20:32.098155+00:00",
+  "scraped_at": "2026-06-10T15:14:43.727771+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 542,
+  "total_plugins": 543,
   "plugins": [
+    {
+      "id": "1514285466193760266",
+      "name": "5k5szqt",
+      "description": "mistakes were made, it depend on where you are look at...\n# prideYield\nits pride month, everyone!\n> WHEN IS SOMEONE MAKING GAYFINITE YIELD WE NEED THIS PLUGIN,  NOT A 99TH WELD REMAKE\n-<@1065752830469734531> - june, '26\n\n## usage\n-install normally with `addplugin prideyield` command\n-to remove, use `removeplugin`\n\n## note\n-required some unc's apis to get around roblox's removing me icon\n-hi!!",
+      "author": {
+        "name": "h",
+        "username": "openbridge",
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/e5048ea6ecb52fe5f721813f59d565cb.png?size=1024"
+      },
+      "date": "2026-06-10T15:09:49.204000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1514285466193760266",
+      "files": [
+        {
+          "filename": "5nz0h94.png",
+          "url": "plugins/1514285466193760266/5nz0h94.png",
+          "size": 81762,
+          "is_plugin": false
+        },
+        {
+          "filename": "5k5szqt.iy",
+          "url": "plugins/1514285466193760266/5k5szqt.iy",
+          "size": 1416,
+          "is_plugin": true,
+          "code": "if not readfile and not writefile and not request then\n\tnotify(\n\t\t\"prideYield \",\n\t\t\"readfile(), writefile(), and request() do not exist, please remove the plugin, or change your exec\"\n\t)\n\treturn\nend\n\nlocal isPrideMonth = os.date(\"*t\").month == 6\n\nif not isPrideMonth then\n\t-- print(isPrideMonth)\n\treturn\nend\n\nlocal rfSuccess, _ = pcall(function()\n\treturn readfile(\"prideYield.png\")\nend)\n\nif not rfSuccess then\n\tlocal imgCDN = request({\n\t\tUrl = \"https://share.valhalladev.org/raw/New%20Project2.png\",\n\t\tMethod = \"GET\",\n\t})\n\t-- print(imgCDN.StatusCode)\n\tif imgCDN.Success and imgCDN.StatusCode == 200 then\n\t\twritefile(\"prideYield.png\", imgCDN.Body)\n\telse\n\t\tnotify(\"prideYield\", `cdn error: {imgCDN.StatusCode} {imgCDN.StatusMessage or \"\"}`)\n\t\treturn\n\tend\nend\n\nlocal succ, err = pcall(function()\n\tlocal localImg = getcustomasset(\"prideYield.png\")\n\tLogo.Image = localImg\nend)\n\n-- print(succ)\n\nif not succ then\n\tnotify(\"prideYield\", `unable to init: {err}`)\n\treturn\nend\n\nlocal Plugin = {\n\t[\"PluginName\"] = \"prideYield\",\n\t[\"PluginDescription\"] = \"shows your support in iy\",\n\t[\"Commands\"] = {\n\t\t[\"aboutprideYield\"] = {\n\t\t\t[\"ListName\"] = \"aboutprideYield\",\n\t\t\t[\"Description\"] = \"about prideYield\",\n\t\t\t[\"Aliases\"] = { \"prideyield\" },\n\t\t\t[\"Function\"] = function(args, speaker)\n\t\t\t\tlocal out = `prideYield, hhh, '26 (isPrideMonth?: {isPrideMonth}`\n\t\t\t\tprint(out)\n\t\t\t\tnotify(\"prideYield\", out)\n\t\t\tend,\n\t\t},\n\t},\n}\n\nreturn Plugin\n"
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1514193210832846949",
       "name": "savelogs, KeepIYImproved, VoiceChatBypass",
-      "description": "been keeping 3 plugins for a while and now got access.\n\n# Introducing 3 plugins by me.\nI have made those plugins because i was bored so why not publish them publicly?\n\n- `savelogs.iy`\n  - It's entire purpose is to save console logs as a file in your exploit workspace.\n- `KeepIYImproved.iy`\n  - basically keepiy but *better*, it makes it whenever you leave and rejoin another game from roblox app it will still load up infinite yield, you disable it by using **unkeepiy** or **togglekeepiy**\n - `VoiceChatBypass.iy`\n  - bypass voice chat suspensions unless you rejoin but wont save you from roblox listening... okay yeah anyways idk if it still works haven't used it in awhile.",
+      "description": "been keeping 3 plugins for a while and now got access.\n\n# Introducing 3 plugins by me.\nI have made those plugins because i was bored so why not publish them publicly?\n\n- `savelogs.iy`\n  - It's entire purpose is to save console logs as a file in your exploit workspace.\n- `KeepIYImproved.iy`\n  - basically keepiy but *better*, it makes it whenever you leave and rejoin another game from roblox app it will still load up infinite yield, you disable it by using **unkeepiy** or **togglekeepiy**\n - `VoiceChatBypass.iy`\n  - new voice chat bypass, it bypasses suspensions unless you rejoin but wont save you from roblox listening... okay yeah anyways idk if it still works haven't used it in awhile.",
       "author": {
         "name": "! FurryBoy",
         "username": "furryboy.1",
