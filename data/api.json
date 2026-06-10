@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-06-10T12:07:01.732808+00:00",
+  "updated_at": "2026-06-10T12:20:32.142456+00:00",
   "total": 542,
   "plugins": [
     {
@@ -582,8 +582,8 @@
         },
         {
           "filename": "2026-04-01_20-49-25.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1488884204170252448/2026-04-01_20-49-25.mp4?ex=6a2a0738&is=6a28b5b8&hm=e59ee6ae7b6d0f6a5bac16d605e45402f6aeb86d26407b8d998d553cdbaf1379&",
-          "size": 41635796,
+          "url": "plugins/1488884206082851048/2026-04-01_20-49-25.mp4",
+          "size": 4783339,
           "is_plugin": false
         }
       ],
@@ -1572,8 +1572,8 @@
         },
         {
           "filename": "other2.mov",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1358016020203442317/other2.mov?ex=6a2a84f9&is=6a293379&hm=96dae888c10224b3160f949bd25549d5e3aa18aa4f1639560122326a3bbb913b&",
-          "size": 58632246,
+          "url": "plugins/1358016022539403456/other2.mov",
+          "size": 5365356,
           "is_plugin": false
         }
       ],
@@ -1845,8 +1845,8 @@
       "files": [
         {
           "filename": "Roblox_2024-11-04_17-58-26.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1303162173874376774/Roblox_2024-11-04_17-58-26.mp4?ex=6a2a08d9&is=6a28b759&hm=57b0b61100063b742e1645d67458fdce9d76093c59221ef3f02ce32f5300339a&",
-          "size": 79720817,
+          "url": "plugins/1303162177875742811/Roblox_2024-11-04_17-58-26.mp4",
+          "size": 2190032,
           "is_plugin": false
         },
         {
@@ -2772,8 +2772,8 @@
       "files": [
         {
           "filename": "Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/1027755803958050827/Roblox_VR_2022.10.07_-_02.32.29.07.mp4?ex=6a2a10ae&is=6a28bf2e&hm=47d0b26d2f5aec54ee097c5057f82df972bffba03965f2721b2d700f415388c4&",
-          "size": 42719466,
+          "url": "plugins/1027755806323638366/Roblox_VR_2022.10.07_-_02.32.29.07.mp4",
+          "size": 3537235,
           "is_plugin": false
         },
         {
@@ -3555,8 +3555,8 @@
         },
         {
           "filename": "why.mp4",
-          "url": "https://cdn.discordapp.com/attachments/551846012310782014/921210233316048896/why.mp4?ex=6a2a0d62&is=6a28bbe2&hm=c02b297074ab692b2569ed998b9a1ef0414c29f08b54312416e561ca613df3e7&",
-          "size": 42867196,
+          "url": "plugins/921210235807481876/why.mp4",
+          "size": 5485995,
           "is_plugin": false
         }
       ],
