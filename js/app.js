@@ -338,8 +338,10 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
                     const isVideo = a.filename.toLowerCase().match(/\.(mp4|webm|mov)$/);
 
                     const fileUrl = a.url;
+                    let dlName = a.filename;
+                    if (isCode && dlName.toLowerCase().endsWith('.lua')) dlName = dlName.replace(/\.lua$/i, '.iy');
                     const prevBtn = isCode ? `<button class="att-prev-btn" data-url="${escAttr(fileUrl)}" data-id="prev-${p.id}-${i}">Preview</button>` : '';
-                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${fileUrl}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Download</a>`;
+                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${fileUrl}" download="${escAttr(dlName)}" onclick="event.stopPropagation()">Download</a>`;
 
                     html += `<div class="att-row">
                     <span class="att-name">${esc(a.filename)}</span>
@@ -351,7 +353,8 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
                 </div>`;
 
                     if (isCode) {
-                        html += `<div id="prev-${p.id}-${i}" class="file-preview hidden"><div class="code-wrap"><div class="code-bar"><span class="code-lang">${esc(a.filename.split('.').pop())}</span><button class="copy-btn" data-id="code-${p.id}-${i}">Copy</button></div><pre class="code-block" id="code-${p.id}-${i}"></pre></div></div>`;
+                        const lang = a.filename.toLowerCase().endsWith('.txt') ? 'txt' : 'lua';
+                        html += `<div id="prev-${p.id}-${i}" class="file-preview hidden"><div class="code-wrap"><div class="code-bar"><span class="code-lang">${lang}</span><button class="copy-btn" data-id="code-${p.id}-${i}">Copy</button></div><pre class="code-block" id="code-${p.id}-${i}"></pre></div></div>`;
                     } else if (isImage) {
                         html += `<div class="media-preview"><img src="${escAttr(a.url)}" alt="${escAttr(a.filename)}" loading="lazy" draggable="false"></div>`;
                     } else if (isVideo) {
@@ -501,25 +504,45 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
                 const names = new Set();
                 let count = 0;
 
+                const pluginsToFetch = [];
+
                 allPlugins.forEach(p => {
                     if (p.files) {
                         p.files.forEach(a => {
-                            if (a.is_plugin && a.code && a.code.trim()) {
-                                let name = a.filename;
-                                if (names.has(name)) {
-                                    const base = name.replace(/\.[^/.]+$/, "");
-                                    const ext = name.substring(base.length);
-                                    let counter = 1;
-                                    while (names.has(`${base}_${counter}${ext}`)) { counter++; }
-                                    name = `${base}_${counter}${ext}`;
-                                }
-                                names.add(name);
-                                zip.file(name, a.code);
-                                count++;
-                            }
+                            if (a.is_plugin) pluginsToFetch.push(a);
                         });
                     }
                 });
+
+                btn.textContent = `Zipping (0/${pluginsToFetch.length})...`;
+                const concurrency = 20;
+
+                for (let i = 0; i < pluginsToFetch.length; i += concurrency) {
+                    const chunk = pluginsToFetch.slice(i, i + concurrency);
+                    await Promise.all(chunk.map(async (a) => {
+                        try {
+                            const res = await fetch(a.url);
+                            if (!res.ok) return;
+                            const code = await res.text();
+                            if (!code || !code.trim()) return;
+
+                            let name = a.filename;
+                            if (names.has(name)) {
+                                const base = name.replace(/\.[^/.]+$/, "");
+                                const ext = name.substring(base.length);
+                                let counter = 1;
+                                while (names.has(`${base}_${counter}${ext}`)) { counter++; }
+                                name = `${base}_${counter}${ext}`;
+                            }
+                            names.add(name);
+                            zip.file(name, code);
+                            count++;
+                        } catch (e) {
+                            console.error("Failed to fetch", a.url, e);
+                        }
+                    }));
+                    btn.textContent = `Zipping (${Math.min(i + concurrency, pluginsToFetch.length)}/${pluginsToFetch.length})...`;
+                }
 
                 if (count === 0) throw new Error("No attachments found to zip.");
 

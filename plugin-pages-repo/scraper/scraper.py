@@ -163,7 +163,7 @@ class PluginScraper(discord.Client):
             
             filename = attachment.filename
             if is_plugin:
-                filename = re.sub(r'\.iy$', '.lua', filename, flags=re.IGNORECASE)
+                filename = re.sub(r'\.lua$', '.iy', filename, flags=re.IGNORECASE)
 
             file_data = {
                 "filename": filename,
@@ -204,21 +204,6 @@ class PluginScraper(discord.Client):
                 print(f"Failed to save {attachment.filename}: {e}")
                 file_data["url"] = attachment.url
                 
-            if is_plugin and attachment.size < 200_000:
-                try:
-                    existing_code = None
-                    if existing:
-                        for ext_att in existing.get("files", existing.get("attachments", [])):
-                            if ext_att.get("filename") == filename and "code" in ext_att:
-                                existing_code = ext_att["code"]
-                                break
-                    if existing_code:
-                        file_data["code"] = existing_code
-                    else:
-                        with open(filepath, 'r', encoding='utf-8', errors='replace') as fh:
-                            file_data["code"] = fh.read()
-                except Exception:
-                    pass
             plugin["files"].append(file_data)
 
         code_blocks = re.findall(r'```(?:lua)?\s*\n?(.*?)```', message.content, re.DOTALL)
@@ -248,8 +233,14 @@ class PluginScraper(discord.Client):
 
         all_code = []
         for f in plugin["files"]:
-            if f.get("code"):
-                all_code.append(f["code"])
+            plugin_dir = os.path.join(PLUGINS_DIR, str(message.id))
+            filepath = os.path.join(plugin_dir, f["filename"])
+            if f.get("is_plugin") and f["size"] < 200_000 and os.path.exists(filepath):
+                try:
+                    with open(filepath, 'r', encoding='utf-8', errors='replace') as fh:
+                        all_code.append(fh.read())
+                except Exception:
+                    pass
         for cb in plugin["code_blocks"]:
             all_code.append(cb)
         plugin["loadstring_urls"] = extract_loadstring_urls("\n".join(all_code))
@@ -263,12 +254,6 @@ class PluginScraper(discord.Client):
 
         for plugin in self.plugins:
             for f in plugin["files"]:
-                if f.get("is_plugin") and f.get("code"):
-                    plugin_dir = os.path.join(PLUGINS_DIR, plugin["id"])
-                    os.makedirs(plugin_dir, exist_ok=True)
-                    filepath = os.path.join(plugin_dir, f["filename"])
-                    with open(filepath, 'w', encoding='utf-8') as fh:
-                        fh.write(f["code"])
                 
                 # Make sure the URL reflects local path for all files
                 if f.get("url") and not f["url"].startswith("http"):
