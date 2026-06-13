@@ -283,7 +283,10 @@
                 html += `</div>`;
             }
 
-            const pluginFiles = (p.files || []).filter(f => f.filename.toLowerCase().endsWith('.iy'));
+            const pluginFiles = (p.files || []).filter(f => {
+                const lower = f.filename.toLowerCase();
+                return lower.endsWith('.iy') || lower.endsWith('.lua');
+            });
             if (pluginFiles.length) {
                 html += `<div class="section"><div class="section-label">Quick Install (paste on your executor)</div>`;
                 pluginFiles.forEach((f, i) => {

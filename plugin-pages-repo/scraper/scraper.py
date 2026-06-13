@@ -58,7 +58,7 @@ def extract_plugin_name(plugin):
     iy_names = []
     for att in plugin["files"]:
         if att["is_plugin"]:
-            n = re.sub(r'\.(iy)$', '', att["filename"], flags=re.IGNORECASE)
+            n = re.sub(r'\.(iy|lua)$', '', att["filename"], flags=re.IGNORECASE)
             iy_names.append(n)
     if iy_names:
         return ", ".join(iy_names)
@@ -159,16 +159,21 @@ class PluginScraper(discord.Client):
         }
 
         for attachment in message.attachments:
-            is_plugin = attachment.filename.lower().endswith('.iy')
+            is_plugin = attachment.filename.lower().endswith('.iy') or attachment.filename.lower().endswith('.lua')
+            
+            filename = attachment.filename
+            if is_plugin:
+                filename = re.sub(r'\.iy$', '.lua', filename, flags=re.IGNORECASE)
+
             file_data = {
-                "filename": attachment.filename,
-                "url": f"plugins/{message.id}/{attachment.filename}",
+                "filename": filename,
+                "url": f"plugins/{message.id}/{filename}",
                 "size": attachment.size,
                 "is_plugin": is_plugin,
             }
             
             plugin_dir = os.path.join(PLUGINS_DIR, str(message.id))
-            filepath = os.path.join(plugin_dir, attachment.filename)
+            filepath = os.path.join(plugin_dir, filename)
             
             MAX_FILE_SIZE = 25 * 1024 * 1024 # 25 MiB
             
@@ -201,7 +206,7 @@ class PluginScraper(discord.Client):
                     existing_code = None
                     if existing:
                         for ext_att in existing.get("files", existing.get("attachments", [])):
-                            if ext_att.get("filename") == attachment.filename and "code" in ext_att:
+                            if ext_att.get("filename") == filename and "code" in ext_att:
                                 existing_code = ext_att["code"]
                                 break
                     if existing_code:

@@ -91,6 +91,12 @@
                 return;
             }
 
+            const newHeader = doc.querySelector('header');
+            const currentHeader = document.querySelector('header');
+            if (newHeader && currentHeader) {
+                currentHeader.innerHTML = newHeader.innerHTML;
+            }
+
             // Use shared routing logic
             handleRoute(url);
 

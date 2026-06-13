@@ -1323,8 +1323,8 @@
             uploadInput.addEventListener('change', (e) => {
                 if (e.target.files.length) {
                     let file = e.target.files[0];
-                    if (!file.name.endsWith('.iy')) {
-                        alert('Please select a valid .iy plugin file.');
+                    if (!file.name.endsWith('.iy') && !file.name.endsWith('.lua')) {
+                        alert('Please select a valid .iy or .lua plugin file.');
                         e.target.value = '';
                         return;
                     }
@@ -1359,8 +1359,8 @@
 
                 if (e.dataTransfer.files.length) {
                     let file = e.dataTransfer.files[0];
-                    if (!file.name.endsWith('.iy')) {
-                        alert('Please drop a valid .iy plugin file.');
+                    if (!file.name.endsWith('.iy') && !file.name.endsWith('.lua')) {
+                        alert('Please drop a valid .iy or .lua plugin file.');
                         return;
                     }
 

@@ -467,7 +467,7 @@
                     <div class="api-endpoint">
                         <span class="api-method">GET</span>
                         <span class="api-url">/plugins/{id}/{filename}</span>
-                        <div class="api-desc">Downloads the raw `.iy` plugin file content. The <code>id</code> and <code>filename</code> are retrieved from the plugin's payload.</div>
+                        <div class="api-desc">Downloads the raw `.iy` or `.lua` plugin file content. The <code>id</code> and <code>filename</code> are retrieved from the plugin's payload.</div>
                     </div>
                 </section>
 
@@ -621,7 +621,7 @@ end</code></pre>
 
                 <section class="docs-section">
                     <h2 id="autoload">Autoloading System</h2>
-                    <p>Autoload scans the workspace for files ending in `.iy` and registers them with Infinite Yield dynamically. This matches the official initialization workflow.</p>
+                    <p>Autoload scans the workspace for files ending in `.iy` or `.lua` and registers them with Infinite Yield dynamically. This matches the official initialization workflow.</p>
                     <div class="api-code">
                         <div class="api-code-bar">
                             <span class="api-code-lang">Luau</span>
@@ -637,7 +637,7 @@ end</code></pre>
     if not addFn then return end
 
     for _, filePath in ipairs(listfiles("")) do
-        local fileName = filePath:match("([^/\\]+%.iy)$")
+        local fileName = filePath:match("([^/\\]+%.iy)$") or filePath:match("([^/\\]+%.lua)$")
 
         if fileName and 
            fileName:lower() ~= "iy_fe.iy" and 
@@ -781,7 +781,7 @@ function PluginManager:autoload()
     if not addFn then return end
 
     for _, filePath in ipairs(listfiles("")) do
-        local fileName = filePath:match("([^/\\]+%.iy)$")
+        local fileName = filePath:match("([^/\\]+%.iy)$") or filePath:match("([^/\\]+%.lua)$")
         if fileName and 
            fileName:lower() ~= "iy_fe.iy" and 
            not isfolder(fileName) and 
