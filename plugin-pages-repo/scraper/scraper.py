@@ -137,7 +137,7 @@ class PluginScraper(discord.Client):
             return None
         if not message.attachments:
             return None
-        if not any(att.filename.lower().endswith('.iy') for att in message.attachments):
+        if not any(att.filename.lower().endswith('.iy') or att.filename.lower().endswith('.lua') for att in message.attachments):
             return None
 
         plugin = {
@@ -183,17 +183,20 @@ class PluginScraper(discord.Client):
                         os.makedirs(plugin_dir, exist_ok=True)
                         await attachment.save(filepath)
                 elif attachment.filename.lower().endswith(VIDEO_EXTS):
-                    os.makedirs(plugin_dir, exist_ok=True)
-                    tmp = filepath + '.tmp'
-                    await attachment.save(tmp)
-                    if compress_video(tmp, filepath, MAX_FILE_SIZE):
+                    if os.path.exists(filepath):
                         file_data["size"] = os.path.getsize(filepath)
-                        print(f"Compressed {attachment.filename} ({attachment.size} -> {file_data['size']} bytes)")
                     else:
-                        print(f"Could not compress {attachment.filename} under 25MB, using CDN.")
-                        file_data["url"] = attachment.url
-                    if os.path.exists(tmp):
-                        os.remove(tmp)
+                        os.makedirs(plugin_dir, exist_ok=True)
+                        tmp = filepath + '.tmp'
+                        await attachment.save(tmp)
+                        if compress_video(tmp, filepath, MAX_FILE_SIZE):
+                            file_data["size"] = os.path.getsize(filepath)
+                            print(f"Compressed {attachment.filename} ({attachment.size} -> {file_data['size']} bytes)")
+                        else:
+                            print(f"Could not compress {attachment.filename} under 25MB, using CDN.")
+                            file_data["url"] = attachment.url
+                        if os.path.exists(tmp):
+                            os.remove(tmp)
                 else:
                     print(f"Skipping local save for {attachment.filename} ({attachment.size} bytes) - exceeds 25MB limit.")
                     file_data["url"] = attachment.url
