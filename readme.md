@@ -3,9 +3,9 @@
 An unofficial directory and workspace for Infinite Yield plugins.
 
 ## Links
-- **Website:** [iyplugins.pages.dev](https://iyplugins.pages.dev)
-- **Plugin Maker:** [iyplugins.pages.dev/maker](https://iyplugins.pages.dev/maker)
-- **API Documentation:** [iyplugins.pages.dev/api.html](https://iyplugins.pages.dev/api)
+- **Website:** [here](https://iyplugins.pages.dev)
+- **Plugin Maker:** [here](https://iyplugins.pages.dev/maker)
+- **API Documentation:** [here](https://iyplugins.pages.dev/api)
 
 ## Features
 - **Plugin Hub:** Browse community plugins synced directly from the Infinite Yield Discord server.
