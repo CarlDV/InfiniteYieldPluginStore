@@ -1,0 +1,410 @@
+execCmd("jllautoupdater")
+local Plugin = {
+    ["PluginName"] = "Join / Leave logs",
+    ["PluginDescription"] = "Read the title",
+    ["Commands"] = {
+        ["joinleavelogs"] = {
+            ["ListName"] = "JoinLeaveLogs / JLL",
+            ["Description"] = "Turn on the JLL, Join Leave Logs",
+            ["Aliases"] = {"jll"},
+            ["Function"] = function(args,speaker)
+local Players = game:GetService("Players")
+local jlldrags = Instance.new("Frame")
+local backgroundd = Instance.new("Frame")
+local Clear = Instance.new("TextButton")
+local Toggle = Instance.new("TextButton")
+local SaveJll = Instance.new("TextButton")
+local scroll = Instance.new("ScrollingFrame")
+local shadow = Instance.new("Frame")
+local Exit = Instance.new("ImageButton")
+local Hide2 = Instance.new("ImageButton")
+local PopupText = Instance.new("TextLabel")
+
+jlldrags.Name = "jlldrags"
+jlldrags.Parent = game.CoreGui.RobloxGui
+jlldrags.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+jlldrags.BackgroundTransparency = 1.000
+jlldrags.BorderColor3 = Color3.fromRGB(27, 42, 53)
+jlldrags.Position = UDim2.new(0, 0, 1.0238378, -245)
+jlldrags.Size = UDim2.new(0, 338, 0, 20)
+
+backgroundd.Name = "backgroundd"
+backgroundd.Parent = jlldrags
+backgroundd.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
+backgroundd.BorderSizePixel = 0
+backgroundd.Position = UDim2.new(0.00380636752, 0, 12.23314, -245)
+backgroundd.Size = UDim2.new(0, 336, 0, 225)
+backgroundd.ZIndex = 10
+
+Clear.Name = "Clear"
+Clear.Parent = backgroundd
+Clear.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+Clear.BorderSizePixel = 0
+Clear.Position = UDim2.new(0.0193183422, 0, 0.878205299, 0)
+Clear.Size = UDim2.new(0, 78, 0, 19)
+Clear.Font = Enum.Font.SourceSans
+Clear.Text = "Clear"
+Clear.TextColor3 = Color3.fromRGB(255, 255, 255)
+Clear.TextSize = 14.000
+
+Toggle.Name = "Toggle"
+Toggle.Parent = backgroundd
+Toggle.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+Toggle.BorderSizePixel = 0
+Toggle.Position = UDim2.new(0.742922306, 0, 0.878205299, 0)
+Toggle.Size = UDim2.new(0, 78, 0, 20)
+Toggle.Font = Enum.Font.SourceSans
+Toggle.Text = "Disabled"
+Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+Toggle.TextSize = 14.000
+
+SaveJll.Name = "SaveJll"
+SaveJll.Parent = backgroundd
+SaveJll.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+SaveJll.BorderSizePixel = 0
+SaveJll.Position = UDim2.new(0.351190716, 0, 0.878205299, 0)
+SaveJll.Size = UDim2.new(0, 98, 0, 20)
+SaveJll.Font = Enum.Font.SourceSans
+SaveJll.Text = "Save To .txt"
+SaveJll.TextColor3 = Color3.fromRGB(255, 255, 255)
+SaveJll.TextSize = 14.000
+
+scroll.Name = "scroll"
+scroll.Parent = jlldrags
+scroll.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+scroll.BorderSizePixel = 0
+scroll.Position = UDim2.new(0.0244188309, 0, 13.8839893, -245)
+scroll.Size = UDim2.new(0, 321, 0, 158)
+scroll.ZIndex = 10
+scroll.VerticalScrollBarInset = Enum.ScrollBarInset.Always
+
+shadow.Name = "shadow"
+shadow.Parent = jlldrags
+shadow.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+shadow.BorderSizePixel = 0
+shadow.Position = UDim2.new(0.00193343125, 0, 12.2412033, -245)
+shadow.Size = UDim2.new(0, 337, 0, 25)
+shadow.ZIndex = 10
+
+Exit.Name = "Exit"
+Exit.Parent = shadow
+Exit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Exit.BackgroundTransparency = 1.000
+Exit.BorderSizePixel = 0
+Exit.Position = UDim2.new(-0.00183412351, 0, -0.00333251944, 0)
+Exit.Size = UDim2.new(0, 22, 0, 25)
+Exit.Image = "rbxassetid://2132544126"
+
+Hide2.Name = "Hide2"
+Hide2.Parent = shadow
+Hide2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Hide2.BackgroundTransparency = 1.000
+Hide2.BorderSizePixel = 0
+Hide2.Position = UDim2.new(0.928854227, 0, -0.00333251944, 0)
+Hide2.Size = UDim2.new(0, 22, 0, 25)
+Hide2.Image = "rbxassetid://2406617031"
+Hide2.ImageTransparency = 0.500
+
+PopupText.Name = "PopupText"
+PopupText.Parent = shadow
+PopupText.BackgroundTransparency = 1.000
+PopupText.BorderSizePixel = 0
+PopupText.Position = UDim2.new(-0.0117348284, 0, -0.00317382813, 0)
+PopupText.Size = UDim2.new(0, 340, 0, 20)
+PopupText.Font = Enum.Font.SourceSans
+PopupText.Text = "Join/Left Logs"
+PopupText.TextColor3 = Color3.fromRGB(255, 255, 255)
+PopupText.TextSize = 15.000
+
+Exit.MouseButton1Down:Connect(function()
+      jlldrags:Destroy()
+end)
+
+Clear.MouseButton1Down:connect(function()
+	for _, child in pairs(scroll:GetChildren()) do
+		child:Destroy()
+	end
+	scroll.CanvasSize = UDim2.new(0, 0, 0, 10)
+end)
+
+Hide2.MouseButton1Down:connect(function()
+	if jlldrags.Size ~= UDim2.new(0,338,0,36) then
+		jlldrags:TweenSize(UDim2.new(0,338,0,36), "InOut", "Quart", 0.2, true, nil)
+	else
+		jlldrags:TweenSize(UDim2.new(0,338,0,20), "InOut", "Quart", 0.2, true, nil)
+	end
+end)
+
+LogsEnabled = false
+
+if LogsEnabled then
+	Toggle.Text = 'Enabled'
+else
+	Toggle.Text = 'Disabled'
+end
+
+Toggle.MouseButton1Down:connect(function()
+	if LogsEnabled then
+		LogsEnabled = false
+		Toggle.Text = 'Disabled'
+	else
+		LogsEnabled = true
+		Toggle.Text = 'Enabled'
+	end
+end)
+
+
+
+Players.PlayerAdded:Connect(function(player)
+	if LogsEnabled == true then
+		CreateLabel2(player.Name,"As Join The Game.")
+	end
+end)
+
+
+
+
+
+Players.PlayerRemoving:Connect(function(player)
+	if LogsEnabled == true then
+		CreateLabel2(player.Name,"As Left The Game.")
+	end
+end)
+
+
+
+
+
+function CreateLabel2(Name, Text)
+	if #scroll:GetChildren() >= 2546 then
+		scroll:ClearAllChildren()
+	end
+	local alls = 0
+	for i,v in pairs(scroll:GetChildren()) do
+		if v then
+			alls = v.Size.Y.Offset + alls
+		end
+		if not v then
+			alls = 0
+		end
+	end
+	local tl = Instance.new('TextLabel', scroll)
+	local il = Instance.new('Frame', tl)
+	tl.Name = Name
+	tl.ZIndex = 10
+	tl.Text = Time2().." - ["..Name.."]: "..Text
+	tl.Size = UDim2.new(0,322,0,84)
+	tl.BackgroundTransparency = 1
+	tl.BorderSizePixel = 0
+	tl.Font = "SourceSans"
+	tl.Position = UDim2.new(-1,0,0,alls)
+	tl.TextTransparency = 1
+	tl.TextScaled = false
+	tl.TextSize = 14
+	tl.TextWrapped = true
+	tl.TextXAlignment = "Left"
+	tl.TextYAlignment = "Top"
+	il.BackgroundTransparency = 1
+	il.BorderSizePixel = 0
+	il.Size = UDim2.new(0,12,1,0)
+	il.Position = UDim2.new(0,316,0,0)
+	il.ZIndex = 10
+	tl.TextColor3 = Color3.fromRGB(255,255,255)
+	tl.Size = UDim2.new(0,322,0,tl.TextBounds.Y)
+	scroll.CanvasSize = UDim2.new(0,0,0,alls+tl.TextBounds.Y)
+	scroll.CanvasPosition = Vector2.new(0,scroll.CanvasPosition.Y+tl.TextBounds.Y)
+	local size2 = scroll.CanvasSize.Y.Offset
+	tl:TweenPosition(UDim2.new(0,3,0,alls), 'In', 'Quint', 0.5)
+	for i = 0,50 do wait(0.05)
+		tl.TextTransparency = tl.TextTransparency - 0.05
+	end
+	tl.TextTransparency = 0
+end
+
+
+
+function Time2()
+	local HOUR = math.floor((tick() % 86400) / 3600)
+	local MINUTE = math.floor((tick() % 3600) / 60)
+	local SECOND = math.floor(tick() % 60)
+	local AP = HOUR > 11 and 'PM' or 'AM'
+	HOUR = (HOUR % 12 == 0 and 12 or HOUR % 12)
+	HOUR = HOUR < 10 and '0' .. HOUR or HOUR
+	MINUTE = MINUTE < 10 and '0' .. MINUTE or MINUTE
+	SECOND = SECOND < 10 and '0' .. SECOND or SECOND
+	return HOUR .. ':' .. MINUTE .. ':' .. SECOND .. ' ' .. AP
+end
+
+SaveJll.MouseButton1Down:connect(function()
+	if writefileExploit() then
+		if #scroll:GetChildren() > 0 then
+			notify("Loading",'Hold on a second')
+			local placeName = game:GetService('MarketplaceService'):GetProductInfo(game.PlaceId).Name
+			local writelogs = '-- Thomas_Cornez join and leave logs to  "'..placeName..'"\n'
+			for _, child in pairs(scroll:GetChildren()) do
+				writelogs = writelogs..'\n'..child.Text
+			end
+			local writelogsFile = tostring(writelogs)
+			local fileext = 0
+			local function nameFile()
+				local file
+				pcall(function() file = readfile(placeName..' JLL ('..fileext..').txt') end)
+				if file then
+					fileext = fileext+1
+					nameFile()
+				else
+					writefileCooldown2(placeName..' JLL ('..fileext..').txt', writelogsFile)
+				end
+			end
+			nameFile()
+			notify('Join/Leave Logs','Saved JLL to the workspace folder within your exploit folder.')
+		end
+	else
+		notify('Join/Leave Logs','Your exploit does not support write file. You cannot save JLL.')
+	end
+end)
+
+
+
+local cooldown = false
+function writefileCooldown2(name,data)
+	spawn(function()
+		if not cooldown then
+			cooldown = true
+			writefile(name, data)
+		else
+			repeat wait() until cooldown == false
+			writefileCooldown2(name,data)
+		end
+		wait(3)
+		cooldown = false
+	end)
+end
+
+function randomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+	return table.concat(array)
+end
+end
+		},
+		["jllautoupdater"] = {
+			["ListName"] = "",
+			["Description"] = "Hello :)",
+			["Aliases"] = {""},
+			["Function"] = function(args,speaker)
+				local Version = "1.4"
+				local Update = game:HttpGet("https://pastebin.com/raw/3bjnx7UD",false)
+				if Update ~= "jll " .. Version then
+					notify('Updating...','Updating to ' .. Update)
+					wait(3)
+					writefile("JLL.iy",game:HttpGet("https://pastebin.com/raw/pNtwnzQW",false))
+					deletePlugin("JLL.iy")
+					wait(1)
+					addPlugin("JLL.iy")
+					changelog()
+				end
+			
+				function changelog()
+				local VERSION = 1.4
+				
+				local Changes = {
+					"[+] New command for showing the changelog, ;jjlchangelog / ;jllcl",
+					"---------------",
+					"[+] I Added An Auto Updater",
+					"---------------",
+					"-Fix the hiding thing"
+				}
+				local function Create(class, properties)
+					local Object = Instance.new(class)
+					for Property, Value in pairs(properties) do
+						Object[Property] = Value
+					end
+					return Object
+				end
+				
+				local Settings = {
+					-- Text size for the labels in the changelog
+					["ChangesTextSize"] = 25,
+					
+					["TitleSize"] = 40,
+					
+					["PrimaryFont"] = Enum.Font.SourceSansBold,
+					["SecondaryFont"] = Enum.Font.SourceSans,
+					
+					-- Gui colors
+					["Colors"] = {
+						["PrimaryBackground"] = Color3.fromRGB(36, 36, 37),
+						["SecondaryBackground"] = Color3.fromRGB(46, 46, 47),
+						["TitleColor"] = Color3.fromRGB(46, 46, 47),
+						["BorderColor"] =  Color3.new(255, 255, 255),
+						
+						["TextColor"] = Color3.fromRGB(255, 255, 255),
+						["ChangesTextColor"] = Color3.fromRGB(255, 255, 255),
+						["VersionColor"] = Color3.fromRGB(255,255,255),
+						["CreditsColor"] = Color3.fromRGB(255, 255, 255)
+					}
+				}
+				
+				local ScreenGui = Create("ScreenGui", {Name = "Changelog Gui", Parent = game:GetService("CoreGui")})
+				local MainFrame = Create("Frame", {BackgroundColor3 = Settings.Colors.PrimaryBackground, BorderColor3 = Settings.Colors.BorderColor, BorderMode = Enum.BorderMode.Outline, BorderSizePixel = 1, Name = "MainFrame", Parent = ScreenGui, Position = UDim2.new(0.5, -200, 0.5, -125), Size = UDim2.new(0, 400, 0, 250)})
+				local Title = Create("TextLabel", {BackgroundColor3 = Settings.Colors.TitleColor, BorderSizePixel = 0, Name = "Title", Parent = MainFrame, Position = UDim2.new(0, 0, 0, 0), Size = UDim2.new(1, 0, 0, 50), Font = Settings.PrimaryFont, Text = "CHANGELOG", TextColor3 = Settings.Colors.TextColor, TextSize = Settings.TitleSize})
+				local CloseButton = Create("TextButton", {AutoButtonColor = false, BackgroundTransparency = 1, Name = "Close", Parent = MainFrame, Position = UDim2.new(1, -50, 0, 0), Size = UDim2.new(0, 50, 0, 50), Font = Settings.PrimaryFont, Text = "X", TextColor3 = Settings.Colors.TextColor, TextSize = Settings.TitleSize})
+				local Holder = Create("ScrollingFrame", {BackgroundColor3 = Settings.Colors.SecondaryBackground, BorderSizePixel = 0, Name = "Holder", Parent = MainFrame, Position = UDim2.new(0, 20, 0, 70), Size = UDim2.new(1, -40, 1, -100), BottomImage = "rbxasset://textures/ui/Scroll/scroll-bottom.png", MidImage = "rbxasset://textures/ui/Scroll/scroll-middle.png", TopImage = "rbxasset://textures/ui/Scroll/scroll-top.png", ScrollBarThickness = 10})
+				local VersionLabel = Create("TextLabel", {BackgroundTransparency = 1, Name = "Version", Parent = MainFrame, Position = UDim2.new(0, 0, 1, -30), Size = UDim2.new(0.5, 0, 0, 30), Font = Settings.SecondaryFont, Text = "JLL "..tostring(VERSION), TextColor3 = Settings.Colors.VersionColor, TextSize = 25})
+				local CreditsLabel = Create("TextLabel", {BackgroundTransparency = 1, Name = "Credits", Parent = MainFrame, Position = UDim2.new(0.5, 0, 1, -30), Size = UDim2.new(0.5, 0, 0, 30), Font = Settings.SecondaryFont, Text = "By Thomas_Cornez", TextColor3 = Settings.Colors.CreditsColor, TextSize = 25})
+				
+				local Active = true
+				CloseButton.MouseButton1Down:Connect(function()
+					Active = false
+					ScreenGui:Destroy()
+				end)
+				
+				local ChangePosition = 10 -- Initial offset
+				for _,Change in pairs(Changes) do
+					-- Get the size of the text on the Y axis
+					local SizeY = game:GetService("TextService"):GetTextSize(Change, Settings.ChangesTextSize, Settings.SecondaryFont, Vector2.new(Holder.AbsoluteSize.X, 500)).Y -- 500 is just a buffer
+					
+					local Label = Create("TextLabel", {BackgroundTransparency = 1, Name = "Change", Parent = Holder, Position = UDim2.new(0, 10, 0, ChangePosition), Size = UDim2.new(1, -25, 0, SizeY), Font = Settings.SecondaryFont, Text = "_", TextColor3 = Color3.fromRGB(255, 255, 255), TextSize = Settings.ChangesTextSize, TextWrapped = true, TextXAlignment = Enum.TextXAlignment.Left, TextYAlignment = Enum.TextYAlignment.Top})
+					ChangePosition = ChangePosition + SizeY
+					
+					-- Change the canvas size with each addition (would to at after all have been added but becuase there is a delay, do it on each object)
+					Holder.CanvasSize = UDim2.new(0, 0, 0, ChangePosition)
+					
+					-- Animate the text
+					local Line = ""
+					local Iteration = 0
+					for Character in Change:gmatch(".") do
+						if Active == false then
+							break
+						end
+						
+						Line = Line..Character
+						
+						if Line ~= Change and Iteration % 2 == 0 then
+							Label.Text = Line.."_" -- Add _ to make it like its typeing it out
+							wait()
+						else
+							Label.Text = Line
+						end
+						
+						Iteration = Iteration + 1
+					end
+				end
+			end
+		end
+		},
+		["jllchangelogs"] = {
+			["ListName"] = "JLLchangelogs / JLLcl",
+			["Description"] = "Pop a gui with the new features",
+			["Aliases"] = {"jllcl"},
+			["Function"] = function(args,speaker)
+				changelog()
+			end
+		}
+    }
+}
+return Plugin

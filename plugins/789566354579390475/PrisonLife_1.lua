@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Prison Life Gui",
+	["PluginDescription"] = "Prison life gui :D",
+	["Commands"] = {
+		["PLG"] = {
+			["Description"] = "Please don't ask why i did this lol.",
+			["Aliases"] = {'plg','prisonlife'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/RbxCheats/RbxCheats/master/Scripts/PLG%20v3.1.lua",true))()
+
+			end,
+		},
+	},
+}
+
+return Plugin

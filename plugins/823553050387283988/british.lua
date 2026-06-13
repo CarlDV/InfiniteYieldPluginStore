@@ -1,0 +1,45 @@
+local HttpService = game:GetService("HttpService")
+local Plugin = {
+    ["PluginName"] = "British",
+    ["PluginDescription"] = "A plugin to british your stuff",
+    ["Commands"] = {
+		["checkbritish"] = {
+            ["ListName"] = "checkbritish",
+            ["Description"] = "Checks if you have configured it properly",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+				local result = syn.request({
+					Url = "http://localhost:6969/",
+					Method = "GET"
+				})
+
+				local result = HttpService:JSONDecode(result.Body)
+				return notify("Success", "Message returned: " .. result.message)
+            end
+        },
+        ["british"] = {
+            ["ListName"] = "british [text]",
+            ["Description"] = "Basic bri'isher",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+				local text = HttpService:UrlEncode(getstring(1))
+
+				local start = time()
+				local result = syn.request({
+					Url = ("http://localhost:6969/british?text=%s"):format(text),
+					Method = "POST",
+				})
+
+				local response = HttpService:JSONDecode(result.Body)
+				
+				if (response.error) then
+					notify("Error", response.error)
+				else
+					notify(("Bri'ish - %.2f seconds"):format(time() - start), response.result)
+				end
+            end
+        },
+    }
+}
+
+return Plugin

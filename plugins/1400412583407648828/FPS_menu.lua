@@ -1,0 +1,351 @@
+local Plugin = {
+    ["PluginName"] = "FPS menu",
+    ["PluginDescription"] = "Opens the FPS settings menu",
+    ["Commands"] = {
+        ["menu"] = {
+            ["ListName"] = "menu",
+            ["Description"] = "Opens the FPS aimbot/ESP menu",
+            ["Aliases"] = {"ab", "fpsmenu", "lockon"},
+            ["Function"] = function(args, speaker)
+                -- SERVICES
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+local isMinimized = false
+local fullSize = UDim2.new(0, 300, 0, 380)
+local minimizedSize = UDim2.new(0, 300, 0, 30)
+local autoJumping = false
+local jumpDelay = 0
+local lastJump = 0
+local autoReloadEnabled = false
+local reloadCooldown = 1.5
+local lastReload = 0
+local RELOAD_KEY = Enum.KeyCode.R
+
+
+
+-- SETTINGS
+local shootCooldown = 0.2
+local jumpCooldown = 0.2
+local fovRadius = 100
+
+-- STATE
+local aimbotEnabled = false
+local autoShootEnabled = false
+local ignoreTeam = false
+local espEnabled = false
+local autoJumpEnabled = false
+local aimAtHead = true
+local fovVisible = true
+local smoothing = 0.5 -- between 0 (fast snapping) and 1 (slowest)
+local lastShot = 0
+local lastJump = 0
+
+-- DRAWING
+local fovCircle = Drawing.new("Circle")
+fovCircle.Color = Color3.fromRGB(0, 170, 255)
+fovCircle.Radius = fovRadius
+fovCircle.Filled = false
+fovCircle.Thickness = 2
+fovCircle.Visible = fovVisible
+
+local espDrawings = {}
+
+-- GUI
+local ScreenGui = Instance.new("ScreenGui", LocalPlayer:WaitForChild("PlayerGui"))
+ScreenGui.Name = "AimbotUI"
+ScreenGui.ResetOnSpawn = false
+
+local MainFrame = Instance.new("Frame", ScreenGui)
+MainFrame.Size = UDim2.new(0, 300, 0, 380)
+MainFrame.Position = UDim2.new(0, 20, 0.5, -190)
+MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.Active = isMinimized
+MainFrame.Draggable = true
+
+local TitleBar = Instance.new("Frame", MainFrame)
+TitleBar.Size = UDim2.new(1, 0, 0, 30)
+TitleBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+
+local Close = Instance.new("TextButton", TitleBar)
+Close.Size = UDim2.new(0, 30, 1, 0)
+Close.Position = UDim2.new(1, -30, 0, 0)
+Close.Text = "X"
+Close.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
+Close.TextColor3 = Color3.new(1, 1, 1)
+Close.Font = Enum.Font.GothamBold
+Close.TextSize = 20
+Close.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+local Minimize = Instance.new("TextButton", TitleBar)
+Minimize.Size = UDim2.new(0, 30, 1, 0)
+Minimize.Position = UDim2.new(1, -60, 0, 0)
+Minimize.Text = "-"
+Minimize.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Minimize.TextColor3 = Color3.new(1, 1, 1)
+Minimize.Font = Enum.Font.GothamBold
+Minimize.TextSize = 20
+
+local TitleLabel = Instance.new("TextLabel", TitleBar)
+TitleLabel.Size = UDim2.new(1, -70, 1, 0)
+TitleLabel.Position = UDim2.new(0, 5, 0, 0)
+TitleLabel.Text = "Aimbot Menu"
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.TextColor3 = Color3.new(1, 1, 1)
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.TextSize = 18
+TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+local ButtonContainer = Instance.new("Frame", MainFrame)
+ButtonContainer.Size = UDim2.new(1, 0, 1, -30)
+ButtonContainer.Position = UDim2.new(0, 0, 0, 30)
+ButtonContainer.BackgroundTransparency = 1
+
+-- Helper for toggle buttons
+local yOffset = 10
+local function createToggle(text, callback)
+	local btn = Instance.new("TextButton", ButtonContainer)
+	btn.Size = UDim2.new(0, 260, 0, 30)
+	btn.Position = UDim2.new(0, 20, 0, yOffset)
+	btn.Text = text .. ": OFF"
+	btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	btn.Font = Enum.Font.GothamBold
+	btn.TextSize = 16
+	yOffset += 40
+	btn.MouseButton1Click:Connect(function()
+		local state = callback()
+		btn.Text = text .. ": " .. (state and "ON" or "OFF")
+		btn.BackgroundColor3 = state and Color3.fromRGB(0, 170, 255) or Color3.fromRGB(50, 50, 50)
+	end)
+	return btn
+end
+
+createToggle("Aimbot", function() aimbotEnabled = not aimbotEnabled return aimbotEnabled end)
+createToggle("Auto Shoot", function() autoShootEnabled = not autoShootEnabled return autoShootEnabled end)
+createToggle("Ignore Team", function() ignoreTeam = not ignoreTeam return ignoreTeam end)
+createToggle("ESP", function()
+	espEnabled = not espEnabled
+	if not espEnabled then
+		for _, d in pairs(espDrawings) do for _, v in pairs(d) do v:Remove() end end
+		espDrawings = {}
+	end
+	return espEnabled
+end)
+createToggle("Auto Jump", function() autoJumpEnabled = not autoJumpEnabled return autoJumpEnabled end)
+
+-- Target radio buttons
+local headBtn = Instance.new("TextButton", ButtonContainer)
+headBtn.Size = UDim2.new(0, 130, 0, 30)
+headBtn.Position = UDim2.new(0, 20, 0, yOffset)
+headBtn.Text = "[Target: Head]"
+headBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+headBtn.TextColor3 = Color3.new(1, 1, 1)
+headBtn.Font = Enum.Font.GothamBold
+headBtn.TextSize = 16
+
+local torsoBtn = Instance.new("TextButton", ButtonContainer)
+torsoBtn.Size = UDim2.new(0, 130, 0, 30)
+torsoBtn.Position = UDim2.new(0, 150, 0, yOffset)
+torsoBtn.Text = "[Target: Torso]"
+torsoBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+torsoBtn.TextColor3 = Color3.new(1, 1, 1)
+torsoBtn.Font = Enum.Font.GothamBold
+torsoBtn.TextSize = 16
+
+local function updateTargetMode()
+	headBtn.BackgroundColor3 = aimAtHead and Color3.fromRGB(0, 170, 255) or Color3.fromRGB(50, 50, 50)
+	torsoBtn.BackgroundColor3 = not aimAtHead and Color3.fromRGB(0, 170, 255) or Color3.fromRGB(50, 50, 50)
+end
+headBtn.MouseButton1Click:Connect(function() aimAtHead = true updateTargetMode() end)
+torsoBtn.MouseButton1Click:Connect(function() aimAtHead = false updateTargetMode() end)
+yOffset += 40
+
+-- Smoothing slider
+local label = Instance.new("TextLabel", ButtonContainer)
+label.Size = UDim2.new(1, -20, 0, 20)
+label.Position = UDim2.new(0, 20, 0, yOffset)
+label.Text = "Smoothing: Medium"
+label.TextColor3 = Color3.new(1,1,1)
+label.Font = Enum.Font.GothamBold
+label.TextSize = 14
+label.BackgroundTransparency = 1
+yOffset += 20
+
+local sliderBar = Instance.new("Frame", ButtonContainer)
+sliderBar.Size = UDim2.new(0, 240, 0, 6)
+sliderBar.Position = UDim2.new(0, 20, 0, yOffset + 5)
+sliderBar.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+
+local sliderKnob = Instance.new("Frame", sliderBar)
+sliderKnob.Size = UDim2.new(0, 10, 0, 10)
+sliderKnob.Position = UDim2.new(0.5, -5, 0, -2)
+sliderKnob.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+
+local dragging = false
+sliderKnob.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = true end
+end)
+UserInputService.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
+end)
+RunService.RenderStepped:Connect(function()
+	if dragging then
+		local mouse = UserInputService:GetMouseLocation().X
+		local rel = math.clamp((mouse - sliderBar.AbsolutePosition.X) / sliderBar.AbsoluteSize.X, 0, 1)
+		sliderKnob.Position = UDim2.new(rel, -5, 0, -2)
+		smoothing = 1 - rel
+		label.Text = "Smoothing: " .. (smoothing < 0.33 and "Fast" or (smoothing > 0.66 and "Smooth" or "Medium"))
+	end
+end)
+
+-- FUNCTION: Check visibility with raycast
+local function isVisible(part)
+	local origin = Camera.CFrame.Position
+	local direction = (part.Position - origin)
+	local params = RaycastParams.new()
+	params.FilterDescendantsInstances = {LocalPlayer.Character}
+	params.FilterType = Enum.RaycastFilterType.Blacklist
+	local ray = workspace:Raycast(origin, direction, params)
+	return not ray or ray.Instance:IsDescendantOf(part.Parent)
+end
+
+-- FUNCTION: Get Closest Target within FOV and visible
+local function getTarget()
+	local closest, minDist = nil, math.huge
+	local screenCenter = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+	for _, p in ipairs(Players:GetPlayers()) do
+		if p ~= LocalPlayer and p.Character and p.Character:FindFirstChildOfClass("Humanoid") and p.Character.Humanoid.Health > 0 then
+			if ignoreTeam and LocalPlayer.Team and p.Team == LocalPlayer.Team then continue end
+			local part = aimAtHead and p.Character:FindFirstChild("Head") or p.Character:FindFirstChild("UpperTorso") or p.Character:FindFirstChild("Torso")
+			if part and isVisible(part) then
+				local pos, onScreen = Camera:WorldToViewportPoint(part.Position)
+				if onScreen then
+					local dist = (Vector2.new(pos.X, pos.Y) - screenCenter).Magnitude
+					if dist < minDist and dist <= fovRadius then
+						minDist = dist
+						closest = part
+					end
+				end
+			end
+		end
+	end
+	return closest
+end
+
+-- ESP Function
+RunService.RenderStepped:Connect(function()
+	if not espEnabled then
+		for _, d in pairs(espDrawings) do
+			for _, v in pairs(d) do
+				v.Visible = false
+			end
+		end
+		return
+	end
+
+	for _, plr in ipairs(Players:GetPlayers()) do
+		if plr ~= LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+			local hrp = plr.Character.HumanoidRootPart
+			local screenPos, onScreen = Camera:WorldToViewportPoint(hrp.Position)
+			if not espDrawings[plr] then
+				espDrawings[plr] = {
+					box = Drawing.new("Square"),
+					label = Drawing.new("Text")
+				}
+				espDrawings[plr].box.Thickness = 2
+				espDrawings[plr].box.Filled = false
+				espDrawings[plr].label.Center = true
+				espDrawings[plr].label.Size = 16
+				espDrawings[plr].label.Outline = true
+				espDrawings[plr].label.OutlineColor = Color3.new(0,0,0)
+			end
+			local box = espDrawings[plr].box
+			local label = espDrawings[plr].label
+			box.Visible = onScreen
+			label.Visible = onScreen
+			if onScreen then
+				box.Size = Vector2.new(40, 60)
+				box.Position = Vector2.new(screenPos.X - 20, screenPos.Y - 30)
+				box.Color = (plr.Team == LocalPlayer.Team) and Color3.fromRGB(0, 150, 255) or Color3.fromRGB(255, 50, 50)
+				label.Position = Vector2.new(screenPos.X, screenPos.Y - 45)
+				label.Text = plr.Name
+				label.Color = Color3.new(1, 1, 1)
+			end
+		elseif espDrawings[plr] then
+			-- Hide ESP if character is missing
+			for _, v in pairs(espDrawings[plr]) do
+				v.Visible = false
+			end
+		end
+	end
+end)
+
+-- Aimbot loop
+RunService.RenderStepped:Connect(function()
+	local target = getTarget()
+	if aimbotEnabled and target then
+		local lookVector = (target.Position - Camera.CFrame.Position).Unit
+		local newCF = CFrame.lookAt(Camera.CFrame.Position, Camera.CFrame.Position + lookVector)
+		Camera.CFrame = Camera.CFrame:Lerp(newCF, 1 - smoothing)
+
+		if autoShootEnabled and tick() - lastShot >= shootCooldown then
+			-- Click mouse button 1 down and up
+			VirtualInputManager:SendMouseButtonEvent(0,0,0,true,game,true)
+			VirtualInputManager:SendMouseButtonEvent(0,0,0,false,game,true)
+			lastShot = tick()
+		end
+	end
+end)
+
+-- Auto jump loop
+RunService.RenderStepped:Connect(function()
+	if autoJumpEnabled then
+		local character = LocalPlayer.Character
+		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+
+		if humanoid and humanoid.FloorMaterial ~= Enum.Material.Air then
+			humanoid.Jump = true
+		end
+	end
+end)
+
+
+
+
+
+
+-- FOV Circle update
+RunService.RenderStepped:Connect(function()
+	local mousePos = UserInputService:GetMouseLocation()
+	fovCircle.Position = Vector2.new(mousePos.X, mousePos.Y)
+	fovCircle.Visible = fovVisible and aimbotEnabled
+end)
+
+-- Toggle GUI with B key
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+	if gameProcessed then return end
+	if input.KeyCode == Enum.KeyCode.B then
+		ScreenGui.Enabled = not ScreenGui.Enabled
+	end
+end)
+
+-- Minimize button logic
+Minimize.MouseButton1Click:Connect(function()
+	isMinimized = not isMinimized
+	ButtonContainer.Visible = not isMinimized
+	MainFrame.Active = isMinimized
+	MainFrame.Size = isMinimized and minimizedSize or fullSize
+end)
+
+-- Initially set target mode UI
+updateTargetMode()
+            end
+        }
+    }
+}
+
+return Plugin

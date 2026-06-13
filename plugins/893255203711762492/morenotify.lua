@@ -1,0 +1,41 @@
+local PluginAPI = loadstring(game:HttpGet("https://gist.githubusercontent.com/iprisj/9b15e7f5dc360a26657b62bd537eea49/raw/da8d320632b010d4f185794bae21a5eb4b8624ee/IYPluginHandler.lua"))()
+local Plugin = PluginAPI:CreatePlugin("Notify Settings", "made by prisj")
+
+local origNotify
+origNotify = notify
+local currentSetting
+local customNotify = function(text1, text2, length)
+	local text2Send = table.concat({"Infinite Yield Notify", " | ", text1})
+	if text2 then text2Send = text2Send .. table.concat({" | ", text2}) end
+
+	if currentSetting == "print" then
+		print(text2Send)
+	elseif currentSetting == "warn" then
+		warn(text2Send)
+	elseif currentSetting == "consoleprint" then
+		rconsoleprint("\n" .. text2Send)
+	end
+end
+
+Plugin.Functions:AddCommand("enablenotify", "enablenotify / unremovenotify",  "Enables notify.", {"unremovenotify"}, function(args,speaker) 
+	notify = origNotify
+end)
+Plugin.Functions:AddCommand("disablenotify", "disablenotify / nonotify",  "Disables notify.", {"nonotify","removenotify"}, function(args,speaker) 
+	notify = customNotify
+	currentSetting = "none"
+end)
+Plugin.Functions:AddCommand("printnotify", "printnotify / pnotify",  "Changes notifies into prints.", {"pnotify"}, function(args,speaker) 
+	notify = customNotify
+	currentSetting = "print"
+end)
+Plugin.Functions:AddCommand("warnnotify", "warnnotify / wnotify",  "Changes notifies into warn.", {"wnotify"}, function(args,speaker) 
+	notify = customNotify
+	currentSetting = "warn"
+end)
+Plugin.Functions:AddCommand("consolenotify", "consolenotify / cpnotify",  "Changes notifies into consoleprints.", {"cpnotify"}, function(args,speaker) 
+	if not rconsoleprint then notify("Your exploit does not support rconsoleprint") end
+	notify = customNotify
+	currentSetting = "consoleprint"
+end)
+
+return Plugin.PluginTable

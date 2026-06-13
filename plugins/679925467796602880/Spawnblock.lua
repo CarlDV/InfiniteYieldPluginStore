@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "spawnblock",
+	["PluginDescription"] = "Spawn blocks",
+	["Commands"] = {
+		["spawnblock"] = {
+			["Description"] = "Spawn epic blocks",
+			["Aliases"] = {'sblock', 'block', 'sb'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('https://pastebin.com/raw/4imCWuMX'),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

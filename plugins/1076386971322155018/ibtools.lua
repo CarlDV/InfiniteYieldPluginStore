@@ -1,0 +1,665 @@
+local Plugin = {
+    ["PluginName"] = "ibtools",
+    ["PluginDescription"] = "loads ibtools and enables backpack",
+    ["Commands"] = {
+        ["ibtools"] = {
+            ["ListName"] = "ibtools",
+            ["Description"] = "loads ibtools",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local StarterGui = game:GetService('StarterGui')
+                StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)_G.delhistory,_G.savehistory = _G.delhistory or {},_G.savehistory or {}
+local plr = game.Players.LocalPlayer
+pcall(function()
+if plr:FindFirstChild("PlayerGui") then plg=plr.PlayerGui else return end
+	bin=Instance.new("HopperBin",plr:FindFirstChild("Backpack"))
+	bin.Name="iBTools"
+	bin.Selected:connect(function(mouse)
+		box=Instance.new("SelectionBox")
+		lso=Instance.new("SelectionPointLasso")
+		lso.Visible=false
+		coroutine.resume(coroutine.create(function() repeat wait() if iOrb.Humanoid~=nil then
+		lso.Humanoid=iOrb.Humanoid end until false end))
+		md1=1
+		md2=1
+		md3=1
+		clr=true
+		ste=false
+		lvi=false
+		cle=false
+		tme=.5
+		function createGui()
+			gui=Instance.new("ScreenGui",plg)
+			gui.Name="iBGui"
+			--PanelGUI--
+			frm=Instance.new("Frame",gui)
+			frm.Visible=false
+			frm.Name="iBPanel"
+			frm.Position=UDim2.new(0.0199999996,0,0.400000006,0)
+			frm.Size=UDim2.new(0.150000006,0,0.400000006,0)
+			frm.Style="RobloxRound"
+			frm.ZIndex=8
+			lab=Instance.new("TextLabel",frm)
+			lab.Name="iBTitle"
+			lab.BackgroundTransparency=1
+			lab.Size=UDim2.new(1,0,0.150000006,0)
+			lab.ZIndex=9
+			lab.Font="ArialBold"
+			lab.FontSize="Size18"
+			lab.Text="iBuildTools Panel"
+			lab.TextColor3=Color3.new(1,1,1)
+			lab.TextStrokeTransparency=0
+			lab.TextStrokeColor3=Color3.new(0,0,0)
+			del=Instance.new("TextButton",frm)
+			del.Name="iBDelete"
+			del.BackgroundTransparency=1
+			del.Position=UDim2.new(0,0,0.200000003,0)
+			del.Size=UDim2.new(1,0,0.119999997,0)
+			del.Style="RobloxButtonDefault"
+			del.ZIndex=9
+			del.Font="ArialBold"
+			del.FontSize="Size12"
+			del.Text="Delete"
+			del.TextColor3=Color3.new(1,1,1)
+			del.Selected=true
+			ach=Instance.new("TextButton",frm)
+			ach.Name="iBAnchor"
+			ach.BackgroundTransparency=1
+			ach.Position=UDim2.new(0,0,0.330000013,0)
+			ach.Size=UDim2.new(1,0,0.119999997,0)
+			ach.Style="RobloxButton"
+			ach.ZIndex=9
+			ach.Font="ArialBold"
+			ach.FontSize="Size12"
+			ach.Text="Anchor"
+			ach.TextColor3=Color3.new(1,1,1)
+			col=Instance.new("TextButton",frm)
+			col.Name="iBCanCollide"
+			col.BackgroundTransparency=1
+			col.Position=UDim2.new(0,0,0.460000008,0)
+			col.Size=UDim2.new(1,0,0.119999997,0)
+			col.Style="RobloxButton"
+			col.ZIndex=9
+			col.Font="ArialBold"
+			col.FontSize="Size12"
+			col.Text="CanCollide"
+			col.TextColor3=Color3.new(1,1,1)
+			lck=Instance.new("TextButton",frm)
+			lck.Name="iBLock"
+			lck.BackgroundTransparency=1
+			lck.Position=UDim2.new(0,0,0.579999983,0)
+			lck.Size=UDim2.new(1,0,0.119999997,0)
+			lck.Style="RobloxButton"
+			lck.ZIndex=9
+			lck.Font="ArialBold"
+			lck.FontSize="Size12"
+			lck.Text="Undo"
+			lck.TextColor3=Color3.new(1,1,1)
+			brk=Instance.new("TextButton",frm)
+			brk.Name="iBBreak"
+			brk.BackgroundTransparency=1
+			brk.Position=UDim2.new(0,0,0.699999988,0)
+			brk.Size=UDim2.new(1,0,0.119999997,0)
+			brk.Style="RobloxButton"
+			brk.ZIndex=9
+			brk.Font="ArialBold"
+			brk.FontSize="Size12"
+			brk.Text="Copy deletes to script"
+			brk.TextColor3=Color3.new(1,1,1)
+			set=Instance.new("TextButton",frm)
+			set.Name="iBSettings"
+			set.BackgroundTransparency=1
+			set.Position=UDim2.new(0,0,0.829999983,0)
+			set.Size=UDim2.new(1,0,0.119999997,0)
+			set.Style="RobloxButton"
+			set.ZIndex=9
+			set.Font="ArialBold"
+			set.FontSize="Size12"
+			set.Text="Settings"
+			set.TextColor3=Color3.new(1,1,1)
+			frm.Visible=true
+			--SettingsGUI--
+			frs=Instance.new("Frame",gui)
+			frs.Visible=false
+			frs.Name="iBSettings"
+			frs.Position=UDim2.new(0.389999986,0,0.400000006,0)
+			frs.Size=UDim2.new(0.25,0,0.25,0)
+			frs.Style="RobloxRound"
+			frs.ZIndex=8
+			frw=Instance.new("Frame",frs)
+			frw.Name="iBWindow"
+			frw.Position=UDim2.new(0,0,0.25999999,0)
+			frw.Size=UDim2.new(1,0,0.74000001,0)
+			frw.Style="RobloxRound"
+			frw.ZIndex=8
+			cls=Instance.new("TextButton",frs)
+			cls.Name="iBClose"
+			cls.Position=UDim2.new(0.850000024,0,-0.00999999978,0)
+			cls.Size=UDim2.new(0.150000006,0,0.219999999,0)
+			cls.Style="RobloxButtonDefault"
+			cls.ZIndex=10
+			cls.Font="ArialBold"
+			cls.FontSize="Size12"
+			cls.Text="X"
+			cls.TextColor3=Color3.new(1,0,0)
+			wtl=Instance.new("TextLabel",frs)
+			wtl.Name="iBTitle"
+			wtl.BackgroundTransparency=1
+			wtl.Size=UDim2.new(1,0,0.25,0)
+			wtl.ZIndex=9
+			wtl.Font="ArialBold"
+			wtl.FontSize="Size14"
+			wtl.Text="iBuildTools Settings Window"
+			wtl.TextColor3=Color3.new(1,1,1)
+			wtl.TextStrokeColor3=Color3.new(0,0,0)
+			wtl.TextStrokeTransparency=0
+			wtl.TextXAlignment="Left"
+			clk=Instance.new("TextLabel",frw)
+			clk.Name="iBClick"
+			clk.BackgroundTransparency=1
+			clk.Size=UDim2.new(1,0,0.330000013,0)
+			clk.ZIndex=10
+			clk.Font="ArialBold"
+			clk.FontSize="Size12"
+			clk.TextColor3=Color3.new(1,1,1)
+			clk.Text=" - Click Mode : "
+			clk.TextStrokeColor3=Color3.new(0,0,0)
+			clk.TextStrokeTransparency=0
+			clk.TextXAlignment="Left"
+			ray=Instance.new("TextLabel",frw)
+			ray.Name="iBRay"
+			ray.BackgroundTransparency=1
+			ray.Position=UDim2.new(0,0,0.330000013,0)
+			ray.Size=UDim2.new(1,0,0.330000013,0)
+			ray.ZIndex=10
+			ray.Font="ArialBold"
+			ray.FontSize="Size12"
+			ray.TextColor3=Color3.new(1,1,1)
+			ray.Text=" - Ray Mode : "
+			ray.TextStrokeColor3=Color3.new(0,0,0)
+			ray.TextStrokeTransparency=0
+			ray.TextXAlignment="Left"
+			rfc=Instance.new("TextLabel",frw)
+			rfc.Name="iBRayFunction"
+			rfc.BackgroundTransparency=1
+			rfc.Position=UDim2.new(0,0,0.660000013,0)
+			rfc.Size=UDim2.new(1,0,0.330000013,0)
+			rfc.ZIndex=10
+			rfc.Font="ArialBold"
+			rfc.FontSize="Size12"
+			rfc.TextColor3=Color3.new(1,1,1)
+			rfc.Text=" - Ray Function : "
+			rfc.TextStrokeColor3=Color3.new(0,0,0)
+			rfc.TextStrokeTransparency=0
+			rfc.TextXAlignment="Left"
+			ckb=Instance.new("TextButton",frw)
+			ckb.Name="iBClickButton"
+			ckb.Position=UDim2.new(0.400000006,0,0,0)
+			ckb.Size=UDim2.new(0.600000024,0,0.330000013,0)
+			ckb.ZIndex=10
+			ckb.Selected=true
+			ckb.Style="RobloxButtonDefault"
+			ckb.Font="ArialBold"
+			ckb.FontSize="Size12"
+			ckb.Text="Enabled"
+			ckb.TextColor3=Color3.new(0,1,0)
+			ryb=Instance.new("TextButton",frw)
+			ryb.Name="iBRayButton"
+			ryb.Position=UDim2.new(0.400000006,0,0.330000013,0)
+			ryb.Size=UDim2.new(0.600000024,0,0.330000013,0)
+			ryb.Style="RobloxButton"
+			ryb.ZIndex=10
+			ryb.Font="ArialBold"
+			ryb.FontSize="Size12"
+			ryb.Text="Disabled"
+			ryb.TextColor3=Color3.new(1,0,0)
+			rfb=Instance.new("TextButton",frw)
+			rfb.Name="iBRayFButton"
+			rfb.Position=UDim2.new(0.400000006,0,0.660000013,0)
+			rfb.Size=UDim2.new(0.600000024,0,0.330000013,0)
+			rfb.Style="RobloxButtonDefault"
+			rfb.ZIndex=10
+			rfb.Font="ArialBold"
+			rfb.FontSize="Size12"
+			rfb.Text="Enable Propertie"
+			rfb.TextColor3=Color3.new(0,1,0)
+		end createGui()
+		coroutine.resume(coroutine.create(function()
+			while(mouse)and wait() do
+				if(box)and(ray)then
+					if(lvi)then
+						lso.Visible=true
+					else
+						lso.Visible=false
+					end
+					if(md1==1)then
+						if(clr)then
+							if(mouse.Target~=nil)then
+								if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+									box.Visible=true
+									box.Parent=game.Workspace.CurrentCamera
+									box.Adornee=mouse.Target
+									if(md2==1)then
+										box.Color=BrickColor.new("Bright red")
+									elseif(md2==2)then
+										if(mouse.Target.Anchored)then
+											box.Color=BrickColor.new("Camo")
+										else
+											box.Color=BrickColor.new("Bright red")
+										end
+									elseif(md2==3)then
+										if(mouse.Target.CanCollide)then
+											box.Color=BrickColor.new("Camo")
+										else
+											box.Color=BrickColor.new("Bright red")
+										end
+									elseif(md2==4)then
+										if(mouse.Target.Locked)then
+											box.Color=BrickColor.new("Camo")
+										else
+											box.Color=BrickColor.new("Bright red")
+										end
+									elseif(md2==5)then
+										box.Color=BrickColor.new("Bright blue")
+									end
+								end
+							else
+								box.Visible=false
+								box.Parent=nil
+								box.Adornee=nil
+							end
+						end
+					elseif(md1==2)then
+						lso.Point=mouse.Hit.p
+						box.Visible=false
+						box.Parent=nil
+						box.Adornee=nil
+						if(md2~=1)and(md2~=5)then
+							if(md3==1)then
+								lso.Color=BrickColor.new("Camo")
+							elseif(md3==2)then
+								lso.Color=BrickColor.new("Bright red")
+							end
+						elseif(md2==1)then
+							if(cle)then
+								lso.Color=BrickColor.new("Bright red")
+							else
+								lso.Color=BrickColor.new("Bright blue")
+							end
+						elseif(md2==5)then
+							if(cle)then
+								lso.Color=BrickColor.new("Bright red")
+							else
+								lso.Color=BrickColor.new("Bright blue")
+							end
+						end
+					end
+				end
+			end
+		end))
+		function delDown()
+			del_downFunc=mouse.Button1Down:connect(function()
+				md2=1
+				if(md2==1)then
+					if(md1==1)then
+						if(mouse.Target~=nil)then
+							if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+								--mouse.Target:remove()
+								table.insert(_G.delhistory,{mouse.Target.Parent,mouse.Target})
+								table.insert(_G.savehistory,mouse.Target)
+								mouse.Target.Parent = nil
+							end
+						end
+					elseif(md1==2)then
+						lvi=true
+						lso.Parent=game.Workspace.CurrentCamera
+						while(lvi)and wait() do
+							if(mouse.Target~=nil)then
+								if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+								--mouse.Target:remove()
+								table.insert(_G.delhistory,{mouse.Target.Parent,mouse.Target})
+								table.insert(_G.savehistory,{mouse.Target.Parent,mouse.Target})
+								mouse.Target.Parent = nil
+									cle=true
+									wait(tme)
+									cle=false
+								else
+									cle=false
+								end
+							else
+								cle=false
+							end
+						end
+					end
+				end
+			end)
+		end
+		function delUp()
+			del_upFunc=mouse.Button1Up:connect(function()
+				lvi=false
+				cle=false
+				lso.Parent=nil
+			end)
+		end
+		function achDown()
+			ach_downFunc=mouse.Button1Down:connect(function()
+				md2=2
+				if(md2==2)then
+					if(md1==1)then
+						if(mouse.Target~=nil)then
+							if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+								if(mouse.Target.Anchored)then
+									mouse.Target.Anchored=false
+								else
+									mouse.Target.Anchored=true
+								end
+							end
+						end
+					elseif(md1==2)then
+						lvi=true
+						lso.Parent=game.Workspace.CurrentCamera
+						while(lvi)and wait() do
+							if(mouse.Target~=nil)then
+								if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+									if(md3==1)then
+										mouse.Target.Anchored=true
+									elseif(md3==2)then
+										mouse.Target.Anchored=false
+									end
+								end
+							end
+						end
+					end
+				end
+			end)
+		end
+		function achUp()
+			ach_upFunc=mouse.Button1Up:connect(function()
+				lvi=false
+				lso.Parent=nil
+			end)
+		end
+		function colDown()
+			col_downFunc=mouse.Button1Down:connect(function()
+				md2=3
+				if(md2==3)then
+					if(md1==1)then
+						if(mouse.Target~=nil)then
+							if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+								if(mouse.Target.CanCollide)then
+									mouse.Target.CanCollide=false
+								else
+									mouse.Target.CanCollide=true
+								end
+							end
+						end
+					elseif(md1==2)then
+						lvi=true
+						lso.Parent=game.Workspace.CurrentCamera
+						while(lvi)and wait() do
+							if(mouse.Target~=nil)then
+								if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+									if(md3==1)then
+										mouse.Target.CanCollide=true
+									elseif(md3==2)then
+										mouse.Target.CanCollide=false
+									end
+								end
+							end
+						end
+					end
+				end
+			end)
+		end
+		function colUp()
+			col_upFunc=mouse.Button1Up:connect(function()
+				lvi=false
+				lso.Parent=nil
+			end)
+		end
+		function lckDown()
+			lck_downFunc=mouse.Button1Down:connect(function()
+				md2=69
+				if(md2==69)then
+					if(md1==1)then
+                        pcall(function() if _G.delhistory[1] then _G.delhistory[#_G.delhistory][2].Parent = _G.delhistory[#_G.delhistory][1] table.remove(_G.delhistory,#_G.delhistory) table.remove(_G.savehistory,#_G.savehistory) end end)
+					elseif(md1==2)then
+						lvi=true
+						while(lvi)and wait() do
+						    pcall(function() if _G.delhistory[1] then _G.delhistory[#_G.delhistory][2].Parent = _G.delhistory[#_G.delhistory][1] table.remove(_G.delhistory,#_G.delhistory) table.remove(_G.savehistory,#_G.savehistory) end end)
+						end
+					end
+				end
+			end)
+		end
+		function lckUp()
+			lck_upFunc=mouse.Button1Up:connect(function()
+				lvi=false
+			end)
+		end
+		function brkDown()
+			brk_downFunc=mouse.Button1Down:connect(function()
+				md2=5
+				if(md2==5)then
+					if(md1==1)then
+						if(mouse.Target~=nil)then
+							if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+								clr=false
+								box.Color=BrickColor.new("Bright red")
+								mouse.Target:BreakJoints()
+							end
+						end
+					elseif(md1==2)then
+						lvi=true
+						lso.Parent=game.Workspace.CurrentCamera
+						while(lvi)and wait() do
+							if(mouse.Target~=nil)then
+								if(mouse.Target:IsA("BasePart"))or(mouse.Target.Name~="cParticle")or(mouse.Target.Name~="cParticle2")then
+									mouse.Target:BreakJoints()
+									cle=true
+								else
+									cle=true
+								end
+							else
+								cle=false
+							end
+						end
+					end
+				end
+			end)
+		end
+		function brkUp()
+			brk_upFunc=mouse.Button1Up:connect(function()
+				clr=true
+				lvi=false
+				cle=false
+			end)
+		end
+
+			del_downFunc = setmetatable({},{__index = function() return function() end end})
+			del_upFunc = setmetatable({},{__index = function() return function() end end})
+			ach_downFunc = setmetatable({},{__index = function() return function() end end})
+			ach_upFunc = setmetatable({},{__index = function() return function() end end})
+			col_downFunc = setmetatable({},{__index = function() return function() end end})
+			col_upFunc = setmetatable({},{__index = function() return function() end end})
+			lck_downFunc = setmetatable({},{__index = function() return function() end end})
+			lck_upFunc = setmetatable({},{__index = function() return function() end end})
+			brk_downFunc = setmetatable({},{__index = function() return function() end end})
+			brk_upFunc = setmetatable({},{__index = function() return function() end end})
+			delDown()
+			delUp()
+			md2=1
+
+
+		del.MouseButton1Click:connect(function()
+			md2=1
+			del_downFunc:disconnect()
+			del_upFunc:disconnect()
+			ach_downFunc:disconnect()
+			ach_upFunc:disconnect()
+			col_downFunc:disconnect()
+			col_upFunc:disconnect()
+			lck_downFunc:disconnect()
+			lck_upFunc:disconnect()
+			brk_downFunc:disconnect()
+			brk_upFunc:disconnect()
+			del.Style="RobloxButtonDefault"
+			del.Selected=true
+			ach.Style="RobloxButton"
+			ach.Selected=false
+			col.Style="RobloxButton"
+			col.Selected=false
+			lck.Style="RobloxButton"
+			lck.Selected=false
+			brk.Style="RobloxButton"
+			brk.Selected=false
+			delDown()
+			delUp()
+		end)
+		ach.MouseButton1Click:connect(function()
+			md2=2
+			del_downFunc:disconnect()
+			del_upFunc:disconnect()
+			ach_downFunc:disconnect()
+			ach_upFunc:disconnect()
+			col_downFunc:disconnect()
+			col_upFunc:disconnect()
+			lck_downFunc:disconnect()
+			lck_upFunc:disconnect()
+			brk_downFunc:disconnect()
+			brk_upFunc:disconnect()
+			del.Style="RobloxButton"
+			del.Selected=false
+			ach.Style="RobloxButtonDefault"
+			ach.Selected=true
+			col.Style="RobloxButton"
+			col.Selected=false
+			lck.Style="RobloxButton"
+			lck.Selected=false
+			brk.Style="RobloxButton"
+			brk.Selected=false
+			achDown()
+			achUp()
+		end)
+		col.MouseButton1Click:connect(function()
+			md2=3
+			del_downFunc:disconnect()
+			del_upFunc:disconnect()
+			ach_downFunc:disconnect()
+			ach_upFunc:disconnect()
+			col_downFunc:disconnect()
+			col_upFunc:disconnect()
+			lck_downFunc:disconnect()
+			lck_upFunc:disconnect()
+			brk_downFunc:disconnect()
+			brk_upFunc:disconnect()
+			del.Style="RobloxButton"
+			del.Selected=false
+			ach.Style="RobloxButton"
+			ach.Selected=false
+			col.Style="RobloxButtonDefault"
+			col.Selected=true
+			lck.Style="RobloxButton"
+			lck.Selected=false
+			brk.Style="RobloxButton"
+			brk.Selected=false
+			colDown()
+			colUp()
+		end)
+		lck.MouseButton1Click:connect(function()
+      pcall(function() if _G.delhistory[1] then _G.delhistory[#_G.delhistory][2].Parent = _G.delhistory[#_G.delhistory][1] table.remove(_G.delhistory,#_G.delhistory) table.remove(_G.savehistory,#_G.savehistory) end end)
+			lck.Style="RobloxButtonDefault"
+			lck.Selected=true
+			wait()
+			lck.Style="RobloxButton"
+			lck.Selected=false
+		end)
+		brk.MouseButton1Click:connect(function()
+			brk.Style="RobloxButtonDefault"
+			brk.Selected=true
+			wait()
+			brk.Style="RobloxButton"
+			brk.Selected=false
+			game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Copied",Text = "Script copied to clipboard"})
+			local GetFullName = function(Object)
+        local function vectortostring(vec)
+          local s,r = tostring,math.round
+          return "Vector3.new("..s(vec.X)..","..s(vec.Y)..","..s(vec.Z)..")"
+        end
+            Result = "for i,v in pairs(workspace:FindPartsInRegion3(Region3.new("..vectortostring(Object.Position)..","..vectortostring(Object.Position).."),nil,math.huge)) do if v.Name == \""..Object.Name.."\" then v:Destroy() end end"
+            return Result
+            end
+			setclipboard((function() local s = "" for i,v in pairs(_G.savehistory) do s=s..GetFullName(v).."\n" end return s end)())
+			_G.savehistory = {}
+		end)
+		set.MouseButton1Click:connect(function()
+			if(ste)then
+				ste=false
+				frs.Visible=false
+				set.Style="RobloxButton"
+			else
+				ste=true
+				frs.Visible=true
+				set.Style="RobloxButtonDefault"
+			end
+		end)
+		cls.MouseButton1Click:connect(function()
+			ste=false
+			frs.Visible=false
+			set.Style="RobloxButton"
+		end)
+		ckb.MouseButton1Click:connect(function()
+			md1=1
+			ckb.Style="RobloxButtonDefault"
+			ckb.Selected=true
+			ckb.Text="Enabled"
+			ckb.TextColor3=Color3.new(0,1,0)
+			ryb.Style="RobloxButton"
+			ryb.Selected=false
+			ryb.Text="Disabled"
+			ryb.TextColor3=Color3.new(1,0,0)
+		end)
+		ryb.MouseButton1Click:connect(function()
+			md1=2
+			ryb.Style="RobloxButtonDefault"
+			ryb.Selected=true
+			ryb.Text="Enabled"
+			ryb.TextColor3=Color3.new(0,1,0)
+			ckb.Style="RobloxButton"
+			ckb.Selected=false
+			ckb.Text="Disabled"
+			ckb.TextColor3=Color3.new(1,0,0)
+		end)
+		rfb.MouseButton1Click:connect(function()
+			if(md3==1)then
+				md3=2
+				rfb.Style="RobloxButton"
+				rfb.Text="Disable Propertie"
+				rfb.TextColor3=Color3.new(1,0,0)
+			elseif(md3==2)then
+				md3=1
+				rfb.Style="RobloxButtonDefault"
+				rfb.Text="Enable Propertie"
+				rfb.TextColor3=Color3.new(0,1,0)
+			end
+		end)
+	end)
+	bin.Deselected:connect(function()
+		clr=false
+		if(box~=nil)then
+			box:Destroy()
+		end
+		if(lso~=nil)then
+			lso:Destroy()
+		end
+		if(gui~=nil)then
+			gui:Destroy()
+		end
+	end)
+	end)
+            end,
+        },
+    },
+}
+
+return Plugin

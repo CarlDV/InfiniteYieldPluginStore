@@ -1,0 +1,23 @@
+return {
+    PluginName = "Mouse tween",
+    PluginDescription = "tweens your char to your mouse pos!",
+    Commands = {
+        MouseTween = {
+            ListName = "mousetween / mousetw",
+            Description = "tweens your char to ur mouse pos",
+            Aliases = {"mousetw", "mtween"},
+            Function = function(args, speaker)
+                local char = speaker.Character
+                local root = char and getRoot(char)
+                local pos = IYMouse.Hit
+                if root and pos then
+                    local targetCFrame = CFrame.new(pos.X, pos.Y + 3, pos.Z, select(4, root.CFrame:components()))
+                    TweenService:Create(root, TweenInfo.new(tweenSpeed, Enum.EasingStyle.Linear), {CFrame = targetCFrame}):Play()
+                    if breakVelocity then
+                        breakVelocity()
+                    end
+                end
+            end
+        }
+    }
+}

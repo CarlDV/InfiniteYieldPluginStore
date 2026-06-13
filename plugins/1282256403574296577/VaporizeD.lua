@@ -1,0 +1,34 @@
+local Plugin = {
+["PluginName"] = "Vaporize",
+["PluginDescription"] = "F***ng vaporizes your character with an explosion!",
+["Commands"] = {
+["Vaporize"] = {
+["ListName"] = "Vaporize [time]",
+["Description"] = "u die",
+["Aliases"] = {"Vapo", "die", "vpz"},
+["Function"] = function(args, speaker)
+local character = speaker.Character or speaker.CharacterAdded:Wait()
+
+local function explode()
+if character and character:FindFirstChild("HumanoidRootPart") then
+local explosion = Instance.new("Explosion")
+explosion.Position = character.HumanoidRootPart.Position
+explosion.BlastRadius = 10
+explosion.BlastPressure = 500000
+explosion.Parent = workspace
+character.Humanoid.Health = 0
+end
+end
+
+local delayTime = tonumber(args[1]) or 0
+if delayTime > 0 then
+wait(delayTime)
+end
+
+explode()
+end
+}
+}
+}
+
+return Plugin

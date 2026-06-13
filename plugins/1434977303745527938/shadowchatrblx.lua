@@ -1,0 +1,180 @@
+local Plugin = {
+    ["PluginName"] = "ShadowChatRblx",
+    ["PluginDescription"] = "Shadow-themed global chat with GUI",
+    ["Commands"] = {}
+}
+
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+local SHADOW_CHAT_TOPIC = "IY_ShadowChat"
+local SHADOW_PURPLE = Color3.fromRGB(150, 0, 255)
+local TIME_COLOR = Color3.fromRGB(150, 150, 150)
+local HISTORY_LIMIT = 200
+
+local gui, logFrame, inputBox, subscribed = nil, nil, nil, false
+local chatHistory = {}
+
+local function getTimeStamp()
+    local t = os.date("*t")
+    return string.format("[%02d:%02d]", t.hour, t.min)
+end
+
+local function getSafeParent()
+    return (gethui and gethui()) or game:GetService("CoreGui") or lp:WaitForChild("PlayerGui")
+end
+
+local function addMessageToHistory(text)
+    table.insert(chatHistory, text)
+    if #chatHistory > HISTORY_LIMIT then
+        table.remove(chatHistory, 1)
+    end
+end
+
+local function refreshLog()
+    if not logFrame then return end
+    logFrame:ClearAllChildren()
+
+    local layout = Instance.new("UIListLayout", logFrame)
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Padding = UDim.new(0, 5)
+
+    for _, msgText in ipairs(chatHistory) do
+        local msgLabel = Instance.new("TextLabel")
+        msgLabel.Text = msgText
+        msgLabel.Size = UDim2.new(1, -15, 0, 30)
+        msgLabel.BackgroundTransparency = 1
+        msgLabel.TextColor3 = Color3.fromRGB(230, 230, 255)
+        msgLabel.Font = Enum.Font.SourceSansBold
+        msgLabel.TextSize = 16
+        msgLabel.TextWrapped = true
+        msgLabel.TextXAlignment = Enum.TextXAlignment.Left
+        msgLabel.RichText = true
+        msgLabel.Parent = logFrame
+    end
+
+    logFrame.CanvasSize = UDim2.new(0, 0, 0, #chatHistory * 35)
+    logFrame.CanvasPosition = Vector2.new(0, logFrame.CanvasSize.Y.Offset)
+end
+
+local function formatMessage(sender, message)
+    return string.format(
+        "<font color='#AAAAAA'>%s</font> <font color='#AA00FF'>[%s]</font>: %s",
+        getTimeStamp(), sender, message
+    )
+end
+
+local function createChatUI()
+    if gui then
+        gui.Enabled = true
+        return
+    end
+
+    gui = Instance.new("ScreenGui")
+    gui.Name = "ShadowChatGUI"
+    gui.ResetOnSpawn = false
+    gui.Parent = getSafeParent()
+
+    local frame = Instance.new("Frame", gui)
+    frame.Size = UDim2.new(0, 500, 0, 550)
+    frame.Position = UDim2.new(0.5, -250, 0.5, -275)
+    frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    frame.BorderSizePixel = 0
+    frame.Active = true
+    frame.Draggable = true
+    Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+
+    local title = Instance.new("TextLabel", frame)
+    title.Text = "🌑 Shadow Chat"
+    title.Size = UDim2.new(1, -50, 0, 40)
+    title.Position = UDim2.new(0, 15, 0, 0)
+    title.BackgroundTransparency = 1
+    title.Font = Enum.Font.SourceSansBold
+    title.TextColor3 = SHADOW_PURPLE
+    title.TextSize = 22
+    title.TextXAlignment = Enum.TextXAlignment.Left
+
+    local closeButton = Instance.new("TextButton", frame)
+    closeButton.Text = "❌"
+    closeButton.Size = UDim2.new(0, 35, 0, 35)
+    closeButton.Position = UDim2.new(1, -45, 0, 2)
+    closeButton.BackgroundTransparency = 1
+    closeButton.Font = Enum.Font.SourceSansBold
+    closeButton.TextColor3 = Color3.fromRGB(255, 80, 80)
+    closeButton.TextSize = 20
+    closeButton.MouseButton1Click:Connect(function()
+        gui.Enabled = false
+    end)
+
+    logFrame = Instance.new("ScrollingFrame", frame)
+    logFrame.Size = UDim2.new(1, -20, 1, -110)
+    logFrame.Position = UDim2.new(0, 10, 0, 50)
+    logFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+    logFrame.ScrollBarThickness = 12
+    logFrame.ScrollBarImageColor3 = SHADOW_PURPLE
+    logFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+    Instance.new("UICorner", logFrame).CornerRadius = UDim.new(0, 10)
+
+    refreshLog()
+
+    inputBox = Instance.new("TextBox", frame)
+    inputBox.PlaceholderText = "Type a shadow message here..."
+    inputBox.Size = UDim2.new(1, -20, 0, 50)
+    inputBox.Position = UDim2.new(0, 10, 1, -60)
+    inputBox.Text = ""
+    inputBox.BackgroundColor3 = Color3.fromRGB(45, 45, 60)
+    inputBox.TextColor3 = Color3.new(1, 1, 1)
+    inputBox.Font = Enum.Font.SourceSans
+    inputBox.TextSize = 18
+    inputBox.ClearTextOnFocus = false
+    Instance.new("UICorner", inputBox).CornerRadius = UDim.new(0, 10)
+
+    inputBox.FocusLost:Connect(function(enterPressed)
+        if enterPressed and inputBox.Text ~= "" then
+            local msg = inputBox.Text
+            inputBox.Text = ""
+
+            local localMsg = formatMessage(lp.Name, msg)
+            addMessageToHistory(localMsg)
+            refreshLog()
+
+            task.spawn(function()
+                local ok, err = pcall(function()
+                    local MessagingService = game:GetService("MessagingService")
+                    MessagingService:PublishAsync(SHADOW_CHAT_TOPIC, {
+                        sender = lp.Name,
+                        message = msg,
+                    })
+                end)
+                if not ok then warn("MessagingService error:", err) end
+            end)
+        end
+    end)
+
+    if not subscribed then
+        subscribed = true
+        task.spawn(function()
+            local ok, err = pcall(function()
+                local MessagingService = game:GetService("MessagingService")
+                MessagingService:SubscribeAsync(SHADOW_CHAT_TOPIC, function(data)
+                    local payload = data.Data
+                    local formattedMsg = formatMessage(payload.sender, payload.message)
+                    addMessageToHistory(formattedMsg)
+                    refreshLog()
+                end)
+            end)
+            if not ok then warn("MessagingService Subscribe Failed:", err) end
+        end)
+    end
+end
+
+Plugin.Commands["shadowchat"] = {
+    ["ListName"] = "shadowchat",
+    ["Description"] = "Opens the Shadow Chat GUI",
+    ["Aliases"] = {"shadgui", "scgui", "shadowchatrblx"},
+    ["Function"] = function()
+        createChatUI()
+    end
+}
+
+return Plugin

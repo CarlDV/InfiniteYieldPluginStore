@@ -1,0 +1,24 @@
+local Ya = {
+	["PluginName"] = "Future Lighting",
+	["PluginDescription"] = "Lets you enable future lighting in any game",
+	["Commands"] = {
+		["futurelighting"] = {
+			["ListName"] = "futurelighting / fl",
+			["Description"] = "Turns future lighting on",
+			["Aliases"] = {"fl"},
+			["Function"] = function(args, speaker)
+				savedLight = gethiddenproperty(game.Lighting, "Technology")
+				sethiddenproperty(game.Lighting, "Technology", Enum.Technology.Future)
+			end
+		},
+		["unfuturelighting"] = {
+			["ListName"] = "unfuturelighting / unfl",
+			["Description"] = "Turns future lighting off",
+			["Aliases"] = {"unfl"},
+			["Function"] = function(args,speaker)
+				sethiddenproperty(game.Lighting, "Technology", savedLight)
+			end
+		},
+	}
+}
+return Ya

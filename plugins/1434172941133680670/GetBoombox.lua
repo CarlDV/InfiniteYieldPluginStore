@@ -1,0 +1,76 @@
+local game = game; --yes
+local cloneref = cloneref or function(ref) return ref end;
+local clippy = setclipboard or toclipboard or set_clipboard or (Clipboard and Clipboard.set);
+
+--// services
+local players = cloneref(game:GetService("Players"));
+
+--// functions
+local function extractSoundId(tool)
+    local sound = tool:FindFirstChildWhichIsA("Sound", true);
+    if (not sound) then return; end
+
+    local id = sound.SoundId;
+    return string.match(id, "%d+");
+end
+
+local function getBoomboxId(plr)
+    if (not plr or not plr.Character) then return; end
+
+    local char = plr.Character;
+    local boombox = char:FindFirstChild("Boombox");
+    if (boombox and boombox:IsA("Tool")) then
+        return extractSoundId(boombox);
+    end
+
+    -- in case of different name
+    for _, v in ipairs(char:GetChildren()) do
+        if (v:IsA("Tool")) then
+            return extractSoundId(v);
+        end
+    end
+end
+
+local plug = {
+    ["PluginName"] = "Boombox ID stealer 1000~",
+    ["PluginDescription"] = "eigeighuegheuhg @hxerohero",
+    ["Commands"] = {
+        ["getboombox"] = {
+            ["ListName"] = "getboombox [player]",
+            ["Description"] = "get players' boombox audio ID while they're playing",
+            ["Aliases"] = {"getbb"},
+            ["Function"] = function(args, speaker)
+                local plrs = getPlayer(args[1], speaker);
+                local result = "";
+
+                local count = 0;
+                for _, v in ipairs(plrs) do
+                    local id = getBoomboxId(players[v]);
+
+                    if (id and id ~= "") then
+                        result = result.."\n"..id;
+                        count = count + 1;
+
+                        print("getboombox from", v, ":", id);
+                    end
+                end
+
+                if count ~= 0 then
+                    local message = count > 1 and "IDs ".."("..count..")" or "ID";
+
+                    if (clippy) then
+                        clippy(result);
+
+                        notify("Success!", "Copied "..message.." to your clipboard");
+                    else
+                        notify("Success!", "Your exploit doesn't support clipboard, press F9 or type /console to check "..message);
+                    end
+                else
+                    notify("Error!", "Either the boombox wasn't playing anything or something went wrong..");
+                end
+            end
+        },
+    }
+};
+
+return plug--~

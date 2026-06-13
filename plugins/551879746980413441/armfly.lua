@@ -1,0 +1,118 @@
+--[[
+        Flying Arm, fly on your arm... I guess
+
+        Made by Zwolf The God, aka Zwolf#3762
+
+        enjoy 
+
+--]]
+
+local mt = getrawmetatable(game)
+local old = mt.__namecall
+
+setreadonly(mt, false)
+
+mt.__namecall = newcclosure(function(tab, ...)
+	local args = {...}
+		
+	if not checkcaller() then
+		if args[#args] == "IsA" and args[1] == "BodyMover" then
+			return false
+		end
+	end
+	
+	return old(tab, ...)
+end)
+
+setreadonly(mt, true)
+
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character
+local loop;
+local height = 5
+local input = game:GetService("UserInputService")
+local toggle = false
+
+local function NewLoop(func) 
+	return game:GetService("RunService").RenderStepped:connect(func)
+end
+
+local function getRig()
+	return char.Humanoid.RigType
+end
+
+if getRig() == Enum.HumanoidRigType.R6 then
+	char.Torso["Left Shoulder"]:Destroy()
+else
+	char["LeftUpperArm"]["LeftShoulder"]:Destroy()
+end
+
+local bp = Instance.new("RocketPropulsion")
+
+if getRig() == Enum.HumanoidRigType.R6 then
+	bp.Parent = char["Left Arm"]
+else
+	bp.Parent = char["LeftUpperArm"]
+end
+
+bp.MaxThrust = 9000
+bp.Target = char.Head
+bp.TargetOffset = Vector3.new(0, -3, 0)
+bp:Fire()
+
+
+input.InputBegan:connect(function(key)
+	if key.UserInputType == Enum.UserInputType.Keyboard then
+		if key.KeyCode == Enum.KeyCode.Z then
+			if toggle == false then
+				bp.TargetOffset = Vector3.new(0, 5, 10)
+				wait(2)
+				toggle = true
+			else
+				bp.TargetOffset = Vector3.new(0, -3, 0)
+				toggle = false
+			end
+		end
+	end
+end)
+
+
+
+loop = NewLoop(function()
+	if not bp or not char  then 
+		wait() 
+		return
+	end
+	
+	if getRig() == Enum.HumanoidRigType.R6 then
+		char["Left Arm"].CanCollide = true
+	else
+		char["LeftUpperArm"].CanCollide = true
+	end
+end)
+
+
+
+
+local Plugin = {
+	["PluginName"] = "Arm Fly",
+	["PluginDescription"] = "fly on your arm",
+	["Commands"] = {
+		["flyarm"] = {
+			["Description"] = "yes I am fly man",
+			["Aliases"] = {'fa'},
+			["Function"] = function(args,speaker)
+			    if toggle == false then
+				    bp.TargetOffset = Vector3.new(0, 5, 10)
+				    wait(2)
+				    toggle = true
+			    else
+				    bp.TargetOffset = Vector3.new(0, -3, 0)
+				    toggle = false
+			    end
+			end,
+		},
+	},
+}
+
+return Plugin

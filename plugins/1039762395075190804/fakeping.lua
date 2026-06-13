@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "fake ping gui",
+    ["PluginDescription"] = "it chooses randomly from godlike ping, to rlly good ping, to decent ping. i cant script a choice so this is what u get",
+    ["Commands"] = {
+        ["fakeping"] = {
+            ["ListName"] = "fakeping/fping",
+            ["Description"] = "did i not explain in the name and description",
+            ["Aliases"] = {"fping"},
+            ["Function"] = function(args, speaker)
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/protogens/things-i-ll-probably-use/main/bald'))()
+            --above is the whole loading gui and its scripts, i just put it in a loadstring for conveniences
+        end
+        }
+    }
+}
+
+return Plugin

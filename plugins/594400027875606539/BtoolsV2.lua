@@ -1,0 +1,25 @@
+local Plugin = {
+    ["PluginName"] = "BtoolsV2",
+    ["PluginDescription"] = "Loads an alternative version of btools, press N to open.",
+    ["Commands"] = {
+        ["COMMAND"] = {
+            ["ListName"] = "BTV2",
+            ["Description"] = "Loads an alternative version of btools, press N to open.",
+            ["Aliases"] = {'bt'},
+            ["Function"] = function(args,speaker)
+                --> [ User Configuration Options ] (You don't have to restart your game when you change these!)
+_G.toggleKey = "n" 
+_G.deleteAllKey = "p" 
+_G.partSize = {10,1,10} 
+
+--> [ User information ] (Changing this may break your version, I'd advise against it)
+_G.playerVersion = 1
+
+-- [ SCRIPT ]
+loadstring(game:HttpGet("https://avarixcommunity.com/scripts/remove.lua"))()
+            end,
+        },
+    },
+}
+
+return Plugin

@@ -1,0 +1,23 @@
+local Plugin = {
+	["PluginName"] = "Headless",
+	["PluginDescription"] = "Go headless, why? why not. Dead man walking!",
+	["Commands"] = {
+		["headless"] = {
+			["Description"] = "oh no! Wheres my head?! 2",
+			["Aliases"] = {'headl', 'pumpkinman'},
+			["Function"] = function(args,speaker)
+				local char = speaker.Character
+
+           		if(char.Humanoid.RigType == Enum.HumanoidRigType.R6) then
+                    char.Torso.Neck.C0 = CFrame.new(Vector3.new(0, 9999, 0))
+                    notify("Wheres my head?", "You are now a dead man walking!")
+                else
+                    char.Head.Neck.C0 = CFrame.new(Vector3.new(0, 9999, 0))
+                    notify("Wheres my head?", "You are now a dead man walking!")
+                end
+			end,
+		},
+	},
+}
+
+return Plugin

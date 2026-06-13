@@ -1,0 +1,46 @@
+local Plugin = {
+    ["PluginName"] = "MouseNetwork",
+    ["PluginDescription"] = "it make follow un anchored part to ur mouse",
+    ["Commands"] = {
+        ["followmouse"] = {
+            ["ListName"] = "FollowMouse / fms",
+            ["Description"] = "will make part follow ur mouse",
+            ["Aliases"] = {"fms"},
+            ["Function"] = function(args,speaker)
+--my roblox gf left me :(
+--why
+loop = true
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local function mesad()
+while loop and wait() do
+	for index, part in pairs(workspace:GetDescendants()) do
+		if part:IsA("BasePart") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false then
+			part.Massless = true
+			part.CanCollide = false
+			if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+				part:FindFirstChildOfClass("BodyPosition"):Destroy()
+			end
+			local mover = Instance.new("BodyPosition", part)
+			mover.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+			mover.Position = game.Players.LocalPlayer:GetMouse().hit.p
+		end
+	end
+    wait(1) -- :(is the time that position of the un anchored part will refresh the position 
+end
+end
+
+mesad() -- :( my roblox gf left me 
+
+end
+		},
+		["unfollowmouse"] = {
+			["ListName"] = "UnFollowMouse/unfms",
+			["Description"] = "make stop the other cmd",
+			["Aliases"] = {"unfms"},
+			["Function"] = function(args,speaker)
+				loop = false --why
+			end
+		}
+    }
+}
+return Plugin -- sad moment :(

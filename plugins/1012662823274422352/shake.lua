@@ -1,0 +1,36 @@
+local Plugin = {
+    ["PluginName"] = "shake",
+    ["PluginDescription"] = "vibrates your character",
+    ["Commands"] = {
+       ["shake"] = {
+          ["ListName"] = "shake / vibrate",
+          ["Description"] = "vibrates your character",
+          ["Aliases"] = {"shake","vibrate"},
+          ["Function"] = function(args,speaker)
+            table.foreach(speaker.Character:GetDescendants(),function(_,v)
+                if v:IsA'BasePart'and not v:FindFirstChild'BodyGyro'then
+                    local a=Instance.new('BodyGyro',v)
+                    a.CFrame=CFrame.new(speaker.Character:FindFirstChildOfClass'Humanoid'.RootPart.Position)
+                    a.D=-9e9
+                    a.MaxTorque=Vector3.new(-35,0,35)
+                    a.P=7
+                end
+            end)
+       end
+    },
+    ["unshake"]={
+        ["ListName"]='unshake / unvibrate',
+        ["Description"]='stops vibrating your character',
+        ["Aliases"]={'unshake','unvibrate'},
+        ["Function"]=function(args,speaker)
+            table.foreach(speaker.Character:GetDescendants(),function(_,v)
+                if tostring(v)=='BodyGyro'then
+                    game.Destroy(v)
+                end
+            end)
+        end
+    }
+  }
+}
+ 
+ return Plugin

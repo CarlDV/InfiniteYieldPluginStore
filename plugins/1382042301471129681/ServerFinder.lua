@@ -1,0 +1,14 @@
+return {
+  ["PluginName"] = "Server Finder Deluxe",
+  ["PluginDescription"] = "To have a better experience using IY to join public servers ",
+  ["Commands"] = {
+    ["serverfinder"] = {
+      ["ListName"] = "ServerFinder",
+      ["Description"] = "shows every server to see which one fits you most",
+      ["Aliases"] = {"sfinder","serverfind"},
+      ["Function"] = function(args, speaker)
+          loadstring(game:HttpGet("https://raw.githubusercontent.com/MaxproGlitcher/Finds-Servers/refs/heads/main/Finds%20Servers%20Code"))()
+      end
+    }
+  }
+}

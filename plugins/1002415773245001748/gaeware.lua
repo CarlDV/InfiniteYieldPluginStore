@@ -1,0 +1,24 @@
+local faggotrix = Instance.new("Sound")
+
+local fiestafiesta = {"I'm going to be gay, remember that you don't have to closet yourself out. #LGBTPride ❤️", "All"}
+
+local sex = {
+    ["PluginName"] = "gaeware",
+    ["PluginDescription"] = "Plugin that announces you\'re an homosexual male and makes you show pride. <3",
+    ["Commands"] = {
+        ["imgay"] = {
+            ["ListName"] = "imgay",
+            ["Description"] = "BECOME GAY.",
+            ["Aliases"] = {"gay"},
+            ["Function"] = function(args, speaker)
+                faggotrix.Parent = game.Players.LocalPlayer.Character
+                faggotrix.SoundId = "rbxassetid://8445095771"
+                faggotrix.Volume = 10
+                faggotrix:Play()
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(table.unpack(fiestafiesta))
+            end
+        }
+    }
+}
+
+return sex

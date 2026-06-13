@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "FE aura",
+	["PluginDescription"] = "FE aura",
+	["Commands"] = {
+		["FEaura"] = {
+			["Description"] = "FE aura",
+			["Aliases"] = {'bpack', 'bp', 'bag'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet('https://pastebin.com/raw/ZPnRKXtv'))()
+			end,
+		},
+	},
+}
+
+return Plugin

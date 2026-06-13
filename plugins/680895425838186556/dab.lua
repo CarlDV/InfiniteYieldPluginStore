@@ -1,0 +1,105 @@
+local Plugin = {
+    ["PluginName"] = "ExamplePlugin",
+    ["PluginDescription"] = "This is a helpful template",
+    ["Commands"] = {
+        ["dab"] = {
+            ["ListName"] = "dab",
+            ["Description"] = "Dab's on the hater once",
+            ["Aliases"] = {"p","out","output"},
+            ["Function"] = function(args,speaker)
+              	AnimationId = "248263260"
+				local Anim = Instance.new("Animation")
+				Anim.AnimationId = "rbxassetid://"..AnimationId
+				local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+				k:Play()
+				k:AdjustSpeed(1)
+				wait(0.5)
+				k:Stop()
+            end
+        },
+		["loopdab"] = {
+            ["ListName"] = "dab",
+            ["Description"] = "Dab's on the haters forever",
+            ["Aliases"] = {"p","out","output"},
+            ["Function"] = function(args,speaker)
+              	AnimationId = "248263260"
+				local Anim = Instance.new("Animation")
+				Anim.AnimationId = "rbxassetid://"..AnimationId
+				local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+				k:Play()
+				k:AdjustSpeed(1)
+            end
+        },
+		["coords"] = {
+            ["ListName"] = "coords",
+            ["Description"] = "prints coordinates and shows them as a notification",
+            ["Aliases"] = {"p","out","output"},
+            ["Function"] = function(args,speaker)
+              	print(game:GetService"Players".LocalPlayer.Character.HumanoidRootPart.Position)
+				notify(tostring(game:GetService"Players".LocalPlayer.Character.HumanoidRootPart.Position))
+            end
+        },
+		["stoploopdab"] = {
+            ["ListName"] = "freezedab",
+            ["Description"] = "Dabs once and stays that way",
+            ["Aliases"] = {"p","out","output"},
+            ["Function"] = function(args,speaker)
+              	AnimationId = "248263260"
+				local Anim = Instance.new("Animation")
+				Anim.AnimationId = "rbxassetid://"..AnimationId
+				local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+				k:Play()
+				k:AdjustSpeed(0)
+            end
+        },
+		["insane"] = {
+            ["ListName"] = "insane",
+            ["Description"] = "Go nuts",
+            ["Aliases"] = {"p","out","output"},
+            ["Function"] = function(args,speaker)
+				AnimationId = "33796059"
+				local Anim = Instance.new("Animation")
+				Anim.AnimationId = "rbxassetid://"..AnimationId
+				local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+				k:Play()
+				k:AdjustSpeed(25)
+            end
+        },
+		["zombie"] = {
+            ["ListName"] = "zombie",
+            ["Description"] = "Arms straight up",
+            ["Aliases"] = {"p","out","output"},
+            ["Function"] = function(args,speaker)
+				AnimationId = "45834924"
+				local Anim = Instance.new("Animation")
+				Anim.AnimationId = "rbxassetid://"..AnimationId
+				local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+				k:Play()
+				k:AdjustSpeed(0)
+            end
+        },
+		["moondance"] = {
+            ["ListName"] = "moondance",
+            ["Description"] = "Moon Dance",
+            ["Aliases"] = {"p","out","output"},
+            ["Function"] = function(args,speaker)
+				AnimationId = "45834924"
+				local Anim = Instance.new("Animation")
+				Anim.AnimationId = "rbxassetid://"..AnimationId
+				local k = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+				k:Play()
+				k:AdjustSpeed(1)
+            end
+        },
+        ["notify"] = {
+            ["ListName"] = "notify [text]",
+            ["Description"] = "uses the notification function",
+            ["Aliases"] = {'alert'},
+            ["Function"] = function(args,speaker)
+                notify('Notification Title',getstring(1))
+            end
+        }
+    }
+}
+
+return Plugin

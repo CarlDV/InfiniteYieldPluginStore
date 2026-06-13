@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "iychat",
+    ["PluginDescription"] = "This is just a IY Chat for Synapse and Proto Users!",
+    ["Commands"] = {
+        ["iychat"] = {
+            ["ListName"] = "iychat",
+            ["Description"] = "self explanatory",
+            ["Aliases"] = {"ichat","wschat","chatiy"},
+            ["Function"] = function(args,speaker)
+            loadstring(game:HttpGet("https://pastebin.com/raw/dvxAGDLZ", true))()
+            end
+        }
+    }
+}
+
+return Plugin

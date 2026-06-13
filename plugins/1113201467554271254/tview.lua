@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "toolview",
+    ["PluginDescription"] = "prints the tools players have",
+    ["Commands"] = {
+        ["seetools"] = {
+            ["ListName"] = "toolview [plr] / Stools [plr]",
+            ["Description"] = "print the tools of the target",
+            ["Aliases"] = {"tview"},
+            ["Function"] = function(args,speaker)
+                Players = game:GetService("Players")
+                Plr = getPlayer(args[1], speaker)
+                
+                for _,v in pairs(Plr)do
+                    for _,v in pairs(Players[v].Backpack:GetChildren()) do
+                        if v:IsA('Tool') or v:IsA('HopperBin') then
+                            print("Tool found: "..v)
+                        end
+                    end
+                end
+            end
+            }
+        }
+    }
+    return Plugin 

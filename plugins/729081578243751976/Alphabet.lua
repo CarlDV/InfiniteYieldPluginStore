@@ -1,0 +1,51 @@
+letters = {
+   'A',
+   'B',
+   'C',
+   'D',
+   'E',
+   'F',
+   'G',
+   'H',
+   'I',
+   'J',
+   'K',
+   'L',
+   'M',
+   'N',
+   'O',
+   'P',
+   'Q',
+   'R',
+   'S',
+   'T',
+   'U',
+   'V',
+   'W',
+   'X',
+   'Y',
+   'Z',
+   '  ',
+   '.',
+   '!',
+   '?',
+   '...',
+}
+
+local Plugin = {
+    ["PluginName"] = "Alphabet",
+    ["PluginDescription"] = "Chat a random alphabet letter",
+    ["Commands"] = {
+        ["ABC"] = {
+            ["ListName"] = "ABC",
+            ["Description"] = "Makes you chat a letter of the alphabet",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				local reply = letters[math.random(1, #letters)]
+				execCmd('chat '..reply)
+            end
+        },
+    },
+}
+
+return Plugin

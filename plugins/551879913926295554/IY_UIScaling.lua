@@ -1,0 +1,76 @@
+--[[
+	
+	Plugin was made kind of proudly by:
+	
+	 _____   _       _____  __    __  _____   _       _____   ___    ___   _____   _____   _____ 
+	|  _  | | |     | ____| \ \  / / |  ___| | |     |  _  | |   \  /   | | ____| |  _  | |___  |
+	| |_| | | |     | |__    \ \/ /  | |__   | |     | |_| | | |\ \/ /| | | |__   | |_| |  ___| |
+	|  _  | | |     |  __|    |  |   |  __|  | |     |  _  | | | \__/ | | |  __|  |    _| |  ___|
+	| | | | | |___  | |___   / /\ \  | |     | |___  | | | | | |      | | | |___  | |\ \  | |___
+	|_| |_| |_____| |_____| /_/  \_\ |_|     |_____| |_| |_| |_|      |_| |_____| |_| \_\ |_____|
+	
+	Aka Alex the Great#9740
+	
+	NOTE:
+	I don't recommend anyone doing string manipulation the way I did lol (I didn't want to create a new file for 1 variable or overwrite infinite yield functions and/or writefile)
+	
+	PS: Yes all this work for 1 simple command because I didn't like the size Edge had it so blame him
+	
+--]]
+
+local scaleSize = 1.2
+
+local coreGui = game:GetService("CoreGui")
+local tweenService = game:GetService("TweenService")
+local screen = Instance.new("ScreenGui")
+screen.Name = "Infinite Yield FE" --So much for hiding infinite yield in roblox's main gui and obfuscating names lol
+screen.Parent = coreGui
+local scale = Instance.new("UIScale")
+scale.Parent = screen
+scale.Name = "Scale"
+scale.Scale = 1
+
+tweenService:Create(scale, TweenInfo.new(0.25), {Scale = scaleSize}):Play()
+
+local rbxGui = coreGui:FindFirstChild("RobloxGui")
+if rbxGui then
+	for _,obj in pairs(rbxGui:GetChildren()) do
+		local found = obj:FindFirstChild("Dark")
+		if found then
+			found.Parent.Parent = screen
+		end
+	end
+end
+
+local Plugin = {
+    ["PluginName"] = "UI Scale for IY",
+    ["PluginDescription"] = "Adds a command to scale the Gui!",
+    ["Commands"] = {
+        ["scale"] = {
+            ["Description"] = "Scales the gui!",
+            ["Aliases"] = {'guiscale', 'uiscale'},
+            ["Function"] = function(args, speaker)
+				if #args > 0 then
+					local num = tonumber(args[1])
+					if type(num) == "number" then
+						tweenService:Create(scale, TweenInfo.new(0.25), {Scale = num}):Play()
+						scaleSize = num
+						--Alright prepare yourself for this absolutely 100% awesome cool string manipulation that magically works ;)
+						if readfile and writefile then
+							local source = readfile("IY_UIScaling.iy")
+							if source ~= nil then
+								local retString = ""
+								local strStart, strEnd = string.find(source, "local scaleSize = ")
+								local strStart2, strEnd2 = string.find(source, "\n", strEnd)
+								retString = string.sub(source, 1, strEnd)..tostring(num)..string.sub(source, strStart2, string.len(source))
+								writefile("IY_UIScaling.iy", retString)
+							end
+						end
+					end
+				end
+			end,
+        },
+    },
+}
+
+return Plugin

@@ -1,0 +1,39 @@
+local Plugin = {
+	["PluginName"] = "LeftCTRL + Click delete",
+	["PluginDescription"] = "Delete parts without btools.",
+	["Commands"] = {
+		["clickdelete / cd / EnableDelete"] = {
+			["Description"] = "Be a criminal.",
+			["Aliases"] = {'clickdelete', 'cd', 'EnableDelete'},
+			["Function"] = function(args,speaker)
+
+local plr = game.Players.LocalPlayer
+
+local Mouse = plr:GetMouse()
+
+local selection = Instance.new("SelectionBox")
+	selection.Color3 = Color3.new(0.6,0,0.6)
+		selection.Parent = plr.PlayerGui
+     
+Mouse.Move:connect(function()
+	local target = Mouse.Target
+     
+if not target then
+selection.Adornee = nil
+elseif target then
+	selection.Adornee = target
+end
+end)
+
+Mouse.Button1Down:connect(function()
+	if not game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftAlt) then return end
+		if not Mouse.Target then return end
+	Mouse.Target.Transparency = 1
+	Mouse.Target:Destroy()
+end)
+			end,
+		},
+	},
+}
+
+return Plugin

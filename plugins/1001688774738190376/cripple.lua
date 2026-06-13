@@ -1,0 +1,17 @@
+local Plugin = {}
+
+Plugin.PluginName = "cripple"
+Plugin.PluginDescription = "cripple yoself"
+Plugin.Commands = {}
+
+Plugin.Commands["cripple"] = {
+    ["ListName"] = ("cripple"),
+    ["Description"] = ("cripple yoself"),
+    ["Aliases"] = {},
+    ["Function"] = function(args, speaker)
+local p = game:GetService("Players").LocalPlayer.Character
+p:FindFirstChild("HumanoidRootPart"):Destroy()
+    end
+}
+
+return Plugin

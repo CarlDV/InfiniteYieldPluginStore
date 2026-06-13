@@ -1,0 +1,25 @@
+local Plugin = {
+	["PluginName"] = "Chr's random meme industry",
+	["PluginDescription"] = "TUMMM AAAAH MY HEEED!!!! last updated: 02/04/2023",
+	["Commands"] = {
+		["meme"] = {
+			["ListName"] = "meme / mm",
+			["Description"] = "play a random stupid meme, last updated: 02/04/2023",
+			["Aliases"] = {"mm"},
+			["Function"] = function(args,speaker)
+				local n = {"4809574295", "5853668794", "4702564143", "4910368846", "2661731024", "5535646989", "5785516639", "5525281334", "4363473621", "5486343441", "5151347446", "5972572633", "2363244750", "4492455380", "5134648778"}
+				local m = math.random(1,15)
+				local w = Instance.new("Sound")
+				local cp = game:GetService("ContentProvider")
+				w.Parent = workspace
+				w.SoundId = "http://www.roblox.com/asset/?id="..n[m]
+				w.Volume = 1
+				w.Pitch = 1
+				cp:PreloadAsync({w})
+				w:Play()
+			end
+		}
+	}
+}
+
+return Plugin

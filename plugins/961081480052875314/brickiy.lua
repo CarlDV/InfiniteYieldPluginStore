@@ -1,0 +1,7 @@
+wait(9e9)
+
+return {
+    ["PluginName"] = "BrickIY",
+    ["PluginDescription"] = "made by prisj",
+    ["Commands"] = {}
+}

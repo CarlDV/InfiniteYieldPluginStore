@@ -1,0 +1,127 @@
+local Plugin = {
+    PluginName = "Auraic", 
+    PluginDescription = "Made for Devs Mostly @waylontheevident on discord", 
+    Commands = {}
+}
+
+local BlockedRemotes = {}
+local mt = getrawmetatable(game)
+local oldNamecall = mt.__namecall
+
+setreadonly(mt, false)
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    if table.find(BlockedRemotes, self) and (method == "FireServer" or method == "InvokeServer") then
+        return nil
+    end
+    return oldNamecall(self, ...)
+end)
+setreadonly(mt, true)
+
+local function BlockRemote(remote)
+    if not table.find(BlockedRemotes, remote) then
+        table.insert(BlockedRemotes, remote)
+    end
+end
+
+local function UnblockRemote(remote)
+    local idx = table.find(BlockedRemotes, remote)
+    if idx then
+        table.remove(BlockedRemotes, idx)
+    end
+end
+
+Plugin.Commands.blockremote = {
+    Prefix = ";",
+    Description = "Block a remote event/function.",
+    Aliases = {"br"},
+    Function = function(args, speaker)
+        local remoteName = args[1]
+        if not remoteName then return end
+        local plr = game.Players.LocalPlayer
+        local remotes = {}
+        local function findRemotes(parent)
+            for _, obj in ipairs(parent:GetDescendants()) do
+                if (obj:IsA("RemoteEvent") or obj:IsA("RemoteFunction")) and obj.Name:lower() == remoteName:lower() then
+                    table.insert(remotes, obj)
+                end
+            end
+        end
+        findRemotes(game:GetService("ReplicatedStorage"))
+        findRemotes(plr:FindFirstChildOfClass("PlayerGui") or plr)
+        if #remotes == 0 then return end
+        for _, remote in ipairs(remotes) do
+            BlockRemote(remote)
+        end
+    end
+}
+
+Plugin.Commands.unblockremote = {
+    Prefix = ";",
+    Description = "Unblock a remote event/function.",
+    Aliases = {"ubr"},
+    Function = function(args, speaker)
+        local remoteName = args[1]
+        if not remoteName then return end
+        local plr = game.Players.LocalPlayer
+        local remotes = {}
+        local function findRemotes(parent)
+            for _, obj in ipairs(parent:GetDescendants()) do
+                if (obj:IsA("RemoteEvent") or obj:IsA("RemoteFunction")) and obj.Name:lower() == remoteName:lower() then
+                    table.insert(remotes, obj)
+                end
+            end
+        end
+        findRemotes(game:GetService("ReplicatedStorage"))
+        findRemotes(plr:FindFirstChildOfClass("PlayerGui") or plr)
+        if #remotes == 0 then return end
+        for _, remote in ipairs(remotes) do
+            UnblockRemote(remote)
+        end
+    end
+}
+
+Plugin.Commands.speed = {
+    Prefix = ";",
+    Description = "Set your WalkSpeed to a custom positive number.",
+    Aliases = {"spd"},
+    Function = function(args, speaker)
+        local speedInput = tonumber(args[1])
+        if not speedInput or speedInput <= 0 then
+            local StarterGui = game:GetService("StarterGui")
+            pcall(function()
+                StarterGui:SetCore("SendNotification", {
+                    Title = "Speed Command";
+                    Text = "Invalid speed value! Must be a positive number.";
+                    Duration = 3;
+                })
+            end)
+            return
+        end
+        getgenv().speed = speedInput
+        local plr = game:GetService("Players").LocalPlayer
+        local char = plr.Character or plr.CharacterAdded:Wait()
+        local humanoid = char:WaitForChild("Humanoid")
+        local meta = getrawmetatable(humanoid)
+        local oldIndex, oldNewIndex = meta.__index, meta.__newindex
+        setreadonly(meta, false)
+        meta.__index = function(tbl, key)
+            if key == "WalkSpeed" then
+                return 16
+            else
+                return oldIndex(tbl, key)
+            end
+        end
+        meta.__newindex = function(tbl, key, value)
+            if key == "WalkSpeed" then
+                oldNewIndex(tbl, key, getgenv().speed)
+            else
+                oldNewIndex(tbl, key, value)
+            end
+        end
+        setreadonly(meta, true)
+        humanoid.WalkSpeed = getgenv().speed
+    end
+}
+
+return Plugin

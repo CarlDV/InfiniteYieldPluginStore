@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Physic gun v2",
+	["PluginDescription"] = "give you physicgun as a tool",
+	["Commands"] = {
+		["pgun/physicgun"] = {
+			["Description"] = "a gun, physic gun",
+			["Aliases"] = {'pgun','physicgun'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/L2yCYCUE",true))()
+
+			end,
+		},
+	},
+}
+
+return Plugin

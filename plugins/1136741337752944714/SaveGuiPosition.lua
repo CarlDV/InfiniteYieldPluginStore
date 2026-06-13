@@ -1,0 +1,50 @@
+local File = pcall(function()
+    guiPos = game:GetService('HttpService'):JSONDecode(readfile("GUI-Pos.json"))
+end)
+if File and guiPos and guiPos and guiPos.CmdbarPos and guiPos.NotificationPos then
+    Holder.Position = UDim2.new(unpack(guiPos.CmdbarPos))
+    Notification.Position = UDim2.new(unpack(guiPos.NotificationPos))
+else
+    local guiPos = {
+        CmdbarPos = {
+            Holder.Position.X.Scale,
+            Holder.Position.X.Offset,
+            Holder.Position.Y.Scale,
+            Holder.Position.Y.Offset,
+        },
+        NotificationPos = {
+            1,
+            Notification.Position.X.Offset,
+            1,
+            20,
+        }
+    }
+    writefile("GUI-Pos.json", game:GetService('HttpService'):JSONEncode(guiPos))
+end
+
+game:GetService("Players").PlayerRemoving:Connect(function(plr)
+    if plr == game.Players.LocalPlayer then
+        local guiPos = {
+            CmdbarPos = {
+                Holder.Position.X.Scale,
+                Holder.Position.X.Offset,
+                Holder.Position.Y.Scale,
+                Holder.Position.Y.Offset,
+            },
+            NotificationPos = {
+                1,
+                Notification.Position.X.Offset,
+                1,
+                20,
+            }
+        }
+        writefile("GUI-Pos.json", game:GetService('HttpService'):JSONEncode(guiPos))
+    end
+end)
+
+local Plugin = {
+    ["PluginName"] = "SaveGuiPosition",
+    ["PluginDescription"] = "Save the GUI position after leaving",
+    ["Commands"] = {}
+}
+return Plugin

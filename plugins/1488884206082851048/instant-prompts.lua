@@ -1,0 +1,43 @@
+local Prompts = {}
+local ppsLoop1, ppsLoop2
+
+local Plugin = {
+	["PluginName"] = "instantprompts",
+	["PluginDescription"] = "Alternative version of instantproximityprompts",
+	["Commands"] = {
+		["instantprompts"] = {
+			["ListName"] = "instantprompts / ipp",
+			["Description"] = "Disable the cooldown for proximity prompts",
+			["Aliases"] = {"ipp"},
+			["Function"] = function(args, speaker)
+				ppsLoop1 = ProximityPromptService.PromptShown:Connect(function(prompt)
+					if Prompts[prompt] then return end
+
+					Prompts[prompt] = prompt.HoldDuration
+					prompt.HoldDuration = 0
+				end)
+				ppsLoop2 = ProximityPromptService.PromptHidden:Connect(function(prompt)
+					if not Prompts[prompt] then return end
+
+					prompt.HoldDuration = Prompts[prompt]
+					Prompts[prompt] = nil
+				end) 
+			end
+		},
+		["uninstantprompts"] = {
+			["ListName"] = "uninstantprompts / unipp",
+			["Description"] = "Undo the cooldown removal",
+			["Aliases"] = {"unipp"},
+			["Function"] = function(args, speaker)
+				if ppsLoop1 then
+					ppsLoop1:Disconnect()
+				end
+				if ppsLoop2 then
+					ppsLoop2:Disconnect()
+				end
+			end
+		}
+	}
+}
+
+return Plugin

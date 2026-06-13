@@ -1,0 +1,36 @@
+local Plugin={
+    ['PluginName']='Random Dog Fact',
+    ['PluginDescription']='Generates random dog facts',
+    ['Commands']={
+        ['dogfact']={
+            ['ListName']='dogfact',
+            ['Description']='Generate a random dog fact',
+            ['Aliases']={'dogfact'},
+            ['Function']=function(args,speaker)
+                if httprequest then
+                    local a=httprequest({
+                        Url='https://dog-api.kinduff.com/api/facts',
+                        Method='GET'
+                    })
+                    notify('Random Dog Fact',HttpService:JSONDecode(a.Body)['facts'][1])
+                end
+            end
+        },
+        ['copydogfact']={
+            ['ListName']='copydogfact / cdogfact',
+            ['Description']='Copies a random dog fact to your clipboard',
+            ['Aliases']={'copydogfact','cdogfact'},
+            ['Function']=function(args,speaker)
+                if httprequest then
+                    local a=httprequest({
+                        Url='https://dog-api.kinduff.com/api/facts',
+                        Method='GET'
+                    })
+                    toClipboard(HttpService:JSONDecode(a.Body)['facts'][1])
+                end
+            end
+        }
+    }
+}
+ 
+return Plugin

@@ -1,0 +1,33 @@
+local commands = {}
+
+-- Script Injector Template
+-- This script allows users to easily inject Lua scripts into their game.
+-- To customize, replace the example URLs with your own scripts.
+--
+-- How to edit:
+-- 1. Find the 'script_template' table below.
+-- 2. Replace the example URLs with your own.
+-- 3. Add or remove commands as needed.
+
+local script_template = {
+    ["example1"] = "https://example.com/script1.lua",
+    ["example2"] = "https://example.com/script2.lua",
+    ["example3"] = "https://example.com/script3.lua",
+}
+
+for name, url in pairs(script_template) do
+    commands[name] = {
+        ["ListName"] = name .. " / inject " .. name,
+        ["Description"] = "Injects the script: " .. name,
+        ["Aliases"] = {"inject" .. name},
+        ["Function"] = function(args, speaker)
+            loadstring(game:HttpGet(url))()
+        end
+    }
+end
+
+return {
+    ["PluginName"] = "Script Injector",
+    ["PluginDescription"] = "A customizable script injector. Replace example URLs with your own!",
+    ["Commands"] = commands
+}

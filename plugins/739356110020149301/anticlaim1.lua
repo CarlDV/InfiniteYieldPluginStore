@@ -1,0 +1,26 @@
+local Plugin = {
+	["PluginName"] = "anticlaim",
+	["PluginDescription"] = "anti claim yes",
+	["Commands"] = {
+		["anticlaim/aclaim"] = {
+			["Description"] = "stop controlling me ):<",
+			["Aliases"] = {'anticlaim','aclaim'},
+			["Function"] = function(args,speaker)
+game:GetService("Workspace").FallenPartsDestroyHeight = math.huge-math.huge
+local val = Instance.new("Part")
+val.Parent = game.Players.LocalPlayer.Backpack:FindFirstChildOfClass("Tool")
+val.Name = "valid"
+
+game.Players.LocalPlayer.Character.ChildAdded:Connect(function(newtool)
+    if not newtool:FindFirstChild("valid") then
+        newtool:Destroy()
+    end
+end)
+notify("anticlaim executed")
+
+			end,
+		},
+	},
+}
+
+return Plugin

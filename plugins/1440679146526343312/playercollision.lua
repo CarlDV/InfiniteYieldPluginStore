@@ -1,0 +1,222 @@
+-- references
+local game = game;
+local wait, spawn = task.wait, task.spawn;
+
+local getPlayer = getPlayer;
+
+local cloneref = cloneref or function(ref) return ref; end;
+local function get_service(serv)
+	return cloneref(game:GetService(serv));
+end
+
+local players = get_service('Players');
+local localplayer = players.LocalPlayer;
+
+-- utils
+local function create(class, props)
+	props = props or {};
+
+	local object = Instance.new(class);
+	for k, v in next, props do
+		if (k == 'Parent') then continue; end
+
+		object[k] = v;
+	end
+
+	local parent = props.Parent;
+	if (parent) then
+		object.Parent = parent;
+	end
+
+	return object;
+end
+
+local function disconnect_all(tbl)
+	for k, v in next, tbl do
+		if (typeof(v) == 'RBXScriptConnection') then
+			v:Disconnect();
+
+			tbl[k] = nil;
+		elseif (type(v) == 'table') then
+			disconnect_all(v);
+		end
+	end
+end
+
+-- main
+local connections = {};
+local collidables = {};
+local function character_collidable(char, full)
+	if (not char or not char.Parent or char == localplayer.Character) then return; end
+
+	local function add_collidable(part)
+		local collidable = create('Part', {
+			Name = '__COLLIDABLE',
+			Size = part.Size,
+			Transparency = 1,
+		});
+
+		create('NoCollisionConstraint', {
+			Part0 = part,
+			Part1 = collidable,
+			Parent = collidable,
+		});
+
+		create('Weld', {
+			Part0 = part,
+			Part1 = collidable,
+			Parent = collidable,
+		});
+
+		collidable.Parent = part;
+		table.insert(collidables, collidable);
+	end
+
+	local CHUNK = 20 -- chunks for collidable parts to be made at once before pausing to breath
+
+	local allowed = {
+		'Head', 'Torso', 'UpperTorso', 'HumanoidRootPart'
+	};
+
+	local index = 0; -- avoid cpu spike during whatever the shit
+	if (full) then
+		for k, v in next, char:GetDescendants() do
+			if (v:IsA('BasePart')) then
+				add_collidable(v);
+
+				index += 1;
+				if (index % CHUNK == 0) then
+					wait();
+				end
+			end
+		end
+	else
+		for k, v in next, allowed do
+			local found = char:FindFirstChild(v);
+			if (found and found:IsA('BasePart')) then
+				add_collidable(found);
+
+				index += 1;
+				if (index % CHUNK == 0) then
+					wait();
+				end
+			end
+		end
+	end
+
+	table.insert(connections, char.DescendantAdded:Connect(function(child)
+		if (not child:IsA('BasePart')) then return; end
+		if (not full) then
+			if (child.Parent ~= char or not table.find(allowed, child.Name)) then
+				return;
+			end
+		end
+
+		add_collidable(child);
+	end));
+
+	table.insert(connections, char.DescendantRemoving:Connect(function(child)
+		local found = table.find(collidables, child);
+		if (found) then
+			table.remove(collidables, found);
+		end
+	end));
+end
+
+local function clean_up()
+	disconnect_all(connections);
+
+	for k, v in next, collidables do
+		if (v.Parent) then
+			v:Destroy();
+
+			collidables[k] = nil;
+		end
+	end
+end
+
+-- plugin
+local bools = {
+	['1']    = true,
+	['yes']  = true,
+	['true'] = true,
+	['full'] = true,
+}
+return {
+	PluginName = 'Player Collision 1000',
+	PluginDescription = 'from @hxerohero',
+	Commands = {
+		['playercollision'] = {
+			ListName = 'playercollision / pcollide [plr] [full] ( CLIENT )',
+			Description = 'makes other players collidable in game with no collision',
+			Aliases = { 'collideplayer', 'pcollide' },
+			Function = function(args, speaker)
+				clean_up();
+				local every_players = true;
+				local targets;
+				if (args[1] and args[1] ~= 'all' and args[1] ~= 'others') then
+					every_players = false;
+
+					targets = getPlayer(args[1], speaker);
+					if (not targets or not next(targets)) then
+						notify('Failed', 'Unable to find player '..args[1]);
+
+						return;
+					end
+
+					local caller = table.find(targets, localplayer.Name);
+					if (caller) then
+						table.remove(targets, caller);
+					end
+
+					if (args[1] == 'me' or not next(targets)) then
+						notify('Failed', 'You can\'t make yourself collidable');
+
+						return;
+					end
+				end
+				local full_collision = bools[args[2]];
+
+				local players_connection = {};
+				if (not every_players) then
+					for k, v in next, targets do
+						v = players[v];
+
+						spawn(character_collidable, v.Character, full_collision);
+						players_connection[v.UserId] = v.CharacterAdded:Connect(function(char)
+							character_collidable(char, full_collision);
+						end);
+					end
+				else
+					for k, v in next, players:GetPlayers() do
+						spawn(character_collidable, v.Character, full_collision);
+						players_connection[v.UserId] = v.CharacterAdded:Connect(function(char)
+							character_collidable(char, full_collision);
+						end);
+					end
+				end
+
+				table.insert(connections, players.PlayerAdded:Connect(function(plr)
+					if (not every_players and not table.find(targets, plr.Name)) then return; end
+
+					players_connection[plr.UserId] = plr.CharacterAdded:Connect(function(char)
+						character_collidable(char, full_collision);
+					end);
+				end));
+				table.insert(connections, players_connection);
+
+				notify('Success', 'Colliders applied');
+			end
+		},
+		['unplayercollision'] = {
+			ListName = 'unplayercollision / unpcollide',
+			Description = 'stops making other player collidable from the ;playercollision command',
+			Aliases = { 'uncollideplayer', 'unpcollide' },
+			Function = function()
+				notify('Success', 'Colliders removed');
+
+				clean_up();
+			end,
+		},
+	},
+}

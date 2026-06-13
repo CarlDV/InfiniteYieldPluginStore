@@ -1,0 +1,39 @@
+local Plugin = {
+    ["PluginName"] = "pi",
+    ["PluginDescription"] = "prints pi",
+    ["Commands"] = {
+        ["pi"] = {
+            ["ListName"] = "pi",
+            ["Description"] = "prints pi pi",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              print(tostring(math.pi))
+              warn(tostring(math.pi))
+              notify(tostring(math.pi))
+              game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage",{Text = tostring(math.pi)})
+              game:GetService("StarterGui"):SetCore("SendNotification",{Title = tostring(math.pi),Text = tostring(math.pi)})
+              game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(math.pi),"All")
+              oldtitle = Title.Text
+              spawn(function() Title.Text = tostring(math.pi) wait(5) Title.Text = oldtitle end)
+    function tempreplace(instance,time)
+    spawn(function()
+    local t = {}
+    local time = time or 10
+    for i,v in pairs(instance:GetDescendants()) do
+        pcall(function() if v.Text then t[v] = v.Text v.Text = tostring(math.pi) end end) end
+    wait(time)
+    for i,v in pairs(t) do
+        if v == nil or v == "" then
+        i.Text = ""
+        else i.Text = v end
+    end end) end
+    tempreplace(game.Players)
+    tempreplace(workspace)
+    tempreplace(game.CoreGui.RobloxGui)
+          error(math.pi)
+            end
+        }
+     }
+}
+
+return Plugin

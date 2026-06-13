@@ -1,0 +1,31 @@
+local Plugin = {
+    ["PluginName"] = "Ultimate Driving TP",
+    ["PluginDescription"] = "Lets you teleport with a car in UD",
+    ["Commands"] = {
+        ["udtp"] = {
+            ["ListName"] = "udtp [plr]",
+            ["Description"] = "Lets you teleport with a car in UD",
+            ["Aliases"] = {"udtp1"},
+            ["Function"] = function(args,speaker)
+            local lp = game:GetService"Players".LocalPlayer
+                        local main = workspace["_Main"]
+                        local vehicles = main.Vehicles
+                        for k,v in pairs(getPlayer(args[1], speaker)) do
+                        local victim = Players[v].Character.HumanoidRootPart.Position
+                        for _,v in pairs(vehicles:GetChildren()) do
+                               if v:IsA"Model" then
+                                   if v.VehicleSeat.Values.Driver.Value == lp then
+
+                                           v.PrimaryPart.Anchored = false
+                                           v:SetPrimaryPartCFrame(CFrame.new(victim))
+                                   end
+                               end
+                        end
+                        print("Made by Sv8r on Roblox")
+                        end
+                                    end
+        }
+     }
+}
+
+return Plugin

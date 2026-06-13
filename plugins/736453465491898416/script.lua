@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Script",
+	["PluginDescription"] = "Look cool in chat B)",
+	["Commands"] = {
+		["script/s/client/c [script]"] = {
+			["Description"] = "epic style",
+			["Aliases"] = {'script', 's', 'client', 'c'},
+			["Function"] = function(args,speaker)
+				loadstring(args)()
+			end,
+		},
+	},
+}
+
+return Plugin

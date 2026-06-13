@@ -1,0 +1,26 @@
+local lsEnabledplugin = false
+
+local Plugin = {
+    ["PluginName"] = "lagswitch",
+    ["PluginDescription"] = "A lagswitch",
+    ["Commands"] = {
+        ["lagswitch"] = {
+            ["ListName"] = "lagswitch",
+            ["Description"] = "A lagswitch",
+            ["Aliases"] = {"ls"},
+            ["Function"] = function(args,speaker)
+			if lsEnabledplugin == false then
+			settings().Network.IncommingReplicationLag = 1000;
+			lsEnabledplugin = true
+            notify("Lagswitch", "Enabled!")
+			else
+			settings().Network.IncommingReplicationLag = 0;
+			lsEnabledplugin = false
+            notify("Lagswitch", "Disabled!")
+			end
+            end
+        }
+     }
+}
+
+return Plugin

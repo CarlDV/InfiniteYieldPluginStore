@@ -1,0 +1,46 @@
+local plr = game:GetService("Players").LocalPlayer
+local char = plr.Character
+local Mouse = plr:GetMouse()
+
+local Plugin = {
+    ["PluginName"] = "Control NPC",
+    ["PluginDescription"] = "control npc (v:",
+    ["Commands"] = {
+        ["clickcontrolnpc"] = {
+            ["ListName"] = "clickcontrolnpc / ccnpc",
+            ["Description"] = "click npc to control (please execute this cmd twice in a row to break it)",
+            ["Aliases"] = {"ccnpc"},
+            ["Function"] = function(args, speaker)
+                clik = Mouse.Button1Down:connect(
+                    function()
+                        if
+                            Mouse.Target ~= nil and Mouse.Target.Parent.Name ~= "Workspace" and
+                                Mouse.Target.Parent:FindFirstChildOfClass("Humanoid") ~= nil
+                         then
+                            local npc = Mouse.Target.Parent
+                            plr.Character = Mouse.Target.Parent
+                            workspace.CurrentCamera.CameraSubject = npc
+                            wait()
+                            char.HumanoidRootPart.Anchored = true
+                        end
+                    end
+                )
+                notify("Enabled! Click a NPC to control")
+            end
+        },
+        ["uncontrolnpc"] = {
+            ["ListName"] = "uncontrolnpc / uncnpc",
+            ["Description"] = "uncontrol npc",
+            ["Aliases"] = {"uncnpc"},
+            ["Function"] = function(args, speaker)
+                clik:Disconnect()
+                plr.Character = char
+                workspace.CurrentCamera.CameraSubject = char
+                plr.Character.HumanoidRootPart.Anchored = false
+                wait()
+                notify("Uncontrolled NPC (v:")
+            end
+        }
+    }
+}
+return Plugin

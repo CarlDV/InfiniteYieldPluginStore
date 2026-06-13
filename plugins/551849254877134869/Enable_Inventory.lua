@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Enable Inventory",
+    ["PluginDescription"] = "Enables Inventory in games that have it disabled",
+    ["Commands"] = {
+        ["EnableInv"] = {
+            ["ListName"] = "EnableInventory",
+            ["Description"] = "Enables Inventory in games that have it disabled",
+            ["Aliases"] = {'EnInv'},
+            ["Function"] = function(args,speaker)
+                game.StarterGui:SetCoreGuiEnabled(2, true)
+            end,
+        },
+    },
+}
+
+return Plugin

@@ -1,0 +1,63 @@
+w = false
+a = false
+s = false
+d = false
+cmdForward = false
+forwardSpeed = 0.1
+LP = game:GetService("Players").LocalPlayer
+Mouse = LP:GetMouse()
+local Plugin = {
+    ["PluginName"] = "Walkspeed",
+    ["PluginDescription"] = "allows you to change your walkspeed on games that typically don't allow it if teleporting isn't patched",
+    ["Commands"] = {
+        ["ws2"] = {
+            ["ListName"] = "ws2 [num]",
+            ["Description"] = "walkspeed",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if args[1] == nil then
+            if cmdForward then
+            cmdForward = false
+            else cmdForward = true
+            end
+            else
+            if not cmdForward then
+            cmdForward = true
+            end
+            forwardSpeed = tonumber(args[1])
+            end
+            Mouse.KeyDown:connect(function(key)
+            if key == "w" then
+            w = true
+            elseif key == "a" then
+            a = true
+            elseif key == "s" then
+            s = true
+            elseif key == "d" then
+            d = true
+            end
+            end)
+            Mouse.KeyUp:connect(function(key)
+            if key == "w" then
+            w = false
+            elseif key == "a" then
+            a = false
+            elseif key == "s" then
+            s = false
+            elseif key == "d" then
+            d = false
+            end
+            end)
+game:GetService("RunService").RenderStepped:connect(function()
+if w or a or s or d then
+if cmdForward then
+  LP.Character.HumanoidRootPart.CFrame = LP.Character.HumanoidRootPart.CFrame + LP.Character.HumanoidRootPart.CFrame.lookVector * forwardSpeed / 30
+  end
+  end
+  end)
+            end,
+        },
+    },
+}
+
+return Plugin

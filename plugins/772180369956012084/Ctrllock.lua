@@ -1,0 +1,22 @@
+local Plugin = {
+	["PluginName"] = "Ctrllock",
+	["PluginDescription"] = "Switches Shift-Lock to the CTRL keys.",
+	["Commands"] = {
+		["Ctrllock"] = {
+			["Description"] = "Toggles between CtrlLock and ShiftLock.",
+			["Aliases"] = {'ctrllock', 'ctrlock', 'lockswitch'},
+			["Function"] = function(args,speaker)
+				local toggled = false
+				if toggled == false then
+					game:GetService("Players").LocalPlayer.PlayerScripts.PlayerModule.CameraModule.MouseLockController.BoundKeys.Value = "LeftControl,RightControl"
+					toggled = true
+				else
+					game:GetService("Players").LocalPlayer.PlayerScripts.PlayerModule.CameraModule.MouseLockController.BoundKeys.Value = "LeftShift,RightShift"
+					toggled = false
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

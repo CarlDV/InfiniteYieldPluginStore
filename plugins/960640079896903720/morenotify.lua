@@ -1,0 +1,69 @@
+local commands = {}
+
+local origNotify
+origNotify = notify
+local currentSetting
+local customNotify = function(text1, text2, length)
+	local text2Send = table.concat({"Infinite Yield Notify", " | ", text1})
+	if text2 then text2Send = text2Send .. table.concat({" | ", text2}) end
+
+	if currentSetting == "print" then
+		print(text2Send)
+	elseif currentSetting == "warn" then
+		warn(text2Send)
+	elseif currentSetting == "consoleprint" then
+		rconsoleprint("\n" .. text2Send)
+	end
+end
+
+commands["enablenotify"] = {
+    ["ListName"] = "enablenotify / unremovenotify",
+    ["Description"] = "Enables notify.",
+    ["Aliases"] = {"unremovenotify"},
+    ["Function"] = function(args, speaker)
+        notify = origNotify
+    end
+}
+commands["disablenotify"] = {
+    ["ListName"] = "disablenotify / nonotify",
+    ["Description"] = "Disables notify.",
+    ["Aliases"] = {"nonotify","removenotify"},
+    ["Function"] = function(args, speaker)
+        notify = customNotify
+	currentSetting = "none"
+    end
+}
+commands["printnotify"] = {
+    ["ListName"] = "printnotify / pnotify",
+    ["Description"] = "Changes notifies into prints.",
+    ["Aliases"] = {"pnotify"},
+    ["Function"] = function(args, speaker)
+        notify = customNotify
+	currentSetting = "print"
+    end
+}
+commands["warnnotify"] = {
+    ["ListName"] = "warnnotify / wnotify",
+    ["Description"] = "Changes notifies into warn.",
+    ["Aliases"] = {"wnotify"},
+    ["Function"] = function(args, speaker)
+        notify = customNotify
+	currentSetting = "warn"
+    end
+}
+commands["consolenotify"] = {
+    ["ListName"] = "consolenotify / cpnotify",
+    ["Description"] = "Changes notifies into consoleprints.",
+    ["Aliases"] = {"cpnotify"},
+    ["Function"] = function(args, speaker)
+        if not rconsoleprint then notify("Your exploit does not support rconsoleprint") end
+		notify = customNotify
+		currentSetting = "consoleprint"
+    end
+}
+
+return {
+    ["PluginName"] = "Notify Settings",
+    ["PluginDescription"] = "made by prisj",
+    ["Commands"] = commands
+}

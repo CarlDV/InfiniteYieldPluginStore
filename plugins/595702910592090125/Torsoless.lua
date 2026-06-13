@@ -1,0 +1,25 @@
+local Plugin = {
+	["PluginName"] = "torsoless",
+	["PluginDescription"] = "Torsoless deletes your torso. It was made by mr2meows.",
+	["Commands"] = {
+		["torsoless"] = {
+			["Description"] = "oh no! Wheres my chest?!",
+			["Aliases"] = {'headl', 'pumpkinman'},
+			["Function"] = function(args,speaker)
+				local char = speaker.Character
+
+           		if(char.Humanoid.RigType == Enum.HumanoidRigType.R6) then
+                    char.Torso = CFrame.new(Vector3.new(0, 9999, 0))
+                    notify("Wheres my chest?", "You are now a dead, heartless man walking!")
+                else
+                    char.UpperTorso = CFrame.new(Vector3.new(0, 9999, 0))
+                    notify("Wheres my chest?", "You are now a dead man walking!")
+           char.LowerTorso = CFrame.new(Vector3.new(0, 9999, 0))
+                    notify("Wheres my chest?", "You are now a dead man walking!")     
+end
+			end,
+		},
+	},
+}
+
+return Plugin

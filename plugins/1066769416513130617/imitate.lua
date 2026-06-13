@@ -1,0 +1,91 @@
+local im,imn={},{}
+
+local Plugin={
+    ['PluginName']='Imitate',
+    ['PluginDescription']='Copies players\' messages and sends them in chat',
+    ['Commands']={
+        ['imitate']={
+            ['ListName']='imitate / copychat [plr]',
+            ['Description']='Copy [plr]\'s messages',
+            ['Aliases']={'imitate','copychat'},
+            ['Function']=function(args,speaker)
+                local pl=getPlayer(args[1],speaker)
+                if #pl==0 then
+                    return notify('Invalid Player','Invalid player argument provided')
+                end
+                
+                local pim=Players[pl[1]].Chatted:Connect(function(m)
+                    ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(m,'All')
+                end)
+                table.insert(im,{[pl[1]..'_']=pim,[pl[1]]=pl[1]})
+            end
+        },
+        ['unimitate']={
+            ['ListName']='unimitate / uncopychat [plr]',
+            ['Description']='Stop copying [plr]\'s messages',
+            ['Aliases']={'unimitate','uncopychat'},
+            ['Function']=function(args,speaker)
+                local pl,pli=getPlayer(args[1],speaker)
+                for i,v in ipairs(im)do
+                    if v[pl[1]]==pl[1]then
+                        pli=i
+                    end
+                end
+                
+                if #pl==0 or not im[pli]or not im[pli][pl[1]]then
+                    return notify('Invalid Player','Invalid player argument provided')
+                end
+                
+                for i,v in ipairs(im)do
+                    if v[pl[1]]==pl[1]then
+                        v[pl[1]..'_']:Disconnect()
+                        table.remove(im,i)
+                    end
+                end
+            end
+        },
+        ['nerdify']={
+            ['ListName']='nerdify / nerd [plr]',
+            ['Description']='Copy [plr]\'s messages but with a nerd emoji',
+            ['Aliases']={'nerdify','nerd'},
+            ['Function']=function(args,speaker)
+                local pl=getPlayer(args[1],speaker)
+                if #pl==0 then
+                    return notify('Invalid Player','Invalid player argument provided')
+                end
+                
+                local pimn=Players[pl[1]].Chatted:Connect(function(m)
+                    ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer('"'..m..'" - 🤓','All')
+                end)
+                table.insert(imn,{[pl[1]..'_']=pimn,[pl[1]]=pl[1]})
+            end
+        },
+        ['unnerdify']={
+            ['ListName']='unnerdify / unnerd [plr]',
+            ['Description']='Stop making fun of [plr]',
+            ['Aliases']={'unnerdify','unnerd'},
+            ['Function']=function(args,speaker)
+                local pl,pli=getPlayer(args[1],speaker)
+                for i,v in ipairs(imn)do
+                    if v[pl[1]]==pl[1]then
+                        pli=i
+                    end
+                end
+                
+                if #pl==0 or not imn[pli]or not imn[pli][pl[1]]then
+                    return notify('Invalid Player','Invalid player argument provided')
+                end
+                
+                for i,v in ipairs(imn)do
+                    if v[pl[1]]==pl[1]then
+                        print'test'
+                        v[pl[1]..'_']:Disconnect()
+                        table.remove(imn,i)
+                    end
+                end
+            end
+        }
+    }
+}
+ 
+return Plugin

@@ -1,0 +1,15 @@
+return {
+    PluginName = "Upwards",
+    PluginDescription = "Go up",
+    Commands = {
+        Upwards = {
+            ListName = "Upwards",
+            Description = "Upwards",
+            Aliases = {},
+            Function = function(args,speaker)
+		local RootPart = game.Players.LocalPlayer.Character.HumanoidRootPart
+		RootPart.CFrame = (RootPart.CFrame * CFrame.new(0, 50, 0))
+            end
+        }
+    }
+}

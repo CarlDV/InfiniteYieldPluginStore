@@ -1,0 +1,43 @@
+local Plugin = {
+    ["PluginName"] = "SoundHack",
+    ["PluginDescription"] = "Allows you to experiment with sounds in Roblox",
+    ["Commands"] = {
+        ["soundcheck"] = {
+            ["ListName"] = "soundcheck / scheck",
+            ["Description"] = "Checks if game sound can be exploitable.",
+            ["Aliases"] = {'scheck'},
+			["Function"] = function(args, speaker)
+				if game:GetService("SoundService").RespectFilteringEnabled == false then
+				notify("SoundHack", "Sound is exploitable.")
+				else
+				notify("SoundHack", "Sound is unexploitable.")
+				end
+            end,
+		},
+		["soundplay"] = {
+            ["ListName"] = "soundplay / splay",
+            ["Description"] = "Plays all sound in game.",
+            ["Aliases"] = {'splay'},
+            ["Function"] = function(args, speaker)
+				for i,v in pairs(game:GetDescendants()) do
+					if v:IsA("Sound") then
+						v:Play()
+					end
+				end
+            end,
+		},
+		["soundstop"] = {
+            ["ListName"] = "soundstop / sstop",
+            ["Description"] = "Plays all sound in game.",
+            ["Aliases"] = {'sstop'},
+            ["Function"] = function(args, speaker)
+				for i,v in pairs(game:GetDescendants()) do
+					if v:IsA("Sound") then
+						v:Stop()
+					end
+				end
+            end,
+        },
+    },
+}
+return Plugin

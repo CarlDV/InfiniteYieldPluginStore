@@ -1,0 +1,101 @@
+-- This ESP script was developed by infamousforarson or vivid on discord.
+-- You can modify the properties of this plugin however you like.
+
+ESPEnabled = false
+local Plugin = {
+    ["PluginName"] = "Simple ESP Plugin",
+    ["PluginDescription"] = [[Simple ESP is a lightweight GUI ESP replacing the non-functioning ESP in Infinite Yield.]],
+    ["Commands"] = {
+        ["startesp"] = {
+            ["ListName"] = "startesp",
+            ["Description"] = "Starts the ESP Script",
+            ["Aliases"] = {"startesp"},
+            ["Function"] = function(args, speaker)
+                local Players = game:GetService("Players")
+                local LocalPlayer = Players.LocalPlayer
+                local ScreenGui = Instance.new("ScreenGui")
+                ScreenGui.IgnoreGuiInset = true
+                ScreenGui.ResetOnSpawn = false
+                ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+                local ESPs = {}
+
+                local function AddESP(player)
+                    if player == LocalPlayer or ESPs[player] then return end
+                    if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then return end
+
+                    local character = player.Character
+                    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        local BillboardGui = Instance.new("BillboardGui")
+                        BillboardGui.Adornee = humanoidRootPart
+                        BillboardGui.Size = UDim2.new(0, 100, 0, 150)
+                        BillboardGui.AlwaysOnTop = true
+                        BillboardGui.Parent = ScreenGui
+
+                        local Frame = Instance.new("Frame")
+                        Frame.Size = UDim2.new(1, 0, 1, 0)
+                        Frame.BackgroundColor3 = Color3.fromRGB(255, 85, 0)
+                        Frame.BackgroundTransparency = 0.3
+                        Frame.Parent = BillboardGui
+
+                        local TextLabel = Instance.new("TextLabel")
+                        TextLabel.Size = UDim2.new(1, 0, 0, 25)
+                        TextLabel.Position = UDim2.new(0, 0, 0, 25)
+                        TextLabel.BackgroundTransparency = 1
+                        TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        TextLabel.Text = player.Name .. " - " .. (character:FindFirstChild("Humanoid") and math.floor(character.Humanoid.Health) or "0")
+                        TextLabel.Parent = BillboardGui
+
+                        character:WaitForChild("Humanoid").HealthChanged:Connect(function()
+                            TextLabel.Text = player.Name .. " - " .. math.floor(character.Humanoid.Health)
+                        end)
+
+                        ESPs[player] = BillboardGui
+
+                        character:WaitForChild("Humanoid").Died:Connect(function()
+                            if ESPs[player] then
+                                ESPs[player]:Destroy()
+                                ESPs[player] = nil
+                            end
+                        end)
+                    end
+                end
+
+                local function EnableESP()
+                    for _, player in pairs(Players:GetPlayers()) do
+                        AddESP(player)
+                    end
+                end
+
+                local function DisableESP()
+                    for player, billboardGui in pairs(ESPs) do
+                        billboardGui:Destroy()
+                        ESPs[player] = nil
+                    end
+                end
+
+                ESPEnabled = true
+                EnableESP()
+
+                -- Hook into Infinite Yield's Stop Function
+                getgenv().DisableESP = function()
+                    DisableESP()
+                    ESPEnabled = false
+                end
+            end
+        },
+
+        ["stopesp"] = {
+            ["ListName"] = "stopesp",
+            ["Description"] = "Stops the ESP script",
+            ["Aliases"] = {"stopesp"},
+            ["Function"] = function(args, speaker)
+                if ESPEnabled and getgenv().DisableESP then
+                    getgenv().DisableESP()
+                end
+            end
+        }
+    }
+}
+
+return Plugin

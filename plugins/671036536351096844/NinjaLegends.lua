@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Jxnt's Gui",
+    ["PluginDescription"] = "Simply opens Jxnt's ninja legends lego hax",
+    ["Commands"] = {
+        ["ninjahax"] = {
+            ["ListName"] = "ninjahax / nhax",
+            ["Description"] = "Simply opens Jxnt's ninja legends lego hax",
+            ["Aliases"] = {"nhax"},
+            ["Function"] = function(args,speaker)
+             loadstring(game:HttpGet("https://pastebin.com/raw/u61dJDq7",true))()
+          end
+        }
+     }
+}
+
+return Plugin

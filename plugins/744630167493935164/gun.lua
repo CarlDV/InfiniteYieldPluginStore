@@ -1,0 +1,235 @@
+local Plugin = {
+    ["PluginName"] = "freegun",
+    ["PluginDescription"] = "Gives you an R6 fling gun that uses International Fedoras and Pal Hair.",
+    ["Commands"] = {
+        ["Gun"] = {
+            ["ListName"] = "Gun",
+            ["Description"] = "Gives you a fling gun - Needs International Fedoras and Pal Hair.",
+            ["Aliases"] = {'gun','r6gun','flinggun'},
+            ["Function"] = function(args,speaker)
+
+
+    -- fixed by Bombsboom, only need pal hair and international fedoras
+print('gun time - if its not working contact Bombsboom#9394')
+
+-- get network ownership
+local Exploit = (secure_load and "Sentinel") or (pebc_execute and "ProtoSmasher") or (is_sirhurt_closure and "Sirhurt") or (syn and "SynapseX") or ('free')
+
+if Exploit == 'ProtoSmasher' then
+    getgenv().sethiddenproperty = set_hidden_prop
+elseif Exploit == 'Sentinel' then
+    game.Players.LocalPlayer:Kick("you spent money on an executor that doesnt even have sethiddenproperty? cringe bro")
+elseif Exploit == 'free' then
+    notify('Your exploit is probably not supported. If any bugs occur, its on you.')
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    sethiddenproperty(game.Players.LocalPlayer,"MaximumSimulationRadius",math.huge)
+    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", math.huge)
+end)
+
+-- setup basic variables
+plr = game.Players.LocalPlayer
+dead = false
+char = plr.Character
+
+-- setup gun variables
+local responsegun = pcall(function() gun = char["Pal Hair"]end)
+
+if not responsegun then
+print('Missing Pal Hair')
+else
+
+ghandle = gun.Handle
+ghandle.AccessoryWeld:Destroy()
+ghandle.Mesh:Destroy()
+
+-- setup fedora
+responsebullet = pcall(function()bullet = char["MeshPartAccessory"]end)
+print('Trying fedora type 1..')
+
+if not responsebullet then
+responsebullet = pcall(function()bullet = char["InternationalFedora"]end)
+print('Trying fedora type 2')
+end
+
+if not responsebullet then
+responsebullet = pcall(function()bullet = char["International Fedora"]end)
+print('Trying fedora type 3')
+end
+
+if not responsebullet then
+print('Missing Fedora.')
+else
+
+bhandle = bullet.Handle
+bhandle.SpecialMesh:Destroy()
+wait()
+bullet.Parent = workspace
+
+--setup camera and mouse and shit
+mouse = plr:GetMouse()
+head = char.Head
+camera = workspace.CurrentCamera
+runcount = 0
+lt = true
+ltt = false
+
+-- fix first person bug
+local function IsFirstPerson()
+return (head.CFrame.p - camera.CFrame.p).Magnitude < 1
+end
+
+bbv = Instance.new("BodyVelocity",bhandle)
+
+rarm = char["Right Arm"]
+larm = char["Left Arm"]
+torso = char.Torso
+
+torso["Right Shoulder"]:Destroy()
+torso["Left Shoulder"]:Destroy()
+
+larm.LeftShoulderAttachment:Destroy()
+rarm.RightShoulderAttachment:Destroy()
+
+l = Instance.new("Attachment",larm)
+l.Rotation = Vector3.new(-90,20,0)
+l.Position = Vector3.new(1,1,0.5)
+
+r = Instance.new("Attachment",rarm)
+r.Rotation = Vector3.new(-90,-25,0)
+r.Position = Vector3.new(-1,0.5,0.5)
+
+t = Instance.new("Attachment",torso)
+--rarm
+rap = Instance.new("AlignPosition",rarm)
+rap.Attachment0 = r
+rap.Attachment1 = t
+rap.RigidityEnabled = true
+
+rao = Instance.new("AlignOrientation",rarm)
+rao.Attachment0 = r
+rao.Attachment1 = t
+rao.RigidityEnabled = true
+
+--larm
+
+
+
+
+lap = Instance.new("AlignPosition",larm)
+lap.Attachment0 = l
+lap.Attachment1 = t
+lap.RigidityEnabled = true
+
+lao = Instance.new("AlignOrientation",larm)
+lao.Attachment0 = l
+lao.Attachment1 = t
+lao.RigidityEnabled = true
+
+-- gun
+
+h = Instance.new("Attachment",ghandle)
+h.Rotation = Vector3.new(90,0,20)
+h.Position = Vector3.new(-0.75,-0.5,1.3)
+
+lg = Instance.new("Attachment",larm)
+lg.Rotation = Vector3.new(0,0,0)
+lg.Position = Vector3.new(0,0,0)
+
+gap = Instance.new("AlignPosition",ghandle)
+gap.Attachment0 = h
+gap.Attachment1 = lg
+gap.RigidityEnabled = true
+
+gao = Instance.new("AlignOrientation",ghandle)
+gao.Attachment0 = h
+gao.Attachment1 = lg
+gao.RigidityEnabled = true
+
+
+mouse.Button1Down:Connect(function()
+if dead == false then
+lt = false
+ltt = true
+
+
+h.Rotation = Vector3.new(90,15,20)
+ 
+l.Position = Vector3.new(1,0.5,0.5)
+l.Rotation = Vector3.new(-95,25,0)
+
+r.Position = Vector3.new(-1,0,0.5)
+r.Rotation = Vector3.new(-95,-33,0)
+wait(0.13) 
+h.Rotation = Vector3.new(90,0,20)
+
+l.Position = Vector3.new(1,1,0.5)
+l.Rotation = Vector3.new(-90,20,0)
+
+r.Position = Vector3.new(-1,0.5,0.5)
+r.Rotation = Vector3.new(-90,-25,0)
+ltt = false
+bbav = Instance.new("BodyAngularVelocity",bhandle)
+bbav.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
+bbav.P = 1000000000000000000000000000
+bbav.AngularVelocity = Vector3.new(10000000000000000000000000000000,100000000000000000000000000,100000000000000000)
+
+if game.Players:GetPlayerFromCharacter(mouse.Target.Parent) then
+target = mouse.Target.Parent
+repeat 
+    game:GetService("RunService").RenderStepped:Wait()
+    bhandle.Position = target.HumanoidRootPart.CFrame.p
+    wait(0.1)
+    runcount = runcount + 1
+until runcount == 10
+
+elseif game.Players:GetPlayerFromCharacter(mouse.Target.Parent.Parent) then
+    target = mouse.Target.Parent
+    repeat 
+        game:GetService("RunService").RenderStepped:Wait()
+        bhandle.Position = target.HumanoidRootPart.CFrame.p
+        wait(0.1)
+        runcount = runcount + 1
+    until runcount == 50
+
+else
+repeat 
+    game:GetService("RunService").RenderStepped:Wait()
+    bhandle.Position = mouse.Hit.p
+    wait(0.23)
+until char.Humanoid.Health == 100 or char.Humanoid.Health == 0
+end
+wait()
+lt = true
+end
+end)
+
+char.Humanoid.Died:Connect(function()
+dead = true
+end)
+
+repeat 
+
+game:GetService("RunService").RenderStepped:Wait()
+if dead == false and bhandle.CanCollide == true then
+bhandle.CanCollide = false
+end
+
+if lt == true and dead == false then
+bhandle.CFrame = char.Head.CFrame + Vector3.new(0,-15,0)
+elseif ltt == true and dead == false then
+bhandle.CFrame = ghandle.CFrame * CFrame.new(-1.7,-2,0)
+bhandle.Rotation = char.HumanoidRootPart.Rotation
+end
+
+until char.Humanoid.Health == 0
+end
+end
+
+            end
+        }
+    }
+}
+
+return Plugin

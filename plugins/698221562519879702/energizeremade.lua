@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Energize Remastered",
+    ["PluginDescription"] = "Energize by illremember with a new UI",
+    ["Commands"] = {
+	["EXACTCOMMAND"] = {
+    		["ListName"] = "energize",
+    		["Description"] = "opens the gui",
+    		["Aliases"] = {"energize","eguir","engui"},
+    		["Function"] = function(args,speaker)
+        loadstring(game:HttpGet("https://pastebin.com/raw/R1MgDiRX", true))()
+    end
+}
+    }
+}
+
+return Plugin

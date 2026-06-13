@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Translator",
+    ["PluginDescription"] = "This is a translator plugin",
+    ["Commands"] = {
+        ["translator"] = {
+            ["ListName"] = "translator",
+            ["Description"] = "",
+            ["Aliases"] = {"translate"},
+            ["Function"] = function(args,speaker)
+              loadstring(game:HttpGet('https://raw.githubusercontent.com/xxaim/ignore/master/translator.lua'))() 
+            end
+          }
+        }
+      }
+
+      return Plugin

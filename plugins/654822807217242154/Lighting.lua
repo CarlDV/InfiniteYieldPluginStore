@@ -1,0 +1,315 @@
+local Plugin = {
+    ["PluginName"] = "Lighting+",
+    ["PluginDescription"] = "More lighting parameter",
+    ["Commands"] = {
+        ["enablegs"] = {
+            ["ListName"] = "EnableGs",
+            ["Description"] = "Enable Global Shadows",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                lighting = game:GetService("Lighting")
+             
+                Lighting.GlobalShadows = true
+    end,
+ 
+            },
+            ["disablegs"] = {
+                ["ListName"] = "DisableGs",
+                ["Description"] = "Disable GlobalShadows",
+                ["Aliases"] = {},
+                ["Function"] = function(args,speaker)
+                    Lighting.GlobalShadows = false
+    end,
+   },
+    ["exposurecompensation"] = {
+        ["ListName"] = "ExposureCompensation [Number] / ec [Number]",
+        ["Description"] = "Change the Exposure Compensation",
+        ["Aliases"] = {"ec"},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+                Lighting.ExposureCompensation = args[1] else
+                    Lighting.ExposureCompensation = 0
+                end
+            end,
+    },
+    ["geographiclatitude"] = {
+        ["ListName"] = "GeographicLatitude [Number] / gl [Number]",
+        ["Description"] = "Change the geographic latitude",
+        ["Aliases"] = {"gl"},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+                Lighting.GeographicLatitude = args[1]
+            end
+        end,
+    },
+    ["enableoutlines"] = {
+        ["ListName"] = "EnableOutlines",
+        ["Description"] = "Enable the outlines",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            Lighting.Outlines = true
+        end,
+    },
+    ["disableoutlines"] = {
+        ["ListName"] = "DisableOutlines",
+        ["Description"] = "disable the outlines",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            Lighting.Outlines = false
+        end
+    },
+    ["fogstart"] = {
+        ["ListName"] = "FogStart [Number]",
+        ["Description"] = "Put your fog start",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+                Lighting.FogStart = args[1]
+            end
+ 
+        end,              
+},
+["fogend"] = {
+    ["ListName"] = "FogEnd [Number]",
+    ["Description"] = "Put your fog end",
+    ["Aliases"] = {""},
+    ["Function"] = function(args,speaker)
+        if args[1] then
+            Lighting.FogEnd = args[1]
+        end
+    end,
+        },
+        ["fogcolor"] = {
+            ["ListName"] = "FogColor [color, color, color]",
+            ["Description"] = "Set the color of the fog",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                if args[1] then
+                    Lighting.FogColor = args[1]
+                end
+            end,
+        },
+        ["outdoorambient"] = {
+            ["ListName"] = "OutdoorAmbient [color, color, color]",
+            ["Description"] = "Set the out door ambient color",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                if args[1] then
+                    Lighting.OutdoorAmbient = args[1]
+                end
+            end,
+        },
+       
+        ["deletesky"] = {
+            ["ListName"] = "DeleteSky / DSky",
+            ["Description"] = "Delete the sky lol",
+            ["Aliases"] = {"Dsky"},
+            ["Function"] = function(args,speaker)
+                for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(Sky))do
+                v:Destroy()
+            end
+        end,
+    },
+    ["enablebloom"] = {
+        ["ListName"] = "EnableBloom",
+        ["Description"] = "Enable the bloom if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            for i,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BloomEffect))do
+                v.Enabled = true
+            end
+        end,
+    },
+    ["disablebloom"] = {
+        ["ListName"] = "DisableBloom",
+        ["Description"] = "Disable the bloom if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            for i,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BloomEffect))do
+                v.Enabled = false
+            end
+        end,
+    },
+    ["bloomsize"] = {
+        ["ListName"] = "BloomSize [Size]",
+        ["Description"] = "Change the bloom size",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BloomEffect))do
+                v.Size = args[1]
+               end
+            end
+        end,
+    },
+    ["bloomintensity"] = {
+        ["ListName"] = "BloomIntensity [Intensity]",
+        ["Description"] = "Change the intensity of the bloom",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+                for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BloomEffect))do
+                 v.Intensity = args[1]
+                end
+             end
+            end,
+    },
+    ["bloomthreshold"] = {
+        ["ListName"] = "BloomThreshold [Threshold]",
+        ["Description"] = "Change the bloom threshold",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BloomEffect))do
+                v.Treshold = args[1]
+               end
+            end
+        end,
+    },
+    ["enableblur"] = {
+        ["ListName"] = "EnableBlur",
+        ["Description"] = "Enable the blur if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BlurEffect))do
+                v.Enbaled = true
+               end
+            end,
+    },
+    ["disablelur"] = {
+        ["ListName"] = "DisableBlur",
+        ["Description"] = "Disable the blur if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BlurEffect))do
+                v.Enbaled = false
+               end
+            end,
+    },
+    ["blursize"] = {
+        ["ListName"] = "BlurSize [Size]",
+        ["Description"] = "Change the bloom threshold",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(BlurEffect))do
+                v.Size = args[1]
+               end
+            end
+        end,
+    },
+    ["enablesunrays"] = {
+        ["ListName"] = "EnableSunRays",
+        ["Description"] = "Enable the sun rays if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(SunRaysEffect))do
+                v.Enabled = true
+               end
+            end
+    },
+    ["disablesunrays"] = {
+        ["ListName"] = "DisableSunRays",
+        ["Description"] = "disable the sun rays if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(SunRaysEffect))do
+                v.Enabled = false
+               end
+            end
+    },
+    ["sunraysintensity"] = {
+        ["ListName"] = "SunRaysIntensity [Intensity]",
+        ["Description"] = "Change SunRays intensity",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(SunRaysEffect))do
+                v.Intensity = args[1]
+               end
+            end
+        end,
+    },
+    ["sunraysspread"] = {
+        ["ListName"] = "SunRaysSpread [Spread]",
+        ["Description"] = "Change SunRays spread",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(SunRaysEffect))do
+                v.Spread = args[1]
+               end
+            end
+        end,
+    },
+    ["enablecolorcorrection"] = {
+        ["ListName"] = "EnbaleColorCorrection",
+        ["Description"] = "Enable the color correction if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(ColorCorrectionEffect))do
+                v.Enabled = true
+               end
+            end
+    },
+    ["disablecolorcorrection"] = {
+        ["ListName"] = "DisableColorCorrection",
+        ["Description"] = "Disable the color correction if the game as one",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(ColorCorrectionEffect))do
+                v.Enabled = false
+               end
+            end,
+    },
+    ["colorcorrectionbrightness"] = {
+        ["ListName"] = "ColorCorrectionBrightness [Brightness]",
+        ["Description"] = "Change the color correction brighness",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(ColorCorrectionEffect))do
+                v.Brightness = args[1]
+               end
+            end
+        end,
+    },
+    ["colorcorrectioncontrast"] = {
+        ["ListName"] = "ColorCorrectionContrast [Contrast]", -- Exemple 1,2,-3 ect
+        ["Description"] = "Change the color correction contrast",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(ColorCorrectionEffect))do
+                v.Brightness = args[1]
+               end
+            end
+        end,
+    },
+    ["colorcorrectionsaturation"] = {
+        ["ListName"] = "ColorCorrectionSaturation [Saturation]", -- Exemple 1,2,-3 ect
+        ["Description"] = "Change the color correction saturation",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(ColorCorrectionEffect))do
+                v.Saturation = args[1]
+               end
+            end
+        end,
+    },
+    ["colorcorrectiontintcolor"] = {
+        ["ListName"] = "ColorCorrectionTintColor [color,color,color]", -- exemple 25,105,255
+        ["Description"] = "Change the color correction tint",
+        ["Aliases"] = {""},
+        ["Function"] = function(args,speaker)
+            if args[1] then
+               for _,v in pairs(game:GetService("Lighting"):FindFirstChildOfClass(ColorCorrectionEffect))do
+                v.TintColor = args[1]
+               end
+            end
+        end
+        }
+    }
+}
+    return Plugin

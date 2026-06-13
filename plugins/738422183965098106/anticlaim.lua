@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "anticlaim",
+	["PluginDescription"] = "anti claim yes",
+	["Commands"] = {
+		["anticlaim/aclaim"] = {
+			["Description"] = "stop controlling me ):<",
+			["Aliases"] = {'anticlaim','aclaim'},
+			["Function"] = function(args,speaker)
+			game:GetService("Workspace").FallenPartsDestroyHeight = math.huge-math.huge
+
+			end,
+		},
+	},
+}
+
+return Plugin

@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "What is ur net",
+    ["PluginDescription"] = "Tell you your current net",
+    ["Commands"] = {
+        ["mynet"] = {
+            ["ListName"] = "mynet / mn",
+            ["Description"] = "",
+            ["Aliases"] = {"mn"},
+            ["Function"] = function(args,speaker)
+notify("MyNet: "..math.floor(gethiddenproperty(game.Players.LocalPlayer, "SimulationRadius")))
+            end
+        },
+        ["mynetchat"] = {
+            ["ListName"] = "mynetchat / mnchat",
+            ["Description"] = "",
+            ["Aliases"] = {"mnchat"},
+            ["Function"] = function(args,speaker)
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("MyNet: "..math.floor(gethiddenproperty(game.Players.LocalPlayer, "SimulationRadius")), "All")
+            end
+        },
+    }
+}
+
+return Plugin

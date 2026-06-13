@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "donut.lua",
+    ["PluginDescription"] = "speen donut",
+    ["Commands"] = {
+        ["donut"] = {
+            ["ListName"] = "donut",
+            ["Description"] = "it will freeze game for donut",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                if not rconsoleprint then game.Players.LocalPlayer:Kick("no console")else Theta_spacing=0.07;Phi_spacing=0.02;local a=0;local b,c,d,e,f;local g,h,i,j,k,l,m,n,o,p,q,r,s,t,u;local v,w,x=math.sin,math.cos,math.floor;b=0;c=0;d={'.',',','-','~',':',';','=','!','*','#','$','@'}rconsoleprint("hi!!!\ndonut studio presents: spinning donut\nby swimdroid")wait(5)rconsoleclear()e={}f={}while true do local y,z;z=0;for n=1,1760 do e[n]=0 end;for q=1,1760 do f[q]=' 'end;while z<6.28 do z=z+Theta_spacing;y=0;while y<6.28 do y=y+Phi_spacing;g=v(y)n=w(y)h=w(z)j=v(z)i=v(b)k=w(b)l=h+2;m=1/(g*l*i+j*k+5)o=w(c)p=v(c)q=g*l*k-j*i;r=x(40+30*m*(n*l*o-q*p))s=x(12+15*m*(n*l*p+q*o))t=x(r+80*s)u=x(8*((j*i-g*h*k)*o-g*h*i-j*k-n*h*p))if 22>s and s>0 and 80>r and r>0 and m>e[t+1]then e[t+1]=m;if u>0 then f[t+1]=d[u+1]else f[t+1]='.'end end end end;a=a+1;rconsoleclear()rconsoleprint(a.."\n")for n=1,1760 do if n%80~=0 then rconsoleprint(tostring(f[n]))end end;b=b+0.04;c=c+0.02 end end
+            end
+        },
+     }
+}
+
+return Plugin

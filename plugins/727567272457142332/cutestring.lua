@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "cutestring()",
+    ["PluginDescription"] = "Chat's an inputted string, but cutified.",
+    ["Commands"] = {
+        ["cutestring"] = {
+            ["ListName"] = "cutestring [string] / cuteify [string]",
+            ["Description"] = "makes a string cute",
+            ["Aliases"] = {"cuteify"},
+            ["Function"] = function(args,speaker)
+                local cutestring = string.gsub(string.gsub(string.gsub(string.gsub(getstring(1), "r", "w"), "R", "W"), "l", "w"), "L", "W")
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(cutestring, "All")
+            end
+        }
+     }
+}
+
+return Plugin

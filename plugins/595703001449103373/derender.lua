@@ -1,0 +1,39 @@
+local Events = {}
+local Save = {}
+local Plugin = {
+	["PluginName"] = "Derender by Zwolf",
+	["PluginDescription"] = "Removes someones existence from the game... does not replicate!",
+	["Commands"] = {
+		["derender"] = {
+			["Description"] = "derender [player]",
+			["Aliases"] = {'der', 'block'},
+			["Function"] = function(args,speaker)
+                local players = getPlayer(args[1], speaker)
+
+                for i,v in pairs(players) do
+                    local Player = Players[v]
+                    Save[Player.Name] = {Player, Player.Character}
+                    Player.Parent = nil
+                    Player.Character.Parent = nil
+                end
+			end,
+        },
+        ["rerender"] = {
+            ["Description"] = "Rerenders a person",
+            ["Aliases"] = {},
+            ["ListName"] = "rerender [Exact Player Name]",
+            ["Function"] = function(args,speaker)
+                local Player = Save[args[1]]
+
+                if Player then
+                    Player = Player[1]
+                    Player.Parent = game.Players
+                    Player.Character.Parent = workspace
+                    Save[v] = nil
+                end
+            end
+        }
+	},
+}
+
+return Plugin

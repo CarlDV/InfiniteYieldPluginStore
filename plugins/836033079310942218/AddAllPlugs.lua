@@ -1,0 +1,71 @@
+local plugin = loadstring(game:HttpGet("https://cdn.elerium.cc/scripts/iy-api-v2.lua"))();
+local AddPlug = plugin.new("Add All Plugins", "🤓");
+
+local ENUM = {
+	["NOT_SUPPORTED"] = 0;
+	["ALREADY_ALL_ADDED"] = 1;
+	["ERROR"] = 2;
+}
+
+local missingFunctions = {}
+local neededFunctions = {"listfiles", "isfolder"}
+
+for _, func in ipairs(neededFunctions) do
+	if not getgenv()[func] then
+		table.insert(missingFunctions, func)
+	end
+end
+
+local function getPlugins()
+	if #missingFunctions ~= 0 then
+		return ENUM.NOT_SUPPORTED;
+	end
+
+	local plugins = {};
+
+	local success, err = pcall(function()
+		for _, file in ipairs(listfiles("")) do
+			local extension = table.remove(file:split("."));
+			if extension == "iy" and file ~= "IY_FE.iy" and not isfolder(file) then
+				if not FindInTable(PluginsTable, file) then
+					table.insert(plugins, file);
+				end
+			end
+		end
+	end)
+
+	if not success then
+		warn(("AddAllPlugins [ERROR]: %s"):format(err))
+		return ENUM.ERROR;
+	end
+
+	if #plugins == 0 then
+		return ENUM.ALREADY_ALL_ADDED;
+	end
+
+	return plugins;
+end
+
+AddPlug:pushWithEvent("addplugins", "addplugins", "Adds all plugins"):Connect(function()
+    local result = getPlugins();
+
+	if result == ENUM.NOT_SUPPORTED then
+		return notify("Notice ⚠", "Your exploit is not supported. You are missing: " .. table.concat(missingFunctions, ", "));
+	end
+
+	if result == ENUM.ALREADY_ALL_ADDED then
+		return notify("Notice ⚠", "You already have all plugins added.");
+	end
+
+	if result == ENUM.ERROR then
+		return notify("Error ❌", "Something went wrong. Press F9 and screenshot the warning that appears.");
+	end
+
+	for _, name in ipairs(result) do
+		addPlugin(name);
+	end
+
+	notify("Success ✅", ("Added %s plugins: %s"):format(#result, table.concat(result, ", ")));
+end);
+
+return AddPlug;

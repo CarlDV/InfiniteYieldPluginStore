@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Flipper",
+	["PluginDescription"] = "Allows you to do front/backflips.",
+	["Commands"] = {
+		["Flipper"] = {
+			["Description"] = "Press Z for frontflips and X for backflips",
+			["Aliases"] = {'name1', 'name2', 'name3'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/W95B2fD9"))()
+			end,
+		},
+	},
+}
+
+return Plugin

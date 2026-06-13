@@ -1,0 +1,74 @@
+ballAnswers = {
+'As I see it, yes.',
+'Ask again later.',
+'Better not tell you now.',
+'Cannot predict now.',
+'Concentrate and ask again.',
+'Don’t count on it.',
+'It is certain.',
+'It is decidedly so.',
+'Most likely.',
+'My reply is no.',
+'My sources say no.',
+'Outlook not so good.',
+'Outlook good.',
+'Reply hazy, try again.',
+'Signs point to yes.',
+'Very doubtful.',
+'Without a doubt.',
+'Yes.',
+'Yes – definitely.',
+'You may rely on it.',
+}
+
+local Plugin = {
+    ["PluginName"] = "Fun Commands",
+    ["PluginDescription"] = "Includes fun commands for the chat",
+    ["Commands"] = {
+        ["8ball"] = {
+            ["ListName"] = "8ball [question]",
+            ["Description"] = "Makes you chat predictions of an 8ball",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+				local reply = ballAnswers[math.random(1, #ballAnswers)]
+				execCmd('chat '..reply)
+            end
+        },
+        ["number"] = {
+            ["ListName"] = "number [smallest] [largest]",
+            ["Description"] = "Picks a random number between the ones provided",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local reply = tostring(math.random(tonumber(args[1]),tonumber(args[2])))
+				execCmd('chat '..reply)
+            end
+        },
+        ["diceroll"] = {
+            ["ListName"] = "diceroll / dice",
+            ["Description"] = "Rolls a random number between 1 and 6",
+            ["Aliases"] = {'dice'},
+            ["Function"] = function(args,speaker)
+                local reply = tostring(math.random(1,6))
+				execCmd('chat Rolled a '..reply)
+            end
+        },
+        ["tableflip"] = {
+            ["ListName"] = "tableflip / tflip",
+            ["Description"] = "Makes you chat the table flip text",
+            ["Aliases"] = {'tflip'},
+            ["Function"] = function(args,speaker)
+				execCmd('chat (╯°□°）╯︵ ┻━┻')
+            end
+        },
+        ["unflip"] = {
+            ["ListName"] = "untableflip / untflip",
+            ["Description"] = "Makes you chat the unflip table text",
+            ["Aliases"] = {'untflip','untableflip'},
+            ["Function"] = function(args,speaker)
+				execCmd('chat ┬─┬ ノ( ゜-゜ノ)')
+            end
+        },
+    }
+}
+
+return Plugin
