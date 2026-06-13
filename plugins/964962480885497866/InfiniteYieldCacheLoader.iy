@@ -1,0 +1,47 @@
+pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version'))() end)
+
+local fileExtension = "iy"
+if identifyexecutor then
+	local utility, utilityVer = identifyexecutor()
+	if utility == "Synapse" then
+		if string.sub(utilityVer, 1, 1) == "3" then
+			fileExtension = "txt"
+		end
+	end
+end
+local fileExLen = #fileExtension + 1
+
+local fileName = "IYCache." .. fileExtension
+
+local Source
+function updateFile()
+	writefile(fileName, game:GetService("HttpService"):JSONEncode({Version = Version, Source = game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source')}))
+end
+function updatesaves()
+	if writefile then
+		if pcall(readfile, fileName) then
+			local suc, res = pcall(function()
+				local savefile = game:GetService("HttpService"):JSONDecode(readfile(fileName))
+				if Version ~= savefile.Version then updateFile() end
+				Source = savefile.Source
+			end)
+			if not suc then
+				updateFile()
+				updatesaves()
+			end
+		else
+			updateFile()
+			wait()
+			if pcall(readfile, fileName) then
+				updatesaves()
+			else
+				Source = game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source')
+			end
+		end
+	else
+		Source = game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source')
+	end
+end
+updatesaves()
+
+loadstring(Source)()
