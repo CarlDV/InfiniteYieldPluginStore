@@ -1,0 +1,249 @@
+Players = game:GetService("Players") 
+
+local Plugin = {
+    ["PluginName"] = "Fling Parts",
+    ["PluginDescription"] = "Use unanchored parts to fling people",
+    ["Commands"] = {
+        ["flingparts"] = {
+            ["ListName"] = "flingparts [plr]",
+            ["Description"] = "Spin all unanchoredparts and bring them on the players/fling",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                -- Network
+                spawn(function()
+                    while true do
+                        game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+                        game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+                        game:GetService("RunService").Stepped:wait()
+                    end
+                end)
+        
+              local player = getPlayer(args[1], speaker) -- Target name
+        
+                -- Spin setting
+                local Vel = Vector3.new(5000,5000,5000)
+                local MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                local Pow = 9999999999
+                -- Gyro setting
+                local Gyro = false -- Do you want the parts to be aligned? (doesnt truly matter)
+                local Dampening = 500
+                local Power = 3000
+        
+                local LocalPlayer = game:GetService("Players").LocalPlayer -- Your local player
+        
+                local unanchoredparts10 = {} -- Get the anchored parts in the table
+        
+                local moverss = {} -- Put the body position in the table
+                
+        
+                        -- add the unanchored parts in the table and clear them
+                        for index, part in pairs(workspace:GetDescendants()) do
+                            if part:IsA("Part" or "MeshPart" or "Model" or "BasePart") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false then
+                                part.CanCollide = true
+                        table.insert(unanchoredparts10, part)
+                        if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+                            part:FindFirstChildOfClass("BodyPosition"):Destroy()
+                        end
+                    end
+                end
+        
+                 -- Setting for the thing work
+                for index, part in pairs(unanchoredparts10) do
+                    local mov = Instance.new("BodyPosition", part)
+                    table.insert(moverss, mov)
+                    mov.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                        end
+        
+                        for index,part in pairs(unanchoredparts10)do
+                        local ang = Instance.new("BodyAngularVelocity", part)
+                        ang.AngularVelocity = Vel
+                        ang.MaxTorque = MaxTorque
+                        ang.P = Pow
+                        end
+        
+                        if Gyro == true then
+                        for i,v in pairs(unanchoredparts10)do
+                            local gyros = Instance.new("BodyGyro", v)
+                            gyros.P = Power
+                            gyros.D = Dampening
+                        end
+                        end
+                repeat
+                    local flingon5 = true
+                    for i,plr in pairs(player)do
+                    for index, mover in pairs(moverss) do
+                            mover.Position = Players[plr].Character.HumanoidRootPart.CFrame:PointToWorldSpace(Vector3.new(-0.1,-1,-3.1)) -- Best positon for fling
+                        end
+                        end
+                    game:GetService("RunService").Stepped:wait()
+                until flingon5 == false
+            end
+        },
+        
+        ["flinghats"] = {
+            ["ListName"] = "flinghats [plr]",
+            ["Description"] = "take your hats and fling them",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            -- Network
+            spawn(function()
+                while true do
+                    game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+                    game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+                    game:GetService("RunService").Stepped:wait()
+                end
+            end)
+        
+          local player = getPlayer(args[1], speaker) -- Target name
+ 
+
+
+          hats = {} -- hats table
+        
+            -- Spin setting
+            local Vel = Vector3.new(5000,5000,5000)
+            local MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+            local Pow = 9999999999
+        
+            local LocalPlayer = game:GetService("Players").LocalPlayer -- Your local player
+        
+            local unanchoredparts101 = {} -- Get the anchored parts in the table
+        
+            local moversss = {} -- Put the body position in the table
+            
+            for i,v in pairs(game.Players.LocalPlayer.Character.Humanoid:GetAccessories())do
+                    for i,handle in pairs(v:GetDescendants())do
+                    if handle:IsA("BasePart") then
+                    table.insert(hats,handle)
+                    v.Parent = workspace
+                    end
+                end
+                end
+        
+                    -- add the unanchored parts in the table and clear them
+                    for index, part in pairs(hats) do
+                            part.CanCollide = false
+                    table.insert(unanchoredparts101, part)
+                    if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+                        part:FindFirstChildOfClass("BodyPosition"):Destroy()
+                    end
+                end
+        
+             -- Setting for the thing work
+            for index, part in pairs(unanchoredparts101) do
+                local mov = Instance.new("BodyPosition", part)
+                table.insert(moversss, mov)
+                mov.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                    end
+        
+                    for index,part in pairs(unanchoredparts101)do
+                    local ang = Instance.new("BodyAngularVelocity", part)
+                    ang.AngularVelocity = Vel
+                    ang.MaxTorque = MaxTorque
+                    ang.P = Pow
+                    end
+        
+            repeat
+                local flingon5 = true
+                for i,plr in pairs(player)do
+                for index, mover in pairs(moversss) do
+                        mover.Position = Players[plr].Character.HumanoidRootPart.CFrame:PointToWorldSpace(Vector3.new(-0.1,-1,-3.29)) -- Best positon for fling
+                    end
+                    end
+                game:GetService("RunService").Stepped:wait()
+            until flingon5 == false
+        end
+        },
+            ["unflingparts"] = {
+                ["ListName"] = "unflingparts",
+                ["Description"] = "Stop bring the parts and fling to the player",
+                ["Aliases"] = {},
+                ["Function"] = function(args,speaker)
+                    wait(0.2)
+                    for i,v in pairs(game.Workspace:GetDescendants()) do
+                        if v:IsA("BodyPosition") or v:IsA("BodyGyro") or v:IsA("BodyAngularVelocity") then
+                            v:Destroy()
+                            flingon5 = false
+                    end
+                end
+            end
+            },
+            ["spinparts"] = {
+                ["ListName"] = "spinparts [plr]",
+                ["Description"] = "Spin the parts to the player",
+                ["Aliases"] = {},
+                ["Function"] = function(args,speaker)
+                     -- Network
+                spawn(function()
+                    while true do
+                        game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+                        game.Players.LocalPlayer.SimulationRadius = math.pow(math.huge,math.huge)*math.huge
+                        game:GetService("RunService").Stepped:wait()
+                    end
+                end)
+        
+              local player = getPlayer(args[1], speaker) -- Target name
+        
+                -- Spin setting
+                local Vel = Vector3.new(0,90,0)
+                local MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+                local Pow = 5000
+                -- Gyro setting
+                local Gyro = false -- Do you want the parts to be aligned? (doesnt truly matter)
+                local Dampening = 500
+                local Power = 3000
+        
+                local LocalPlayer = game:GetService("Players").LocalPlayer -- Your local player
+        
+                local unanchoredparts10 = {} -- Get the anchored parts in the table
+        
+                local moverss = {} -- Put the body position in the table
+                
+        
+                        -- add the unanchored parts in the table and clear them
+                        for index, part in pairs(workspace:GetDescendants()) do
+                            if part:IsA("Part" or "MeshPart" or "Model" or "BasePart") and part.Anchored == false and part:IsDescendantOf(LocalPlayer.Character) == false then
+                                part.CanCollide = true
+                        table.insert(unanchoredparts10, part)
+                        if part:FindFirstChildOfClass("BodyPosition") ~= nil then
+                            part:FindFirstChildOfClass("BodyPosition"):Destroy()
+                        end
+                    end
+                end
+        
+                 -- Setting for the thing work
+                for index, part in pairs(unanchoredparts10) do
+                    local mov = Instance.new("BodyPosition", part)
+                    table.insert(moverss, mov)
+                    mov.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+                        end
+        
+                        for index,part in pairs(unanchoredparts10)do
+                        local ang = Instance.new("BodyAngularVelocity", part)
+                        ang.AngularVelocity = Vel
+                        ang.MaxTorque = MaxTorque
+                        ang.P = Pow
+                        end
+        
+                        if Gyro == true then
+                        for i,v in pairs(unanchoredparts10)do
+                            local gyros = Instance.new("BodyGyro", v)
+                            gyros.P = Power
+                            gyros.D = Dampening
+                        end
+                        end
+                repeat
+                    local flingon5 = true
+                    for i,plr in pairs(player)do
+                    for index, mover in pairs(moverss) do
+                            mover.Position = Players[plr].Character.HumanoidRootPart.CFrame:PointToWorldSpace()
+                        end
+                        end
+                    game:GetService("RunService").Stepped:wait()
+                until flingon5 == false
+            end
+            }
+    }
+}
+
+return Plugin

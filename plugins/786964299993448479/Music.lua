@@ -1,0 +1,109 @@
+local id = 468232574
+looped=false
+
+function create()
+    local sound=Instance.new("Sound",workspace)
+    sound.Name="MusicGUIsong"
+end
+
+function del()
+    workspace.MusicGUIsong:Destroy()
+end
+
+function makesound(id)
+    local s=Instance.new("Sound",main)
+    s.SoundId=id
+    s.Volume=4
+    s.PlaybackSpeed=1
+    s:Play()
+end
+
+
+local Plugin = {
+    ["PluginName"] = "Music Player",
+    ["PluginDescription"] = "Script by Rasyid Rafi",
+    ["Commands"] = {
+        ["loop"] = {
+            ["ListName"] = "loop",
+            ["Description"] = "loop the music",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                looped=true
+                workspace.MusicGUIsong.Looped=true
+            end
+        },
+
+        ["unloop"] = {
+            ["ListName"] = "unloop",
+            ["Description"] = "unloop the music",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                looped=false
+                workspace.MusicGUIsong.Looped=false
+            end
+        },
+
+        ["play"] = {
+            ["ListName"] = "play [id]",
+            ["Description"] = "play music",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                id = args[1]
+                create()
+                workspace.MusicGUIsong.Looped=looped
+                workspace.MusicGUIsong.PlaybackSpeed=1
+                workspace.MusicGUIsong.SoundId="rbxassetid://"..id
+                workspace.MusicGUIsong.Volume=4
+                workspace.MusicGUIsong:Play()
+            end
+        },
+
+        ["stop"] = {
+            ["ListName"] = "stop",
+            ["Description"] = "stop music",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+                workspace.MusicGUIsong:Destroy()
+            end
+        },
+
+        ["mvolume"] = {
+            ["ListName"] = "mvolume [num] / mvol [num]",
+            ["Description"] = "set music volume",
+            ["Aliases"] = {"mvol"},
+            ["Function"] = function(args,speaker)
+                num = args[1]
+                workspace.MusicGUIsong.Volume=num
+            end
+        },
+
+        ["playbackspeed"] = {
+            ["ListName"] = "playbackspeed [num] / pbs [num]",
+            ["Description"] = "set playbackspeed",
+            ["Aliases"] = {"pbs"},
+            ["Function"] = function(args,speaker)
+                num = args[1]
+                workspace.MusicGUIsong.PlaybackSpeed=num
+            end
+        },
+
+        ["pause"] = {
+            ["ListName"] = "pause / ps",
+            ["Description"] = "pause music",
+            ["Aliases"] = {"ps"},
+            ["Function"] = function(args,speaker)
+                workspace.MusicGUIsong:Pause()
+            end
+        },
+
+        ["resume"] = {
+            ["ListName"] = "resume / rs",
+            ["Description"] = "resume music",
+            ["Aliases"] = {"rs"},
+            ["Function"] = function(args,speaker)
+                workspace.MusicGUIsong:Resume()
+            end
+        },
+    }
+}
+return Plugin

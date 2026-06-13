@@ -1,0 +1,68 @@
+local Plugin = {
+	["PluginName"] = "anticharteleport",
+	["PluginDescription"] = "prevents the game from teleporting your character",
+	["Commands"] = {
+		["anticharteleport"] = {
+			["ListName"] = "anticharteleport / antichartp",
+			["Description"] = "toggle allowing the game to teleport your character",
+			["Aliases"] = { "antichartp" },
+			["Function"] = function(args, speaker)
+				getgenv().antitp = true
+
+				local Players = game:GetService("Players")
+				local RunService = game:GetService("RunService")
+
+				local lplr = Players.LocalPlayer
+
+				local character
+				local root
+
+				local lastcframe
+				local lastpos
+
+				local function setupCharacter(char)
+					character = char
+					root = character:WaitForChild("HumanoidRootPart")
+					lastcframe = root.CFrame
+					lastpos = root.Position
+				end
+
+				if lplr.Character then
+					setupCharacter(lplr.Character)
+				end
+
+				lplr.CharacterAdded:Connect(setupCharacter)
+	
+				RunService.RenderStepped:Connect(function()
+					if not getgenv().antitp then return end
+					if not root then return end
+
+					local currentpos = root.Position
+
+					if lastpos then
+						local distance = (currentpos - lastpos).Magnitude
+
+						if distance <= 6 then
+							lastcframe = root.CFrame
+						elseif distance > 15 then
+							root.CFrame = lastcframe
+							lastpos = root.Position
+							return
+						end
+					end
+					lastpos = root.Position
+				end)
+			end,
+     	},
+		["unanticharteleport"] = {
+			["ListName"] = "unanticharteleport / unantichartp",
+			["Description"] = "toggles off game tps",
+			["Aliases"] = { "antichartp" },
+			["Function"] = function(args, speaker)
+				getgenv().antitp = false
+			end,
+		},
+	},
+}
+
+return Plugin

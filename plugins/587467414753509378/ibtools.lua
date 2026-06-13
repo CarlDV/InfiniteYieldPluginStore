@@ -1,0 +1,18 @@
+local Plugin = {
+    ["PluginName"] = "ibtools",
+    ["PluginDescription"] = "loads ibtools and enables backpack",
+    ["Commands"] = {
+        ["ibtools"] = {
+            ["ListName"] = "ibtools",
+            ["Description"] = "loads ibtools",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+                local StarterGui = game:GetService('StarterGui')
+                StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
+                loadstring(game:GetObjects('rbxassetid://552440069')[1].Source)()
+            end,
+        },
+    },
+}
+
+return Plugin

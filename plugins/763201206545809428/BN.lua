@@ -1,0 +1,34 @@
+spawn(function()
+lastchatted = false
+incmd = false
+oldexecCmd = execCmd
+execCmd = function(...)
+  lastchatted = false
+  incmd = true
+  oldexecCmd(...)
+  game:GetService("RunService").RenderStepped:Wait()
+  game:GetService("RunService").Stepped:Wait()
+  incmd = false
+end
+
+oldnotify = notify
+notify = function(...)
+  local t = {...}
+  if lastchatted then
+  if not (pcall(function() game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(t[1] and t[2] or t[1],"All") end)) then oldnotify(...) end
+  else oldnotify(...) end
+end
+
+
+game:GetService("Players").LocalPlayer.Chatted:Connect(function(cmd)
+if cmd:lower():sub(0,#prefix) == prefix or cmd:lower():sub(0,#prefix+3) == "/e "..prefix then
+   repeat game:GetService("RunService").RenderStepped:Wait() until incmd
+   lastchatted = true end
+end)
+end)
+local dummy = {
+    ["PluginName"] = "Better Notifications",
+    ["PluginDescription"] = "Makes you chat a notification if you execute a command from the chat",
+    ["Commands"] = {}
+}
+return dummy

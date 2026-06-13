@@ -1,0 +1,15 @@
+local Plugin = {
+    ["PluginName"] = "Kore Hub",
+    ["PluginDescription"] = "Kore Hub V1 on an infinite yield plugin",
+    ["Commands"] = {
+        ["korehub"] = {
+            ["ListName"] = "korehub",
+            ["Description"] = "Opens kore-hub in a loadstring",
+            ["Aliases"] = {"kore"},
+            ["Function"] = function(args,speaker)
+            	loadstring(game:HttpGet("https://qwstrashcan.000webhostapp.com/scripts/kores_hub.lua"))();
+            end
+        }
+    }
+}
+return Plugin

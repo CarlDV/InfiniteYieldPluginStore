@@ -1,0 +1,16 @@
+local Plugin = {
+  ["PluginName"] = "BoogaX",
+    ["PluginDescription"] = "BoogaX Made by: TheRealExploiter(Unreleased)",
+    ["Commands"] = {
+        ["BoogaX"] = {
+            ["ListName"] = "BoogaX",
+            ["Description"] = "Hello There",
+            ["Aliases"] = {BX},
+            ["Function"] = function(args,speaker)
+					loadstring(game:HttpGet("https://pastebin.com/raw/qbuJq8dt"))();
+            end,
+        },
+    },
+}
+
+return Plugin

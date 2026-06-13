@@ -1,0 +1,105 @@
+local dFLYING = false
+local dflyspeed = 1
+local function dFLY()
+	repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart') and Players.LocalPlayer.Character:FindFirstChild('Humanoid')
+	repeat wait() until IYMouse
+	
+	local T = Players.LocalPlayer.Character.HumanoidRootPart
+	local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+	local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+	local SPEED = 0
+	
+	local function FLY()
+		dFLYING = true
+		local BG = Instance.new('BodyGyro', T)
+		local BV = Instance.new('BodyVelocity', T)
+		BG.P = 9e4
+		BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		BG.cframe = T.CFrame
+		BV.velocity = Vector3.new(0, 0, 0)
+		BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+		spawn(function()
+		repeat wait()
+		if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+		SPEED = 50
+		elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+		SPEED = 0
+		end
+if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+else
+BV.velocity = Vector3.new(0, 0, 0)
+end
+	BG.cframe = workspace.CurrentCamera.CoordinateFrame
+			until not dFLYING
+			CONTROL = {F = 0, B = 0, L = 0, R = 0}
+			lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+			SPEED = 0
+			BG:destroy()
+			BV:destroy()
+		end)
+	end
+	IYMouse.KeyDown:connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = dflyspeed
+		elseif KEY:lower() == 's' then
+			CONTROL.B = -dflyspeed
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = -dflyspeed 
+		elseif KEY:lower() == 'd' then 
+			CONTROL.R = dflyspeed
+		end
+	end)
+	IYMouse.KeyUp:connect(function(KEY)
+		if KEY:lower() == 'w' then
+			CONTROL.F = 0
+		elseif KEY:lower() == 's' then
+			CONTROL.B = 0
+		elseif KEY:lower() == 'a' then
+			CONTROL.L = 0
+		elseif KEY:lower() == 'd' then
+			CONTROL.R = 0
+		end
+	end)
+	FLY()
+end
+
+Players.LocalPlayer.CharacterAdded:Connect(function()
+	dFLYING = false
+end)
+
+local Plugin = {
+    ["PluginName"] = "dank memes",
+    ["PluginDescription"] = "manipulate vehicles lol dab",
+    ["Commands"] = {
+        ["dankfly"] = {
+            ["ListName"] = "dankfly / dfly",
+            ["Description"] = "does the thing",
+            ["Aliases"] = {'dfly'},
+            ["Function"] = function(args,speaker)
+                dFLY()
+            end,
+        },
+        ["undankfly"] = {
+            ["ListName"] = "undankfly / undfly",
+            ["Description"] = "undoes the thing",
+            ["Aliases"] = {'undfly'},
+            ["Function"] = function(args,speaker)
+				dFLYING = false
+            end,
+        },
+        ["dankflyspeed"] = {
+            ["ListName"] = "dankflyspeed / dflyspeed",
+            ["Description"] = "does the thing faster or slower",
+            ["Aliases"] = {'dflyspeed'},
+            ["Function"] = function(args,speaker)
+				dflyspeed = args[1]
+            end,
+        },
+    },
+}
+
+return Plugin

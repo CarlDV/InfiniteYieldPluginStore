@@ -1,0 +1,1778 @@
+local Plugin = {
+    ["PluginName"] = "FarhatUtility",
+    ["PluginDescription"] = "Advanced physics manipulation, vehicle control, replicatesignal utilities by Farhat",
+    ["Commands"] = {
+        
+        ["vehicleroot"] = {
+            ["ListName"] = "vehicleroot",
+            ["Description"] = "Sets high density on vehicle parts, max RootPriority (127) on HumanoidRootPart",
+            ["Aliases"] = {"vroot", "carroot", "seatroot"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                local hrp = character:FindFirstChild("HumanoidRootPart")
+                
+                if not humanoid or not hrp then
+                    notify("Error", "Humanoid or HumanoidRootPart not found!")
+                    return
+                end
+                
+                local seat = humanoid.SeatPart
+                if not seat then
+                    notify("Error", "You are not sitting in any seat!")
+                    return
+                end
+                
+                if not (seat:IsA("VehicleSeat") or seat:IsA("Seat")) then
+                    notify("Error", "Not a valid VehicleSeat or Seat!")
+                    return
+                end
+                
+                local vehicleModel = seat.Parent
+                if not vehicleModel then
+                    notify("Error", "Could not find vehicle model!")
+                    return
+                end
+                
+                local partCount = 0
+                
+                for _, part in pairs(vehicleModel:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        local currentProps = part.CustomPhysicalProperties
+                        if currentProps then
+                            part.CustomPhysicalProperties = PhysicalProperties.new(
+                                100,
+                                currentProps.Friction,
+                                currentProps.Elasticity,
+                                currentProps.FrictionWeight,
+                                currentProps.ElasticityWeight
+                            )
+                        else
+                            part.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5, 1, 1)
+                        end
+                        part.RootPriority = 0
+                        partCount = partCount + 1
+                    end
+                end
+                
+                if seat:IsA("BasePart") then
+                    seat.CustomPhysicalProperties = PhysicalProperties.new(100, 0.3, 0.5, 1, 1)
+                    seat.RootPriority = 0
+                end
+                
+                hrp.RootPriority = 127
+                
+                notify("Success", "Modified " .. partCount .. " parts! HRP RootPriority = 127")
+            end
+        },
+        
+        ["resetvehicle"] = {
+            ["ListName"] = "resetvehicle",
+            ["Description"] = "Resets vehicle physics properties to default",
+            ["Aliases"] = {"rvehicle", "resetcar", "unvehicleroot", "unvroot"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                local hrp = character:FindFirstChild("HumanoidRootPart")
+                
+                if not humanoid or not hrp then
+                    notify("Error", "Humanoid or HumanoidRootPart not found!")
+                    return
+                end
+                
+                local seat = humanoid.SeatPart
+                if not seat then
+                    notify("Error", "You are not sitting in any seat!")
+                    return
+                end
+                
+                local vehicleModel = seat.Parent
+                local partCount = 0
+                
+                for _, part in pairs(vehicleModel:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.CustomPhysicalProperties = nil
+                        part.RootPriority = 0
+                        partCount = partCount + 1
+                    end
+                end
+                
+                hrp.RootPriority = 0
+                
+                notify("Success", "Reset " .. partCount .. " parts to default!")
+            end
+        },
+        
+        ["vehiclespeed"] = {
+            ["ListName"] = "vehiclespeed [speed]",
+            ["Description"] = "Sets vehicle MaxSpeed (no args = reset to original)",
+            ["Aliases"] = {"vspeed", "carspeed"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                local seat = humanoid.SeatPart
+                if not seat then
+                    notify("Error", "You are not sitting in any seat!")
+                    return
+                end
+                
+                if not seat:IsA("VehicleSeat") then
+                    notify("Error", "Not a VehicleSeat!")
+                    return
+                end
+                
+                if not args[1] then
+                    if FarhatOriginalVehicleSpeeds and FarhatOriginalVehicleSpeeds[seat] then
+                        seat.MaxSpeed = FarhatOriginalVehicleSpeeds[seat]
+                        notify("Vehicle Speed", "Reset to original: " .. FarhatOriginalVehicleSpeeds[seat])
+                    else
+                        notify("Error", "No original speed saved for this seat")
+                    end
+                    return
+                end
+                
+                local newSpeed = tonumber(args[1])
+                if not newSpeed then
+                    notify("Error", "Invalid speed number!")
+                    return
+                end
+                
+                FarhatOriginalVehicleSpeeds = FarhatOriginalVehicleSpeeds or {}
+                if not FarhatOriginalVehicleSpeeds[seat] then
+                    FarhatOriginalVehicleSpeeds[seat] = seat.MaxSpeed
+                end
+                
+                seat.MaxSpeed = newSpeed
+                
+                notify("Vehicle Speed", "MaxSpeed set to " .. newSpeed .. " (original: " .. FarhatOriginalVehicleSpeeds[seat] .. ")")
+            end
+        },
+        
+        ["vehicleflip"] = {
+            ["ListName"] = "vehicleflip",
+            ["Description"] = "Flips vehicle to upright position",
+            ["Aliases"] = {"flipvehicle", "flip", "vflip", "carflip"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                local seat = humanoid.SeatPart
+                if not seat then
+                    notify("Error", "You are not sitting in any seat!")
+                    return
+                end
+                
+                if not (seat:IsA("VehicleSeat") or seat:IsA("Seat")) then
+                    notify("Error", "Not a valid seat!")
+                    return
+                end
+                
+                local vehicleModel = seat.Parent
+                if not vehicleModel then
+                    notify("Error", "Could not find vehicle model!")
+                    return
+                end
+                
+                local primaryPart = vehicleModel.PrimaryPart or seat
+                local currentCFrame = primaryPart.CFrame
+                local pos = currentCFrame.Position
+                
+                local _, _, _, r00, r01, r02, r10, r11, r12, r20, r21, r22 = currentCFrame:GetComponents()
+                local lookVector = Vector3.new(r02, 0, r22).Unit
+                if lookVector.Magnitude == 0 then
+                    lookVector = Vector3.new(1, 0, 0)
+                end
+                
+                local newCFrame = CFrame.new(pos + Vector3.new(0, 3, 0), pos + Vector3.new(0, 3, 0) + lookVector)
+                
+                if vehicleModel:IsA("Model") and vehicleModel.PrimaryPart then
+                    vehicleModel:SetPrimaryPartCFrame(newCFrame)
+                else
+                    local offset = primaryPart.CFrame:ToObjectSpace(seat.CFrame)
+                    seat.CFrame = newCFrame * offset
+                end
+                
+                for _, part in pairs(vehicleModel:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.AssemblyLinearVelocity = Vector3.zero
+                        part.AssemblyAngularVelocity = Vector3.zero
+                    end
+                end
+                
+                notify("Vehicle Flip", "Vehicle flipped upright!")
+            end
+        },
+        
+        ["strengthen"] = {
+            ["ListName"] = "strengthen [density]",
+            ["Description"] = "Increases density of your character parts (default: 100)",
+            ["Aliases"] = {"str", "strong"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local density = 100
+                if args[1] and tonumber(args[1]) then
+                    density = tonumber(args[1])
+                end
+                
+                local count = 0
+                for _, child in pairs(character:GetDescendants()) do
+                    if child:IsA("BasePart") then
+                        child.CustomPhysicalProperties = PhysicalProperties.new(density, 0.3, 0.5)
+                        count = count + 1
+                    end
+                end
+                
+                notify("Strengthen", "Set density to " .. density .. " on " .. count .. " parts")
+            end
+        },
+        
+        ["weaken"] = {
+            ["ListName"] = "weaken [density]",
+            ["Description"] = "Decreases density of your character parts (default: 0)",
+            ["Aliases"] = {"weak"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local density = 0
+                if args[1] and tonumber(args[1]) then
+                    density = -tonumber(args[1])
+                end
+                
+                local count = 0
+                for _, child in pairs(character:GetDescendants()) do
+                    if child:IsA("BasePart") then
+                        child.CustomPhysicalProperties = PhysicalProperties.new(density, 0.3, 0.5)
+                        count = count + 1
+                    end
+                end
+                
+                notify("Weaken", "Set density to " .. density .. " on " .. count .. " parts")
+            end
+        },
+        
+        ["unweaken"] = {
+            ["ListName"] = "unweaken",
+            ["Description"] = "Resets character density to default",
+            ["Aliases"] = {"unstrengthen", "unstr", "unweak", "resetdensity"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local count = 0
+                for _, child in pairs(character:GetDescendants()) do
+                    if child:IsA("BasePart") then
+                        child.CustomPhysicalProperties = nil
+                        count = count + 1
+                    end
+                end
+                
+                notify("Reset", "Reset density on " .. count .. " parts")
+            end
+        },
+        
+        ["superstrengthen"] = {
+            ["ListName"] = "superstrengthen [density]",
+            ["Description"] = "Sets high density on character + all connected parts, HRP RootPriority = 127",
+            ["Aliases"] = {"sstr", "superstrong", "superstr"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local hrp = character:FindFirstChild("HumanoidRootPart")
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                
+                if not hrp then
+                    notify("Error", "HumanoidRootPart not found!")
+                    return
+                end
+                
+                local density = 100
+                if args[1] and tonumber(args[1]) then
+                    density = tonumber(args[1])
+                end
+                
+                local processedParts = {}
+                local count = 0
+                
+                local function setDensity(part, isCharacterPart)
+                    if processedParts[part] then return end
+                    processedParts[part] = true
+                    
+                    part.CustomPhysicalProperties = PhysicalProperties.new(density, 0.3, 0.5)
+                    
+                    if not isCharacterPart then
+                        part.RootPriority = 0
+                    end
+                    
+                    count = count + 1
+                end
+                
+                local function findConnectedParts(part, isCharacterPart)
+                    if processedParts[part] then return end
+                    
+                    setDensity(part, isCharacterPart)
+                    
+                    for _, joint in pairs(part:GetJoints()) do
+                        if joint:IsA("JointInstance") then
+                            if joint.Part0 and joint.Part0 ~= part then
+                                local inChar = joint.Part0:IsDescendantOf(character)
+                                findConnectedParts(joint.Part0, inChar)
+                            end
+                            if joint.Part1 and joint.Part1 ~= part then
+                                local inChar = joint.Part1:IsDescendantOf(character)
+                                findConnectedParts(joint.Part1, inChar)
+                            end
+                        end
+                    end
+                    
+                    for _, constraint in pairs(part:GetChildren()) do
+                        if constraint:IsA("Constraint") then
+                            if constraint.Attachment0 and constraint.Attachment0.Parent and constraint.Attachment0.Parent:IsA("BasePart") then
+                                local attachPart = constraint.Attachment0.Parent
+                                if attachPart ~= part then
+                                    local inChar = attachPart:IsDescendantOf(character)
+                                    findConnectedParts(attachPart, inChar)
+                                end
+                            end
+                            if constraint.Attachment1 and constraint.Attachment1.Parent and constraint.Attachment1.Parent:IsA("BasePart") then
+                                local attachPart = constraint.Attachment1.Parent
+                                if attachPart ~= part then
+                                    local inChar = attachPart:IsDescendantOf(character)
+                                    findConnectedParts(attachPart, inChar)
+                                end
+                            end
+                        end
+                    end
+                    
+                    if part:IsA("Seat") or part:IsA("VehicleSeat") then
+                        local seatModel = part.Parent
+                        if seatModel then
+                            for _, descendant in pairs(seatModel:GetDescendants()) do
+                                if descendant:IsA("BasePart") and not processedParts[descendant] then
+                                    findConnectedParts(descendant, false)
+                                end
+                            end
+                        end
+                    end
+                end
+                
+                for _, part in pairs(character:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        findConnectedParts(part, true)
+                    end
+                end
+                
+                if humanoid and humanoid.SeatPart then
+                    local seat = humanoid.SeatPart
+                    findConnectedParts(seat, false)
+                    
+                    local vehicleModel = seat.Parent
+                    if vehicleModel then
+                        for _, descendant in pairs(vehicleModel:GetDescendants()) do
+                            if descendant:IsA("BasePart") and not processedParts[descendant] then
+                                findConnectedParts(descendant, false)
+                            end
+                        end
+                    end
+                end
+                
+                hrp.RootPriority = 127
+                
+                notify("Super Strengthen", "Density " .. density .. " on " .. count .. " parts, HRP Priority = 127")
+            end
+        },
+        
+        ["superweaken"] = {
+            ["ListName"] = "superweaken [density]",
+            ["Description"] = "Sets low density on character + all connected parts, HRP RootPriority = 127",
+            ["Aliases"] = {"sweak", "superweak"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local hrp = character:FindFirstChild("HumanoidRootPart")
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                
+                if not hrp then
+                    notify("Error", "HumanoidRootPart not found!")
+                    return
+                end
+                
+                local density = 0
+                if args[1] and tonumber(args[1]) then
+                    density = -math.abs(tonumber(args[1]))
+                end
+                
+                local processedParts = {}
+                local count = 0
+                
+                local function setDensity(part, isCharacterPart)
+                    if processedParts[part] then return end
+                    processedParts[part] = true
+                    
+                    part.CustomPhysicalProperties = PhysicalProperties.new(density, 0.3, 0.5)
+                    
+                    if not isCharacterPart then
+                        part.RootPriority = 0
+                    end
+                    
+                    count = count + 1
+                end
+                
+                local function findConnectedParts(part, isCharacterPart)
+                    if processedParts[part] then return end
+                    
+                    setDensity(part, isCharacterPart)
+                    
+                    for _, joint in pairs(part:GetJoints()) do
+                        if joint:IsA("JointInstance") then
+                            if joint.Part0 and joint.Part0 ~= part then
+                                local inChar = joint.Part0:IsDescendantOf(character)
+                                findConnectedParts(joint.Part0, inChar)
+                            end
+                            if joint.Part1 and joint.Part1 ~= part then
+                                local inChar = joint.Part1:IsDescendantOf(character)
+                                findConnectedParts(joint.Part1, inChar)
+                            end
+                        end
+                    end
+                    
+                    for _, constraint in pairs(part:GetChildren()) do
+                        if constraint:IsA("Constraint") then
+                            if constraint.Attachment0 and constraint.Attachment0.Parent and constraint.Attachment0.Parent:IsA("BasePart") then
+                                local attachPart = constraint.Attachment0.Parent
+                                if attachPart ~= part then
+                                    local inChar = attachPart:IsDescendantOf(character)
+                                    findConnectedParts(attachPart, inChar)
+                                end
+                            end
+                            if constraint.Attachment1 and constraint.Attachment1.Parent and constraint.Attachment1.Parent:IsA("BasePart") then
+                                local attachPart = constraint.Attachment1.Parent
+                                if attachPart ~= part then
+                                    local inChar = attachPart:IsDescendantOf(character)
+                                    findConnectedParts(attachPart, inChar)
+                                end
+                            end
+                        end
+                    end
+                    
+                    if part:IsA("Seat") or part:IsA("VehicleSeat") then
+                        local seatModel = part.Parent
+                        if seatModel then
+                            for _, descendant in pairs(seatModel:GetDescendants()) do
+                                if descendant:IsA("BasePart") and not processedParts[descendant] then
+                                    findConnectedParts(descendant, false)
+                                end
+                            end
+                        end
+                    end
+                end
+                
+                for _, part in pairs(character:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        findConnectedParts(part, true)
+                    end
+                end
+                
+                if humanoid and humanoid.SeatPart then
+                    local seat = humanoid.SeatPart
+                    findConnectedParts(seat, false)
+                    
+                    local vehicleModel = seat.Parent
+                    if vehicleModel then
+                        for _, descendant in pairs(vehicleModel:GetDescendants()) do
+                            if descendant:IsA("BasePart") and not processedParts[descendant] then
+                                findConnectedParts(descendant, false)
+                            end
+                        end
+                    end
+                end
+                
+                hrp.RootPriority = 127
+                
+                notify("Super Weaken", "Density " .. density .. " on " .. count .. " parts, HRP Priority = 127")
+            end
+        },
+        
+        ["unsuperstrengthen"] = {
+            ["ListName"] = "unsuperstrengthen",
+            ["Description"] = "Resets density and RootPriority on character + all connected parts",
+            ["Aliases"] = {"unsuperstr", "unsstr", "unsuperstrong", "unsuperweaken", "unsweak", "unsuperweak"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local hrp = character:FindFirstChild("HumanoidRootPart")
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                
+                local processedParts = {}
+                local count = 0
+                
+                local function resetPart(part)
+                    if processedParts[part] then return end
+                    processedParts[part] = true
+                    
+                    part.CustomPhysicalProperties = nil
+                    part.RootPriority = 0
+                    
+                    count = count + 1
+                end
+                
+                local function findConnectedParts(part)
+                    if processedParts[part] then return end
+                    
+                    resetPart(part)
+                    
+                    for _, joint in pairs(part:GetJoints()) do
+                        if joint:IsA("JointInstance") then
+                            if joint.Part0 and joint.Part0 ~= part then
+                                findConnectedParts(joint.Part0)
+                            end
+                            if joint.Part1 and joint.Part1 ~= part then
+                                findConnectedParts(joint.Part1)
+                            end
+                        end
+                    end
+                    
+                    for _, constraint in pairs(part:GetChildren()) do
+                        if constraint:IsA("Constraint") then
+                            if constraint.Attachment0 and constraint.Attachment0.Parent and constraint.Attachment0.Parent:IsA("BasePart") then
+                                local attachPart = constraint.Attachment0.Parent
+                                if attachPart ~= part then
+                                    findConnectedParts(attachPart)
+                                end
+                            end
+                            if constraint.Attachment1 and constraint.Attachment1.Parent and constraint.Attachment1.Parent:IsA("BasePart") then
+                                local attachPart = constraint.Attachment1.Parent
+                                if attachPart ~= part then
+                                    findConnectedParts(attachPart)
+                                end
+                            end
+                        end
+                    end
+                    
+                    if part:IsA("Seat") or part:IsA("VehicleSeat") then
+                        local seatModel = part.Parent
+                        if seatModel then
+                            for _, descendant in pairs(seatModel:GetDescendants()) do
+                                if descendant:IsA("BasePart") and not processedParts[descendant] then
+                                    findConnectedParts(descendant)
+                                end
+                            end
+                        end
+                    end
+                end
+                
+                for _, part in pairs(character:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        findConnectedParts(part)
+                    end
+                end
+                
+                if humanoid and humanoid.SeatPart then
+                    local seat = humanoid.SeatPart
+                    findConnectedParts(seat)
+                    
+                    local vehicleModel = seat.Parent
+                    if vehicleModel then
+                        for _, descendant in pairs(vehicleModel:GetDescendants()) do
+                            if descendant:IsA("BasePart") and not processedParts[descendant] then
+                                findConnectedParts(descendant)
+                            end
+                        end
+                    end
+                end
+                
+                if hrp then
+                    hrp.RootPriority = 0
+                end
+                
+                notify("Reset", "Reset " .. count .. " parts to default")
+            end
+        },
+        
+        ["resetvelocity"] = {
+            ["ListName"] = "resetvelocity",
+            ["Description"] = "Resets all velocity on your character",
+            ["Aliases"] = {"rvel", "zerovelocity", "stopvel"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                for _, part in pairs(character:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.AssemblyLinearVelocity = Vector3.zero
+                        part.AssemblyAngularVelocity = Vector3.zero
+                    end
+                end
+                
+                notify("Velocity", "Reset all velocity to zero")
+            end
+        },
+        
+        ["disablefalldamage"] = {
+            ["ListName"] = "disablefalldamage",
+            ["Description"] = "Disables fall damage by resetting velocity on landing",
+            ["Aliases"] = {"disablefd", "nofall", "nofalldamage"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                if FarhatFallDamageConnection then
+                    FarhatFallDamageConnection:Disconnect()
+                end
+                
+                FarhatFallDamageDisabled = true
+                
+                FarhatFallDamageConnection = humanoid.StateChanged:Connect(function(oldState, newState)
+                    if newState == Enum.HumanoidStateType.Landed or newState == Enum.HumanoidStateType.Running then
+                        if FarhatFallDamageDisabled and speaker.Character then
+                            for _, part in pairs(speaker.Character:GetDescendants()) do
+                                if part:IsA("BasePart") then
+				    setscriptable(part, "Velocity", true)
+                                    part.Velocity = Vector3.new(
+                                        part.AssemblyLinearVelocity.X,
+                                        0,
+                                        part.AssemblyLinearVelocity.Z
+                                    )
+				    setscriptable(part, "Velocity", false)
+                                end
+                            end
+                        end
+                    end
+                end)
+                
+                --notify("Fall Damage", "Fall damage disabled")
+            end
+        },
+        
+        ["enablefalldamage"] = {
+            ["ListName"] = "enablefalldamage",
+            ["Description"] = "Re-enables fall damage",
+            ["Aliases"] = {"enablefd", "falldamage"},
+            ["Function"] = function(args, speaker)
+                FarhatFallDamageDisabled = false
+                
+                if FarhatFallDamageConnection then
+                    FarhatFallDamageConnection:Disconnect()
+                    FarhatFallDamageConnection = nil
+                end
+                
+                --notify("Fall Damage", "Fall damage enabled")
+            end
+        },
+        
+        ["enablelimbcollision"] = {
+            ["ListName"] = "enablelimbcollision",
+            ["Description"] = "Forces collision on arms and legs every frame",
+            ["Aliases"] = {"limbcol", "armlegcol"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                if FarhatLimbCollisionConnection then
+                    FarhatLimbCollisionConnection:Disconnect()
+                end
+                
+                FarhatLimbCollisionEnabled = true
+                
+                local limbParts = {
+                    "LeftUpperLeg", "LeftLowerLeg", "LeftFoot",
+                    "RightUpperLeg", "RightLowerLeg", "RightFoot",
+                    "LeftUpperArm", "LeftLowerArm", "LeftHand",
+                    "RightUpperArm", "RightLowerArm", "RightHand",
+                    "Left Leg", "Right Leg", "Left Arm", "Right Arm"
+                }
+                
+                FarhatLimbCollisionConnection = game:GetService("RunService").Stepped:Connect(function()
+                    if FarhatLimbCollisionEnabled and speaker.Character then
+                        for _, partName in pairs(limbParts) do
+                            local part = speaker.Character:FindFirstChild(partName)
+                            if part and part:IsA("BasePart") then
+                                part.CanCollide = true
+                            end
+                        end
+                    end
+                end)
+                
+                notify("Collision", "Limb collision enabled (forced)")
+            end
+        },
+        
+        ["disablelimbcollision"] = {
+            ["ListName"] = "disablelimbcollision",
+            ["Description"] = "Disables forced limb collision",
+            ["Aliases"] = {"nolimbcol", "noarmlegcol", "unlimbcol"},
+            ["Function"] = function(args, speaker)
+                FarhatLimbCollisionEnabled = false
+                
+                if FarhatLimbCollisionConnection then
+                    FarhatLimbCollisionConnection:Disconnect()
+                    FarhatLimbCollisionConnection = nil
+                end
+                
+                notify("Collision", "Limb collision returned to default")
+            end
+        },
+        
+        ["disabletorsocollision"] = {
+            ["ListName"] = "disabletorsocollision",
+            ["Description"] = "Forces torso collision off every frame",
+            ["Aliases"] = {"notorsocol", "untorsocol"},
+            ["Function"] = function(args, speaker)
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                if FarhatTorsoCollisionConnection then
+                    FarhatTorsoCollisionConnection:Disconnect()
+                end
+                
+                FarhatTorsoCollisionDisabled = true
+                
+                local torsoParts = {"Torso", "UpperTorso", "LowerTorso"}
+                
+                FarhatTorsoCollisionConnection = game:GetService("RunService").Stepped:Connect(function()
+                    if FarhatTorsoCollisionDisabled and speaker.Character then
+                        for _, partName in pairs(torsoParts) do
+                            local part = speaker.Character:FindFirstChild(partName)
+                            if part and part:IsA("BasePart") then
+                                part.CanCollide = false
+                            end
+                        end
+                    end
+                end)
+                
+                notify("Collision", "Torso collision disabled (forced)")
+            end
+        },
+        
+        ["enabletorsocollision"] = {
+            ["ListName"] = "enabletorsocollision",
+            ["Description"] = "Enables torso collision",
+            ["Aliases"] = {"torsocol"},
+            ["Function"] = function(args, speaker)
+                FarhatTorsoCollisionDisabled = false
+                
+                if FarhatTorsoCollisionConnection then
+                    FarhatTorsoCollisionConnection:Disconnect()
+                    FarhatTorsoCollisionConnection = nil
+                end
+                
+                notify("Collision", "Torso collision returned to default")
+            end
+        },
+        
+        ["instantkill"] = {
+            ["ListName"] = "instantkill [player] [timeout]",
+            ["Description"] = "Desync attacks target player",
+            ["Aliases"] = {"instakill", "ikill", "desyncattack"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local sethidden = missing("function", sethiddenproperty or set_hidden_property or set_hidden_prop, nil)
+                
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local hrp = character:FindFirstChild("HumanoidRootPart")
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                
+                if not hrp or not humanoid then
+                    notify("Error", "HumanoidRootPart or Humanoid not found!")
+                    return
+                end
+                
+                local targetPlayers = {}
+                if args[1] then
+                    targetPlayers = getPlayer(args[1], speaker)
+                else
+                    local closestDist = math.huge
+                    local closestPlayer = nil
+                    for _, plr in pairs(game:GetService("Players"):GetPlayers()) do
+                        if plr ~= speaker and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+                            local dist = (hrp.Position - plr.Character.HumanoidRootPart.Position).Magnitude
+                            if dist < closestDist then
+                                closestDist = dist
+                                closestPlayer = plr
+                            end
+                        end
+                    end
+                    if closestPlayer then
+                        table.insert(targetPlayers, closestPlayer.Name)
+                    end
+                end
+                
+                if #targetPlayers == 0 then
+                    notify("Error", "No valid target found!")
+                    return
+                end
+                
+                local timeout = 0.5
+                if args[2] and tonumber(args[2]) then
+                    timeout = tonumber(args[2])
+                end
+                
+                local NanVector = Vector3.new(0/0, 0/0, 0/0)
+                local HugeVector = Vector3.new(9e9, 9e9, 9e9)
+                
+                for _, targetName in pairs(targetPlayers) do
+                    local targetPlayer = game:GetService("Players"):FindFirstChild(targetName)
+                    if not targetPlayer or not targetPlayer.Character then continue end
+                    
+                    local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    if not targetRoot then continue end
+                    
+                    local rootJoint = hrp:FindFirstChild("RootJoint") or hrp:FindFirstChildOfClass("Motor6D")
+                    
+                    local connection
+                    
+                    connection = game:GetService("RunService").Heartbeat:Connect(function()
+                        if not targetRoot or not targetRoot.Parent or not hrp or not hrp.Parent then
+                            connection:Disconnect()
+                            return
+                        end
+                        
+                        humanoid.PlatformStand = true
+                        humanoid:Move(NanVector)
+                        
+                        hrp.AssemblyLinearVelocity = Vector3.zero
+                        hrp.AssemblyAngularVelocity = Vector3.zero
+                        hrp.CFrame = targetRoot.CFrame
+                        
+                        if rootJoint and sethidden then
+                            pcall(function()
+                                sethidden(rootJoint, "ReplicateCurrentAngle6D", HugeVector)
+                                sethidden(rootJoint, "ReplicateCurrentOffset6D", HugeVector)
+                            end)
+                        end
+                    end)
+                    
+                    task.wait(timeout)
+                    
+                    if connection then connection:Disconnect() end
+                    
+                    humanoid.PlatformStand = false
+                    hrp.CFrame = hrp.CFrame * CFrame.new(0, 5, 0)
+                    hrp.AssemblyLinearVelocity = Vector3.zero
+                    
+                    if rootJoint and sethidden then
+                        pcall(function()
+                            sethidden(rootJoint, "ReplicateCurrentAngle6D", Vector3.zero)
+                            sethidden(rootJoint, "ReplicateCurrentOffset6D", Vector3.zero)
+                        end)
+                    end
+                    
+                    notify("Instant Kill", "Attacked " .. targetName)
+                end
+            end
+        },
+        
+        ["loopinstantkill"] = {
+            ["ListName"] = "loopinstantkill [player] [timeout]",
+            ["Description"] = "Continuously attacks target with desync (run again to stop)",
+            ["Aliases"] = {"loopikill", "likill"},
+            ["Function"] = function(args, speaker)
+                if FarhatLoopInstantKillEnabled then
+                    FarhatLoopInstantKillEnabled = false
+                    notify("Loop Kill", "Stopped")
+                    return
+                end
+                
+                FarhatLoopInstantKillEnabled = true
+                FarhatLoopInstantKillTarget = args[1] or "closest"
+                FarhatLoopInstantKillTimeout = tonumber(args[2]) or 0.3
+                
+                notify("Loop Kill", "Started (run again to stop)")
+                
+                task.spawn(function()
+                    while FarhatLoopInstantKillEnabled do
+                        if FarhatLoopInstantKillTarget == "closest" then
+                            execCmd("instantkill " .. FarhatLoopInstantKillTimeout)
+                        else
+                            execCmd("instantkill " .. FarhatLoopInstantKillTarget .. " " .. FarhatLoopInstantKillTimeout)
+                        end
+                        task.wait(0.1)
+                    end
+                end)
+            end
+        },
+        
+        ["unloopinstantkill"] = {
+            ["ListName"] = "unloopinstantkill",
+            ["Description"] = "Stops loop instant kill",
+            ["Aliases"] = {"unloopikill", "unlikill", "stopikill"},
+            ["Function"] = function(args, speaker)
+                FarhatLoopInstantKillEnabled = false
+                notify("Loop Kill", "Stopped")
+            end
+        },
+        
+        ["desync"] = {
+            ["ListName"] = "desync",
+            ["Description"] = "Toggles desync state",
+            ["Aliases"] = {"toggledesync", "dsync"},
+            ["Function"] = function(args, speaker)
+                FarhatDesyncEnabled = not FarhatDesyncEnabled
+                
+                if FarhatDesyncConnection then
+                    FarhatDesyncConnection:Disconnect()
+                    FarhatDesyncConnection = nil
+                end
+                
+                if FarhatDesyncEnabled then
+                    local character = speaker.Character
+                    if character then
+                        local hum = character:FindFirstChildOfClass("Humanoid")
+                        if hum then
+                            FarhatOriginalHipHeight = hum.HipHeight
+                        end
+                    end
+                    
+                    FarhatDesyncConnection = game:GetService("RunService").Heartbeat:Connect(function()
+                        if speaker.Character then
+                            local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
+                            if hum then
+                                hum.HipHeight = -1
+                                hum:ChangeState(Enum.HumanoidStateType.Flying)
+                            end
+                        end
+                    end)
+                    notify("Desync", "ENABLED")
+                else
+                    if speaker.Character then
+                        local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
+                        if hum then
+                            if FarhatOriginalHipHeight then
+                                hum.HipHeight = FarhatOriginalHipHeight
+                            else
+                                if hum.RigType == Enum.HumanoidRigType.R15 then
+                                    hum.HipHeight = 2
+                                else
+                                    hum.HipHeight = 0
+                                end
+                            end
+                            hum:ChangeState(Enum.HumanoidStateType.Running)
+                        end
+                    end
+                    FarhatOriginalHipHeight = nil
+                    notify("Desync", "DISABLED")
+                end
+            end
+        },
+        
+        ["serverbreakjoints"] = {
+            ["ListName"] = "serverbreakjoints",
+            ["Description"] = "Replicates Humanoid.ServerBreakJoints signal",
+            ["Aliases"] = {"sbj", "breakjoints"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                local success, err = pcall(function()
+                    replicatesignal(humanoid.ServerBreakJoints)
+                end)
+                
+                if success then
+                    notify("Server Break Joints", "Signal replicated!")
+                else
+                    notify("Error", tostring(err))
+                end
+            end
+        },
+        
+        ["serverequiptool"] = {
+            ["ListName"] = "serverequiptool [tool]",
+            ["Description"] = "Replicates Humanoid.ServerEquipTool signal",
+            ["Aliases"] = {"sequip", "equipserver"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                if not args[1] then
+                    notify("Error", "Please provide tool path!")
+                    return
+                end
+                
+                local success, tool = pcall(function()
+                    return loadstring("return " .. getstring(1))()
+                end)
+                
+                if not success or not tool then
+                    notify("Error", "Could not find tool!")
+                    return
+                end
+                
+                if not tool:IsA("Tool") then
+                    notify("Error", "Not a valid Tool!")
+                    return
+                end
+                
+                local repSuccess, repErr = pcall(function()
+                    replicatesignal(humanoid.ServerEquipTool, tool)
+                end)
+                
+                if repSuccess then
+                    notify("Server Equip Tool", "Equipped " .. tool.Name)
+                else
+                    notify("Error", tostring(repErr))
+                end
+            end
+        },
+        
+        ["workspacetools"] = {
+            ["ListName"] = "workspacetools",
+            ["Description"] = "Equips all tools from workspace/game using ServerEquipTool",
+            ["Aliases"] = {"wstools", "grabtools", "stealtools"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                local count = 0
+                
+                for _, tool in pairs(game:GetDescendants()) do
+                    if tool:IsA("Tool") then
+                        pcall(function()
+                            replicatesignal(humanoid.ServerEquipTool, tool)
+                            count = count + 1
+                        end)
+                    end
+                end
+                
+                notify("Workspace Tools", "Equipped " .. count .. " tools")
+            end
+        },
+        
+        ["remotedestroyseatweld"] = {
+            ["ListName"] = "remotedestroyseatweld [seat path]",
+            ["Description"] = "Replicates RemoteDestroySeatWeld signal",
+            ["Aliases"] = {"rdsw", "destroyseatweld"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local seat
+                
+                if args[1] then
+                    local success
+                    success, seat = pcall(function()
+                        return loadstring("return " .. getstring(1))()
+                    end)
+                    if not success or not seat then
+                        notify("Error", "Could not find seat!")
+                        return
+                    end
+                else
+                    local character = speaker.Character
+                    if character then
+                        local humanoid = character:FindFirstChildOfClass("Humanoid")
+                        if humanoid and humanoid.SeatPart then
+                            seat = humanoid.SeatPart
+                        end
+                    end
+                end
+                
+                if not seat then
+                    notify("Error", "No seat found!")
+                    return
+                end
+                
+                if not (seat:IsA("Seat") or seat:IsA("VehicleSeat")) then
+                    notify("Error", "Not a valid Seat or VehicleSeat!")
+                    return
+                end
+                
+                local success, err = pcall(function()
+                    replicatesignal(seat.RemoteDestroySeatWeld)
+                end)
+                
+                if success then
+                    notify("Destroy Seat Weld", "Signal replicated on " .. seat.Name)
+                else
+                    notify("Error", tostring(err))
+                end
+            end
+        },
+        
+        ["remotecreateseatweld"] = {
+            ["ListName"] = "remotecreateseatweld [seat path]",
+            ["Description"] = "Replicates RemoteCreateSeatWeld signal",
+            ["Aliases"] = {"rcsw", "createseatweld"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                if not args[1] then
+                    notify("Error", "Please provide seat path!")
+                    return
+                end
+                
+                local success, seat = pcall(function()
+                    return loadstring("return " .. getstring(1))()
+                end)
+                
+                if not success or not seat then
+                    notify("Error", "Could not find seat!")
+                    return
+                end
+                
+                if not (seat:IsA("Seat") or seat:IsA("VehicleSeat")) then
+                    notify("Error", "Not a valid Seat or VehicleSeat!")
+                    return
+                end
+                
+                local repSuccess, repErr = pcall(function()
+                    replicatesignal(seat.RemoteCreateSeatWeld, humanoid)
+                end)
+                
+                if repSuccess then
+                    notify("Create Seat Weld", "Signal replicated on " .. seat.Name)
+                else
+                    notify("Error", tostring(repErr))
+                end
+            end
+        },
+        
+        ["remotedestroymotor6d"] = {
+            ["ListName"] = "remotedestroymotor6d [platform path]",
+            ["Description"] = "Replicates RemoteDestroyMotor6D signal",
+            ["Aliases"] = {"rdm6d", "destroymotor"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local platform
+                
+                if args[1] then
+                    local success
+                    success, platform = pcall(function()
+                        return loadstring("return " .. getstring(1))()
+                    end)
+                    if not success or not platform then
+                        notify("Error", "Could not find platform!")
+                        return
+                    end
+                else
+                    local character = speaker.Character
+                    if character then
+                        for _, motor in pairs(character:GetDescendants()) do
+                            if motor:IsA("Motor6D") and motor.Part1 then
+                                local parent = motor.Parent
+                                if parent and (parent:IsA("Platform") or parent:IsA("SkateboardPlatform")) then
+                                    platform = parent
+                                    break
+                                end
+                            end
+                        end
+                    end
+                end
+                
+                if not platform then
+                    notify("Error", "No platform found!")
+                    return
+                end
+                
+                if not (platform:IsA("Platform") or platform:IsA("SkateboardPlatform")) then
+                    notify("Error", "Not a valid Platform or SkateboardPlatform!")
+                    return
+                end
+                
+                local success, err = pcall(function()
+                    replicatesignal(platform.RemoteDestroyMotor6D)
+                end)
+                
+                if success then
+                    notify("Destroy Motor6D", "Signal replicated on " .. platform.Name)
+                else
+                    notify("Error", tostring(err))
+                end
+            end
+        },
+        
+        ["remotecreatemotor6d"] = {
+            ["ListName"] = "remotecreatemotor6d [platform path]",
+            ["Description"] = "Replicates RemoteCreateMotor6D signal",
+            ["Aliases"] = {"rcm6d", "createmotor"},
+            ["Function"] = function(args, speaker)
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local character = speaker.Character
+                if not character then
+                    notify("Error", "Character not found!")
+                    return
+                end
+                
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if not humanoid then
+                    notify("Error", "Humanoid not found!")
+                    return
+                end
+                
+                if not args[1] then
+                    notify("Error", "Please provide platform path!")
+                    return
+                end
+                
+                local success, platform = pcall(function()
+                    return loadstring("return " .. getstring(1))()
+                end)
+                
+                if not success or not platform then
+                    notify("Error", "Could not find platform!")
+                    return
+                end
+                
+                if not (platform:IsA("Platform") or platform:IsA("SkateboardPlatform")) then
+                    notify("Error", "Not a valid Platform or SkateboardPlatform!")
+                    return
+                end
+                
+                local repSuccess, repErr = pcall(function()
+                    replicatesignal(platform.RemoteCreateMotor6D, humanoid)
+                end)
+                
+                if repSuccess then
+                    notify("Create Motor6D", "Signal replicated on " .. platform.Name)
+                else
+                    notify("Error", tostring(repErr))
+                end
+            end
+        },
+        
+        ["fireremote"] = {
+            ["ListName"] = "fireremote [path] [args...]",
+            ["Description"] = "Fires RemoteEvent/RemoteFunction/BindableEvent/BindableFunction",
+            ["Aliases"] = {"fremote", "fire"},
+            ["Function"] = function(args, speaker)
+                if not args[1] then
+                    notify("Error", "Please provide remote path!")
+                    return
+                end
+                
+                local success, remote = pcall(function()
+                    return loadstring("return " .. args[1])()
+                end)
+                
+                if not success or not remote then
+                    notify("Error", "Could not find remote: " .. args[1])
+                    return
+                end
+                
+                local fireArgs = {}
+                for i = 2, #args do
+                    local arg = args[i]
+                    local parseSuccess, parsed = pcall(function()
+                        return loadstring("return " .. arg)()
+                    end)
+                    if parseSuccess and parsed ~= nil then
+                        table.insert(fireArgs, parsed)
+                    else
+                        table.insert(fireArgs, arg)
+                    end
+                end
+                
+                local fireSuccess, fireErr = pcall(function()
+                    if remote:IsA("RemoteEvent") then
+                        remote:FireServer(unpack(fireArgs))
+                    elseif remote:IsA("RemoteFunction") then
+                        local result = remote:InvokeServer(unpack(fireArgs))
+                        notify("Result", tostring(result))
+                    elseif remote:IsA("BindableEvent") then
+                        remote:Fire(unpack(fireArgs))
+                    elseif remote:IsA("BindableFunction") then
+                        local result = remote:Invoke(unpack(fireArgs))
+                        notify("Result", tostring(result))
+                    elseif remote:IsA("UnreliableRemoteEvent") then
+                        remote:FireServer(unpack(fireArgs))
+                    else
+                        notify("Error", "Unknown type: " .. remote.ClassName)
+                        return
+                    end
+                end)
+                
+                if fireSuccess then
+                    notify("Fire Remote", "Fired " .. remote.Name .. " (" .. remote.ClassName .. ")")
+                else
+                    notify("Error", "Failed: " .. tostring(fireErr))
+                end
+            end
+        },
+        
+        ["firesignal"] = {
+            ["ListName"] = "firesignal [path]",
+            ["Description"] = "Fires all connections on a signal",
+            ["Aliases"] = {"fsignal"},
+            ["Function"] = function(args, speaker)
+                if not args[1] then
+                    notify("Error", "Please provide signal path!")
+                    return
+                end
+                
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local firesignal = missing("function", firesignal, nil)
+                local getconnections = missing("function", getconnections or get_signal_cons, nil)
+                
+                local success, signal = pcall(function()
+                    return loadstring("return " .. getstring(1))()
+                end)
+                
+                if not success or not signal then
+                    notify("Error", "Could not find signal!")
+                    return
+                end
+                
+                if firesignal then
+                    local fireSuccess, fireErr = pcall(function()
+                        firesignal(signal)
+                    end)
+                    if fireSuccess then
+                        notify("Fire Signal", "Fired signal")
+                    else
+                        notify("Error", tostring(fireErr))
+                    end
+                elseif getconnections then
+                    local connections = getconnections(signal)
+                    local count = 0
+                    for _, conn in pairs(connections) do
+                        pcall(function()
+                            conn:Fire()
+                            count = count + 1
+                        end)
+                    end
+                    notify("Fire Signal", "Fired " .. count .. " connections")
+                else
+                    notify("Error", "firesignal/getconnections not supported")
+                end
+            end
+        },
+        
+        ["replicatesignal"] = {
+            ["ListName"] = "replicatesignal [path] [args...]",
+            ["Description"] = "Replicates a signal to server",
+            ["Aliases"] = {"repsignal", "rsignal"},
+            ["Function"] = function(args, speaker)
+                if not args[1] then
+                    notify("Error", "Please provide signal path!")
+                    return
+                end
+                
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local replicatesignal = missing("function", replicatesignal, nil)
+                
+                if not replicatesignal then
+                    notify("Error", "replicatesignal not supported by executor")
+                    return
+                end
+                
+                local success, signal = pcall(function()
+                    return loadstring("return " .. args[1])()
+                end)
+                
+                if not success or not signal then
+                    notify("Error", "Could not find signal!")
+                    return
+                end
+                
+                local repArgs = {}
+                for i = 2, #args do
+                    local arg = args[i]
+                    local parseSuccess, parsed = pcall(function()
+                        return loadstring("return " .. arg)()
+                    end)
+                    if parseSuccess and parsed ~= nil then
+                        table.insert(repArgs, parsed)
+                    else
+                        table.insert(repArgs, arg)
+                    end
+                end
+                
+                local repSuccess, repErr = pcall(function()
+                    replicatesignal(signal, unpack(repArgs))
+                end)
+                
+                if repSuccess then
+                    notify("Replicate Signal", "Signal replicated")
+                else
+                    notify("Error", tostring(repErr))
+                end
+            end
+        },
+        
+        ["disableconnections"] = {
+            ["ListName"] = "disableconnections [path]",
+            ["Description"] = "Disables all connections on a signal",
+            ["Aliases"] = {"disableconn", "dconn"},
+            ["Function"] = function(args, speaker)
+                if not args[1] then
+                    notify("Error", "Please provide signal path!")
+                    return
+                end
+                
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local getconnections = missing("function", getconnections or get_signal_cons, nil)
+                
+                if not getconnections then
+                    notify("Error", "getconnections not supported")
+                    return
+                end
+                
+                local success, signal = pcall(function()
+                    return loadstring("return " .. getstring(1))()
+                end)
+                
+                if not success or not signal then
+                    notify("Error", "Could not find signal!")
+                    return
+                end
+                
+                local connections = getconnections(signal)
+                local count = 0
+                
+                FarhatDisabledConnections = FarhatDisabledConnections or {}
+                FarhatDisabledConnections[args[1]] = {}
+                
+                for _, conn in pairs(connections) do
+                    pcall(function()
+                        table.insert(FarhatDisabledConnections[args[1]], conn)
+                        conn:Disable()
+                        count = count + 1
+                    end)
+                end
+                
+                notify("Disable Connections", "Disabled " .. count .. " connections")
+            end
+        },
+        
+        ["enableconnections"] = {
+            ["ListName"] = "enableconnections [path]",
+            ["Description"] = "Re-enables previously disabled connections",
+            ["Aliases"] = {"enableconn", "econn"},
+            ["Function"] = function(args, speaker)
+                if not args[1] then
+                    notify("Error", "Please provide signal path!")
+                    return
+                end
+                
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local getconnections = missing("function", getconnections or get_signal_cons, nil)
+                
+                if not getconnections then
+                    notify("Error", "getconnections not supported")
+                    return
+                end
+                
+                if FarhatDisabledConnections and FarhatDisabledConnections[args[1]] then
+                    local count = 0
+                    for _, conn in pairs(FarhatDisabledConnections[args[1]]) do
+                        pcall(function()
+                            conn:Enable()
+                            count = count + 1
+                        end)
+                    end
+                    FarhatDisabledConnections[args[1]] = nil
+                    notify("Enable Connections", "Enabled " .. count .. " connections")
+                else
+                    local success, signal = pcall(function()
+                        return loadstring("return " .. getstring(1))()
+                    end)
+                    
+                    if success and signal then
+                        local connections = getconnections(signal)
+                        local count = 0
+                        for _, conn in pairs(connections) do
+                            pcall(function()
+                                conn:Enable()
+                                count = count + 1
+                            end)
+                        end
+                        notify("Enable Connections", "Enabled " .. count .. " connections")
+                    else
+                        notify("Error", "No disabled connections found")
+                    end
+                end
+            end
+        },
+        
+        ["listconnections"] = {
+            ["ListName"] = "listconnections [path]",
+            ["Description"] = "Lists all connections on a signal (check console)",
+            ["Aliases"] = {"lconn", "getconn"},
+            ["Function"] = function(args, speaker)
+                if not args[1] then
+                    notify("Error", "Please provide signal path!")
+                    return
+                end
+                
+                local function missing(t, f, fallback)
+                    if type(f) == t then return f end
+                    return fallback
+                end
+                
+                local getconnections = missing("function", getconnections or get_signal_cons, nil)
+                
+                if not getconnections then
+                    notify("Error", "getconnections not supported")
+                    return
+                end
+                
+                local success, signal = pcall(function()
+                    return loadstring("return " .. getstring(1))()
+                end)
+                
+                if not success or not signal then
+                    notify("Error", "Could not find signal!")
+                    return
+                end
+                
+                local connections = getconnections(signal)
+                
+                print("=== Connections for " .. args[1] .. " ===")
+                for i, conn in pairs(connections) do
+                    print(i .. ": " .. tostring(conn))
+                    if conn.Function then
+                        print("   Function: " .. tostring(conn.Function))
+                    end
+                end
+                print("=== Total: " .. #connections .. " ===")
+                
+                notify("List Connections", "Found " .. #connections .. " (console)")
+            end
+        },
+        
+        ["fireallremotes"] = {
+            ["ListName"] = "fireallremotes [path]",
+            ["Description"] = "Fires all RemoteEvents in a container",
+            ["Aliases"] = {"fireall", "massfire"},
+            ["Function"] = function(args, speaker)
+                if not args[1] then
+                    notify("Error", "Please provide container path!")
+                    return
+                end
+                
+                local success, container = pcall(function()
+                    return loadstring("return " .. getstring(1))()
+                end)
+                
+                if not success or not container then
+                    notify("Error", "Could not find container!")
+                    return
+                end
+                
+                local count = 0
+                for _, descendant in pairs(container:GetDescendants()) do
+                    if descendant:IsA("RemoteEvent") then
+                        pcall(function()
+                            descendant:FireServer()
+                            count = count + 1
+                        end)
+                    end
+                end
+                
+                notify("Fire All", "Fired " .. count .. " RemoteEvents")
+            end
+        }
+    }
+}
+
+return Plugin

@@ -1,0 +1,34 @@
+local Plugin={
+    ['PluginName']='Random Cat Fact',
+    ['PluginDescription']='Generates random cat facts',
+    ['Commands']={
+        ['catfact']={
+            ['ListName']='catfact',
+            ['Description']='Generate a random cat fact',
+            ['Aliases']={'catfact'},
+            ['Function']=function(args,speaker)
+                if httprequest then
+                    local a=httprequest({
+                        Url='https://catfact.ninja/fact',
+                        Method='GET'
+                    })
+                    notify('Random Cat Fact',HttpService:JSONDecode(a.Body)['fact'])
+                end
+            end
+        },
+        ['copycatfact']={
+            ['ListName']='copycatfact / ccatfact',
+            ['Description']='Copies a random cat fact to your clipboard',
+            ['Aliases']={'copycatfact','ccatfact'},
+            ['Function']=function(args,speaker)
+                local a=httprequest({
+                    Url='https://catfact.ninja/fact',
+                    Method='GET'
+                })
+                toClipboard(HttpService:JSONDecode(a.Body)['fact'])
+            end
+        }
+    }
+}
+ 
+return Plugin

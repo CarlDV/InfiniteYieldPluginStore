@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Avatar Changer",
+	["PluginDescription"] = "Changes your CharacterAppearance.",
+	["Commands"] = {
+		["avatar"] = {
+			["Description"] = "Main command.",
+			["Aliases"] = {'avatar'},
+			["Function"] = function(args,speaker)
+				id = args[1]
+                game.Players.LocalPlayer.CharacterAppearance = "https://api.roblox.com/v1.1/avatar-fetch/?placeId=0&userId=" .. id
+			end,
+		},
+	},
+}
+
+return Plugin

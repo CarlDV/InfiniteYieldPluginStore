@@ -1,0 +1,108 @@
+function Format(Int)
+	return string.format("%02i", Int)
+end
+
+function convertToHMS(Seconds)
+	local Minutes = (Seconds - Seconds%60)/60
+	Seconds = Seconds - Minutes*60
+	local Hours = (Minutes - Minutes%60)/60
+	Minutes = Minutes - Hours*60
+	return Format(Minutes)..":"..Format(Seconds)
+end
+
+local spotify = function(url,method,token)
+  local success, res = pcall(request, {
+          Url = url,
+          Method = method,
+          Headers = {
+              ["Accept"] = "application/json",
+              ["Authorization"] = 'Bearer ' .. token,
+              ["Content-Type"] = "application/json"
+          }
+  })
+  if success == true and type(res) == "table" and #res.Body > 0 then
+      local parsed = game.HttpService:JSONDecode(res.Body)
+      return {
+			artist = parsed['item']['artists'][1]['name'],
+			title = parsed['item']['name'],
+			current = convertToHMS(math.floor(parsed['progress_ms']/1000)),
+			maximum = convertToHMS(math.floor(parsed['item']['duration_ms']/1000)),
+			playing = parsed['is_playing'],
+			imageurl = parsed['item']['album']['images'][1]['url']
+      }
+  else
+      return {
+			artist = 'Failed to get artist',
+			title = 'Failed to get song name',
+			current = 'nil',
+			maximum = 'nil',
+			imageurl = 'nil'
+      }
+  end
+end
+
+local Plugin = {
+    ["PluginName"] = "spotify",
+    ["PluginDescription"] = "does spotiy stuff",
+    ["Commands"] = {
+        ["trackinfo"] = {
+            ["ListName"] = "trackinfo",
+            ["Description"] = "info about uhhhh",
+            ["Aliases"] = {"curlinfo"},
+            ["Function"] = function(args, speaker)
+                local s, r = pcall(spotify, "https://api.spotify.com/v1/me/player/currently-playing", "GET", getgenv().oauth)
+                notify("info", r.title.." by "..r.artist.. " | ".. r.current.."-"..r.maximum)
+            end
+        },
+        ["setoauth"] = {
+            ["ListName"] = "setoauth",
+            ["Description"] = "setoauth",
+            ["Aliases"] = {"putoauth"},
+            ["Function"] = function(args, speaker)
+                getgenv().oauth = getstring(1)
+            end
+        },
+        ["play"] = {
+            ["ListName"] = "play",
+            ["Description"] = "uh",
+            ["Aliases"] = {"continue"},
+            ["Function"] = function(args, speaker)
+                pcall(spotify, "https://api.spotify.com/v1/me/player/play", "PUT", getgenv().oauth)
+            end
+        },
+        ["pause"] = {
+            ["ListName"] = "pause",
+            ["Description"] = "bro are u retarded",
+            ["Aliases"] = {"uncontinue"},
+            ["Function"] = function(args, speaker)
+                pcall(spotify, "https://api.spotify.com/v1/me/player/pause", "PUT", getgenv().oauth)
+            end
+        },
+        ["next"] = {
+            ["ListName"] = "next",
+            ["Description"] = "bro its common sense????",
+            ["Aliases"] = {"forward"},
+            ["Function"] = function(args, speaker)
+                pcall(spotify, "https://api.spotify.com/v1/me/player/next", "POST", getgenv().oauth)
+            end
+        },
+        ["previous"] = {
+            ["ListName"] = "previous",
+            ["Description"] = "common sense my guy",
+            ["Aliases"] = {"backward"},
+            ["Function"] = function(args, speaker)
+                pcall(spotify, "https://api.spotify.com/v1/me/player/previous", "POST", getgenv().oauth)
+            end
+        },
+        ["setsvolume"] = {
+            ["ListName"] = "setsvolume",
+            ["Description"] = "oiwarhiufho",
+            ["Aliases"] = {"spotifyvol"},
+            ["Function"] = function(args, speaker)
+                pcall(spotify, "https://api.spotify.com/v1/me/player/volume?volume_percent="..tostring(getstring(1)), "GET", getgenv().oauth)
+            end
+        }
+    }
+}
+
+return Plugin

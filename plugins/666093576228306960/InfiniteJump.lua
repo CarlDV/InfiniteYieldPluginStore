@@ -1,0 +1,35 @@
+LoopJump = false
+Mouse = Players.LocalPlayer:GetMouse()
+Mouse.KeyDown:connect(function(Jump)
+if LoopJump then
+    if Jump:byte() == 32 then
+        if Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+            Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+            wait()
+            Players.LocalPlayer.Character.Humanoid:ChangeState("Seated")
+        end
+    end
+end
+end)
+local Plugin = {
+    ["PluginName"] = "Infinite Jump",
+    ["PluginDescription"] = "An infinite jump plugin",
+    ["Commands"] = {
+        ["infinitejump"] = {
+            ["ListName"] = "InfiniteJump / IJ",
+            ["Description"] = "Infinite Jump",
+            ["Aliases"] = {"ij"},
+            ["Function"] = function(args,speaker)
+                if LoopJump then
+                    LoopJump = false
+                    notify("Disabled Infinite Jump~")
+                else
+                    LoopJump = true
+                    notify("Enabled Infinite Jump~")
+                end
+            end,
+            },
+        },
+    }
+    
+return Plugin

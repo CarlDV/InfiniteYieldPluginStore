@@ -1,0 +1,276 @@
+local ServiceDictionary = setmetatable({},{__index = function(self,index) return game:GetService(index) end})
+
+local emoteIds = {
+	["Agree"]						= 4849487550;
+	["Disagree"]					= 4849495710;
+	["Power Blast"]					= 4849497510;
+	["Happy"]						= 4849499887;
+	["Sad"]							= 4849502101;
+	["Bunny Hop"]					= 4646296016;
+	["Peanut Butter Jelly Dance"] 	= 4390121879;
+	["Around Town"]					= 3576747102;
+	["Top Rock"]					= 3570535774;
+	["Jumping Wave"]				= 4940602656;
+	["Keeping Time"]				= 4646306072;
+	["Fashionable"]					= 3576745472;
+	["Robot"]						= 3576721660;
+	["Twirl"]						= 3716633898;
+	["Jacks"]						= 3570649048;
+	["TPose"]						= 3576719440;
+	["Shy"]							= 3576717965;
+	["Monkey"]						= 3716636630;
+	["Borock's Rage"]				= 3236848555;
+	["Ud'zal's Summoning"]			= 3307604888;
+	["Hype Dance"]					= 3696757129;
+	["Godlike"]						= 3823158750;
+	["Swish"]						= 3821527813;
+	["Sneaky"]						= 3576754235;
+	["Side to Side"]				= 3762641826;
+	["Greatest"]					= 3762654854;
+	["Louder"]						= 3576751796;
+	["Celebrate"]					= 3994127840;
+	["Haha"]						= 4102315500;
+	["Get Out"]						= 3934984583;
+	["Tree"]						= 4049634387;
+	["Fishing"]						= 3994129128;
+	["Fast Hands"]					= 4272351660;
+	["Y"]							= 4391211308;
+	["Zombie"]						= 4212496830;
+	["Baby Dance"]					= 4272484885;
+	["Line Dance"]					= 4049646104;
+	["Dizzy"]						= 3934986896;
+	["Shuffle"]						= 4391208058;
+	["Dorky Dance"]					= 4212499637;
+	["Bodybuilder"]					= 3994130516;
+	["Idol"]						= 4102317848;
+	["Fancy Feet"]					= 3934988903;
+	["Curtsy"]						= 4646306583;
+	["Air Dance"]					= 4646302011;
+	["Air Guitar"]					= 3696761354;
+	["Chicken Dance"]				= 4849493309;
+	["Sleep"]						= 4689362868;
+	["Hero Landing"]				= 5104377791;
+	["Confused"]					= 4940592718;
+	["Cower"]						= 4940597758;
+	["Tantrum"]						= 5104374556;
+	["Bored"]						= 5230661597;
+	["Beckon"]						= 5230615437;
+	["Hello"]						= 3576686446;
+	["Salute"]						= 3360689775;
+	["Stadium"]						= 3360686498;
+	["Tilt"]						= 3360692915;
+	["Point"]						= 3576823880;
+	["Shrug"]						= 3576968026;
+	["Heisman Pose"]				= 3696763549;
+	["Cha-Cha"] 					= 3696764866;
+};
+
+local emoteSourceIds = {
+	["Agree"]						= 4841397952;
+	["Disagree"]					= 4841401869;
+	["Power Blast"]					= 4841403964;
+	["Happy"]						= 4841405708;
+	["Sad"]							= 4841407203;
+	["Bunny Hop"]					= 4641985101;
+	["Peanut Butter Jelly Dance"] 	= 4406555273;
+	["Around Town"]					= 3303391864;
+	["Top Rock"]					= 3361276673;
+	["Jumping Wave"]				= 4940564896;
+	["Keeping Time"]				= 4555808220;
+	["Fashionable"]					= 3333331310;
+	["Robot"]						= 3338025566;
+	["Twirl"]						= 3334968680;
+	["Jacks"]						= 3338066331;
+	["TPose"]						= 3338010159;
+	["Shy"]							= 3337978742;
+	["Monkey"]						= 3333499508;
+	["Borock's Rage"]				= 3236842542;
+	["Ud'zal's Summoning"]			= 3303161675;
+	["Hype Dance"]					= 3695333486;
+	["Godlike"]						= 3337994105;
+	["Swish"]						= 3361481910;
+	["Sneaky"]						= 3334424322;
+	["Side to Side"]				= 3333136415;
+	["Greatest"]					= 3338042785;
+	["Louder"]						= 3338083565;
+	["Celebrate"]					= 3338097973;
+	["Haha"]						= 3337966527;
+	["Get Out"]						= 3333272779;
+	["Tree"]						= 4049551434;
+	["Fishing"]						= 3334832150;
+	["Fast Hands"]					= 4265701731;
+	["Y"]							= 4349285876;
+	["Zombie"]						= 4210116953;
+	["Baby Dance"]					= 4265725525;
+	["Line Dance"]					= 4049037604;
+	["Dizzy"]						= 3361426436;
+	["Shuffle"]						= 4349242221;
+	["Dorky Dance"]					= 4212455378;
+	["BodyBuilder"]					= 3333387824;
+	["Idol"]						= 4101966434;
+	["Fancy Feet"]					= 3333432454;
+	["Curtsy"]						= 4555816777;
+	["Air Dance"]					= 4555782893;
+	["Air Guitar"]					= 3695300085;
+	["Chicken Dance"]				= 4841399916;
+	["Sleep"]						= 4686925579;
+	["Hero Landing"]				= 5104344710;
+	["Confused"]					= 4940561610;
+	["Cower"]						= 4940563117;
+	["Tantrum"]						= 5104341999;
+	["Bored"]						= 5230599789;
+	["Beckon"]						= 5230598276;
+	["Hello"]						= 3344650532;
+	["Salute"]						= 3333474484;
+	["Stadium"]						= 3338055167;
+	["Tilt"]						= 3334538554;
+	["Point"]						= 3344585679;
+	["Shrug"]						= 3334392772;
+	["Heisman Pose"]				= 3695263073;
+	["Cha-Cha"]						= 3695322025;
+};
+
+local tools = {}
+local effects = {}
+local misc = {}
+
+local plugin = {
+	PluginName = ("More Commands 1.0");
+	PluginDescription = ("More commands for Infinite Yield, created by " .. ServiceDictionary.Players:GetNameFromUserIdAsync(1708043824));
+	Commands = {
+		["emote"] = {
+			["ListName"] = "emote [name]";
+			["Description"] = "Use an emote in the ROBLOX catalog.";
+			["Aliases"] = {};
+			["Function"] = function(args,speaker) local function playanimtrack(id) animationdebounce = true local Anim = Instance.new("Animation") Anim.AnimationId = "rbxassetid://"..id local salute = speaker.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim) salute:Play() salute.Stopped:Connect(function() speaker.Character.Animate.Disabled = false animationdebounce = false end) end local gotanim = false local lower = string.lower(args[1]) for i,v in pairs(emoteSourceIds) do if lower == string.sub(string.lower(tostring(i)), 1, #lower) and gotanim == false then gotanim = true playanimtrack(v) end end connection = speaker.Character:FindFirstChildOfClass("Humanoid").Running:Connect(function() pcall(function() connection:Disconnect() end) for index,value in pairs(speaker.Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks()) do pcall(function() value:Stop() end) end end) end
+		};
+		["tpose"] = {
+			["ListName"] = "tpose";
+			["Description"] = "";
+			["Aliases"] = {};
+			["Function"] = function(args,speaker) local RunService = game:GetService("RunService") local Animation = Instance.new("Animation") Animation.AnimationId = "rbxassetid://27432691" tposeAnimation = speaker.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Animation) tposeAnimation:Play() tposeAnimation:AdjustSpeed(1.5) repeat RunService.RenderStepped:Wait() until tposeAnimation.TimePosition >= 1.46 tposeAnimation:AdjustSpeed(0) end
+		};
+		["untpose"] = {
+			["ListName"] = "untpose",
+			["Description"] = "",
+			["Aliases"] = {},
+			["Function"] = function() pcall(tposeAnimation.Stop,tposeAnimation) pcall(tposeAnimation.Destroy,tposeAnimation) end
+		};
+		["blockreach"] = {
+			["ListName"] = "blockreach / subreach [size]",
+			["Description"] = "Modify the held tool's Handle size by all Axis.",
+			["Aliases"] = {"subreach"},
+			["Function"] = function(args,speaker) local s,r = pcall(function() local size = args[1] ~= nil and args[1] or 100 local tool = speaker.Character:FindFirstChildOfClass("Tool") local handle = tool:FindFirstChild("Handle") handle.CanCollide = false handle.Massless = true handle.Size = Vector3.new(tonumber(size),tonumber(size),tonumber(size)) local selectionBox = Instance.new("SelectionBox") selectionBox.Name = "IYSelectionBox" selectionBox.Color3 = Color3.fromRGB(248,248,248) selectionBox.LineThickness = 0.1 selectionBox.Visible = true selectionBox.Adornee = handle selectionBox.Parent = handle game:GetService("RunService").RenderStepped:Wait() speaker.Character:FindFirstChildOfClass("Humanoid"):UnequipTools() game:GetService("RunService").RenderStepped:Wait() speaker.Character:FindFirstChildOfClass("Humanoid"):EquipTool(tool) end) if not s then notify("Please have a tool with a Handle equipped, or else this will not work.") end end,
+		};
+		["loadstring"] = {
+			["ListName"] = "loadstring / runscript / script [code]",
+			["Description"] = "Run code using Infinite Yield.",
+			["Aliases"] = {"runscript","script"},
+			["Function"] = function(args,speaker) local s,r = pcall(function() local code = typeof(args) == "table" and table.concat(args," ") or tostring(args) return loadstring(code)() end) if not s then notify(r) end end
+		};
+		["qlog"] = {
+			["ListName"] = "qlog",
+			["Description"] = "Quickly copies all audios to your clipboard.",
+			["Aliases"] = {"logall"},
+			["Function"] = function(args,speaker) local logged = {} if not setclipboard then setclipboard = print notify("Your exploit does not support setclipboard, posted in Developer Console (F9) instead.") end for index,value in pairs(workspace:GetDescendants()) do if value:IsA("Sound") and value:FindFirstAncestorOfClass("Tool") then local audio = string.match(value.SoundId,"%d+") if not table.find(logged,audio) then shared["LOGGED_" .. tostring(audio)] = value:FindFirstAncestorOfClass("Tool").Name table.insert(logged,audio) end end end setclipboard(table.concat(logged,", ")) coroutine.resume(coroutine.create(function() for index,value in pairs(logged) do local ProductInfo = ServiceDictionary.MarketplaceService:GetProductInfo(tonumber(value)) print(string.format("[%s]",tostring(value)) .. string.format(":\n\tName = %s",ProductInfo.Name) .. string.format("\n\tTool = %s",shared["LOGGED_" .. tostring(value)])) shared["LOGGED_" .. tostring(value)] = nil end notify("All audio descriptions have been put inside of the Developer Console (F9).") end)) end
+		};
+		["antiskid"] = {
+			["ListName"] = "antiskid [plr] (CLIENT)",
+			["Description"] = "Enables a loop that prevents other exploiters from FE-Killing you.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) local players = getPlayer(args[1],speaker) antiSkidConnections = {} for index,value in pairs(players) do antiSkidConnections[#antiSkidConnections + 1] = value.CharacterAdded:Connect(function(character) repeat wait() until character:FindFirstChildWhichIsA("BackpackItem") and not character:FindFirstChildOfClass("Humanoid") character:Destroy() end) end end
+		};
+		["unantiskid"] = {
+			["ListName"] = "unantiskid",
+			["Description"] = "Disables the loop that prevents other exploiters from FE-Killing you.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) for index,value in pairs(antiSkidConnections) do pcall(function() value:Disconnect() end) end end
+		};
+		["byteconvert"] = {
+			["ListName"] = "byteconvert",
+			["Description"] = "Converts the given string in \'string.byte\' format & copies it to your clipboard.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) local stringval = table.concat(args," ") local ns = "" for i = 1,string.len(stringval) do ns = ns .. string.format("\\%s",string.byte(string.sub(stringval,i,i))) end if not setclipboard then setclipboard = print notify("Your exploit does not support setclipboard, posted in Developer Console (F9) instead.") end setclipboard(ns) end
+		};
+		["classicchat"] = {
+			["ListName"] = "classicchat",
+			["Description"] = "Enable the ClassicChat setting.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) local PlayerGui = speaker:WaitForChild("PlayerGui") PlayerGui:WaitForChild("Chat") if PlayerGui.Chat.Frame.ChatChannelParentFrame.Visible ~= true then PlayerGui.Chat.Frame.ChatBarParentFrame.Position = PlayerGui.Chat.Frame.ChatChannelParentFrame.Position + UDim2.new(UDim.new(0,0),PlayerGui.Chat.Frame.ChatChannelParentFrame.Size.Y) PlayerGui.Chat.Frame.ChatChannelParentFrame.Visible = true PlayerGui.Chat.Frame.ChatChannelParentFrame.Size = UDim2.new(1,0,1,-46)	 end end
+		};
+		["bytechat"] = {
+			["ListName"] = "bytechat [msg]",
+			["Description"] = "Communicate through byte translation, good for bypassing the filter.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) local realmessage = table.concat(args," ") local ns = "" for i = 1,string.len(realmessage) do ns = ns .. string.format("\\%s",string.byte(string.sub(realmessage,i,i))) end local DefaultChatSystemChatEvents = ServiceDictionary.ReplicatedStorage["DefaultChatSystemChatEvents"] local SayMessageRequest = DefaultChatSystemChatEvents.SayMessageRequest pcall(SayMessageRequest.FireServer,SayMessageRequest,ns) end
+		};
+		["nostatshare"] = {
+			["ListName"] = "nostatshare [boolean]",
+			["Description"] = "",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) local val = args[1] == "false" or false game:GetService("NetworkClient").ClientReplicator:RequestServerStats(not val) end,
+		};
+		["legacydebris"] = {
+			["ListName"] = "legacydebris [boolean]",
+			["Description"] = "",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) local val = args[1] == "false" or false ServiceDictionary.Debris:SetLegacyMaxItems(not val) end,
+		};
+		["catdance"] = {
+			["ListName"] = "catdance",
+			["Description"] = "\"Dance like a lolicon\" - FaIIenEdge#6201",
+			["Aliases"] = {"CatDance"},
+			["Function"] = function(args,speaker) loadstring(game:HttpGet("https://pastebin.com/raw/2UW0kvH5"))(); end       
+		};
+		["distract"] = {
+			["ListName"] = "distract",
+			["Description"] = "\"Quick, do something!\" - FaIIenEdge#6201",
+			["Aliases"] = {"Distract"},
+			["Function"] = function(args,speaker) loadstring(game:HttpGetAsync("https://pastebin.com/raw/m9Re7Bmc"))() end
+		};
+		["ragdoll"] = {
+			["ListName"] = "ragdoll",
+			["Description"] = "You will ragdoll on death.\n" .. string.format("Plugin given by %s",ServiceDictionary.Players:GetNameFromUserIdAsync(1477281267)),
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) loadstring(game:HttpGet("https://pastebin.com/raw/NVf0Rja2", true))() end,
+		};
+		["removegameguis"] = {
+			["ListName"] = "removegameguis",
+			["Description"] = "Removes the game's built-in guis.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) for index,value in pairs(speaker:FindFirstChildWhichIsA("PlayerGui"):GetChildren()) do if value.Name ~= "BubbleChat" and value.Name ~= "Chat" and value.Name ~= "Freecam" then value:Destroy() end end end,
+		};
+		["chatlocal"] = {
+			["ListName"] = "chatlocal [msg]",
+			["Description"] = "Chat on the client, but not on the server.\n(Fires the \'Chatted\' event!)",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) pcall(ServiceDictionary.Chat.ChatLocal,ServiceDictionary.Chat,speaker.Character,table.concat(args," "),Enum.ChatColor.White) end
+		};
+		["niltools"] = {
+			["ListName"] = "niltools",
+			["Description"] = "Hides your tools in nil.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) for index,value in pairs(speaker:FindFirstChildWhichIsA("Backpack"):GetChildren()) do if value:IsA("BackpackItem") and not value:IsA("Script") then table.insert(tools,value) value.Parent = nil end end end,
+		};
+		["unniltools"] = {
+			["ListName"] = "unniltools",
+			["Description"] = "Hides your tools in nil.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) for index,value in pairs(tools) do value.Parent = speaker:FindFirstChildWhichIsA("Backpack") end end,
+		};
+		["getscriptenv"] = {
+			["ListName"] = "getscriptenv",
+			["Description"] = "Get script environment.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker) local Script = loadstring(string.format("return %s"),table.concat(args," "))(); local Classes = {["ModuleScript"] = true,["LocalScript"] = true,["Script"] = false,} for index,value in pairs(Classes) do if Script.ClassName == index and value == false then return false end end return notify(string.format("Environment:\n%s",getsenv(Script))) end,
+		};
+		["getcharacterscripts"] = {
+			["ListName"] = "getcharacterscripts / getcharscripts",
+			["Description"] = "Displays a list of all scripts in your character.",
+			["Aliases"] = {"getcharscripts"},
+			["Function"] = function(args,speaker) local CharacterScripts = {} local Counts = {} for index,value in pairs(ServiceDictionary.Players.LocalPlayer.Character:GetChildren()) do if value:IsA("LocalScript") or value:IsA("ModuleScript") then if table.find(CharacterScripts,value:GetFullName()) then Counts[value:GetFullName()] = (typeof(Counts[value:GetFullName()]) == "number" and Counts[value:GetFullName()] or 0) + 1 local indexValue = table.find(CharacterScripts,value:GetFullName()) CharacterScripts[indexValue] = value:GetFullName() .. string.format("(%sx)",Counts[value:GetFullName()]) continue end Counts[value:GetFullName()] = (typeof(Counts[value:GetFullName()]) == "number" and Counts[value:GetFullName()] or 0) + 1 table.insert(CharacterScripts,value:GetFullName()) end end return notify(string.format("Scripts:\n%s",table.concat(CharacterScripts))) end
+		};
+	};
+};
+
+return plugin

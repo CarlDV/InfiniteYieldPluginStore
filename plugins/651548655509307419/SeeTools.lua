@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "Seetools",
+    ["PluginDescription"] = "Dont forget to check the console",
+    ["Commands"] = {
+        ["seetools"] = {
+            ["ListName"] = "Seetools [plr] / Stools [plr]",
+            ["Description"] = "print the tools target",
+            ["Aliases"] = {"stools"},
+            ["Function"] = function(args,speaker)
+                Players = game:GetService("Players")
+                player = getPlayer(args[1], speaker)
+                
+                for i,v in pairs(player)do
+                    for i,v in pairs(Players[v].Backpack:GetChildren()) do
+                        if v:IsA('Tool') or v:IsA('HopperBin') then
+                            print(v)
+                        end
+                    end
+                end
+            end
+            }
+        }
+    }
+    return Plugin

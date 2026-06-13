@@ -1,0 +1,81 @@
+local Plugin={
+    ['PluginName']='Camera Tools',
+    ['PluginDescription']='Place cameras at your mouse\'s position.',
+    ['Commands']={
+        ['kt']={
+            ['ListName']='cameratools / cmtl',
+            ['Description']='Gives you camera tools',
+            ['Aliases']={'cameratools','cmtl'},
+            ['Function']=function(args,speaker)
+                local vsv
+                local kt={}
+                local pk,vk,uvk,kk=Instance.new('Tool',speaker.Backpack),Instance.new('Tool',speaker.Backpack),Instance.new('Tool',speaker.Backpack),Instance.new('Tool',speaker.Backpack)
+                pk.RequiresHandle,vk.RequiresHandle,uvk.RequiresHandle,kk.RequiresHandle=false,false,false,false
+                pk.Name,vk.Name,uvk.Name,kk.Name='Place Camera','View Camera','Unview Camera','Clear Cameras'
+
+                pk.Activated:Connect(function()
+                    if IYMouse.Target then
+                        local a=Instance.new('Part')
+                        a.Position=IYMouse.Hit.p
+                        table.insert(kt,a)
+                        if tostring(pk)~='Placed!'then
+                            pk.Name='Placed!'
+                            task.wait(.7)
+                            pk.Name='Place Camera'
+                        end
+                    end
+                end)
+
+                vk.Activated:Connect(function()
+                    if viewing then vsv=viewing end
+                    execCmd('unview')execCmd('unfreecam')
+                    if #kt>0 then
+                        if tostring(vk)=='View Camera'then
+                            workspace.CurrentCamera.CameraSubject=kt[1]
+                            vk.Name='Camera 1'
+                        elseif #kt>tonumber(tostring(vk):split(' ')[2]) then
+                            workspace.CurrentCamera.CameraSubject=kt[tonumber(tostring(vk):split(' ')[2])+1]
+                            vk.Name='Camera '..tonumber(tostring(vk):split(' ')[2])+1
+                        else
+                            workspace.CurrentCamera.CameraSubject=kt[1]
+                            vk.Name='Camera 1'
+                        end
+                    end
+                end)
+
+                uvk.Activated:Connect(function()
+                    if speaker.Character then
+                        vk.Name='View Camera'
+                        if vsv and Players[tostring(vsv)]then
+                            execCmd('view '..tostring(vsv))
+                            vsv=nil
+                        else
+                            execCmd('unview')
+                        end
+                    end
+                end)
+
+                kk.Activated:Connect(function()
+                    if #kt>0 and tostring(kk)=='Clear Cameras'then
+                        table.clear(kt)
+                        if workspace.CurrentCamera.CameraSubject~=speaker.Character:FindFirstChildOfClass'Humanoid'and tostring(vk)~='View Camera'then
+                            workspace.CurrentCamera.CameraSubject=speaker.Character:FindFirstChildOfClass'Humanoid'
+                            vk.Name='View Camera'
+                        end
+                        if tostring(kk)~='Cleared!'then
+                            kk.Name='Cleared!'
+                            task.wait(.7)
+                            kk.Name='Clear Cameras'
+                        end
+                    elseif tostring(kk)~='No Cameras Found'then
+                        kk.Name='No Cameras Found'
+                        task.wait(.7)
+                        kk.Name='Clear Cameras'
+                    end
+                end)
+            end
+        }
+    }
+}
+ 
+return Plugin

@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "ChatBypasser",
+    ["PluginDescription"] = "Self-explanatory",
+    ["Commands"] = {
+        ["EnableBypass"] = {
+            ["ListName"] = "enablebypass",
+            ["Description"] = "Enables the chat bypass",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/machport/machport.github.io/master/LightSpeedcyb.lua"))()
+            end
+        }
+    }
+}
+
+return Plugin

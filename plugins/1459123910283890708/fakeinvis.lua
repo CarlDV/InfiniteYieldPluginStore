@@ -1,0 +1,214 @@
+-- // Localisation
+local notify = notify
+
+-- // Fixes
+local cloneref: typeof(cloneref) = cloneref or function(...)
+    return ...
+end
+
+local gethui: typeof(gethui) = gethui or game:GetService("CoreGui") and function()
+    return cloneref(game:GetService("CoreGui"))
+end or function()
+    return game:GetService("Players").LocalPlayer:FindFirstChildWhichIsA("PlayerGui")
+end
+
+local RunService = cloneref(game:GetService("RunService"))
+local Players = cloneref(game:GetService("Players"))
+
+local LocalPlayer = Players.LocalPlayer
+local HiddenUi = gethui()
+
+local Highlight: Highlight? = nil
+
+local Character = LocalPlayer.Character
+local Humanoid = Character and Character:FindFirstChildWhichIsA("Humanoid")
+local RootPart = Humanoid and Humanoid.RootPart
+local Old = RootPart and RootPart.CFrame or CFrame.new()
+LocalPlayer.CharacterAdded:Connect(function(C: R6Character)
+    Character = C
+    Humanoid = C:WaitForChild("Humanoid")
+    RootPart = Humanoid.RootPart
+    Old = RootPart.CFrame
+    if Highlight then
+        Highlight.Adornee = C
+    end
+end)
+
+LocalPlayer.CharacterRemoving:Connect(function(C: R6Character)
+    if C ~= Character then return end
+    Character = nil
+    Humanoid = nil
+    RootPart = nil
+end)
+
+local PrimaryRenderStepName = (function()
+	local buff = buffer.create(20)
+
+	local charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	local clen = #charset
+
+	for i = 1, 20 do
+		local c = charset:byte(math.random(1, clen))
+		buffer.writeu8(buff, i - 1, c)
+	end
+
+	return buffer.tostring(buff)
+end)()
+
+local SecondaryRenderStepName = PrimaryRenderStepName:reverse()
+
+local AccurateCharacterRepresentation = false
+local VerticalOffset = -Vector3.yAxis * 7
+local Rotation90 = CFrame.Angles(math.rad(90), 0, 0)
+
+local Connections: {RBXScriptConnection} = {}
+local RenderStepsBinded: {string} = {}
+local Enabled = false
+
+local function fakeinvis()
+    if Enabled then return end
+
+    Enabled = true
+    Old = RootPart and RootPart.CFrame
+
+    if AccurateCharacterRepresentation then
+        RenderStepsBinded[#RenderStepsBinded + 1] = PrimaryRenderStepName
+        RunService:BindToRenderStep(PrimaryRenderStepName, Enum.RenderPriority.Camera.Value - 5, function()
+            if not RootPart then return end
+            RootPart.CFrame = Old
+            if Highlight then
+                Highlight.Enabled = true
+            end
+        end)
+
+        RenderStepsBinded[#RenderStepsBinded + 1] = SecondaryRenderStepName
+        RunService:BindToRenderStep(SecondaryRenderStepName, Enum.RenderPriority.Camera.Value + 5, function()
+            if not RootPart then return end
+            RootPart.CFrame = CFrame.new(RootPart.Position + VerticalOffset) * Rotation90
+        end)
+
+        Connections[#Connections + 1] = RunService.PreAnimation:Connect(function()
+            if not RootPart then return end
+            RootPart.CFrame = Old
+        end)
+        Connections[#Connections + 1] = RunService.PostSimulation:Connect(function()
+            if not RootPart then return end
+            Old = RootPart.CFrame
+            RootPart.CFrame = CFrame.new(RootPart.Position + VerticalOffset) * Rotation90
+        end)
+        return
+    end
+
+    RenderStepsBinded[#RenderStepsBinded + 1] = PrimaryRenderStepName
+    RunService:BindToRenderStep(PrimaryRenderStepName, Enum.RenderPriority.Camera.Value - 1, function()
+        if not RootPart then return end
+        RootPart.CFrame = Old
+    end)
+
+    Connections[#Connections + 1] = RunService.PostSimulation:Connect(function()
+        if not RootPart then return end
+        Old = RootPart.CFrame
+        RootPart.CFrame = CFrame.new(RootPart.Position + VerticalOffset) * Rotation90
+    end)
+end
+
+local function unfakeinvis()
+    if not Enabled then return end
+
+    for _, Connection in next, Connections do
+        Connection:Disconnect()
+    end
+    table.clear(Connections)
+
+    for _, RenderStep in next, RenderStepsBinded do
+        RunService:UnbindFromRenderStep(RenderStep)
+    end
+
+    if RootPart then
+        RootPart.CFrame = Old
+    end
+
+    Enabled = false
+    if Highlight then
+        Highlight.Enabled = false
+    end
+end
+
+return {
+    PluginName = "fake invisibility v1",
+    PluginDescription = "offsets your character underground",
+    Commands = {
+        setverticaloffset = {
+            ListName = "setverticaloffset [number]",
+            Description = "sets your vertical offset underground. 7 would mean you're 7 studs underground. negatives will be ignored",
+            Aliases = {"setvo"},
+            Function = function(args)
+                local input = args[1]
+                local number = tonumber(input)
+                if not number then
+                    notify("invalid input", "number expected")
+                    return
+                end
+                VerticalOffset = -Vector3.yAxis * math.abs(number)
+            end
+        },
+        fakeinvis = {
+            ListName = "fakeinvis",
+            Description = "turns on fake invis",
+            Aliases = {"fakeinvisibility", "finvis"},
+            Function = fakeinvis
+        },
+        unfakeinvis = {
+            ListName = "unfakeinvis",
+            Description = "turns off fake invis",
+            Aliases = {"unfakeinvisibility", "unfinvis"},
+            Function = unfakeinvis
+        },
+        accuratecharrep = {
+            ListName = "accuratecharrep",
+            Description = "makes fake invis actually show where your character is",
+            Aliases = {"accuratecharacterrepresentation", "acr"},
+            Function = function()
+                AccurateCharacterRepresentation = true
+                if Enabled then
+                    unfakeinvis()
+                    fakeinvis()
+                end
+            end
+        },
+        unaccuratecharrep = {
+            ListName = "unaccuratecharrep",
+            Description = "turns off accurate character representation mode",
+            Aliases = {"unaccuratecharacterrepresentation", "unacr"},
+            Function = function()
+                AccurateCharacterRepresentation = false
+                if Enabled then
+                    unfakeinvis()
+                    fakeinvis()
+                end
+            end
+        },
+        highlightcharrep = {
+            ListName = "highlightcharrep",
+            Description = "puts highlights on your character in accurate character representation mode to see where it is underground.",
+            Aliases = {"highlightcharacterrepresentation", "hcr"},
+            Function = function()
+                if Highlight then return end
+                local _Highlight = Instance.new("Highlight", HiddenUi)
+                _Highlight.Adornee = Character
+                _Highlight.Enabled = false
+                Highlight = _Highlight
+            end
+        },
+        unhighlightcharrep = {
+            ListName = "unhighlightcharrep",
+            Description = "removes the highlights in accurate character representation mode.",
+            Aliases = {"unhighlightcharacterrepresentation", "unhcr"},
+            Function = function()
+                if not Highlight then return end
+                Highlight:Destroy()
+                Highlight = nil
+            end
+        }
+    }
+}

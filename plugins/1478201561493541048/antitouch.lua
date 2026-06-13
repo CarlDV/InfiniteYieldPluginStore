@@ -1,0 +1,61 @@
+local Plugin = {
+	["PluginName"] = "antitouch",
+	["PluginDescription"] = "prevents your char from firing touch interests",
+	["Commands"] = {
+		["antitouch"] = {
+			["ListName"] = "antitouch / antikill / disabletouch",
+			["Aliases"] = { "antikill", "disabletouch" },
+			["Function"] = function()
+				getgenv().antitouch_toggle = true
+
+				if getgenv().antitouch_loaded then return end
+				getgenv().antitouch_loaded = true
+
+				local player = game:GetService("Players").LocalPlayer
+
+				local function apply(char)
+					for _,v in ipairs(char:GetDescendants()) do
+						if v:IsA("BasePart") then
+							v.CanTouch = not getgenv().antitouch_toggle
+						end
+					end
+				end
+
+				local function setup(char)
+					apply(char)
+
+					char.DescendantAdded:Connect(function(v)
+						if v:IsA("BasePart") then
+							v.CanTouch = not getgenv().antitouch_toggle
+						end
+					end)
+				end
+
+				if player.Character then
+					setup(player.Character)
+				end
+
+				player.CharacterAdded:Connect(setup)
+
+				task.spawn(function()
+					while true do
+						local char = player.Character
+						if char then
+							apply(char)
+						end
+						task.wait(0.5)
+					end
+				end)
+			end,
+		},
+		["unantitouch"] = {
+			["ListName"] = "unantitouch / unantikill / enabletouch",
+			["Aliases"] = { "unantikill", "enabletouch" },
+			["Function"] = function()
+				getgenv().antitouch_toggle = false
+			end,
+		},
+	},
+}
+
+return Plugin

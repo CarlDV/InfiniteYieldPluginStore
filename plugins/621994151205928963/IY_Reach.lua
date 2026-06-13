@@ -1,0 +1,43 @@
+local of_the_jedi = {
+    ["PluginName"] = "Reach Command",
+    ["PluginDescription"] = "Literally just adds the reach command from Shattervast.",
+    ["Commands"] = {
+        ["reach"] = {
+            ["ListName"] = "reach [on/off] [number]",
+            ["Description"] = "Increases the hitbox of your held tool. [number] is optional.",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+					if args[1] then
+						for i,v in pairs(speaker.Character:GetDescendants()) do
+							if v:IsA("Tool") then
+								if string.lower(tostring(args[1])) == "off" then
+									v.Handle.Size = currentToolSize
+									v.Handle.SelectionBoxCreated:Destroy()
+									LP.Character.Humanoid:UnequipTools()
+								elseif string.lower(tostring(args[1])) == "on" then
+									if args[2] then
+										currentToolSize = v.Handle.Size
+										local a = Instance.new("SelectionBox",v.Handle)
+										a.Name = "SelectionBoxCreated"
+										a.Adornee = v.Handle
+										v.Handle.Size = Vector3.new(0.5,0.5,args[2])
+										v.GripPos = Vector3.new(0,0,0)
+										LP.Character.Humanoid:UnequipTools()
+									else
+										currentToolSize = v.Handle.Size
+										local a = Instance.new("SelectionBox",v.Handle)
+										a.Name = "SelectionBoxCreated"
+										a.Adornee = v.Handle
+										v.Handle.Size = Vector3.new(0.5,0.5,60)
+										v.GripPos = Vector3.new(0,0,0)
+										LP.Character.Humanoid:UnequipTools()
+									end
+								end
+							end
+						end
+					end
+            end,
+        },
+    },
+}
+return of_the_jedi

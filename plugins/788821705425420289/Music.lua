@@ -1,0 +1,127 @@
+local looped = false
+local muted = false
+local currentsound = Instance.new("Sound",workspace)
+local sounds = {}
+for i, v in next, game:GetDescendants() do
+    if v:IsA("Sound") and v ~= currentsound then
+        table.insert(sounds, {v, v.Volume})
+    end
+end
+game.DescendantAdded:connect(function(thing)
+    if thing:IsA("Sound") then
+        table.insert(sounds, {thing, thing.Volume})
+    end
+end)
+
+
+local Plugin = {
+    ["PluginName"] = "Music Player",
+    ["PluginDescription"] = "Script by Rasyid Rafi",
+    ["Commands"] = {
+        ["loop"] = {
+            ["ListName"] = "loop",
+            ["Description"] = "loop the music",
+            ["Aliases"] = {"loop"},
+            ["Function"] = function(args,speaker)
+                looped=true
+                currentsound.Looped=true
+            end
+        },
+
+        ["unloop"] = {
+            ["ListName"] = "unloop",
+            ["Description"] = "unloop the music",
+            ["Aliases"] = {"unloop", "unl"},
+            ["Function"] = function(args,speaker)
+                looped=false
+                currentsound.Looped=false
+            end
+        },
+
+        ["play"] = {
+            ["ListName"] = "play [id]",
+            ["Description"] = "play music",
+            ["Aliases"] = {"play"},
+            ["Function"] = function(args,speaker)
+                currentsound.Looped=looped
+                currentsound.PlaybackSpeed=1
+                currentsound.SoundId="rbxassetid://"..tostring(args[1])
+                currentsound.Volume=4
+                currentsound:Play()
+            end
+        },
+
+        ["stop"] = {
+            ["ListName"] = "stop",
+            ["Description"] = "stop music",
+            ["Aliases"] = {"stop"},
+            ["Function"] = function(args,speaker)
+                currentsound.Volume=0
+            end
+        },
+
+        ["mvolume"] = {
+            ["ListName"] = "mvolume [num] / mvol [num]",
+            ["Description"] = "set music volume",
+            ["Aliases"] = {"mvol"},
+            ["Function"] = function(args,speaker)
+                currentsound.Volume=tonumber(args[1])
+            end
+        },
+
+        ["playbackspeed"] = {
+            ["ListName"] = "playbackspeed [num] / pbs [num]",
+            ["Description"] = "set playbackspeed",
+            ["Aliases"] = {"pbs"},
+            ["Function"] = function(args,speaker)
+                currentsound.PlaybackSpeed=tonumber(args[1])
+            end
+        },
+
+        ["pause"] = {
+            ["ListName"] = "pause / ps",
+            ["Description"] = "pause music",
+            ["Aliases"] = {"ps", "pause"},
+            ["Function"] = function(args,speaker)
+                currentsound:Pause()
+            end
+        },
+
+        ["resume"] = {
+            ["ListName"] = "resume / rs",
+            ["Description"] = "resume music",
+            ["Aliases"] = {"rs", "resume"},
+            ["Function"] = function(args,speaker)
+                currentsound:Resume()
+            end
+        },
+        ["MuteOthers"] = {
+            ["ListName"] = "MuteOthers / muteo",
+            ["Description"] = "mute all other sounds in the game",
+            ["Aliases"] = {"mo", "muteo", "muteothers"},
+            ["Function"] = function(args,speaker)
+                muted = true
+                while muted and wait() do
+                    for i = 1, #sounds do
+                        sounds[i][1].Volume = 0
+                    end
+                end
+            end
+        },
+        ["UnMuteOthers"] = {
+            ["ListName"] = "UnMuteOthers / Unmuteo",
+            ["Description"] = "mute all other sounds in the game",
+            ["Aliases"] = {"unmo", "unmuteo", "unmuteothers"},
+            ["Function"] = function(args,speaker)
+                muted = false
+                wait(1)
+                for i = 1, #sounds do
+                    if sounds[i][1] and sounds[i][2] then
+                        sounds[i][1].Volume = sounds[i][2]
+                    end
+                end
+            end
+        },
+    }
+}
+return Plugin

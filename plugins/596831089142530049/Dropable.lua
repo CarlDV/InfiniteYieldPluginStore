@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "Dropable Tools",
+    ["PluginDescription"] = "",
+    ["Commands"] = {
+        ["dropable/drop"] = {
+            ["Description"] = "Make dropable tools",
+            ["Aliases"] = {"drop"},
+            ["Function"] = function(args,speaker)
+              for _,v in pairs(game:GetService"Players".LocalPlayer:FindFirstChildOfClass"Backpack":GetChildren'') do
+   pcall(function() v.CanBeDropped = true end)
+end
+            end
+        }
+     }
+}
+
+return Plugin

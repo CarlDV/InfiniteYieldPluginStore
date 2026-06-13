@@ -1,0 +1,48 @@
+local Plugin = {
+	["PluginName"] = "Save Tools",
+	["PluginDescription"] = "Get your tools back after you die",
+	["Commands"] = {
+		["savetools"] = {
+			["Description"] = "Press K to save your tools before you die, then press L after you die to get them back",
+			["Aliases"] = {'st', 'savet'},
+			["Function"] = function(args,speaker)
+				game.Players.LocalPlayer:GetMouse().KeyDown:connect(function(key)
+if (key=="k") then
+for _,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+if (v:IsA("Tool")) then
+v.Parent = game.Players.LocalPlayer
+end
+end
+end
+end)
+game.Players.LocalPlayer:GetMouse().KeyDown:connect(function(key)
+if (key=="l") then
+for _,v in pairs(game.Players.LocalPlayer:GetChildren()) do
+if (v:IsA("Tool")) then
+v.Parent = game.Players.LocalPlayer.Backpack
+end
+end
+end
+end)
+game.Players.LocalPlayer:GetMouse().KeyDown:connect(function(key)
+if (key=="p") then
+while wait() do
+local GetBackpack = game.Players.LocalPlayer.Backpack:GetChildren()
+for i=1, #GetBackpack do
+   if GetBackpack[i].ClassName == "Tool" then
+       GetBackpack[i].CanBeDropped = true
+   end
+end
+end
+end
+end)
+
+local x = game.Lighting.Blur
+x.Parent = game.ReplicatedStorage
+game:GetService("CoreGui").VersionGui:Destroy()
+			end,
+		},
+	},
+}
+
+return Plugin

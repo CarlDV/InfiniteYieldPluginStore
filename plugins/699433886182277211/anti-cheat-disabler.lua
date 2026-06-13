@@ -1,0 +1,36 @@
+local plugin = {
+    ["PluginName"] = "anti-cheat-bypass";
+    ["PluginDescription"] = "Bypass the anti cheat that prevent from you from messing with the . The cmd will be added as commands it execute on spawn if you enter bypassac.";
+    ["Commands"] = {
+        ["method1"] = {
+            ["ListName"] = "method1";
+            ["Description"] = "Bypass the anti cheat that prevent you from changing your walkspeed and jumppower with the 1st method";
+            ["Aliases"] = {};
+            ["Function"] = function(args, speaker)
+                if not getconnections then
+                    notify("Incompatible exploit",
+                           "Error: your exploit don't support this plugin. You need to have a exploit that must have the custom function \"getconnections\"");
+                    error(
+                        "Your exploit don't support this plugin. You need to have a exploit that must have the custom function \"getconnections\". Plugin execution ended.");
+                end
+                for _, signal in pairs(getconnections(speaker.Character.Humanoid.Changed)) do signal:Disable() end
+            end
+        };
+        ["method2"] = {
+            ["ListName"] = "method2";
+            ["Description"] = "Bypass the anti cheat that prevent you from changing your walkspeed and jumppower with the second method";
+            ["Aliases"] = {};
+            ["Function"] = function(args, speaker)
+                if not getconnections then
+                    notify("Incompatible exploit",
+                           "Error: your exploit don't support this plugin. You need to have a exploit that must have the custom function \"getconnections\"");
+                    error(
+                        "Your exploit don't support this plugin. You need to have a exploit that must have the custom function \"getconnections\". Plugin execution ended.");
+                end
+                for _, signal in pairs(getconnections(speaker.Character.Humanoid.StateChanged)) do signal:Disable()
+            end
+        }
+    }
+}
+
+return plugin

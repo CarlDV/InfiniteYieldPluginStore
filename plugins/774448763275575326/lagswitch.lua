@@ -1,0 +1,34 @@
+local lsEnabledplugin = false
+
+local Plugin = {
+    ["PluginName"] = "lagswitch",
+    ["PluginDescription"] = "A lagswitch",
+    ["Commands"] = {
+        ["lagswitchmyself"] = {
+            ["ListName"] = "lagswitch",
+            ["Description"] = "A lagswitch",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+			if lsEnabledplugin == false then
+				settings().Network.IncomingReplicationLag = 1000;
+				discon = game:GetService('RunService').Stepped:Connect(function()
+					game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+				end)
+				discon2 = game:GetService('RunService').Heartbeat:Connect(function()
+					game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+				end)
+				lsEnabledplugin = true
+           			notify("Lagswitch", "Enabled!")
+			else
+				settings().Network.IncomingReplicationLag = 0;
+				discon:Disconnect()
+       				discon2:Disconnect()
+				lsEnabledplugin = false
+            			notify("Lagswitch", "Disabled!")
+			end
+            end
+        }
+     }
+}
+
+return Plugin

@@ -1,0 +1,147 @@
+local Plugin = {
+    ["PluginName"] = "Aimbot",
+    ["PluginDescription"] = [[
+	hyper cool aimbot
+    ]],
+    ["Commands"] = {
+        ["startaimbot"] = {
+            ["ListName"] = "startaimbot",
+            ["Description"] = "Starts the aimbot script with radius tracking",
+            ["Aliases"] = {"startaimbot"},
+            ["Function"] = function(args, speaker)
+                local Players = game:GetService("Players")
+                local RunService = game:GetService("RunService")
+                local UserInputService = game:GetService("UserInputService")
+                local Camera = workspace.CurrentCamera
+                local StarterGui = game:GetService("StarterGui")
+                local LocalPlayer = Players.LocalPlayer
+                local Target = nil
+                local AimbotEnabled = false
+                local AimKey = Enum.KeyCode.E
+                local AimRadius = 200
+
+                local function Notify(title, text, duration)
+                    pcall(function()
+                        StarterGui:SetCore("SendNotification", {
+                            Title = title,
+                            Text = text,
+                            Duration = duration or 3
+                        })
+                    end)
+                end
+
+                local function IsEnemy(player)
+                    if LocalPlayer.Team and player.Team then
+                        return LocalPlayer.Team ~= player.Team
+                    end
+                    return true
+                end
+
+                local function GetNearestPlayerWithinRadius()
+                    local screenCenter = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+                    local closestPlayer = nil
+                    local closestDistance = math.huge
+
+                    for _, player in ipairs(Players:GetPlayers()) do
+                        if player ~= LocalPlayer and IsEnemy(player) and player.Character and player.Character:FindFirstChild("Head") then
+                            local head = player.Character.Head
+                            local screenPosition, onScreen = Camera:WorldToScreenPoint(head.Position)
+
+                            if onScreen then
+                                local distance = (Vector2.new(screenPosition.X, screenPosition.Y) - screenCenter).Magnitude
+                                if distance <= AimRadius and distance < closestDistance then
+                                    closestDistance = distance
+                                    closestPlayer = player
+                                end
+                            end
+                        end
+                    end
+
+                    return closestPlayer
+                end
+
+                local function AimAt(targetPart)
+                    if targetPart then
+                        Camera.CFrame = CFrame.new(Camera.CFrame.Position, targetPart.Position)
+                    end
+                end
+
+                UserInputService.InputBegan:Connect(function(input, isProcessed)
+                    if isProcessed then return end
+
+                    if input.KeyCode == AimKey then
+                        AimbotEnabled = not AimbotEnabled
+                        if AimbotEnabled then
+                            Notify("Aimbot", "Aimbot Enabled", 3)
+                        else
+                            Notify("Aimbot", "Aimbot Disabled", 3)
+                            Target = nil
+                        end
+                    end
+                end)
+
+                RunService.RenderStepped:Connect(function()
+                    if AimbotEnabled then
+                        if not Target or not Target.Character or not Target.Character:FindFirstChild("Head") then
+                            Target = GetNearestPlayerWithinRadius()
+                        end
+
+                        if Target and Target.Character and Target.Character:FindFirstChild("Head") then
+                            local targetPart = Target.Character:FindFirstChild("Head") or Target.Character:FindFirstChild("Torso")
+                            AimAt(targetPart)
+                        end
+                    end
+                end)
+
+                Notify("Aimbot", "Aimbot Initialized. Press 'E' to toggle.", 5)
+            end
+        },
+
+        ["setradius"] = {
+            ["ListName"] = "setradius",
+            ["Description"] = "Sets the radius for aimbot targeting",
+            ["Aliases"] = {"setradius"},
+            ["Function"] = function(args, speaker)
+                local newRadius = tonumber(args[1])
+
+                if newRadius and newRadius > 0 then
+                    AimRadius = newRadius
+                    pcall(function()
+                        game:GetService("StarterGui"):SetCore("SendNotification", {
+                            Title = "Aimbot",
+                            Text = "Aimbot radius updated to: " .. AimRadius,
+                            Duration = 3
+                        })
+                    end)
+                else
+                    pcall(function()
+                        game:GetService("StarterGui"):SetCore("SendNotification", {
+                            Title = "Error",
+                            Text = "Please provide a valid radius value (e.g., 'setradius 250').",
+                            Duration = 3
+                        })
+                    end)
+                end
+            end
+        },
+
+        ["stopaimbot"] = {
+            ["ListName"] = "stopaimbot",
+            ["Description"] = "Stops the aimbot",
+            ["Aliases"] = {"stopaimbot"},
+            ["Function"] = function(args, speaker)
+                AimbotEnabled = false
+                Target = nil
+                pcall(function()
+                    game:GetService("StarterGui"):SetCore("SendNotification", {
+                        Title = "Aimbot",
+                        Text = "Aimbot Stopped.",
+                        Duration = 3
+                    })
+                end)
+            end
+        }
+    }
+}
+
+return Plugin

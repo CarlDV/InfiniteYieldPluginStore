@@ -1,0 +1,26 @@
+local Plugin = {
+	["PluginName"] = "pivot goto",
+	["PluginDescription"] = "there's like no good way for me to explain this here, go read the discord message",
+	["Commands"] = {
+		["pivotgoto"] = {
+			["ListName"] = "pivotgoto / pgoto [plr] [x] [y] [z]",
+			["Description"] = "changes your humanoidrootpart's cframe to another player character model's world pivot (+ an offset in case you don't want to teleport directly on top of them)",
+			["Aliases"] = { "pgoto" },
+			["Function"] = function(args, speaker)
+				local players = getPlayer(args[1], speaker)
+				for i,v in pairs(players)do
+					if Players[v].Character ~= nil then
+						if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+							speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+							wait(.1)
+						end
+						getRoot(speaker.Character).CFrame = Players[v].Character:GetPivot() + Vector3.new((args[2] and isNumber(args[2])) and tonumber(args[2]) or 3,(args[3] and isNumber(args[3])) and tonumber(args[3]) or 1,(args[4] and isNumber(args[4])) and tonumber(args[4]) or 0) -- I LOVE ISRAELLLLL
+					end
+				end
+				execCmd('breakvelocity')
+			end,
+		},
+	},
+}
+
+return Plugin

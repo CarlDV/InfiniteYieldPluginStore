@@ -1,0 +1,23 @@
+local Plugin = {
+	["PluginName"] = "Adonis Disabler",
+	["PluginDescription"] = "Contains disableadonis command",
+	["Commands"] = {
+		["disableadonis"] = {
+			["ListName"] = "disableadonis",
+            ["Description"] = "Disables adonis\'s anti-exploit",
+            ["Aliases"] = {"da"},
+            ["Function"] = function(args,speaker)
+				if getgenv().adonisbypassed == true then notify("Error!", "Adonis anti-exploit already disabled."); return end
+				notify("LuaDev's Adonis Disabler", "Disabling...\n(999 times better than pixeluted's, fuck pixeluted)")
+
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/Steve-Bloks/adonis/refs/heads/main/adonisdisabler.lua",true))()
+				
+				getgenv().adonisbypassed = true
+				task.wait(5)
+				notify("LuaDev's Adonis Disabler", "Adonis disabled.")
+            end
+		}
+    }
+}
+
+return Plugin

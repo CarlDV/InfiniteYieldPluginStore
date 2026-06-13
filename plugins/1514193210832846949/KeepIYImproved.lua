@@ -1,0 +1,31 @@
+local plrs = game:GetService("Players")
+local lp = plrs.LocalPlayer
+
+local TeleportCheck = false
+local function executeIY(plr)
+	if plr ~= lp then return end
+	if not getgenv().PLUGIN_ISKeepInfYield and KeepInfYield and (not TeleportCheck) and queueteleport then
+		getgenv().PLUGIN_ISKeepInfYield = true
+		TeleportCheck = true
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+	end
+end
+
+lp.OnTeleport:Connect(executeIY)
+lp.OnTeleportInternal:Connect(executeIY)
+plrs.PlayerDisconnecting:Connect(executeIY)
+plrs.PlayerRemoving:Connect(executeIY)
+plrs.PlayerRejoining:Connect(executeIY)
+
+print("KeepInfYield Improved Running")
+
+return {
+	["PluginName"] = "Improved IY Keep",
+    ["PluginDescription"] = "Fixes IYKeep to load when switching games from Roblox Home App.",
+    ["Commands"] = {
+        [""] = {
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker) end
+        }
+    }
+}

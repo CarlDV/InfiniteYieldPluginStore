@@ -1,0 +1,174 @@
+local Plugin = {
+    ["PluginName"] = "spectate2",
+    ["PluginDescription"] = "lets you use a spectate wheel thingie",
+    ["Commands"] = {
+        ["spectate2"] = {
+            ["ListName"] = "spectate2 / view2 / spec",
+            ["Description"] = "lets you use a spectate wheel thingie",
+            ["Aliases"] = {"view2", "spec"},
+            ["Function"] = function(args,speaker)
+                -- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local SpectateUI = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local Previous = Instance.new("TextButton")
+local UICorner_2 = Instance.new("UICorner")
+local Next = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local Close = Instance.new("TextButton")
+local UICorner_4 = Instance.new("UICorner")
+local TextLabel = Instance.new("TextLabel")
+local Spectating = Instance.new("TextLabel")
+
+--Properties:
+
+SpectateUI.Name = "SpectateUI"
+SpectateUI.Parent = game:GetService("CoreGui")
+
+Frame.Parent = SpectateUI
+Frame.BackgroundColor3 = Color3.fromRGB(72, 72, 72)
+Frame.BackgroundTransparency = 0.500
+Frame.Position = UDim2.new(0.411243081, 0, 0.639862835, 0)
+Frame.Size = UDim2.new(0, 340, 0, 100)
+
+UICorner.CornerRadius = UDim.new(0, 10)
+UICorner.Parent = Frame
+
+Previous.Name = "Previous"
+Previous.Parent = Frame
+Previous.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Previous.BackgroundTransparency = 1.000
+Previous.Position = UDim2.new(0, 0, 0.109999999, 0)
+Previous.Size = UDim2.new(0, 83, 0, 77)
+Previous.Font = Enum.Font.SourceSans
+Previous.Text = "<"
+Previous.TextColor3 = Color3.fromRGB(255, 255, 255)
+Previous.TextScaled = true
+Previous.TextSize = 14.000
+Previous.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+Previous.TextWrapped = true
+
+UICorner_2.CornerRadius = UDim.new(0, 15)
+UICorner_2.Parent = Previous
+
+Next.Name = "Next"
+Next.Parent = Frame
+Next.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Next.BackgroundTransparency = 1.000
+Next.Position = UDim2.new(0.755882382, 0, 0.109999999, 0)
+Next.Size = UDim2.new(0, 83, 0, 77)
+Next.Font = Enum.Font.SourceSans
+Next.Text = ">"
+Next.TextColor3 = Color3.fromRGB(255, 255, 255)
+Next.TextScaled = true
+Next.TextSize = 14.000
+Next.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+Next.TextWrapped = true
+
+UICorner_3.CornerRadius = UDim.new(0, 15)
+UICorner_3.Parent = Next
+
+Close.Name = "Close"
+Close.Parent = Frame
+Close.BackgroundColor3 = Color3.fromRGB(108, 108, 108)
+Close.Position = UDim2.new(0.929411769, 0, -0.199999988, 0)
+Close.Size = UDim2.new(0, 41, 0, 39)
+Close.Font = Enum.Font.SourceSans
+Close.Text = "X"
+Close.TextColor3 = Color3.fromRGB(94, 21, 21)
+Close.TextScaled = true
+Close.TextSize = 14.000
+Close.TextWrapped = true
+
+UICorner_4.CornerRadius = UDim.new(0, 10)
+UICorner_4.Parent = Close
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(0, 83, 0, 25)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "by smellyzach"
+TextLabel.TextColor3 = Color3.fromRGB(197, 197, 197)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+Spectating.Name = "Spectating"
+Spectating.Parent = Frame
+Spectating.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Spectating.BackgroundTransparency = 1.000
+Spectating.Position = UDim2.new(0.205882356, 0, 0.25, 0)
+Spectating.Size = UDim2.new(0, 200, 0, 50)
+Spectating.Font = Enum.Font.SourceSans
+Spectating.Text = "Spectate"
+Spectating.TextColor3 = Color3.fromRGB(197, 197, 197)
+Spectating.TextScaled = true
+Spectating.TextSize = 14.000
+Spectating.TextWrapped = true
+
+-- Scripts:
+
+local function OWMNXR_fake_script() -- Close.Script 
+	local script = Instance.new('Script', Close)
+
+	script.Parent.MouseButton1Click:Connect(function()
+		script.Parent.Parent.Visible = false
+	end)
+end
+coroutine.wrap(OWMNXR_fake_script)()
+local function RRMRUJ_fake_script() -- SpectateUI.LocalScript 
+	local script = Instance.new('LocalScript', SpectateUI)
+
+	local frame = script.Parent.Frame
+	local previous = frame.Previous
+	local next = frame.Next
+	local status = frame.Spectating
+	local camera = game.Workspace.CurrentCamera
+	local num = 1
+	
+	status.Text = game.Players.LocalPlayer.Name
+	
+	previous.MouseButton1Click:Connect(function()
+		local players = game:GetService("Players"):GetChildren()
+		local max = #players
+		num = num - 1
+		if num < 1 then
+			num = max
+		end
+		local player = players[num]
+		camera.CameraSubject = player.Character.Humanoid
+		status.Text = player.Name
+	end)
+	
+	next.MouseButton1Click:Connect(function()
+		local players = game:GetService("Players"):GetChildren()
+		local max = #players
+		num = num + 1
+		if num > max then
+			num = 1
+		end
+		local player = players[num]
+		camera.CameraSubject = player.Character.Humanoid
+		status.Text = player.Name
+	end)
+	
+	frame.Changed:Connect(function()
+		if not frame.Visible then
+			camera.CameraSubject = game:GetService("Players").LocalPlayer.Character.Humanoid
+			status.Text = game:GetService("Players").LocalPlayer.Name
+		end
+	end)
+end
+coroutine.wrap(RRMRUJ_fake_script)()
+
+            end,
+        },
+    },
+}
+
+return Plugin

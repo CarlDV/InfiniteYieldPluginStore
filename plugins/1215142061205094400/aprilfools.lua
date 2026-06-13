@@ -1,0 +1,24 @@
+local Plugin = {
+	["PluginName"] = "aprilfools",
+	["PluginDescription"] = "april fools decal randomizer.",
+	["Commands"] = {
+		["COMMANDNAME"] = {
+			["ListName"] = "aprilfools",
+			["Description"] = "april fools decal randomizer",
+			["Aliases"] = {"aprilfools","fools","april"},
+			["Function"] = function(args,speaker)
+				local decals={15118934239,11889177242,13993110162,15510175162,13569522563,52139252,9226866445,5403652952,14873984960,793379184,12665589616,15732245486,60876072,5611491527,34329831,12280596047,108283314,5980479093,741557899,15119002037,15396303157,14313969536}
+				local faces=Enum.NormalId:GetEnumItems()
+				for i,v in pairs(workspace:GetDescendants()) do
+					if v:IsA("BasePart") then
+						local d=Instance.new("Decal",v)
+						d.Texture="rbxassetid://"..decals[math.random(1,#decals)]
+						d.Face=faces[math.random(1,#faces)]
+					end
+				end
+			end
+		}
+	}
+}
+
+return Plugin

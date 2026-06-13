@@ -1,0 +1,46 @@
+local Cams = Instance.new("Folder")
+Cams.Name = "SuperSecretPornFolder"
+Cams.Parent = game.Workspace
+local Plugin = {
+  PluginName = "CamMaker",
+  PluginDescription = "A plugin which can create cameras that you can view through.",
+  Commands = {
+    makecam = {
+      ListName = "makecam [Camera Name]",
+      Description = "Creates a camera for you to view through at your current camera position.",
+      Aliases = {},
+      Function = function(args,speaker)
+        local Cam = Instance.new("Part")
+        Cam.Name = args[1]
+        Cam.Transparency = 1
+        Cam.CFrame = game.Workspace.Camera.CFrame
+	Cam.CanCollide = false
+	Cam.Anchored = true
+	Cam.Parent = game.Workspace.SuperSecretPornFolder
+        notify("CamMaker","Successfully created camera.")
+      end
+    },
+    viewcam = {
+      ListName = "viewcam [Camera Name]",
+      Description = "View the specified camera name.",
+      Aliases = {},
+      Function = function(args,speaker)
+        if not game.Workspace.SuperSecretPornFolder[args[1]] then
+          notify("CamMaker","Camera not found.")
+        else
+          game.Workspace.Camera.CameraSubject = game.Workspace.SuperSecretPornFolder[args[1]]
+          notify("CamMaker","Successfully viewed camera.")
+        end
+      end
+    },
+    unviewcam = {
+      ListName = "unviewcam",
+      Description = "Return to the original camera position.",
+      Aliases = {},
+      Function = function(args,speaker)
+        game.Workspace.Camera.CameraSubject = game.Players.LocalPlayer.Character
+      end
+    }
+  }
+}
+return Plugin

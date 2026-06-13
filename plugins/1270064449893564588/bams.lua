@@ -1,0 +1,47 @@
+
+local connections = {
+    blindbeat = nil
+}
+local Blind = {
+
+    ["PluginName"] = "Blind",
+    ["PluginDescription"] = "Plugin to annyon,blind players",
+    ["Commands"] = {
+        ["blind"] = {
+            ["ListName"] = "Blind (player)",
+            ["Description"] = "Blinds player",
+            ["Aliases"] = {"annyon"},
+            ["Function"] = function(args,speaker)
+                local victim = getPlayer(args[1],speaker)
+                for i,v in victim do
+                    
+                victim = Players[v]
+                end
+                speaker.Character:FindFirstChildWhichIsA("Humanoid").PlatformStand = true
+                
+
+                connections.blindbeat = game:GetService("RunService").Heartbeat:Connect(function()
+                speaker.Character.HumanoidRootPart.CFrame = victim.Character.HumanoidRootPart.CFrame *CFrame.new(0,1.8,-1) 
+                speaker.Character.HumanoidRootPart.CFrame *= CFrame.Angles(0,math.rad(552),0)
+                end)
+
+                victim.ChildRemoved:Connect(function()
+                connections.blindbeat:Disconnect()
+                notify("Player left.")
+                end)
+                
+            end
+        },
+        ["unblind"] = {
+            ["ListName"] = "unblind (unblind's player)",
+            ["Description"] = "stops annyoning the player",
+            ["Aliases"] = {"stopannyon","sannyon"},
+            ["Function"] = function(args,speaker)
+             connections.blindbeat:Disconnect()
+                speaker.Character:FindFirstChildWhichIsA("Humanoid").PlatformStand = false
+            end
+        }
+    }
+}
+
+return Blind

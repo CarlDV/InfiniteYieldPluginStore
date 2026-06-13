@@ -1,0 +1,42 @@
+-- Made by zwolf lol
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local PlaceId = game.PlaceId
+local URL = ("https://www.roblox.com/games/getgameinstancesjson?placeId=%s&startindex="):format(PlaceId)
+
+local Plugin = {
+    ["PluginName"] = "Server Hop",
+    ["PluginDescription"] = "This server will teleport to another server with the lowest ping",
+    ["Commands"] = {
+        ["serverhop"] = {
+            ["ListName"] = "serverhop",
+            ["Description"] = "Server hops to lowest ping server",
+            ["Aliases"] = {"hop"},
+            ["Function"] = function(args,speaker)
+                local List = {}
+
+                for page = 0, 30 do
+                	local Query = HttpService:JSONDecode(game:HttpGet(URL..page))
+                
+                	for i,v in next, Query.Collection do 
+                		List[v.Guid] = v.Ping
+                	end
+                end
+
+                local ChosenServer = game.JobId
+
+                for i,v in pairs(List) do
+                	if i ~= game.JobId then
+                		ChosenServer = i
+                		break
+                	end
+                end
+
+                TeleportService:TeleportToPlaceInstance(game.PlaceId, ChosenServer, game.Players.LocalPlayer)
+            end     
+        },
+    }
+}
+
+return Plugin

@@ -1,0 +1,187 @@
+local game = game;
+
+local request = request or http_request or (syn and syn.request) or (http and http.request) or (fluxus and fluxus.request);
+local cloneref = cloneref or function(reference) return reference; end;
+
+local wait, spawn, delay, defer = task.wait, task.spawn, task.delay, task.defer;
+
+local function http_get(url)
+	if (request) then
+		local response = request({
+			Url = url,
+			Method = 'GET',
+		});
+		return response and response.Body;
+	else
+		if (pcall(function() return game.HttpGet end)) then
+			return game:HttpGet(url);
+		end
+	end
+end
+
+local function get_service(service)
+	return cloneref(game:GetService(service));
+end;
+
+-- bla
+local COLOR = '#eed49f' -- ( white: #ffffff ) HEX- the translation message color
+local TEXT_SIZE = 12 -- ( default: 12 ) the translation message text size
+
+-- references
+local players = get_service('Players');
+local starter_gui = get_service('StarterGui');
+local http_service = get_service('HttpService');
+local textchat_service = get_service('TextChatService');
+local replicated_storage = get_service('ReplicatedStorage');
+
+-- variables
+local legacy_chat = (textchat_service.ChatVersion == Enum.ChatVersion.LegacyChatService);
+
+-- api wrap
+local translate, languages;
+local function translate(text, target)
+	local url_encoded = http_service:UrlEncode(text);
+	local url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl={target}&dt=t&q={url_encoded}`;
+
+	local response = http_get(url);
+	if (not response) then
+		warn('Something went wrong while fetching');
+		return;
+	end
+
+	local body = http_service:JSONDecode(response);
+	return {
+		text = body[1][1][1],
+		source = body[3],
+		target = body[1][1][2],
+	};
+end
+
+-- utils
+local properties = {
+	Color = Color3.fromHex(COLOR);
+	TextSize = TEXT_SIZE,
+	Font = Enum.Font.SourceSansBold;
+};
+
+local function escape_richtext(text)
+	return text:gsub('[&<>"\']', {
+		['&'] = '&amp;',
+		['<'] = '&lt;',
+		['>'] = '&gt;',
+		['"'] = '&quot;',
+		['\''] = '&apos;',
+	});
+end
+
+local function system_message(text)
+	if (legacy_chat) then
+		properties.Text = text;
+		starter_gui:SetCore('ChatMakeSystemMessage', properties);
+
+		return;
+	end
+
+	textchat_service.TextChannels.RBXGeneral:DisplaySystemMessage(`<font color='{COLOR}' size='{math.floor(TEXT_SIZE*1.35)}'>{escape_richtext(text)}</font>`);
+end
+
+local function on_message(speaker, text, target)
+	local data = translate(text, target, 'auto');
+	local translation = data.text;
+	local source = data.source;
+
+	if (source:lower() == target:lower()) then return; end
+	if (translation and translation ~= '') then
+		system_message(`[{source:upper()}] [{speaker}]: {translation}`);
+	end
+end
+
+local function disconnect_all(connections)
+	for k, v in next, connections do
+		if (typeof(v) == 'RBXScriptConnection') then
+			v:Disconnect();
+
+			connections[k] = nil;
+		end
+	end
+end
+
+local plugin_environment = {};
+return {
+	PluginName = 'Chat Translator 2000',
+	PluginDescription = 'from @hxerohero',
+	Commands = {
+		['chattranslator'] = {
+			ListName = 'chattranslator / translator [language]',
+			Description = 'translates the chat using Google Translation API',
+			Aliases = { 'translator' },
+			Function = function(args, speaker)
+				if (not languages) then -- lazy load
+					local response = http_get('https://translate.googleapis.com/translate_a/l?client=gtx&hl=en');
+					if (not response) then
+						notify('Error', 'Couldn\'t fetch languages');
+						return;
+					end
+
+					languages = http_service:JSONDecode(response);
+					languages.tl['zh'] = languages.tl['zh-CN'];
+				end
+
+				if (next(plugin_environment)) then
+					disconnect_all(plugin_environment);
+					notify('Success', 'Chat translator disabled');
+					return;
+				end
+
+				local target = args[1] or 'en';
+				target = (target:sub(1, 2):lower() == 'zh' and 'zh' or target:lower());
+
+				local target_language = languages.tl[target];
+				if (not target_language) then
+					notify('Error', 'Invalid language '..target);
+					return;
+				end
+
+				system_message(`--// CHAT TRANSLATOR [ {target_language:upper()} ] //--`);
+				if (legacy_chat) then
+					local events = replicated_storage.DefaultChatSystemChatEvents;
+					plugin_environment[1] = events.OnMessageDoneFiltering.OnClientEvent:Connect(function(data)
+						if (not data) then return; end
+
+						local speaker = data.FromSpeaker;
+						local text = data.Message;
+						local channel = data.OriginalChannel;
+
+						if (channel:find('To ')) then
+							speaker = speaker..' '..channel;
+						end
+
+						on_message(speaker, text, target);
+					end);
+				else
+					for k, v in next, players:GetPlayers() do
+						plugin_environment[v.Name] = v.Chatted:Connect(function(text)
+							on_message(v.DisplayName, text, target);
+						end);
+					end
+
+					plugin_environment[1] = players.PlayerAdded:Connect(function(player)
+						plugin_environment[player.Name] = player.Chatted:Connect(function(text)
+							on_message(player.DisplayName, text, target);
+						end);
+					end);
+
+					plugin_environment[2] = players.PlayerRemoving:Connect(function(player)
+						local found = plugin_environment[player.Name];
+						if (found) then
+							pcall(found.Disconnect, found);
+							plugin_environment[player.Name] = nil;
+						end
+					end);
+				end
+
+				notify('Success', `Chat translator enabled [ {target_language} ]`);
+			end
+		}
+	}
+}

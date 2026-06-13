@@ -1,0 +1,16 @@
+local Plugin = {}
+
+Plugin.PluginName = "fun fact"
+Plugin.PluginDescription = "useless facts"
+Plugin.Commands = {}
+
+Plugin.Commands["funfact"] = {
+	["ListName"] = ("funfact"),
+	["Description"] = ("generates a uselss fact and notifies you it"),
+	["Aliases"] = {},
+	["Function"] = function(args, speaker)
+		notify("fact", game:GetService("HttpService"):JSONDecode(game:HttpGet("https://uselessfacts.jsph.pl/random.json?language=en")).text)
+	end
+}
+
+return Plugin

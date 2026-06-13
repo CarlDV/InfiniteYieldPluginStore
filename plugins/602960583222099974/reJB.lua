@@ -1,0 +1,844 @@
+if game.PlaceId == 606849621 then
+local Plugin = {
+    ["PluginName"] = "ReJailbreak 1.6",
+    ["PluginDescription"] = "Commands for Jailbreak!",
+    ["Commands"] = {
+        ["runfirst"] = {
+            ["ListName"] = "runfirst",
+            ["Description"] = "run this first or stuff will break!",
+            ["Aliases"] = {'load'},
+            ["Function"] = function(args,speaker)
+							player = game:GetService("Players").LocalPlayer
+							local v30=Vector3.new()
+							local root,uptorso,humanoid
+							local Stepped = game:GetService("RunService").Stepped
+							local NCparts = {}
+							local NCconn
+							local NCfunc = function()
+								for i=1,#NCparts do
+									NCparts[i].CanCollide=false
+								end
+							end
+							local function noclip()
+								if not NCconn then
+									NCconn = Stepped:Connect(NCfunc)
+								end
+							end
+							local function yesclip()
+								if NCconn then
+									NCconn:Disconnect()
+									NCconn = nil
+								end
+							end
+							local lastRootCf
+							local function onRootChanged()
+								if (root.CFrame.p-Vector3.new(-38.7,19.5,1094.2)).magnitude < 1 then
+									root.CFrame = lastRootCf
+								end
+							end
+							local function newchar(char)
+								if char then
+									root = char:WaitForChild("HumanoidRootPart")
+									root:GetPropertyChangedSignal("CFrame"):Connect(onRootChanged)
+									uptorso = char:WaitForChild("UpperTorso")
+									humanoid = char:WaitForChild("Humanoid")
+									wait(0.2)
+									NCparts = {}
+									for _,v in ipairs(char:GetChildren()) do
+										if v:IsA("BasePart") then
+											NCparts[#NCparts+1]=v
+										end
+									end
+								end
+							end
+							newchar(player.Character)
+							player.CharacterAdded:Connect(newchar)
+							Stepped:Connect(function()
+								lastRootCf = root.CFrame
+							end)
+              function perfectTP(cf)
+              if wsenable then
+              game:GetService("Players").LocalPlayer.Character.PrimaryPart.CFrame = cf
+              else
+              Event:FireServer(ParachuteArgOn)
+              game:GetService("Players").LocalPlayer.Character.PrimaryPart.CFrame = cf
+              wait(1)
+              Event:FireServer(ParachuteArgOff)
+              end
+              end
+              local mainScr = player:WaitForChild("PlayerScripts"):WaitForChild("LocalScript")
+              wait(0.5)
+              wait(5 - workspace.DistributedGameTime)
+              local oldWTSP = workspace.CurrentCamera.WorldToScreenPoint
+              local MT = getrawmetatable(game)
+              if setreadonly then
+                setreadonly(MT,false)
+              elseif make_writeable then
+                make_writeable(MT)
+              end
+              local old__namecall = MT.__namecall
+              local old__index = MT.__index
+              function MT:__namecall(...)
+                local args = {...}
+                local m = args[#args]
+                if m=="WorldToScreenPoint" and self.ClassName=="Camera" then
+                  local ret = oldWTSP(self,...)
+                  return ret,true
+                elseif m=="FindPartOnRay" and typeof(args[1])=="Ray" and args[1].Origin==uptorso.Position and args[1].Direction.Y==-8 then
+                  return nil, args[1].Origin+args[1].Direction, v30, Enum.Material.Air
+                end
+                return old__namecall(self,...)
+              end
+              function MT:__index(k)
+                if screnv==nil and getfenv(2).script==mainScr then
+                  screnv = getfenv(2)
+                  screnv.getfenv = function() return screnv end
+                end
+                if k=="PlatformStand" and self==humanoid and getfenv(2).script==mainScr then
+                  return true
+                end
+                return old__index(self,k)
+              end
+              local mt = getrawmetatable(game)
+
+              local old_namecall = mt.__namecall
+
+              setreadonly(mt,false)
+
+              mt.__namecall = newcclosure(function(s,...)
+              local Args = {...}
+              if Args[#Args] == "UserOwnsGamePassAsync" then
+              print("checked gamepass")
+        return true
+    end
+    return old_namecall(s,...)
+end)
+toggle = true
+Localp = game:GetService('Players').LocalPlayer
+Mouser = Localp:GetMouse()
+Mouser.Button1Down:connect(function()
+local dest = Localp:GetMouse().Hit.p
+if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) then
+        if toggle then
+            perfectTP(CFrame.new(dest))
+            end
+        end
+end)
+local punchSpec, specs
+if (getreg or debug.getregistry) and getupvalues then
+    local reg = (getreg or debug.getregistry)()
+    for a=1,#reg do
+        local f = reg[a]
+        if type(f)=="function" then
+            for _,t in next,getupvalues(f) do
+                if type(t)=="table" then
+                    if specs==nil and t.Specs and t.Frame and #t==0 then
+                        specs = t.Specs
+                    elseif punchSpec==nil and #t==3 then
+                        for b=1,3 do
+                            if type(t[b])=="table" and t[b].Name=="Punch" then
+                                punchSpec = t[b]
+                                if (getconsts or debug.getconstants) then
+                                    for c,v in next,(getconsts or debug.getconstants)(punchSpec.Callback) do
+                                        if v == 0.5 then
+                                            (setconst or setconstant or debug.setconstant)(punchSpec.Callback,c,0)
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        if specs and punchSpec then
+            break
+        end
+    end
+end
+cfly = true
+Mouser.KeyDown:connect(function(key)
+    if key == "f" then
+        if cfly then
+        if sitting then
+            game:GetService("Workspace").Gravity = 0
+           end
+         end
+         end
+end)
+Mouser.KeyUp:connect(function(key)
+    if key == "f" then
+        if cfly then
+        if sitting then
+            game:GetService("Workspace").Gravity = 196.2
+           end
+         end
+         end
+end)
+active = false
+spunch = false
+Mouser.KeyDown:connect(function(key)
+    if key == "f" then
+        if spunch then
+        active = true
+        while active == true do
+        wait()
+        Event:FireServer(PunchArg)
+        end
+          else end
+          else end
+end)
+Mouser.KeyUp:connect(function(key)
+    if key == "f" then
+    if spunch then
+    active = false
+    end
+    end
+end)
+local function FindLocal(Name)
+   for I,V in pairs(getgc()) do
+       if type(V) == "function" and not is_synapse_function(V) then
+           for I2,V2 in pairs(debug.getupvalues(V)) do
+               if I2 == Name then return V2 end
+           end
+       end
+   end
+end
+
+-- Locals
+
+local Player = game:GetService("Players").LocalPlayer
+Event = null
+for i, v in pairs(getreg()) do
+   if type(v) == "function" then
+       for i2, v2 in pairs(getupvalues(v)) do
+           if type(v2) == "table" and v2.FireServer then
+               Event = v2
+           end
+       end
+   end
+end
+loadstring(game:HttpGet(('https://pastebin.com/raw/w3MjHqKZ'),true))()
+sitting = false
+local goaway = game:GetService("Players").LocalPlayer.Character.Humanoid
+local function onsitChanged()
+if goaway.Sit == true then
+  sitting = true
+  else
+  sitting = false
+  end
+  end
+  goaway:GetPropertyChangedSignal("Sit"):Connect(onsitChanged)
+  wsenable = false
+  eee = false
+  Speedfly = 20
+  function Speedflyy()
+  local players = game:GetService('Players')
+  if wsenable then
+  if eee then
+  Event:FireServer(ParachuteArgOn)
+  eee = false
+  end
+  game:GetService("RunService").RenderStepped:connect(function()
+  local ws = Speedfly
+  players.LocalPlayer.Character.Humanoid.WalkSpeed = ws
+  end)
+  end
+  end
+
+  local bankSign = workspace.Banks:GetChildren()[1].Extra.Sign.Decal
+  local jewlSign = workspace.Jewelrys:GetChildren()[1].Extra.Sign.Decal
+  local museumPart = workspace.Museum.Roof.Hole.Part
+  notifyme = true
+  bankSign:GetPropertyChangedSignal("Transparency"):Connect(function()
+  	wait()
+  	if bankSign.Transparency == 0.9 then
+  		if notifyme then
+  		notify('Bank open','The bank has opened')
+  		end
+  	else
+  	if notifyme then
+  	notify('Bank closed','The bank has closed')
+  	end
+  	end
+  end)
+  jewlSign:GetPropertyChangedSignal("Transparency"):Connect(function()
+  	wait()
+  	if jewlSign.Transparency == 0.9 then
+  		if notifyme then
+      notify('Jewelry open','The jewelry store has opened')
+  		end
+  	else
+  	if notifyme then
+    notify('Jewelry closed','The jewelry store has closed')
+  	end
+  	end
+  end)
+  museumPart:GetPropertyChangedSignal("CanCollide"):Connect(function()
+  wait()
+  if not museumPart.CanCollide then
+  	if notifyme then
+  	notify('Museum open','The museum has opened')
+  	end
+    end
+    end)
+    museumPart:GetPropertyChangedSignal("CanCollide"):Connect(function()
+    wait()
+    if museumPart.CanCollide then
+    if notifyme then
+    notify('museum closed','The museum has closed')
+    end
+  	end
+  end)
+  local Version = 1.6
+  local update = game:HttpGet("https://www.pastebin.com/raw/KkT3pdFc",false)
+  if update == "ReJailbreak " .. Version then
+  print("ReJB is up to date! You are running Version " .. Version) else
+  local function callback(text)
+if text == "Yes" then
+  writefile("rejb.iy",game:HttpGet("https://www.pastebin.com/raw/tHfxs1mU",false))
+elseif text == "No" then
+print("ReJailbreak is out of date! You are on version " .. Version)
+print("The latest version of ReJailbreak is " .. update)
+end
+end
+local bindableFunction = Instance.new("BindableFunction")
+bindableFunction.OnInvoke = callback
+game.StarterGui:SetCore("SendNotification", {
+Title = "ReJailbreak is out of date!";
+Text = "Do you want to update? (this will overwrite the old version!)";
+Icon = "";
+Duration = 15; -- Optional, defaults to 5 seconds
+Callback = bindableFunction;
+Button1 = "Yes";
+Button2 = "No";
+})
+  end
+  local Success,Message = pcall(function() -- Success = a bool if it runs without error, Message is the error.
+  local great = readfile("rejb.log")
+  if great == "4" then
+  notify('Update Log',game:HttpGet("https://www.pastebin.com/raw/WZzysQKc",false))
+  writefile("rejb.log","5")
+  end
+  if great == "5" then
+  notify('Update Log',game:HttpGet("https://www.pastebin.com/raw/WZzysQKc",false))
+  writefile("rejb.log","6")
+  end
+  end)
+
+  if Success then
+  local UI = require(game:GetService("ReplicatedStorage").Module:WaitForChild("UI"));
+  while wait() do
+  for i,v in pairs (UI.CircleAction.Specs) do
+      if v.Name then
+  v.Duration = 0;
+  v.Timed = true;
+  v.Dist = 99999999;
+
+
+      end
+  end
+  end
+  else
+  writefile("rejb.log","2")
+  notify('Update Log',game:HttpGet("https://www.pastebin.com/raw/WZzysQKc",false))
+  end
+            end,
+        },
+				["garage"] = {
+            ["ListName"] = "garage",
+            ["Description"] = "tps to garage",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(-273+math.random()*10,18,1199))
+              end
+            end,
+        },
+				["tp"] = {
+             ["ListName"] = "tp [plr]",
+             ["Description"] = "Same thing as goto",
+             ["Aliases"] = {},
+             ["Function"] = function(args,speaker)
+             if not perfectTP
+             then notify('Error','Do ;runfirst before running this command!')
+             else
+						 local asd = getPlayer(args[1], speaker)
+             for i,v in pairs(asd) do
+             local asdf = Players[v]
+             local asdfg = asdf.Character
+						 local pos = asdfg.HumanoidRootPart.Position
+             perfectTP(CFrame.new(pos))
+             end
+             end
+             end,
+         },
+				 ["goto"] = {
+            ["ListName"] = "goto [plr]",
+            ["Description"] = "Teleports you to a player",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+            local zxc = getPlayer(args[1], speaker)
+            for i,v in pairs(zxc) do
+            local zxcv = Players[v]
+            local zxcvb = zxcv.Character
+           local pos = zxcvb.HumanoidRootPart.Position
+            perfectTP(CFrame.new(pos))
+            end
+            end
+            end,
+        },
+        ["guns"] = {
+            ["ListName"] = "guns",
+            ["Description"] = "tps to gunstore",
+            ["Aliases"] = {'gunstore'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(-23.4663601,18.4658298,-1755.20544))
+              end
+            end,
+        },
+        ["jail"] = {
+            ["ListName"] = "jail",
+            ["Description"] = "tps to jail",
+            ["Aliases"] = {'prison'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(-1174.36133,31.5980759,-1454.88916))
+              end
+            end,
+        },
+        ["donut"] = {
+            ["ListName"] = "donut",
+            ["Description"] = "tps to donut store",
+            ["Aliases"] = {'donutshop','donutstore'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(271.310913,18.4058304,-1762.39941))
+              end
+            end,
+        },
+        ["base2"] = {
+            ["ListName"] = "base2",
+            ["Description"] = "tps to criminal base 2",
+            ["Aliases"] = {'criminal2','criminalbase2','c2','crim2'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(1636.30676,50.5350189,-1807.82983))
+              end
+            end,
+        },
+        ["police2"] = {
+            ["ListName"] = "police2",
+            ["Description"] = "tps to most wanted",
+            ["Aliases"] = {'pol2'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(759.736389,32.1880836,-336.279724))
+              end
+            end,
+        },
+        ["museum"] = {
+            ["ListName"] = "museum",
+            ["Description"] = "tps to museum",
+            ["Aliases"] = {'mus'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(1073.82764,135.825775,1227.13489))
+              end
+            end,
+        },
+        ["powerplant"] = {
+            ["ListName"] = "powerplant",
+            ["Description"] = "tps to powerplant",
+            ["Aliases"] = {'power','plant'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(698.328369,37.4575157,2367.82007))
+              end
+            end,
+        },
+        ["gasstation"] = {
+            ["ListName"] = "gasstation",
+            ["Description"] = "tps to gas station",
+            ["Aliases"] = {'gas','station'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(-1585.2135,18.49613,718.243286))
+              end
+            end,
+        },
+        ["jewelry"] = {
+            ["ListName"] = "jewelry",
+            ["Description"] = "tps to the jewelry store",
+            ["Aliases"] = {'jew','jewel','jewelrystore'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(143.350754,18.5035915,1354.26965))
+              end
+            end,
+        },
+        ["bank"] = {
+            ["ListName"] = "bank",
+            ["Description"] = "tps to bank",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(12.4305162,18.5658264,788.500916))
+              end
+            end,
+        },
+        ["base1"] = {
+            ["ListName"] = "base1",
+            ["Description"] = "tps to base",
+            ["Aliases"] = {'base','crim1','crim'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(-222.632278,18.3744774,1581.80359))
+              end
+            end,
+        },
+        ["safe"] = {
+            ["ListName"] = "safe",
+            ["Description"] = "Teleports you somewhere safe",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(2024.27063,112.369888,3046.94409))
+              end
+            end,
+        },
+        ["police1"] = {
+            ["ListName"] = "police1",
+            ["Description"] = "tps to the police base in the jail",
+            ["Aliases"] = {'police'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+              perfectTP(CFrame.new(-1143.06738,18.8578854,-1585.32898))
+              end
+            end,
+        },
+        ["nolasers"] = {
+            ["ListName"] = "nolasers",
+            ["Description"] = "removes bank lasers",
+            ["Aliases"] = {'lasers'},
+            ["Function"] = function(args,speaker)
+              game:GetService("Workspace").Banks:GetChildren()[1].Layout:GetChildren()[1].Lasers:Destroy()
+              game:GetService("Workspace").Jewelrys:GetChildren()[1].BarbedWire:Destroy()
+              game:GetService("Workspace").Jewelrys:GetChildren()[1].BarbedWire:Destroy()
+              game:GetService("Workspace").Jewelrys:GetChildren()[1].BarbedWire:Destroy()
+              game:GetService("Workspace").Jewelrys:GetChildren()[1].BarbedWire:Destroy()
+              game:GetService("Workspace").Jewelrys:GetChildren()[1].BarbedWire:Destroy()
+              game:GetService("Workspace").Jewelrys:GetChildren()[1].BarbedWire:Destroy()
+            end,
+        },
+        ["keycard"] = {
+            ["ListName"] = "keycard",
+            ["Description"] = "gives u a keycard",
+            ["Aliases"] = {'key'},
+            ["Function"] = function(args,speaker)
+            game:GetService"Players".LocalPlayer.TeamValue.Value="Police"
+            end,
+        },
+        ["platformtp"] = {
+            ["ListName"] = "platformTP",
+            ["Description"] = "creates a platform 20 studs above you and tps u on",
+            ["Aliases"] = {'plat'},
+            ["Function"] = function(args,speaker)
+            local plr = game:GetService("Players").LocalPlayer
+            local p = Instance.new("Part", workspace)
+            p.Size = Vector3.new(30,0.5,30)
+            p.Anchored = true
+            p.Position = plr.Character.HumanoidRootPart.Position + Vector3.new(0,15,0)
+            plr.Character:MoveTo(p.Position + Vector3.new(0,1,0))
+            spawn(function()
+            while p.Parent do
+            wait(1)
+            if (plr.Character.HumanoidRootPart.Position - p.Position).magnitude > 20 then
+            p:Destroy()
+            end
+            end
+            end)
+            end,
+        },
+        ["nitro"] = {
+            ["ListName"] = "nitro",
+            ["Description"] = "gives u inf nitro",
+            ["Aliases"] = {'infnitro'},
+            ["Function"] = function(args,speaker)
+            loadstring(game:HttpGet("https://pastebin.com/raw/VQkvwLBP"))()
+            end,
+        },
+        ["stuff"] = {
+            ["ListName"] = "stuff",
+            ["Description"] = "gives u stuff",
+            ["Aliases"] = {'things'},
+            ["Function"] = function(args,speaker)
+            for i,v in pairs(game:GetService("Workspace").Givers:GetChildren())do
+            for i,f in pairs(v:GetChildren())do
+            if f:IsA("ClickDetector")then
+            fireclickdetector(f)
+            end
+            end
+            end
+            end,
+        },
+        ["nobuildings"] = {
+            ["ListName"] = "nobuildings",
+            ["Description"] = "destroys all the city buildings",
+            ["Aliases"] = {'buildings'},
+            ["Function"] = function(args,speaker)
+            game:GetService("Workspace").Buildings:Destroy()
+            end,
+        },
+        ["carspeed"] = {
+            ["ListName"] = "carspeed",
+            ["Description"] = "makes your car super fast",
+            ["Aliases"] = {'speed','car'},
+            ["Function"] = function(args,speaker)
+            loadstring(game:HttpGet("https://pastebin.com/raw/Y4svU8L1"))()
+            end,
+        },
+        ["clicktp"] = {
+            ["ListName"] = "clickTP",
+            ["Description"] = "toggles clickTP",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+            if toggle then
+                toggle = false
+                print"Disabled clickTP!"
+            else
+                toggle = true
+                print"Enabled clickTP!"
+                end
+            end
+            end,
+        },
+        ["carfly"] = {
+            ["ListName"] = "carfly",
+            ["Description"] = "toggles carfly",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+            if cfly then
+                cfly = false
+                print"Disabled Carfly!"
+            else
+                cfly = true
+                print"Enabled Carfly!"
+                end
+            end
+            end,
+        },
+        ["gunmod"] = {
+            ["ListName"] = "gunmod",
+            ["Description"] = "mods ur gun to shoot super fast and have inf ammo",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            for i,v in pairs(getreg()) do
+               if typeof(v) == "table" then
+            if v.Pistol then
+                       v.Pistol.FireFreq = math.huge
+                       v.Pistol.CamShakeMagnitude = 0
+                       v.Pistol.MagSize = math.huge
+                       v.Pistol.FireAuto = true
+            end
+               end
+            end
+            for i,v in pairs(getreg()) do
+               if typeof(v) == "table" then
+            if v.Shotgun then
+                       v.Shotgun.FireFreq = math.huge
+                       v.Shotgun.CamShakeMagnitude = 0
+                       v.Shotgun.MagSize = math.huge
+                       v.Shotgun.FireAuto = true
+            end
+               end
+            end
+            for i,v in pairs(getreg()) do
+               if typeof(v) == "table" then
+            if v.AK47 then
+                       v.AK47.FireFreq = math.huge
+                       v.AK47.CamShakeMagnitude = 0
+                       v.AK47.MagSize = math.huge
+                       v.AK47.FireAuto = true
+            end
+               end
+            end
+            for i,v in pairs(getreg()) do
+               if typeof(v) == "table" then
+            if v.Uzi then
+                       v.Uzi.FireFreq = math.huge
+                       v.Uzi.CamShakeMagnitude = 0
+                       v.Uzi.MagSize = math.huge
+                       v.Uzi.FireAuto = true
+            end
+               end
+            end
+            for i,v in pairs(getreg()) do
+               if typeof(v) == "table" then
+            if v.RifleBOSS then
+                       v.RifleBOSS.FireFreq = math.huge
+                       v.RifleBOSS.CamShakeMagnitude = 0
+                       v.RifleBOSS.MagSize = math.huge
+                       v.RifleBOSS.FireAuto = true
+            end
+               end
+            end
+            for i,v in pairs(getreg()) do
+               if typeof(v) == "table" then
+            if v.RifleSWAT then
+                       v.RifleSWAT.FireFreq = math.huge
+                       v.RifleSWAT.CamShakeMagnitude = 0
+                       v.RifleSWAT.MagSize = math.huge
+                       v.RifleSWAT.FireAuto = true
+            end
+               end
+            end
+            end,
+        },
+        ["godmode"] = {
+            ["ListName"] = "godmode",
+            ["Description"] = "gods u",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+local heal = game:GetService("Players").LocalPlayer.Character.Humanoid
+local function onhealthChanged()
+if heal.Health == 100 then
+  wait()
+  else
+  wait()
+  Event:FireServer(GodmodeArg)
+  end
+  end
+  heal:GetPropertyChangedSignal("Health"):Connect(onhealthChanged)
+  end
+            end,
+        },
+        ["punchspam"] = {
+            ["ListName"] = "punchspam",
+            ["Description"] = "toggles punchspam",
+            ["Aliases"] = {'punchs', 'pspam', 'punch'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+            if spunch then
+                spunch = false
+                print"Disabled Punch Spam!"
+            else
+                spunch = true
+                print"Enabled Punch Spam!"
+                end
+            end
+            end,
+        },
+        ["autorob"] = {
+            ["ListName"] = "autorob",
+            ["Description"] = "launches autorob",
+            ["Aliases"] = {'rob', 'auto'},
+            ["Function"] = function(args,speaker)
+            loadstring(game:GetObjects("rbxassetid://1461971147")[1].Source)()
+            end,
+        },
+        ["sw"] = {
+            ["ListName"] = "sw",
+            ["Description"] = "makes you speed walk",
+            ["Aliases"] = {'ws', 'speed', 'walkspeed'},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+            if args[1] == nil then
+            if wsenable then
+                wsenable = false
+                Speedfly = 30
+                Event:FireServer(ParachuteArgOff)
+                print"Disabled ws!"
+            else
+                wsenable = true
+                eee = true
+                Speedflyy()
+                print"Enabled ws!"
+                wait(2)
+                game:GetService("Players").LocalPlayer.Character.Parachute:Destroy()
+                end
+            else
+            Speedfly = tonumber(args[1])
+            if not wsenable then
+            wsenable = true
+            eee = true
+            Speedflyy()
+            print"Enabled ws!"
+            wait(2)
+            game:GetService("Players").LocalPlayer.Character.Parachute:Destroy()
+                end
+                end
+                end
+            end,
+        },
+        ["notify"] = {
+            ["ListName"] = "notify",
+            ["Description"] = "toggles notifications",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+            if not perfectTP
+            then notify('Error','Do ;runfirst before running this command!')
+            else
+            if notifyme then
+                notifyme = false
+                print"Disabled notifications!"
+            else
+                notifyme = true
+                print"Enabled notifications!"
+                end
+            end
+            end,
+        },
+    },
+}
+
+return Plugin
+else
+print"Not on Jailbreak! ReJB commands have been disabled!"
+return Plugin
+end

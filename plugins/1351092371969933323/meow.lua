@@ -1,0 +1,45 @@
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+
+ScreenGui.Parent = game:GetService("Players").LocalPlayer.PlayerGui
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ResetOnSpawn = false
+
+Frame.Parent = ScreenGui
+Frame.ZIndex = 999
+Frame.Size = UDim2.new(1,0,1,0)
+
+TextLabel.Parent = ScreenGui
+TextLabel.ZIndex = 998
+TextLabel.Size = UDim2.new(1,0,1,0)
+TextLabel.TextSize = 80
+TextLabel.TextWrapped = true
+
+local fonts = Enum.Font:GetEnumItems()
+
+function randomString() -- https://github.com/EdgeIY/infiniteyield/blob/master/source
+	local length = 300
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+	return table.concat(array)
+end
+
+
+function start()
+	Frame.BackgroundColor3 = Color3.fromRGB(math.random(0,255),math.random(0,255),math.random(0,255))
+	if Frame.Transparency == 1 then
+		Frame.Transparency = 0
+	else
+		Frame.Transparency = 1
+	end
+	TextLabel.Text = randomString()
+	TextLabel.Font = fonts[math.random(1,#fonts)]
+	TextLabel.TextColor3 = Color3.fromRGB(math.random(0,255),math.random(0,255),math.random(0,255))
+	TextLabel.BackgroundColor3 = Color3.fromRGB(math.random(0,255),math.random(0,255),math.random(0,255))
+	task.wait(0.3)
+end
+
+return {PluginName="discoclub",PluginDescription="flashing lights (could cause seizures and im not responsible for it)",Commands={discoclub={ListName="discoclub",Description="sends out flashing lights",Aliases={"seizure"},Function=function(args,speakers) game:GetService("RunService").RenderStepped:Connect(start) end}}}

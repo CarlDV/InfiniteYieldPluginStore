@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Crash",
+    ["PluginDescription"] = "Made by not fly#2428 with very low effort",
+    ["Commands"] = {
+        ["crash"] = {
+            ["ListName"] = "crash",
+            ["Description"] = "Freezes your game... What did you expect?",
+            ["Aliases"] = {},
+            ["Function"] = function(args,speaker)
+              while true do end
+            end
+        }
+     }
+}
+
+return Plugin

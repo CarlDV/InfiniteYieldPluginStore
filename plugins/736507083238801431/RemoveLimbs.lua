@@ -1,0 +1,31 @@
+local PluginAPI = loadstring(game:HttpGet("https://pastebin.com/raw/u7HEbm8q"))()
+local Plugin = PluginAPI:CreatePlugin("Remove specifc limbs", "Made by trollface#6509")
+Plugin.Functions:AddCommand("rrleg", "rrleg",  "Removes right leg", {}, function(args,speaker) 
+    if speaker.Character:FindFirstChild("Right Leg") then
+        speaker.Character:FindFirstChild("Right Leg"):Destroy()
+    else
+        notify("You don't have a right leg!")
+    end
+end)
+Plugin.Functions:AddCommand("rlleg", "rlleg",  "Removes left leg", {}, function(args,speaker) 
+    if speaker.Character:FindFirstChild("Left Leg") then
+        speaker.Character:FindFirstChild("Left Leg"):Destroy()
+    else
+        notify("You don't have a left leg!")
+    end
+end)
+Plugin.Functions:AddCommand("rrarm", "rrarm",  "Removes right arm", {}, function(args,speaker) 
+    if speaker.Character:FindFirstChild("Right Arm") then
+        speaker.Character:FindFirstChild("Right Arm"):Destroy()
+    else
+        notify("You don't have a right arm!")
+    end
+end)
+Plugin.Functions:AddCommand("rlarm", "rlarm",  "Removes left arm", {}, function(args,speaker) 
+    if speaker.Character:FindFirstChild("Left Arm") then
+        speaker.Character:FindFirstChild("Left Arm"):Destroy()
+    else
+        notify("You don't have a left arm!")
+    end
+end)
+return Plugin.PluginTable

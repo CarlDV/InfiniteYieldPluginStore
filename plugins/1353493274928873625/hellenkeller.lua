@@ -1,0 +1,48 @@
+local Plugin = {
+    ["PluginName"] = "hellenkeller",
+    ["PluginDescription"] = "hellenkeller by atomic444 and Nachos on discord. its in the name",
+    ["Commands"] = {
+        ["hellenkeller"] = {
+            ["Function"] = function(args)
+                local player = game:GetService("Players").LocalPlayer
+                local character = player.Character or player.CharacterAdded:Wait()
+                local camera = workspace.CurrentCamera
+
+                local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+                screenGui.Name = "BlindEffect"
+				screenGui.ScreenInsets = "None" --Nachos
+
+                local frame = Instance.new("Frame", screenGui)
+                frame.Size = UDim2.new(1, 0, 1, 0)
+                frame.BackgroundColor3 = Color3.new(0, 0, 0)
+                frame.BorderSizePixel = 0
+
+                for _, sound in ipairs(workspace:GetDescendants()) do
+                    if sound:IsA("Sound") then
+                        sound.Volume = 0
+                    end
+                end
+            end
+        },
+
+        ["unhellenkeller"] = {
+            ["Function"] = function(args)
+                local player = game:GetService("Players").LocalPlayer
+                local camera = workspace.CurrentCamera
+
+                local gui = player:FindFirstChild("PlayerGui"):FindFirstChild("BlindEffect")
+                if gui then
+                    gui:Destroy()
+                end
+
+                for _, sound in ipairs(workspace:GetDescendants()) do
+                    if sound:IsA("Sound") then
+                        sound.Volume = 1
+                    end
+                end
+            end
+        }
+    }
+}
+
+return Plugin

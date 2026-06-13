@@ -1,0 +1,586 @@
+--[[
+
+astronaut
+bubbly
+cartoony
+confident
+cowboy
+default
+elder
+ghost
+knight
+levitation
+mage
+ninja
+none
+oldschool
+patrol
+pirate
+popstar
+princess
+robot
+rthro
+sneaky
+stylish
+superhero
+toy
+vampire
+werewolf
+zombie
+
+]]
+
+local Plugin = {
+    ["PluginName"] = "R15 Animation",
+    ["PluginDescription"] = "change animation pack",
+    ["Commands"] = {
+        ["anim_astronaut"] = {
+            ["ListName"] = "anim_astronaut",
+            ["Description"] = "Astronaut",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://891621366"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://891633237"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://891667138"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://891636393"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://891627522"
+			    char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://891609353"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://891617961"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_bubbly"] = {
+            ["ListName"] = "anim_bubbly",
+            ["Description"] = "Bubbly",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://910004836"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://910009958"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://910034870"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://910025107"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://910016857"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://910001910"
+                char.Animate.swimidle.Swimidle.AnimationId = "rbxassetid://910030921"
+                char.Animate.swim.Swim.AnimationId = "rbxassetid://910028158"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_cartoony"] = {
+            ["ListName"] = "anim_cartoony",
+            ["Description"] = "Cartoony",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://742637544"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://742638445"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://742640026"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://742638842"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://742637942"
+			    char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://742636889"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://742637151"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_confident"] = {
+            ["ListName"] = "anim_confident",
+            ["Description"] = "Confindent",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://1069977950"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://1069987858"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://1070017263"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://1070001516"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://1069984524"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1069946257"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://1069973677"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_cowboy"] = {
+            ["ListName"] = "anim_cowboy",
+            ["Description"] = "Cowboy",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://1014390418"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://1014398616"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://1014421541"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://1014401683"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://1014394726"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1014380606"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://1014384571"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_default"] = {
+            ["ListName"] = "anim_default",
+            ["Description"] = "Default",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://2510196951"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://2510197257"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://2510202577"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://2510198475"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://2510197830"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://2510192778"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://2510195892"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_elder"] = {
+            ["ListName"] = "anim_elder",
+            ["Description"] = "Elder",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://845397899"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://845400520"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://845403856"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://845386501"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://845398858"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://845392038"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://845396048" 
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_ghost"] = {
+            ["ListName"] = "anim_ghost",
+            ["Description"] = "Ghost",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://616006778"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://616008087"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://616013216"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://616013216"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://616008936"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://616005863"
+                char.Animate.swimidle.Swimidle.AnimationId = "rbxassetid://616012453"
+                char.Animate.swim.Swim.AnimationId = "rbxassetid://616011509"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_knight"] = {
+            ["ListName"] = "anim_knight",
+            ["Description"] = "Knight",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://657595757"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://657568135"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://657552124"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://657564596"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://658409194"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://658360781"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://657600338"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_levitation"] = {
+            ["ListName"] = "anim_levitation",
+            ["Description"] = "Levitation",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://616006778"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://616008087"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://616013216"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://616010382"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://616008936"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616003713"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://616005863"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_mage"] = {
+            ["ListName"] = "anim_mage",
+            ["Description"] = "Mage",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://707742142"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://707855907"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://707897309"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://707861613"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://707853694"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://707826056"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://707829716"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_ninja"] = {
+            ["ListName"] = "anim_ninja",
+            ["Description"] = "Ninja",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://656117400"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://656118341"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://656121766"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://656118852"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://656117878"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://656114359"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://656115606"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_none"] = {
+            ["ListName"] = "anim_none",
+            ["Description"] = "None",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://0"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://0"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://0"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://0"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://0"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://0"
+                char.Animate.swimidle.Swimidle.AnimationId = "rbxassetid://0"
+                char.Animate.swim.Swim.AnimationId = "rbxassetid://0"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_oldschool"] = {
+            ["ListName"] = "anim_oldschool",
+            ["Description"] = "OldSchool",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://5319828216"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://5319831086"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://5319847204"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://5319844329"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://5319841935"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://5319839762"
+                char.Animate.swimidle.Swimidle.AnimationId = "rbxassetid://5319852613"
+                char.Animate.swim.Swim.AnimationId = "rbxassetid://5319850266"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_patrol"] = {
+            ["ListName"] = "anim_patrol",
+            ["Description"] = "Patrol",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://1149612882"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://1150842221"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://1151231493"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://1150967949"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://1148811837"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1148811837"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://1148863382"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_pirate"] = {
+            ["ListName"] = "anim_pirate",
+            ["Description"] = "Pirate",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://750781874"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://750782770"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://750785693"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://750783738"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://750782230"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://750779899"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://750780242"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_popstar"] = {
+            ["ListName"] = "anim_popstar",
+            ["Description"] = "Popstar",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://1212900985"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://1150842221"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://1212980338"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://1212980348"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://1212954642"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1213044953"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://1212900995"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_princess"] = {
+            ["ListName"] = "anim_princess",
+            ["Description"] = "Princess",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://941003647"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://941013098"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://941028902"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://941015281"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://941008832"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://940996062"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://941000007"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_robot"] = {
+            ["ListName"] = "anim_robot",
+            ["Description"] = "Robot",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://616088211"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://616089559"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://616095330"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://616091570"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://616090535"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616086039"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://616087089"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_rthro"] = {
+            ["ListName"] = "anim_rthro",
+            ["Description"] = "Rthro",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://2510196951"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://2510197257"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://2510202577"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://2510198475"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://2510197830"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://2510195892"
+                char.Animate.swimidle.Swimidle.AnimationId = "rbxassetid://02510201162"
+                char.Animate.swim.Swim.AnimationId = "rbxassetid://2510199791"
+                char.Animate.climb.climb.Animationid = "rbxassetid://2510192778"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_sneaky"] = {
+            ["ListName"] = "anim_sneaky",
+            ["Description"] = "Sneaky",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://1132473842"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://1132477671"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://1132510133"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://1132494274"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://1132489853"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1132461372"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://1132469004"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_stylish"] = {
+            ["ListName"] = "anim_stylish",
+            ["Description"] = "Stylish",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://616136790"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://616138447"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://616146177"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://616140816"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://616139451"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616133594"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://616134815"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_superhero"] = {
+            ["ListName"] = "anim_superhero",
+            ["Description"] = "Superhero",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://616111295"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://616113536"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://616122287"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://616117076"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://616115533"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616104706"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://616108001"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_toy"] = {
+            ["ListName"] = "anim_toy",
+            ["Description"] = "Toy",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://782841498"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://782845736"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://782843345"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://782842708"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://782847020"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://782843869"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://782846423"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_vampire"] = {
+            ["ListName"] = "anim_vampire",
+            ["Description"] = "Vampire",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://1083445855"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://1083450166"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://1083473930"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://1083462077"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://1083455352"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1083439238"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://1083443587"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_werewolf"] = {
+            ["ListName"] = "anim_werewolf",
+            ["Description"] = "Werewolf",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://1083195517"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://1083214717"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://1083178339"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://1083216690"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://1083218792"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://1083182000"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://1083189019"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+        ["anim_zombie"] = {
+            ["ListName"] = "anim_zombie",
+            ["Description"] = "Zombie",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local R15 = speaker.Character.Humanoid.RigType == Enum.HumanoidRigType.R15
+                if R15 then
+                local char = speaker.Character
+                char.Animate.idle.Animation1.AnimationId = "rbxassetid://616158929"
+                char.Animate.idle.Animation2.AnimationId = "rbxassetid://616160636"
+                char.Animate.walk.WalkAnim.AnimationId = "rbxassetid://616168032"
+                char.Animate.run.RunAnim.AnimationId = "rbxassetid://616163682"
+                char.Animate.jump.JumpAnim.AnimationId = "rbxassetid://616161997"
+                char.Animate.climb.ClimbAnim.AnimationId = "rbxassetid://616156119"
+                char.Animate.fall.FallAnim.AnimationId = "rbxassetid://616157476"
+                else
+                    notify('R15 animation pack',"Must be R15")
+                end
+            end
+        },
+    }
+}
+
+return Plugin

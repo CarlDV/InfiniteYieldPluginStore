@@ -1,0 +1,240 @@
+print('\nХей привет! Да этот плагин (MusicTime.iy) написан русским и ДА тут есть РУССКИЙ!')
+print('Всё что для этого нужно это поставить isru = false на isru = true ~simmon8800\n')
+local isru = false  -- Установите на true для русского языка
+
+--[[
+Отвечаю на вопрос профессиональных программистов:
+Да это написал ИИ. Я ему скормил документацию для создания плагинов и он мне выдал ЭТО)))
+-- Answering the question of professional programmers:
+Yes, this was written by AI. I fed it documentation for creating plugins and it gave me THIS)))
+
+original: https://discord.com/channels/503045718102114305/551846012310782014/1281020902712016896
+]]
+
+-- И да нужно использовать функцию чтобы добавит СВОЙ язык (например украинский)
+--[[ Что? Проблемы?
+\### Документация по добавлению поддержки языков в плагин
+
+- Создайте таблицу, в которой будут храниться строки на разных языках. Например:
+
+```
+local translations = {
+    ["playmusic"] = {
+        ["en"] = "playmusic [id] [pitch] [volume]",
+        ["ru"] = "воспроизвести [id] [тон] [громкость]",
+        ["es"] = "reproducir [id] [tono] [volumen]"  -- Испанский перевод
+    },
+    -- Добавьте другие команды и языки по аналогии
+    }
+```
+
+- Создайте переменную для хранения текущего языка, например:
+
+```
+local currentLanguage = "en"  -- По умолчанию английский
+```
+
+- Реализуйте функцию для получения перевода:
+
+```
+local function getTranslation(command)
+    return translations[command] and translations[command][currentLanguage] or command
+end
+```
+
+- Обновите команды вашего плагина, чтобы они использовали функцию ```
+getTranslation
+```
+
+для получения строк в зависимости от текущего языка:
+
+```
+local Plugin = {
+    ["Commands"] = {
+        ["playmusic"] = {
+            ["ListName"] = getTranslation("playmusic"),
+            ["Description"] = "Plays audio with the specified ID.",
+            -- Остальная логика команды
+            },
+            -- Другие команды
+            }
+            }
+            ```
+
+            - Чтобы другие пользователи могли добавлять свои языки,
+            просто добавьте новые языковые переводы в таблицу ```
+            translations
+            ```
+
+            . Например, для добавления французского языка:
+
+            ```
+            translations["playmusic"]["fr"] = "jouer [id] [ton] [volume]"
+            ```
+            ]]
+
+-- getTranslation("", isru and "ru" or "en")
+local translations = {
+    ["PluginName"] = {
+        ["en"] = "MUSIC TIME",
+        ["ru"] = "КАРМАННЫЙ ПЛЕЕР"
+    },
+    ["PluginDescription"] = {
+        ["en"] = "Plays audio by using ID from roblox store. Also have extra features!",
+        ["ru"] = "Воспроизводите любую музыку/звук используя id звука из Roblox store."
+    },
+    ["playmusic"] = {
+        ["en"] = "playmusic [id] (pitch) (volume)",
+        ["ru"] = "playmusic [id] (тон) (громкость)"
+    },
+    ["playmusic_Description"] = {
+        ["en"] = "Plays audio by using ID from roblox store",
+        ["ru"] = "Воспроизводите любую музыку/звук используя id звука из Roblox store"
+    },
+    ["stopmusic"] = {
+        ["en"] = "stopmusic",
+        ["ru"] = "stopmusic"
+    },
+    ["stopmusic_Description"] = {
+        ["en"] = "Stops audio immediately",
+        ["ru"] = "Останавливает аудио которое вы ранее воспроизвели"
+    },
+    ["  "] = {
+        ["en"] = "pausemusic",
+        ["ru"] = "pausemusic"
+    },
+    ["pausemusic_Description"] = {
+        ["en"] = "Pauses the currently playing audio",
+        ["ru"] = "Ставит играющую аудио на паузу (и на оборот)"
+    },
+    ["setplaymusic"] = {
+        ["en"] = "setplaymusic (time)",
+        ["ru"] = "setplaymusic (время)"
+    },
+    ["setplaymusic_Description"] = {
+        ["en"] = "Sets the playback position to the specified time (in seconds).",
+        ["ru"] = "Устанавливает позицию воспроизведения (в секундах)"
+    },
+    ["shutupgame"] = {
+        ["en"] = "shutupgame",
+        ["ru"] = "shutupgame"
+    },
+    ["shutupgame_Description"] = {
+        ["en"] = "Stops all currently playing sounds in the game. (Cannot be canceled)",
+        ["ru"] = "Позволяет игре наконецто завалить своё ебало <3 (Не обратимо)"
+    }
+}
+
+local function getTranslation(command, lang)
+    return translations[command] and translations[command][lang] or command
+end
+
+local activeSound = nil  -- Для отслеживания текущего воспроизводимого звука
+
+local Plugin = {
+    ["PluginName"] = getTranslation("PluginName", isru and "ru" or "en"),
+    ["PluginDescription"] = getTranslation("PluginDescription", isru and "ru" or "en"),
+    ["Commands"] = {
+        ["playmusic"] = {
+            ["ListName"] = getTranslation("playmusic", isru and "ru" or "en"),
+            ["Description"] = getTranslation("playmusic_Description", isru and "ru" or "en"),
+            ["Aliases"] = {"mplay", "playm"},
+            ["Function"] = function(args, speaker)
+                if activeSound then
+                    activeSound:Stop()
+                    activeSound:Destroy()
+                    activeSound = nil
+                end
+
+                local g = Instance.new("Sound")
+                local Content = game:GetService("ContentProvider")
+                g.Parent = workspace
+
+                g.SoundId = args[1] and ("rbxassetid://" .. args[1]) or "rbxassetid://6729922069"
+                g.Volume = tonumber(args[3]) or 1
+                g.Pitch = tonumber(args[2]) or 1
+
+                Content:PreloadAsync({g})
+                g:Play()
+
+                activeSound = g
+
+                wait(g.TimeLength + 1)
+                if activeSound == g then
+                    g:Destroy()
+                    activeSound = nil
+                end
+            end
+        },
+        ["stopmusic"] = {
+            ["ListName"] = getTranslation("stopmusic", isru and "ru" or "en"),
+            ["Description"] = getTranslation("stopmusic_Description", isru and "ru" or "en"),
+            ["Aliases"] = {"mstopm", "mstopmusic"},
+            ["Function"] = function(args, speaker)
+                if activeSound then
+                    activeSound:Stop()
+                    activeSound:Destroy()
+                    activeSound = nil
+                end
+            end
+        },
+        ["pausemusic"] = {
+            ["ListName"] = getTranslation("pausemusic", isru and "ru" or "en"),
+            ["Description"] = getTranslation("pausemusic_Description", isru and "ru" or "en"),
+            ["Aliases"] = {"mpausem", "mpausemusic"},
+            ["Function"] = function(args, speaker)
+                if activeSound then
+                    activeSound:Pause()
+                end
+            end
+        },
+        ["setplaymusic"] = {
+            ["ListName"] = getTranslation("setplaymusic", isru and "ru" or "en"),
+            ["Description"] = getTranslation("pausemusic_Description", isru and "ru" or "en"),
+            ["Aliases"] = {"msetplaym", "msetplaymusic"},
+            ["Function"] = function(args, speaker)
+                if activeSound then
+                    local time = tonumber(args[1])
+                    if time and time >= 0 and time <= activeSound.TimeLength then
+                        activeSound.TimePosition = time
+                        activeSound:Play()  -- Возобновить воспроизведение с указанной позиции
+                    else
+                        print("<SE MTML> Invalid time specified.")
+                    end
+                end
+            end
+        },
+        ["shutupgame"] = {
+            ["ListName"] = getTranslation("shutupgame", isru and "ru" or "en"),
+            ["Description"] = getTranslation("shutupgame_Description", isru and "ru" or "en"),
+            ["Aliases"] = {"mshutupm", "mshutupgame"},
+            ["Function"] = function(args, speaker)
+                local function stopAllSounds(parent)
+                    for _, child in pairs(parent:GetChildren()) do
+                        if child:IsA("Sound") then
+                            child:Stop()
+                        elseif child:IsA("Folder") or child:IsA("Model") then
+                            stopAllSounds(child)  -- Рекурсивный вызов для вложенных объектов
+                        end
+                    end
+                end
+        
+                -- Останавливаем звуки в SoundService
+                local soundService = game:GetService("SoundService")
+                stopAllSounds(soundService)
+        
+                -- Останавливаем звуки в Workspace
+                local workspace = game:GetService("Workspace")
+                stopAllSounds(workspace)
+        
+                -- Останавливаем звуки в ReplicatedStorage
+                local replicatedStorage = game:GetService("ReplicatedStorage")
+                stopAllSounds(replicatedStorage)
+        
+                print("All sounds have been stopped.")
+            end
+        },
+    }
+}
+
+return Plugin

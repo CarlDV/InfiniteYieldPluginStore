@@ -1,0 +1,32 @@
+local Plugin = {
+	["PluginName"] = "User ID from / to Name",
+	["PluginDescription"] = "Gets a user id from a provided name or gets a name from a user id.",
+	["Commands"] = {
+		["getuserid / getuid"] = {
+			["Description"] = "Gets a user id from a provided name.",
+			["Aliases"] = {'getuserid', 'getuid'},
+			["Function"] = function(args, speaker)
+				local name = getstring(1)
+				if pcall(function() Players:GetUserIdFromNameAsync(name) end) then
+					toClipboard(Players:GetUserIdFromNameAsync(name))
+				else
+					notify("A player with that name does not exist.")
+				end
+			end,
+		},
+		["getname"] = {
+			["Description"] = "Gets a name from a provided user id.",
+			["Aliases"] = {},
+			["Function"] = function(args,speaker)
+				local uid = tonumber(getstring(1))
+				if pcall(function() Players:GetNameFromUserIdAsync(uid) end) then
+					toClipboard(Players:GetNameFromUserIdAsync(uid))
+				else
+					notify("A player with that user id does not exist.")
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

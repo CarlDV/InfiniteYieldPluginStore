@@ -1,0 +1,89 @@
+local Plugin = {
+    ["PluginName"] = "HealthBars",
+    ["PluginDescription"] = "show health bars.",
+    ["Commands"] = {
+        ["healthbars"] = {
+            ["ListName"] = "healthbars",
+            ["Description"] = "healthbars <on/off>",
+            ["Aliases"] = {"hb","hbars"},
+            ["Function"] = function(args, speaker)
+                local action = (args[1] and args[1]:lower())
+                if action ~= "on" and action ~= "off" then
+                    speaker:SendSystemMessage("Usage: healthbars <on/off>")
+                    return
+                end
+
+                local players = game:GetService("Players")
+                local TweenService = game:GetService("TweenService")
+
+                local function create(character)
+                    if not character then return end
+                    local hum = character:FindFirstChildOfClass("Humanoid")
+                    if not hum or character:FindFirstChild("HealthBar") then return end
+
+                    local head = character:FindFirstChild("Head") or character:FindFirstChildWhichIsA("BasePart")
+                    local gui = Instance.new("BillboardGui")
+                    gui.Name = "HealthBar"
+                    gui.AlwaysOnTop = true
+                    gui.Size = UDim2.new(6,0,0.6,0)
+                    gui.StudsOffset = Vector3.new(0,3.5,0)
+                    gui.Adornee = head
+                    gui.Parent = character
+
+                    local outer = Instance.new("Frame")
+                    outer.Size = UDim2.new(1,0,1,0)
+                    outer.BackgroundColor3 = Color3.fromRGB(15,15,15)
+                    outer.BorderSizePixel = 0
+                    outer.Parent = gui
+
+                    local uiCornerO = Instance.new("UICorner")
+                    uiCornerO.Parent = outer
+
+                    local inner = Instance.new("Frame")
+                    inner.Name = "Fill"
+                    inner.Size = UDim2.new(1,0,1,0)
+                    inner.BackgroundColor3 = Color3.fromRGB(0,255,100)
+                    inner.BorderSizePixel = 0
+                    inner.Parent = outer
+
+                    local uiCornerI = Instance.new("UICorner")
+                    uiCornerI.Parent = inner
+
+                    local grad = Instance.new("UIGradient")
+                    grad.Color = ColorSequence.new{
+                        ColorSequenceKeypoint.new(0, Color3.fromRGB(255,70,60)),
+                        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255,200,80)),
+                        ColorSequenceKeypoint.new(1, Color3.fromRGB(0,255,120))
+                    }
+                    grad.Parent = inner
+
+                    local function setSize(h)
+                        local r = math.clamp(h / hum.MaxHealth, 0, 1)
+                        TweenService:Create(inner, TweenInfo.new(0.15, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Size = UDim2.new(r,0,1,0)}):Play()
+                    end
+                    setSize(hum.Health)
+                    hum:GetPropertyChangedSignal("MaxHealth"):Connect(function() setSize(hum.Health) end)
+                    hum.HealthChanged:Connect(setSize)
+                end
+
+                if action == "on" then
+                    for _,p in ipairs(players:GetPlayers()) do
+                        if p.Character then create(p.Character) end
+                        p.CharacterAdded:Connect(function(c) c:WaitForChild("Humanoid"); create(c) end)
+                    end
+                    speaker:SendSystemMessage("Health bars: ON")
+                elseif action == "off" then
+                    for _,p in ipairs(players:GetPlayers()) do
+                        if p.Character then
+                            local hb = p.Character:FindFirstChild("HealthBar")
+                            if hb then hb:Destroy() end
+                        end
+                    end
+                    speaker:SendSystemMessage("Health bars: OFF")
+                end
+            end
+        }
+    }
+}
+
+return Plugin

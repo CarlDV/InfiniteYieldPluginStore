@@ -1,0 +1,17 @@
+local Plugin = {
+    ["PluginName"] = "Builder man chat",
+    ["PluginDescription"] = "Fake chat as builderman (MODDED BY LUALIGHTER)" ,
+    ["Commands"] = {
+        ["systemchat"] = {
+            ["ListName"] = "buildchat / bchat [your msg] [builderman msg]",
+            ["Description"] = "chat as builerman",
+            ["Aliases"] = {'bchat'},
+            ["Function"] = function(args, speaker)
+                local msg = getstring(1) .. "                                                                                                                   [Builderman]: "..getstring(2)
+                game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, 'All')
+            end
+        }
+    }
+}
+
+return Plugin

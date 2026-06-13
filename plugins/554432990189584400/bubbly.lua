@@ -1,0 +1,31 @@
+local Plugin = {
+	["PluginName"] = "Bubbly",
+	["PluginDescription"] = "Changes your R15 animation pack to bubbly",
+	["Commands"] = {
+		["anim_bubbly"] = {
+			["Description"] = "Changing animations",
+			["Aliases"] = {'Bubblyanim'},
+			["Function"] = function(args,speaker)
+			   local char = speaker.Character
+			   if char.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+			   print("User is R15 -- Animation changing")
+			   notify("Animations changed, unless game has animation override")
+               char.Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=910004836"
+               char.Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=910009958"
+               char.Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=910034870"
+               char.Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=910025107"
+               char.Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=910016857"
+               char.Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=910001910"
+               char.Animate.swimidle.Swimidle.AnimationId = "http://www.roblox.com/asset/?id=910030921"
+               char.Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=910028158"
+			   else
+			   notify("Only works with R15 types")
+			   print("User is R6")
+               --ez
+			   end
+			end,
+		},
+	},
+}
+
+return Plugin

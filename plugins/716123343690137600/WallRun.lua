@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "WallRun",
+	["PluginDescription"] = "Allows you to run on walls! Press N to toggle",
+	["Commands"] = {
+		["WallRun"] = {
+			["Description"] = "WallRun",
+			["Aliases"] = {'WR', 'Wallrunning', 'WallR'},
+			["Function"] = function(args,speaker)
+				 loadstring(game:HttpGet("https://pastebin.com/raw/i3k3aKb9"))()
+			end,
+		},
+	},
+}
+
+return Plugin

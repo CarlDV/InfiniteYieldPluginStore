@@ -1,0 +1,38 @@
+local Plugin = {
+    ["PluginName"] = "1337 plugin xd",
+    ["PluginDescription"] = "lets u do amazing commands",
+    ["Commands"] = {
+        ["print"] = {
+            ["Description"] = "prints some text!",
+            ["Aliases"] = {'p', 'out'},
+            ["Function"] = function(args,speaker)
+                print(API.getstring)
+                print(API.getstring(1))
+            end,
+        },
+        ["notify"] = {
+            ["Description"] = "uses the notification function",
+            ["Aliases"] = {'alert'},
+            ["Function"] = function(args,speaker)
+                API.notify('Notification Title',API.getstring(1))
+            end,
+        },
+        ["chatname"] = {
+            ["Description"] = "makes you chat the name of a player",
+            ["Aliases"] = {'cn','sayname'},
+            ["Function"] = function(args,speaker)
+                print("getPlayer function: "..tostring(API.getPlayer))
+                local players = API.getPlayer(args[1], speaker)
+                print(players)
+                
+                for i,v in pairs(players) do
+                    print(Players)
+                    local Player = Players[v]
+                    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(Player.Name, "All")
+                end
+            end,
+        },
+    },
+}
+
+return Plugin

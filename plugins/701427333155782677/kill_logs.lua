@@ -1,0 +1,183 @@
+function Time()
+	local HOUR = math.floor((tick() % 86400) / 3600)
+	local MINUTE = math.floor((tick() % 3600) / 60)
+	local SECOND = math.floor(tick() % 60)
+	local AP = HOUR > 11 and 'PM' or 'AM'
+	HOUR = (HOUR % 12 == 0 and 12 or HOUR % 12)
+	HOUR = HOUR < 10 and '0' .. HOUR or HOUR
+	MINUTE = MINUTE < 10 and '0' .. MINUTE or MINUTE
+	SECOND = SECOND < 10 and '0' .. SECOND or SECOND
+	return HOUR .. ':' .. MINUTE .. ':' .. SECOND .. ' ' .. AP
+end
+
+local UnnamedD = Instance.new("ScreenGui")
+local logsframeD = Instance.new("Frame")
+local logstitleD = Instance.new("TextButton")
+local xlogsD = Instance.new("TextButton")
+local logsbarD = Instance.new("TextButton")
+local ScrollingFrameD = Instance.new("ScrollingFrame")
+
+UnnamedD.Name = "UnnamedD"
+UnnamedD.Parent = game:GetService("CoreGui").RobloxGui
+UnnamedD.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+UnnamedD.ResetOnSpawn = false
+
+ScrollingFrameD.Parent = logsframeD
+ScrollingFrameD.Name = "ScrollingFrameD"
+ScrollingFrameD.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+ScrollingFrameD.BackgroundTransparency = 0.30000001192093
+ScrollingFrameD.BorderSizePixel = 0
+ScrollingFrameD.Position = UDim2.new(0, 0, 0.0680000037, 0)
+ScrollingFrameD.Size = UDim2.new(0, 500, 0, 404)
+
+logsframeD.Name = "logsframeD"
+logsframeD.Parent = UnnamedD
+logsframeD.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+logsframeD.BackgroundTransparency = 1
+logsframeD.BorderSizePixel = 0
+logsframeD.Position = UDim2.new(0.28193146, 0, 0.0159704965, 0)
+logsframeD.Size = UDim2.new(0, 500, 0, 433)
+logsframeD.Visible = false
+--logsframeF.Active = true
+--logsframeF.Draggable = true
+
+logstitleD.Name = "logstitleD"
+logstitleD.Parent = logsframeD
+logstitleD.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+logstitleD.BorderColor3 = Color3.new(1, 1, 1)
+logstitleD.Position = UDim2.new(-1.1920929e-07, 0, 0, 0)
+logstitleD.Size = UDim2.new(0, 500, 0, 29)
+logstitleD.Font = Enum.Font.GothamBlack
+logstitleD.Text = "Die Logs"
+logstitleD.TextColor3 = Color3.new(1, 1, 1)
+logstitleD.TextSize = 14
+
+xlogsD.Name = "xlogsD"
+xlogsD.Parent = logstitleD
+xlogsD.BackgroundColor3 = Color3.new(0.117647, 0.117647, 0.117647)
+xlogsD.BorderColor3 = Color3.new(1, 1, 1)
+xlogsD.Position = UDim2.new(0.941333306, 0, 0, 0)
+xlogsD.Size = UDim2.new(0, 29, 0, 29)
+xlogsD.Font = Enum.Font.GothamBlack
+xlogsD.Text = "X"
+xlogsD.TextColor3 = Color3.new(1, 1, 1)
+xlogsD.TextSize = 20
+xlogsD.MouseButton1Down:connect(function()
+	logsframeD:TweenSize(UDim2.new(0,0,0,0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .5, false, function() logsframeD.Visible = false end)
+end)
+
+logsframeD:TweenSize(UDim2.new(0,0,0,0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, .5, false, function() logsframeD.Visible = false end)
+
+local Mouse = game.Players.LocalPlayer:GetMouse()
+local UIS = game:GetService('UserInputService')
+local RS = game:GetService('RunService')
+local canDrag = false
+
+local function MakeDraggable(panel, handle)
+    handle.MouseEnter:connect(function()
+        canDrag = true
+    end)
+    handle.MouseLeave:connect(function()
+        canDrag = false
+    end)
+    Mouse.Button1Down:connect(function()
+        if canDrag then
+            panel.Position = UDim2.new(0, Mouse.X + (Mouse.X - panel.AbsolutePosition.X), 0, Mouse.Y + (Mouse.Y - panel.AbsolutePosition.Y))
+            local pX = Mouse.X - panel.AbsolutePosition.X
+            local pY = Mouse.Y - panel.AbsolutePosition.Y
+            repeat RS.RenderStepped:wait()
+                panel.Position = UDim2.new(0, Mouse.X + pX, 0, Mouse.Y + pY)
+            until not UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
+        end
+    end)
+end
+
+MakeDraggable(logsframeD, logsframeD)
+
+function CreateLabelD(Name, Method)
+	local plr = game.Players:GetChildren()
+	local sf = ScrollingFrameD
+	if #sf:GetChildren() >= 2546 then
+		sf:ClearAllChildren()
+	end
+	local alls = 0
+	for i,v in pairs(sf:GetChildren()) do
+		if v then
+			alls = v.Size.Y.Offset + alls
+		end
+		if not v then
+			alls = 0
+		end
+	end
+	local tl = Instance.new('TextLabel', sf)
+	local il = Instance.new('Frame', tl)
+	tl.Name = Name
+	tl.ZIndex = 6
+	tl.Text = Time().." - ["..Name.."]: "..Method
+	tl.Size = UDim2.new(0,322,0,60)
+	tl.BackgroundTransparency = 1
+	tl.BorderSizePixel = 0
+	tl.Font = "SourceSansBold"
+	tl.Position = UDim2.new(-1,0,0,alls)
+	tl.TextTransparency = 1
+	tl.TextScaled = false
+	tl.TextSize = 14
+	tl.TextWrapped = true
+	tl.TextXAlignment = "Left"
+	tl.TextYAlignment = "Top"
+	il.BackgroundTransparency = 1
+	il.BorderSizePixel = 0
+	il.Size = UDim2.new(0,12,1,0)
+	il.Position = UDim2.new(0,316,0,0)
+	tl.TextColor3 = Color3.fromRGB(255,255,255)
+	tl.Size = UDim2.new(0,322,0,tl.TextBounds.Y)
+	sf.CanvasSize = UDim2.new(0,0,0,alls+tl.TextBounds.Y)
+	sf.CanvasPosition = Vector2.new(0,sf.CanvasPosition.Y+tl.TextBounds.Y)
+	local size2 = sf.CanvasSize.Y.Offset
+	tl:TweenPosition(UDim2.new(0,3,0,alls), 'In', 'Quint', 0.5)
+	for i = 0,50 do wait(0.05)
+		tl.TextTransparency = tl.TextTransparency - 0.05
+	end
+	tl.TextTransparency = 0
+end
+
+game:GetService('Players').PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		--player.character:WaitForChild("Humanoid").Died:Connect(function()
+		if not player.character:FindFirstChild("Humanoid") then
+			CreateLabelD(player.Name, " has died!")
+		end
+	end)
+end)
+
+for i,v in pairs(game.Players:GetPlayers()) do
+	v.CharacterAdded:Connect(function(character)
+		--v.character:WaitForChild("Humanoid").Died:Connect(function()
+		if not v.character:FindFirstChild("Humanoid") then
+			CreateLabelD(v.Name, " has died!")
+		end
+	end)
+end
+
+local Plugin = {
+    ["PluginName"] = "Kill Logs",
+    ["PluginDescription"] = "Logs when a player dies.",
+    ["Commands"] = {
+        ["dlogs"] = {
+            ["Description"] = "Shows the players, when they died.",
+            ["Aliases"] = {""},
+            ["Function"] = function(args,speaker)
+			
+            if logsframeD.Visible == false then
+				logsframeD.Visible = true
+				logsframeD:TweenSize(UDim2.new(0,300,0,433), Enum.EasingDirection.In, Enum.EasingStyle.Quad, .5)
+			elseif logsframeD.Visible == true then
+				logsframeD.Visible = false
+			end
+			
+            end
+        }
+     },
+}
+
+return Plugin

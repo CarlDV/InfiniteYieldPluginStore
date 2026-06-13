@@ -1,0 +1,15 @@
+local Plugin = {
+	["PluginName"] = "Yeet",
+	["PluginDescription"] = "FE Yeet Gui",
+	["Commands"] = {
+		["Yeet"] = {
+			["Description"] = "Opens the Yeet Gui",
+			["Aliases"] = {'FY', 'YaYeet', 'Yeeter'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://pastebin.com/raw/jQyph78q", true))()
+			end,
+		},
+	},
+}
+
+return Plugin
