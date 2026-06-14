@@ -142,9 +142,10 @@
 
             if (pageItems.length === 0) return;
 
-            pageItems.forEach(p => {
+            pageItems.forEach((p, i) => {
                 const card = document.createElement('div');
                 card.className = 'card';
+                card.style.animation = `fade-in-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${i * 0.06}s backwards`;
 
                 // Avatar
                 const initial = (p.author?.name || '?')[0].toUpperCase();
@@ -289,38 +290,49 @@
             });
             if (pluginFiles.length) {
                 html += `<div class="section"><div class="section-label">Quick Install (paste on your executor)</div>`;
-                pluginFiles.forEach((f, i) => {
+
+                let writeAndAdd = pluginFiles.map(f => {
                     const fileUrl = `https://iyplugins.pages.dev/plugins/${p.id}/${f.filename}`;
-                    
-                    const loadstringLaunch = `loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-local f = "${f.filename}"
-writefile(f, game:HttpGet("${fileUrl}"))
-local add = addPlugin or (shared and shared.addPlugin)
-if add then add(f) end`;
+                    return `writefile("${f.filename}", game:HttpGet("${fileUrl}"))\nif add then add("${f.filename}") end`;
+                }).join('\n');
 
-                    const loadstringNoLaunch = `local f = "${f.filename}"
-writefile(f, game:HttpGet("${fileUrl}"))
-local add = addPlugin or (shared and shared.addPlugin)
-if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
+                let writeOnly = pluginFiles.map(f => {
+                    const fileUrl = `https://iyplugins.pages.dev/plugins/${p.id}/${f.filename}`;
+                    return `writefile("${f.filename}", game:HttpGet("${fileUrl}"))`;
+                }).join('\n');
 
-                    const cbId1 = `qi1-${p.id}-${i}`;
-                    const cbId2 = `qi2-${p.id}-${i}`;
-                    html += `
-                    <div class="code-wrap" style="margin: 8px 0;">
-                        <div class="code-bar">
-                            <span class="code-lang">Install & Launch IY</span>
-                            <button class="copy-btn" data-id="${cbId1}">Copy</button>
-                        </div>
-                        <pre class="code-block" id="${cbId1}" style="white-space: pre-wrap; word-break: break-all; padding: 10px 14px;">${esc(loadstringLaunch)}</pre>
+                let addOnly = pluginFiles.map(f => `add("${f.filename}")`).join(' ');
+
+                const loadstringLaunch = `loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+local add = addPlugin or (shared and shared.addPlugin)
+${writeAndAdd}`;
+
+                const loadstringNoLaunch = `${writeOnly}
+local add = addPlugin or (shared and shared.addPlugin)
+if add then
+    ${addOnly}
+else
+    warn("Saved to workspace. Run IY to use.")
+end`;
+
+                const cbId1 = `qi1-${p.id}`;
+                const cbId2 = `qi2-${p.id}`;
+                html += `
+                <div class="code-wrap" style="margin: 8px 0;">
+                    <div class="code-bar">
+                        <span class="code-lang">Install & Launch IY</span>
+                        <button class="copy-btn" data-id="${cbId1}">Copy</button>
                     </div>
-                    <div class="code-wrap" style="margin: 8px 0;">
-                        <div class="code-bar">
-                            <span class="code-lang">Install Only (Autoload on IY)</span>
-                            <button class="copy-btn" data-id="${cbId2}">Copy</button>
-                        </div>
-                        <pre class="code-block" id="${cbId2}" style="white-space: pre-wrap; word-break: break-all; padding: 10px 14px;">${esc(loadstringNoLaunch)}</pre>
-                    </div>`;
-                });
+                    <pre class="code-block" id="${cbId1}">${esc(loadstringLaunch)}</pre>
+                </div>
+                <div class="code-wrap" style="margin: 8px 0;">
+                    <div class="code-bar">
+                        <span class="code-lang">Install Only (Autoload on IY)</span>
+                        <button class="copy-btn" data-id="${cbId2}">Copy</button>
+                    </div>
+                    <pre class="code-block" id="${cbId2}">${esc(loadstringNoLaunch)}</pre>
+                </div>`;
+
                 html += `</div>`;
             }
 
@@ -452,8 +464,13 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
         }
 
         function closeModal() {
-            overlay.classList.add('hidden');
-            document.body.style.overflow = '';
+            if (overlay.classList.contains('hidden') || overlay.classList.contains('closing')) return;
+            overlay.classList.add('closing');
+            setTimeout(() => {
+                overlay.classList.remove('closing');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 400);
             history.replaceState(null, '', location.pathname + location.search);
         }
 
@@ -475,10 +492,58 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
             sort = e.target.value;
             if (e.target === sortEl && headerSortEl) headerSortEl.value = sort;
             if (e.target === headerSortEl && sortEl) sortEl.value = sort;
+
+            // Sync custom select UI
+            document.querySelectorAll('.custom-select').forEach(customEl => {
+                const targetId = customEl.dataset.target;
+                if (targetId === 'sort' || targetId === 'header-sort') {
+                    const opt = customEl.querySelector(`.select-option[data-value="${sort}"]`);
+                    if (opt) {
+                        customEl.querySelectorAll('.select-option').forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        customEl.querySelector('.select-val').textContent = opt.textContent;
+                    }
+                }
+            });
+
             render();
         };
         sortEl?.addEventListener('change', sortChange);
         headerSortEl?.addEventListener('change', sortChange);
+
+        function setupCustomSelects() {
+            document.querySelectorAll('.custom-select').forEach(customEl => {
+                const btn = customEl.querySelector('.select-btn');
+                const valSpan = customEl.querySelector('.select-val');
+                const options = customEl.querySelectorAll('.select-option');
+                const targetId = customEl.dataset.target;
+                const targetSelect = document.getElementById(targetId);
+
+                if (!btn || !targetSelect) return;
+
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.querySelectorAll('.custom-select.active').forEach(el => {
+                        if (el !== customEl) el.classList.remove('active');
+                    });
+                    customEl.classList.toggle('active');
+                });
+
+                options.forEach(opt => {
+                    opt.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        targetSelect.value = opt.dataset.value;
+                        targetSelect.dispatchEvent(new Event('change'));
+                        customEl.classList.remove('active');
+                    });
+                });
+            });
+
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.custom-select.active').forEach(el => el.classList.remove('active'));
+            });
+        }
+        setupCustomSelects();
 
         const onCloseClick = closeModal;
         $('m-close')?.addEventListener('click', onCloseClick);
@@ -556,7 +621,7 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
                 URL.revokeObjectURL(url);
                 document.body.removeChild(a);
             } catch (err) {
-                alert('Failed to generate zip: ' + err.message);
+                await Dialog.alert('Failed to generate zip: ' + err.message);
             } finally {
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;

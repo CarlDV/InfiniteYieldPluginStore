@@ -315,12 +315,12 @@
                 expandPreviewBtn.addEventListener('click', () => {
                     const container = document.querySelector('.maker-container');
                     container.classList.toggle('preview-expanded');
-                    
+
                     const isExpanded = container.classList.contains('preview-expanded');
-                    expandPreviewBtn.innerHTML = isExpanded 
+                    expandPreviewBtn.innerHTML = isExpanded
                         ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/></svg> Collapse`
                         : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg> Expand`;
-                    
+
                     if (previewEditor) {
                         previewEditor.layout();
                         setTimeout(() => previewEditor.layout(), 100);
@@ -332,15 +332,15 @@
             // IDE mode additional controls
             const ideFormatBtn = document.getElementById('ide-format-btn');
             if (ideFormatBtn) {
-                ideFormatBtn.addEventListener('click', () => {
+                ideFormatBtn.addEventListener('click', async () => {
                     if (previewEditor) {
                         const currentVal = previewEditor.getValue();
                         const formatted = formatLuaCode(currentVal);
-                        
+
                         isProgrammaticUpdate = true;
                         previewEditor.setValue(formatted);
                         isProgrammaticUpdate = false;
-                        
+
                         // Also trigger state update if it was a command or globals tab
                         if (activeTabType === 'globals') {
                             pluginData.headerCode = formatted;
@@ -356,7 +356,7 @@
                         } else if (activeTabType === 'plugin') {
                             // Can't save back fully generated preview since it includes wrapper code, 
                             // so we show a brief visual cue or warning
-                            alert('Formatted full plugin source preview. Note: changes here will be overwritten on the next state sync.');
+                            await Dialog.alert('Formatted full plugin source preview. Note: changes here will be overwritten on the next state sync.');
                         }
                     }
                 });
@@ -548,15 +548,21 @@
                 renderStorePlugins(storeSearch ? storeSearch.value : '', storeLimit + 24);
             };
 
-            window.importFromStore = function (id) {
+            window.importFromStore = async function (id) {
                 const plugin = allStorePlugins.find(p => p.id === id);
                 if (!plugin) return;
 
-                if (confirm(`Are you sure you want to remix "${plugin.name}"? This will overwrite your current project.`)) {
+                if (await Dialog.confirm(`Are you sure you want to remix "${plugin.name}"? This will overwrite your current project.`)) {
                     // The source code is inside the first file object for these plugins
                     let sourceCode = '';
                     if (plugin.files && plugin.files.length > 0) {
-                        sourceCode = plugin.files[0].code;
+                        try {
+                            const url = `https://iyplugins.pages.dev/plugins/${plugin.id}/${plugin.files[0].filename}`;
+                            sourceCode = await fetch(url).then(res => res.text());
+                        } catch (e) {
+                            await Dialog.alert('Failed to fetch source: ' + e.message);
+                            return;
+                        }
                     } else if (plugin.code) {
                         sourceCode = plugin.code;
                     }
@@ -565,7 +571,7 @@
                         parseLuaToForm(sourceCode);
                         if (storeModal) storeModal.classList.add('hidden');
                     } else {
-                        alert('Could not find source code for this plugin.');
+                        await Dialog.alert('Could not find source code for this plugin.');
                     }
                 }
             };
@@ -1059,9 +1065,9 @@
         // Commands logic
         const copyCmdsBtn = document.getElementById('copy-cmds-btn');
         if (copyCmdsBtn) {
-            copyCmdsBtn.addEventListener('click', () => {
+            copyCmdsBtn.addEventListener('click', async () => {
                 if (pluginData.commands.length === 0) {
-                    alert('No commands to copy!');
+                    await Dialog.alert('No commands to copy!');
                     return;
                 }
                 const listText = pluginData.commands
@@ -1080,9 +1086,9 @@
                         copyCmdsBtn.innerHTML = originalHTML;
                         copyCmdsBtn.classList.remove('btn-success');
                     }, 2000);
-                }).catch(err => {
+                }).catch(async err => {
                     console.error('Failed to copy: ', err);
-                    alert('Failed to copy to clipboard.');
+                    await Dialog.alert('Failed to copy to clipboard.');
                 });
             });
         }
@@ -1182,8 +1188,8 @@
             }
         };
 
-        window.deleteCommand = function (id) {
-            if (confirm('Are you sure you want to delete this command?')) {
+        window.deleteCommand = async function (id) {
+            if (await Dialog.confirm('Are you sure you want to delete this command?')) {
                 pluginData.commands = pluginData.commands.filter(c => c.id !== id);
                 if (activeTabType === 'command' && activeTabCmdId === id) {
                     switchIDETab('plugin');
@@ -1320,11 +1326,11 @@
 
         const uploadInput = document.getElementById('upload-plugin-file');
         if (uploadInput) {
-            uploadInput.addEventListener('change', (e) => {
+            uploadInput.addEventListener('change', async (e) => {
                 if (e.target.files.length) {
                     let file = e.target.files[0];
                     if (!file.name.endsWith('.iy') && !file.name.endsWith('.lua')) {
-                        alert('Please select a valid .iy or .lua plugin file.');
+                        await Dialog.alert('Please select a valid .iy or .lua plugin file.');
                         e.target.value = '';
                         return;
                     }
@@ -1353,14 +1359,14 @@
         }
 
         if (dropZone) {
-            dropZone.addEventListener('drop', (e) => {
+            dropZone.addEventListener('drop', async (e) => {
                 e.preventDefault();
                 dropZone.classList.add('hidden');
 
                 if (e.dataTransfer.files.length) {
                     let file = e.dataTransfer.files[0];
                     if (!file.name.endsWith('.iy') && !file.name.endsWith('.lua')) {
-                        alert('Please drop a valid .iy or .lua plugin file.');
+                        await Dialog.alert('Please drop a valid .iy or .lua plugin file.');
                         return;
                     }
 
@@ -1428,7 +1434,7 @@
             return { header, footer };
         }
 
-        function parseLuaToForm(text) {
+        async function parseLuaToForm(text) {
             try {
                 let globals = extractGlobalCode(text);
                 pluginData.headerCode = globals.header;
@@ -1487,7 +1493,7 @@
                                         loaderUI.classList.remove('active', 'loader-shimmer');
                                         parseLuaToForm(remoteCode);
                                     } catch (e) {
-                                        alert('Failed to fetch source: ' + e.message);
+                                        await Dialog.alert('Failed to fetch source: ' + e.message);
                                         fetchBtn.textContent = 'Fetch & Edit';
                                         fetchBtn.disabled = false;
                                         loaderUI.classList.remove('loader-shimmer');
@@ -1498,7 +1504,7 @@
                     } else {
                         renderCommands();
                         updatePreview();
-                        alert('Loaded plugin metadata, but no Commands block was found.');
+                        await Dialog.alert('Loaded plugin metadata, but no Commands block was found.');
                     }
                     return;
                 }
@@ -1632,12 +1638,12 @@
                 }
 
                 if (pluginData.commands.length === 0) {
-                    alert('Loaded plugin metadata, but could not automatically parse commands.');
+                    await Dialog.alert('Loaded plugin metadata, but could not automatically parse commands.');
                 }
 
             } catch (e) {
                 console.error('Error parsing Lua:', e);
-                alert('Failed to parse the provided .iy file correctly. Check the console for details.');
+                await Dialog.alert('Failed to parse the provided .iy file correctly. Check the console for details.');
             }
         }
 

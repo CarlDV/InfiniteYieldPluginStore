@@ -1,0 +1,151 @@
+:root {
+    --spring-bounce: cubic-bezier(0.32, 0.72, 0, 1.05);
+    --spring-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+    --spring-squish: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button,
+.card,
+.h-link,
+a,
+input,
+select,
+.filter-btn,
+.dl-all-btn,
+.close-btn {
+    transition: all 0.5s var(--spring-bounce) !important;
+    transform-origin: center;
+}
+
+button:active,
+.h-link:active,
+.filter-btn:active,
+.close-btn:active,
+.dl-all-btn:active,
+.card-share:active,
+.msg-btn:active {
+    transform: scale(0.88) !important;
+    border-radius: 16px !important;
+    opacity: 0.8 !important;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+}
+
+.card:active {
+    transform: scale(0.94) !important;
+    border-radius: 28px !important;
+}
+
+.overlay {}
+
+.overlay:not(.hidden):not(.closing) .modal {
+    animation: modal-spring-in 0.7s var(--spring-bounce) forwards;
+}
+
+.overlay.closing .modal {
+    animation: modal-spring-out 0.4s var(--spring-squish) forwards;
+}
+
+.overlay.closing {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+@keyframes modal-spring-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modal-spring-out {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+}
+
+@media (max-width: 768px) {
+    @keyframes modal-spring-in {
+        0% {
+            opacity: 1;
+            transform: translateY(100%);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes modal-spring-out {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(100%);
+        }
+    }
+}
+
+input:focus,
+select:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important;
+}
+
+.logo:hover .brand-logo {
+    transform: scale(1.15) rotate(5deg) !important;
+}
+
+.brand-logo {
+    transition: transform 0.6s var(--spring-bounce) !important;
+}
+
+#loading {
+    animation: bounce-pulse 1.5s infinite var(--spring-smooth);
+}
+
+@keyframes bounce-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in-up {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
