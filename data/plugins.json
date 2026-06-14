@@ -1,34 +1,8 @@
 {
-  "scraped_at": "2026-06-14T08:55:22.496980+00:00",
+  "scraped_at": "2026-06-14T17:17:31.477178+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 547,
+  "total_plugins": 546,
   "plugins": [
-    {
-      "id": "1515631943247597608",
-      "name": "dexre",
-      "description": "# DEX REContinued\n\nOpens a new dex with more features\n\nCommand: `dexre`",
-      "author": {
-        "name": "sdjmali2211",
-        "username": "sdjmali2211",
-        "avatar": "https://cdn.discordapp.com/embed/avatars/2.png"
-      },
-      "date": "2026-06-14T08:20:14.350000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1515631943247597608",
-      "files": [
-        {
-          "filename": "dexre.iy",
-          "url": "plugins/1515631943247597608/dexre.iy",
-          "size": 550,
-          "is_plugin": true
-        }
-      ],
-      "code_blocks": [],
-      "links": [],
-      "embeds": [],
-      "loadstring_urls": [
-        "https://github.com/Tesker-103/DexRecontinued/releases/latest/download/out.lua"
-      ]
-    },
     {
       "id": "1514286850649489581",
       "name": "prideYield",
@@ -738,7 +712,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_8f2ef929cf8de870491d1fec3ccf82e2.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/7a944a810f22176de3479e759c46565f.png?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -7641,7 +7615,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a2f6fa5&is=6a2e1e25&hm=f99b588e7430092c2fc3353635512e70dc0853e13b0ce14853e98736a7bdef26&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a301865&is=6a2ec6e5&hm=b44d5c8d03366e24902f3cce845abe45ba95d1246d1fbeba8f7a67c8795d06f8&"
           },
           "image": null,
           "video": null
