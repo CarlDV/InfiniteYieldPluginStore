@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "Dex REContinued",
+    ["PluginDescription"] = "Launches a new DEX explorer with more features",
+    ["Commands"] = {
+        ["dexre"] = {
+            ["ListName"] = "dexre / dexrecon",
+            ["Description"] = "Launch DEX RE",
+            ["Aliases"] = {"dexrecon"},
+            ["Function"] = function(args, speaker)
+                loadstring(game:HttpGet("https://github.com/Tesker-103/DexRecontinued/releases/latest/download/out.lua"))()
+            end
+        }
+    }
+}
+
+return Plugin

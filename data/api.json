@@ -1,8 +1,25 @@
 {
   "version": "1.0",
-  "updated_at": "2026-06-13T10:19:58.984432+00:00",
-  "total": 546,
+  "updated_at": "2026-06-14T08:55:22.516956+00:00",
+  "total": 547,
   "plugins": [
+    {
+      "id": "1515631943247597608",
+      "name": "dexre",
+      "author": "sdjmali2211",
+      "date": "2026-06-14T08:20:14.350000+00:00",
+      "files": [
+        {
+          "filename": "dexre.iy",
+          "url": "plugins/1515631943247597608/dexre.iy",
+          "size": 550,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": [
+        "https://github.com/Tesker-103/DexRecontinued/releases/latest/download/out.lua"
+      ]
+    },
     {
       "id": "1514286850649489581",
       "name": "prideYield",
