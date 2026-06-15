@@ -145,7 +145,7 @@
             pageItems.forEach((p, i) => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.style.animation = `fade-in-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${i * 0.06}s backwards`;
+                if (window.registerReveal) window.registerReveal(card);
 
                 // Avatar
                 const initial = (p.author?.name || '?')[0].toUpperCase();
@@ -201,6 +201,7 @@
                 card.querySelector('.card-share').addEventListener('click', (e) => {
                     e.stopPropagation();
                     const url = `${location.origin}${location.pathname}#${encodeURIComponent(p.id)}`;
+                    if (window.playSuccess) window.playSuccess();
                     navigator.clipboard.writeText(url).then(() => {
                         const btn = e.currentTarget;
                         btn.innerHTML = '✅';
@@ -353,7 +354,7 @@ end`;
                     let dlName = a.filename;
                     if (isCode && dlName.toLowerCase().endsWith('.lua')) dlName = dlName.replace(/\.lua$/i, '.iy');
                     const prevBtn = isCode ? `<button class="att-prev-btn" data-url="${escAttr(fileUrl)}" data-id="prev-${p.id}-${i}">Preview</button>` : '';
-                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${fileUrl}" download="${escAttr(dlName)}" onclick="event.stopPropagation()">Download</a>`;
+                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${fileUrl}" download="${escAttr(dlName)}" onclick="if(window.playSuccess)window.playSuccess();event.stopPropagation()">Download</a>`;
 
                     html += `<div class="att-row">
                     <span class="att-name">${esc(a.filename)}</span>
@@ -451,6 +452,7 @@ end`;
                     e.stopPropagation();
                     const el = document.getElementById(btn.dataset.id);
                     if (!el) return;
+                    if (window.playSuccess) window.playSuccess();
                     navigator.clipboard.writeText(el.textContent).then(() => {
                         btn.textContent = 'Copied!';
                         btn.classList.add('copied');
@@ -616,6 +618,7 @@ end`;
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = `iy-plugins-all.zip`;
+                if (window.playSuccess) window.playSuccess();
                 document.body.appendChild(a);
                 a.click();
                 URL.revokeObjectURL(url);

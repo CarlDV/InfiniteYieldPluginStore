@@ -48,6 +48,12 @@ class DialogUI {
                 this.footerEl.appendChild(b);
             });
 
+            if (options.title && (options.title.toLowerCase().includes('alert') || options.title.toLowerCase().includes('error') || options.title.toLowerCase().includes('failed') || options.message.toLowerCase().includes('failed') || options.message.toLowerCase().includes('invalid') || options.message.toLowerCase().includes('could not') || options.message.toLowerCase().includes('error'))) {
+                if (window.playError) window.playError();
+            } else {
+                if (window.playSuccess) window.playSuccess();
+            }
+
             this.overlay.classList.remove('hidden');
         });
     }

@@ -6,6 +6,10 @@
         if (cleanup) cleanup();
         let isAborted = false;
 
+        if (window.registerReveal) {
+            window.registerReveal(document.querySelectorAll('.maker-header, .maker-section, .maker-preview-section'));
+        }
+
         let pluginData = {
             name: "ExamplePlugin",
             description: "This is a helpful template created using IY Plugin Maker.",
@@ -388,6 +392,7 @@
             const ideCopyBtn = document.getElementById('ide-copy-btn');
             if (ideCopyBtn) {
                 ideCopyBtn.addEventListener('click', () => {
+                    if (window.playSuccess) window.playSuccess();
                     let code = previewEditor ? previewEditor.getValue() : generateLua();
                     navigator.clipboard.writeText(code).then(() => {
                         const originalHTML = ideCopyBtn.innerHTML;
@@ -889,6 +894,7 @@
             if (!cmd) return;
 
             const text = `${cmd.listName} - ${cmd.desc}`;
+            if (window.playSuccess) window.playSuccess();
             navigator.clipboard.writeText(text).then(() => {
                 const originalHTML = btn.innerHTML;
                 btn.classList.add('btn-success');
@@ -1074,6 +1080,7 @@
                     .map(cmd => `${cmd.listName} - ${cmd.desc}`)
                     .join('\n');
 
+                if (window.playSuccess) window.playSuccess();
                 navigator.clipboard.writeText(listText).then(() => {
                     const originalHTML = copyCmdsBtn.innerHTML;
                     copyCmdsBtn.classList.add('btn-success');

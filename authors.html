@@ -31,6 +31,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
     <link rel="shortcut icon" href="assets/Logo_Small.png" type="image/x-icon">
 </head>
 
@@ -119,11 +120,24 @@
                     </svg>
                     <input type="text" id="author-search" placeholder="Search authors..." autocomplete="off">
                 </div>
-                <select id="author-sort">
-                    <option value="plugins">Most Plugins</option>
-                    <option value="name">A–Z</option>
-                    <option value="recent">Most Recent</option>
-                </select>
+                <div class="custom-select" id="author-sort-custom" data-target="author-sort">
+                    <button class="select-btn" type="button">
+                        <span class="select-val">Most Plugins</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="select-dropdown">
+                        <div class="select-option selected" data-value="plugins">Most Plugins</div>
+                        <div class="select-option" data-value="name">A–Z</div>
+                        <div class="select-option" data-value="recent">Most Recent</div>
+                    </div>
+                    <select id="author-sort" style="display: none;">
+                        <option value="plugins" selected>Most Plugins</option>
+                        <option value="name">A–Z</option>
+                        <option value="recent">Most Recent</option>
+                    </select>
+                </div>
             </div>
 
             <div class="authors-grid" id="authors-grid"></div>
@@ -181,8 +195,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
     <script src="js/dialog.js?v=2"></script>
-    <script src="js/authors.js"></script>
-    <script src="js/router.js"></script>
+    <script src="js/authors.js?v=2"></script>
+    <script src="js/router.js?v=8"></script>
 </body>
 
 </html>

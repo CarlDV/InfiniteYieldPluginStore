@@ -108,9 +108,10 @@
             grid.innerHTML = '';
             empty.classList.toggle('hidden', list.length > 0);
 
-            list.forEach(author => {
+            list.forEach((author, i) => {
                 const card = document.createElement('div');
                 card.className = 'author-card';
+                if (window.registerReveal) window.registerReveal(card);
 
                 const initial = (author.name || '?')[0].toUpperCase();
                 let avatarHTML;
@@ -150,6 +151,7 @@
                 card.querySelector('.author-card-share').addEventListener('click', (e) => {
                     e.stopPropagation();
                     const url = `${location.origin}${location.pathname}#${encodeURIComponent(author.username)}`;
+                    if (window.playSuccess) window.playSuccess();
                     navigator.clipboard.writeText(url).then(() => {
                         const btn = e.currentTarget;
                         btn.innerHTML = '✅';
@@ -224,16 +226,30 @@
                     </svg>
                     <input type="text" id="am-search" placeholder="Search plugins..." style="width: 100%; padding: 9px 12px 9px 36px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font); font-size: 0.85rem; outline: none; transition: border-color 0.15s;">
                 </div>
-                <select id="am-sort" style="padding: 8px 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text2); font-family: var(--font); font-size: 0.8rem; cursor: pointer; outline: none;">
-                    <option value="newest">Newest</option>
-                    <option value="oldest">Oldest</option>
-                    <option value="az">A-Z</option>
-                </select>
+                <div class="custom-select" id="am-sort-custom" data-target="am-sort" style="min-width: 130px;">
+                    <button class="select-btn" type="button" style="padding: 8px 12px; font-size: 0.8rem;">
+                        <span class="select-val">Newest</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="select-dropdown">
+                        <div class="select-option selected" data-value="newest">Newest</div>
+                        <div class="select-option" data-value="oldest">Oldest</div>
+                        <div class="select-option" data-value="az">A-Z</div>
+                    </div>
+                    <select id="am-sort" style="display: none;">
+                        <option value="newest" selected>Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="az">A-Z</option>
+                    </select>
+                </div>
             </div>
             <div id="am-plugin-list"></div>
         `;
 
             $('am-body').innerHTML = html;
+            setupCustomSelects($('am-body'));
 
             const pluginList = $('am-plugin-list');
             const searchInput = $('am-search');
@@ -257,14 +273,14 @@
                 if (filtered.length === 0) {
                     listHtml = '<div style="color: var(--text3); text-align: center; padding: 24px 0; font-size: 0.9rem;">No plugins match your search.</div>';
                 } else {
-                    filtered.forEach(p => {
+                    filtered.forEach((p, i) => {
                         let tags = '';
                         if (p.code_blocks?.length) tags += '<span class="tag tag-code" style="font-size:0.65rem;padding:2px 8px">Code</span>';
                         if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring" style="font-size:0.65rem;padding:2px 8px">Loadstring</span>';
                         if (p.files?.length) tags += '<span class="tag tag-file" style="font-size:0.65rem;padding:2px 8px">' + p.files.length + ' file' + (p.files.length > 1 ? 's' : '') + '</span>';
 
                         listHtml += `
-                        <div class="author-plugin-item" data-plugin-id="${escAttr(p.id)}">
+                        <div class="author-plugin-item" data-plugin-id="${escAttr(p.id)}" style="animation: fade-in-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${i * 0.04}s backwards">
                             <div class="author-plugin-name">${esc(p.name || 'Untitled')}</div>
                             <div class="author-plugin-tags">${tags}</div>
                             <div class="author-plugin-date">${fmtDate(p.date)}</div>
@@ -274,8 +290,10 @@
                 }
 
                 pluginList.innerHTML = listHtml;
+                if (window.registerReveal) {
+                    window.registerReveal(pluginList.querySelectorAll('.author-plugin-item'));
+                }
 
-                // Plugin click -> preview in floating modal
                 pluginList.querySelectorAll('.author-plugin-item').forEach(item => {
                     item.addEventListener('click', () => {
                         const pid = item.dataset.pluginId;
@@ -297,6 +315,7 @@
                 shareBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const url = `${location.origin}${location.pathname}#${encodeURIComponent(author.username)}`;
+                    if (window.playSuccess) window.playSuccess();
                     navigator.clipboard.writeText(url).then(() => {
                         shareBtn.innerHTML = '✅ Copied!';
                         setTimeout(() => {
@@ -311,8 +330,13 @@
         }
 
         function closeModal() {
-            overlay.classList.add('hidden');
-            document.body.style.overflow = '';
+            if (overlay.classList.contains('hidden') || overlay.classList.contains('closing')) return;
+            overlay.classList.add('closing');
+            setTimeout(() => {
+                overlay.classList.remove('closing');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 400);
             history.replaceState(null, '', location.pathname + location.search);
         }
 
@@ -323,7 +347,13 @@
         searchInput?.addEventListener('input', onSearchInput);
 
         function closePluginModal() {
-            $('plugin-overlay')?.classList.add('hidden');
+            const pOverlay = $('plugin-overlay');
+            if (!pOverlay || pOverlay.classList.contains('hidden') || pOverlay.classList.contains('closing')) return;
+            pOverlay.classList.add('closing');
+            setTimeout(() => {
+                pOverlay.classList.remove('closing');
+                pOverlay.classList.add('hidden');
+            }, 400);
         }
 
         const onSortChange = e => {
@@ -459,7 +489,7 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
                     const isVideo = a.filename.toLowerCase().match(/\.(mp4|webm|mov)$/);
 
                     const prevBtn = isCode ? `<button class="att-prev-btn" data-url="${escAttr(a.url)}" data-id="prev-${p.id}-${i}">Preview</button>` : '';
-                    const dlBtn = (isImage || isVideo) ? '' : (isCode ? `<button class="att-dl-btn att-dl" data-id="dl-${p.id}-${i}">Download</button>` : `<a class="att-dl" href="${escAttr(a.url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Download</a>`);
+                    const dlBtn = (isImage || isVideo) ? '' : (isCode ? `<button class="att-dl-btn att-dl" data-id="dl-${p.id}-${i}">Download</button>` : `<a class="att-dl" href="${escAttr(a.url)}" target="_blank" rel="noopener" onclick="if(window.playSuccess)window.playSuccess();event.stopPropagation()">Download</a>`);
 
                     html += `<div class="att-row">
                     <span class="att-name">${esc(a.filename)}</span>
@@ -537,6 +567,7 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
             $('pm-body').querySelectorAll('.att-dl-btn').forEach(btn => {
                 btn.onclick = e => {
                     e.stopPropagation();
+                    if (window.playSuccess) window.playSuccess();
                     const parts = btn.dataset.id.split('-');
                     const pId = parts[1];
                     const aIdx = parseInt(parts[2]);
@@ -562,6 +593,7 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
                     e.stopPropagation();
                     const el = document.getElementById(btn.dataset.id);
                     if (!el) return;
+                    if (window.playSuccess) window.playSuccess();
                     navigator.clipboard.writeText(el.textContent).then(() => {
                         btn.textContent = 'Copied!';
                         btn.classList.add('copied');
@@ -672,6 +704,47 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
             return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
         }
 
+        function setupCustomSelects(root = document) {
+            root.querySelectorAll('.custom-select').forEach(customEl => {
+                const btn = customEl.querySelector('.select-btn');
+                const valSpan = customEl.querySelector('.select-val');
+                const options = customEl.querySelectorAll('.select-option');
+                const targetId = customEl.dataset.target;
+                const targetSelect = document.getElementById(targetId);
+
+                if (!btn || !targetSelect) return;
+
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    document.querySelectorAll('.custom-select.active').forEach(el => {
+                        if (el !== customEl) el.classList.remove('active');
+                    });
+                    customEl.classList.toggle('active');
+                });
+
+                options.forEach(opt => {
+                    opt.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        targetSelect.value = opt.dataset.value;
+                        
+                        customEl.querySelectorAll('.select-option').forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        valSpan.textContent = opt.textContent;
+
+                        targetSelect.dispatchEvent(new Event('change'));
+                        customEl.classList.remove('active');
+                    });
+                });
+            });
+
+            if (root === document) {
+                document.addEventListener('click', () => {
+                    document.querySelectorAll('.custom-select.active').forEach(el => el.classList.remove('active'));
+                });
+            }
+        }
+
+        setupCustomSelects();
         init();
 
         cleanup = () => {
