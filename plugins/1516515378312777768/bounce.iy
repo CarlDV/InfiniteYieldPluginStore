@@ -1,0 +1,40 @@
+parts = Instance.new("Folder")
+parts.Parent = workspace
+local Plugin = {
+    ["PluginName"] = "bounce",
+    ["PluginDescription"] = "This plugin makes you bounce around in an invisible cage",
+    ["Commands"] = {
+        ["bounce"] = {
+            ["ListName"] = "bounce",
+            ["Description"] = "Start bouncing",
+            ["Aliases"] = {},
+            ["Function"] = function()
+		positions = {Vector3.new(0, -4, 0), Vector3.new(0, 11, 15), Vector3.new(0, 11, -15), Vector3.new(-15, 11, 0), Vector3.new(15, 11, 0), Vector3.new(0, 26, 0)}
+		rotations = {Vector3.new(0, 0, 90), Vector3.new(0, 90, 0),Vector3.new(0, 90, 0), Vector3.new(90, 0, 0), Vector3.new(90, 0, 0), Vector3.new(0, 0, 90)}
+		for k, _ in positions do
+			local part = Instance.new("Part")
+			part.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position + positions[k])
+			part.Size = Vector3.new(5,25,25)
+			part.Parent = parts
+			part.Anchored = true
+			part.Rotation = rotations[k]
+			part.Transparency = 0.8
+		end
+		execCmd("disablestate GettingUp\\trip\\spin 80")
+            end
+        },
+        ["unbounce"] = {
+            ["ListName"] = "unbounce",
+            ["Description"] = "Stop bouncing",
+            ["Aliases"] = {},
+            ["Function"] = function()
+                for _, i in parts:GetChildren() do
+			i:Destroy()
+		end
+		execCmd("enablestate GettingUp\\unspin")
+            end
+        }
+    }
+}
+
+return Plugin
