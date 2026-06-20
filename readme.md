@@ -27,4 +27,5 @@ Upload your plugin file to the appropriate channel in the Infinite Yield Discord
 *Disclaimer: This is a community project and is not affiliated with Infinite Yield*
 ---
 *NOTE: THIS HAS BEEN MADE USING GEMINI AND CLAUDE. This is 80-85% VIBECODED.*
+---
 this readme file has been generated using gemini.
