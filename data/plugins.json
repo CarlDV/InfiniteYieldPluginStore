@@ -1,8 +1,35 @@
 {
-  "scraped_at": "2026-06-16T19:48:08.855573+00:00",
+  "scraped_at": "2026-06-22T22:33:23.222973+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 547,
+  "total_plugins": 548,
   "plugins": [
+    {
+      "id": "1518729293893599302",
+      "name": "mfreecam",
+      "description": "# MobileFreeCamera\n(You can also zoom through PC, using the wheel)\n```mfreecam/mfc [speed]```\n```unmfreecam/unmfc```",
+      "author": {
+        "name": "Tony",
+        "username": "debratecrush",
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/2de15641d20e9afcbb58d644fdd892f1.png?size=1024"
+      },
+      "date": "2026-06-22T21:28:00.290000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1518729293893599302",
+      "files": [
+        {
+          "filename": "mfreecam.iy",
+          "url": "plugins/1518729293893599302/mfreecam.iy",
+          "size": 14008,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "mfreecam/mfc [speed]",
+        "unmfreecam/unmfc"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1516515378312777768",
       "name": "bounce",
@@ -3611,9 +3638,9 @@
       "name": "AnimationSpeed",
       "description": "Animation speed looper (The same as animspeed but looped basically)\n\ncommands:\n```animspeedloop [numb]\nstopanimspeed```",
       "author": {
-        "name": "•ᴗ•",
+        "name": "thr",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/1339a8003f5dfbd890b41052796003e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/7a1dae2bbc6f5e5b45a35c21fa957412.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -5020,7 +5047,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/a_59726f535dcbab5167d1325069f912e6.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/c420b49ca583c4a22abd636458c3f42f.png?size=1024"
       },
       "date": "2022-05-05T05:24:58.991000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/971643652369707018",
@@ -5375,7 +5402,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a32e9b2&is=6a319832&hm=afbc8a2518c022bf38a439e6f94368edce3be7e3a5fa5b46fd3d26e22f11e6a8&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a3ad2b2&is=6a398132&hm=910a342664e90132e4d463d4733fcde9e199469ee008348c012fcc12ee84986c&"
           },
           "image": null,
           "video": null
@@ -5389,7 +5416,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a32e9c9&is=6a319849&hm=929f01db0167637f9253f8d545c54568218f7645706caf6212f87da18cac30c8&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a3ad2c9&is=6a398149&hm=34a387b2ac7a7a176b67eb1f1e19af386d707297ffb344f5573019a217ab5479&"
           },
           "image": null,
           "video": null
@@ -5563,7 +5590,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/a_59726f535dcbab5167d1325069f912e6.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/c420b49ca583c4a22abd636458c3f42f.png?size=1024"
       },
       "date": "2022-03-28T09:20:39.498000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/957932223061950465",
@@ -6090,7 +6117,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/a_59726f535dcbab5167d1325069f912e6.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/c420b49ca583c4a22abd636458c3f42f.png?size=1024"
       },
       "date": "2021-11-13T02:46:59.722000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/908910792684994562",
@@ -6252,7 +6279,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a32e9b2&is=6a319832&hm=afbc8a2518c022bf38a439e6f94368edce3be7e3a5fa5b46fd3d26e22f11e6a8&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a3ad2b2&is=6a398132&hm=910a342664e90132e4d463d4733fcde9e199469ee008348c012fcc12ee84986c&"
           },
           "image": null,
           "video": null
@@ -6266,7 +6293,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a32e9c9&is=6a319849&hm=929f01db0167637f9253f8d545c54568218f7645706caf6212f87da18cac30c8&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a3ad2c9&is=6a398149&hm=34a387b2ac7a7a176b67eb1f1e19af386d707297ffb344f5573019a217ab5479&"
           },
           "image": null,
           "video": null
@@ -7639,7 +7666,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a32bb65&is=6a3169e5&hm=abced7ace48f9c7f96374c52968ad0d2fb411dce59cfdcf9a393ee66a178c0e8&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a3aa465&is=6a3952e5&hm=08dd4cff344ff62bf5e3c1b4223f53fef584db67b4e2fa81972a5fc616785259&"
           },
           "image": null,
           "video": null
@@ -9003,7 +9030,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker V1.2]\n// Note: This is not the abomination that CamMaker V1.1 was.\n[New Features]:\"\nIt's not fucking broken.\nAdded listcams command, which lists the cameras.\nCompletely rewrote the plugin.\nCameras are now stored in the workspace folder of your exploit. This allows for you to view a camera even if you rejoin the game.\nImplemented some anti-detection measures.\"\n[Warning]:\"\nCamMaker V1.2 can only utilize all of it's features on Synapse X. If you are not running Synapse X note that the listcams command will not work. Also, may not work on some free exploits.\"\n[Commands]:'\nMakeCam [Name]: Creates a camera.\nViewCam [Name]: Views a camera.\nUnviewCam: Returns camera to view the player.\nDelCam [Name]: Deletes a camera.\nListCams: Lists the currently created cameras.'```",
       "author": {
-        "name": "lynn",
+        "name": "splynnters",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/61fb368bad6108ec69a5a8bc219bf032.png?size=1024"
       },
@@ -9103,7 +9130,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker v1.1]\n[New Features]:'\n  delcam [Camera Name] (no spaces in camera name):\n    Deletes the specified camera.\n```",
       "author": {
-        "name": "lynn",
+        "name": "splynnters",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/61fb368bad6108ec69a5a8bc219bf032.png?size=1024"
       },
@@ -9129,7 +9156,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker]\n[Commands]:'\n  makecam [Camera Name] (no spaces in camera name):\n    Creates a camera under that name.\n  viewcam [Camera Name] (no spaces in camera name):\n    Views the camera that you created under that name.\n  unviewcam:\n    Returns camera view back to your player.'\n// Note: The camera creates based on your camera's position so that you can create a camera in freecam. DM me if you encounter any bugs.```",
       "author": {
-        "name": "lynn",
+        "name": "splynnters",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/61fb368bad6108ec69a5a8bc219bf032.png?size=1024"
       },
@@ -9582,7 +9609,7 @@
       "name": "ESCMDS",
       "description": "Electric State Commands v1.0, for game 'Electric State DarkRP [Beta]'\n\nCommands:\nNoNLR: Disables New Life Rule, a big red sphere that appears after death that you cant enter for a few minutes.\n\nAimlock: My modified aimlock script you can find in <#510246778285719582>, press 'z' while hovering over a player to select them and 'u' (or 'c' i cant remember lol) to toggle the aimlock. It moves the camera so it only works in first person.\n\nNote: If anyone wants to try exploiting Electric State be warned that it's community fucking *hates* exploiters and they have a report system, which can get you banned. There is also a strong anti-cheat which subtly does things if it detects you, such as disabling some core features. Do not use noclip that disables humanoid collisions, as it will get anti cheated. Instead use humanoidchangestate noclip or btools.",
       "author": {
-        "name": "lynn",
+        "name": "splynnters",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/61fb368bad6108ec69a5a8bc219bf032.png?size=1024"
       },
@@ -11600,7 +11627,7 @@
       "name": "login_alertsiy",
       "description": "<@!222106655188451328> fixed ur file extension",
       "author": {
-        "name": "lynn",
+        "name": "splynnters",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/61fb368bad6108ec69a5a8bc219bf032.png?size=1024"
       },
