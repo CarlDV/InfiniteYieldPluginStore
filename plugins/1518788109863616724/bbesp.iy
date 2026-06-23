@@ -1,0 +1,139 @@
+local BBE_AddedConnections = {}
+local BBE_RemovingConnections = {}
+local BBE_TaggedObjects = {}
+local BBE_NameConnections = {}
+local Plugin = {
+["PluginName"] = "BillBoardpartESP",
+["PluginDescription"] = "Partesp through BillBoardGui",
+["Commands"] = {
+["bbpartesp"] = {
+["ListName"] = "bbpartesp/bpesp [name]",
+["Description"] = "showing parts through BillBoardGui",
+["Aliases"] = {"bpesp"},
+["Function"] = function(args, speaker)
+if #args < 1 then return end
+local targetName = table.concat(args, " "):lower()
+if BBE_AddedConnections[targetName] then
+BBE_AddedConnections[targetName]:Disconnect()
+end
+if BBE_RemovingConnections[targetName] then
+BBE_RemovingConnections[targetName]:Disconnect()
+end
+BBE_TaggedObjects[targetName] = {}
+BBE_NameConnections[targetName] = {}
+local function createTag(obj)
+if obj:FindFirstChild("BBE_Tag") then obj.BBE_Tag:Destroy() end
+local billboard = Instance.new("BillboardGui")
+billboard.Name = "BBE_Tag"
+billboard.Size = UDim2.new(0, 60, 0, 15)
+billboard.StudsOffset = Vector3.new(0, 1.5, 0)
+billboard.AlwaysOnTop = true
+billboard.Parent = obj
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, 0, 1, 0)
+label.BackgroundTransparency = 1
+label.Text = obj.Name
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.TextStrokeTransparency = 0.3
+label.TextScaled = true
+label.Parent = billboard
+BBE_TaggedObjects[targetName][obj] = true
+local nameConn
+nameConn = obj:GetPropertyChangedSignal("Name"):Connect(function()
+if label and label.Parent then
+label.Text = obj.Name
+else
+if nameConn then nameConn:Disconnect() end
+end
+end)
+BBE_NameConnections[targetName][obj] = nameConn
+end
+for _, obj in workspace:GetDescendants() do
+if obj.Name:lower() == targetName and (obj:IsA("BasePart") or obj:IsA("Model")) then
+if not BBE_TaggedObjects[targetName][obj] then
+createTag(obj)
+end
+end
+end
+BBE_AddedConnections[targetName] = workspace.DescendantAdded:Connect(function(obj)
+task.defer(function()
+if obj.Name:lower() == targetName and (obj:IsA("BasePart") or obj:IsA("Model")) then
+if not BBE_TaggedObjects[targetName][obj] then
+createTag(obj)
+end
+end
+end)
+end)
+BBE_RemovingConnections[targetName] = workspace.DescendantRemoving:Connect(function(obj)
+if BBE_TaggedObjects[targetName] and BBE_TaggedObjects[targetName][obj] then
+local tag = obj:FindFirstChild("BBE_Tag")
+if tag then tag:Destroy() end
+BBE_TaggedObjects[targetName][obj] = nil
+if BBE_NameConnections[targetName] and BBE_NameConnections[targetName][obj] then
+BBE_NameConnections[targetName][obj]:Disconnect()
+BBE_NameConnections[targetName][obj] = nil
+end
+end
+end)
+end
+},
+["unbbpartesp"] = {
+["ListName"] = "unbbpartesp/unbpesp [name]",
+["Description"] = "Removes Billboard ESP tags for specific part or all",
+["Aliases"] = {"unbpesp"},
+["Function"] = function(args, speaker)
+if #args < 1 then
+for name, conn in BBE_AddedConnections do
+conn:Disconnect()
+end
+BBE_AddedConnections = {}
+for name, conn in BBE_RemovingConnections do
+conn:Disconnect()
+end
+BBE_RemovingConnections = {}
+for _, targetTable in BBE_NameConnections do
+for _, conn in targetTable do
+if conn then conn:Disconnect() end
+end
+end
+BBE_NameConnections = {}
+for targetName, objects in BBE_TaggedObjects do
+for obj, _ in objects do
+if obj and obj.Parent then
+local tag = obj:FindFirstChild("BBE_Tag")
+if tag then tag:Destroy() end
+end
+end
+end
+BBE_TaggedObjects = {}
+return
+end
+local targetName = table.concat(args, " "):lower()
+if BBE_AddedConnections[targetName] then
+BBE_AddedConnections[targetName]:Disconnect()
+BBE_AddedConnections[targetName] = nil
+end
+if BBE_RemovingConnections[targetName] then
+BBE_RemovingConnections[targetName]:Disconnect()
+BBE_RemovingConnections[targetName] = nil
+end
+if BBE_NameConnections[targetName] then
+for _, conn in BBE_NameConnections[targetName] do
+if conn then conn:Disconnect() end
+end
+BBE_NameConnections[targetName] = nil
+end
+if BBE_TaggedObjects[targetName] then
+for obj, _ in BBE_TaggedObjects[targetName] do
+if obj and obj.Parent then
+local tag = obj:FindFirstChild("BBE_Tag")
+if tag then tag:Destroy() end
+end
+end
+BBE_TaggedObjects[targetName] = nil
+end
+end
+}
+}
+}
+return Plugin
