@@ -1,0 +1,32 @@
+task.spawn(function()
+    task.wait(1)
+    local ui = (get_hidden_gui and get_hidden_gui()) or (gethui and gethui()) or game:GetService("CoreGui")
+    for _, gui in ui:GetChildren() do
+        if gui:IsA("ScreenGui") then
+            local isIY = false
+            for _, elm in gui:GetDescendants() do
+                if elm:IsA("TextLabel") and elm.Name == "Title" and string.find(elm.Text, "Infinite Yield") then
+                    isIY = true
+                    break
+                end
+            end
+            if isIY then
+                for _, desc in gui:GetDescendants() do
+                    if desc:IsA("ScrollingFrame") then
+                        desc.AutomaticCanvasSize = Enum.AutomaticSize.Y
+                        desc.CanvasSize = UDim2.new(0, 0, 0, 0)
+                    end
+                end
+                return
+            end
+        end
+    end
+end)
+
+local Plugin = {
+    ["PluginName"] = "scrollfix",
+    ["PluginDescription"] = "fixes IY scroll",
+    ["Commands"] = {}
+}
+
+return Plugin
