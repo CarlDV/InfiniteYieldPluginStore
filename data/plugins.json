@@ -1,8 +1,32 @@
 {
-  "scraped_at": "2026-06-25T13:23:39.324006+00:00",
+  "scraped_at": "2026-06-25T14:28:58.413728+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 551,
+  "total_plugins": 552,
   "plugins": [
+    {
+      "id": "1519709774567178270",
+      "name": "wfcp",
+      "description": "# Weapon's Fun Camera Plugin V1.2\n\n### so wtf did you even add weapon\n\nok so first off i improved the command, so after you die it will try to keep itself on first person which may be buggy which is my fault\ni also added a new unlock cursor command which allows you to press buttons with my cool little first person command. it's my favorite child\n\n\n(please remove the previous version if you want the newest one to work)\n\n\n**execute once = enabled, twice = disabled**\n\n## Commands\n\nfreemouse/unlockmouse\n\nthis shouldve already been in IY, but it's not, so here's my version. hold right click to be able to look around, press all the buttons u want now\n\nhideacc / accessories\n\ntries to make your accessories clientsidedly transparent, works in all games i think\n\nrearview / rear / f5\n\nturns your camera 180 degrees, flips controls. not reccomended for use with shift lock or first person\n\nrealfirstperson / fp / worldmodelfp\n\nputs you in my custom first person where you can see your body.\nedit this line as you please to put the camera up or down more:\nCamera.CFrame = HeadPosOnly * CamRotation * CFrame.new(0, 0.3, -0.2)\n\nfrontview / resetcam\n\nlevels your camera. cuz why not???",
+      "author": {
+        "name": "weaponofchoice",
+        "username": "weapponofchoice",
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
+      },
+      "date": "2026-06-25T14:24:05.099000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1519709774567178270",
+      "files": [
+        {
+          "filename": "wfcp.iy",
+          "url": "plugins/1519709774567178270/wfcp.iy",
+          "size": 10820,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1519582764066672702",
       "name": "chatsound",

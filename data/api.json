@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-06-25T13:23:39.344603+00:00",
-  "total": 551,
+  "updated_at": "2026-06-25T14:28:58.433420+00:00",
+  "total": 552,
   "plugins": [
+    {
+      "id": "1519709774567178270",
+      "name": "wfcp",
+      "author": "weaponofchoice",
+      "date": "2026-06-25T14:24:05.099000+00:00",
+      "files": [
+        {
+          "filename": "wfcp.iy",
+          "url": "plugins/1519709774567178270/wfcp.iy",
+          "size": 10820,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1519582764066672702",
       "name": "chatsound",
