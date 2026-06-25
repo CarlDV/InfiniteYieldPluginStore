@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-06-23T10:25:52.888670+00:00",
-  "total": 550,
+  "updated_at": "2026-06-25T13:23:39.344603+00:00",
+  "total": 551,
   "plugins": [
+    {
+      "id": "1519582764066672702",
+      "name": "chatsound",
+      "author": "Tony",
+      "date": "2026-06-25T05:59:23.436000+00:00",
+      "files": [
+        {
+          "filename": "chatsound.iy",
+          "url": "plugins/1519582764066672702/chatsound.iy",
+          "size": 6296,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1518913887590940752",
       "name": "scrollfix",
@@ -51,7 +66,7 @@
     {
       "id": "1516515378312777768",
       "name": "bounce",
-      "author": "dwxdeskgroup",
+      "author": "dwxgoatgroup",
       "date": "2026-06-16T18:50:41.683000+00:00",
       "files": [
         {
