@@ -22,7 +22,7 @@ local function applyImage(url, img)
     end)
 end
 
-local API = "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main"
+local API = "https://iyplugins.pages.dev"
 
 local existing = (CORE:FindFirstChild("IYStoreUI") or PLR.PlayerGui:FindFirstChild("IYStoreUI"))
 if existing then existing:Destroy() end
@@ -48,7 +48,7 @@ slog.Size = UDim2.new(0, 36, 0, 36)
 slog.Position = UDim2.new(0.5, -18, 0, 15)
 slog.BackgroundTransparency = 1
 slog.ScaleType = Enum.ScaleType.Fit
-applyImage("https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main/assets/Logo_Small.png", slog)
+applyImage("https://iyplugins.pages.dev/assets/Logo_Small.png", slog)
 
 local stitle = Instance.new("TextLabel")
 stitle.Text = "Plugin Store"; stitle.Size = UDim2.new(1, 0, 0, 32); stitle.Position = UDim2.new(0, 0, 0, 52)
@@ -101,7 +101,7 @@ end
 
 local function getTitle(p)
     local names = {}
-    for _, f in pairs(p.files or {}) do if f.filename:lower():match("%.iy$") then table.insert(names, f.filename:gsub("%.iy$", "")) end end
+    for _, f in pairs(p.files or {}) do if f.filename:lower():match("%.iy$") then table.insert(names, (f.filename:gsub("%.iy$", ""))) end end
     if #names > 0 then return table.concat(names, ", ") end
     return p.name or "nan"
 end
@@ -182,7 +182,7 @@ local top = Instance.new("Frame")
 top.Size = UDim2.new(1, 0, 0, 40); top.BackgroundColor3 = Color3.fromRGB(42, 42, 42); top.BorderSizePixel = 0; top.Parent =
 win
 local logo = Instance.new("ImageLabel", top); logo.Size = UDim2.new(0, 24, 0, 24); logo.Position = UDim2.new(0, 12, 0, 8); logo.BackgroundTransparency = 1; logo.ScaleType = Enum.ScaleType.Fit
-applyImage("https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/main/assets/Logo_Small.png", logo)
+applyImage("https://iyplugins.pages.dev/assets/Logo_Small.png", logo)
 Instance.new("TextLabel", top).Text = "Plugin Store"; top.TextLabel.TextColor3 = Color3.fromRGB(234, 234, 234); top.TextLabel.BackgroundTransparency = 1; top.TextLabel.Size =
 UDim2.new(1, -120, 1, 0); top.TextLabel.Position = UDim2.new(0, 44, 0, 0); top.TextLabel.TextXAlignment = Enum
 .TextXAlignment.Left; top.TextLabel.Font = Enum.Font.GothamMedium; top.TextLabel.TextSize = 14
