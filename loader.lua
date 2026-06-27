@@ -101,7 +101,7 @@ end
 
 local function getTitle(p)
     local names = {}
-    for _, f in pairs(p.files or {}) do if f.filename:lower():match("%.iy$") then table.insert(names, (f.filename:gsub("%.iy$", ""))) end end
+    for _, f in pairs(p.files or {}) do if f.filename:lower():match("%.iy$") then local n = f.filename:gsub("%.iy$", "") table.insert(names, n) end end
     if #names > 0 then return table.concat(names, ", ") end
     return p.name or "nan"
 end
