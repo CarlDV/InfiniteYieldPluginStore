@@ -1,0 +1,24 @@
+local Plugin = {
+    ["PluginName"] = "cname",
+    ["PluginDescription"] = "This plugin changes the name of infinite yield",
+    ["Commands"] = {
+        ["changename"] = {
+            ["ListName"] = "changename / cname / setname / sname",
+            ["Description"] = "Change the name of infinite yield",
+            ["Aliases"] = {"cname", "setname", "sname"},
+            ["Function"] = function(args, speaker)
+		Title.Text = getstring(1, args)
+            end
+        },
+        ["resetname"] = {
+            ["ListName"] = "resetname / rname",
+            ["Description"] = "Reset the name of infinite yield",
+            ["Aliases"] = {"rname"},
+            ["Function"] = function()
+                Title.Text = "Infinite Yield FE v" .. currentVersion
+            end
+        }	
+    }
+}
+
+return Plugin

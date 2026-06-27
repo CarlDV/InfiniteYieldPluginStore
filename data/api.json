@@ -1,8 +1,38 @@
 {
   "version": "1.0",
-  "updated_at": "2026-06-25T14:28:58.433420+00:00",
-  "total": 552,
+  "updated_at": "2026-06-27T00:05:17.795355+00:00",
+  "total": 554,
   "plugins": [
+    {
+      "id": "1520218128754147339",
+      "name": "emote",
+      "author": "dwxgoatgroup",
+      "date": "2026-06-27T00:04:06.182000+00:00",
+      "files": [
+        {
+          "filename": "emote.iy",
+          "url": "plugins/1520218128754147339/emote.iy",
+          "size": 490,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
+    {
+      "id": "1520218020889366631",
+      "name": "cname",
+      "author": "dwxgoatgroup",
+      "date": "2026-06-27T00:03:40.465000+00:00",
+      "files": [
+        {
+          "filename": "cname.iy",
+          "url": "plugins/1520218020889366631/cname.iy",
+          "size": 832,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1519709774567178270",
       "name": "wfcp",

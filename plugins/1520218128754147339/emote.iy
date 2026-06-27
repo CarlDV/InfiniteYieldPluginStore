@@ -1,0 +1,16 @@
+local Plugin = {
+    ["PluginName"] = "playemote",
+    ["PluginDescription"] = "This plugin lets you do /e emotes without chat",
+    ["Commands"] = {
+        ["playemote"] = {
+            ["ListName"] = "playemote",
+            ["Description"] = "Makes you do an emote.",
+            ["Aliases"] = {},
+            ["Function"] = function(args)
+		game.Players.LocalPlayer.Character.Animate.PlayEmote:Invoke(getstring(1, args))
+            end
+        }	
+    }
+}
+
+return Plugin
