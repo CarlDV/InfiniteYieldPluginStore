@@ -1,8 +1,25 @@
 {
   "version": "1.0",
-  "updated_at": "2026-06-27T00:05:17.795355+00:00",
-  "total": 554,
+  "updated_at": "2026-07-01T06:36:02.493355+00:00",
+  "total": 555,
   "plugins": [
+    {
+      "id": "1521765811151306833",
+      "name": "pluginstore2",
+      "author": "David",
+      "date": "2026-07-01T06:34:02.420000+00:00",
+      "files": [
+        {
+          "filename": "pluginstore2.iy",
+          "url": "plugins/1521765811151306833/pluginstore2.iy",
+          "size": 865,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua"
+      ]
+    },
     {
       "id": "1520218128754147339",
       "name": "emote",
@@ -2296,7 +2313,7 @@
     {
       "id": "1152329744348622898",
       "name": "bladeball",
-      "author": "NZ-Linix",
+      "author": "NZ Linix",
       "date": "2023-09-15T19:47:00.304000+00:00",
       "files": [
         {
@@ -2313,7 +2330,7 @@
     {
       "id": "1152323984399015936",
       "name": "BladeBall",
-      "author": "NZ-Linix",
+      "author": "NZ Linix",
       "date": "2023-09-15T19:24:07.025000+00:00",
       "files": [
         {

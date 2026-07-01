@@ -1,8 +1,41 @@
 {
-  "scraped_at": "2026-06-27T00:05:17.773472+00:00",
+  "scraped_at": "2026-07-01T06:36:02.472686+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 554,
+  "total_plugins": 555,
   "plugins": [
+    {
+      "id": "1521765811151306833",
+      "name": "pluginstore2",
+      "description": "# Plugin Store\nA plugin where you can browse other plugins!\nTo use:\n``` iys / storeiy / iystore \n- opens the plugin store UI\n```\n> Data from: https://iyplugins.pages.dev/data/plugins.json\n\n> Main store: https://iyplugins.pages.dev/\n\n> Source code: https://github.com/CarlDV/InfiniteYieldPluginStore/blob/main/loader.lua\n\n> Repository: https://github.com/CarlDV/InfiniteYieldPluginStore\n\n\n-# THIS DOES NOT CONTAIN ANY ANALYTICS. ITS COMPLETELY CLEAN !!!!",
+      "author": {
+        "name": "David",
+        "username": "istmedavid",
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/e18fd1e6b561eecde6843bf8af33fa91.png?size=1024"
+      },
+      "date": "2026-07-01T06:34:02.420000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1521765811151306833",
+      "files": [
+        {
+          "filename": "pluginstore2.iy",
+          "url": "plugins/1521765811151306833/pluginstore2.iy",
+          "size": 865,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "iys / storeiy / iystore \n- opens the plugin store UI"
+      ],
+      "links": [
+        "https://iyplugins.pages.dev/data/plugins.json",
+        "https://iyplugins.pages.dev/",
+        "https://github.com/CarlDV/InfiniteYieldPluginStore/blob/main/loader.lua",
+        "https://github.com/CarlDV/InfiniteYieldPluginStore"
+      ],
+      "embeds": [],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/CarlDV/InfiniteYieldPluginStore/refs/heads/main/loader.lua"
+      ]
+    },
     {
       "id": "1520218128754147339",
       "name": "emote",
@@ -58,7 +91,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
       },
       "date": "2026-06-25T14:24:05.099000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1519709774567178270",
@@ -342,7 +375,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-06-03T10:24:08.594000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511676858205474866",
@@ -689,7 +722,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-04-24T20:49:21.041000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1497338682187710485",
@@ -713,7 +746,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
       },
       "date": "2026-04-17T21:06:23.881000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494806257230417920",
@@ -739,7 +772,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-04-16T19:06:40.673000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494413740807028747",
@@ -763,7 +796,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-04-16T07:22:43.131000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494236583715409960",
@@ -787,7 +820,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-04-16T07:18:17.837000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494235470991851620",
@@ -811,7 +844,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
       },
       "date": "2026-04-15T21:49:42.799000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494092382151643207",
@@ -835,7 +868,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
       },
       "date": "2026-04-14T22:27:29.974000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493739503507210392",
@@ -911,7 +944,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/7a944a810f22176de3479e759c46565f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_c94b04bb2180868fea56d539a7583e51.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -941,7 +974,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-04-11T18:24:25.467000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1492591168054100190",
@@ -965,7 +998,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-04-11T07:38:54.339000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1492428717929267231",
@@ -989,7 +1022,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
       },
       "date": "2026-04-09T03:25:43.613000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1491640227675115601",
@@ -1093,7 +1126,7 @@
       "author": {
         "name": "Agent666_0",
         "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/6a73d20316a97627d379080674ff1363.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
       },
       "date": "2026-04-06T12:11:00.496000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1490685255466877070",
@@ -1202,7 +1235,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/92e164c3032ee2cf81b9f74cc8eba2de.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
       },
       "date": "2026-04-02T20:16:01.790000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1489357763678310441",
@@ -1357,7 +1390,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-03-13T16:49:06.980000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482057934878937169",
@@ -1381,7 +1414,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-03-13T15:56:48.420000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482044770804301845",
@@ -1431,7 +1464,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-03-05T02:52:37.697000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478948322843562024",
@@ -1455,7 +1488,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-03-03T20:02:01.315000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478482602502525102",
@@ -1479,7 +1512,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-03-03T01:25:15.917000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478201561493541048",
@@ -1503,7 +1536,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-03-01T12:55:59.335000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477650612056231938",
@@ -1527,7 +1560,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-02-28T16:54:53.381000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477348345537368204",
@@ -1551,7 +1584,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-02-27T18:11:03.845000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477005127586939044",
@@ -1575,7 +1608,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-02-27T17:26:49.418000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476993994113286195",
@@ -1599,7 +1632,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-02-27T15:58:20.228000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476971725756563548",
@@ -1623,7 +1656,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/9257ac810e952b0a4cb595cf0af6f7e5.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/8081126bfa211e7ccb043ea49c71d03f.png?size=1024"
       },
       "date": "2026-02-27T00:53:31.057000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476744020469481554",
@@ -3788,7 +3821,7 @@
       "author": {
         "name": "thr",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/52cf126f3b34685c2c88b4f21dfb0121.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/17d73cf68f8ded93c95c7202fa1507ce.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -3812,9 +3845,9 @@
       "name": "bladeball",
       "description": "v0.2\n\nFixed:\nGUI wasnt opening",
       "author": {
-        "name": "NZ-Linix",
+        "name": "NZ Linix",
         "username": "com.nzlinix",
-        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/4c74f161742fdc32964cdd6d9be1bfa4.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/dfec79cfc155b8f11d45383883748db8.png?size=1024"
       },
       "date": "2023-09-15T19:47:00.304000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1152329744348622898",
@@ -3838,9 +3871,9 @@
       "name": "BladeBall",
       "description": "Made a Script for BladeBall Game on Roblox\n\nCommands:\n`BladeBall ` - Opens the GUI for all the hacks",
       "author": {
-        "name": "NZ-Linix",
+        "name": "NZ Linix",
         "username": "com.nzlinix",
-        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/4c74f161742fdc32964cdd6d9be1bfa4.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/dfec79cfc155b8f11d45383883748db8.png?size=1024"
       },
       "date": "2023-09-15T19:24:07.025000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1152323984399015936",
@@ -5550,7 +5583,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a4018b2&is=6a3ec732&hm=289cc5a0611e2f5a49e133e3d1acbe3f702d1efad5800e73d6e8569ef57ab9b1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a455eb2&is=6a440d32&hm=c2e1296805d0fe080b32edf1e02ab54c775f22ce7e3094a48876cbca59a44045&"
           },
           "image": null,
           "video": null
@@ -5564,7 +5597,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a4018c9&is=6a3ec749&hm=7712e06a0173c12d4b8c98bd8f1689eaa65fd103da309355cbe18bd8f513ac1a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a455ec9&is=6a440d49&hm=c662f67bf5557f0cfba7f2e8d6828409cc36640f9be6fcbe491eca840724f90f&"
           },
           "image": null,
           "video": null
@@ -6427,7 +6460,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a4018b2&is=6a3ec732&hm=289cc5a0611e2f5a49e133e3d1acbe3f702d1efad5800e73d6e8569ef57ab9b1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a455eb2&is=6a440d32&hm=c2e1296805d0fe080b32edf1e02ab54c775f22ce7e3094a48876cbca59a44045&"
           },
           "image": null,
           "video": null
@@ -6441,7 +6474,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a4018c9&is=6a3ec749&hm=7712e06a0173c12d4b8c98bd8f1689eaa65fd103da309355cbe18bd8f513ac1a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a455ec9&is=6a440d49&hm=c662f67bf5557f0cfba7f2e8d6828409cc36640f9be6fcbe491eca840724f90f&"
           },
           "image": null,
           "video": null
@@ -7569,7 +7602,7 @@
       "author": {
         "name": "poopurt",
         "username": "hotdogmuncher38",
-        "avatar": "https://cdn.discordapp.com/avatars/626910141459202063/465a896510517204994592fe0e5e1698.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/626910141459202063/e6e6d12f00f34d7aa6148d156b74647f.png?size=1024"
       },
       "date": "2021-01-28T01:14:09.904000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/804157338017202187",
@@ -7814,7 +7847,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a3fea65&is=6a3e98e5&hm=867629764e72e5f77d8a95eb931f0754b6613d17fab7ba9a01ee27935ced9c5e&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a45d925&is=6a4487a5&hm=2d8266990ecce46329d9f3b53e4c3cb53ab14f3d21a250550f925b6fc1058f1e&"
           },
           "image": null,
           "video": null
@@ -11422,7 +11455,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/70aa21dc5c28ccbc85394cb3eb304258.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/b23906c6953be1528399ed32b23e5d5f.png?size=1024"
       },
       "date": "2020-05-20T13:39:38.179000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556",
@@ -13225,7 +13258,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/70aa21dc5c28ccbc85394cb3eb304258.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/b23906c6953be1528399ed32b23e5d5f.png?size=1024"
       },
       "date": "2020-01-23T03:15:12.032000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800",
