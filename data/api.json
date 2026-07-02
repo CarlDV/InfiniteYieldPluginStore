@@ -1,17 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-01T06:36:02.493355+00:00",
-  "total": 555,
+  "updated_at": "2026-07-02T05:20:24.788641+00:00",
+  "total": 553,
   "plugins": [
     {
-      "id": "1521765811151306833",
+      "id": "1521766502661886062",
       "name": "pluginstore2",
       "author": "David",
-      "date": "2026-07-01T06:34:02.420000+00:00",
+      "date": "2026-07-01T06:36:47.289000+00:00",
       "files": [
         {
+          "filename": "Screen_Recording_20260416_201445.mp4",
+          "url": "plugins/1521766502661886062/Screen_Recording_20260416_201445.mp4",
+          "size": 13502640,
+          "is_plugin": false
+        },
+        {
           "filename": "pluginstore2.iy",
-          "url": "plugins/1521765811151306833/pluginstore2.iy",
+          "url": "plugins/1521766502661886062/pluginstore2.iy",
           "size": 865,
           "is_plugin": true
         }
@@ -5368,21 +5374,6 @@
       ]
     },
     {
-      "id": "744998512537632881",
-      "name": "PP",
-      "author": "Deleted User",
-      "date": "2020-08-17T19:18:06.792000+00:00",
-      "files": [
-        {
-          "filename": "PP.iy",
-          "url": "plugins/744998512537632881/PP.iy",
-          "size": 253257,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
       "id": "744630167493935164",
       "name": "gun",
       "author": "Bombsboom",
@@ -7619,21 +7610,6 @@
       "loadstring_urls": [
         "https://pastebin.com/raw/Hkb9n916"
       ]
-    },
-    {
-      "id": "672160819026460712",
-      "name": "Blocktool",
-      "author": "quack",
-      "date": "2020-01-29T19:27:07.400000+00:00",
-      "files": [
-        {
-          "filename": "Blocktool.iy",
-          "url": "plugins/672160819026460712/Blocktool.iy",
-          "size": 174513,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
     },
     {
       "id": "671036536351096844",

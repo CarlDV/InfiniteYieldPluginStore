@@ -1,23 +1,29 @@
 {
-  "scraped_at": "2026-07-01T06:36:02.472686+00:00",
+  "scraped_at": "2026-07-02T05:20:24.772530+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 555,
+  "total_plugins": 553,
   "plugins": [
     {
-      "id": "1521765811151306833",
+      "id": "1521766502661886062",
       "name": "pluginstore2",
       "description": "# Plugin Store\nA plugin where you can browse other plugins!\nTo use:\n``` iys / storeiy / iystore \n- opens the plugin store UI\n```\n> Data from: https://iyplugins.pages.dev/data/plugins.json\n\n> Main store: https://iyplugins.pages.dev/\n\n> Source code: https://github.com/CarlDV/InfiniteYieldPluginStore/blob/main/loader.lua\n\n> Repository: https://github.com/CarlDV/InfiniteYieldPluginStore\n\n\n-# THIS DOES NOT CONTAIN ANY ANALYTICS. ITS COMPLETELY CLEAN !!!!",
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/e18fd1e6b561eecde6843bf8af33fa91.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/1886eecda660be137e8a2bd4f501a28a.png?size=1024"
       },
-      "date": "2026-07-01T06:34:02.420000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1521765811151306833",
+      "date": "2026-07-01T06:36:47.289000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1521766502661886062",
       "files": [
         {
+          "filename": "Screen_Recording_20260416_201445.mp4",
+          "url": "plugins/1521766502661886062/Screen_Recording_20260416_201445.mp4",
+          "size": 13502640,
+          "is_plugin": false
+        },
+        {
           "filename": "pluginstore2.iy",
-          "url": "plugins/1521765811151306833/pluginstore2.iy",
+          "url": "plugins/1521766502661886062/pluginstore2.iy",
           "size": 865,
           "is_plugin": true
         }
@@ -5583,7 +5589,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a455eb2&is=6a440d32&hm=c2e1296805d0fe080b32edf1e02ab54c775f22ce7e3094a48876cbca59a44045&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a46b032&is=6a455eb2&hm=5977dff1a370646fd8d16e462356287a715f8fdbf6fd72a5b594b13a1988b33d&"
           },
           "image": null,
           "video": null
@@ -5597,7 +5603,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a455ec9&is=6a440d49&hm=c662f67bf5557f0cfba7f2e8d6828409cc36640f9be6fcbe491eca840724f90f&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a46b049&is=6a455ec9&hm=161cc9a4efa24ffb90ad6ff59d38c190130ad830ac5631fdee48defedf5bfa89&"
           },
           "image": null,
           "video": null
@@ -6460,7 +6466,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a455eb2&is=6a440d32&hm=c2e1296805d0fe080b32edf1e02ab54c775f22ce7e3094a48876cbca59a44045&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a46b032&is=6a455eb2&hm=5977dff1a370646fd8d16e462356287a715f8fdbf6fd72a5b594b13a1988b33d&"
           },
           "image": null,
           "video": null
@@ -6474,7 +6480,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a455ec9&is=6a440d49&hm=c662f67bf5557f0cfba7f2e8d6828409cc36640f9be6fcbe491eca840724f90f&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a46b049&is=6a455ec9&hm=161cc9a4efa24ffb90ad6ff59d38c190130ad830ac5631fdee48defedf5bfa89&"
           },
           "image": null,
           "video": null
@@ -7847,7 +7853,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a45d925&is=6a4487a5&hm=2d8266990ecce46329d9f3b53e4c3cb53ab14f3d21a250550f925b6fc1058f1e&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a472aa5&is=6a45d925&hm=99151ad75a355db9c399cb9e5b1d694d27edde5f72a21acd4c3654e37a8faad4&"
           },
           "image": null,
           "video": null
@@ -9257,30 +9263,6 @@
       "loadstring_urls": [
         "https://pastebin.com/raw/ZZhf8My8"
       ]
-    },
-    {
-      "id": "744998512537632881",
-      "name": "PP",
-      "description": "Penis Plugin \nYou need 9 international fedoras for the max length (R6 ONLY)\nscript not mine",
-      "author": {
-        "name": "Deleted User",
-        "username": "Deleted User",
-        "avatar": "https://cdn.discordapp.com/embed/avatars/3.png"
-      },
-      "date": "2020-08-17T19:18:06.792000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/744998512537632881",
-      "files": [
-        {
-          "filename": "PP.iy",
-          "url": "plugins/744998512537632881/PP.iy",
-          "size": 253257,
-          "is_plugin": true
-        }
-      ],
-      "code_blocks": [],
-      "links": [],
-      "embeds": [],
-      "loadstring_urls": []
     },
     {
       "id": "744630167493935164",
@@ -13147,30 +13129,6 @@
       "loadstring_urls": [
         "https://pastebin.com/raw/Hkb9n916"
       ]
-    },
-    {
-      "id": "672160819026460712",
-      "name": "Blocktool",
-      "description": "Made by me, Hold out a tool/item, then type blocktool",
-      "author": {
-        "name": "quack",
-        "username": "cartoess",
-        "avatar": "https://cdn.discordapp.com/avatars/622228525260472320/1072471c8db27fc50b0a9662e7bb719a.png?size=1024"
-      },
-      "date": "2020-01-29T19:27:07.400000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/672160819026460712",
-      "files": [
-        {
-          "filename": "Blocktool.iy",
-          "url": "plugins/672160819026460712/Blocktool.iy",
-          "size": 174513,
-          "is_plugin": true
-        }
-      ],
-      "code_blocks": [],
-      "links": [],
-      "embeds": [],
-      "loadstring_urls": []
     },
     {
       "id": "671036536351096844",
