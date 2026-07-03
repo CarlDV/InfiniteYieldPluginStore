@@ -1,8 +1,38 @@
 {
-  "scraped_at": "2026-07-02T05:20:24.772530+00:00",
+  "scraped_at": "2026-07-03T00:04:08.632477+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 553,
+  "total_plugins": 554,
   "plugins": [
+    {
+      "id": "1522340767845056776",
+      "name": "yesMommy",
+      "description": "disgrace...\n\n# yesMommy.iy\ntogether for you with a warm and comforting voice from... mommy?\n\n## usage\n-`playASMR [kind?] [segment?]`: plays a random segment\n+example: `playASMR compliment 1`: plays the 1st segment in compliment\n+example2: `playASMR`: plays random kind and random segment\n-`mommyCredit`: display used asmr artist's credit\n-`mommyRandom [boolean?]`: state for playing based on player event (lose health, die)\n-`mommyVolume [number]`: set voice's volume (u can set very loud)\n\n## notes:\n-if u want trigger based on iy's event, use iy on event triggers\n-cahces everything in `workspace/yesMommyASMRSounds`, first time fetching is slow\n-dropped ability to add/remove custom tracks cuz i dont like, but it stays dormant in file (uncomment if u want, dont expect my help)\n-i lost interests\n-please dont spam the cdn, i dont own it\n\ni wish you a good day",
+      "author": {
+        "name": "h",
+        "username": "openbridge",
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
+      },
+      "date": "2026-07-02T20:38:42.778000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1522340767845056776",
+      "files": [
+        {
+          "filename": "Screen_Recording_2026-07-03_at_03.19.12.mov",
+          "url": "plugins/1522340767845056776/Screen_Recording_2026-07-03_at_03.19.12.mov",
+          "size": 3321897,
+          "is_plugin": false
+        },
+        {
+          "filename": "yesMommy.iy",
+          "url": "plugins/1522340767845056776/yesMommy.iy",
+          "size": 23371,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1521766502661886062",
       "name": "pluginstore2",
@@ -10,7 +40,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/1886eecda660be137e8a2bd4f501a28a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/056fc005d48d1c6a1ca75a15c9a83090.png?size=1024"
       },
       "date": "2026-07-01T06:36:47.289000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1521766502661886062",
@@ -97,7 +127,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/7b42297630a80fbfe663de27a6b22ddd.png?size=1024"
       },
       "date": "2026-06-25T14:24:05.099000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1519709774567178270",
@@ -752,7 +782,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/7b42297630a80fbfe663de27a6b22ddd.png?size=1024"
       },
       "date": "2026-04-17T21:06:23.881000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494806257230417920",
@@ -850,7 +880,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/7b42297630a80fbfe663de27a6b22ddd.png?size=1024"
       },
       "date": "2026-04-15T21:49:42.799000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494092382151643207",
@@ -874,7 +904,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/7b42297630a80fbfe663de27a6b22ddd.png?size=1024"
       },
       "date": "2026-04-14T22:27:29.974000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493739503507210392",
@@ -1028,7 +1058,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/7b42297630a80fbfe663de27a6b22ddd.png?size=1024"
       },
       "date": "2026-04-09T03:25:43.613000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1491640227675115601",
@@ -1241,7 +1271,7 @@
       "author": {
         "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/293bf116f4053a19a83b8a1340452740.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/7b42297630a80fbfe663de27a6b22ddd.png?size=1024"
       },
       "date": "2026-04-02T20:16:01.790000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1489357763678310441",
@@ -5589,7 +5619,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a46b032&is=6a455eb2&hm=5977dff1a370646fd8d16e462356287a715f8fdbf6fd72a5b594b13a1988b33d&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a4801b2&is=6a46b032&hm=6664750867255c60c2c11faa4699892dd487cf997a6ec841941e7fcde9f9732b&"
           },
           "image": null,
           "video": null
@@ -5603,7 +5633,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a46b049&is=6a455ec9&hm=161cc9a4efa24ffb90ad6ff59d38c190130ad830ac5631fdee48defedf5bfa89&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a4801c9&is=6a46b049&hm=8e1a9ec301019f42d1a3873ac51af4d70360b3f100879c1d47e0d8ba4c576535&"
           },
           "image": null,
           "video": null
@@ -6466,7 +6496,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a46b032&is=6a455eb2&hm=5977dff1a370646fd8d16e462356287a715f8fdbf6fd72a5b594b13a1988b33d&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a4801b2&is=6a46b032&hm=6664750867255c60c2c11faa4699892dd487cf997a6ec841941e7fcde9f9732b&"
           },
           "image": null,
           "video": null
@@ -6480,7 +6510,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a46b049&is=6a455ec9&hm=161cc9a4efa24ffb90ad6ff59d38c190130ad830ac5631fdee48defedf5bfa89&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a4801c9&is=6a46b049&hm=8e1a9ec301019f42d1a3873ac51af4d70360b3f100879c1d47e0d8ba4c576535&"
           },
           "image": null,
           "video": null
@@ -7853,7 +7883,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a472aa5&is=6a45d925&hm=99151ad75a355db9c399cb9e5b1d694d27edde5f72a21acd4c3654e37a8faad4&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a47d365&is=6a4681e5&hm=0c1db6b71d28ff4bbd1ed36cc1297614a970cc3b26e4cd9560dda638c35ad838&"
           },
           "image": null,
           "video": null

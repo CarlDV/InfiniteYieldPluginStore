@@ -1,0 +1,745 @@
+if
+	(not isfolder or not makefolder or not getcustomasset)
+	or (
+		not type(isfolder) == "function"
+		or not type(makefolder) == "function"
+		or not type(getcustomassets) == "function"
+	)
+then
+	notify("yesMommy", "required apis failed, pls change yur executor")
+	return
+end
+
+local httpService = game:GetService("HttpService")
+local localPlayer = game:GetService("Players").LocalPlayer
+
+local baseAudioLocation = "yesMommyASMRSounds"
+-- local cdnAudio = "https://share.valhalladev.org/raw"
+
+local loadedAudio = {}
+
+if not isfolder(baseAudioLocation) then
+	makefolder(baseAudioLocation)
+end
+
+local soundContainer = Instance.new("Folder")
+soundContainer.Name = "yesMommyAudios"
+soundContainer.Parent = game:GetService("SoundService")
+
+type AudioTrack = {
+	subtitle: string,
+	start: number,
+	finish: number,
+}
+
+type AudioDesc = {
+	filename: { string },
+	url: { string },
+	tracks: { AudioTrack },
+}
+
+type AudioDatabase = {
+	[string]: AudioDesc,
+}
+
+type MommyCfg = {
+	version: number,
+	audioDatabase: AudioDatabase,
+	options: {
+		preferMambo: boolean,
+		volume: number,
+		onRandom: boolean | number,
+	},
+	credits: {
+		[string]: { string },
+	},
+}
+
+local builtInAudios: AudioDatabase = {
+	["comfort"] = { -- risky change (filename)
+		filename = { "comforts_normal.wav", "comforts_matikanetannhauser.wav" },
+		url = {
+			"https://share.valhalladev.org/raw/comforts_normal.wav",
+			"https://share.valhalladev.org/raw/comforts_matikanetannhauser.wav",
+		},
+		tracks = {
+			{ subtitle = "hi, baby. (｡˃ ᵕ ˂ )", start = 0.64, finish = 1.44 },
+			{ subtitle = "it's okay, baby, you can tell me. (｡•́︿•̀｡)", start = 2.3, finish = 4.1 },
+			{ subtitle = "mm, give you a kiss on the forehead. [mwah] (˘ε˘)", start = 5.6, finish = 7.76 },
+			{ subtitle = "[smacking lips] [giggles] (˘ε˘)", start = 10.52, finish = 12.78 },
+			{ subtitle = "you're okay, you're okay. (｡•́︿•̀｡)", start = 14.06, finish = 16.56 },
+			{ subtitle = "you're a very good boy for me. (｡˃ ᵕ ˂ )", start = 17.66, finish = 19.38 },
+			{
+				subtitle = "come lay on the bed with me, lay your head in my lap. (｡ᵔᴗᵔ｡)",
+				start = 20.9,
+				finish = 24.26,
+			},
+			{ subtitle = "there you go. (｡˃ ᵕ ˂ )", start = 26.12, finish = 27.1 },
+			{
+				subtitle = "shh, it's okay. this is what you wanted, isn't it? (｡ᵔᴗᵔ｡)",
+				start = 27.8,
+				finish = 31.52,
+			},
+			{ subtitle = "is that what you wanted, baby? (｡˃ ᵕ ˂ )", start = 32.18, finish = 33.74 },
+			{ subtitle = "it's okay, you can be honest. (｡•́︿•̀｡)", start = 35.2, finish = 37.059 },
+			{
+				subtitle = "play with your hair, rub on your back as you lay in my lap. (｡ᵔᴗᵔ｡)",
+				start = 37.88,
+				finish = 42.94,
+			},
+			{ subtitle = "it's okay. you can relax. (ᴗ˳ᴗ)", start = 43.48, finish = 45.62 },
+			{
+				subtitle = "you've been a very good boy for me [giggles]. (｡˃ ᵕ ˂ )",
+				start = 46.6,
+				finish = 49.53,
+			},
+			{ subtitle = "very good boy for mommy. (｡˃ ᵕ ˂ )", start = 50.46, finish = 51.78 },
+			{ subtitle = "it's okay. (｡•́︿•̀｡)", start = 52.64, finish = 53.419 },
+			{ subtitle = "you're okay. mommy's right here. (｡•́︿•̀｡)", start = 54.34, finish = 56.46 },
+			{
+				subtitle = "and with time, you'll get better and better. (｡˃ ᵕ ˂ )",
+				start = 58.32,
+				finish = 60.57,
+			},
+			{
+				subtitle = "you keep listening to what i say, and you'll learn to listen every time i ask, right? (｡ᵔᴗᵔ｡)",
+				start = 61.3,
+				finish = 67.63,
+			},
+			{ subtitle = "there you go. that's it. (｡˃ ᵕ ˂ )", start = 68.94, finish = 70.8 },
+			{ subtitle = "good boy. [mwah] mm. [giggles] (˘ε˘)", start = 71.54, finish = 78.43 },
+			{
+				subtitle = "is this what you wanted from mommy, baby? hmm? (｡˃ ᵕ ˂ )",
+				start = 78.54,
+				finish = 82.24,
+			},
+			{ subtitle = "[giggles] (˶ᵔ ᵕ ᵔ˶)", start = 84.94, finish = 87.24 },
+			{
+				subtitle = "i guess even when you signal what you want 'cause sometimes it's hard for you to ask politely. but i, mhm, i enjoy you. (｡˃ ᵕ ˂ )",
+				start = 90.04,
+				finish = 98.64,
+			},
+			{ subtitle = "mm-hmm. mm-hmm. (｡ᵔᴗᵔ｡)", start = 99.48, finish = 100.76 },
+			{ subtitle = "[giggles] lay right there. (｡ᵔᴗᵔ｡)", start = 102.1, finish = 105.24 },
+			{ subtitle = "you're okay. (｡•́︿•̀｡)", start = 106.18, finish = 106.88 },
+			{
+				subtitle = "mm, you can sleep. it's okay. i know you're tired and worn out, so it's okay. (ᴗ˳ᴗ)",
+				start = 108.7,
+				finish = 115.24,
+			},
+			{ subtitle = "[mwah] (˘ε˘)", start = 118.42, finish = 120.01 },
+		},
+	},
+	["compliment"] = {
+		filename = { "compliment_normal.wav", "compliment_matikanetannhauser.wav" },
+		url = {
+			"https://share.valhalladev.org/raw/compliment_normal.wav",
+			"https://share.valhalladev.org/raw/compliment_matikanetannhauser.wav",
+		},
+		tracks = {
+			{ subtitle = "there you go. (｡˃ ᵕ ˂ )", start = 0.379, finish = 1.279 },
+			{ subtitle = "that's it. (｡˃ ᵕ ˂ )", start = 2.339, finish = 2.839 },
+			{ subtitle = "oh, that's my good boy. (｡˃ ᵕ ˂ )", start = 3.879, finish = 5.639 },
+			{ subtitle = "well, i'm glad you're honest with me. (｡ᵔᴗᵔ｡)", start = 6.619, finish = 8.599 },
+			{ subtitle = "very good boy. (｡˃ ᵕ ˂ )", start = 9.34, finish = 10.279 },
+			{ subtitle = "[chuckles] you deserve it, baby. (｡˃ ᵕ ˂ )", start = 11.459, finish = 14.479 },
+			{ subtitle = "you've been such a good boy for me (｡˃ ᵕ ˂ )", start = 15.179, finish = 17.02 },
+			{ subtitle = "recently. (｡ᵔᴗᵔ｡)", start = 17.119, finish = 17.899 },
+			{ subtitle = "yeah, you have. (｡˃ ᵕ ˂ )", start = 19.18, finish = 20.859 },
+			{ subtitle = "i'm proud of you for that. (｡˃ ᵕ ˂ )", start = 22.18, finish = 23.359 },
+			{
+				subtitle = "i enjoy that you're always right here for me. (｡˃ ᵕ ˂ )",
+				start = 24.5,
+				finish = 28.359,
+			},
+			{ subtitle = "yeah, you deserve it. (｡˃ ᵕ ˂ )", start = 29.539, finish = 30.979 },
+			{ subtitle = "mm, i'm really proud of you. (｡˃ ᵕ ˂ )", start = 31.979, finish = 34.059 },
+			{ subtitle = "i'm very proud of you for that. (｡˃ ᵕ ˂ )", start = 34.899, finish = 36.38 },
+			{ subtitle = "i'm very proud of you. (｡˃ ᵕ ˂ )", start = 37.18, finish = 38.319 },
+			{ subtitle = "you're special to me, baby. (｡˃ ᵕ ˂ )", start = 39.239, finish = 40.699 },
+			{ subtitle = "well, i'm proud of you [chuckles] (˶ᵔ ᵕ ᵔ˶)", start = 42.259, finish = 45.079 },
+			{ subtitle = "just because you've been so good for me (｡˃ ᵕ ˂ )", start = 47.5, finish = 50.099 },
+		},
+	},
+	["caring"] = {
+		filename = { "caring_normal.wav", "caring_matikanetannhauser.wav" },
+		url = {
+			"https://share.valhalladev.org/raw/caring_normal.wav",
+			"https://share.valhalladev.org/raw/caring_matikanetannhauser.wav",
+		},
+		tracks = {
+			{ subtitle = "did you come into my room for a reason? (｡ᵔᴗᵔ｡)", start = 0.199, finish = 3.699 },
+			{ subtitle = "mm-hmm, speak up. (｡˃ ᵕ ˂ )", start = 4.9, finish = 6.519 },
+			{
+				subtitle = "some care and some love. mm-hmm, and attention. (｡ᵔᴗᵔ｡)",
+				start = 8.179,
+				finish = 12.739,
+			},
+			{
+				subtitle = "hmph, i enjoy taking care of you, making sure you're happy. (｡˃ ᵕ ˂ )",
+				start = 14.119,
+				finish = 17.999,
+			},
+			{
+				subtitle = "definitely need you a lot more and more and more day by day. (｡˃ ᵕ ˂ )",
+				start = 19.399,
+				finish = 24.359,
+			},
+			{
+				subtitle = "so giving you a little back rub and playing with your hair. (｡ᵔᴗᵔ｡)",
+				start = 25.299,
+				finish = 31.079,
+			},
+			{ subtitle = "letting me take care of you. (｡˃ ᵕ ˂ )", start = 32.399, finish = 35.0 },
+			{ subtitle = "yeah, you wouldn't wanna make me upset, right? (￢‿￢)", start = 36.0, finish = 39.0 },
+			{
+				subtitle = "i'll allow you to sleep in my lap this one time. (ᴗ˳ᴗ)",
+				start = 40.799,
+				finish = 44.739,
+			},
+			{ subtitle = "there you go. it's okay (｡ᵔᴗᵔ｡)", start = 46.119, finish = 47.7 },
+		},
+	},
+}
+
+-- DONT EDIT DIRECTLY VIA THIS VAR!!!!
+-- DO IT VIA `configHandler("edit", ...)`!!!!
+local mommyCfg: MommyCfg = {
+	version = 1,
+	audioDatabase = builtInAudios,
+	options = {
+		preferMambo = false,
+		volume = 1,
+		onRandom = false,
+	},
+	credits = {
+		["youtube @ mae asmr"] = { "https://www.youtube.com/watch?v=eBjHneKNgrY" },
+	},
+}
+
+local function validateMommyCfg(cfg): boolean
+	if type(cfg) ~= "table" then
+		return false
+	end
+	if type(cfg.version) ~= "number" then
+		return false
+	end
+	if type(cfg.audioDatabase) ~= "table" then
+		return false
+	end
+	if type(cfg.options) ~= "table" then
+		return false
+	end
+	if type(cfg.options.preferMambo) ~= "boolean" then
+		return false
+	end
+	if type(cfg.options.volume) ~= "number" then
+		return false
+	end
+	if type(cfg.credits) ~= "table" then
+		return false
+	end
+	return true
+end
+
+-- local function validateAudioDesc(data): (boolean, string?)
+-- 	if type(data) ~= "table" then
+-- 		return false, "not a json object"
+-- 	end
+
+-- 	if type(data.filename) ~= "string" then
+-- 		return false, "missing or invalid 'filename' (must be string)"
+-- 	end
+
+-- 	if type(data.tracks) ~= "table" or #data.tracks == 0 then
+-- 		return false, "missing or empty 'tracks' array"
+-- 	end
+
+-- 	for i, track in ipairs(data.tracks) do
+-- 		if type(track) ~= "table" then
+-- 			return false, "tracks" .. i .. " is not an object"
+-- 		end
+-- 		if type(track.subtitle) ~= "string" then
+-- 			return false, "tracks" .. i .. " missing or invalid 'subtitle'"
+-- 		end
+-- 		if type(track.start) ~= "number" then
+-- 			return false, "tracks" .. i .. " missing or invalid 'start'"
+-- 		end
+-- 		if type(track.finish) ~= "number" then
+-- 			return false, "tracks" .. i .. " missing or invalid 'finish'"
+-- 		end
+-- 	end
+
+-- 	return true
+-- end
+
+-- init: configHandler("init")
+-- edit preferMambo: configHandler("edit", {"options", "preferMambo"}, true)
+local function configHandler(type: "init" | "edit", keyPath: { string? }, value: any?)
+	-- print(httpService:JSONEncode(mommyCfg))
+	local success, _ = pcall(function()
+		if type == "init" then
+			if not isfile(baseAudioLocation .. "/cfg.json") then
+				notify("yesMommy.init", "init from start, plse wait...")
+				writefile(baseAudioLocation .. "/cfg.json", httpService:JSONEncode(mommyCfg))
+			end
+			local ok, parsed = pcall(httpService.JSONDecode, httpService, readfile(baseAudioLocation .. "/cfg.json"))
+
+			if ok and validateMommyCfg(parsed) then
+				mommyCfg = parsed
+			else
+				notify("yesMommy.init", "cfg.json is corupted, rw to default")
+				writefile(baseAudioLocation .. "/cfg.json", httpService:JSONEncode(mommyCfg))
+			end
+		end
+
+		if type == "edit" then
+			if #keyPath == 0 and not value then
+				return false
+			end
+
+			local cfg = mommyCfg
+			for i = 1, #keyPath - 1 do
+				cfg = cfg[keyPath[i]]
+			end
+
+			cfg[keyPath[#keyPath]] = value
+
+			writefile(baseAudioLocation .. "/cfg.json", httpService:JSONEncode(mommyCfg))
+		end
+	end)
+
+	-- print(httpService:JSONEncode(mommyCfg))
+	return success
+end
+
+local function fetchAudio(audioName: string, url: string?): string | false
+	local filePath = baseAudioLocation .. "/" .. audioName
+
+	if isfile(filePath) then
+		return getcustomasset(filePath)
+	else
+		notify("yesMommy.fetchAudio", "no cached hit for " .. audioName .. ", fetching")
+
+		local fetchUrl = url or mommyCfg.audioDatabase[audioName][1]
+
+		if not fetchUrl then
+			warn("failed to download " .. audioName .. ": no cached hit and no url provided")
+			return false
+		end
+
+		-- print(fetchUrl)
+		local response = request({
+			Url = fetchUrl,
+			Method = "GET",
+		})
+
+		if not response.Success then
+			warn("failed to download " .. audioName .. ": " .. response.StatusCode)
+			return false
+		end
+
+		writefile(filePath, response.Body)
+		return getcustomasset(filePath)
+	end
+end
+
+local audioHandler = {}
+
+function audioHandler.new(trackName: string): Sound | false
+	local audioDescription = mommyCfg.audioDatabase[trackName]
+	if not audioDescription then
+		return false
+	end
+
+	local cacheKey = trackName .. (mommyCfg.options.preferMambo and "_matikanetannhauser" or "_normal")
+
+	if loadedAudio[cacheKey] then
+		return loadedAudio[cacheKey]
+	end
+
+	local fileIndex = mommyCfg.options.preferMambo and 2 or 1
+	local asset =
+		fetchAudio(audioDescription.filename[fileIndex], audioDescription.url and audioDescription.url[fileIndex])
+	if not asset then
+		notify("yesMommy.audioHandler.new", "failed to pull " .. audioDescription.filename[fileIndex])
+		return false
+	end
+
+	local sound = Instance.new("Sound")
+	sound.SoundId = asset
+	sound.Volume = mommyCfg.options.volume
+	sound.Parent = soundContainer
+	sound.Name = randomString()
+
+	loadedAudio[cacheKey] = sound
+	return sound
+end
+
+function audioHandler.playSegment(audio: Sound, trackName: string, index: number): boolean
+	local sound = audio
+
+	if not sound then
+		warn("yesMommy: failed to play segment of " .. trackName)
+		return false
+	end
+
+	sound.Volume = mommyCfg.options.volume
+
+	local desc = mommyCfg.audioDatabase[trackName]
+	local track = desc and desc.tracks[index]
+	if not track then
+		warn("yesMommy: no track " .. tostring(index) .. " in " .. trackName)
+		return false
+	end
+
+	print("playSegment", track.subtitle, track.start, track.finish)
+
+	sound.PlaybackRegion = NumberRange.new(track.start, track.finish)
+	sound.PlaybackRegionsEnabled = true
+	sound.PlaybackRegion = NumberRange.new(track.start, track.finish)
+	sound:Play()
+
+	notify("yesMommy.subtitle", track.subtitle or "", (track.finish - track.start) + 2)
+
+	return true
+end
+
+-- local function addTrack(args, speaker)
+-- 	local trackName = args[1]
+-- 	local url = args[2]
+
+-- 	print(trackName, "\n", url)
+
+-- 	if not trackName or trackName == "" then
+-- 		notify("yesMommy", "usage: addASMR <name> <url> [audiodesc json]")
+-- 		return
+-- 	end
+
+-- 	if not url or url == "" then
+-- 		notify("yesMommy", "missing url")
+-- 		return
+-- 	end
+
+-- 	-- todo: download file first then check
+-- 	if
+-- 		not url:lower():match("%.mp3$")
+-- 		and not url:lower():match("%.ogg$")
+-- 		and not url:lower():match("%.flac$")
+-- 		and not url:lower():match("%.wav$")
+-- 	then
+-- 		notify("yesMommy", "unsupported type (.mp3, .ogg, .flac, .wav)")
+-- 		return
+-- 	end
+-- 	local filename = url:match("([^/]+)$")
+
+-- 	local existing = mommyCfg.audioDatabase[trackName]
+-- 	if existing then
+-- 		local cachedFile = existing.filename or filename
+-- 		if isfile(baseAudioLocation .. "/" .. cachedFile) then
+-- 			notify("yesMommy", "track '" .. filename .. "' already exists!")
+-- 			return
+-- 		end
+-- 	end
+
+-- 	-- download & cache
+-- 	notify("yesMommy", "downloading " .. trackName .. "...", 3)
+
+-- 	local response = request({
+-- 		Url = url,
+-- 		Method = "GET",
+-- 	})
+
+-- 	if not response.Success then
+-- 		notify("yesMommy", "download failed - " .. tostring(response.StatusCode))
+-- 		return
+-- 	end
+
+-- 	if #response.Body == 0 then
+-- 		notify("yesMommy", "empty response body")
+-- 		return
+-- 	end
+
+-- 	writefile(baseAudioLocation .. "/" .. filename, response.Body)
+
+-- 	-- parse audioTrack json (3rd arg >> )
+-- 	local json = getstring(3)
+-- 	if json and json ~= "" then
+-- 		local ok, data = pcall(httpService.JSONDecode, httpService, json)
+-- 		if not ok then
+-- 			notify("yesMommy", "invalid json - " .. tostring(data))
+-- 			return
+-- 		end
+
+-- 		local valid, err = validateAudioDesc(data)
+-- 		if not valid then
+-- 			notify("yesMommy", "validation failed - " .. err)
+-- 			return
+-- 		end
+
+-- 		configHandler("edit", { "audioDatabase", trackName }, data)
+-- 		notify("yesMommy", "track '" .. trackName .. "' added!")
+
+-- 		-- also cache if filename in json differs
+-- 		if data.filename and data.filename ~= filename then
+-- 			local altPath = baseAudioLocation .. "/" .. data.filename
+-- 			if not isfile(altPath) then
+-- 				local altResp = request({
+-- 					Url = cdnAudio .. "/" .. data.filename,
+-- 					Method = "GET",
+-- 				})
+-- 				if altResp.Success then
+-- 					writefile(altPath, altResp.Body)
+-- 				end
+-- 			end
+-- 		end
+-- 	else
+-- 		-- rm after test
+-- 		-- configHandler("edit", { "audioDatabase", trackName }, {
+-- 		-- 	filename = filename,
+-- 		-- 	tracks = {},
+-- 		-- })
+-- 		notify("yesMommy", "no/failed json for audioTrack, please check!!")
+-- 	end
+-- end
+
+-- local function removeTrack(trackName)
+-- 	-- trackName can be cfg key or filename
+-- 	local entry = mommyCfg.audioDatabase[trackName]
+
+-- 	if entry then
+-- 		local filePath = baseAudioLocation .. "/" .. entry.filename
+-- 		configHandler("edit", { "audioDatabase", trackName }, nil)
+-- 		if isfile(filePath) then
+-- 			delfile(filePath)
+-- 		end
+-- 		notify("yesMommy", trackName .. " removed")
+-- 		return
+-- 	end
+
+-- 	-- if ppl use filename instead
+-- 	for key, data in mommyCfg.audioDatabase do
+-- 		if data.filename == trackName then
+-- 			local filePath = baseAudioLocation .. "/" .. data.filename
+-- 			configHandler("edit", { "audioDatabase", key }, nil)
+-- 			if isfile(filePath) then
+-- 				delfile(filePath)
+-- 			end
+-- 			notify("yesMommy", "file " .. trackName .. " removed")
+-- 			return
+-- 		end
+-- 	end
+
+-- 	notify("yesMommy.removeASMR", "no filename" .. trackName .. " is related to any added item, removing directly")
+-- 	if isfile(baseAudioLocation .. "/" .. trackName) then
+-- 		delfile(baseAudioLocation .. "/" .. trackName)
+-- 		notify("yesMommy", "file " .. trackName .. " removed")
+-- 		return
+-- 	end
+
+-- 	notify("yesMommy", trackName .. " not found")
+-- end
+
+local isPlaying: boolean = false
+local function pickRandomTrack(trackName: string?)
+	if isPlaying then
+		return
+	end
+
+	if not trackName or not mommyCfg.audioDatabase[trackName] then
+		local availableTrackNames = {}
+		for name, _ in mommyCfg.audioDatabase do
+			availableTrackNames[#availableTrackNames + 1] = name
+		end
+		if #availableTrackNames == 0 then
+			return
+		end
+		trackName = availableTrackNames[math.random(1, #availableTrackNames)]
+	end
+
+	local trackDescription = mommyCfg.audioDatabase[trackName]
+	if not trackDescription or #trackDescription.tracks == 0 then
+		return
+	end
+
+	local randomTrackIndex = math.random(1, #trackDescription.tracks)
+	local sound = audioHandler.new(trackName)
+	if sound then
+		isPlaying = true
+		sound.Ended:Connect(function()
+			isPlaying = false
+		end)
+		audioHandler.playSegment(sound, trackName, randomTrackIndex)
+	end
+end
+
+-- local comfortAudio = audioHandler.new("comfort")
+-- local caringAudio = audioHandler.new("caring")
+-- local complimentAudio = audioHandler.new("compliment")
+
+local activeConnections = {}
+local function mommyRandomHandler(state: boolean)
+	if not state then
+		for _, conn in activeConnections do
+			-- print(conn)
+			conn:Disconnect()
+		end
+
+		activeConnections = {}
+		return
+	end
+
+	local humanoid = localPlayer.Character:WaitForChild("Humanoid")
+	-- print("GOT HUMANOID", humanoid)
+
+	-- health down or up
+	local previousHealth = humanoid.Health
+	local lastDamageTime = 0
+	local DEBOUNCE_TIME = 2
+	table.insert(
+		activeConnections,
+		humanoid.HealthChanged:Connect(function()
+			local currentHealth = humanoid.Health
+			local currentTime = tick()
+
+			-- print(currentHealth, currentTime - lastDamageTime)
+
+			if currentTime - lastDamageTime < DEBOUNCE_TIME or currentHealth >= previousHealth then
+				previousHealth = currentHealth
+				return
+			end
+
+			-- print("PLAYING SOUND NOW")
+			lastDamageTime = currentTime
+			previousHealth = currentHealth
+			pickRandomTrack()
+			return
+		end)
+	)
+
+	-- died
+	-- print("WAITING FOR DIE")
+	table.insert(
+		activeConnections,
+		humanoid.Died:Connect(function()
+			-- print("HUMANOID DIED!!")
+			pickRandomTrack("comfort")
+
+			task.defer(function()
+				mommyRandomHandler(false)
+				localPlayer.CharacterAdded:Wait()
+				task.wait(0.1)
+				mommyRandomHandler(true)
+			end)
+		end)
+	)
+end
+
+configHandler("init")
+
+if mommyCfg.options.onRandom then
+	mommyRandomHandler(true)
+end
+
+local Plugin = {
+	["PluginName"] = "yesMommy",
+	["PluginDescription"] = "mommy asmr as a plugin (MAAAP)",
+	["Commands"] = {
+		["playasmr"] = {
+			["ListName"] = "playasmr [kind?] [trackIndex?]",
+			["Description"] = "mommy's here!",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local kindName = args[1] or "comfort"
+				local trackIndex = tonumber(args[2]) or 1
+				local isPreferMambo = mommyCfg.options.preferMambo
+
+				local audio = loadedAudio[kindName .. (isPreferMambo and "_matikanetannhauser" or "_normal")]
+					or audioHandler.new(kindName)
+				local createdAudio = audioHandler.playSegment(audio, kindName, trackIndex)
+
+				if not createdAudio then
+					notify("yesMommy.playasmr", "failed to play audio with playaudio cmd")
+				end
+			end,
+		},
+		["mommyCredit"] = {
+			["ListName"] = "mommyCredit",
+			["Description"] = "displays credits for the asmr creator(s) used in this plugin, with links",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local credits = (function()
+					local result = {}
+					for artist, url in pairs(mommyCfg.credits) do
+						result[#result + 1] = artist .. " - " .. url[1]
+					end
+					return table.concat(result, "\n")
+				end)()
+				print(credits)
+				notify("yesMommy.credit", "credit to: (open devtool for full info) " .. credits)
+			end,
+		},
+		["mommyRandom"] = {
+			["ListName"] = "mommyRandom [boolean?]",
+			["Description"] = "randomly plays mommy asmr based on game's event",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local newVal = (args[1] == "true" and true or false) or not mommyCfg.options.onRandom
+				configHandler("edit", { "options", "onRandom" }, newVal)
+				mommyRandomHandler(newVal)
+				notify("yesMommy.random", "onRandom set to " .. tostring(mommyCfg.options.onRandom))
+			end,
+		},
+		["mommyVolume"] = {
+			["ListName"] = "mommyVolume [number]",
+			["Description"] = "set the volume of the asmr player",
+			["Aliases"] = { "volume", "vol" },
+			["Function"] = function(args, speaker)
+				local volume = tonumber(args[1])
+				if not volume then
+					notify("yesMommy.volume", "invalid volume")
+					return
+				end
+				configHandler("edit", { "options", "volume" }, volume)
+				notify("yesMommy.volume", "mommyVolume set to " .. tostring(mommyCfg.options.volume))
+			end,
+		},
+		["mommyMambo"] = {
+			["ListName"] = "mommyMambo [boolean?]",
+			["Description"] = "prefer matikanetannhauser's vocal style over normal asmr",
+			["Aliases"] = { "mamboVoice", "wantMambo", "prefermambo" },
+			["Function"] = function(args, speaker)
+				configHandler(
+					"edit",
+					{ "options", "preferMambo" },
+					(args[1] == "true" and true or false) or not mommyCfg.options.preferMambo
+				)
+
+				notify(
+					"yesMommy.mommyMambo",
+					"preferMambo set to "
+						.. tostring(mommyCfg.options.preferMambo)
+						.. (mommyCfg.options.preferMambo and " (good choice!!!!)" or " ...awww")
+				)
+			end,
+		},
+		-- ["addTrack"] = {
+		-- 	["ListName"] = "addTrack [name] [url] [json]",
+		-- 	["Description"] = "add a new asmr track - name url(must end .mp3) json(optional audiodesc)",
+		-- 	["Aliases"] = { "addTrack", "addasmr" },
+		-- 	["Function"] = function(args, speaker)
+		-- 		addTrack(args, speaker)
+		-- 	end,
+		-- },
+		-- ["removeTrack"] = {
+		-- 	["ListName"] = "removeTrack [name]",
+		-- 	["Description"] = "remove asmr track",
+		-- 	["Aliases"] = { "removetrack", "removeasmr" },
+		-- 	["Function"] = function(args, speaker)
+		-- 		removeTrack(args[1])
+		-- 	end,
+		-- },
+	},
+}
+
+return Plugin

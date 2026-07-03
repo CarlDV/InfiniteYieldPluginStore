@@ -1,8 +1,29 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-02T05:20:24.788641+00:00",
-  "total": 553,
+  "updated_at": "2026-07-03T00:04:08.653046+00:00",
+  "total": 554,
   "plugins": [
+    {
+      "id": "1522340767845056776",
+      "name": "yesMommy",
+      "author": "h",
+      "date": "2026-07-02T20:38:42.778000+00:00",
+      "files": [
+        {
+          "filename": "Screen_Recording_2026-07-03_at_03.19.12.mov",
+          "url": "plugins/1522340767845056776/Screen_Recording_2026-07-03_at_03.19.12.mov",
+          "size": 3321897,
+          "is_plugin": false
+        },
+        {
+          "filename": "yesMommy.iy",
+          "url": "plugins/1522340767845056776/yesMommy.iy",
+          "size": 23371,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1521766502661886062",
       "name": "pluginstore2",
