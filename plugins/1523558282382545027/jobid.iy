@@ -1,0 +1,43 @@
+local Plugin = {
+    ["PluginName"] = "jobid",
+    ["PluginDescription"] = "This plugin lets you join and copy jobid's",
+    ["Commands"] = {
+        ["joinjobid"] = {
+            ["ListName"] = "joinjobid / jid / joinid [jobid]",
+            ["Description"] = "Teleports you to a specific server.",
+            ["Aliases"] = {"jid", "joinid"},
+            ["Function"] = function(args, speaker)
+				if args[1] then
+					-- thanks to Amity for fixing
+					local servers = {}
+					local req = game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Desc&limit=100&excludeFullGames=true")
+					local body = game:GetService("HttpService"):JSONDecode(req)
+
+					if body and body.data then
+						for i, v in next, body.data do
+							if type(v) == "table" and v.id == getstring(1, args) then
+								table.insert(servers, 1, v.id)
+							end
+						end
+					end
+
+					if #servers > 0 then
+						game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game:GetService("Players").LocalPlayer)
+					else
+						notify("Error", "Couldn't find that specific server")
+					end
+				end
+            end
+        },
+		["copyjobid"] = {
+            ["ListName"] = "copyjobid / cid",
+            ["Description"] = "Copies the job id",
+            ["Aliases"] = {"cid"},
+            ["Function"] = function(args, speaker)
+				everyClipboard(game.JobId)
+            end
+        }	
+    }
+}
+
+return Plugin

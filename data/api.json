@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-03T00:04:08.653046+00:00",
+  "updated_at": "2026-07-06T11:52:59.972144+00:00",
   "total": 554,
   "plugins": [
+    {
+      "id": "1523558282382545027",
+      "name": "jobid",
+      "author": "dwxgoatgroup",
+      "date": "2026-07-06T05:16:40.864000+00:00",
+      "files": [
+        {
+          "filename": "jobid.iy",
+          "url": "plugins/1523558282382545027/jobid.iy",
+          "size": 1516,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1522340767845056776",
       "name": "yesMommy",
@@ -1034,7 +1049,7 @@
     {
       "id": "1470722423098970217",
       "name": "Welder",
-      "author": "lunniscule",
+      "author": "deerius",
       "date": "2026-02-10T10:05:50.368000+00:00",
       "files": [
         {
@@ -2646,7 +2661,7 @@
     {
       "id": "1071697250054578177",
       "name": "yttd",
-      "author": "joshycuteball",
+      "author": "joshytardball",
       "date": "2023-02-05T07:42:15.585000+00:00",
       "files": [
         {
@@ -2766,7 +2781,7 @@
     {
       "id": "1054574569312239696",
       "name": "coinflip",
-      "author": "joshycuteball",
+      "author": "joshytardball",
       "date": "2022-12-20T01:42:50.372000+00:00",
       "files": [
         {
@@ -3345,27 +3360,6 @@
           "url": "plugins/961090124060454973/unknown.png",
           "size": 11716,
           "is_plugin": false
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "961081480052875314",
-      "name": "brickiy",
-      "author": "Deleted User",
-      "date": "2022-04-06T01:54:40.875000+00:00",
-      "files": [
-        {
-          "filename": "unknown.png",
-          "url": "plugins/961081480052875314/unknown.png",
-          "size": 8927,
-          "is_plugin": false
-        },
-        {
-          "filename": "brickiy.iy",
-          "url": "plugins/961081480052875314/brickiy.iy",
-          "size": 126,
-          "is_plugin": true
         }
       ],
       "loadstring_urls": []
