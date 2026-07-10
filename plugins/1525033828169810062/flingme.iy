@@ -1,0 +1,77 @@
+local Plugin = {
+	["PluginName"] = "FlingMe",
+	["PluginDescription"] = "Fling yourself with a chosen amount of power.",
+	["Commands"] = {
+		["flingme"] = {
+			["ListName"] = "flingme [power]",
+			["Description"] = "Fling yourself. Default power is 50; 100 is extremely powerful.",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local character = speaker.Character
+				if not character then
+					warn("Character not found.")
+					return
+				end
+
+				local root = character:FindFirstChild("HumanoidRootPart")
+				local humanoid = character:FindFirstChildOfClass("Humanoid")
+
+				if not root or not humanoid then
+					warn("Humanoid or HumanoidRootPart not found.")
+					return
+				end
+
+				local power = tonumber(args and args[1]) or 50
+
+				if power ~= power or power == math.huge or power == -math.huge then
+					warn("Power must be a valid number.")
+					return
+				end
+
+				if power <= 0 then
+					warn("Power must be greater than 0.")
+					return
+				end
+
+				local angle = math.random() * math.pi * 2
+				local upwardForce = math.random(40, 100) / 100
+
+				local launchDirection = Vector3.new(
+					math.cos(angle),
+					upwardForce,
+					math.sin(angle)
+				).Unit
+
+				local launchVelocity = power * 12
+				local spinPower = power * 10
+
+				local function randomSpin()
+					return Vector3.new(
+						math.random(-spinPower, spinPower),
+						math.random(-spinPower, spinPower),
+						math.random(-spinPower, spinPower)
+					)
+				end
+
+				humanoid:ChangeState(Enum.HumanoidStateType.FallingDown)
+
+				root.AssemblyLinearVelocity += launchDirection * launchVelocity
+				root.AssemblyAngularVelocity = randomSpin()
+
+				task.spawn(function()
+					for _ = 1, 4 do
+						task.wait(0.05)
+
+						if not root.Parent then
+							return
+						end
+
+						root.AssemblyAngularVelocity = randomSpin()
+					end
+				end)
+			end
+		}
+	}
+}
+
+return Plugin
