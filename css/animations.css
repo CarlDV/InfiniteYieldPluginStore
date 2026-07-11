@@ -1,7 +1,7 @@
 :root {
-    --spring-bounce: cubic-bezier(0.32, 0.72, 0, 1.05);
-    --spring-smooth: cubic-bezier(0.25, 1, 0.5, 1);
-    --spring-squish: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1); /* Ultra smooth ease-out */
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15); /* Elegant subtle bounce */
+    --ease-squish: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button,
@@ -13,8 +13,15 @@ select,
 .filter-btn,
 .dl-all-btn,
 .close-btn {
-    transition: all 0.5s var(--spring-bounce) !important;
+    transition: transform 0.6s var(--ease-fluid), 
+                box-shadow 0.6s var(--ease-fluid), 
+                opacity 0.6s var(--ease-fluid), 
+                border-radius 0.6s var(--ease-fluid), 
+                background-color 0.4s ease, 
+                border-color 0.4s ease, 
+                color 0.4s ease !important;
     transform-origin: center;
+    will-change: transform;
 }
 
 button:active,
@@ -24,30 +31,39 @@ button:active,
 .dl-all-btn:active,
 .card-share:active,
 .msg-btn:active {
-    transform: scale(0.88) !important;
-    border-radius: 16px !important;
-    opacity: 0.8 !important;
+    transform: scale(0.96) !important;
+    border-radius: 14px !important;
+    opacity: 0.85 !important;
+    transition: transform 0.3s var(--ease-squish), opacity 0.3s ease !important;
+}
+
+/* Fluid card hover effects */
+.card {
+    position: relative;
+    overflow: hidden;
 }
 
 .card:hover {
-    transform: translateY(-8px) scale(1.02) !important;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
-    border-radius: 20px !important;
+    transform: translateY(-6px) scale(1.01) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+    border-radius: 26px !important;
 }
 
 .card:active {
-    transform: scale(0.94) !important;
-    border-radius: 28px !important;
+    transform: scale(0.97) !important;
+    border-radius: 30px !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.4s var(--ease-squish) !important;
 }
 
 .overlay {}
 
 .overlay:not(.hidden):not(.closing) .modal {
-    animation: modal-spring-in 0.7s var(--spring-bounce) forwards;
+    animation: modal-fluid-in 0.7s var(--ease-spring) forwards;
 }
 
 .overlay.closing .modal {
-    animation: modal-spring-out 0.4s var(--spring-squish) forwards;
+    animation: modal-fluid-out 0.4s var(--ease-squish) forwards;
 }
 
 .overlay.closing {
@@ -55,10 +71,10 @@ button:active,
     pointer-events: none;
 }
 
-@keyframes modal-spring-in {
+@keyframes modal-fluid-in {
     0% {
         opacity: 0;
-        transform: scale(0.9) translateY(30px);
+        transform: scale(0.94) translateY(20px);
     }
 
     100% {
@@ -67,7 +83,7 @@ button:active,
     }
 }
 
-@keyframes modal-spring-out {
+@keyframes modal-fluid-out {
     0% {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -75,57 +91,56 @@ button:active,
 
     100% {
         opacity: 0;
-        transform: scale(0.95) translateY(20px);
+        transform: scale(0.97) translateY(10px);
     }
 }
 
 @media (max-width: 768px) {
-    @keyframes modal-spring-in {
+    @keyframes modal-fluid-in {
         0% {
-            opacity: 1;
-            transform: translateY(100%);
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
         }
 
         100% {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
     }
 
-    @keyframes modal-spring-out {
+    @keyframes modal-fluid-out {
         0% {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         100% {
-            opacity: 1;
-            transform: translateY(100%);
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
         }
     }
 }
 
 input:focus,
 select:focus {
-    transform: scale(1.02);
+    transform: scale(1.01);
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
 }
 
 .logo:hover .brand-logo {
-    transform: scale(1.15) rotate(5deg) !important;
+    transform: scale(1.08) rotate(3deg) !important;
 }
 
 .brand-logo {
-    transition: transform 0.6s var(--spring-bounce) !important;
+    transition: transform 0.6s var(--ease-spring) !important;
 }
 
 #loading {
-    animation: bounce-pulse 1.5s infinite var(--spring-smooth);
+    animation: bounce-pulse 2.5s infinite var(--ease-fluid);
 }
 
 @keyframes bounce-pulse {
-
     0%,
     100% {
         transform: scale(1);
@@ -141,7 +156,7 @@ select:focus {
 @keyframes fade-in-up {
     0% {
         opacity: 0;
-        transform: translateY(20px) scale(0.96);
+        transform: translateY(20px) scale(0.98);
     }
 
     100% {

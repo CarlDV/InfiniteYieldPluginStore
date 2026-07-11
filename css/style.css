@@ -1,4 +1,3 @@
-/* ---- Base ---- */
 *,
 *::before,
 *::after {
@@ -54,7 +53,6 @@ body {
     border-radius: 3px;
 }
 
-/* ---- Header ---- */
 header {
     position: sticky;
     top: 16px;
@@ -191,8 +189,6 @@ header {
     flex-shrink: 0;
 }
 
-
-
 .logo {
     display: flex;
     align-items: center;
@@ -227,7 +223,6 @@ header {
     font-family: var(--mono);
 }
 
-/* ---- Stats Strip (index.html only) ---- */
 .stats-strip {
     display: flex;
     align-items: center;
@@ -271,13 +266,11 @@ header {
     margin: 0 2px;
 }
 
-/* ---- Main ---- */
 main {
     margin: 0 auto;
     padding: 48px 24px 64px;
 }
 
-/* ---- Toolbar ---- */
 .toolbar {
     display: flex;
     align-items: center;
@@ -418,14 +411,12 @@ main {
     color: var(--text);
 }
 
-/* ---- Grid ---- */
 .grid {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
 }
 
-/* ---- Card ---- */
 .card {
     background: #333333;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -611,7 +602,6 @@ main {
     color: #34d399;
 }
 
-/* Loadstring links in modal */
 .loadstring-link {
     display: block;
     font-size: 0.82rem;
@@ -646,9 +636,6 @@ span.author-click:hover,
     text-decoration: underline;
 }
 
-
-
-/* ---- Status ---- */
 .status {
     text-align: center;
     padding: 48px 0;
@@ -656,7 +643,6 @@ span.author-click:hover,
     font-size: 0.9rem;
 }
 
-/* ---- Modal ---- */
 .overlay {
     position: fixed;
     inset: 0;
@@ -822,7 +808,6 @@ span.author-click:hover,
     display: none !important;
 }
 
-/* ---- Embeds ---- */
 .embed-card {
     display: flex;
     margin: 12px 0;
@@ -1007,7 +992,6 @@ span.author-click:hover,
     display: none;
 }
 
-/* Discord Markdown Elements */
 .section-text h3,
 .section-text h4,
 .section-text h5 {
@@ -1270,7 +1254,6 @@ span.author-click:hover,
     text-decoration: underline;
 }
 
-/* ---- Tutorials ---- */
 .tutor-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -1359,7 +1342,6 @@ span.author-click:hover,
     color: var(--text2);
 }
 
-/* ---- FAQ Section ---- */
 .faq-section {
     margin-top: 60px;
     padding-top: 60px;
@@ -1509,7 +1491,6 @@ span.author-click:hover,
     font-weight: 600;
 }
 
-/* ---- Shared Code Blocks ---- */
 .api-code {
     background: #0a0a0a;
     border: 1px solid var(--border);
@@ -1570,7 +1551,6 @@ span.author-click:hover,
     color: var(--accent);
 }
 
-/* ---- Hero Links ---- */
 .hero-links {
     display: flex;
     align-items: center;
@@ -1609,7 +1589,6 @@ span.author-click:hover,
     box-shadow: none;
 }
 
-/* ---- Executor List ---- */
 .executor-list {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border);
@@ -1750,9 +1729,6 @@ span.author-click:hover,
     }
 }
 
-
-
-/* ---- Responsive ---- */
 @media (max-width: 850px) {
     .tutor-grid {
         grid-template-columns: 1fr;
@@ -1760,7 +1736,6 @@ span.author-click:hover,
 }
 
 @media (max-width: 1000px) {
-
     header {
         top: 8px;
         width: calc(100% - 16px);
@@ -1964,7 +1939,6 @@ span.author-click:hover,
     }
 }
 
-/* ---- Authors Page ---- */
 .authors-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -2139,7 +2113,6 @@ span.author-click:hover,
     color: var(--text);
 }
 
-/* Author Modal Overrides */
 .author-modal-body {
     padding: 24px 28px 28px;
     overflow-y: auto;
@@ -2325,7 +2298,6 @@ span.author-click:hover,
     display: none !important;
 }
 
-/* ---- Maintenance ---- */
 .maintenance-overlay {
     position: fixed;
     inset: 0;
@@ -2388,7 +2360,6 @@ span.author-click:hover,
     text-transform: uppercase;
 }
 
-/* ---- Custom Dropdown ---- */
 .custom-select {
     position: relative;
     display: inline-block;
@@ -2481,9 +2452,6 @@ span.author-click:hover,
     font-weight: 600;
 }
 
-/* ----------------------------------------------------
-   Insanely Good Dialog UI (iOS 27 style, unique, professional)
-------------------------------------------------------- */
 #custom-dialog-overlay {
     background: rgba(0, 0, 0, 0.45) !important;
     z-index: 9999 !important;
