@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-10T15:26:37.240332+00:00",
-  "total": 555,
+  "updated_at": "2026-07-12T23:55:57.810543+00:00",
+  "total": 556,
   "plugins": [
+    {
+      "id": "1526012168556777493",
+      "name": "emotemanager",
+      "author": "Felix",
+      "date": "2026-07-12T23:47:32.919000+00:00",
+      "files": [
+        {
+          "filename": "emotemanager.iy",
+          "url": "plugins/1526012168556777493/emotemanager.iy",
+          "size": 3803,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1525033828169810062",
       "name": "flingme",
@@ -221,7 +236,7 @@
     {
       "id": "1514193210832846949",
       "name": "savelogs, KeepIYImproved, VoiceChatBypass",
-      "author": "! FurryBoy",
+      "author": "! FurryBoy..?",
       "date": "2026-06-10T09:03:13.812000+00:00",
       "files": [
         {
@@ -1950,7 +1965,7 @@
     {
       "id": "1334700625069473832",
       "name": "Inject",
-      "author": "disabled",
+      "author": "libertar",
       "date": "2025-01-31T01:43:46.555000+00:00",
       "files": [
         {

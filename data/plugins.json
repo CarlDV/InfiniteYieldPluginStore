@@ -1,8 +1,35 @@
 {
-  "scraped_at": "2026-07-10T15:26:37.220822+00:00",
+  "scraped_at": "2026-07-12T23:55:57.789386+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 555,
+  "total_plugins": 556,
   "plugins": [
+    {
+      "id": "1526012168556777493",
+      "name": "emotemanager",
+      "description": "# Emote Manager\n-# Made by Rocky, tested and improved by Felix\n\n## Commands\n- `addemote [id]`\n> - Adds an emote by its ID. You can get these from the URL of the emote's page on the Roblox catalog (<https://www.roblox.com/catalog>)\n> - Aliases are adde and setemote\n- `delemote [name / id]`\n> - Remove an emote by its name or ID. You can get these from the URL of the emote's page on the Roblox catalog (<https://www.roblox.com/catalog>)\n> - Aliases are `unsetemote, rmemote, removeemote, and deleteemote`\n- `clearemotes`\n> - Removes all equipped emotes, including ones you own.\n> - **This does NOT get rid of them from your Roblox inventory, only the emote wheel in game. Rejoining will undo this**\n\nBug fixes are to be reported to Felix and may or may not be fixed. This is mostly a project made of boredom and bug fixes rely on continued boredom. it got deleted by mistake and the update with saving got lost due to a drive going bad",
+      "author": {
+        "name": "Felix",
+        "username": "felixthefenfox",
+        "avatar": "https://cdn.discordapp.com/avatars/1490233597507014686/f635cad29502b7b587f879d3ed08a8a6.png?size=1024"
+      },
+      "date": "2026-07-12T23:47:32.919000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1526012168556777493",
+      "files": [
+        {
+          "filename": "emotemanager.iy",
+          "url": "plugins/1526012168556777493/emotemanager.iy",
+          "size": 3803,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [
+        "https://www.roblox.com/catalog",
+        "https://www.roblox.com/catalog"
+      ],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1525033828169810062",
       "name": "flingme",
@@ -354,7 +381,7 @@
       "name": "savelogs, KeepIYImproved, VoiceChatBypass",
       "description": "been keeping 3 plugins for a while and now got access.\n\n# Introducing 3 plugins by me.\nI have made those plugins because i was bored so why not publish them publicly?\n\n- `savelogs.iy`\n  - It's entire purpose is to save console logs as a file in your exploit workspace.\n- `KeepIYImproved.iy`\n  - basically keepiy but *better*, it makes it whenever you leave and rejoin another game from roblox app it will still load up infinite yield, you disable it by using **unkeepiy** or **togglekeepiy**\n - `VoiceChatBypass.iy`\n  - new voice chat bypass, it bypasses suspensions unless you rejoin but wont save you from roblox listening... okay yeah anyways idk if it still works haven't used it in awhile.",
       "author": {
-        "name": "! FurryBoy",
+        "name": "! FurryBoy..?",
         "username": "furryboy.1",
         "avatar": "https://cdn.discordapp.com/avatars/773291558492438578/816f97622ccc57ea1a7eedadb551d1b9.png?size=1024"
       },
@@ -2650,7 +2677,7 @@
       "author": {
         "name": "arqui",
         "username": "iblamearqui",
-        "avatar": "https://cdn.discordapp.com/avatars/1352725175988125797/3dc3b7e95c8c66b4b0794d6147d6ac3a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1352725175988125797/b97080553883be7846b602c20f613e1b.png?size=1024"
       },
       "date": "2025-07-31T09:39:38.292000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1400412583407648828",
@@ -3115,7 +3142,7 @@
       "author": {
         "name": "*+❀ Mochi ❀+*",
         "username": "mochimreow",
-        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/a1f18189539428887083a62883701c46.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/ef80b84396ce74c0778415d4e051c02c.png?size=1024"
       },
       "date": "2025-03-11T00:10:35.312000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1348810300455125124",
@@ -3253,7 +3280,7 @@
       "name": "Inject",
       "description": "# ** Script Injector**\nA practical plugin for users who run multiple scripts, making Infinity Yield the central hub for all your injectables. No more manually organizing.\n## About the script \n- This script allows users to easily inject Lua scripts into their game.\n- To customize, replace the example URLs with your own scripts.\n### How to edit:\n 1. Find the 'script_template' table in the script.\n 2. Replace the example URLs with your own.\n 3. Add or remove commands as needed.",
       "author": {
-        "name": "disabled",
+        "name": "libertar",
         "username": "libertar",
         "avatar": "https://cdn.discordapp.com/embed/avatars/1.png"
       },
@@ -3905,7 +3932,7 @@
       "author": {
         "name": "Mr. I-have-nothing-in-my-pants",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/07444ba2c2056d183db9afc51ecaa463.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/250378486fad8bfbc0cc19ce1e5d713d.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -5637,7 +5664,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a51e4f2&is=6a509372&hm=31fbc3d9ad4c6cef78f7181c159b4219c922c39efaa0e8e9bf4265627a62639e&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5530b2&is=6a53df32&hm=9b87d22b8331a478135167a7d5bb25b00e035d3bfc4f829f679f5ae77e634641&"
           },
           "image": null,
           "video": null
@@ -5651,7 +5678,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a51e509&is=6a509389&hm=53e5fc7d513550cdf424fd926d1488d329cb100bd0affffc4413d9aab23aea20&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5530c9&is=6a53df49&hm=e53585eac7dacc9c2cc80188075108f7cba151c58be0e57328e21bbff70a1ba6&"
           },
           "image": null,
           "video": null
@@ -6514,7 +6541,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a51e4f2&is=6a509372&hm=31fbc3d9ad4c6cef78f7181c159b4219c922c39efaa0e8e9bf4265627a62639e&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5530b2&is=6a53df32&hm=9b87d22b8331a478135167a7d5bb25b00e035d3bfc4f829f679f5ae77e634641&"
           },
           "image": null,
           "video": null
@@ -6528,7 +6555,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a51e509&is=6a509389&hm=53e5fc7d513550cdf424fd926d1488d329cb100bd0affffc4413d9aab23aea20&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5530c9&is=6a53df49&hm=e53585eac7dacc9c2cc80188075108f7cba151c58be0e57328e21bbff70a1ba6&"
           },
           "image": null,
           "video": null
@@ -7901,7 +7928,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a525f65&is=6a510de5&hm=c7c4912950a4018140e50de75a8c0c2fe619d65eb227ee6726227de47ac0be1c&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a550265&is=6a53b0e5&hm=840bc84d74bcffd5b657083f8f2dc15ffec51371ca10a3fe0be42c57a3bbc9ec&"
           },
           "image": null,
           "video": null
@@ -9974,7 +10001,7 @@
       "author": {
         "name": "mdlk",
         "username": "mdlk.74k",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/8a9c1ca77f15ea106458ed907c13da0c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/f7acde9203ce2068d2939b378f6fd77f.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",

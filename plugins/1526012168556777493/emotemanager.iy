@@ -1,0 +1,114 @@
+local eEmotes = {}
+local emotes
+local addedCon
+
+local Plugin = {
+	["PluginName"] = "Rocky's Emote Manager",
+	["PluginDescription"] = "Allows you add emotes to your character even if you don't own them!",
+	["Commands"] = {
+		["addemote"] = {
+			["ListName"] = "addemote [id]",
+			["Description"] = "Adds an emote by its ID.",
+			["Aliases"] = {"adde", "setemote"},
+			["Function"] = function(args, speaker)
+				local hum = speaker.Character and speaker.Character:FindFirstChildOfClass("Humanoid")
+				local desc = hum and hum:GetAppliedDescription()
+				local emoteId = tonumber(args[1])
+				if not (desc and emoteId) then return notify("Error", "Bad argument or no humanoid") end
+
+				local success, tEmote = pcall(MarketplaceService.GetProductInfoAsync, MarketplaceService, emoteId, Enum.InfoType.Asset)
+				if success and tEmote and tEmote.Name and tEmote.ProductType == "Collectible Item" then
+					if #eEmotes < 1 then
+						for _, e in next, desc:GetEquippedEmotes() do
+							table.insert(eEmotes, e.Name)
+						end
+					end
+
+					desc:AddEmote(tEmote.Name, emoteId)
+					table.insert(eEmotes, tEmote.Name)
+					emotes = desc:GetEmotes()
+					desc:SetEquippedEmotes(eEmotes)
+					hum:ApplyDescriptionClientServer(desc)
+					if not addedCon then
+						addedCon = speaker.CharacterAdded:Connect(function(char)
+							local hum = char:FindFirstChildOfClass("Humanoid") or task.wait(.3) and char:FindFirstChildOfClass("Humanoid")
+							local desc = hum and hum:GetAppliedDescription()
+							if desc then
+								desc:SetEmotes(emotes)
+								desc:SetEquippedEmotes(eEmotes)
+								hum:ApplyDescriptionClientServer(desc)
+							end
+						end)
+					end
+					notify("Success", "Added " .. tEmote.Name)
+				else
+					notify("Error", "Could not add the provided emote. Did you get the right ID?")
+				end
+			end
+		},
+
+		["delemote"] = {
+			["ListName"] = "delemote [name / id]",
+			["Description"] = "Remove an emote by its name or ID.",
+			["Aliases"] = {"unsetemote", "rmemote", "removeemote", "deleteemote"},
+			["Function"] = function(args, speaker)
+				local hum = speaker.Character and speaker.Character:FindFirstChildOfClass("Humanoid")
+				local desc = hum and hum:GetAppliedDescription()
+
+				local tEmote = tonumber(args[1]) or getstring(1, args)
+				if desc then
+					for name, ids in next, desc:GetEmotes() do
+						if name == tEmote or table.find(ids, tEmote) then
+							tEmote = name
+							break
+						end
+					end
+				elseif not desc then
+					return notify("Error", "Missing humanoid")
+				end
+
+				local emote = table.find(eEmotes, tEmote)
+				if typeof(tEmote) == "string" and emote and desc then
+					desc:RemoveEmote(tEmote)
+					table.remove(eEmotes, emote)
+					desc:SetEquippedEmotes(eEmotes)
+					hum:ApplyDescriptionClientServer(desc)
+					if #eEmotes < 1 then
+						addedCon:Disconnect()
+						addedCon = nil
+					end
+					notify("Success", "Removed " .. tEmote)
+				else
+					notify("Error", "Could not remove the provided emote. Did you get the right name/ID?")
+				end
+			end
+		},
+		
+		["clearemotes"] = {
+			["ListName"] = "clearemotes",
+			["Description"] = "Removes all equipped emotes, including ones you own.",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local hum = speaker.Character and speaker.Character:FindFirstChildOfClass("Humanoid")
+				local desc = hum and hum:GetAppliedDescription()
+
+				if desc then
+					for _, tbl in next, {emotes, eEmotes} do
+						table.clear(tbl)
+						desc:SetEmotes(tbl)
+						desc:SetEquippedEmotes(tbl)
+					end
+					addedCon:Disconnect()
+					addedCon = nil
+					hum:ApplyDescriptionClientServer(desc)
+
+					notify("Cleared Emotes", "Cleared all equipped emotes!")
+				else
+					notify("Error", "Could not remove the provided emote. Did you get the right name/ID?")
+				end
+			end
+		}
+	}
+}
+
+return Plugin
