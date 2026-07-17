@@ -101,6 +101,20 @@ local cur = nil
 local winPos = UDim2.new(0.5, 0, 0.5, 0)
 local window, details, installBtn, scrl, dTitle, dScrl
 
+local storeConfig = { useAnims = true }
+pcall(function()
+    if isfile and isfile("iy_store_config.json") and readfile then
+        local data = HS:JSONDecode(readfile("iy_store_config.json"))
+        if type(data) == "table" then storeConfig = data end
+    end
+end)
+
+local function saveConfig()
+    if writefile then
+        pcall(function() writefile("iy_store_config.json", HS:JSONEncode(storeConfig)) end)
+    end
+end
+
 local function connectHover(btn, def, hover)
     btn.MouseEnter:Connect(function()
         TS:Create(btn, TweenInfo.new(0.12), { BackgroundColor3 = hover }):Play()
@@ -114,15 +128,30 @@ local function playAnim(tgt, open, cb)
     local isWindow = (tgt == window)
     local targetSize = isWindow and UDim2.new(0.9, 0, 0.85, 0) or UDim2.new(0.95, 0, 0.9, 0)
     
+    if not storeConfig.useAnims then
+        if open then
+            tgt.Visible = true
+            tgt.Size = targetSize
+            tgt.BackgroundTransparency = 0
+            local stroke = tgt:FindFirstChildOfClass("UIStroke")
+            if stroke then stroke.Transparency = 0 end
+            if cb then cb() end
+        else
+            tgt.Visible = false
+            if cb then cb() end
+        end
+        return
+    end
+
     if open then
         tgt.Visible = true
-        tgt.Size = UDim2.new(0, 0, 0, 0)
+        tgt.Size = UDim2.new(0, 0, 0, 1)
         tgt.BackgroundTransparency = 1
         local stroke = tgt:FindFirstChildOfClass("UIStroke")
         if stroke then stroke.Transparency = 1 end
         
         local t1 = TS:Create(tgt, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-            Size = UDim2.new(targetSize.X.Scale, targetSize.X.Offset, 0, 0),
+            Size = UDim2.new(targetSize.X.Scale, targetSize.X.Offset, 0, 1),
             BackgroundTransparency = 0
         })
         t1:Play()
@@ -136,14 +165,14 @@ local function playAnim(tgt, open, cb)
         end)
     else
         local t1 = TS:Create(tgt, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-            Size = UDim2.new(targetSize.X.Scale, targetSize.X.Offset, 0, 0)
+            Size = UDim2.new(targetSize.X.Scale, targetSize.X.Offset, 0, 1)
         })
         local stroke = tgt:FindFirstChildOfClass("UIStroke")
         if stroke then TS:Create(stroke, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), { Transparency = 1 }):Play() end
         t1:Play()
         t1.Completed:Connect(function()
             local t2 = TS:Create(tgt, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.In), {
-                Size = UDim2.new(0, 0, 0, 0),
+                Size = UDim2.new(0, 0, 0, 1),
                 BackgroundTransparency = 1
             })
             t2:Play()
@@ -335,8 +364,28 @@ min.BorderSizePixel = 0
 min.ZIndex = 10
 min.Active = true
 
+local animBtn = Instance.new("TextButton", top)
+animBtn.Text = storeConfig.useAnims and "★" or "☆"
+animBtn.Size = UDim2.new(0, 40, 1, 0)
+animBtn.Position = UDim2.new(1, -120, 0, 0)
+animBtn.BackgroundTransparency = 1
+animBtn.TextColor3 = storeConfig.useAnims and Color3.fromRGB(245, 245, 247) or Color3.fromRGB(158, 158, 162)
+animBtn.Font = Enum.Font.GothamMedium
+animBtn.TextSize = 16
+animBtn.BorderSizePixel = 0
+animBtn.ZIndex = 10
+animBtn.Active = true
+
+animBtn.MouseButton1Click:Connect(function()
+    storeConfig.useAnims = not storeConfig.useAnims
+    animBtn.Text = storeConfig.useAnims and "★" or "☆"
+    animBtn.TextColor3 = storeConfig.useAnims and Color3.fromRGB(245, 245, 247) or Color3.fromRGB(158, 158, 162)
+    saveConfig()
+end)
+
 connectHover(close, Color3.fromRGB(32, 32, 36), Color3.fromRGB(190, 60, 60))
 connectHover(min, Color3.fromRGB(32, 32, 36), Color3.fromRGB(44, 44, 48))
+connectHover(animBtn, Color3.fromRGB(32, 32, 36), Color3.fromRGB(44, 44, 48))
 
 local box = Instance.new("TextBox", window)
 box.PlaceholderText = "Search directory..."
@@ -497,7 +546,7 @@ local function downloadPlugin(p, btn)
     end)
 end
 
-local function deletePlugin(p)
+local function remPlugin(p)
     if not delfile then return end
     for _, f in pairs(p.files or {}) do
         if f.filename:lower():match("%.iy$") then
@@ -679,7 +728,7 @@ local function drawList(list)
             gb.MouseButton1Click:Connect(function()
                 if gb.Text == "GET" then downloadPlugin(p, gb) end
             end)
-            db.MouseButton1Click:Connect(function() deletePlugin(p) end)
+            db.MouseButton1Click:Connect(function() remPlugin(p) end)
 
             card:SetAttribute("p_id", p.id)
 
