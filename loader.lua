@@ -280,17 +280,59 @@ end
 
 local function md(s)
     if type(s) ~= "string" or s == "" then return "" end
-    s = s:gsub("<@!?%d+>", "@user"):gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")
-    s = s:gsub("%*%*(.-)%*%*", "<b>%1</b>"):gsub("%*(.-)%*", "<i>%1</i>")
-    s = s:gsub("__(.-)__", "<u>%1</u>"):gsub("~~(.-)~~", "<s>%1</s>")
-    s = s:gsub("```%w*\n?(.-)```", "<font color='#A0A0A0'>%1</font>")
-    s = s .. "\n"
-    s = s:gsub("&gt; (.-)\n", "<font color='#808080'><i>%1</i></font>\n")
-    s = s:gsub("%-# (.-)\n", "<font size='10' color='#707070'>%1</font>\n")
-    s = s:gsub("### (.-)\n", "<font size='15'><b>%1</b></font>\n")
-    s = s:gsub("## (.-)\n", "<font size='17'><b>%1</b></font>\n")
-    s = s:gsub("# (.-)\n", "<font size='21'><b>%1</b></font>\n")
-    return s:sub(1, -2)
+    
+    s = s:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;")
+    
+    local blocks = {}
+    s = s:gsub("```(.-)```", function(c)
+        table.insert(blocks, c)
+        return "\001" .. #blocks .. "\001"
+    end)
+    
+    local inlines = {}
+    s = s:gsub("`([^`\n]+)`", function(c)
+        table.insert(inlines, c)
+        return "\002" .. #inlines .. "\002"
+    end)
+    
+    s = "\n" .. s
+    s = s:gsub("\n&gt;&gt;&gt; (.*)", "\n<font color='#808080'><i>%1</i></font>")
+    s = s:gsub("\n&gt; ([^\n]+)", "\n<font color='#808080'><i>%1</i></font>")
+    s = s:gsub("\n### ([^\n]+)", "\n<font size='15'><b>%1</b></font>")
+    s = s:gsub("\n## ([^\n]+)", "\n<font size='17'><b>%1</b></font>")
+    s = s:gsub("\n# ([^\n]+)", "\n<font size='21'><b>%1</b></font>")
+    s = s:gsub("\n%-# ([^\n]+)", "\n<font size='10' color='#707070'>%1</font>")
+    s = s:gsub("\n%- ([^\n]+)", "\n• %1")
+    s = s:gsub("\n%* ([^\n]+)", "\n• %1")
+    s = s:sub(2)
+    
+    s = s:gsub("%[([^\n]-)%]%(([^\n]-)%)", "<font color='#5865F2'><u>%1</u></font>")
+    
+    s = s:gsub("%*%*%*([^\n]-)%*%*%*", "<b><i>%1</i></b>")
+    s = s:gsub("%*%*([^\n]-)%*%*", "<b>%1</b>")
+    s = s:gsub("__([^\n]-)__", "<u>%1</u>")
+    s = s:gsub("%*([^\n]-)%*", "<i>%1</i>")
+    s = s:gsub("_([^\n]-)_", "<i>%1</i>")
+    s = s:gsub("~~([^\n]-)~~", "<s>%1</s>")
+    s = s:gsub("||([^\n]-)||", "<font color='#404040'>[Spoiler: %1]</font>")
+    
+    s = s:gsub("&lt;@!?%d+&gt;", "<font color='#5865F2'>@user</font>")
+    s = s:gsub("&lt;#%d+&gt;", "<font color='#5865F2'>#channel</font>")
+    s = s:gsub("&lt;@&amp;%d+&gt;", "<font color='#5865F2'>@role</font>")
+    s = s:gsub("&lt;a?:([^\n]-):%d+&gt;", ":%1:")
+    
+    for i = 1, #inlines do
+        local safe = inlines[i]:gsub("%%", "%%%%")
+        s = s:gsub("\002" .. i .. "\002", "<font face='RobotoMono' color='#A0A0A0'>" .. safe .. "</font>")
+    end
+    for i = 1, #blocks do
+        local c = blocks[i]
+        c = c:gsub("^%w+\n", "")
+        local safe = c:gsub("%%", "%%%%")
+        s = s:gsub("\001" .. i .. "\001", "<font face='RobotoMono' color='#A0A0A0'>" .. safe .. "</font>")
+    end
+    
+    return s
 end
 
 window = Instance.new("Frame", gui)
