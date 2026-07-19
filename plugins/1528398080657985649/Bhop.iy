@@ -1,0 +1,59 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local player = Players.LocalPlayer
+local heartBeatConnection
+
+local function startAutoJump(character)
+	if heartBeatConnection then
+		heartBeatConnection:Disconnect()
+		heartBeatConnection = nil
+	end
+
+	local humanoid = character:WaitForChild("Humanoid")
+
+	heartBeatConnection = RunService.Heartbeat:Connect(function()
+		if humanoid.Health <= 0 then
+			heartBeatConnection:Disconnect()
+			heartBeatConnection = nil
+			return
+		end
+
+		if humanoid.FloorMaterial ~= Enum.Material.Air then
+			humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+		end
+	end)
+end
+
+local function stopAutoJump()
+	if heartBeatConnection then
+		heartBeatConnection:Disconnect()
+		heartBeatConnection = nil
+	end
+end
+
+local Plugin = {
+	["PluginName"] = "Bhop",
+	["PluginDescription"] = "Thank you Thank you Thank you Thank you Thank you",
+	["Commands"] = {
+		["bhop"] = {
+			["ListName"] = "bhop/loopautojump",
+			["Description"] = "you can jump from the demons, until you got exhausted",
+			["Aliases"] = {"loopautojump"},
+			["Function"] = function(args, speaker)
+				if player.Character and not heartBeatConnection then
+					startAutoJump(player.Character)
+				end
+			end
+		},
+		["unbhop"] = {
+			["ListName"] = "unbhop/unloopautojump",
+			["Description"] = "Disables Bhop",
+			["Aliases"] = {"unloopautojump"},
+			["Function"] = function(args, speaker)
+				stopAutoJump()
+			end
+		}
+	}
+}
+
+return Plugin
