@@ -1,8 +1,32 @@
 {
-  "scraped_at": "2026-07-19T13:52:11.191465+00:00",
+  "scraped_at": "2026-07-19T19:24:02.074619+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 557,
+  "total_plugins": 558,
   "plugins": [
+    {
+      "id": "1528481980818395247",
+      "name": "showownership",
+      "description": "# Show Part Ownership\nShows your network ownership status of parts (Thanks to Secment for showing me the function)\n\n## Commands\n- `showownership / partownership`\n>  Shows your network ownership status of parts\n- `hideownership / noownership`\n> Stops showing your network ownership status of parts",
+      "author": {
+        "name": "Felix",
+        "username": "felixthefenfox",
+        "avatar": "https://cdn.discordapp.com/avatars/1490233597507014686/f635cad29502b7b587f879d3ed08a8a6.png?size=1024"
+      },
+      "date": "2026-07-19T19:21:42.049000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1528481980818395247",
+      "files": [
+        {
+          "filename": "showownership.iy",
+          "url": "plugins/1528481980818395247/showownership.iy",
+          "size": 734,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1528398080657985649",
       "name": "Bhop",
@@ -5691,7 +5715,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5dc272&is=6a5c70f2&hm=2511fb5391ec0d7a87c012eb89d6508fd2f2cbfe3ebb8023a24648726a8aa7f6&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5e6b32&is=6a5d19b2&hm=af5cf01268dc98b40a2a3a9cdda460443d3cca7062e904614b2129587089bac3&"
           },
           "image": null,
           "video": null
@@ -5705,7 +5729,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5dc289&is=6a5c7109&hm=1f3f05d9b8d06f7e1f33af516633446010635716655004a42b521cdbc47e44f7&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5e6b49&is=6a5d19c9&hm=c890ca4bd914aa814c0364a643ebe7e7d817d04bae9b40327165d634329f0547&"
           },
           "image": null,
           "video": null
@@ -6568,7 +6592,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5dc272&is=6a5c70f2&hm=2511fb5391ec0d7a87c012eb89d6508fd2f2cbfe3ebb8023a24648726a8aa7f6&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5e6b32&is=6a5d19b2&hm=af5cf01268dc98b40a2a3a9cdda460443d3cca7062e904614b2129587089bac3&"
           },
           "image": null,
           "video": null
@@ -6582,7 +6606,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5dc289&is=6a5c7109&hm=1f3f05d9b8d06f7e1f33af516633446010635716655004a42b521cdbc47e44f7&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5e6b49&is=6a5d19c9&hm=c890ca4bd914aa814c0364a643ebe7e7d817d04bae9b40327165d634329f0547&"
           },
           "image": null,
           "video": null
@@ -7955,7 +7979,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a5d9425&is=6a5c42a5&hm=5abcf54515fde1d413496eee5dad173cd755eebd55678d9dc93f8a11f54161eb&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a5e3ce5&is=6a5ceb65&hm=3c5d17e10fcefe1807f2212edc81c5aaf7b3baf22fb64b7646d908e601dafade&"
           },
           "image": null,
           "video": null

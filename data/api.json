@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-19T13:52:11.212895+00:00",
-  "total": 557,
+  "updated_at": "2026-07-19T19:24:02.094643+00:00",
+  "total": 558,
   "plugins": [
+    {
+      "id": "1528481980818395247",
+      "name": "showownership",
+      "author": "Felix",
+      "date": "2026-07-19T19:21:42.049000+00:00",
+      "files": [
+        {
+          "filename": "showownership.iy",
+          "url": "plugins/1528481980818395247/showownership.iy",
+          "size": 734,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1528398080657985649",
       "name": "Bhop",

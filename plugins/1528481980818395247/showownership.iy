@@ -1,0 +1,25 @@
+local Plugin = {
+	["PluginName"] = "Show Network Ownership",
+	["PluginDescription"] = "Shows your network ownership status of parts",
+	["Commands"] = {
+		["showownership"] = {
+			["ListName"] = "showownership / partownership",
+			["Description"] = "Shows your network ownership status of parts",
+			["Aliases"] = {"partownership"},
+			["Function"] = function(args, speaker)
+				settings().Physics.AreOwnersShown = true
+			end
+		},
+
+		["hideownership"] = {
+			["ListName"] = "hideownership / noownership",
+			["Description"] = "Stops showing your network ownership status of parts",
+			["Aliases"] = {"noownership"},
+			["Function"] = function(args, speaker)
+				settings().Physics.AreOwnersShown = false
+			end
+		}
+	}
+}
+
+return Plugin
