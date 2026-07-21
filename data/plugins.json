@@ -1,8 +1,35 @@
 {
-  "scraped_at": "2026-07-19T19:24:02.074619+00:00",
+  "scraped_at": "2026-07-21T21:34:15.143843+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 558,
+  "total_plugins": 559,
   "plugins": [
+    {
+      "id": "1529221541735170170",
+      "name": "MICUP-AITool",
+      "description": "# [MIC UP] Generate Tool\nspecially for those games\nhttps://www.roblox.com/games/15546218972/\nhttps://www.roblox.com/games/6884319169\n\n# Example Commands \n-1. Yellow Minecraft creeper: `generatetool big yellow cubic 1 1 1 100`\n-2. <:yummy:1478426059924832467> : `generatetool Three connected pieces. One vertical smooth gray pink SmoothPlastic pole structure. Two small spheres fused directly into the absolute bottom left and right sides. Zero spacing between spheres and the pole. One single bright red neon sphere resting on the top apex. Completely uniform cylindrical shapes. 5 1 1 1.1`\n-3. <a:bootlicker:1520465243673858221> : `generatetool Exactly four connected pieces. Two main large smooth SmoothPlastic spheres colored in white, perfectly fused into each other sideways with zero spacing. Positioned directly on the absolute top apex of these large spheres, there are exactly two additional micro-sized miniature spheres acting as tiny dual sensor nodes. The mini spheres are extremely small and merged tightly into the upper surface. Symmetrical double-paired geometry. 2 1 1 1`\n-4. ✈️ : `generatetool Exactly two separate tall slender vertical rectangular boxes. Total count of models is two. Extremely narrow width and high altitude. Flat four-sided top. Perfectly aligned to the global grid with zero rotation. Strictly 0-degree angle, parallel to each other. No 45-degree tilting. Only two isolated thin glass monoliths. 200 200 200 1`",
+      "author": {
+        "name": "Agent666_0",
+        "username": "agent6660",
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
+      },
+      "date": "2026-07-21T20:20:27.112000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1529221541735170170",
+      "files": [
+        {
+          "filename": "MICUP-AITool.iy",
+          "url": "plugins/1529221541735170170/MICUP-AITool.iy",
+          "size": 4765,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [
+        "https://www.roblox.com/games/15546218972/",
+        "https://www.roblox.com/games/6884319169"
+      ],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1528481980818395247",
       "name": "showownership",
@@ -3193,7 +3220,7 @@
       "author": {
         "name": "*+❀ Mochi ❀+*",
         "username": "mochimreow",
-        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/4e50e527879d1f75c3b7ce62147aaf9e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/575680d2c0fc38b7eae245798120bf7a.png?size=1024"
       },
       "date": "2025-03-11T00:10:35.312000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1348810300455125124",
@@ -3981,9 +4008,9 @@
       "name": "AnimationSpeed",
       "description": "Animation speed looper (The same as animspeed but looped basically)\n\ncommands:\n```animspeedloop [numb]\nstopanimspeed```",
       "author": {
-        "name": "Mr. I-have-nothing-in-my-pants",
+        "name": "the climber",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/250378486fad8bfbc0cc19ce1e5d713d.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/c7e9d141f6c3028be6c52b0f12045a5f.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -5715,7 +5742,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5e6b32&is=6a5d19b2&hm=af5cf01268dc98b40a2a3a9cdda460443d3cca7062e904614b2129587089bac3&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a610e32&is=6a5fbcb2&hm=c0f5b28fe5851c0bd0b82c1e6ce0defa2fba28c2dc0b26cda78bf4e4017f014b&"
           },
           "image": null,
           "video": null
@@ -5729,7 +5756,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5e6b49&is=6a5d19c9&hm=c890ca4bd914aa814c0364a643ebe7e7d817d04bae9b40327165d634329f0547&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a610e49&is=6a5fbcc9&hm=f2484b2c7966885d390577af9fd88467f2d8493a1394d80ff483dcc53503c284&"
           },
           "image": null,
           "video": null
@@ -6592,7 +6619,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a5e6b32&is=6a5d19b2&hm=af5cf01268dc98b40a2a3a9cdda460443d3cca7062e904614b2129587089bac3&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a610e32&is=6a5fbcb2&hm=c0f5b28fe5851c0bd0b82c1e6ce0defa2fba28c2dc0b26cda78bf4e4017f014b&"
           },
           "image": null,
           "video": null
@@ -6606,7 +6633,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a5e6b49&is=6a5d19c9&hm=c890ca4bd914aa814c0364a643ebe7e7d817d04bae9b40327165d634329f0547&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a610e49&is=6a5fbcc9&hm=f2484b2c7966885d390577af9fd88467f2d8493a1394d80ff483dcc53503c284&"
           },
           "image": null,
           "video": null
@@ -7979,7 +8006,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a5e3ce5&is=6a5ceb65&hm=3c5d17e10fcefe1807f2212edc81c5aaf7b3baf22fb64b7646d908e601dafade&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a60dfe5&is=6a5f8e65&hm=aa3d0f754a14aea54aea3a13a13c0c7fd5a9387114b1bcdb66b21e948242d8bf&"
           },
           "image": null,
           "video": null

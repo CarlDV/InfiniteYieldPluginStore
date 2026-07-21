@@ -1,0 +1,111 @@
+--[[--
+	i used Gemini Search as free coder lol 
+	credits: Farhat or agent6660
+--]]--
+
+if game.PlaceId ~= 6884319169 and game.PlaceId ~= 15546218972 then 
+    return 
+end
+
+local Plugin = {
+    ["PluginName"] = "[MIC-UP] AI Tool Generation",
+    ["PluginDescription"] = "AI Generated Tool's inside MIC-UP & MIC-UP 18+",
+    ["Commands"] = {
+        ["generatetool"] = {
+            ["ListName"] = "generatetool [prompt] [size] [multiply]",
+            ["Description"] = "AI Generating Tool command designed specifically for MIC-UP & MIC-UP 18+",
+            ["Aliases"] = {"micupgentool"},
+            ["Function"] = function(args, speaker)
+                if #args == 0 then
+                    notify("AI Generator", "Error: Prompt cannot be empty", 5)
+                    return
+                end
+
+                local promptWords = {}
+                local xStr, yStr, zStr, multiplyStr
+                
+                if #args >= 4 and tonumber(args[#args]) and tonumber(args[#args-1]) and tonumber(args[#args-2]) and tonumber(args[#args-3]) then
+                    multiplyStr = args[#args]
+                    zStr = args[#args-1]
+                    yStr = args[#args-2]
+                    xStr = args[#args-3]
+                    
+                    for i = 1, #args - 4 do
+                        table.insert(promptWords, args[i])
+                    end
+                elseif #args >= 2 and tonumber(args[#args]) and args[#args-1]:match("^[%d%.]+,[%d%.]+,[%d%.]+$") then
+                    multiplyStr = args[#args]
+                    xStr, yStr, zStr = args[#args-1]:match("([^,]+),([^,]+),([^,]+)")
+                    
+                    for i = 1, #args - 2 do
+                        table.insert(promptWords, args[i])
+                    end
+                elseif #args >= 1 and args[#args]:match("^[%d%.]+,[%d%.]+,[%d%.]+$") then
+                    multiplyStr = "1"
+                    xStr, yStr, zStr = args[#args]:match("([^,]+),([^,]+),([^,]+)")
+                    
+                    for i = 1, #args - 1 do
+                        table.insert(promptWords, args[i])
+                    end
+                else
+                    multiplyStr = "1"
+                    xStr, yStr, zStr = "1", "1", "1"
+                    for i = 1, #args do
+                        table.insert(promptWords, args[i])
+                    end
+                end
+
+                local prompt = table.concat(promptWords, " ")
+                prompt = prompt:gsub("^%s*(.-)%s*$", "%1"):gsub("%s+", " ")
+
+                if prompt == "" then
+                    notify("AI Generator", "Error: Prompt cannot be empty", 5)
+                    return
+                end
+
+                local multiply = tonumber(multiplyStr) or 1
+                local baseVectorStr = string.format("%s, %s, %s", tostring(xStr or 1), tostring(yStr or 1), tostring(zStr or 1))
+                
+                local x = (tonumber(xStr) or 1) * multiply
+                local y = (tonumber(yStr) or 1) * multiply
+                local z = (tonumber(zStr) or 1) * multiply
+
+                if x > 200 then x = 200 end
+                if y > 200 then y = 200 end
+                if z > 200 then z = 200 end
+
+                local finalVector = Vector3.new(x, y, z)
+
+                local success, err = pcall(function()
+                    local repStorage = Services.ReplicatedStorage
+                    local EventGeneration = repStorage:WaitForChild("event_generation", 3)
+                    local EventDoneGeneration = repStorage:WaitForChild("event_done_generation", 3)
+
+                    if not EventGeneration or not EventDoneGeneration then
+                        notify("AI Generator", "Failed to find remote events", 5)
+                        return
+                    end
+
+                    EventDoneGeneration.OnClientEvent:Once(function(a1, a2, a3)
+                        notify("AI Generator", a1 and "Generation complete" or "Generation failed", 5)
+                    end)
+
+                    EventGeneration:FireServer(prompt, finalVector)
+                    
+                    local notifyMessage = "Generating: " .. tostring(prompt) .. " " .. baseVectorStr
+                    if multiply and multiply ~= 1 then
+                        notifyMessage = notifyMessage .. " with multiply: " .. tostring(multiply)
+                    end
+                    
+                    notify("AI Generator", notifyMessage, 5)
+                end)
+                
+                if not success then
+                    notify("AI Generator", "Execution error", 5)
+                end
+            end
+        }
+    }
+}
+
+return Plugin
