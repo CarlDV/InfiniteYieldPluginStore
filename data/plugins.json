@@ -1,8 +1,32 @@
 {
-  "scraped_at": "2026-07-21T21:34:15.143843+00:00",
+  "scraped_at": "2026-07-22T05:15:11.157084+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 559,
+  "total_plugins": 560,
   "plugins": [
+    {
+      "id": "1529354950055038976",
+      "name": "mousetools",
+      "description": "# Mouse Tools\nAdds various commands for modifying the in game mouse or restoring it to Roblox defaults.\n\n- `showcursor / showmouse`\n-# Other aliases: `mouse`\n> Unhides the mouse in most games. If this doesn't work, try 'defaultcursor'\n- `unlockcursor / unlockmouse`\n-# Other aliases: `umouse / ucur`\n> Unlocks the mouse cursor. Additionally unhides it if it's hidden\n- `lockcursor / centercursor`\n-# Other aliases: `centermouse`\n> Locks the mouse cursor to the center of the screen\n- `defaultcursor / dcursor`\n-# Other aliases: `defaultmouse / defcursor / defcur / dfcur / restorecursor / rscur`\n> Restores the cursor to Roblox defaults. Useful for games that modify it so it's hard to use\n- `gamecursor / gcursor`\n-# Other aliases: `gamemouse / gmouse / gcursor / gamecur / gcur`\n> Reverts changes made by the plugin to the mouse",
+      "author": {
+        "name": "Felix",
+        "username": "felixthefenfox",
+        "avatar": "https://cdn.discordapp.com/avatars/1490233597507014686/f635cad29502b7b587f879d3ed08a8a6.png?size=1024"
+      },
+      "date": "2026-07-22T05:10:34.134000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1529354950055038976",
+      "files": [
+        {
+          "filename": "mousetools.iy",
+          "url": "plugins/1529354950055038976/mousetools.iy",
+          "size": 3173,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1529221541735170170",
       "name": "MICUP-AITool",
@@ -84,7 +108,7 @@
     {
       "id": "1526012168556777493",
       "name": "emotemanager",
-      "description": "# Emote Manager\n-# Made by Rocky, tested and improved by Felix\n\n## Commands\n- `addemote [id]`\n> - Adds an emote by its ID. You can get these from the URL of the emote's page on the Roblox catalog (<https://www.roblox.com/catalog>)\n> - Aliases are adde and setemote\n- `delemote [name / id]`\n> - Remove an emote by its name or ID. You can get these from the URL of the emote's page on the Roblox catalog (<https://www.roblox.com/catalog>)\n> - Aliases are `unsetemote, rmemote, removeemote, and deleteemote`\n- `clearemotes`\n> - Removes all equipped emotes, including ones you own.\n> - **This does NOT get rid of them from your Roblox inventory, only the emote wheel in game. Rejoining will undo this**\n\nBug fixes are to be reported to Felix and may or may not be fixed. This is mostly a project made of boredom and bug fixes rely on continued boredom. it got deleted by mistake and the update with saving got lost due to a drive going bad",
+      "description": "# Emote Manager\n-# Made by Rocky, tested and improved by Felix (PROBABLY PATCHED!!!)\n\n## Commands\n- `addemote [id]`\n> - Adds an emote by its ID. You can get these from the URL of the emote's page on the Roblox catalog (<https://www.roblox.com/catalog>)\n> - Aliases are adde and setemote\n- `delemote [name / id]`\n> - Remove an emote by its name or ID. You can get these from the URL of the emote's page on the Roblox catalog (<https://www.roblox.com/catalog>)\n> - Aliases are `unsetemote, rmemote, removeemote, and deleteemote`\n- `clearemotes`\n> - Removes all equipped emotes, including ones you own.\n> - **This does NOT get rid of them from your Roblox inventory, only the emote wheel in game. Rejoining will undo this**\n\nBug fixes are to be reported to Felix and may or may not be fixed. This is mostly a project made of boredom and bug fixes rely on continued boredom. it got deleted by mistake and the update with saving got lost due to a drive going bad",
       "author": {
         "name": "Felix",
         "username": "felixthefenfox",
@@ -8006,7 +8030,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a60dfe5&is=6a5f8e65&hm=aa3d0f754a14aea54aea3a13a13c0c7fd5a9387114b1bcdb66b21e948242d8bf&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a6188a5&is=6a603725&hm=82055fcb949940ed85d68a0c910cd8ec89b252bc308bb2239703ac41f46bb24d&"
           },
           "image": null,
           "video": null

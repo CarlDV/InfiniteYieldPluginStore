@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-21T21:34:15.164748+00:00",
-  "total": 559,
+  "updated_at": "2026-07-22T05:15:11.178176+00:00",
+  "total": 560,
   "plugins": [
+    {
+      "id": "1529354950055038976",
+      "name": "mousetools",
+      "author": "Felix",
+      "date": "2026-07-22T05:10:34.134000+00:00",
+      "files": [
+        {
+          "filename": "mousetools.iy",
+          "url": "plugins/1529354950055038976/mousetools.iy",
+          "size": 3173,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1529221541735170170",
       "name": "MICUP-AITool",

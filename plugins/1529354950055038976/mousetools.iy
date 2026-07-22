@@ -1,0 +1,70 @@
+local defaults = {}
+
+local Plugin = {
+    ["PluginName"] = "Mouse Tools",
+    ["PluginDescription"] = "Adds various commands for modifying the in game mouse or restoring it to Roblox defaults.",
+    ["Commands"] = {
+        ["showcursor"] = {
+            ["ListName"] = "showcursor / showmouse",
+            ["Description"] = "Unhides the mouse in most games. If this doesn't work, try 'defaultcursor'",
+            ["Aliases"] = {"showmouse", "mouse"},
+            ["Function"] = function(args, speaker)
+                defaults.MouseIconEnabled = UserInputService.MouseIconEnabled
+                UserInputService.MouseIconEnabled = true
+                
+                if args[1] ~= "notify" then notify("Mouse Enabled", "Mouse is now enabled") end
+            end
+        },
+
+        ["unlockcursor"] = {
+            ["ListName"] = "unlockcursor / unlockmouse",
+            ["Description"] = "Unlocks the mouse cursor. Additionally unhides it if it's hidden",
+            ["Aliases"] = {"unlockcursor", "umouse", "ucur"},
+            ["Function"] = function(args, speaker)
+                execCmd("showmouse nonotify")
+                defaults.MouseBehavior = UserInputService.MouseBehavior
+                UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+
+                if args[1] ~= "nonotify" then notify("Unlocked", "Mouse has been unlocked") end
+            end
+        },
+
+        ["lockcursor"] = {
+            ["ListName"] = "lockcursor / centercursor",
+            ["Description"] = "Locks the mouse cursor to the center of the screen",
+            ["Aliases"] = {"centercursor", "centermouse"},
+            ["Function"] = function(args, speaker)
+                defaults.MouseBehavior = UserInputService.MouseBehavior
+                UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+
+                if args[1] ~= "nonotify" then notify("Locked", "Mouse has been locked") end
+            end
+        },
+
+        ["defaultcursor"] = {
+            ["ListName"] = "defaultcursor / dcursor",
+            ["Description"] = "Restores the cursor to Roblox defaults. Useful for games that modify it so it's hard to use",
+            ["Aliases"] = {"defaultmouse", "defaultcursor", "defcursor", "defcur", "dcursor", "dfcur", "restorecursor", "rscur"},
+            ["Function"] = function(args, speaker)
+                execCmd("unlockmouse nonotify")
+                defaults.MouseIcon = UserInputService.MouseIcon
+
+                if args[1] ~= "nonotify" then notify("Restored Cursor", "Restored the cursor to Roblox defaults") end
+            end
+        },
+
+        ["gamecursor"] = {
+            ["ListName"] = "gamecursor / gcursor",
+            ["Description"] = "Reverts changes made by the plugin to the mouse",
+            ["Aliases"] = {"gamemouse", "gmouse", "gcursor", "gamecur", "gcur"},
+            ["Function"] = function(args, speaker)
+                for prop, val in next, defaults do UserInputService[prop] = val end
+                table.clear(defaults)
+
+                if args[1] ~= "nonotify" then notify("Restored Cursor", "Restored the cursor to game defaults") end
+            end
+        }
+    }
+}
+
+return Plugin
