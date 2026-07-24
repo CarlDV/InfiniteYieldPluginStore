@@ -1,12 +1,44 @@
 {
-  "scraped_at": "2026-07-22T05:15:11.157084+00:00",
+  "scraped_at": "2026-07-24T11:13:51.832103+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 560,
+  "total_plugins": 561,
   "plugins": [
+    {
+      "id": "1530167719205277867",
+      "name": "Projectai",
+      "description": "# Project AI\n\nan ai for roblox i guess\nits literally just iyai but more compact and lightweight\n\nand its... ||FREE FOR THE NEXT 3~DAYS!!!||\n\nits opensourced. do not abuse the endpoint or this will make me turn the endpoint down.\n\nto use: `pai / ai`\n\nAI model used: GLM-5.2 (Z.ai)\n\nresponse speed is subject to demand",
+      "author": {
+        "name": "David",
+        "username": "istmedavid",
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/2866dbc7cadf16fcaaebd7578a740942.png?size=1024"
+      },
+      "date": "2026-07-24T11:00:13.400000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1530167719205277867",
+      "files": [
+        {
+          "filename": "Projectai.iy",
+          "url": "plugins/1530167719205277867/Projectai.iy",
+          "size": 762,
+          "is_plugin": true
+        },
+        {
+          "filename": "Screen_Recording_20260724_185140.mp4",
+          "url": "plugins/1530167719205277867/Screen_Recording_20260724_185140.mp4",
+          "size": 18118687,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": [
+        "https://maxitom.pages.dev/raw/PLAJMW9I"
+      ]
+    },
     {
       "id": "1529354950055038976",
       "name": "mousetools",
-      "description": "# Mouse Tools\nAdds various commands for modifying the in game mouse or restoring it to Roblox defaults.\n\n- `showcursor / showmouse`\n-# Other aliases: `mouse`\n> Unhides the mouse in most games. If this doesn't work, try 'defaultcursor'\n- `unlockcursor / unlockmouse`\n-# Other aliases: `umouse / ucur`\n> Unlocks the mouse cursor. Additionally unhides it if it's hidden\n- `lockcursor / centercursor`\n-# Other aliases: `centermouse`\n> Locks the mouse cursor to the center of the screen\n- `defaultcursor / dcursor`\n-# Other aliases: `defaultmouse / defcursor / defcur / dfcur / restorecursor / rscur`\n> Restores the cursor to Roblox defaults. Useful for games that modify it so it's hard to use\n- `gamecursor / gcursor`\n-# Other aliases: `gamemouse / gmouse / gcursor / gamecur / gcur`\n> Reverts changes made by the plugin to the mouse",
+      "description": "# Mouse Tools\nAdds various commands for modifying the in game mouse or restoring it to Roblox defaults. Very useful for games that lock cursor position.\n\n- `showcursor / showmouse`\n-# Other aliases: `mouse`\n> Unhides the mouse in most games. If this doesn't work, try 'defaultcursor'\n- `unlockcursor / unlockmouse`\n-# Other aliases: `umouse / ucur`\n> Unlocks the mouse cursor. Additionally unhides it if it's hidden\n- `lockcursor / centercursor`\n-# Other aliases: `centermouse`\n> Locks the mouse cursor to the center of the screen\n- `defaultcursor / dcursor`\n-# Other aliases: `defaultmouse / defcursor / defcur / dfcur / restorecursor / rscur`\n> Restores the cursor to Roblox defaults. Useful for games that modify it so it's hard to use\n- `gamecursor / gcursor`\n-# Other aliases: `gamemouse / gmouse / gcursor / gamecur / gcur`\n> Reverts changes made by the plugin to the mouse",
       "author": {
         "name": "Felix",
         "username": "felixthefenfox",
@@ -163,7 +195,7 @@
       "author": {
         "name": "dwxgoatergroup",
         "username": "progressbar_96",
-        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/af091087122a0f07ff08c1ab6a5a4631.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/b9963875a19a4c6b945acf394b8de9de.png?size=1024"
       },
       "date": "2026-07-06T05:16:40.864000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1523558282382545027",
@@ -256,7 +288,7 @@
       "author": {
         "name": "dwxgoatergroup",
         "username": "progressbar_96",
-        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/af091087122a0f07ff08c1ab6a5a4631.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/b9963875a19a4c6b945acf394b8de9de.png?size=1024"
       },
       "date": "2026-06-27T00:04:06.182000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1520218128754147339",
@@ -280,7 +312,7 @@
       "author": {
         "name": "dwxgoatergroup",
         "username": "progressbar_96",
-        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/af091087122a0f07ff08c1ab6a5a4631.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/b9963875a19a4c6b945acf394b8de9de.png?size=1024"
       },
       "date": "2026-06-27T00:03:40.465000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1520218020889366631",
@@ -431,7 +463,7 @@
       "author": {
         "name": "dwxgoatergroup",
         "username": "progressbar_96",
-        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/af091087122a0f07ff08c1ab6a5a4631.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1490023380785561730/b9963875a19a4c6b945acf394b8de9de.png?size=1024"
       },
       "date": "2026-06-16T18:50:41.683000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1516515378312777768",
@@ -2302,7 +2334,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/bc199d8db0547eba4a2ffc5519e33f3c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/92cf1d1b10c9dd0c1df3c5c75a69db45.png?size=1024"
       },
       "date": "2025-11-19T14:39:50.620000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440713185668890714",
@@ -2326,7 +2358,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/bc199d8db0547eba4a2ffc5519e33f3c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/92cf1d1b10c9dd0c1df3c5c75a69db45.png?size=1024"
       },
       "date": "2025-11-19T12:24:35.056000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440679146526343312",
@@ -2376,7 +2408,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/bc199d8db0547eba4a2ffc5519e33f3c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/92cf1d1b10c9dd0c1df3c5c75a69db45.png?size=1024"
       },
       "date": "2025-11-02T06:01:29.844000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434422145844514886",
@@ -2453,7 +2485,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/bc199d8db0547eba4a2ffc5519e33f3c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/92cf1d1b10c9dd0c1df3c5c75a69db45.png?size=1024"
       },
       "date": "2025-11-01T13:31:14.811000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434172941133680670",
@@ -3244,7 +3276,7 @@
       "author": {
         "name": "*+❀ Mochi ❀+*",
         "username": "mochimreow",
-        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/575680d2c0fc38b7eae245798120bf7a.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/765221230151860256/f7fb38d00f7d2f59545272fe51699909.png?size=1024"
       },
       "date": "2025-03-11T00:10:35.312000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1348810300455125124",
@@ -4034,7 +4066,7 @@
       "author": {
         "name": "the climber",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/c7e9d141f6c3028be6c52b0f12045a5f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/12a48394fdc340ccd03ba23f14b54c2d.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -5766,7 +5798,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a610e32&is=6a5fbcb2&hm=c0f5b28fe5851c0bd0b82c1e6ce0defa2fba28c2dc0b26cda78bf4e4017f014b&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a6459f2&is=6a630872&hm=c887498263be9088bdf6154c6a0c32e95dcc0816937cd26971c0c7c038e01f07&"
           },
           "image": null,
           "video": null
@@ -5780,7 +5812,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a610e49&is=6a5fbcc9&hm=f2484b2c7966885d390577af9fd88467f2d8493a1394d80ff483dcc53503c284&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a645a09&is=6a630889&hm=067c7685d5d9d370cef110d83ce748cd049d3c7e9268e98e1134f04b252562de&"
           },
           "image": null,
           "video": null
@@ -6643,7 +6675,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a610e32&is=6a5fbcb2&hm=c0f5b28fe5851c0bd0b82c1e6ce0defa2fba28c2dc0b26cda78bf4e4017f014b&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a6459f2&is=6a630872&hm=c887498263be9088bdf6154c6a0c32e95dcc0816937cd26971c0c7c038e01f07&"
           },
           "image": null,
           "video": null
@@ -6657,7 +6689,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a610e49&is=6a5fbcc9&hm=f2484b2c7966885d390577af9fd88467f2d8493a1394d80ff483dcc53503c284&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a645a09&is=6a630889&hm=067c7685d5d9d370cef110d83ce748cd049d3c7e9268e98e1134f04b252562de&"
           },
           "image": null,
           "video": null
@@ -8030,7 +8062,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a6188a5&is=6a603725&hm=82055fcb949940ed85d68a0c910cd8ec89b252bc308bb2239703ac41f46bb24d&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a642ba5&is=6a62da25&hm=1df56498f56157a632343605b03645d282bb291976046789def992350c37596e&"
           },
           "image": null,
           "video": null
@@ -9394,7 +9426,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker V1.2]\n// Note: This is not the abomination that CamMaker V1.1 was.\n[New Features]:\"\nIt's not fucking broken.\nAdded listcams command, which lists the cameras.\nCompletely rewrote the plugin.\nCameras are now stored in the workspace folder of your exploit. This allows for you to view a camera even if you rejoin the game.\nImplemented some anti-detection measures.\"\n[Warning]:\"\nCamMaker V1.2 can only utilize all of it's features on Synapse X. If you are not running Synapse X note that the listcams command will not work. Also, may not work on some free exploits.\"\n[Commands]:'\nMakeCam [Name]: Creates a camera.\nViewCam [Name]: Views a camera.\nUnviewCam: Returns camera to view the player.\nDelCam [Name]: Deletes a camera.\nListCams: Lists the currently created cameras.'```",
       "author": {
-        "name": "splynnters",
+        "name": "lynn",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f440ad70d56177ad898cd96a440de32e.png?size=1024"
       },
@@ -9470,7 +9502,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker v1.1]\n[New Features]:'\n  delcam [Camera Name] (no spaces in camera name):\n    Deletes the specified camera.\n```",
       "author": {
-        "name": "splynnters",
+        "name": "lynn",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f440ad70d56177ad898cd96a440de32e.png?size=1024"
       },
@@ -9496,7 +9528,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker]\n[Commands]:'\n  makecam [Camera Name] (no spaces in camera name):\n    Creates a camera under that name.\n  viewcam [Camera Name] (no spaces in camera name):\n    Views the camera that you created under that name.\n  unviewcam:\n    Returns camera view back to your player.'\n// Note: The camera creates based on your camera's position so that you can create a camera in freecam. DM me if you encounter any bugs.```",
       "author": {
-        "name": "splynnters",
+        "name": "lynn",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f440ad70d56177ad898cd96a440de32e.png?size=1024"
       },
@@ -9949,7 +9981,7 @@
       "name": "ESCMDS",
       "description": "Electric State Commands v1.0, for game 'Electric State DarkRP [Beta]'\n\nCommands:\nNoNLR: Disables New Life Rule, a big red sphere that appears after death that you cant enter for a few minutes.\n\nAimlock: My modified aimlock script you can find in <#510246778285719582>, press 'z' while hovering over a player to select them and 'u' (or 'c' i cant remember lol) to toggle the aimlock. It moves the camera so it only works in first person.\n\nNote: If anyone wants to try exploiting Electric State be warned that it's community fucking *hates* exploiters and they have a report system, which can get you banned. There is also a strong anti-cheat which subtly does things if it detects you, such as disabling some core features. Do not use noclip that disables humanoid collisions, as it will get anti cheated. Instead use humanoidchangestate noclip or btools.",
       "author": {
-        "name": "splynnters",
+        "name": "lynn",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f440ad70d56177ad898cd96a440de32e.png?size=1024"
       },
@@ -11614,7 +11646,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/3560fe4e0a8403f81e4978d0aaa7ad15.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/20a93f4cf54c382bf53d4f12e698f9d7.png?size=1024"
       },
       "date": "2020-05-20T13:39:38.179000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556",
@@ -11967,7 +11999,7 @@
       "name": "login_alertsiy",
       "description": "<@!222106655188451328> fixed ur file extension",
       "author": {
-        "name": "splynnters",
+        "name": "lynn",
         "username": "splynnters",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f440ad70d56177ad898cd96a440de32e.png?size=1024"
       },
@@ -13393,7 +13425,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/3560fe4e0a8403f81e4978d0aaa7ad15.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/20a93f4cf54c382bf53d4f12e698f9d7.png?size=1024"
       },
       "date": "2020-01-23T03:15:12.032000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800",

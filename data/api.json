@@ -1,8 +1,31 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-22T05:15:11.178176+00:00",
-  "total": 560,
+  "updated_at": "2026-07-24T11:13:51.848463+00:00",
+  "total": 561,
   "plugins": [
+    {
+      "id": "1530167719205277867",
+      "name": "Projectai",
+      "author": "David",
+      "date": "2026-07-24T11:00:13.400000+00:00",
+      "files": [
+        {
+          "filename": "Projectai.iy",
+          "url": "plugins/1530167719205277867/Projectai.iy",
+          "size": 762,
+          "is_plugin": true
+        },
+        {
+          "filename": "Screen_Recording_20260724_185140.mp4",
+          "url": "plugins/1530167719205277867/Screen_Recording_20260724_185140.mp4",
+          "size": 18118687,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": [
+        "https://maxitom.pages.dev/raw/PLAJMW9I"
+      ]
+    },
     {
       "id": "1529354950055038976",
       "name": "mousetools",
@@ -5449,7 +5472,7 @@
     {
       "id": "745453625161285802",
       "name": "CamMaker",
-      "author": "splynnters",
+      "author": "lynn",
       "date": "2020-08-19T01:26:34.097000+00:00",
       "files": [
         {
@@ -5496,7 +5519,7 @@
     {
       "id": "743394317447462933",
       "name": "CamMaker",
-      "author": "splynnters",
+      "author": "lynn",
       "date": "2020-08-13T09:03:36.878000+00:00",
       "files": [
         {
@@ -5511,7 +5534,7 @@
     {
       "id": "743289571441377390",
       "name": "CamMaker",
-      "author": "splynnters",
+      "author": "lynn",
       "date": "2020-08-13T02:07:23.484000+00:00",
       "files": [
         {
@@ -5770,7 +5793,7 @@
     {
       "id": "733963503542468618",
       "name": "ESCMDS",
-      "author": "splynnters",
+      "author": "lynn",
       "date": "2020-07-18T08:28:55.627000+00:00",
       "files": [
         {
@@ -6911,7 +6934,7 @@
     {
       "id": "703016243459915826",
       "name": "login_alertsiy",
-      "author": "splynnters",
+      "author": "lynn",
       "date": "2020-04-23T22:55:33.851000+00:00",
       "files": [
         {
