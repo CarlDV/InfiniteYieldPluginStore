@@ -1,29 +1,29 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-24T11:13:51.848463+00:00",
+  "updated_at": "2026-07-24T14:33:04.860582+00:00",
   "total": 561,
   "plugins": [
     {
-      "id": "1530167719205277867",
-      "name": "Projectai",
+      "id": "1530220743579799642",
+      "name": "projectai",
       "author": "David",
-      "date": "2026-07-24T11:00:13.400000+00:00",
+      "date": "2026-07-24T14:30:55.396000+00:00",
       "files": [
         {
-          "filename": "Projectai.iy",
-          "url": "plugins/1530167719205277867/Projectai.iy",
-          "size": 762,
+          "filename": "projectai.iy",
+          "url": "plugins/1530220743579799642/projectai.iy",
+          "size": 821,
           "is_plugin": true
         },
         {
           "filename": "Screen_Recording_20260724_185140.mp4",
-          "url": "plugins/1530167719205277867/Screen_Recording_20260724_185140.mp4",
+          "url": "plugins/1530220743579799642/Screen_Recording_20260724_185140.mp4",
           "size": 18118687,
           "is_plugin": false
         }
       ],
       "loadstring_urls": [
-        "https://maxitom.pages.dev/raw/PLAJMW9I"
+        "https://raw.githubusercontent.com/davidcarl2/project-ai/refs/heads/main/main.lua"
       ]
     },
     {

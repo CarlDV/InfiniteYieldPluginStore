@@ -1,0 +1,22 @@
+--------------------------------------------------------------------------------
+-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)
+-- This plugin was generated automatically using IY Plugin Maker.
+--------------------------------------------------------------------------------
+
+local Plugin = {
+    ["PluginName"] = "Projectai",
+    ["PluginDescription"] = "opens the projectai",
+    ["Commands"] = {
+        ["projectai"] = {
+            ["ListName"] = "pai / ai",
+            ["Description"] = "opens the project ai",
+            ["Aliases"] = {"pai", "ai"},
+            ["Function"] = function(args, speaker)
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/davidcarl2/project-ai/refs/heads/main/main.lua"))()
+                
+            end
+        }
+    }
+}
+
+return Plugin

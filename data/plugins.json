@@ -1,38 +1,40 @@
 {
-  "scraped_at": "2026-07-24T11:13:51.832103+00:00",
+  "scraped_at": "2026-07-24T14:33:04.840349+00:00",
   "channel_id": "551846012310782014",
   "total_plugins": 561,
   "plugins": [
     {
-      "id": "1530167719205277867",
-      "name": "Projectai",
-      "description": "# Project AI\n\nan ai for roblox i guess\nits literally just iyai but more compact and lightweight\n\nand its... ||FREE FOR THE NEXT 3~DAYS!!!||\n\nits opensourced. do not abuse the endpoint or this will make me turn the endpoint down.\n\nto use: `pai / ai`\n\nAI model used: GLM-5.2 (Z.ai)\n\nresponse speed is subject to demand",
+      "id": "1530220743579799642",
+      "name": "projectai",
+      "description": "# Project AI\n\nA free to use AI for roblox using an AI model.\nAsk it to generate you a script, search the web, and search the game, it will do it.\n\nThis will remain **free** until the 100usd quota has been used.\n\nThank you!\n\n-# https://raw.githubusercontent.com/davidcarl2/project-ai/refs/heads/main/main.lua",
       "author": {
         "name": "David",
         "username": "istmedavid",
         "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/2866dbc7cadf16fcaaebd7578a740942.png?size=1024"
       },
-      "date": "2026-07-24T11:00:13.400000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1530167719205277867",
+      "date": "2026-07-24T14:30:55.396000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1530220743579799642",
       "files": [
         {
-          "filename": "Projectai.iy",
-          "url": "plugins/1530167719205277867/Projectai.iy",
-          "size": 762,
+          "filename": "projectai.iy",
+          "url": "plugins/1530220743579799642/projectai.iy",
+          "size": 821,
           "is_plugin": true
         },
         {
           "filename": "Screen_Recording_20260724_185140.mp4",
-          "url": "plugins/1530167719205277867/Screen_Recording_20260724_185140.mp4",
+          "url": "plugins/1530220743579799642/Screen_Recording_20260724_185140.mp4",
           "size": 18118687,
           "is_plugin": false
         }
       ],
       "code_blocks": [],
-      "links": [],
+      "links": [
+        "https://raw.githubusercontent.com/davidcarl2/project-ai/refs/heads/main/main.lua"
+      ],
       "embeds": [],
       "loadstring_urls": [
-        "https://maxitom.pages.dev/raw/PLAJMW9I"
+        "https://raw.githubusercontent.com/davidcarl2/project-ai/refs/heads/main/main.lua"
       ]
     },
     {
