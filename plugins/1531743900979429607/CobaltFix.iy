@@ -1,0 +1,35 @@
+--[[
+░██████╗░░█████╗░███╗░░░███╗███████╗░██████╗
+██╔════╝░██╔══██╗████╗░████║██╔════╝██╔════╝
+██║░░██╗░███████║██╔████╔██║█████╗░░╚█████╗░
+██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░░╚═══██╗
+╚██████╔╝██║░░██║██║░╚═╝░██║███████╗██████╔╝
+ ░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝╚═════╝░
+]]--
+
+local setclipboard = setclipboard or toclipboard or setrbxclipboard or writeclipboard or set_clipboard or to_clipboard or set_rbx_clipboard
+
+local Plugin = {
+    ["PluginName"] = "– Cobalt Fix –--",
+    ["PluginDescription"] = "Return Cobalt Script",
+    ["Commands"] = {
+        ["fixedcobalt"] = {
+           ["ListName"] = "FixedCobalt / FixRspy / FixCspy",
+           ["Description"] = "Fixed Cobalt Version",
+           ["Aliases"] = {"fixrspy","fixcspy"},
+           ["Function"] = function(args, speaker)
+              loadstring(game:HttpGet("https://raw.githubusercontent.com/Games1799/Scripts/refs/heads/main/Cobalt.lua"))()
+           end
+        },
+        ["copyfixedcobalt"] = {
+           ["ListName"] = "CopyFixedCobalt / CopyFixRspy / CopyFixCspy",
+           ["Description"] = "Copy Fixed Cobalt Version",
+           ["Aliases"] = {"copyfixrspy","copyfixcspy"},
+           ["Function"] = function(args, speaker)
+              setclipboard('loadstring(game:HttpGet("https://raw.githubusercontent.com/Games1799/Scripts/refs/heads/main/Cobalt.lua"))()')
+           end
+        }
+    }
+}
+
+return Plugin

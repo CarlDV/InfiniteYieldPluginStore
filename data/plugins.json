@@ -1,8 +1,36 @@
 {
-  "scraped_at": "2026-07-28T19:20:30.437139+00:00",
+  "scraped_at": "2026-07-28T19:26:03.416158+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 561,
+  "total_plugins": 562,
   "plugins": [
+    {
+      "id": "1531743900979429607",
+      "name": "CobaltFix",
+      "description": "***       Fix Cobalt Plugin***\n``Original cobalt script was deleted from github and stopped working, so I created this plugin in which the saved version of cobalt is loaded.``\n\n**Commands:**\n``FixedCobalt / FixRspy / FixCspy `` – load the saved version of Cobalt before deleting it load the saved version of Cobalt before deleting it.\n``CopyFixedCobalt / CopyFixRspy / CopyFixCspy `` – Copy load version of cobalt before deleting it.\n\n**Primitiveness:**\n``Some icons may be missing because they have not been preserved. ``\n\n**Load Command**\n```lua\naddplugin CobaltFix.iy```",
+      "author": {
+        "name": "Games",
+        "username": "games179",
+        "avatar": "https://cdn.discordapp.com/avatars/1264634909952311472/89cdf6221747ba243e87fbc4bf28529c.png?size=1024"
+      },
+      "date": "2026-07-28T19:23:24.419000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1531743900979429607",
+      "files": [
+        {
+          "filename": "CobaltFix.iy",
+          "url": "plugins/1531743900979429607/CobaltFix.iy",
+          "size": 1964,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "addplugin CobaltFix.iy"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/Games1799/Scripts/refs/heads/main/Cobalt.lua"
+      ]
+    },
     {
       "id": "1531721286106091611",
       "name": "chattr",

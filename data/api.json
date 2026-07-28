@@ -1,8 +1,25 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-28T19:20:30.457341+00:00",
-  "total": 561,
+  "updated_at": "2026-07-28T19:26:03.437677+00:00",
+  "total": 562,
   "plugins": [
+    {
+      "id": "1531743900979429607",
+      "name": "CobaltFix",
+      "author": "Games",
+      "date": "2026-07-28T19:23:24.419000+00:00",
+      "files": [
+        {
+          "filename": "CobaltFix.iy",
+          "url": "plugins/1531743900979429607/CobaltFix.iy",
+          "size": 1964,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/Games1799/Scripts/refs/heads/main/Cobalt.lua"
+      ]
+    },
     {
       "id": "1531721286106091611",
       "name": "chattr",
