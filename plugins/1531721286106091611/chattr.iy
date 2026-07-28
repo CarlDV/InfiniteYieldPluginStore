@@ -1,0 +1,662 @@
+local Players = game:GetService("Players")
+
+local function sendMessage(message)
+    if typeof(notify) == "function" then
+        notify(message)
+    else
+        warn("[Chattr] " .. message)
+    end
+end
+
+local function trim(value)
+    return (tostring(value):gsub("^%s+", ""):gsub("%s+$", ""))
+end
+
+local function unquote(value)
+    value = trim(value)
+
+    if #value >= 2 then
+        local first = value:sub(1, 1)
+        local last = value:sub(-1)
+
+        if (first == '"' and last == '"') or (first == "'" and last == "'") then
+            return value:sub(2, -2)
+        end
+    end
+
+    return value
+end
+
+local function normalize(value)
+    return string.lower(trim(value)):gsub("[%s_%-]", "")
+end
+
+local function joinArguments(args, startIndex)
+    local values = {}
+
+    for index = startIndex, #args do
+        values[#values + 1] = tostring(args[index])
+    end
+
+    return table.concat(values, " ")
+end
+
+local function split(value, separator)
+    local results = {}
+    local startIndex = 1
+
+    while true do
+        local separatorStart, separatorEnd = string.find(
+            value,
+            separator,
+            startIndex,
+            true
+        )
+
+        if not separatorStart then
+            results[#results + 1] = string.sub(value, startIndex)
+            break
+        end
+
+        results[#results + 1] = string.sub(
+            value,
+            startIndex,
+            separatorStart - 1
+        )
+
+        startIndex = separatorEnd + 1
+    end
+
+    return results
+end
+
+local function parseNumbers(value, separator)
+    local parts = split(value, separator or ",")
+    local numbers = {}
+
+    for index, part in ipairs(parts) do
+        local number = tonumber(trim(part))
+
+        if number == nil then
+            return nil, "Invalid number at position " .. tostring(index) .. "."
+        end
+
+        numbers[index] = number
+    end
+
+    return numbers
+end
+
+local function parseEnum(enumType, value)
+    local wanted = normalize(value)
+
+    for _, item in ipairs(enumType:GetEnumItems()) do
+        if normalize(item.Name) == wanted then
+            return item
+        end
+    end
+
+    return nil
+end
+
+local function parseNumberSequence(value)
+    local single = tonumber(trim(value))
+
+    if single ~= nil then
+        return NumberSequence.new(single)
+    end
+
+    local keypoints = {}
+
+    for _, entry in ipairs(split(value, ";")) do
+        local values, numberError = parseNumbers(entry, ":")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 2 and #values ~= 3 then
+            return nil, "NumberSequence keypoints require time:value or time:value:envelope."
+        end
+
+        keypoints[#keypoints + 1] = NumberSequenceKeypoint.new(
+            values[1],
+            values[2],
+            values[3] or 0
+        )
+    end
+
+    table.sort(keypoints, function(a, b)
+        return a.Time < b.Time
+    end)
+
+    local success, result = pcall(NumberSequence.new, keypoints)
+
+    if not success then
+        return nil, tostring(result)
+    end
+
+    return result
+end
+
+local function makeColor(r, g, b, forceRGB)
+    if forceRGB or math.abs(r) > 1 or math.abs(g) > 1 or math.abs(b) > 1 then
+        return Color3.fromRGB(r, g, b)
+    end
+
+    return Color3.new(r, g, b)
+end
+
+local function parseColorSequence(value)
+    local commaValues = parseNumbers(value, ",")
+
+    if commaValues and #commaValues == 3 then
+        return ColorSequence.new(
+            makeColor(
+                commaValues[1],
+                commaValues[2],
+                commaValues[3],
+                false
+            )
+        )
+    end
+
+    local keypoints = {}
+
+    for _, entry in ipairs(split(value, ";")) do
+        local values, numberError = parseNumbers(entry, ":")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 4 then
+            return nil, "ColorSequence keypoints require time:r:g:b."
+        end
+
+        keypoints[#keypoints + 1] = ColorSequenceKeypoint.new(
+            values[1],
+            makeColor(values[2], values[3], values[4], false)
+        )
+    end
+
+    table.sort(keypoints, function(a, b)
+        return a.Time < b.Time
+    end)
+
+    local success, result = pcall(ColorSequence.new, keypoints)
+
+    if not success then
+        return nil, tostring(result)
+    end
+
+    return result
+end
+
+local function parseFont(value)
+    local parts = split(value, "|")
+    local familyInput = trim(parts[1] or "")
+
+    if familyInput == "" then
+        return nil, "Font family is required."
+    end
+
+    local weight = Enum.FontWeight.Regular
+    local style = Enum.FontStyle.Normal
+
+    if parts[2] and trim(parts[2]) ~= "" then
+        weight = parseEnum(Enum.FontWeight, parts[2])
+
+        if not weight then
+            return nil, "Invalid font weight."
+        end
+    end
+
+    if parts[3] and trim(parts[3]) ~= "" then
+        style = parseEnum(Enum.FontStyle, parts[3])
+
+        if not style then
+            return nil, "Invalid font style."
+        end
+    end
+
+    local family = familyInput
+    local assetId = tonumber(familyInput)
+
+    if assetId then
+        family = "rbxassetid://" .. tostring(assetId)
+    elseif not string.find(
+        string.lower(familyInput),
+        "rbxasset",
+        1,
+        true
+    ) then
+        local enumFont = parseEnum(Enum.Font, familyInput)
+
+        if enumFont then
+            local baseFont = Font.fromEnum(enumFont)
+            family = baseFont.Family
+        end
+    end
+
+    local success, result = pcall(Font.new, family, weight, style)
+
+    if not success then
+        return nil, tostring(result)
+    end
+
+    return result
+end
+
+local function convertValue(typeName, rawValue)
+    local requestedType = normalize(typeName)
+    local value = unquote(rawValue)
+
+    if requestedType == "nil"
+        or requestedType == "delete"
+        or requestedType == "remove"
+    then
+        return nil, nil, true
+    end
+
+    if requestedType == "string" or requestedType == "str" then
+        return value
+    end
+
+    if requestedType == "boolean" or requestedType == "bool" then
+        local lowered = string.lower(trim(value))
+
+        if lowered == "true"
+            or lowered == "1"
+            or lowered == "yes"
+            or lowered == "on"
+        then
+            return true
+        end
+
+        if lowered == "false"
+            or lowered == "0"
+            or lowered == "no"
+            or lowered == "off"
+        then
+            return false
+        end
+
+        return nil, "Boolean values must be true or false."
+    end
+
+    if requestedType == "number" or requestedType == "num" then
+        local number = tonumber(value)
+
+        if number == nil then
+            return nil, "Invalid number."
+        end
+
+        return number
+    end
+
+    if requestedType == "udim" then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 2 then
+            return nil, "UDim requires scale,offset."
+        end
+
+        return UDim.new(values[1], values[2])
+    end
+
+    if requestedType == "udim2" then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 4 then
+            return nil, "UDim2 requires xScale,xOffset,yScale,yOffset."
+        end
+
+        return UDim2.new(
+            values[1],
+            values[2],
+            values[3],
+            values[4]
+        )
+    end
+
+    if requestedType == "brickcolor" or requestedType == "brick" then
+        local number = tonumber(value)
+        local success
+        local result
+
+        if number then
+            success, result = pcall(BrickColor.new, number)
+        else
+            success, result = pcall(BrickColor.new, value)
+        end
+
+        if not success then
+            return nil, "Invalid BrickColor."
+        end
+
+        return result
+    end
+
+    if requestedType == "color3"
+        or requestedType == "color"
+        or requestedType == "rgb"
+        or requestedType == "color3f"
+    then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 3 then
+            return nil, "Color3 requires r,g,b."
+        end
+
+        return makeColor(
+            values[1],
+            values[2],
+            values[3],
+            requestedType == "rgb"
+        )
+    end
+
+    if requestedType == "vector2" or requestedType == "vec2" then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 2 then
+            return nil, "Vector2 requires x,y."
+        end
+
+        return Vector2.new(values[1], values[2])
+    end
+
+    if requestedType == "vector3" or requestedType == "vec3" then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 3 then
+            return nil, "Vector3 requires x,y,z."
+        end
+
+        return Vector3.new(values[1], values[2], values[3])
+    end
+
+    if requestedType == "cframe" or requestedType == "cf" then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values == 3 then
+            return CFrame.new(values[1], values[2], values[3])
+        end
+
+        if #values == 6 then
+            return CFrame.new(values[1], values[2], values[3])
+                * CFrame.Angles(
+                    math.rad(values[4]),
+                    math.rad(values[5]),
+                    math.rad(values[6])
+                )
+        end
+
+        if #values == 12 then
+            return CFrame.new(table.unpack(values))
+        end
+
+        return nil, "CFrame requires 3, 6, or 12 numbers."
+    end
+
+    if requestedType == "numberrange" or requestedType == "range" then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values == 1 then
+            return NumberRange.new(values[1])
+        end
+
+        if #values == 2 then
+            return NumberRange.new(values[1], values[2])
+        end
+
+        return nil, "NumberRange requires one or two numbers."
+    end
+
+    if requestedType == "rect" then
+        local values, numberError = parseNumbers(value, ",")
+
+        if not values then
+            return nil, numberError
+        end
+
+        if #values ~= 4 then
+            return nil, "Rect requires minX,minY,maxX,maxY."
+        end
+
+        return Rect.new(
+            values[1],
+            values[2],
+            values[3],
+            values[4]
+        )
+    end
+
+    if requestedType == "numbersequence"
+        or requestedType == "numsequence"
+        or requestedType == "nsequence"
+    then
+        return parseNumberSequence(value)
+    end
+
+    if requestedType == "colorsequence"
+        or requestedType == "csequence"
+    then
+        return parseColorSequence(value)
+    end
+
+    if requestedType == "font" then
+        return parseFont(value)
+    end
+
+    return nil, "Unsupported attribute type: " .. tostring(typeName)
+end
+
+local Plugin = {
+    ["PluginName"] = "Chattr",
+    ["PluginDescription"] = "Changes character attribute values and types.",
+    ["Commands"] = {
+        ["chattr"] = {
+            ["ListName"] = "chattr [attribute] [type] [value]",
+            ["Description"] = "Changes an attribute's value and type.",
+            ["Aliases"] = {
+                "changeattribute",
+                "changeattr",
+                "chattribute",
+            },
+            ["Function"] = function(args, speaker)
+                local player = Players.LocalPlayer
+                local character = player and player.Character
+
+                if not character then
+                    sendMessage("Character could not be found.")
+                    return
+                end
+
+                local attributeName = args[1]
+                local requestedType = args[2]
+
+                if not attributeName
+                    or attributeName == ""
+                    or not requestedType
+                    or requestedType == ""
+                then
+                    sendMessage(
+                        "Usage: chattr [attribute] [type] [value]"
+                    )
+                    return
+                end
+
+                local attributes = character:GetAttributes()
+
+                if attributes[attributeName] == nil then
+                    sendMessage("Could not find the attribute.")
+                    return
+                end
+
+                local rawValue = joinArguments(args, 3)
+                local normalizedType = normalize(requestedType)
+
+                if rawValue == ""
+                    and normalizedType ~= "string"
+                    and normalizedType ~= "str"
+                    and normalizedType ~= "nil"
+                    and normalizedType ~= "delete"
+                    and normalizedType ~= "remove"
+                then
+                    sendMessage("A value is required for that type.")
+                    return
+                end
+
+                local conversionSuccess
+                local convertedValue
+                local conversionError
+                local deleting
+
+                conversionSuccess,
+                    convertedValue,
+                    conversionError,
+                    deleting = pcall(
+                        convertValue,
+                        requestedType,
+                        rawValue
+                    )
+
+                if not conversionSuccess then
+                    sendMessage(
+                        "Could not convert value: "
+                            .. tostring(convertedValue)
+                    )
+                    return
+                end
+
+                if conversionError then
+                    sendMessage(conversionError)
+                    return
+                end
+
+                local success, setError = pcall(function()
+                    if deleting then
+                        character:SetAttribute(attributeName, nil)
+                    else
+                        character:SetAttribute(
+                            attributeName,
+                            convertedValue
+                        )
+                    end
+                end)
+
+                if not success then
+                    sendMessage(
+                        "Could not set attribute: "
+                            .. tostring(setError)
+                    )
+                    return
+                end
+
+                if deleting then
+                    sendMessage(
+                        "Deleted attribute "
+                            .. tostring(attributeName)
+                            .. "."
+                    )
+                else
+                    sendMessage(
+                        "Changed "
+                            .. tostring(attributeName)
+                            .. " to "
+                            .. typeof(convertedValue)
+                            .. "."
+                    )
+                end
+            end,
+        },
+        ["lsattr"] = {
+            ["ListName"] = "lsattr [attribute]",
+            ["Description"] = "Lists attributes and their values.",
+            ["Aliases"] = {
+                "listattr",
+                "lsattribute",
+                "listattributes",
+            },
+            ["Function"] = function(args, speaker)
+                local player = Players.LocalPlayer
+                local character = player and player.Character
+
+                if not character then
+                    sendMessage("Character could not be found.")
+                    return
+                end
+
+                local attributes = character:GetAttributes()
+
+                if next(attributes) == nil then
+                    sendMessage("No attributes were found.")
+                    return
+                end
+
+                local attributeName = args[1]
+
+                if not attributeName or attributeName == "" then
+                    for key, value in pairs(attributes) do
+                        print(
+                            tostring(key)
+                                .. " ["
+                                .. typeof(value)
+                                .. "] = "
+                                .. tostring(value)
+                        )
+                    end
+
+                    return
+                end
+
+                local value = attributes[attributeName]
+
+                if value == nil then
+                    sendMessage("Could not find the attribute.")
+                    return
+                end
+
+                print(
+                    tostring(attributeName)
+                        .. " ["
+                        .. typeof(value)
+                        .. "] = "
+                        .. tostring(value)
+                )
+            end,
+        },
+    },
+}
+
+return Plugin
