@@ -1,34 +1,68 @@
 {
-  "scraped_at": "2026-07-28T19:26:03.416158+00:00",
+  "scraped_at": "2026-07-31T05:52:31.869326+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 562,
+  "total_plugins": 561,
   "plugins": [
     {
-      "id": "1531743900979429607",
-      "name": "CobaltFix",
-      "description": "***       Fix Cobalt Plugin***\n``Original cobalt script was deleted from github and stopped working, so I created this plugin in which the saved version of cobalt is loaded.``\n\n**Commands:**\n``FixedCobalt / FixRspy / FixCspy `` – load the saved version of Cobalt before deleting it load the saved version of Cobalt before deleting it.\n``CopyFixedCobalt / CopyFixRspy / CopyFixCspy `` – Copy load version of cobalt before deleting it.\n\n**Primitiveness:**\n``Some icons may be missing because they have not been preserved. ``\n\n**Load Command**\n```lua\naddplugin CobaltFix.iy```",
+      "id": "1532424519854329936",
+      "name": "Fling_Deluxe_VersionBackUp",
+      "description": "I'm reposting Fling_Deluxe \n\nThis is part of the same issue as Server Finder Deluxe \n\nThe suspension wiped out all my load strings…\n\nAnyway, thanks again for asking for my plugins—even if they end up getting deleted, it just goes to show that you guys appreciate them HAHA\n\n[\"ListName\"] = \"Fling_Deluxe\",\n\n[\"Aliases\"] = {\"Fling Loop\", \"FL\", \"Clik Fling\", \"CF\", \"Tween Clik Fling\", \"TCF\", \"FD\"},\n\nhttps://github.com/MaxproGlitcher/Fling_Deluxe_Back_Up_",
       "author": {
-        "name": "Games",
-        "username": "games179",
-        "avatar": "https://cdn.discordapp.com/avatars/1264634909952311472/89cdf6221747ba243e87fbc4bf28529c.png?size=1024"
+        "name": "𝓜𝓪𝔁…👑",
+        "username": "maxproglitcher",
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
       },
-      "date": "2026-07-28T19:23:24.419000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1531743900979429607",
+      "date": "2026-07-30T16:27:56.604000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532424519854329936",
       "files": [
         {
-          "filename": "CobaltFix.iy",
-          "url": "plugins/1531743900979429607/CobaltFix.iy",
-          "size": 1964,
+          "filename": "Fling_Deluxe_VersionBackUp.iy",
+          "url": "plugins/1532424519854329936/Fling_Deluxe_VersionBackUp.iy",
+          "size": 539,
           "is_plugin": true
         }
       ],
-      "code_blocks": [
-        "addplugin CobaltFix.iy"
+      "code_blocks": [],
+      "links": [
+        "https://github.com/MaxproGlitcher/Fling_Deluxe_Back_Up_"
       ],
-      "links": [],
       "embeds": [],
       "loadstring_urls": [
-        "https://raw.githubusercontent.com/Games1799/Scripts/refs/heads/main/Cobalt.lua"
+        "https://raw.githubusercontent.com/MaxproGlitcher/Fling_Deluxe_Back_Up_/refs/heads/main/.luau"
+      ]
+    },
+    {
+      "id": "1532417512283570276",
+      "name": "ServerFinder_VersionBackUp",
+      "description": "With the major problems I’ve encountered over the past few days trying to delete my GitHub account, my scripts are really causing me a lot of trouble. To explain: five people wanted to buy Server Finder Deluxe for a certain amount, and I told them the project was free. They reacted badly, which led to my account being suspended, but I’m back now. Please don’t post mean emojis—I worked hard to get my GitHub account back.\n\nhttps://github.com/MaxproGlitcher/Server_Finder_Deluxe_Back_Up\n\n[\"ListName\"] = \"ServerFinder\",\n\n\n[\"Aliases\"] = {\"sfinder\", \"serverfind\"},",
+      "author": {
+        "name": "𝓜𝓪𝔁…👑",
+        "username": "maxproglitcher",
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
+      },
+      "date": "2026-07-30T16:00:05.869000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532417512283570276",
+      "files": [
+        {
+          "filename": "ServerFinder_VersionBackUp.iy",
+          "url": "plugins/1532417512283570276/ServerFinder_VersionBackUp.iy",
+          "size": 565,
+          "is_plugin": true
+        },
+        {
+          "filename": "Enregistrement_2026-07-30_113045.mp4",
+          "url": "plugins/1532417512283570276/Enregistrement_2026-07-30_113045.mp4",
+          "size": 2493963,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [
+        "https://github.com/MaxproGlitcher/Server_Finder_Deluxe_Back_Up"
+      ],
+      "embeds": [],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/MaxproGlitcher/Server_Finder_Deluxe_Back_Up/refs/heads/main/.luau"
       ]
     },
     {
@@ -237,7 +271,7 @@
       "name": "yesMommy",
       "description": "disgrace...\n\n# yesMommy.iy\ntogether for you with a warm and comforting voice from... mommy?\n\n## usage\n-`playASMR [kind?] [segment?]`: plays a random segment\n+example: `playASMR compliment 1`: plays the 1st segment in compliment\n+example2: `playASMR`: plays random kind and random segment\n-`mommyCredit`: display used asmr artist's credit\n-`mommyRandom [boolean?]`: state for playing based on player event (lose health, die)\n-`mommyVolume [number]`: set voice's volume (u can set very loud)\n\n## notes:\n-if u want trigger based on iy's event, use iy on event triggers\n-cahces everything in `workspace/yesMommyASMRSounds`, first time fetching is slow\n-dropped ability to add/remove custom tracks cuz i dont like, but it stays dormant in file (uncomment if u want, dont expect my help)\n-i lost interests\n-please dont spam the cdn, i dont own it\n\ni wish you a good day",
       "author": {
-        "name": "hhh",
+        "name": "h",
         "username": "openbridge",
         "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
       },
@@ -505,7 +539,7 @@
       "name": "prideYield",
       "description": "mistakes were made, it depend on where you are look at...\n# prideYield\n\nits pride month, everyone!\n\n> WHEN IS SOMEONE MAKING GAYFINITE YIELD WE NEED THIS PLUGIN,  NOT A 99TH WELD REMAKE\n-<@1065752830469734531> - june, '26\n\n## usage\n-install normally with `addplugin prideyield` command\n-to remove, use `removeplugin`\n\n## note\n-required some unc's apis to get around roblox's removing me icon\n-only triggers when its june or pride month whatever u prefer\n-hi!!\n\n(sorry i forgor to disable randomize attachment name)",
       "author": {
-        "name": "hhh",
+        "name": "h",
         "username": "openbridge",
         "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
       },
@@ -689,7 +723,7 @@
       "name": "cmdBarSuggestion",
       "description": "sorry for my grave mistake of `uwuify`, but anyways\n\n# cmdBarSuggestion\n attempt to predict your next command, and autofill for you (super nice qol)\n||(a \"finite yield\" plugin collection)||\n\n## usage\n-try to predict command based on your input\n-autofill by pressing tab (or touch CmdBar for mobile)\n\n## note\n-no need to config\n-to disable, remove plugin and rejoin\n-auto align based on CmdBar's TextXAlignment (for custom theme people)\n-uses iy's func and variables (`CmdBar`, `autoComplete()`) for best cross-compatibility across recent versions",
       "author": {
-        "name": "hhh",
+        "name": "h",
         "username": "openbridge",
         "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
       },
@@ -719,7 +753,7 @@
       "name": "uwuify",
       "description": "# uwuify\nnow version 1.1 with changelogs:\n\n## removal:\n-`ShouldDeliverCallback` and `OnIncomingMessage`, now directly hooks into roblox's `ChatExperience` UI (thx <@1222180548592795702> )\n\n## addendum:\n-`uwuifyFlag` stutter/cuteaffix toggles (with demo in image)",
       "author": {
-        "name": "hhh",
+        "name": "h",
         "username": "openbridge",
         "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
       },
@@ -773,7 +807,7 @@
       "name": "uwuify",
       "description": "# uwuify (based on `cutestring()`)\nspices ur chat for some reason ⁉️ \n\n## commands\n-`uwuify [string]`: uwuify input then send out via chat\n-`autouwuify [boolean?]`: auto uwuify ur chat messages (⚠️ :: original msg will be sent out along, pls use `uwuify` if ure not that lazy)\n\n## credit\nfrom [deleted user] for the original idea \n(i literally add extra spices, update to use roblox's new `textChatService` and the half baked `autouwuify` 😭)\n\n## linkie\nhttps://cdn.discordapp.com/attachments/510246773965455360/1510746930337021972/qwqx066.mov?ex=6a1df038&is=6a1c9eb8&hm=2d8756c0e634687975c0281285d53c29c5839451aff87e3f659b4dd1b531e9bb&\nhttps://discord.com/channels/503045718102114305/551846012310782014/727567272457142332",
       "author": {
-        "name": "hhh",
+        "name": "h",
         "username": "openbridge",
         "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
       },
@@ -800,7 +834,7 @@
       "name": "sigmasedit",
       "description": "# sigmasedit\nan interesting edit i saw on twitter out of all places, triggers randomly based on ur input\n\n## commands\n-`sigmasedit` toggle edit\n-`sigmathreshold [num]` set threshold (420 baseline, higher > less chance to trigger)\n\n## note\n-if stuck (too low threshold, getting annoyed...), then **rejoin** or toggle using `sigmasedit`",
       "author": {
-        "name": "hhh",
+        "name": "h",
         "username": "openbridge",
         "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
       },
@@ -2320,34 +2354,6 @@
       ]
     },
     {
-      "id": "1440749263943372850",
-      "name": "ServerFinder",
-      "description": "Due to changes, I broke the loadstring link and had to redo it. Sorry guys for the plugin.\n\nServer Finder allows you to have a better experience in joining servers in games without needing to quit the game and relaunch it, and without needing to attach your exploit again lol. If sometimes the script doesn't load, don't worry; it's a Roblox servers error and not a script issue. Wait a bit and try again, and enjoy using it.\n\nCommand name : ServerFinder\n\nAliases : sfinder\",\"serverfinder\",\n\n\nhttps://github.com/MaxproGlitcher/Server-Finder-Deluxe",
-      "author": {
-        "name": "𝓜𝓪𝔁…👑",
-        "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
-      },
-      "date": "2025-11-19T17:03:12.351000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440749263943372850",
-      "files": [
-        {
-          "filename": "ServerFinder.iy",
-          "url": "plugins/1440749263943372850/ServerFinder.iy",
-          "size": 576,
-          "is_plugin": true
-        }
-      ],
-      "code_blocks": [],
-      "links": [
-        "https://github.com/MaxproGlitcher/Server-Finder-Deluxe"
-      ],
-      "embeds": [],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/MaxproGlitcher/Server-Finder-Deluxe/refs/heads/main/Finder_Servers_Code.luau"
-      ]
-    },
-    {
       "id": "1440713185668890714",
       "name": "translator",
       "description": "",
@@ -2933,35 +2939,6 @@
       "links": [],
       "embeds": [],
       "loadstring_urls": []
-    },
-    {
-      "id": "1382042301471129681",
-      "name": "ServerFinder",
-      "description": "Server Finder allows you to have a better experience in joining servers in games without needing to quit the game and relaunch it, and without needing to attach your exploit again lol. If sometimes the script doesn't load, don't worry; it's a Roblox servers error and not a script issue. Wait a bit and try again, and enjoy using it.\n\nCommand name : ServerFinder\n\nAliases : sfinder\",\"serverfinder\",\n\n\nNew site web : https://github.com/MaxproGlitcher/Server-Finder-Deluxe\n\nPlease stop using the loadstring – I accidentally broke it... Please switch to the version above it’s the latest version of the Finder server and the one and only real version. \n\n⬇️\n\nhttps://discord.com/channels/503045718102114305/551846012310782014/1440749263943372850",
-      "author": {
-        "name": "𝓜𝓪𝔁…👑",
-        "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
-      },
-      "date": "2025-06-10T17:02:41.775000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1382042301471129681",
-      "files": [
-        {
-          "filename": "ServerFinder.iy",
-          "url": "plugins/1382042301471129681/ServerFinder.iy",
-          "size": 567,
-          "is_plugin": true
-        }
-      ],
-      "code_blocks": [],
-      "links": [
-        "https://github.com/MaxproGlitcher/Server-Finder-Deluxe",
-        "https://discord.com/channels/503045718102114305/551846012310782014/1440749263943372850"
-      ],
-      "embeds": [],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/MaxproGlitcher/Finds-Servers/refs/heads/main/Finds%20Servers%20Code"
-      ]
     },
     {
       "id": "1367115685360173179",
@@ -5818,7 +5795,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a6a48b2&is=6a68f732&hm=af0d6f0116412b97368cec277ab887be71c8d7585708474276738a0a862be579&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a6cebb2&is=6a6b9a32&hm=fc89942faeb2e73e53b27d3bd36fce20e75254a7ba8dec911d0b5508a4f40c9d&"
           },
           "image": null,
           "video": null
@@ -5832,7 +5809,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a6a48c9&is=6a68f749&hm=3699f6254f6fc5324759e15aaefefbcbbf248603f6f37a59c90490d5e7f15cab&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a6cebc9&is=6a6b9a49&hm=1f56812ca577ca849b92a2404729e360d610f3b7561d9e1fe02d7689f53754a2&"
           },
           "image": null,
           "video": null
@@ -6182,7 +6159,7 @@
       "author": {
         "name": "Arato",
         "username": "notarato",
-        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/6868ff7aa087717c7336253dff176521.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/e180f082df5438076aba43636d6a499e.png?size=1024"
       },
       "date": "2022-02-15T04:20:18.484000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/942998734961270824",
@@ -6695,7 +6672,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a6a48b2&is=6a68f732&hm=af0d6f0116412b97368cec277ab887be71c8d7585708474276738a0a862be579&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a6cebb2&is=6a6b9a32&hm=fc89942faeb2e73e53b27d3bd36fce20e75254a7ba8dec911d0b5508a4f40c9d&"
           },
           "image": null,
           "video": null
@@ -6709,7 +6686,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a6a48c9&is=6a68f749&hm=3699f6254f6fc5324759e15aaefefbcbbf248603f6f37a59c90490d5e7f15cab&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a6cebc9&is=6a6b9a49&hm=1f56812ca577ca849b92a2404729e360d610f3b7561d9e1fe02d7689f53754a2&"
           },
           "image": null,
           "video": null
@@ -8082,7 +8059,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a6a1a65&is=6a68c8e5&hm=49c8f62e938de0ea6b028cda79c4ef410452ebe8d1f12f019e7b84c6ae8f5068&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a6d6625&is=6a6c14a5&hm=7cafd321ebbf393879945e0c04edc310a642ebae5f270232ac127f951174a8f4&"
           },
           "image": null,
           "video": null
