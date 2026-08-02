@@ -1,0 +1,90 @@
+local Players = game:GetService("Players")
+local Connections = {}
+
+local Plugin = {
+    ["PluginName"] = "PGoto",
+    ["PluginDescription"] = "goto through ProximityPrompt",
+    ["Commands"] = {
+        ["pgoto"] = {
+            ["ListName"] = "pgoto [name]",
+            ["Description"] = "add goto through ProximityPrompt",
+            ["Aliases"] = {"proxygoto"},
+            ["Function"] = function(args, speaker)
+                local target = args[1] or "all"
+                local playersList = getPlayer(target, speaker) 
+                
+                for _, plr in ipairs(playersList) do
+                    local player = type(plr) == "string" and Players:FindFirstChild(plr) or plr
+                    
+                    if not player or player == speaker then continue end
+                    
+                    if Connections[player.UserId] then
+                        Connections[player.UserId]:Disconnect()
+                    end
+
+                    local function setupPrompt(character)
+                        local hrp = character:WaitForChild("HumanoidRootPart", 5)
+                        if not hrp then return end
+                        
+                        for _, v in ipairs(hrp:GetChildren()) do
+                            if v.Name == "GotoPrompt" then v:Destroy() end
+                        end
+
+                        local prompt = Instance.new("ProximityPrompt")
+                        prompt.Name = "GotoPrompt"
+                        prompt.ActionText = "Goto"
+                        prompt.ObjectText = player.DisplayName
+                        prompt.MaxActivationDistance = math.huge
+                        prompt.RequiresLineOfSight = false
+                        prompt.Parent = hrp
+
+                        prompt.Triggered:Connect(function()
+                            local myChar = speaker.Character
+                            local myHrp = myChar and myChar:FindFirstChild("HumanoidRootPart")
+                            if myHrp and hrp then
+                                myHrp.CFrame = hrp.CFrame * CFrame.new(0, 0, -3)
+                            end
+                        end)
+                    end
+                    
+                    if player.Character then
+                        task.spawn(setupPrompt, player.Character)
+                    end
+                    
+                    Connections[player.UserId] = player.CharacterAdded:Connect(setupPrompt)
+                end
+            end
+        },
+        ["unpgoto"] = {
+            ["ListName"] = "unpgoto [name]",
+            ["Description"] = "removes goto through ProximityPrompt",
+            ["Aliases"] = {"nopgoto"},
+            ["Function"] = function(args, speaker)
+                local target = args[1] or "all"
+                local playersList = getPlayer(target, speaker)
+                
+                for _, plr in ipairs(playersList) do
+                    local player = type(plr) == "string" and Players:FindFirstChild(plr) or plr
+                    if not player then continue end
+                    
+                    if Connections[player.UserId] then
+                        Connections[player.UserId]:Disconnect()
+                        Connections[player.UserId] = nil
+                    end
+                    
+                    local char = player.Character
+                    local hrp = char and char:FindFirstChild("HumanoidRootPart")
+                    if hrp then
+                        for _, v in ipairs(hrp:GetChildren()) do
+                            if v.Name == "GotoPrompt" then
+                                v:Destroy()
+                            end
+                        end
+                    end
+                end
+            end
+        }
+    }
+}
+
+return Plugin

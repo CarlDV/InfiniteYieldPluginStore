@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-07-31T05:52:31.891645+00:00",
-  "total": 561,
+  "updated_at": "2026-08-02T08:54:56.406279+00:00",
+  "total": 562,
   "plugins": [
+    {
+      "id": "1533387623148814446",
+      "name": "Pgoto",
+      "author": "Tony",
+      "date": "2026-08-02T08:14:58.323000+00:00",
+      "files": [
+        {
+          "filename": "Pgoto.iy",
+          "url": "plugins/1533387623148814446/Pgoto.iy",
+          "size": 3865,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1532424519854329936",
       "name": "Fling_Deluxe_VersionBackUp",
