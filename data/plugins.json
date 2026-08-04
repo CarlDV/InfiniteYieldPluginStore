@@ -1,30 +1,30 @@
 {
-  "scraped_at": "2026-08-02T08:54:56.386098+00:00",
+  "scraped_at": "2026-08-04T11:15:34.265299+00:00",
   "channel_id": "551846012310782014",
   "total_plugins": 562,
   "plugins": [
     {
-      "id": "1533387623148814446",
-      "name": "Pgoto",
-      "description": "# PGoto\n• Goto through Proximityprompt\n```pgoto [name]```\n```unpgoto [name]```",
+      "id": "1533911100633120920",
+      "name": "PPgoto",
+      "description": "# PPGoto\n• Goto through Proximityprompt (renamed)\n```ppgoto [name]```\n```unppgoto [name]```",
       "author": {
         "name": "Tony",
         "username": "debratecrush",
         "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/2de15641d20e9afcbb58d644fdd892f1.png?size=1024"
       },
-      "date": "2026-08-02T08:14:58.323000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1533387623148814446",
+      "date": "2026-08-03T18:55:05.081000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1533911100633120920",
       "files": [
         {
-          "filename": "Pgoto.iy",
-          "url": "plugins/1533387623148814446/Pgoto.iy",
-          "size": 3865,
+          "filename": "PPgoto.iy",
+          "url": "plugins/1533911100633120920/PPgoto.iy",
+          "size": 3871,
           "is_plugin": true
         }
       ],
       "code_blocks": [
-        "pgoto [name]",
-        "unpgoto [name]"
+        "ppgoto [name]",
+        "unppgoto [name]"
       ],
       "links": [],
       "embeds": [],
@@ -969,7 +969,7 @@
       "name": "sayfact",
       "description": "# sayfact\nOriginally from https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240 but sends the fact to the Roblox game in default channel",
       "author": {
-        "name": "叫大luri",
+        "name": "luri",
         "username": "urluri",
         "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/84c06e754089779889028a9a1130570e.png?size=1024"
       },
@@ -995,7 +995,7 @@
       "name": "IYAI",
       "description": "# IYAI\n-# Made by urluri\n\nAn AI assistant plugin for Infinite Yield. Talk to it in plain English and it'll inspect instances, read properties, run code, and modify the game world using live data from your session.\n\n## Commands\n`;ai` (alias: `;iyai`)\nOpens or closes the IYAI window.\n\n**Tested on Xeno, Madium, Delta, Velocity, Potassium, Volt**\n\n## If you have any questions, feel free to dm <@640556322194063434>\n\n<https://github.com/imluri/IYAI>\nhttps://cdn.discordapp.com/attachments/1246327044715970611/1508584205339332730/2026-05-26_05-32-26.mp4?ex=6a161206&is=6a14c086&hm=72bf5c270f083dfe44ff4a81155181578c2496a6a5691941a02515e181d0680e&",
       "author": {
-        "name": "叫大luri",
+        "name": "luri",
         "username": "urluri",
         "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/84c06e754089779889028a9a1130570e.png?size=1024"
       },
@@ -2387,7 +2387,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a0b89117c8fcd46f1f178363c22e76da.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/9dc9b27811f21836feb9717d2017bc71.png?size=1024"
       },
       "date": "2025-11-19T14:39:50.620000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440713185668890714",
@@ -2411,7 +2411,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a0b89117c8fcd46f1f178363c22e76da.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/9dc9b27811f21836feb9717d2017bc71.png?size=1024"
       },
       "date": "2025-11-19T12:24:35.056000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440679146526343312",
@@ -2461,7 +2461,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a0b89117c8fcd46f1f178363c22e76da.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/9dc9b27811f21836feb9717d2017bc71.png?size=1024"
       },
       "date": "2025-11-02T06:01:29.844000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434422145844514886",
@@ -2538,7 +2538,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/a0b89117c8fcd46f1f178363c22e76da.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/9dc9b27811f21836feb9717d2017bc71.png?size=1024"
       },
       "date": "2025-11-01T13:31:14.811000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434172941133680670",
@@ -5822,7 +5822,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a703772&is=6a6ee5f2&hm=79a6b9e0e2040d554ba3fce87759f7b5dcc779de0933b05f18276cc8910426fe&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a72da72&is=6a7188f2&hm=3079ca85ca95e5064289c6e8b707d1c71113a0b194bfc1f8c5333b379adfa548&"
           },
           "image": null,
           "video": null
@@ -5836,7 +5836,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a703789&is=6a6ee609&hm=c83b050855a5a70c9d4ebecc4fcda3539f1cae5b58719b0c7f2d1b60bd631762&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a72da89&is=6a718909&hm=14cf6ce5a4ee282a699e625491063fda1dddfdf94353c44884fd4d044fcc185d&"
           },
           "image": null,
           "video": null
@@ -6699,7 +6699,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a703772&is=6a6ee5f2&hm=79a6b9e0e2040d554ba3fce87759f7b5dcc779de0933b05f18276cc8910426fe&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a72da72&is=6a7188f2&hm=3079ca85ca95e5064289c6e8b707d1c71113a0b194bfc1f8c5333b379adfa548&"
           },
           "image": null,
           "video": null
@@ -6713,7 +6713,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a703789&is=6a6ee609&hm=c83b050855a5a70c9d4ebecc4fcda3539f1cae5b58719b0c7f2d1b60bd631762&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a72da89&is=6a718909&hm=14cf6ce5a4ee282a699e625491063fda1dddfdf94353c44884fd4d044fcc185d&"
           },
           "image": null,
           "video": null
@@ -8086,7 +8086,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a700925&is=6a6eb7a5&hm=9bc832ec29ea0370c44460d7daec2363943ec174631a5efc98160a1a8c4608be&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a72ac25&is=6a715aa5&hm=512c6f3a1cd01a492b6ef57b07580023ec2501e67338a79785d3bab5871d6e53&"
           },
           "image": null,
           "video": null
@@ -10157,9 +10157,9 @@
       "name": "Ninja_Legends_Best_Free_Hack",
       "description": "Hello ,i created for you the best free hack of ninja legends it is imperatively necessary to have a level 7 executor you give me your opinions if you want",
       "author": {
-        "name": "mdlk74k",
+        "name": "m'",
         "username": "mdlk.74k",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/866d2b49827946e340331eb3bac2587d.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/485853f765420aa8f2c6cbaa78dfb5aa.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",

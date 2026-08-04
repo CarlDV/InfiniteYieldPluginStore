@@ -1,18 +1,18 @@
 {
   "version": "1.0",
-  "updated_at": "2026-08-02T08:54:56.406279+00:00",
+  "updated_at": "2026-08-04T11:15:34.285266+00:00",
   "total": 562,
   "plugins": [
     {
-      "id": "1533387623148814446",
-      "name": "Pgoto",
+      "id": "1533911100633120920",
+      "name": "PPgoto",
       "author": "Tony",
-      "date": "2026-08-02T08:14:58.323000+00:00",
+      "date": "2026-08-03T18:55:05.081000+00:00",
       "files": [
         {
-          "filename": "Pgoto.iy",
-          "url": "plugins/1533387623148814446/Pgoto.iy",
-          "size": 3865,
+          "filename": "PPgoto.iy",
+          "url": "plugins/1533911100633120920/PPgoto.iy",
+          "size": 3871,
           "is_plugin": true
         }
       ],
@@ -613,7 +613,7 @@
     {
       "id": "1502228536537124927",
       "name": "sayfact",
-      "author": "叫大luri",
+      "author": "luri",
       "date": "2026-05-08T08:39:53.167000+00:00",
       "files": [
         {
@@ -628,7 +628,7 @@
     {
       "id": "1500828781567545495",
       "name": "IYAI",
-      "author": "叫大luri",
+      "author": "luri",
       "date": "2026-05-04T11:57:45.576000+00:00",
       "files": [
         {
@@ -5898,7 +5898,7 @@
     {
       "id": "729894584263639051",
       "name": "Ninja_Legends_Best_Free_Hack",
-      "author": "mdlk74k",
+      "author": "m'",
       "date": "2020-07-07T03:00:29.674000+00:00",
       "files": [
         {
