@@ -1,7 +1,6 @@
 :root {
-    --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1); /* Ultra smooth ease-out */
-    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15); /* Elegant subtle bounce */
-    --ease-squish: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 button,
@@ -13,15 +12,13 @@ select,
 .filter-btn,
 .dl-all-btn,
 .close-btn {
-    transition: transform 0.6s var(--ease-fluid), 
-                box-shadow 0.6s var(--ease-fluid), 
-                opacity 0.6s var(--ease-fluid), 
-                border-radius 0.6s var(--ease-fluid), 
-                background-color 0.4s ease, 
-                border-color 0.4s ease, 
-                color 0.4s ease !important;
+    transition: transform 0.3s var(--ease-out),
+                box-shadow 0.3s var(--ease-out),
+                opacity 0.2s ease,
+                background-color 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease;
     transform-origin: center;
-    will-change: transform;
 }
 
 button:active,
@@ -31,39 +28,24 @@ button:active,
 .dl-all-btn:active,
 .card-share:active,
 .msg-btn:active {
-    transform: scale(0.96) !important;
-    border-radius: 14px !important;
-    opacity: 0.85 !important;
-    transition: transform 0.3s var(--ease-squish), opacity 0.3s ease !important;
-}
-
-/* Fluid card hover effects */
-.card {
-    position: relative;
-    overflow: hidden;
+    transform: scale(0.96);
+    opacity: 0.85;
 }
 
 .card:hover {
-    transform: translateY(-6px) scale(1.01) !important;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
-    border-radius: 26px !important;
+    transform: translateY(-4px);
 }
 
 .card:active {
-    transform: scale(0.97) !important;
-    border-radius: 30px !important;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
-    transition: transform 0.4s var(--ease-squish) !important;
+    transform: scale(0.98) translateY(-2px);
 }
 
-.overlay {}
-
 .overlay:not(.hidden):not(.closing) .modal {
-    animation: modal-fluid-in 0.7s var(--ease-spring) forwards;
+    animation: modal-in 0.35s var(--ease-out) forwards;
 }
 
 .overlay.closing .modal {
-    animation: modal-fluid-out 0.4s var(--ease-squish) forwards;
+    animation: modal-out 0.25s var(--ease-in-out) forwards;
 }
 
 .overlay.closing {
@@ -71,100 +53,90 @@ button:active,
     pointer-events: none;
 }
 
-@keyframes modal-fluid-in {
+@keyframes modal-in {
     0% {
         opacity: 0;
-        transform: scale(0.94) translateY(20px);
+        transform: scale(0.96) translateY(12px);
     }
-
     100% {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
 }
 
-@keyframes modal-fluid-out {
+@keyframes modal-out {
     0% {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
-
     100% {
         opacity: 0;
-        transform: scale(0.97) translateY(10px);
+        transform: scale(0.98) translateY(8px);
     }
 }
 
 @media (max-width: 768px) {
-    @keyframes modal-fluid-in {
+    @keyframes modal-in {
         0% {
             opacity: 0;
-            transform: translateY(40px) scale(0.98);
+            transform: translateY(30px) scale(0.98);
         }
-
         100% {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
     }
 
-    @keyframes modal-fluid-out {
+    @keyframes modal-out {
         0% {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
-
         100% {
             opacity: 0;
-            transform: translateY(30px) scale(0.98);
+            transform: translateY(20px) scale(0.98);
         }
     }
 }
 
 input:focus,
 select:focus {
-    transform: scale(1.01);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
-    border-radius: 12px !important;
+    transform: scale(1.005);
+    box-shadow: 0 0 0 2px var(--accent-dim);
 }
 
 .logo:hover .brand-logo {
-    transform: scale(1.08) rotate(3deg) !important;
+    transform: scale(1.05) rotate(3deg);
 }
 
 .brand-logo {
-    transition: transform 0.6s var(--ease-spring) !important;
+    transition: transform 0.3s var(--ease-out);
 }
 
 #loading {
-    animation: bounce-pulse 2.5s infinite var(--ease-fluid);
+    animation: pulse 2s infinite ease-in-out;
 }
 
-@keyframes bounce-pulse {
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 0.6;
-    }
-
-    50% {
-        transform: scale(1.05);
-        opacity: 1;
-    }
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
 }
 
 @keyframes fade-in-up {
     0% {
         opacity: 0;
-        transform: translateY(20px) scale(0.98);
+        transform: translateY(16px);
     }
-
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 }
 
 .reveal-item {
     opacity: 0;
+}
+
+.reveal-item.visible {
+    animation: fade-in-up 0.5s var(--ease-out) forwards;
 }

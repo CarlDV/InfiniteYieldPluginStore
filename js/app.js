@@ -2,7 +2,6 @@
     'use strict';
 
     let cleanup = null;
-    const WORKER_URL = 'https://globalzen-api.renern.workers.dev/iy';
 
     window.initHome = function () {
         if (cleanup) cleanup();
