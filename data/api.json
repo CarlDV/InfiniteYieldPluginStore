@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-08-11T05:47:04.363434+00:00",
+  "updated_at": "2026-08-11T10:33:50.200272+00:00",
   "total": 562,
   "plugins": [
+    {
+      "id": "1536683151106121729",
+      "name": "chatsound",
+      "author": "Tony",
+      "date": "2026-08-11T10:30:13.416000+00:00",
+      "files": [
+        {
+          "filename": "chatsound.iy",
+          "url": "plugins/1536683151106121729/chatsound.iy",
+          "size": 5725,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1536611337038200872",
       "name": "ServerDirectory",
@@ -285,21 +300,6 @@
           "filename": "wfcp.iy",
           "url": "plugins/1519709774567178270/wfcp.iy",
           "size": 10820,
-          "is_plugin": true
-        }
-      ],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1519582764066672702",
-      "name": "chatsound",
-      "author": "Tony",
-      "date": "2026-06-25T05:59:23.436000+00:00",
-      "files": [
-        {
-          "filename": "chatsound.iy",
-          "url": "plugins/1519582764066672702/chatsound.iy",
-          "size": 6296,
           "is_plugin": true
         }
       ],

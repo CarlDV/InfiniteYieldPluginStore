@@ -1,8 +1,34 @@
 {
-  "scraped_at": "2026-08-11T05:47:04.342911+00:00",
+  "scraped_at": "2026-08-11T10:33:50.179145+00:00",
   "channel_id": "551846012310782014",
   "total_plugins": 562,
   "plugins": [
+    {
+      "id": "1536683151106121729",
+      "name": "chatsound",
+      "description": "# Chatsound\n• sound after each message\n```chatsound [player] [id] [volume]\nnochats [player] [id]```\n(#) removed useless things\n(#) Insert large rbxsound links, plugin will do everything itself\n(#) added [volume] value (1-10)\n(def sound with no settings is 5)\n(#) Removed \"PlaybackSpeed\"\n(#) Ignores [player] field if not specified.\n($) Re-upload",
+      "author": {
+        "name": "Tony",
+        "username": "debratecrush",
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/cda905748fa08a11c9fcff6a26d06117.png?size=1024"
+      },
+      "date": "2026-08-11T10:30:13.416000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1536683151106121729",
+      "files": [
+        {
+          "filename": "chatsound.iy",
+          "url": "plugins/1536683151106121729/chatsound.iy",
+          "size": 5725,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "chatsound [player] [id] [volume]\nnochats [player] [id]"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1536611337038200872",
       "name": "ServerDirectory",
@@ -463,32 +489,6 @@
       ],
       "code_blocks": [],
       "links": [],
-      "embeds": [],
-      "loadstring_urls": []
-    },
-    {
-      "id": "1519582764066672702",
-      "name": "chatsound",
-      "description": "# ChatSound\n( Make everyone sounds like Eminen😎)\n•Shuffling sounds early before sending will reduce async\n•Local players' messages MUST be synch(I personally checked)\n•You can insert large links like this ||https://create.roblox.com/store/asset/139219844119994/uwu||...etc\n•After you paste the link, the sound will play after each message's\n•ONLY 5 second duration",
-      "author": {
-        "name": "Tony",
-        "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/cda905748fa08a11c9fcff6a26d06117.png?size=1024"
-      },
-      "date": "2026-06-25T05:59:23.436000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1519582764066672702",
-      "files": [
-        {
-          "filename": "chatsound.iy",
-          "url": "plugins/1519582764066672702/chatsound.iy",
-          "size": 6296,
-          "is_plugin": true
-        }
-      ],
-      "code_blocks": [],
-      "links": [
-        "https://create.roblox.com/store/asset/139219844119994/uwu||...etc"
-      ],
       "embeds": [],
       "loadstring_urls": []
     },
@@ -5828,7 +5828,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7b6c32&is=6a7a1ab2&hm=407c381bf023753900ea107ee47009772a726957a5822055828763f372bb4cb2&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7c14f2&is=6a7ac372&hm=e53626425bdad0b867d915e853ee69ce7e3e9ea4e7bb5f301547a9f9da1a35bd&"
           },
           "image": null,
           "video": null
@@ -5842,7 +5842,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7b6c49&is=6a7a1ac9&hm=27b03e89a552235259a319f26e90aec5be1aa8487e77511c1d6a7b9c7d770130&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7c1509&is=6a7ac389&hm=1615ad6117523a264f033460da98059ae2c97e6d1fdee4d7846b4a6212a0c9b1&"
           },
           "image": null,
           "video": null
@@ -6705,7 +6705,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7b6c32&is=6a7a1ab2&hm=407c381bf023753900ea107ee47009772a726957a5822055828763f372bb4cb2&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7c14f2&is=6a7ac372&hm=e53626425bdad0b867d915e853ee69ce7e3e9ea4e7bb5f301547a9f9da1a35bd&"
           },
           "image": null,
           "video": null
@@ -6719,7 +6719,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7b6c49&is=6a7a1ac9&hm=27b03e89a552235259a319f26e90aec5be1aa8487e77511c1d6a7b9c7d770130&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7c1509&is=6a7ac389&hm=1615ad6117523a264f033460da98059ae2c97e6d1fdee4d7846b4a6212a0c9b1&"
           },
           "image": null,
           "video": null
