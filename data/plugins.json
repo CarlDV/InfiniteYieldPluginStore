@@ -1,7 +1,7 @@
 {
-  "scraped_at": "2026-08-11T11:56:21.115430+00:00",
+  "scraped_at": "2026-08-11T21:42:08.300655+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 563,
+  "total_plugins": 562,
   "plugins": [
     {
       "id": "1536701428633178112",
@@ -70,38 +70,6 @@
       "links": [],
       "embeds": [],
       "loadstring_urls": []
-    },
-    {
-      "id": "1536611337038200872",
-      "name": "ServerDirectory",
-      "description": "## Server Directory\nCmd Usage: sd\n\nNote: small lag spike when it rechecks if any servers is closed or created (Not 2 big of an issue since your using it to teleport to an instance anyways)",
-      "author": {
-        "name": "Pops",
-        "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/d6d531d7846560affd4ab3c4b06bb96e.png?size=1024"
-      },
-      "date": "2026-08-11T05:44:51.608000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1536611337038200872",
-      "files": [
-        {
-          "filename": "ServerDirectory.iy",
-          "url": "plugins/1536611337038200872/ServerDirectory.iy",
-          "size": 12416,
-          "is_plugin": true
-        },
-        {
-          "filename": "image.png",
-          "url": "plugins/1536611337038200872/image.png",
-          "size": 132372,
-          "is_plugin": false
-        }
-      ],
-      "code_blocks": [],
-      "links": [],
-      "embeds": [],
-      "loadstring_urls": [
-        "https://github.com/StyearX/Fluent-modded/releases/download/1.5.7/main.lua"
-      ]
     },
     {
       "id": "1533911100633120920",
@@ -4164,7 +4132,7 @@
       "author": {
         "name": "NZ Linix",
         "username": "com.nzlinix",
-        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/dfec79cfc155b8f11d45383883748db8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/a34d6f2aec4b954f5c8bcc91c4ae58ec.png?size=1024"
       },
       "date": "2023-09-15T19:47:00.304000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1152329744348622898",
@@ -4190,7 +4158,7 @@
       "author": {
         "name": "NZ Linix",
         "username": "com.nzlinix",
-        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/dfec79cfc155b8f11d45383883748db8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/968131311699120169/a34d6f2aec4b954f5c8bcc91c4ae58ec.png?size=1024"
       },
       "date": "2023-09-15T19:24:07.025000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1152323984399015936",
@@ -5870,7 +5838,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7c14f2&is=6a7ac372&hm=e53626425bdad0b867d915e853ee69ce7e3e9ea4e7bb5f301547a9f9da1a35bd&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7cbdb2&is=6a7b6c32&hm=4ad78417b7c8516e26722f478554355135e3c1b05753cab685ccf0a05f3c829a&"
           },
           "image": null,
           "video": null
@@ -5884,7 +5852,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7c1509&is=6a7ac389&hm=1615ad6117523a264f033460da98059ae2c97e6d1fdee4d7846b4a6212a0c9b1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7cbdc9&is=6a7b6c49&hm=14561adb765ff93e8ae60482403deeaaa2a30002728efba4c38f0bfe4dc072a1&"
           },
           "image": null,
           "video": null
@@ -6747,7 +6715,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7c14f2&is=6a7ac372&hm=e53626425bdad0b867d915e853ee69ce7e3e9ea4e7bb5f301547a9f9da1a35bd&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7cbdb2&is=6a7b6c32&hm=4ad78417b7c8516e26722f478554355135e3c1b05753cab685ccf0a05f3c829a&"
           },
           "image": null,
           "video": null
@@ -6761,7 +6729,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7c1509&is=6a7ac389&hm=1615ad6117523a264f033460da98059ae2c97e6d1fdee4d7846b4a6212a0c9b1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7cbdc9&is=6a7b6c49&hm=14561adb765ff93e8ae60482403deeaaa2a30002728efba4c38f0bfe4dc072a1&"
           },
           "image": null,
           "video": null
@@ -8134,7 +8102,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a7be6a5&is=6a7a9525&hm=fdf3b50c4af305ca758406b2da05c22c63dd4a63c44993d39d2a60a6d125bee9&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a7c8f65&is=6a7b3de5&hm=80e575254f051f2ecce6b98a4b1bfb5f02a6cb96d736b7eb9c1abad385f4bf2a&"
           },
           "image": null,
           "video": null

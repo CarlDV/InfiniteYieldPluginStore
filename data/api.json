@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "updated_at": "2026-08-11T11:56:21.131254+00:00",
-  "total": 563,
+  "updated_at": "2026-08-11T21:42:08.320906+00:00",
+  "total": 562,
   "plugins": [
     {
       "id": "1536701428633178112",
@@ -50,29 +50,6 @@
         }
       ],
       "loadstring_urls": []
-    },
-    {
-      "id": "1536611337038200872",
-      "name": "ServerDirectory",
-      "author": "Pops",
-      "date": "2026-08-11T05:44:51.608000+00:00",
-      "files": [
-        {
-          "filename": "ServerDirectory.iy",
-          "url": "plugins/1536611337038200872/ServerDirectory.iy",
-          "size": 12416,
-          "is_plugin": true
-        },
-        {
-          "filename": "image.png",
-          "url": "plugins/1536611337038200872/image.png",
-          "size": 132372,
-          "is_plugin": false
-        }
-      ],
-      "loadstring_urls": [
-        "https://github.com/StyearX/Fluent-modded/releases/download/1.5.7/main.lua"
-      ]
     },
     {
       "id": "1533911100633120920",
