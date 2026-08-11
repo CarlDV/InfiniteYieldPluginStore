@@ -1,0 +1,293 @@
+local Settings = {
+    PlatformSize = 5,
+    PlatformTransparency = 1,
+    PlatformOffset = 3,
+    MoveSpeed = 0.1
+}
+
+local activePlatforms = {}
+local keyStates = {
+    E = false,
+    Q = false
+}
+
+local function getPrimaryPart(character)
+    return character:FindFirstChild("HumanoidRootPart")
+end
+
+local function updatePlatformAppearance(platform)
+    if not platform then return end
+    
+    platform.Size = Vector3.new(Settings.PlatformSize, 0.5, Settings.PlatformSize)
+    platform.Transparency = Settings.PlatformTransparency
+end
+
+local function createPlatform(character)
+    if not character then return nil end
+    
+    local primaryPart = getPrimaryPart(character)
+    if not primaryPart then return nil end
+    
+    local platform = Instance.new("Part")
+    platform.Size = Vector3.new(Settings.PlatformSize, 0.5, Settings.PlatformSize)
+    platform.Shape = Enum.PartType.Block
+    platform.BottomSurface = Enum.SurfaceType.Smooth
+    platform.TopSurface = Enum.SurfaceType.Smooth
+    platform.Material = Enum.Material.Plastic
+    platform.Transparency = Settings.PlatformTransparency
+    platform.Color = Color3.fromRGB(128, 128, 128)
+    platform.Anchored = true
+    platform.CanCollide = true
+    platform.CanQuery = false
+    
+    local characterPos = primaryPart.Position
+    
+    platform.Position = Vector3.new(
+        characterPos.X, 
+        characterPos.Y - Settings.PlatformOffset,
+        characterPos.Z
+    )
+    
+    platform.Parent = workspace
+    
+    return platform
+end
+
+local function updatePlatformPosition(platform, character)
+    if not platform or not character then return end
+    
+    local primaryPart = getPrimaryPart(character)
+    if not primaryPart then return end
+    
+    local characterPos = primaryPart.Position
+    local currentY = platform.Position.Y
+    
+    platform.Position = Vector3.new(
+        characterPos.X, 
+        currentY,
+        characterPos.Z
+    )
+end
+
+local function changePlatformHeight(character, amount)
+    if not character then return false end
+    
+    local characterId = tostring(character)
+    local platform = activePlatforms[characterId]
+    
+    if not platform or not platform.Parent then
+        return false
+    end
+    
+    local currentPos = platform.Position
+    platform.Position = Vector3.new(
+        currentPos.X,
+        currentPos.Y + amount,
+        currentPos.Z
+    )
+    
+    return true
+end
+
+local function removePlatform(character)
+    if not character then return false end
+    
+    local characterId = tostring(character)
+    if activePlatforms[characterId] then
+        local platform = activePlatforms[characterId]
+        if platform and platform.Parent then
+            platform:Destroy()
+        end
+        activePlatforms[characterId] = nil
+        return true
+    end
+    return false
+end
+
+local function hasPlatform(character)
+    if not character then return false end
+    local characterId = tostring(character)
+    return activePlatforms[characterId] ~= nil and activePlatforms[characterId].Parent ~= nil
+end
+
+local function updateAllPlatformsAppearance()
+    for characterId, platform in pairs(activePlatforms) do
+        if platform and platform.Parent then
+            updatePlatformAppearance(platform)
+        end
+    end
+end
+
+local function startPlatformUpdateLoop()
+    game:GetService("RunService").Heartbeat:Connect(function()
+        local toRemove = {}
+        
+        for characterId, platform in pairs(activePlatforms) do
+            if platform and platform.Parent then
+                local found = false
+                for _, player in ipairs(game.Players:GetPlayers()) do
+                    if player.Character and tostring(player.Character) == characterId then
+                        updatePlatformPosition(platform, player.Character)
+                        found = true
+                        break
+                    end
+                end
+                
+                if not found then
+                    table.insert(toRemove, characterId)
+                end
+            else
+                table.insert(toRemove, characterId)
+            end
+        end
+        
+        for _, id in ipairs(toRemove) do
+            activePlatforms[id] = nil
+        end
+    end)
+end
+
+local function startKeyHandler()
+    local userInputService = game:GetService("UserInputService")
+    
+    userInputService.InputBegan:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+        
+        local isCtrlDown = userInputService:IsKeyDown(Enum.KeyCode.LeftControl) or userInputService:IsKeyDown(Enum.KeyCode.RightControl)
+        
+        if not isCtrlDown then return end
+        
+        if input.KeyCode == Enum.KeyCode.E then
+            keyStates.E = true
+        elseif input.KeyCode == Enum.KeyCode.Q then
+            keyStates.Q = true
+        end
+    end)
+    
+    userInputService.InputEnded:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+        
+        if input.KeyCode == Enum.KeyCode.E then
+            keyStates.E = false
+        elseif input.KeyCode == Enum.KeyCode.Q then
+            keyStates.Q = false
+        end
+    end)
+end
+
+local function startMovementLoop()
+    game:GetService("RunService").Heartbeat:Connect(function()
+        local isCtrlDown = game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.LeftControl) or game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.RightControl)
+        
+        if not isCtrlDown then
+            return
+        end
+        
+        local player = game.Players.LocalPlayer
+        if not player then return end
+        
+        local character = player.Character
+        if not character then return end
+        
+        if not hasPlatform(character) then return end
+        
+        if keyStates.E then
+            changePlatformHeight(character, Settings.MoveSpeed)
+        elseif keyStates.Q then
+            changePlatformHeight(character, -Settings.MoveSpeed)
+        end
+    end)
+end
+
+startPlatformUpdateLoop()
+startKeyHandler()
+startMovementLoop()
+
+game.Players.PlayerRemoving:Connect(function(player)
+    if player.Character then
+        removePlatform(player.Character)
+    end
+end)
+
+local FloatSystem = {
+    PluginName = "float",
+    PluginDescription = "Float platform system",
+    Commands = {
+        fl = {
+            ListName = "fl",
+            Description = "Create floating platform",
+            Aliases = {},
+            Function = function(args, speaker)
+                local character = speaker.Character
+                if not character then return end
+                
+                if hasPlatform(character) then return end
+                
+                local platform = createPlatform(character)
+                if platform then
+                    local characterId = tostring(character)
+                    activePlatforms[characterId] = platform
+                end
+            end
+        },
+        ufl = {
+            ListName = "ufl",
+            Description = "Remove floating platform",
+            Aliases = {},
+            Function = function(args, speaker)
+                local character = speaker.Character
+                if not character then return end
+                
+                removePlatform(character)
+            end
+        },
+        setflspeed = {
+            ListName = "setflspeed [num]",
+            Description = "default 0.1",
+            Aliases = {},
+            Function = function(args, speaker)
+                local speed = tonumber(args[1])
+                if speed and speed > 0 then
+                    Settings.MoveSpeed = speed
+                end
+            end
+        },
+        setfloffset = {
+            ListName = "setfloffset [num]",
+            Description = "default 3",
+            Aliases = {},
+            Function = function(args, speaker)
+                local offset = tonumber(args[1])
+                if offset then
+                    Settings.PlatformOffset = offset
+                end
+            end
+        },
+        setflsize = {
+            ListName = "setflsize [num]",
+            Description = "default 5",
+            Aliases = {},
+            Function = function(args, speaker)
+                local size = tonumber(args[1])
+                if size and size > 0 then
+                    Settings.PlatformSize = size
+                    updateAllPlatformsAppearance()
+                end
+            end
+        },
+        setfltrans = {
+            ListName = "setfltrans [0-1]",
+            Description = "default 0",
+            Aliases = {},
+            Function = function(args, speaker)
+                local transparency = tonumber(args[1])
+                if transparency and transparency >= 0 and transparency <= 1 then
+                    Settings.PlatformTransparency = transparency
+                    updateAllPlatformsAppearance()
+                end
+            end
+        }
+    }
+}
+
+return FloatSystem

@@ -1,8 +1,50 @@
 {
-  "scraped_at": "2026-08-11T10:33:50.179145+00:00",
+  "scraped_at": "2026-08-11T11:56:21.115430+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 562,
+  "total_plugins": 563,
   "plugins": [
+    {
+      "id": "1536701428633178112",
+      "name": "float",
+      "description": "# ;float / platform\n-# without following Y\n# - hold ctrl + e / q to move platform up / down\n\n## - fl\n- create platform\n## - ufl\n- destroy platform\n## - setflsize [num]\n- how big platform will be\n## - setfltrans [0-1]\n- how transperancy platform will be\n## - setflspeed [num]\n- how fast platform moving up / down\n## - setfloffset [num]\n- how far platform will spawn under you? values like -3 will spawn platform over you",
+      "author": {
+        "name": "wonkeyy",
+        "username": "wonkeyy",
+        "avatar": "https://cdn.discordapp.com/avatars/812296107262083112/5445a8fb804c3c3dd2b1d21394bf5eb0.png?size=1024"
+      },
+      "date": "2026-08-11T11:42:51.118000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1536701428633178112",
+      "files": [
+        {
+          "filename": "2026-08-11_12-54-40.mp4",
+          "url": "plugins/1536701428633178112/2026-08-11_12-54-40.mp4",
+          "size": 10099378,
+          "is_plugin": false
+        },
+        {
+          "filename": "2026-08-11_12-55-02.mp4",
+          "url": "plugins/1536701428633178112/2026-08-11_12-55-02.mp4",
+          "size": 18101092,
+          "is_plugin": false
+        },
+        {
+          "filename": "2026-08-11_12-58-13.mp4",
+          "url": "plugins/1536701428633178112/2026-08-11_12-58-13.mp4",
+          "size": 15742285,
+          "is_plugin": false
+        },
+        {
+          "filename": "float.iy",
+          "url": "plugins/1536701428633178112/float.iy",
+          "size": 9184,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1536683151106121729",
       "name": "chatsound",
