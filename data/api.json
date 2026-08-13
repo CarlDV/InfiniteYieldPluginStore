@@ -1,8 +1,31 @@
 {
   "version": "1.0",
-  "updated_at": "2026-08-12T05:36:47.879047+00:00",
-  "total": 562,
+  "updated_at": "2026-08-13T11:56:11.113731+00:00",
+  "total": 563,
   "plugins": [
+    {
+      "id": "1537428294553833562",
+      "name": "ServerDirectory",
+      "author": "Pops",
+      "date": "2026-08-13T11:51:09.458000+00:00",
+      "files": [
+        {
+          "filename": "ServerDirectory.iy",
+          "url": "plugins/1537428294553833562/ServerDirectory.iy",
+          "size": 21935,
+          "is_plugin": true
+        },
+        {
+          "filename": "preview.png",
+          "url": "plugins/1537428294553833562/preview.png",
+          "size": 138982,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": [
+        "https://github.com/LostMorality/Fluent-modded/releases/download/Fluent/FluentPro"
+      ]
+    },
     {
       "id": "1536701428633178112",
       "name": "float",
@@ -631,7 +654,7 @@
     {
       "id": "1502228536537124927",
       "name": "sayfact",
-      "author": "luri",
+      "author": "zzzzzzzzzzxd",
       "date": "2026-05-08T08:39:53.167000+00:00",
       "files": [
         {
@@ -646,7 +669,7 @@
     {
       "id": "1500828781567545495",
       "name": "IYAI",
-      "author": "luri",
+      "author": "zzzzzzzzzzxd",
       "date": "2026-05-04T11:57:45.576000+00:00",
       "files": [
         {

@@ -1,0 +1,721 @@
+local Fluent = loadstring(game:HttpGet("https://github.com/LostMorality/Fluent-modded/releases/download/Fluent/FluentPro"))()
+
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = Players.LocalPlayer
+local PlaceId = game.PlaceId
+
+local function HttpGet(url)
+    local ok, status, body = pcall(function()
+        if request then
+            local res = request({Url = url, Method = "GET"})
+            return res.StatusCode, res.Body
+        elseif http_request then
+            local res = http_request({Url = url, Method = "GET"})
+            return res.StatusCode, res.Body
+        elseif syn and syn.request then
+            local res = syn.request({Url = url, Method = "GET"})
+            return res.StatusCode, res.Body
+        end
+        return 200, game:HttpGet(url)
+    end)
+    if ok then
+        return status, body
+    end
+    return nil, nil
+end
+
+local function CopyToClipboard(text)
+    local fn = setclipboard or toclipboard or (Clipboard and Clipboard.set)
+    if not fn then
+        return false
+    end
+    local ok = pcall(fn, text)
+    return ok
+end
+
+local ROVALRA_BASE = "https://apis.rovalra.com"
+local DATACENTERS_URL = ROVALRA_BASE .. "/v1/datacenters/list"
+local GEOLOCATION_URL = "https://ipapi.co/json/"
+
+local BASE_REFRESH_INTERVAL = 20
+local MAX_REFRESH_INTERVAL = 180
+local REGION_SCAN_INTERVAL = 90
+local REGION_SERVER_PAGE_LIMIT = 2
+local ROVALRA_REQUEST_DELAY = 0.2
+
+local State = {
+    Running = false,
+    IsRefreshing = false,
+    IsScanningRegions = false,
+    RawServers = {},
+    Rows = {},
+    SortMode = "Closest Region",
+    HideFull = true,
+    Interval = BASE_REFRESH_INTERVAL,
+    ConsecutiveFailures = 0,
+    Datacenters = {},
+    AutoOrigin = nil,
+    OriginIsRealLocation = false,
+    PingCoefficient = 1,
+    BaseOverheadMs = 30,
+    CurrentServerRealPing = nil,
+    CityRank = {},
+    CityPing = {},
+    ServerRegion = {},
+}
+
+local DEFAULT_PING_COEFFICIENT = 1
+local DEFAULT_BASE_OVERHEAD_MS = 30
+local MIN_PING_COEFFICIENT = 0.3
+local MAX_PING_COEFFICIENT = 3
+local CALIBRATION_MIN_DISTANCE_KM = 200
+
+local Window = nil
+local Tab = nil
+local ControlsSection = nil
+local ListSection = nil
+local StatusRow = nil
+local EmptyRow = nil
+
+local function ExtractLatLon(location)
+    if not location then
+        return nil, nil
+    end
+    if location.latLong then
+        return tonumber(location.latLong[1]), tonumber(location.latLong[2])
+    end
+    if location.latitude and location.longitude then
+        return tonumber(location.latitude), tonumber(location.longitude)
+    end
+    if location.lat and location.lon then
+        return tonumber(location.lat), tonumber(location.lon)
+    end
+    return nil, nil
+end
+
+local function Haversine(lat1, lon1, lat2, lon2)
+    local R = 6371
+    local dLat = math.rad(lat2 - lat1)
+    local dLon = math.rad(lon2 - lon1)
+    local a = math.sin(dLat / 2) ^ 2 + math.cos(math.rad(lat1)) * math.cos(math.rad(lat2)) * math.sin(dLon / 2) ^ 2
+    local c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    return R * c
+end
+
+local function EstimatePing(distanceKm)
+    return math.floor(State.PingCoefficient * math.sqrt(distanceKm) + State.BaseOverheadMs)
+end
+
+local function FetchDatacenters()
+    local _, body = HttpGet(DATACENTERS_URL)
+    if not body then
+        return {}
+    end
+    local ok, decoded = pcall(function()
+        return HttpService:JSONDecode(body)
+    end)
+    if not ok or type(decoded) ~= "table" then
+        return {}
+    end
+    local list = {}
+    for _, dc in ipairs(decoded) do
+        local location = dc.location
+        if location and location.city then
+            local lat, lon = ExtractLatLon(location)
+            if lat and lon then
+                table.insert(list, {
+                    City = location.city,
+                    Country = location.country,
+                    Lat = lat,
+                    Lon = lon,
+                })
+            end
+        end
+    end
+    return list
+end
+
+local function FetchCurrentServerCity()
+    local url = string.format(
+        "%s/v1/servers/details?place_id=%d&server_ids=%s",
+        ROVALRA_BASE,
+        PlaceId,
+        HttpService:UrlEncode(game.JobId)
+    )
+    local _, body = HttpGet(url)
+    if not body then
+        return nil
+    end
+    local ok, decoded = pcall(function()
+        return HttpService:JSONDecode(body)
+    end)
+    if not ok or not decoded or not decoded.servers or not decoded.servers[1] then
+        return nil
+    end
+    return decoded.servers[1].city
+end
+
+local function FetchPlayerOrigin()
+    local _, body = HttpGet(GEOLOCATION_URL)
+    if not body then
+        return nil
+    end
+    local ok, decoded = pcall(function()
+        return HttpService:JSONDecode(body)
+    end)
+    if not ok or not decoded then
+        return nil
+    end
+    local lat, lon = ExtractLatLon(decoded)
+    if not lat or not lon then
+        return nil
+    end
+    return {Lat = lat, Lon = lon}
+end
+
+local function GetRealCurrentPing()
+    local ok, value = pcall(function()
+        return game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue()
+    end)
+    if ok and type(value) == "number" and value > 0 then
+        return value
+    end
+    return nil
+end
+
+local function CalibratePingModel()
+    State.PingCoefficient = DEFAULT_PING_COEFFICIENT
+    State.BaseOverheadMs = DEFAULT_BASE_OVERHEAD_MS
+    State.CurrentServerRealPing = nil
+    if not State.AutoOrigin then
+        return
+    end
+    local currentCity = FetchCurrentServerCity()
+    if not currentCity then
+        return
+    end
+    local realPing = GetRealCurrentPing()
+    for _, dc in ipairs(State.Datacenters) do
+        if dc.City == currentCity then
+            if realPing then
+                State.CurrentServerRealPing = math.floor(realPing)
+                local dist = Haversine(State.AutoOrigin.Lat, State.AutoOrigin.Lon, dc.Lat, dc.Lon)
+                if dist > CALIBRATION_MIN_DISTANCE_KM then
+                    local coefficient = (realPing - DEFAULT_BASE_OVERHEAD_MS) / math.sqrt(dist)
+                    if coefficient == coefficient and coefficient > 0 then
+                        State.PingCoefficient = math.clamp(coefficient, MIN_PING_COEFFICIENT, MAX_PING_COEFFICIENT)
+                    end
+                end
+            end
+            break
+        end
+    end
+end
+
+local function RecomputeCityRanks()
+    local origin = State.AutoOrigin
+    State.CityRank = {}
+    State.CityPing = {}
+    if not origin then
+        return
+    end
+    local ranked = {}
+    for _, dc in ipairs(State.Datacenters) do
+        table.insert(ranked, {
+            City = dc.City,
+            Distance = Haversine(origin.Lat, origin.Lon, dc.Lat, dc.Lon),
+        })
+    end
+    table.sort(ranked, function(a, b)
+        return a.Distance < b.Distance
+    end)
+    for index, entry in ipairs(ranked) do
+        State.CityRank[entry.City] = index
+        State.CityPing[entry.City] = EstimatePing(entry.Distance)
+    end
+end
+
+local function ScanRegions()
+    local order = {}
+    for _, dc in ipairs(State.Datacenters) do
+        table.insert(order, dc)
+    end
+    table.sort(order, function(a, b)
+        local rankA = State.CityRank[a.City] or math.huge
+        local rankB = State.CityRank[b.City] or math.huge
+        return rankA < rankB
+    end)
+    for _, dc in ipairs(order) do
+        if not State.Running then
+            return
+        end
+        local city = HttpService:UrlEncode(dc.City)
+        local cursor = "0"
+        local pages = 0
+        while cursor and pages < REGION_SERVER_PAGE_LIMIT do
+            local url = string.format(
+                "%s/v1/servers/region?place_id=%d&city=%s&limit=100&cursor=%s",
+                ROVALRA_BASE,
+                PlaceId,
+                city,
+                HttpService:UrlEncode(cursor)
+            )
+            local _, body = HttpGet(url)
+            pages = pages + 1
+            if not body then
+                break
+            end
+            local ok, decoded = pcall(function()
+                return HttpService:JSONDecode(body)
+            end)
+            if not ok or not decoded or not decoded.servers then
+                break
+            end
+            for _, entry in ipairs(decoded.servers) do
+                if entry.server_id then
+                    State.ServerRegion[entry.server_id] = dc.City
+                end
+            end
+            cursor = decoded.next_cursor
+            if not cursor or cursor == "" or cursor == "0" then
+                break
+            end
+            task.wait(ROVALRA_REQUEST_DELAY)
+        end
+        task.wait(ROVALRA_REQUEST_DELAY)
+    end
+end
+
+local function FetchAllServers()
+    local servers = {}
+    local cursor = ""
+    for _ = 1, 25 do
+        local url = string.format(
+            "https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Asc&limit=100&cursor=%s",
+            PlaceId,
+            HttpService:UrlEncode(cursor)
+        )
+        local status, body = HttpGet(url)
+        if status == 429 then
+            return servers, true
+        end
+        if not body then
+            break
+        end
+        local ok, decoded = pcall(function()
+            return HttpService:JSONDecode(body)
+        end)
+        if not ok or not decoded or not decoded.data then
+            break
+        end
+        for _, entry in ipairs(decoded.data) do
+            table.insert(servers, {
+                Id = entry.id,
+                Playing = entry.playing or 0,
+                MaxPlayers = entry.maxPlayers or 0,
+            })
+        end
+        cursor = decoded.nextPageCursor
+        if not cursor or cursor == "" then
+            break
+        end
+        task.wait()
+    end
+    return servers, false
+end
+
+local function BuildDisplayList()
+    local list = {}
+    for _, server in ipairs(State.RawServers) do
+        if server.Playing > 0 then
+            local include = true
+            if State.HideFull and server.Playing >= server.MaxPlayers and server.Id ~= game.JobId then
+                include = false
+            end
+            if include then
+                server.RegionCity = State.ServerRegion[server.Id]
+                server.RegionRank = server.RegionCity and State.CityRank[server.RegionCity]
+                if server.Id == game.JobId and State.CurrentServerRealPing then
+                    server.RegionPing = State.CurrentServerRealPing
+                    server.PingIsMeasured = true
+                else
+                    server.RegionPing = server.RegionCity and State.CityPing[server.RegionCity]
+                    server.PingIsMeasured = false
+                end
+                table.insert(list, server)
+            end
+        end
+    end
+    table.sort(list, function(a, b)
+        if a.Id == game.JobId or b.Id == game.JobId then
+            return a.Id == game.JobId
+        end
+        if State.SortMode == "Most Players" then
+            return a.Playing > b.Playing
+        elseif State.SortMode == "Closest Region" then
+            local rankA = a.RegionRank or math.huge
+            local rankB = b.RegionRank or math.huge
+            if rankA == rankB then
+                return a.Playing < b.Playing
+            end
+            return rankA < rankB
+        end
+        return a.Playing < b.Playing
+    end)
+    return list
+end
+
+local function BuildRowText(server)
+    local title = string.format("%d/%d players", server.Playing, server.MaxPlayers)
+    local regionLine = "Unknown region"
+    if server.RegionCity then
+        if server.RegionPing then
+            if server.PingIsMeasured then
+                regionLine = string.format("%s (%d ms, current server)", server.RegionCity, server.RegionPing)
+            else
+                regionLine = string.format("%s (~%d ms)", server.RegionCity, server.RegionPing)
+            end
+        else
+            regionLine = server.RegionCity
+        end
+    end
+    local content = string.format(
+        "Region: %s\nID: %s",
+        regionLine,
+        server.Id
+    )
+    return title, content
+end
+
+local function JoinServer(id)
+    local ok, err = pcall(function()
+        TeleportService:TeleportToPlaceInstance(PlaceId, id, LocalPlayer)
+    end)
+    if not ok then
+        Fluent:Notify({Title = "Server Directory", Content = "Failed to join server", SubContent = tostring(err), Duration = 5})
+    end
+end
+
+local function ShareServer(id)
+    local snippet = string.format(
+        'game:GetService("TeleportService"):TeleportToPlaceInstance(%d, "%s", game:GetService("Players").LocalPlayer)',
+        PlaceId,
+        id
+    )
+    if CopyToClipboard(snippet) then
+        Fluent:Notify({Title = "Server Directory", Content = "Join script copied to clipboard", Duration = 4})
+    else
+        Fluent:Notify({Title = "Server Directory", Content = "Clipboard not supported on this executor", Duration = 5})
+    end
+end
+
+local function EnsureEmptyRow()
+    if not EmptyRow then
+        EmptyRow = ListSection:AddParagraph({Title = "No servers found", Content = "Try adjusting your filters"})
+    end
+end
+
+local function CreateRow(server)
+    local group = ListSection:AddGroup({Columns = 3, Gap = 6})
+    local title, content = BuildRowText(server)
+    local infoColumn = group:AddElement()
+    local info = infoColumn:AddParagraph({Title = title, Content = content})
+    local joinColumn = group:AddElement()
+    local joinButton = joinColumn:AddButton({
+        Title = server.Id == game.JobId and "Rejoin" or "Join",
+        Callback = function()
+            JoinServer(server.Id)
+        end,
+    })
+    local shareColumn = group:AddElement()
+    local shareButton = shareColumn:AddButton({
+        Title = "Share",
+        Callback = function()
+            ShareServer(server.Id)
+        end,
+    })
+    State.Rows[server.Id] = {Group = group, Info = info, Join = joinButton, Share = shareButton}
+end
+
+local function UpdateRow(row, server)
+    local title, content = BuildRowText(server)
+    row.Info:SetTitle(title)
+    row.Info:SetDesc(content)
+end
+
+local ROWS_PER_YIELD = 15
+
+local function IncrementalUpdate(list)
+    EnsureEmptyRow()
+    local seen = {}
+    for index, server in ipairs(list) do
+        seen[server.Id] = true
+        local row = State.Rows[server.Id]
+        if row then
+            UpdateRow(row, server)
+        else
+            CreateRow(server)
+            row = State.Rows[server.Id]
+        end
+        row.Group.Frame.LayoutOrder = index
+        if index % ROWS_PER_YIELD == 0 then
+            task.wait()
+        end
+    end
+    local toRemove = {}
+    for id in pairs(State.Rows) do
+        if not seen[id] then
+            table.insert(toRemove, id)
+        end
+    end
+    for index, id in ipairs(toRemove) do
+        State.Rows[id].Group:Destroy()
+        State.Rows[id] = nil
+        if index % ROWS_PER_YIELD == 0 then
+            task.wait()
+        end
+    end
+    EmptyRow.Frame.Visible = (#list == 0)
+    if StatusRow then
+        StatusRow:SetTitle(string.format("%d servers - updated %s", #list, os.date("%I:%M:%S %p")))
+    end
+end
+
+local function RefreshCycle()
+    if State.IsRefreshing then
+        return
+    end
+    State.IsRefreshing = true
+    local fetchedCount = 0
+    pcall(function()
+        local servers = FetchAllServers()
+        fetchedCount = #servers
+        if fetchedCount > 0 then
+            State.RawServers = servers
+        end
+    end)
+    if fetchedCount > 0 then
+        State.ConsecutiveFailures = 0
+        State.Interval = BASE_REFRESH_INTERVAL
+    else
+        State.ConsecutiveFailures = State.ConsecutiveFailures + 1
+        State.Interval = math.min(State.Interval * 2, MAX_REFRESH_INTERVAL)
+    end
+    if Window then
+        IncrementalUpdate(BuildDisplayList())
+    end
+    State.IsRefreshing = false
+end
+
+local function TeardownWindow()
+    if Window then
+        pcall(function()
+            Window:Destroy()
+        end)
+    end
+    Window = nil
+    Tab = nil
+    ControlsSection = nil
+    ListSection = nil
+    StatusRow = nil
+    EmptyRow = nil
+    State.Rows = {}
+    State.Running = false
+end
+
+local function StartLoop()
+    if State.Running then
+        return
+    end
+    State.Running = true
+    task.spawn(function()
+        while State.Running do
+            RefreshCycle()
+            task.wait(State.Interval)
+        end
+    end)
+end
+
+local function StartRegionScanLoop()
+    task.spawn(function()
+        while State.Running do
+            if not State.IsScanningRegions and #State.Datacenters > 0 then
+                State.IsScanningRegions = true
+                pcall(ScanRegions)
+                State.IsScanningRegions = false
+                if Window then
+                    IncrementalUpdate(BuildDisplayList())
+                end
+            end
+            task.wait(REGION_SCAN_INTERVAL)
+        end
+    end)
+end
+
+local function StartWatchdog()
+    task.spawn(function()
+        while State.Running do
+            task.wait(3)
+            local windowDestroyed = Window and Window.Root and Window.Root.Parent == nil
+            if windowDestroyed then
+                TeardownWindow()
+                break
+            end
+        end
+    end)
+end
+
+local function OnSortChanged(value)
+    State.SortMode = value
+    IncrementalUpdate(BuildDisplayList())
+end
+
+local function OnHideFullChanged(value)
+    State.HideFull = value
+    IncrementalUpdate(BuildDisplayList())
+end
+
+local function AddWatermark()
+    local container = Instance.new("Frame")
+    container.Name = "SD_WatermarkPattern"
+    container.BackgroundTransparency = 1
+    container.Size = UDim2.fromScale(1, 1)
+    container.Position = UDim2.fromScale(0, 0)
+    container.ZIndex = 50
+    container.Active = false
+    container.Selectable = false
+    container.ClipsDescendants = true
+    container.Parent = Window.Root
+
+    local rng = Random.new()
+    local columns, rows = 6, 6
+    local cellWidth, cellHeight = 1 / columns, 1 / rows
+    for row = 0, rows - 1 do
+        for column = 0, columns - 1 do
+            local label = Instance.new("TextLabel")
+            label.BackgroundTransparency = 1
+            label.Text = "nolifepops"
+            label.Font = rng:NextInteger(0, 1) == 0 and Enum.Font.GothamBold or Enum.Font.Gotham
+            label.TextSize = rng:NextInteger(14, 30)
+            label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            label.TextTransparency = rng:NextNumber(0.88, 0.96)
+            label.Rotation = rng:NextInteger(-35, 35)
+            label.AnchorPoint = Vector2.new(0.5, 0.5)
+            label.Size = UDim2.fromScale(cellWidth * 1.6, cellHeight * 1.6)
+            label.Position = UDim2.fromScale(
+                column * cellWidth + cellWidth / 2 + rng:NextNumber(-0.03, 0.03),
+                row * cellHeight + cellHeight / 2 + rng:NextNumber(-0.03, 0.03)
+            )
+            label.TextXAlignment = Enum.TextXAlignment.Center
+            label.TextYAlignment = Enum.TextYAlignment.Center
+            label.ZIndex = 50
+            label.Active = false
+            label.Selectable = false
+            label.Parent = container
+        end
+        task.wait()
+    end
+end
+
+local function VerifyWatermark()
+    if not (Window and Window.Root) then
+        return false
+    end
+    local container = Window.Root:FindFirstChild("SD_WatermarkPattern")
+    if not container then
+        return false
+    end
+    for _, child in ipairs(container:GetChildren()) do
+        if child:IsA("TextLabel") and child.Text == "nolifepops" then
+            return true
+        end
+    end
+    return false
+end
+
+local function EnsureWindow()
+    if Window then
+        return
+    end
+
+    State.Datacenters = FetchDatacenters()
+    State.AutoOrigin = FetchPlayerOrigin()
+    State.OriginIsRealLocation = State.AutoOrigin ~= nil
+    if not State.AutoOrigin then
+        local originCity = FetchCurrentServerCity()
+        if originCity then
+            for _, dc in ipairs(State.Datacenters) do
+                if dc.City == originCity then
+                    State.AutoOrigin = {Lat = dc.Lat, Lon = dc.Lon}
+                    break
+                end
+            end
+        end
+    end
+    CalibratePingModel()
+    RecomputeCityRanks()
+
+    Window = Fluent:CreateWindow({
+        Title = "Server Directory",
+        SubTitle = "PlaceId: " .. tostring(PlaceId),
+        Size = UDim2.fromOffset(560, 480),
+        TabWidth = 160,
+        Acrylic = true,
+        Theme = "AMOLED",
+    })
+    AddWatermark()
+    if not VerifyWatermark() then
+        pcall(function()
+            Window:Destroy()
+        end)
+        Window = nil
+        return
+    end
+    Tab = Window:AddTab({Title = "Servers", Icon = "solar/server-bold"})
+    ControlsSection = Tab:AddSection("Filters", "solar/filter-bold")
+    ControlsSection:AddDropdown("SD_Sort", {
+        Title = "Sort By",
+        Values = {"Fewest Players", "Most Players", "Closest Region"},
+        Default = State.SortMode,
+        NoSearch = true,
+        Callback = OnSortChanged,
+    })
+    ControlsSection:AddToggle("SD_HideFull", {
+        Title = "Hide Full Servers",
+        Default = State.HideFull,
+        Callback = OnHideFullChanged,
+    })
+    ControlsSection:AddButton({Title = "Refresh Now", Callback = RefreshCycle})
+    ListSection = Tab:AddSection("Servers", "solar/global-bold")
+    StatusRow = ListSection:AddParagraph({Title = "Loading servers...", Content = ""})
+    IncrementalUpdate(BuildDisplayList())
+    StartLoop()
+    StartRegionScanLoop()
+    StartWatchdog()
+end
+
+local function ToggleWindow()
+    local isNew = (Window == nil)
+    EnsureWindow()
+    if not isNew then
+        if Window.Minimized then
+            Window:Show()
+        else
+            Window:Hide()
+        end
+    end
+end
+
+return {
+    PluginName = "ServerDirectory",
+    PluginDescription = "Live Server Browser",
+    Commands = {
+        sd = {
+            Aliases = {"serverdirectory"},
+            Function = ToggleWindow,
+            Description = "Open the Server Directory window",
+        },
+    },
+}

@@ -1,8 +1,40 @@
 {
-  "scraped_at": "2026-08-12T05:36:47.858262+00:00",
+  "scraped_at": "2026-08-13T11:56:11.093451+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 562,
+  "total_plugins": 563,
   "plugins": [
+    {
+      "id": "1537428294553833562",
+      "name": "ServerDirectory",
+      "description": "# Server Directory\n## Cmd Usage: sd\n- Allows you to view the server list of your current placeID and filter them accordingly for easy server switching/viewing\n\n#  ⚠️ What this plugin loads and calls out to\nThis plugin uses a loadstring to call a UI library called Fluent, The plugin itself also makes HTTP requests to servers other than roblox.com:\n\n- **`apis.rovalra.com`** RoValra's public API) — to get the list of Roblox datacenters and figure out which datacenter each server is running in. \n- **`ipapi.co`** — to get your rough physical location from your IP, so the plugin can tell which servers are actually close to you. This sends your IP to that service.",
+      "author": {
+        "name": "Pops",
+        "username": "nolifepops",
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_3a8f2b561f6e0d2031286f1646c1b2b9.gif?size=1024"
+      },
+      "date": "2026-08-13T11:51:09.458000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1537428294553833562",
+      "files": [
+        {
+          "filename": "ServerDirectory.iy",
+          "url": "plugins/1537428294553833562/ServerDirectory.iy",
+          "size": 21935,
+          "is_plugin": true
+        },
+        {
+          "filename": "preview.png",
+          "url": "plugins/1537428294553833562/preview.png",
+          "size": 138982,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": [
+        "https://github.com/LostMorality/Fluent-modded/releases/download/Fluent/FluentPro"
+      ]
+    },
     {
       "id": "1536701428633178112",
       "name": "float",
@@ -985,9 +1017,9 @@
       "name": "sayfact",
       "description": "# sayfact\nOriginally from https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240 but sends the fact to the Roblox game in default channel",
       "author": {
-        "name": "luri",
+        "name": "zzzzzzzzzzxd",
         "username": "urluri",
-        "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/84c06e754089779889028a9a1130570e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/ea84a02e6396be9e5e0d68276d2eaf38.png?size=1024"
       },
       "date": "2026-05-08T08:39:53.167000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1502228536537124927",
@@ -1011,9 +1043,9 @@
       "name": "IYAI",
       "description": "# IYAI\n-# Made by urluri\n\nAn AI assistant plugin for Infinite Yield. Talk to it in plain English and it'll inspect instances, read properties, run code, and modify the game world using live data from your session.\n\n## Commands\n`;ai` (alias: `;iyai`)\nOpens or closes the IYAI window.\n\n**Tested on Xeno, Madium, Delta, Velocity, Potassium, Volt**\n\n## If you have any questions, feel free to dm <@640556322194063434>\n\n<https://github.com/imluri/IYAI>\nhttps://cdn.discordapp.com/attachments/1246327044715970611/1508584205339332730/2026-05-26_05-32-26.mp4?ex=6a161206&is=6a14c086&hm=72bf5c270f083dfe44ff4a81155181578c2496a6a5691941a02515e181d0680e&",
       "author": {
-        "name": "luri",
+        "name": "zzzzzzzzzzxd",
         "username": "urluri",
-        "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/84c06e754089779889028a9a1130570e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/ea84a02e6396be9e5e0d68276d2eaf38.png?size=1024"
       },
       "date": "2026-05-04T11:57:45.576000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1500828781567545495",
@@ -1286,7 +1318,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/d6d531d7846560affd4ab3c4b06bb96e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_3a8f2b561f6e0d2031286f1646c1b2b9.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -5838,7 +5870,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7cbdb2&is=6a7b6c32&hm=4ad78417b7c8516e26722f478554355135e3c1b05753cab685ccf0a05f3c829a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7eb7f2&is=6a7d6672&hm=2476691e7266c30c4f094dacdf82e4f3a7523d1a7a874d81296e2f071b9c63bd&"
           },
           "image": null,
           "video": null
@@ -5852,7 +5884,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7cbdc9&is=6a7b6c49&hm=14561adb765ff93e8ae60482403deeaaa2a30002728efba4c38f0bfe4dc072a1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7eb809&is=6a7d6689&hm=2a35fe6a80ec7aca10ab589882ed75feee764edaffcfe3656287fcf6de53dfc6&"
           },
           "image": null,
           "video": null
@@ -6715,7 +6747,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7cbdb2&is=6a7b6c32&hm=4ad78417b7c8516e26722f478554355135e3c1b05753cab685ccf0a05f3c829a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7eb7f2&is=6a7d6672&hm=2476691e7266c30c4f094dacdf82e4f3a7523d1a7a874d81296e2f071b9c63bd&"
           },
           "image": null,
           "video": null
@@ -6729,7 +6761,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7cbdc9&is=6a7b6c49&hm=14561adb765ff93e8ae60482403deeaaa2a30002728efba4c38f0bfe4dc072a1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7eb809&is=6a7d6689&hm=2a35fe6a80ec7aca10ab589882ed75feee764edaffcfe3656287fcf6de53dfc6&"
           },
           "image": null,
           "video": null
@@ -8102,7 +8134,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a7d3825&is=6a7be6a5&hm=5bbcd7983628f71bb998761edc216ef3b45f48bc6e5709ce868e883aa2f91521&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a7e89a5&is=6a7d3825&hm=87ec61f0f9ba05e5051894bceec609f9d8e06ee248f9af3f6dede4cc57882362&"
           },
           "image": null,
           "video": null
