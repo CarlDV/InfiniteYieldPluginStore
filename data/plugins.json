@@ -1,8 +1,32 @@
 {
-  "scraped_at": "2026-08-13T11:56:11.093451+00:00",
+  "scraped_at": "2026-08-15T05:07:44.683697+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 563,
+  "total_plugins": 564,
   "plugins": [
+    {
+      "id": "1538041340577718282",
+      "name": "StatHighlighter",
+      "description": "A utility plugin for Infinite Yield that scans player data and leaderstats across the server. It automatically highlights and alerts you to any player holding a specific stat value (e.g., over 1,000 wins)\n\n**Command**\n\n ;checkstats [number]\n Finds and highlights players with any stat over [number]",
+      "author": {
+        "name": "illucian 3rd account",
+        "username": ".aesthetical",
+        "avatar": "https://cdn.discordapp.com/avatars/1489112748427182174/897a480cea3b94853e4754af4fac85fa.png?size=1024"
+      },
+      "date": "2026-08-15T04:27:11.020000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1538041340577718282",
+      "files": [
+        {
+          "filename": "StatHighlighter.iy",
+          "url": "plugins/1538041340577718282/StatHighlighter.iy",
+          "size": 3006,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1537428294553833562",
       "name": "ServerDirectory",
@@ -396,7 +420,7 @@
     {
       "id": "1522340767845056776",
       "name": "yesMommy",
-      "description": "disgrace...\n\n# yesMommy.iy\ntogether for you with a warm and comforting voice from... mommy?\n\n## usage\n-`playASMR [kind?] [segment?]`: plays a random segment\n+example: `playASMR compliment 1`: plays the 1st segment in compliment\n+example2: `playASMR`: plays random kind and random segment\n-`mommyCredit`: display used asmr artist's credit\n-`mommyRandom [boolean?]`: state for playing based on player event (lose health, die)\n-`mommyVolume [number]`: set voice's volume (u can set very loud)\n\n## notes:\n-if u want trigger based on iy's event, use iy on event triggers\n-cahces everything in `workspace/yesMommyASMRSounds`, first time fetching is slow\n-dropped ability to add/remove custom tracks cuz i dont like, but it stays dormant in file (uncomment if u want, dont expect my help)\n-i lost interests\n-please dont spam the cdn, i dont own it\n\ni wish you a good day",
+      "description": "disgrace...\n\n# yesMommy.iy\ntogether for you with a warm and comforting voice from... mommy?\n\n## usage\n-`playASMR [kind?] [segment?]`: plays a random segment\n+example: `playASMR compliment 1`: plays the 1st segment in compliment\n+example2: `playASMR`: plays random kind and random segment\n-`mommyCredit`: display used asmr artist's credit\n-`mommyRandom [boolean?]`: state for playing based on player event (lose health, 0 health)\n-`mommyVolume [number]`: set voice's volume (u can set very loud)\n\n## notes:\n-if u want trigger based on iy's event, use iy on event triggers\n-cahces everything in `workspace/yesMommyASMRSounds`, first time fetching is slow\n-dropped ability to add/remove custom tracks cuz i dont like, but it stays dormant in file (uncomment if u want, dont expect my help)\n-i lost interests\n-please dont spam the cdn, i dont own it\n\ni wish you a good day",
       "author": {
         "name": "h",
         "username": "openbridge",
@@ -1017,7 +1041,7 @@
       "name": "sayfact",
       "description": "# sayfact\nOriginally from https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240 but sends the fact to the Roblox game in default channel",
       "author": {
-        "name": "zzzzzzzzzzxd",
+        "name": "luri",
         "username": "urluri",
         "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/ea84a02e6396be9e5e0d68276d2eaf38.png?size=1024"
       },
@@ -1043,7 +1067,7 @@
       "name": "IYAI",
       "description": "# IYAI\n-# Made by urluri\n\nAn AI assistant plugin for Infinite Yield. Talk to it in plain English and it'll inspect instances, read properties, run code, and modify the game world using live data from your session.\n\n## Commands\n`;ai` (alias: `;iyai`)\nOpens or closes the IYAI window.\n\n**Tested on Xeno, Madium, Delta, Velocity, Potassium, Volt**\n\n## If you have any questions, feel free to dm <@640556322194063434>\n\n<https://github.com/imluri/IYAI>\nhttps://cdn.discordapp.com/attachments/1246327044715970611/1508584205339332730/2026-05-26_05-32-26.mp4?ex=6a161206&is=6a14c086&hm=72bf5c270f083dfe44ff4a81155181578c2496a6a5691941a02515e181d0680e&",
       "author": {
-        "name": "zzzzzzzzzzxd",
+        "name": "luri",
         "username": "urluri",
         "avatar": "https://cdn.discordapp.com/avatars/640556322194063434/ea84a02e6396be9e5e0d68276d2eaf38.png?size=1024"
       },
@@ -5870,7 +5894,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7eb7f2&is=6a7d6672&hm=2476691e7266c30c4f094dacdf82e4f3a7523d1a7a874d81296e2f071b9c63bd&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a80b232&is=6a7f60b2&hm=614b77049b38dc62cccb2fd8a9a0ac61ecda97e921c9193825f7d86c95096838&"
           },
           "image": null,
           "video": null
@@ -5884,7 +5908,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7eb809&is=6a7d6689&hm=2a35fe6a80ec7aca10ab589882ed75feee764edaffcfe3656287fcf6de53dfc6&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a80b249&is=6a7f60c9&hm=068fd7f6c52d3f3f64613b0817424b0c133341c9569d272fd7a1fae2ac98171b&"
           },
           "image": null,
           "video": null
@@ -6747,7 +6771,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a7eb7f2&is=6a7d6672&hm=2476691e7266c30c4f094dacdf82e4f3a7523d1a7a874d81296e2f071b9c63bd&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a80b232&is=6a7f60b2&hm=614b77049b38dc62cccb2fd8a9a0ac61ecda97e921c9193825f7d86c95096838&"
           },
           "image": null,
           "video": null
@@ -6761,7 +6785,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a7eb809&is=6a7d6689&hm=2a35fe6a80ec7aca10ab589882ed75feee764edaffcfe3656287fcf6de53dfc6&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a80b249&is=6a7f60c9&hm=068fd7f6c52d3f3f64613b0817424b0c133341c9569d272fd7a1fae2ac98171b&"
           },
           "image": null,
           "video": null
@@ -8134,7 +8158,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a7e89a5&is=6a7d3825&hm=87ec61f0f9ba05e5051894bceec609f9d8e06ee248f9af3f6dede4cc57882362&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a812ca5&is=6a7fdb25&hm=e77b379508cccf5a92c42495674eec9500dcecb19dc036afae55540920ec2e70&"
           },
           "image": null,
           "video": null
@@ -13416,9 +13440,9 @@
       "name": "NinjaLegends",
       "description": "Simply opens Jxnt's Ninja Legends gui. Command: ninjahax / nhax",
       "author": {
-        "name": "Four-two",
+        "name": "43vt",
         "username": "43vt",
-        "avatar": "https://cdn.discordapp.com/avatars/387639551297847299/45dd923cc4a1fd0db35a4532a0deee51.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/387639551297847299/3934e1a0f8ce67cc4ef5bf1a2fcd74dc.png?size=1024"
       },
       "date": "2020-01-26T16:59:37.522000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/671036536351096844",
@@ -13440,9 +13464,9 @@
       "name": "UDTeleport",
       "description": "```UDTeleport is a plugin that lets you teleport to a player while being inside your car in Ultimate Driving```\n\n```Version: 1```\n\n```Commands: udtp [player you want to teleport to, remove the brackets.]```\n\n```Made by Yeas on V3rm aka me, this is my first plugin ever made so please don't look inside the code```",
       "author": {
-        "name": "Four-two",
+        "name": "43vt",
         "username": "43vt",
-        "avatar": "https://cdn.discordapp.com/avatars/387639551297847299/45dd923cc4a1fd0db35a4532a0deee51.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/387639551297847299/3934e1a0f8ce67cc4ef5bf1a2fcd74dc.png?size=1024"
       },
       "date": "2020-01-26T13:42:59.383000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/670987051369496581",

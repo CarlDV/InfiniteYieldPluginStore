@@ -1,0 +1,59 @@
+local Plugin = {
+    ["PluginName"] = "Stat Highlighter",
+    ["PluginDescription"] = "Scans player data/Dex for stats exceeding a specific number",
+    ["Commands"] = {
+        ["checkstats"] = {
+            ["ListName"] = "checkstats [number]",
+            ["Description"] = "Finds and highlights players with any stat over [number]",
+            ["Aliases"] = {"scanstats", "statcheck"},
+            ["Function"] = function(args, speaker)
+                -- 1. Get the target threshold from command argument (Default: 1000)
+                local threshold = tonumber(args[1]) or 1000
+                print("[IY Stat Scanner] Scanning for values equal to or over: " .. threshold)
+                
+                local foundAny = false
+                local Players = game:GetService("Players")
+                
+                -- 2. Scan every player currently in the game instance
+                for _, player in ipairs(Players:GetPlayers()) do
+                    -- Folders where game stats are typically housed (Leaderstats, Data, etc.)
+                    local searchTargets = {
+                        player:FindFirstChild("leaderstats"),
+                        player:FindFirstChild("DataFolder"),
+                        player:FindFirstChild("Stats"),
+                        player -- fallback to check player object attributes
+                    }
+                    
+                    for _, folder in ipairs(searchTargets) do
+                        if folder then
+                            -- Check all values inside those folders recursively
+                            for _, object in ipairs(folder:GetDescendants()) do
+                                if object:IsA("IntValue") or object:IsA("NumberValue") then
+                                    if object.Value >= threshold then
+                                        foundAny = true
+                                        
+                                        -- Highlight/Alert message in the client DevConsole
+                                        local alertMessage = string.format(
+                                            "⚠️ [STAT MATCH] %s -> %s has %s: %d", 
+                                            player.Name, player.DisplayName, object.Name, object.Value
+                                        )
+                                        
+                                        -- Print visually distinct message to console
+                                        print(alertMessage)
+                                        warn(alertMessage) 
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+                
+                if not foundAny then
+                    print("[IY Stat Scanner] Scan complete. No matching stats found.")
+                end
+            end
+        }
+    }
+}
+
+return Plugin
