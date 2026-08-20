@@ -1,0 +1,20 @@
+-- hi, don't change, don't skid, don't steal and thanks for using my plugin! :D
+local Plugin = {
+    ["PluginName"] = "IYfix",
+    ["PluginDescription"] = "A few tweaks and fixes for Infinite Yield. By Farhat",
+    ["Commands"] = {}
+}
+
+task.defer(function()
+    local fixscreengui = PARENT
+    if fixscreengui then 
+		fixscreengui["DisplayOrder"] = 2147483647
+		if sethidden ~= nil then
+			sethidden(fixscreengui, "IgnoreGuiInset", true)
+			sethidden(fixscreengui, "OnTopOfCoreBlur", true)
+			sethidden(fixscreengui, "IgnoresTitleBarReservation", true)
+		end
+	end
+end)
+
+return Plugin
