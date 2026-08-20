@@ -10,13 +10,11 @@
 
         let allPlugins = [];
         let currentList = [];
-        let pluginStats = {};
         let sort = 'newest';
         let query = '';
 
         let currentPage = 0;
         const PAGE_SIZE = 40;
-
         const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
 
         const $ = id => document.getElementById(id);
@@ -33,14 +31,20 @@
         async function init() {
             try {
                 const res = await fetch(`./data/plugins.json?v=${Date.now()}`);
-
                 const data = await res.json();
 
                 if (isAborted) return;
                 allPlugins = data.plugins || [];
+
                 const counter = $('plugin-count');
                 if (counter) counter.textContent = `${allPlugins.length} plugins`;
 
+                const heroCount = $('stat-count');
+                if (heroCount) heroCount.textContent = allPlugins.length.toLocaleString();
+
+                const authorSet = new Set(allPlugins.map(p => p.author?.username || p.author?.name || 'Unknown'));
+                const heroAuthors = $('stat-authors');
+                if (heroAuthors) heroAuthors.textContent = authorSet.size.toLocaleString();
 
                 if (data.scraped_at) {
                     const scrapedDate = new Date(data.scraped_at);
@@ -83,7 +87,7 @@
 
                 loading.classList.add('hidden');
 
-                const observer = new IntersectionObserver((entries) => {
+                const observer = new IntersectionObserver(entries => {
                     if (entries[0].isIntersecting) {
                         renderMore();
                     }
@@ -141,14 +145,16 @@
 
             if (pageItems.length === 0) return;
 
-            pageItems.forEach((p, i) => {
+            const frag = document.createDocumentFragment();
+
+            pageItems.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'card';
                 if (window.registerReveal) window.registerReveal(card);
 
-                // Avatar
                 const initial = (p.author?.name || '?')[0].toUpperCase();
                 const authorName = p.author?.name || 'Unknown';
+
                 let avatarHTML;
                 if (p.author?.avatar) {
                     avatarHTML = `<img class="card-avatar" src="${escAttr(p.author.avatar)}" alt="" loading="lazy" onerror="this.outerHTML='<div class=\\'card-avatar-ph\\'>${esc(initial)}</div>'">`;
@@ -156,18 +162,17 @@
                     avatarHTML = `<div class="card-avatar-ph">${esc(initial)}</div>`;
                 }
 
-                // Description
                 let desc = (p.description || '').replace(/```[\s\S]*?```/g, '').replace(/[*_~`#]/g, '').trim();
                 if (!desc && p.files?.length) desc = p.files.map(a => a.filename).join(', ');
 
                 let tags = '';
                 const hasVid = p.files?.some(f => /\.(mp4|webm|mov|avi|mkv)$/i.test(f.filename));
                 const hasImg = p.files?.some(f => /\.(png|jpg|jpeg|gif|webp)$/i.test(f.filename));
-                if (hasVid) tags += '<span class="tag tag-video"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>Video</span>';
-                if (hasImg) tags += '<span class="tag tag-image"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>Image</span>';
-                if (p.code_blocks?.length) tags += '<span class="tag tag-code"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>Code</span>';
-                if (p.links?.length) tags += '<span class="tag tag-link"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Link</span>';
-                if (p.loadstring_urls?.length) tags += '<span class="tag tag-loadstring"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Loadstring</span>';
+                if (hasVid) tags += `<span class="tag tag-video"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>Video</span>`;
+                if (hasImg) tags += `<span class="tag tag-image"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>Image</span>`;
+                if (p.code_blocks?.length) tags += `<span class="tag tag-code"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>Code</span>`;
+                if (p.links?.length) tags += `<span class="tag tag-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Link</span>`;
+                if (p.loadstring_urls?.length) tags += `<span class="tag tag-loadstring"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Loadstring</span>`;
 
                 let dateColor = 'inherit';
                 if (p.date) {
@@ -176,7 +181,7 @@
                         const now = Date.now();
                         const oneYearAgo = now - ONE_YEAR_MS;
                         const ratio = Math.max(0, Math.min(1, (ms - oneYearAgo) / (now - oneYearAgo)));
-                        const hue = ratio * 120; // 0 for >1yr old (red), 120 for newest (green)
+                        const hue = ratio * 120;
                         dateColor = `hsl(${hue}, 80%, 65%)`;
                     }
                 }
@@ -193,18 +198,17 @@
                 <div class="card-desc">${esc(desc || 'No description')}</div>
                 <div class="card-footer">
                     <div class="card-tags">${tags}</div>
-                    <button class="card-share" title="Copy link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></button>
+                    <button class="card-share" title="Copy link"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></button>
                 </div>
             `;
 
                 card.querySelector('.card-share').addEventListener('click', (e) => {
                     e.stopPropagation();
                     const url = `${location.origin}${location.pathname}#${encodeURIComponent(p.id)}`;
-                    if (window.playSuccess) window.playSuccess();
                     navigator.clipboard.writeText(url).then(() => {
                         const btn = e.currentTarget;
-                        btn.innerHTML = '✅';
-                        setTimeout(() => btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>', 1500);
+                        btn.innerHTML = '<span style="font-size:0.85rem">✓</span>';
+                        setTimeout(() => btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>', 1500);
                     });
                 });
 
@@ -213,24 +217,23 @@
                     authorSpan.addEventListener('click', (e) => {
                         e.stopPropagation();
                         search.value = 'author:' + authorName;
-                        search.dispatchEvent(new Event('input'));
+                        syncSearch({ target: search });
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     });
                 }
 
-                card.onclick = () => {
-                    openModal(p);
-                };
-                grid.appendChild(card);
+                card.onclick = () => openModal(p);
+                frag.appendChild(card);
             });
 
+            grid.appendChild(frag);
             currentPage++;
         }
 
         // ---- Modal ----
         function openModal(p) {
             history.replaceState(null, '', `#${encodeURIComponent(p.id)}`);
-            // Avatar in modal
+
             const initial = (p.author?.name || '?')[0].toUpperCase();
             const authorName = p.author?.name || 'Unknown';
             if (p.author?.avatar) {
@@ -258,7 +261,7 @@
                 e.stopPropagation();
                 closeModal();
                 search.value = 'author:' + authorName;
-                search.dispatchEvent(new Event('input'));
+                syncSearch({ target: search });
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             };
             $('m-date').textContent = fmtDate(p.date);
@@ -275,9 +278,8 @@
 
             let html = '';
 
-            // Loadstring URLs section
             if (p.loadstring_urls?.length) {
-                html += `<div class="section"><div class="section-label">⚡ Loadstring URLs (${p.loadstring_urls.length})</div>`;
+                html += `<div class="section"><div class="section-label">Loadstring URLs (${p.loadstring_urls.length})</div>`;
                 p.loadstring_urls.forEach(url => {
                     html += `<a class="loadstring-link" href="${escAttr(url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${esc(url)}</a>`;
                 });
@@ -318,14 +320,14 @@ end`;
                 const cbId1 = `qi1-${p.id}`;
                 const cbId2 = `qi2-${p.id}`;
                 html += `
-                <div class="code-wrap" style="margin: 8px 0;">
+                <div class="code-wrap">
                     <div class="code-bar">
-                        <span class="code-lang">Install & Launch IY</span>
+                        <span class="code-lang">Install &amp; Launch IY</span>
                         <button class="copy-btn" data-id="${cbId1}">Copy</button>
                     </div>
                     <pre class="code-block" id="${cbId1}">${esc(loadstringLaunch)}</pre>
                 </div>
-                <div class="code-wrap" style="margin: 8px 0;">
+                <div class="code-wrap">
                     <div class="code-bar">
                         <span class="code-lang">Install Only (Autoload on IY)</span>
                         <button class="copy-btn" data-id="${cbId2}">Copy</button>
@@ -336,8 +338,7 @@ end`;
                 html += `</div>`;
             }
 
-            let text = (p.description || '').trim();
-
+            const text = (p.description || '').trim();
             if (text) {
                 html += `<div class="section"><div class="section-label">Description</div><div class="section-text">${discordFormat(text, p.id)}</div></div>`;
             }
@@ -353,7 +354,7 @@ end`;
                     let dlName = a.filename;
                     if (isCode && dlName.toLowerCase().endsWith('.lua')) dlName = dlName.replace(/\.lua$/i, '.iy');
                     const prevBtn = isCode ? `<button class="att-prev-btn" data-url="${escAttr(fileUrl)}" data-id="prev-${p.id}-${i}">Preview</button>` : '';
-                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl-link att-dl" href="${fileUrl}" download="${escAttr(dlName)}" onclick="if(window.playSuccess)window.playSuccess();event.stopPropagation()">Download</a>`;
+                    const dlBtn = (isImage || isVideo) ? '' : `<a class="att-dl" href="${fileUrl}" download="${escAttr(dlName)}" onclick="event.stopPropagation()">Download</a>`;
 
                     html += `<div class="att-row">
                     <span class="att-name">${esc(a.filename)}</span>
@@ -377,16 +378,14 @@ end`;
             }
 
             if (p.links?.length || p.embeds?.length) {
-                html += `<div class="section"><div class="section-label">Links & Embeds</div>`;
+                html += `<div class="section"><div class="section-label">Links &amp; Embeds</div>`;
 
-                // Render Embeds first
                 if (p.embeds?.length) {
                     p.embeds.forEach(emb => {
                         html += renderEmbed(emb);
                     });
                 }
 
-                // Render raw links that aren't already embedded (optional, but good for safety)
                 if (p.links?.length) {
                     const embeddedUrls = new Set((p.embeds || []).map(e => e.url));
                     p.links.forEach(l => {
@@ -443,15 +442,12 @@ end`;
                 };
             });
 
-            // (Download handlers removed - handled by <a> links now)
-
             // Copy handlers
             $('m-body').querySelectorAll('.copy-btn').forEach(btn => {
                 btn.onclick = e => {
                     e.stopPropagation();
                     const el = document.getElementById(btn.dataset.id);
                     if (!el) return;
-                    if (window.playSuccess) window.playSuccess();
                     navigator.clipboard.writeText(el.textContent).then(() => {
                         btn.textContent = 'Copied!';
                         btn.classList.add('copied');
@@ -471,33 +467,21 @@ end`;
                 overlay.classList.remove('closing');
                 overlay.classList.add('hidden');
                 document.body.style.overflow = '';
-            }, 400);
+            }, 220);
             history.replaceState(null, '', location.pathname + location.search);
         }
 
         // ---- Events ----
         const debouncedSearch = debounce(val => { query = val.trim(); render(); }, 200);
-        const headerSearch = $('header-search');
-
-        const syncSearch = e => {
-            const val = e.target.value;
-            if (e.target === search && headerSearch) headerSearch.value = val;
-            if (e.target === headerSearch && search) search.value = val;
-            debouncedSearch(val);
-        };
+        const syncSearch = e => debouncedSearch(e.target.value);
         search?.addEventListener('input', syncSearch);
-        headerSearch?.addEventListener('input', syncSearch);
 
-        const headerSortEl = $('header-sort');
         const sortChange = e => {
             sort = e.target.value;
-            if (e.target === sortEl && headerSortEl) headerSortEl.value = sort;
-            if (e.target === headerSortEl && sortEl) sortEl.value = sort;
 
-            // Sync custom select UI
             document.querySelectorAll('.custom-select').forEach(customEl => {
                 const targetId = customEl.dataset.target;
-                if (targetId === 'sort' || targetId === 'header-sort') {
+                if (targetId === 'sort') {
                     const opt = customEl.querySelector(`.select-option[data-value="${sort}"]`);
                     if (opt) {
                         customEl.querySelectorAll('.select-option').forEach(o => o.classList.remove('selected'));
@@ -510,7 +494,6 @@ end`;
             render();
         };
         sortEl?.addEventListener('change', sortChange);
-        headerSortEl?.addEventListener('change', sortChange);
 
         function setupCustomSelects() {
             document.querySelectorAll('.custom-select').forEach(customEl => {
@@ -546,18 +529,16 @@ end`;
         }
         setupCustomSelects();
 
-        const onCloseClick = closeModal;
-        $('m-close')?.addEventListener('click', onCloseClick);
+        $('m-close')?.addEventListener('click', closeModal);
 
         const onOverlayClick = e => { if (e.target === overlay) closeModal(); };
         overlay?.addEventListener('click', onOverlayClick);
 
         const onKeyDown = e => {
             if (e.key === 'Escape' && !overlay?.classList.contains('hidden')) closeModal();
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); (headerSearch?.offsetParent ? headerSearch : search)?.focus(); }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); search?.focus(); }
         };
         document.addEventListener('keydown', onKeyDown);
-
 
         async function doZipDownload(btn) {
             const originalHTML = btn.innerHTML;
@@ -565,13 +546,12 @@ end`;
             btn.disabled = true;
 
             try {
-                if (!window.JSZip) throw new Error("JSZip library not loaded");
+                if (!window.JSZip) throw new Error('JSZip library not loaded');
                 const zip = new JSZip();
                 const names = new Set();
                 let count = 0;
 
                 const pluginsToFetch = [];
-
                 allPlugins.forEach(p => {
                     if (p.files) {
                         p.files.forEach(a => {
@@ -604,20 +584,19 @@ end`;
                             zip.file(name, code);
                             count++;
                         } catch (e) {
-                            console.error("Failed to fetch", a.url, e);
+                            console.error('Failed to fetch', a.url, e);
                         }
                     }));
                     btn.textContent = `Zipping (${Math.min(i + concurrency, pluginsToFetch.length)}/${pluginsToFetch.length})...`;
                 }
 
-                if (count === 0) throw new Error("No attachments found to zip.");
+                if (count === 0) throw new Error('No attachments found to zip.');
 
                 const blob = await zip.generateAsync({ type: 'blob' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
                 a.download = `iy-plugins-all.zip`;
-                if (window.playSuccess) window.playSuccess();
                 document.body.appendChild(a);
                 a.click();
                 URL.revokeObjectURL(url);
@@ -631,30 +610,32 @@ end`;
         }
 
         const dlAllBtn = $('dl-all');
-        const headerDlBtn = $('header-dl-all');
         dlAllBtn?.addEventListener('click', () => doZipDownload(dlAllBtn));
-        headerDlBtn?.addEventListener('click', () => doZipDownload(headerDlBtn));
 
         // ---- Util ----
         function fmtDate(iso) {
             if (!iso) return '';
             return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
+
         function fmtBytes(b) {
             if (!b) return '';
             const u = ['B', 'KB', 'MB'];
             const i = Math.floor(Math.log(b) / Math.log(1024));
             return (b / Math.pow(1024, i)).toFixed(1) + ' ' + u[i];
         }
+
         function esc(s) {
             if (!s) return '';
             const d = document.createElement('div');
             d.textContent = s;
             return d.innerHTML;
         }
+
         function escAttr(s) {
             return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
         }
+
         function renderEmbed(emb) {
             const color = emb.color ? (emb.color.startsWith('0x') ? '#' + emb.color.slice(2) : emb.color) : '#202225';
 
@@ -688,11 +669,10 @@ end`;
 
             let mediaHtml = '';
             if (emb.video && emb.video.url) {
-                // Very basic video handling, usually requires iframe for youtube/etc
                 if (emb.video.url.includes('youtube.com') || emb.video.url.includes('youtu.be')) {
                     const ytId = emb.video.url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/)?.[1];
                     if (ytId) {
-                        mediaHtml = `<div class="embed-video-wrap"><iframe class="embed-video" src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div>`;
+                        mediaHtml = `<div class="embed-video-wrap"><iframe class="embed-video" src="https://www.youtube.com/embed/${ytId}" allowfullscreen loading="lazy"></iframe></div>`;
                     }
                 } else {
                     mediaHtml = `<div class="embed-video-wrap"><video class="embed-video" src="${escAttr(emb.video.url)}" controls></video></div>`;
@@ -711,13 +691,12 @@ end`;
             </div>
         `;
         }
+
         function discordFormat(text, pId) {
             if (!text) return '';
 
-            // Collapse 3 or more newlines (even with spaces) into just 2 newlines
             text = text.replace(/\n\s*\n\s*\n+/g, '\n\n');
 
-            // Split by code blocks ```...```
             const parts = text.split(/(```[\s\S]*?```)/g);
             let cbCount = 0;
 
@@ -730,7 +709,7 @@ end`;
                     const code = match[2].trim();
                     const id = `cb-${pId}-i${cbCount++}`;
 
-                    return `<div class="code-wrap" style="margin: 12px 0;">
+                    return `<div class="code-wrap">
                     <div class="code-bar"><span class="code-lang">${esc(lang)}</span><button class="copy-btn" data-id="${id}">Copy</button></div>
                     <pre class="code-block" id="${id}">${esc(code)}</pre>
                 </div>`;
@@ -740,29 +719,20 @@ end`;
 
                     let html = esc(segment);
 
-                    // Headings
                     html = html.replace(/^###\s+(.*)$/gim, '<h5>$1</h5>');
                     html = html.replace(/^##\s+(.*)$/gim, '<h4>$1</h4>');
                     html = html.replace(/^#\s+(.*)$/gim, '<h3>$1</h3>');
 
-                    // Bold: **text**
                     html = html.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
-                    // Underline: __text__
                     html = html.replace(/__([^_]+)__/g, '<u>$1</u>');
-                    // Italics: *text* or _text_
                     html = html.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
                     html = html.replace(/_([^_]+)_/g, '<em>$1</em>');
-                    // Strikethrough: ~~text~~
                     html = html.replace(/~~([^~]+)~~/g, '<s>$1</s>');
-                    // Spoiler: ||text||
                     html = html.replace(/\|\|([\s\S]+?)\|\|/g, (match, $1) => `<span class="spoiler" onclick="this.classList.toggle('revealed')">${$1}</span>`);
-                    // Inline code: `text`
                     html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
 
-                    // Cleanup trailing # from headings
                     html = html.replace(/(<\/h[3-5]>)(\s*#+)/gi, '$1');
 
-                    // Convert double newlines to paragraph breaks, single newlines to <br>
                     html = html.replace(/\n\n/g, '</p><p>');
                     html = html.replace(/\n/g, '<br>');
                     html = `<p>${html}</p>`;
@@ -771,6 +741,7 @@ end`;
                 }
             }).join('');
         }
+
         function debounce(fn, ms) {
             let t;
             return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };

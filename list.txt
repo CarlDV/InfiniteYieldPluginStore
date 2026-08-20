@@ -1,0 +1,498 @@
+=== DIRECTLY OBFUSCATED PLUGINS (LOCAL) ===
+
+Name: Blocktool
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/672160819026460712
+Obfuscation: Synapse Xen v1.1.2
+
+Name: denynw
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/689815313146970112
+Obfuscation: IronBrew v2.7.0
+
+Name: PP
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/744998512537632881
+Obfuscation: IronBrew VM
+
+Name: rochanics
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/966469544375898182
+Obfuscation: Binary Encrypted String / VM Loader
+
+
+=== REMOTELY OBFUSCATED PLUGINS (LOADSTRING / RAW URL) ===
+
+Name: OwlHub
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800
+Raw URL: https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt
+Obfuscation: Lua VM Obfuscated
+
+Name: ExploiterChat
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/718292231018119178
+Raw URL: https://raw.githubusercontent.com/sheenieboy/ExploiterChat/master/ExploiterChat
+Obfuscation: PSU Obfuscator 4.0.A
+
+Name: alltools
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/731291004165947413
+Raw URL: https://pastebin.com/raw/Mq4FTHB1
+Obfuscation: IronBrew VM
+
+Name: Exploiter Chat
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/735306597877809223
+Raw URL: https://raw.githubusercontent.com/sheenieboy/ExploiterChat/master/ExploiterChat
+Obfuscation: PSU Obfuscator 4.0.A
+
+Name: NewBsod
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/790271566067531826
+Raw URL: https://pastebin.com/d1CjTCK7
+Obfuscation: AztupBrew / IronBrew2 v2.7.2
+
+Name: assassinsilentaim
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/893095112190595092
+Raw URL: https://raw.githubusercontent.com/bockatta/Shitter/main/Loader
+Obfuscation: Obfuscated Hex / Luraph Loader
+
+Name: MultiSkid
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/921484604123254794
+Raw URL: https://raw.githubusercontent.com/Jaaaaay2/MahScriptHub/master/AFS%20Remastered
+Obfuscation: PSU Obfuscator 4.5.A
+
+Name: MultiSkid
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/921789280337141770
+Raw URL: https://raw.githubusercontent.com/Jaaaaay2/MahScriptHub/master/AFS%20Remastered
+Obfuscation: PSU Obfuscator 4.5.A
+
+
+=== UNDOCUMENTED LOADSTRING PLUGINS (145 TOTAL) ===
+
+Name: notify
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1008214349292249150
+
+Name: chatbot
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1033059465643167774
+
+Name: crosshair
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1053752298607743016
+
+Name: coinflip
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1054574569312239696
+
+Name: vrmobile
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1072763581956894781
+
+Name: LoadLink
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1078296507461148693
+
+Name: olddex
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1091222879682695189
+
+Name: BladeBall
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1152323984399015936
+
+Name: bladeball
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1152329744348622898
+
+Name: Kommander
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1303162177875742811
+
+Name: relight
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1316046724594139156
+
+Name: Inject
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1334700625069473832
+
+Name: relight
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1352246115004579890
+
+Name: Server Finder Deluxe
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1382042301471129681
+
+Name: dexplusplus
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1398749776081588324
+
+Name: DarkMarker
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1432845778816073748
+
+Name: DarkMarker
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1433189765058003036
+
+Name: Server Finder Deluxe
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1440749263943372850
+
+Name: Find-Places
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1442108308818231316
+
+Name: BetterHop
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1471968494693388452
+
+Name: FarhatUtility
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1490685255466877070
+
+Name: SpiderFacts
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1490806746103550054
+
+Name: aimbot
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1491640227675115601
+
+Name: Iy store remake
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1492928577627488429
+
+Name: PluginMaker
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1494410657678885044
+
+Name: Weld3D
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1494413740807028747
+
+Name: Iy store remake
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1498052008245198960
+
+Name: IYAI
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1500828781567545495
+
+Name: ProductExploiter
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1502704413976821881
+
+Name: WelderRemake
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1511676858205474866
+
+Name: Fling_Deluxe
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1513707869974036662
+
+Name: savelogs, KeepIYImproved, VoiceChatBypass
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1514193210832846949
+
+Name: Dex REContinued
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1515631943247597608
+
+Name: Iy store remake
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1521765811151306833
+
+Name: pluginstore2
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1521766502661886062
+
+Name: Projectai
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1530167719205277867
+
+Name: Projectai
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1530220743579799642
+
+Name: – Cobalt Fix –--
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1531743900979429607
+
+Name: Plugin #1536611337038200872
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/1536611337038200872
+
+Name: ibtools
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/587467414753509378
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/591787623438352386
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/593488203722391602
+
+Name: BtoolsV2
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/594400027875606539
+
+Name: SaveToolsGUI
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/594400981433712653
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/594999581662511114
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/595371285819686912
+
+Name: ibtools
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/595703003239940156
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/595703068402909191
+
+Name: SaveToolsGUI
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/595703068557967392
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/599342115566256130
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/600785027793682463
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/602960583222099974
+
+Name: reJB
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/612862535300939786
+
+Name: BoogaX
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/670883913601646593
+
+Name: NinjaLegends
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/671036536351096844
+
+Name: tronxchat
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/673267152643555379
+
+Name: InvisFling
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/673994595922739221
+
+Name: punchfling
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/677964404242907179
+
+Name: IY_F3X
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/678694569457483776
+
+Name: Spawnblock
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/679925467796602880
+
+Name: GravWalk
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/680628390243467287
+
+Name: SpawnblockV2
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/680722327507304485
+
+Name: Backpack
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/683140873973792797
+
+Name: SpawnblockV3
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/683376625064214538
+
+Name: headless
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/684240721758126090
+
+Name: crash
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/684276545258258468
+
+Name: FEcircle
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/685950483462225925
+
+Name: FEaura
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/685996756277657604
+
+Name: FEsnake
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/685996808937275426
+
+Name: IY_HatHax
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/686166013208952835
+
+Name: IY_penis
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/686171076182671386
+
+Name: FEpack
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/686175076030087190
+
+Name: reanimate
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/693248701195354192
+
+Name: killsounds
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/697186901009891388
+
+Name: energizeremade
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/698221562519879702
+
+Name: yeet
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/700958990989000745
+
+Name: killsounds
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/704120155004862545
+
+Name: swastika_chat
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/706028294314655775
+
+Name: IY_Streamspoof
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/706345869074628630
+
+Name: Fling2
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/709434687969558658
+
+Name: BetterSaveGame
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/710226939201454144
+
+Name: InvisFling
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/710715123211173888
+
+Name: Creatorid
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/711061775126233158
+
+Name: joincmds
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/712541097569812492
+
+Name: ServerSide
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556
+
+Name: joincmds
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/712870247333494855
+
+Name: SpawnBlockV5
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/714147041592213744
+
+Name: invisgod
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/714644035956113418
+
+Name: Stylz
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/715674182284869693
+
+Name: CurseEm
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/716048993234190376
+
+Name: CurseEm
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/716060175538323527
+
+Name: ChatSpy
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/716123307338104862
+
+Name: WallRun
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/716123343690137600
+
+Name: physicgun
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/716357103551250462
+
+Name: UnnamedESP
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/716826357488943185
+
+Name: AudioLogger
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/717810532475732018
+
+Name: PhysicgunV2
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/720079027259441169
+
+Name: CameraOcclusion
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/720308632889065512
+
+Name: Namecolor
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/721176657804656701
+
+Name: r6
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/722969320002551889
+
+Name: antiAFK
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/723651325971136652
+
+Name: graphics
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/727069160793964564
+
+Name: r6
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/728036590487601203
+
+Name: ChatEmoji
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/728069057466597426
+
+Name: Ninja_Legends_Best_Free_Hack
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051
+
+Name: InfiniteJumpBypass
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/730128592155050006
+
+Name: ChatBypass
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/731533795919921212
+
+Name: translator
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/734118781583884409
+
+Name: aimbot
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/736284107234869249
+
+Name: script
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/736453465491898416
+
+Name: RemoveLimbs
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/736507083238801431
+
+Name: Ragdoll
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/736803683160948809
+
+Name: script
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/738347980372967524
+
+Name: Better_Graphics
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/741015627099275365
+
+Name: moreCommands
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/751234565405933608
+
+Name: moreCommands
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/751555946202923069
+
+Name: moreCommands
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/751597977432358913
+
+Name: Cat_dance_and_distract
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/751904013037076511
+
+Name: moreCommands
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/752230184207515668
+
+Name: Hide
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/757704527062499478
+
+Name: moreCmds
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/761391515699249172
+
+Name: Hide
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/763172399428009984
+
+Name: Reload
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/766939698811633706
+
+Name: iychat
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/785234699386617866
+
+Name: iychat
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/786231464206401536
+
+Name: iychat
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/786243272967192596
+
+Name: HD
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/787484029368795187
+
+Name: PrisonLife_1
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/789566354579390475
+
+Name: BSOD_1
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/789588793678102589
+
+Name: PluginExo
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/791363642888945684
+
+Name: anti_ragdoll
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/797189037878018098
+
+Name: prisonlife
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/818908670359502858
+
+Name: addallplugins
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/830114708429864960
+
+Name: chatspy
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/831606049109835826
+
+Name: tel
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/831606104399020083
+
+Name: AddAllPlugs
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/836033079310942218
+
+Name: tel
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/838127402672062515
+
+Name: bigsize
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/876844362070384651
+
+Name: moresex
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/891574703213408347
+
+Name: morenotify
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/893255203711762492
+
+Name: infinitestore
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/899424302825345024
+
+Name: tel
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/916017557679525909
+
+Name: FE_Skateboard
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/937013646893129779
+
+Name: korehub
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/945576190301859860
+
+Name: iyplugindownloader
+Discord: https://discord.com/channels/503045718102114305/551846012310782014/970817926649249842

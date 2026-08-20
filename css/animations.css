@@ -1,133 +1,50 @@
+/* ============================================================
+   Animations — subtle, lightweight. No blur, no overshoot.
+   ============================================================ */
+
 :root {
     --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-button,
-.card,
-.h-link,
-a,
-input,
-select,
-.filter-btn,
-.dl-all-btn,
-.close-btn {
-    transition: transform 0.3s var(--ease-out),
-                box-shadow 0.3s var(--ease-out),
-                opacity 0.2s ease,
-                background-color 0.2s ease,
-                border-color 0.2s ease,
-                color 0.2s ease;
-    transform-origin: center;
-}
-
-button:active,
-.h-link:active,
-.filter-btn:active,
-.close-btn:active,
-.dl-all-btn:active,
-.card-share:active,
-.msg-btn:active {
-    transform: scale(0.96);
-    opacity: 0.85;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-}
-
-.card:active {
-    transform: scale(0.98) translateY(-2px);
-}
-
-.overlay:not(.hidden):not(.closing) .modal {
-    animation: modal-in 0.35s var(--ease-out) forwards;
-}
-
-.overlay.closing .modal {
-    animation: modal-out 0.25s var(--ease-in-out) forwards;
-}
-
-.overlay.closing {
-    opacity: 0 !important;
-    pointer-events: none;
-}
-
+/* ---------- Modal ---------- */
 @keyframes modal-in {
-    0% {
+    from {
         opacity: 0;
-        transform: scale(0.96) translateY(12px);
+        transform: scale(0.98) translateY(8px);
     }
-    100% {
+    to {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
 }
 
 @keyframes modal-out {
-    0% {
+    from {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
-    100% {
+    to {
         opacity: 0;
-        transform: scale(0.98) translateY(8px);
+        transform: scale(0.98) translateY(6px);
     }
 }
 
-@media (max-width: 768px) {
-    @keyframes modal-in {
-        0% {
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-
-    @keyframes modal-out {
-        0% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        100% {
-            opacity: 0;
-            transform: translateY(20px) scale(0.98);
-        }
-    }
+.overlay:not(.hidden):not(.closing) .modal {
+    animation: modal-in 0.25s var(--ease-out);
 }
 
-input:focus,
-select:focus {
-    transform: scale(1.005);
-    box-shadow: 0 0 0 2px var(--accent-dim);
+.overlay.closing .modal {
+    animation: modal-out 0.2s var(--ease-in-out);
 }
 
-.logo:hover .brand-logo {
-    transform: scale(1.05) rotate(3deg);
-}
-
-.brand-logo {
-    transition: transform 0.3s var(--ease-out);
-}
-
-#loading {
-    animation: pulse 2s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-}
-
+/* ---------- Scroll reveal ---------- */
 @keyframes fade-in-up {
-    0% {
+    from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(10px);
     }
-    100% {
+    to {
         opacity: 1;
         transform: translateY(0);
     }
@@ -138,5 +55,57 @@ select:focus {
 }
 
 .reveal-item.visible {
-    animation: fade-in-up 0.5s var(--ease-out) forwards;
+    animation: fade-in-up 0.4s var(--ease-out) forwards;
+}
+
+/* ---------- Loading pulse ---------- */
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.45;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+#loading {
+    animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* ---------- Spinner ---------- */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---------- Logo ---------- */
+.brand-logo {
+    transition: transform 0.2s var(--ease-out);
+}
+
+.logo:hover .brand-logo {
+    transform: scale(1.06);
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .reveal-item {
+        opacity: 1;
+    }
+
+    #loading {
+        animation: none;
+        opacity: 1;
+    }
 }
