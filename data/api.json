@@ -1,8 +1,31 @@
 {
   "version": "1.0",
-  "updated_at": "2026-08-20T18:05:51.266370+00:00",
-  "total": 565,
+  "updated_at": "2026-08-29T15:27:17.289472+00:00",
+  "total": 566,
   "plugins": [
+    {
+      "id": "1543270096749723658",
+      "name": "akadmin",
+      "author": "Agent666_0",
+      "date": "2026-08-29T14:44:23.637000+00:00",
+      "files": [
+        {
+          "filename": "akadmin.iy",
+          "url": "plugins/1543270096749723658/akadmin.iy",
+          "size": 479,
+          "is_plugin": true
+        },
+        {
+          "filename": "15q6qkk.png",
+          "url": "plugins/1543270096749723658/15q6qkk.png",
+          "size": 40758,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": [
+        "https://absent.wtf/AKADMIN.lua"
+      ]
+    },
     {
       "id": "1539953994401714296",
       "name": "IYfix",
@@ -356,7 +379,7 @@
     {
       "id": "1519709774567178270",
       "name": "wfcp",
-      "author": "weaponofchoice",
+      "author": "weapponofchoice",
       "date": "2026-06-25T14:24:05.099000+00:00",
       "files": [
         {
@@ -744,7 +767,7 @@
     {
       "id": "1494806257230417920",
       "name": "wfcp",
-      "author": "weaponofchoice",
+      "author": "weapponofchoice",
       "date": "2026-04-17T21:06:23.881000+00:00",
       "files": [
         {
@@ -804,7 +827,7 @@
     {
       "id": "1494092382151643207",
       "name": "wfcp",
-      "author": "weaponofchoice",
+      "author": "weapponofchoice",
       "date": "2026-04-15T21:49:42.799000+00:00",
       "files": [
         {
@@ -819,7 +842,7 @@
     {
       "id": "1493739503507210392",
       "name": "Speedometer2",
-      "author": "weaponofchoice",
+      "author": "weapponofchoice",
       "date": "2026-04-14T22:27:29.974000+00:00",
       "files": [
         {
@@ -900,7 +923,7 @@
     {
       "id": "1491640227675115601",
       "name": "aimbot",
-      "author": "weaponofchoice",
+      "author": "weapponofchoice",
       "date": "2026-04-09T03:25:43.613000+00:00",
       "files": [
         {
@@ -987,7 +1010,7 @@
     {
       "id": "1489357763678310441",
       "name": "Speedometer",
-      "author": "weaponofchoice",
+      "author": "weapponofchoice",
       "date": "2026-04-02T20:16:01.790000+00:00",
       "files": [
         {
@@ -1817,7 +1840,7 @@
     {
       "id": "1394780446847406272",
       "name": "remoteUtilities",
-      "author": "bob",
+      "author": "Deleted User",
       "date": "2025-07-15T20:39:32.296000+00:00",
       "files": [
         {
@@ -2537,7 +2560,7 @@
     {
       "id": "1153550910342037534",
       "name": "AnimationSpeed",
-      "author": "john",
+      "author": "the",
       "date": "2023-09-19T04:39:28.965000+00:00",
       "files": [
         {
@@ -5969,7 +5992,7 @@
     {
       "id": "729894584263639051",
       "name": "Ninja_Legends_Best_Free_Hack",
-      "author": "mdlk",
+      "author": "m'",
       "date": "2020-07-07T03:00:29.674000+00:00",
       "files": [
         {

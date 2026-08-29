@@ -1,0 +1,17 @@
+-- Made by zmus (Absent) (ported into plugin.iy by Farhat)
+local Plugin = {
+	["PluginName"] = "AK ADMIN",
+	["PluginDescription"] = "AK ADMIN command inside Infinite Yield commands.",
+	["Commands"] = {
+		["dex++"] = {
+			["ListName"] = "akadmin",
+			["Description"] = "AK ADMIN by zmus (Absent)",
+			["Aliases"] = {'akadmin'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://absent.wtf/AKADMIN.lua"))()
+			end
+		},
+	}
+}
+
+return Plugin
