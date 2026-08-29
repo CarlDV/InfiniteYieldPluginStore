@@ -1,40 +1,8 @@
 {
-  "scraped_at": "2026-08-29T15:27:17.268859+00:00",
+  "scraped_at": "2026-08-29T15:48:02.943573+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 566,
+  "total_plugins": 565,
   "plugins": [
-    {
-      "id": "1543270096749723658",
-      "name": "akadmin",
-      "description": "# **[UNOFFICIAL PORT]**\nHello is this me Farhat and I'm ported this AK Admin script into plugin.iy",
-      "author": {
-        "name": "Agent666_0",
-        "username": "agent6660",
-        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
-      },
-      "date": "2026-08-29T14:44:23.637000+00:00",
-      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1543270096749723658",
-      "files": [
-        {
-          "filename": "akadmin.iy",
-          "url": "plugins/1543270096749723658/akadmin.iy",
-          "size": 479,
-          "is_plugin": true
-        },
-        {
-          "filename": "15q6qkk.png",
-          "url": "plugins/1543270096749723658/15q6qkk.png",
-          "size": 40758,
-          "is_plugin": false
-        }
-      ],
-      "code_blocks": [],
-      "links": [],
-      "embeds": [],
-      "loadstring_urls": [
-        "https://absent.wtf/AKADMIN.lua"
-      ]
-    },
     {
       "id": "1539953994401714296",
       "name": "IYfix",

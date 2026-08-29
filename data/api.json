@@ -1,31 +1,8 @@
 {
   "version": "1.0",
-  "updated_at": "2026-08-29T15:27:17.289472+00:00",
-  "total": 566,
+  "updated_at": "2026-08-29T15:48:02.964315+00:00",
+  "total": 565,
   "plugins": [
-    {
-      "id": "1543270096749723658",
-      "name": "akadmin",
-      "author": "Agent666_0",
-      "date": "2026-08-29T14:44:23.637000+00:00",
-      "files": [
-        {
-          "filename": "akadmin.iy",
-          "url": "plugins/1543270096749723658/akadmin.iy",
-          "size": 479,
-          "is_plugin": true
-        },
-        {
-          "filename": "15q6qkk.png",
-          "url": "plugins/1543270096749723658/15q6qkk.png",
-          "size": 40758,
-          "is_plugin": false
-        }
-      ],
-      "loadstring_urls": [
-        "https://absent.wtf/AKADMIN.lua"
-      ]
-    },
     {
       "id": "1539953994401714296",
       "name": "IYfix",
