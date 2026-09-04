@@ -1,8 +1,25 @@
 {
   "version": "1.0",
-  "updated_at": "2026-08-29T15:48:02.964315+00:00",
-  "total": 565,
+  "updated_at": "2026-09-04T07:37:20.400969+00:00",
+  "total": 566,
   "plugins": [
+    {
+      "id": "1543888097643864127",
+      "name": "dexrecontinued",
+      "author": "Agent666_0",
+      "date": "2026-08-31T07:40:06.532000+00:00",
+      "files": [
+        {
+          "filename": "dexrecontinued.iy",
+          "url": "plugins/1543888097643864127/dexrecontinued.iy",
+          "size": 613,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": [
+        "https://github.com/Tesker-103/DexRecontinued/releases/latest/download/out.lua"
+      ]
+    },
     {
       "id": "1539953994401714296",
       "name": "IYfix",
@@ -282,7 +299,7 @@
     {
       "id": "1522340767845056776",
       "name": "yesMommy",
-      "author": "h",
+      "author": "hey",
       "date": "2026-07-02T20:38:42.778000+00:00",
       "files": [
         {
@@ -416,7 +433,7 @@
     {
       "id": "1514286850649489581",
       "name": "prideYield",
-      "author": "h",
+      "author": "hey",
       "date": "2026-06-10T15:15:19.284000+00:00",
       "files": [
         {
@@ -540,7 +557,7 @@
     {
       "id": "1511436269719126090",
       "name": "cmdBarSuggestion",
-      "author": "h",
+      "author": "hey",
       "date": "2026-06-02T18:28:07.829000+00:00",
       "files": [
         {
@@ -561,7 +578,7 @@
     {
       "id": "1510928526507773952",
       "name": "uwuify",
-      "author": "h",
+      "author": "hey",
       "date": "2026-06-01T08:50:32.414000+00:00",
       "files": [
         {
@@ -597,7 +614,7 @@
     {
       "id": "1510754087078072540",
       "name": "uwuify",
-      "author": "h",
+      "author": "hey",
       "date": "2026-05-31T21:17:22.813000+00:00",
       "files": [
         {
@@ -612,7 +629,7 @@
     {
       "id": "1510579733052788867",
       "name": "sigmasedit",
-      "author": "h",
+      "author": "hey",
       "date": "2026-05-31T09:44:33.574000+00:00",
       "files": [
         {
@@ -2162,7 +2179,7 @@
     {
       "id": "1325793591066624021",
       "name": "simpleaimbot",
-      "author": "arson",
+      "author": "Deleted User",
       "date": "2025-01-06T11:50:24.164000+00:00",
       "files": [
         {
@@ -2177,7 +2194,7 @@
     {
       "id": "1325586764236062830",
       "name": "simpleesp",
-      "author": "arson",
+      "author": "Deleted User",
       "date": "2025-01-05T22:08:32.805000+00:00",
       "files": [
         {
@@ -2858,7 +2875,7 @@
     {
       "id": "1071697250054578177",
       "name": "yttd",
-      "author": "joshytardball",
+      "author": "NAM Divination",
       "date": "2023-02-05T07:42:15.585000+00:00",
       "files": [
         {
@@ -2978,7 +2995,7 @@
     {
       "id": "1054574569312239696",
       "name": "coinflip",
-      "author": "joshytardball",
+      "author": "NAM Divination",
       "date": "2022-12-20T01:42:50.372000+00:00",
       "files": [
         {

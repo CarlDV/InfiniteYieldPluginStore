@@ -1,8 +1,34 @@
 {
-  "scraped_at": "2026-08-29T15:48:02.943573+00:00",
+  "scraped_at": "2026-09-04T07:37:20.380737+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 565,
+  "total_plugins": 566,
   "plugins": [
+    {
+      "id": "1543888097643864127",
+      "name": "dexrecontinued",
+      "description": "# (OFFICIAL APPROVED) **DEX-Recontinued** Plugin by <@1135512864019460106> \nBetter than DexPlusPlus because its has more features and fixes.",
+      "author": {
+        "name": "Agent666_0",
+        "username": "agent6660",
+        "avatar": "https://cdn.discordapp.com/avatars/1156654667095363595/99e350877cff884fea44e77c1a459d42.png?size=1024"
+      },
+      "date": "2026-08-31T07:40:06.532000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1543888097643864127",
+      "files": [
+        {
+          "filename": "dexrecontinued.iy",
+          "url": "plugins/1543888097643864127/dexrecontinued.iy",
+          "size": 613,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": [
+        "https://github.com/Tesker-103/DexRecontinued/releases/latest/download/out.lua"
+      ]
+    },
     {
       "id": "1539953994401714296",
       "name": "IYfix",
@@ -58,7 +84,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/1a644f60cf8c6a0a2f5a0c80da777c8e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/7a944a810f22176de3479e759c46565f.png?size=1024"
       },
       "date": "2026-08-13T11:51:09.458000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1537428294553833562",
@@ -449,9 +475,9 @@
       "name": "yesMommy",
       "description": "disgrace...\n\n# yesMommy.iy\ntogether for you with a warm and comforting voice from... mommy?\n\n## usage\n-`playASMR [kind?] [segment?]`: plays a random segment\n+example: `playASMR compliment 1`: plays the 1st segment in compliment\n+example2: `playASMR`: plays random kind and random segment\n-`mommyCredit`: display used asmr artist's credit\n-`mommyRandom [boolean?]`: state for playing based on player event (lose health, 0 health)\n-`mommyVolume [number]`: set voice's volume (u can set very loud)\n\n## notes:\n-if u want trigger based on iy's event, use iy on event triggers\n-cahces everything in `workspace/yesMommyASMRSounds`, first time fetching is slow\n-dropped ability to add/remove custom tracks cuz i dont like, but it stays dormant in file (uncomment if u want, dont expect my help)\n-i lost interests\n-please dont spam the cdn, i dont own it\n\ni wish you a good day",
       "author": {
-        "name": "h",
+        "name": "hey",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/9c83b7b220096eff07618205da081059.png?size=1024"
       },
       "date": "2026-07-02T20:38:42.778000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1522340767845056776",
@@ -481,7 +507,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/14c5a68bc24d063dd9146900952dc418.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/6d094786bd2ee3c95d31966828d40a68.png?size=1024"
       },
       "date": "2026-07-01T06:36:47.289000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1521766502661886062",
@@ -665,9 +691,9 @@
       "name": "prideYield",
       "description": "mistakes were made, it depend on where you are look at...\n# prideYield\n\nits pride month, everyone!\n\n> WHEN IS SOMEONE MAKING GAYFINITE YIELD WE NEED THIS PLUGIN,  NOT A 99TH WELD REMAKE\n-<@1065752830469734531> - june, '26\n\n## usage\n-install normally with `addplugin prideyield` command\n-to remove, use `removeplugin`\n\n## note\n-required some unc's apis to get around roblox's removing me icon\n-only triggers when its june or pride month whatever u prefer\n-hi!!\n\n(sorry i forgor to disable randomize attachment name)",
       "author": {
-        "name": "h",
+        "name": "hey",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/9c83b7b220096eff07618205da081059.png?size=1024"
       },
       "date": "2026-06-10T15:15:19.284000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1514286850649489581",
@@ -849,9 +875,9 @@
       "name": "cmdBarSuggestion",
       "description": "sorry for my grave mistake of `uwuify`, but anyways\n\n# cmdBarSuggestion\n attempt to predict your next command, and autofill for you (super nice qol)\n||(a \"finite yield\" plugin collection)||\n\n## usage\n-try to predict command based on your input\n-autofill by pressing tab (or touch CmdBar for mobile)\n\n## note\n-no need to config\n-to disable, remove plugin and rejoin\n-auto align based on CmdBar's TextXAlignment (for custom theme people)\n-uses iy's func and variables (`CmdBar`, `autoComplete()`) for best cross-compatibility across recent versions",
       "author": {
-        "name": "h",
+        "name": "hey",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/9c83b7b220096eff07618205da081059.png?size=1024"
       },
       "date": "2026-06-02T18:28:07.829000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511436269719126090",
@@ -879,9 +905,9 @@
       "name": "uwuify",
       "description": "# uwuify\nnow version 1.1 with changelogs:\n\n## removal:\n-`ShouldDeliverCallback` and `OnIncomingMessage`, now directly hooks into roblox's `ChatExperience` UI (thx <@1222180548592795702> )\n\n## addendum:\n-`uwuifyFlag` stutter/cuteaffix toggles (with demo in image)",
       "author": {
-        "name": "h",
+        "name": "hey",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/9c83b7b220096eff07618205da081059.png?size=1024"
       },
       "date": "2026-06-01T08:50:32.414000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510928526507773952",
@@ -933,9 +959,9 @@
       "name": "uwuify",
       "description": "# uwuify (based on `cutestring()`)\nspices ur chat for some reason ⁉️ \n\n## commands\n-`uwuify [string]`: uwuify input then send out via chat\n-`autouwuify [boolean?]`: auto uwuify ur chat messages (⚠️ :: original msg will be sent out along, pls use `uwuify` if ure not that lazy)\n\n## credit\nfrom [deleted user] for the original idea \n(i literally add extra spices, update to use roblox's new `textChatService` and the half baked `autouwuify` 😭)\n\n## linkie\nhttps://cdn.discordapp.com/attachments/510246773965455360/1510746930337021972/qwqx066.mov?ex=6a1df038&is=6a1c9eb8&hm=2d8756c0e634687975c0281285d53c29c5839451aff87e3f659b4dd1b531e9bb&\nhttps://discord.com/channels/503045718102114305/551846012310782014/727567272457142332",
       "author": {
-        "name": "h",
+        "name": "hey",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/9c83b7b220096eff07618205da081059.png?size=1024"
       },
       "date": "2026-05-31T21:17:22.813000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510754087078072540",
@@ -960,9 +986,9 @@
       "name": "sigmasedit",
       "description": "# sigmasedit\nan interesting edit i saw on twitter out of all places, triggers randomly based on ur input\n\n## commands\n-`sigmasedit` toggle edit\n-`sigmathreshold [num]` set threshold (420 baseline, higher > less chance to trigger)\n\n## note\n-if stuck (too low threshold, getting annoyed...), then **rejoin** or toggle using `sigmasedit`",
       "author": {
-        "name": "h",
+        "name": "hey",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/72e39a30beaa25b5da4609b45139797c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/9c83b7b220096eff07618205da081059.png?size=1024"
       },
       "date": "2026-05-31T09:44:33.574000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510579733052788867",
@@ -1369,7 +1395,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/1a644f60cf8c6a0a2f5a0c80da777c8e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/7a944a810f22176de3479e759c46565f.png?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -2354,8 +2380,8 @@
       "description": "",
       "author": {
         "name": "iv",
-        "username": "iiillilill",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/612e32ebc14b6de72b171b3e1b6f8ab5.png?size=1024"
+        "username": "ipv4e",
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_3c1d4853a8c3842738c974009270b305.gif?size=1024"
       },
       "date": "2025-12-26T03:45:29.686000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453956864403443784",
@@ -2378,8 +2404,8 @@
       "description": "",
       "author": {
         "name": "iv",
-        "username": "iiillilill",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/612e32ebc14b6de72b171b3e1b6f8ab5.png?size=1024"
+        "username": "ipv4e",
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_3c1d4853a8c3842738c974009270b305.gif?size=1024"
       },
       "date": "2025-12-24T21:41:15.365000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453502812871987333",
@@ -2915,7 +2941,7 @@
       "author": {
         "name": "Nexus",
         "username": "j5vz",
-        "avatar": "https://cdn.discordapp.com/avatars/1011492950884221049/efa9a2ddcde9f47991991c0b5789260f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1011492950884221049/532bc05803c4a4756fa4cae5d42ce921.png?size=1024"
       },
       "date": "2025-08-05T07:37:59.344000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1402193908729118733",
@@ -2987,7 +3013,7 @@
       "author": {
         "name": "Chillz",
         "username": ".chill.z.",
-        "avatar": "https://cdn.discordapp.com/avatars/1136569806389264405/b8c0b5935e5855c2491e58ec2770eedc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1136569806389264405/f6947993c2fa1ce3ea377089148dde6c.png?size=1024"
       },
       "date": "2025-07-26T19:32:14.132000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1398749776081588324",
@@ -3585,9 +3611,9 @@
       "name": "simpleaimbot",
       "description": "# Simple AImbot Tool\nSimple aimbot, as the name suggests,  an ultra easy to use aimbot that half woks.\n## features\n> - team recognition \n> E to toggle\n> undetectable\n## to enable and disable\n> startaimbot\n> stopaimbot",
       "author": {
-        "name": "arson",
-        "username": "infamousforarson",
-        "avatar": "https://cdn.discordapp.com/avatars/701838241325908071/733320d84bdcaa6cabbb97ca34725679.png?size=1024"
+        "name": "Deleted User",
+        "username": "Deleted User",
+        "avatar": "https://cdn.discordapp.com/embed/avatars/3.png"
       },
       "date": "2025-01-06T11:50:24.164000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1325793591066624021",
@@ -3609,9 +3635,9 @@
       "name": "simpleesp",
       "description": "# Simple ESP Tool\nSimple ESP Tool is an overly simple ESP layout replacing IY's nonfunctioning and hard to work with ESP system!\n## To use :\n> startesp : Starts the esp layout\n> stopesp : Stops the ESP layout\n\nin the current version there are no current changes or colou settings to the esp, im gonna add them soon tho!",
       "author": {
-        "name": "arson",
-        "username": "infamousforarson",
-        "avatar": "https://cdn.discordapp.com/avatars/701838241325908071/733320d84bdcaa6cabbb97ca34725679.png?size=1024"
+        "name": "Deleted User",
+        "username": "Deleted User",
+        "avatar": "https://cdn.discordapp.com/embed/avatars/3.png"
       },
       "date": "2025-01-05T22:08:32.805000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1325586764236062830",
@@ -3897,7 +3923,7 @@
       "author": {
         "name": "LordOfMountain",
         "username": "lordofmountain",
-        "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/a_87f017804e5d614d962d34bcd533fdbc.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/7fa13b7c37aa93e3a3c0500ec9edd1b9.png?size=1024"
       },
       "date": "2024-08-05T17:02:41.511000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1270064449893564588",
@@ -3927,7 +3953,7 @@
       "author": {
         "name": "LordOfMountain",
         "username": "lordofmountain",
-        "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/a_87f017804e5d614d962d34bcd533fdbc.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/7fa13b7c37aa93e3a3c0500ec9edd1b9.png?size=1024"
       },
       "date": "2024-08-05T14:50:33.411000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1270031197032157256",
@@ -4703,9 +4729,9 @@
       "name": "yttd",
       "description": "**Youtube Thumbnail Downloader**\n**Download Youtube Thumbnails!**\n\n```;thumbdownload \"Youtube link\"```\n\npretty useless",
       "author": {
-        "name": "joshytardball",
+        "name": "NAM Divination",
         "username": "joshycuteball",
-        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/db8981176ef649ac33e0b38b67b3f04d.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/0c06989494670729fadc6a2f0fd87191.png?size=1024"
       },
       "date": "2023-02-05T07:42:15.585000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1071697250054578177",
@@ -4899,9 +4925,9 @@
       "name": "coinflip",
       "description": "**Coin Flip**\n\n*Commands:*\n`coinflip or cf`\n\n*Description:*\n`Flip a coin!`",
       "author": {
-        "name": "joshytardball",
+        "name": "NAM Divination",
         "username": "joshycuteball",
-        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/db8981176ef649ac33e0b38b67b3f04d.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/0c06989494670729fadc6a2f0fd87191.png?size=1024"
       },
       "date": "2022-12-20T01:42:50.372000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1054574569312239696",
@@ -5921,7 +5947,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a93cff2&is=6a927e72&hm=4bb7032a4df68e508595b0833f2d9de169eb639246d9de790c0b39cdf03abec5&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a9bb8f2&is=6a9a6772&hm=507c0fb6af3965b1d5d38c43a105ca08bec876a218bab9692a29d323c12b143e&"
           },
           "image": null,
           "video": null
@@ -5935,7 +5961,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a93d009&is=6a927e89&hm=5b16d9c8e5882bc64d466b0504c6ebba2d20d6aae95d0c523b5eb237021b8a22&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a9bb909&is=6a9a6789&hm=df8d17801684adc86a02f33b7c79d92263da48e055221536b557f7baccc1e936&"
           },
           "image": null,
           "video": null
@@ -6285,7 +6311,7 @@
       "author": {
         "name": "Arato",
         "username": "notarato",
-        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/e180f082df5438076aba43636d6a499e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/48516b4c20df8c2b7033ff349d2fd951.png?size=1024"
       },
       "date": "2022-02-15T04:20:18.484000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/942998734961270824",
@@ -6798,7 +6824,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a93cff2&is=6a927e72&hm=4bb7032a4df68e508595b0833f2d9de169eb639246d9de790c0b39cdf03abec5&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6a9bb8f2&is=6a9a6772&hm=507c0fb6af3965b1d5d38c43a105ca08bec876a218bab9692a29d323c12b143e&"
           },
           "image": null,
           "video": null
@@ -6812,7 +6838,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a93d009&is=6a927e89&hm=5b16d9c8e5882bc64d466b0504c6ebba2d20d6aae95d0c523b5eb237021b8a22&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6a9bb909&is=6a9a6789&hm=df8d17801684adc86a02f33b7c79d92263da48e055221536b557f7baccc1e936&"
           },
           "image": null,
           "video": null
@@ -7280,7 +7306,7 @@
       "author": {
         "name": "cargocat",
         "username": "cargocat",
-        "avatar": "https://cdn.discordapp.com/avatars/546868093603807233/9aa73c2ab19c528a8120c80f5ef47f96.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/546868093603807233/7f2eed7d7394954dc9d451f345824970.png?size=1024"
       },
       "date": "2021-04-26T00:16:58.851000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/836033079310942218",
@@ -7577,7 +7603,7 @@
       "author": {
         "name": "cargocat",
         "username": "cargocat",
-        "avatar": "https://cdn.discordapp.com/avatars/546868093603807233/9aa73c2ab19c528a8120c80f5ef47f96.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/546868093603807233/7f2eed7d7394954dc9d451f345824970.png?size=1024"
       },
       "date": "2021-03-22T13:45:48.088000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/823553050387283988",
@@ -8185,7 +8211,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a944a65&is=6a92f8e5&hm=c1b2d1fbbdabb3ad58374f4b295363a14bdf535b1b31d9e4bb0d3a5ad2022020&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6a9b8aa5&is=6a9a3925&hm=4443e28da78baf99dae9c6b320082897bc2bd3e482759249e52ab745a2f57144&"
           },
           "image": null,
           "video": null
@@ -8645,7 +8671,7 @@
       "author": {
         "name": "neoissad",
         "username": "sadneo",
-        "avatar": "https://cdn.discordapp.com/avatars/189882338425962497/eae390ca3a26e7c65d05980bede9407b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189882338425962497/63073bfdaa555afbe72df9bd1eca90a6.png?size=1024"
       },
       "date": "2020-11-30T17:41:17.409000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/783024872108458045",
@@ -9551,7 +9577,7 @@
       "author": {
         "name": "lxyznn",
         "username": "lxyznn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f92ea5560ab73326f3a6f30a38102afc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-08-19T01:26:34.097000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/745453625161285802",
@@ -9627,7 +9653,7 @@
       "author": {
         "name": "lxyznn",
         "username": "lxyznn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f92ea5560ab73326f3a6f30a38102afc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-08-13T09:03:36.878000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/743394317447462933",
@@ -9653,7 +9679,7 @@
       "author": {
         "name": "lxyznn",
         "username": "lxyznn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f92ea5560ab73326f3a6f30a38102afc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-08-13T02:07:23.484000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/743289571441377390",
@@ -10106,7 +10132,7 @@
       "author": {
         "name": "lxyznn",
         "username": "lxyznn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f92ea5560ab73326f3a6f30a38102afc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-07-18T08:28:55.627000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/733963503542468618",
@@ -12124,7 +12150,7 @@
       "author": {
         "name": "lxyznn",
         "username": "lxyznn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/f92ea5560ab73326f3a6f30a38102afc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-04-23T22:55:33.851000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/703016243459915826",
@@ -14522,7 +14548,7 @@
       "author": {
         "name": "riley",
         "username": "0riley",
-        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/a_c0d309856c81057cfe51d0ceb4f3546b.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/c0d309856c81057cfe51d0ceb4f3546b.png?size=1024"
       },
       "date": "2019-06-29T05:37:17.410000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/594400981433712653",
@@ -14546,7 +14572,7 @@
       "author": {
         "name": "riley",
         "username": "0riley",
-        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/a_c0d309856c81057cfe51d0ceb4f3546b.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/237352222218780683/c0d309856c81057cfe51d0ceb4f3546b.png?size=1024"
       },
       "date": "2019-06-29T05:33:30.064000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/594400027875606539",

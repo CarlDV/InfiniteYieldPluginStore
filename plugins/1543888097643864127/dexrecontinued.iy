@@ -1,0 +1,17 @@
+-- Made by tesker103 (ported into plugin by Farhat)
+local Plugin = {
+	["PluginName"] = "DexRE",
+	["PluginDescription"] = "Adds DexRe to Infinite Yield commands.",
+	["Commands"] = {
+		["dexrecontinued"] = {
+			["ListName"] = "dexre / dexrecontinued",
+			["Description"] = "Loads DexRE by tesker103 which has alot of features and fixes like DexPlusPlus but alot more!",
+			["Aliases"] = {'dexre','dexrecontinued'},
+			["Function"] = function(args,speaker)
+				loadstring(game:HttpGet("https://github.com/Tesker-103/DexRecontinued/releases/latest/download/out.lua"))()
+			end
+		},
+	}
+}
+
+return Plugin
