@@ -1,8 +1,43 @@
 {
   "version": "1.0",
-  "updated_at": "2026-09-04T07:37:20.400969+00:00",
-  "total": 566,
+  "updated_at": "2026-09-08T08:19:45.936860+00:00",
+  "total": 567,
   "plugins": [
+    {
+      "id": "1546795805388709969",
+      "name": "ProjectUAI",
+      "author": "David",
+      "date": "2026-09-08T08:14:18.081000+00:00",
+      "files": [
+        {
+          "filename": "ProjectUAI.iy",
+          "url": "plugins/1546795805388709969/ProjectUAI.iy",
+          "size": 831,
+          "is_plugin": true
+        },
+        {
+          "filename": "2026-09-08_15-55-22.mp4",
+          "url": "plugins/1546795805388709969/2026-09-08_15-55-22.mp4",
+          "size": 10691592,
+          "is_plugin": false
+        },
+        {
+          "filename": "Screenshot_2026-09-08_160711.png",
+          "url": "plugins/1546795805388709969/Screenshot_2026-09-08_160711.png",
+          "size": 214346,
+          "is_plugin": false
+        },
+        {
+          "filename": "Screenshot_2026-09-08_160556.png",
+          "url": "plugins/1546795805388709969/Screenshot_2026-09-08_160556.png",
+          "size": 288360,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/CarlDV/ProjectUAI/main/dist/uai.lua"
+      ]
+    },
     {
       "id": "1543888097643864127",
       "name": "dexrecontinued",
@@ -454,7 +489,7 @@
     {
       "id": "1514193210832846949",
       "name": "savelogs, KeepIYImproved, VoiceChatBypass",
-      "author": "! FurryBoy..?",
+      "author": "! FurryBoy",
       "date": "2026-06-10T09:03:13.812000+00:00",
       "files": [
         {
@@ -2554,7 +2589,7 @@
     {
       "id": "1153550910342037534",
       "name": "AnimationSpeed",
-      "author": "the",
+      "author": "living droid",
       "date": "2023-09-19T04:39:28.965000+00:00",
       "files": [
         {

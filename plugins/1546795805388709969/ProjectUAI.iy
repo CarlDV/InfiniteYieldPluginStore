@@ -1,0 +1,21 @@
+--------------------------------------------------------------------------------
+-- MADE WITH IY PLUGIN MAKER (https://iyplugins.pages.dev/maker)
+-- This plugin was generated automatically using IY Plugin Maker.
+--------------------------------------------------------------------------------
+
+local Plugin = {
+    ["PluginName"] = "ProjectUAI",
+    ["PluginDescription"] = "A universal roblox AI agent client",
+    ["Commands"] = {
+        ["Init"] = {
+            ["ListName"] = "uai / projectuai",
+            ["Description"] = "Executes the project UAI script",
+            ["Aliases"] = {"uai", "projectuai"},
+            ["Function"] = function(args, speaker)
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/CarlDV/ProjectUAI/main/dist/uai.lua"))()
+            end
+        }
+    }
+}
+
+return Plugin
