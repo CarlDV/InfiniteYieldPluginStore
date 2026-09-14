@@ -1,0 +1,73 @@
+local Plugin = {
+    ["PluginName"] = "ProximityPrompts",
+    ["PluginDescription"] = "Disable or enable ProximityPrompts in the game.",
+    ["Commands"] = {
+        ["disableProximityPrompts"] = {
+            ["ListName"] = "disableProximityPrompts",
+            ["Description"] = "Disables all ProximityPrompts and keeps newly added prompts disabled.",
+            ["Aliases"] = {"disableprompts", "dpp", "promptsOff"},
+            ["Function"] = function(args, speaker)
+                local Workspace = game:GetService("Workspace")
+
+                local CONNECTION_TAG = "PROXIMITY_PROMPTS_DISABLED"
+
+                local oldConnection = getgenv()[CONNECTION_TAG]
+                if oldConnection then
+                    pcall(function()
+                        oldConnection:Disconnect()
+                    end)
+                    getgenv()[CONNECTION_TAG] = nil
+                end
+
+                local count = 0
+
+                for _, inst in ipairs(Workspace:GetDescendants()) do
+                    if inst:IsA("ProximityPrompt") then
+                        inst.Enabled = false
+                        count = count + 1
+                    end
+                end
+
+                getgenv()[CONNECTION_TAG] = Workspace.DescendantAdded:Connect(function(inst)
+                    if inst:IsA("ProximityPrompt") then
+                        inst.Enabled = false
+                    end
+                end)
+
+                print("Disabled " .. count .. " ProximityPrompt(s).")
+            end
+        },
+
+        ["enableProximityPrompts"] = {
+            ["ListName"] = "enableProximityPrompts",
+            ["Description"] = "Enables all ProximityPrompts and stops automatically disabling new prompts.",
+            ["Aliases"] = {"enableprompts", "epp", "promptsOn"},
+            ["Function"] = function(args, speaker)
+                local Workspace = game:GetService("Workspace")
+
+                local CONNECTION_TAG = "PROXIMITY_PROMPTS_DISABLED"
+
+                local connection = getgenv()[CONNECTION_TAG]
+                if connection then
+                    pcall(function()
+                        connection:Disconnect()
+                    end)
+                    getgenv()[CONNECTION_TAG] = nil
+                end
+
+                local count = 0
+
+                for _, inst in ipairs(Workspace:GetDescendants()) do
+                    if inst:IsA("ProximityPrompt") then
+                        inst.Enabled = true
+                        count = count + 1
+                    end
+                end
+
+                print("Enabled " .. count .. " ProximityPrompt(s).")
+            end
+        }
+    }
+}
+
+return Plugin

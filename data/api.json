@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-09-08T08:19:45.936860+00:00",
-  "total": 567,
+  "updated_at": "2026-09-14T16:07:29.680455+00:00",
+  "total": 568,
   "plugins": [
+    {
+      "id": "1549050296616095744",
+      "name": "ProximityPrompts",
+      "author": "SteamUser#9483",
+      "date": "2026-09-14T13:32:50.676000+00:00",
+      "files": [
+        {
+          "filename": "ProximityPrompts.iy",
+          "url": "plugins/1549050296616095744/ProximityPrompts.iy",
+          "size": 2658,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1546795805388709969",
       "name": "ProjectUAI",
@@ -334,7 +349,7 @@
     {
       "id": "1522340767845056776",
       "name": "yesMommy",
-      "author": "hey",
+      "author": "iw",
       "date": "2026-07-02T20:38:42.778000+00:00",
       "files": [
         {
@@ -468,7 +483,7 @@
     {
       "id": "1514286850649489581",
       "name": "prideYield",
-      "author": "hey",
+      "author": "iw",
       "date": "2026-06-10T15:15:19.284000+00:00",
       "files": [
         {
@@ -592,7 +607,7 @@
     {
       "id": "1511436269719126090",
       "name": "cmdBarSuggestion",
-      "author": "hey",
+      "author": "iw",
       "date": "2026-06-02T18:28:07.829000+00:00",
       "files": [
         {
@@ -613,7 +628,7 @@
     {
       "id": "1510928526507773952",
       "name": "uwuify",
-      "author": "hey",
+      "author": "iw",
       "date": "2026-06-01T08:50:32.414000+00:00",
       "files": [
         {
@@ -649,7 +664,7 @@
     {
       "id": "1510754087078072540",
       "name": "uwuify",
-      "author": "hey",
+      "author": "iw",
       "date": "2026-05-31T21:17:22.813000+00:00",
       "files": [
         {
@@ -664,7 +679,7 @@
     {
       "id": "1510579733052788867",
       "name": "sigmasedit",
-      "author": "hey",
+      "author": "iw",
       "date": "2026-05-31T09:44:33.574000+00:00",
       "files": [
         {
