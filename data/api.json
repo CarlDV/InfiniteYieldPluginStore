@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-09-14T16:07:29.680455+00:00",
-  "total": 568,
+  "updated_at": "2026-09-17T23:01:32.430507+00:00",
+  "total": 569,
   "plugins": [
+    {
+      "id": "1550277322421305364",
+      "name": "calculator",
+      "author": "Tony",
+      "date": "2026-09-17T22:48:36.425000+00:00",
+      "files": [
+        {
+          "filename": "calculator.iy",
+          "url": "plugins/1550277322421305364/calculator.iy",
+          "size": 18618,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1549050296616095744",
       "name": "ProximityPrompts",
@@ -334,7 +349,7 @@
     {
       "id": "1523558282382545027",
       "name": "jobid",
-      "author": "dwxgoatergroup",
+      "author": "! im a stupid bot in psm vc",
       "date": "2026-07-06T05:16:40.864000+00:00",
       "files": [
         {
@@ -349,7 +364,7 @@
     {
       "id": "1522340767845056776",
       "name": "yesMommy",
-      "author": "iw",
+      "author": "openbridge",
       "date": "2026-07-02T20:38:42.778000+00:00",
       "files": [
         {
@@ -393,7 +408,7 @@
     {
       "id": "1520218128754147339",
       "name": "emote",
-      "author": "dwxgoatergroup",
+      "author": "! im a stupid bot in psm vc",
       "date": "2026-06-27T00:04:06.182000+00:00",
       "files": [
         {
@@ -408,7 +423,7 @@
     {
       "id": "1520218020889366631",
       "name": "cname",
-      "author": "dwxgoatergroup",
+      "author": "! im a stupid bot in psm vc",
       "date": "2026-06-27T00:03:40.465000+00:00",
       "files": [
         {
@@ -468,7 +483,7 @@
     {
       "id": "1516515378312777768",
       "name": "bounce",
-      "author": "dwxgoatergroup",
+      "author": "! im a stupid bot in psm vc",
       "date": "2026-06-16T18:50:41.683000+00:00",
       "files": [
         {
@@ -483,7 +498,7 @@
     {
       "id": "1514286850649489581",
       "name": "prideYield",
-      "author": "iw",
+      "author": "openbridge",
       "date": "2026-06-10T15:15:19.284000+00:00",
       "files": [
         {
@@ -607,7 +622,7 @@
     {
       "id": "1511436269719126090",
       "name": "cmdBarSuggestion",
-      "author": "iw",
+      "author": "openbridge",
       "date": "2026-06-02T18:28:07.829000+00:00",
       "files": [
         {
@@ -628,7 +643,7 @@
     {
       "id": "1510928526507773952",
       "name": "uwuify",
-      "author": "iw",
+      "author": "openbridge",
       "date": "2026-06-01T08:50:32.414000+00:00",
       "files": [
         {
@@ -664,7 +679,7 @@
     {
       "id": "1510754087078072540",
       "name": "uwuify",
-      "author": "iw",
+      "author": "openbridge",
       "date": "2026-05-31T21:17:22.813000+00:00",
       "files": [
         {
@@ -679,7 +694,7 @@
     {
       "id": "1510579733052788867",
       "name": "sigmasedit",
-      "author": "iw",
+      "author": "openbridge",
       "date": "2026-05-31T09:44:33.574000+00:00",
       "files": [
         {
@@ -2925,7 +2940,7 @@
     {
       "id": "1071697250054578177",
       "name": "yttd",
-      "author": "NAM Divination",
+      "author": "surbers",
       "date": "2023-02-05T07:42:15.585000+00:00",
       "files": [
         {
@@ -3045,7 +3060,7 @@
     {
       "id": "1054574569312239696",
       "name": "coinflip",
-      "author": "NAM Divination",
+      "author": "surbers",
       "date": "2022-12-20T01:42:50.372000+00:00",
       "files": [
         {

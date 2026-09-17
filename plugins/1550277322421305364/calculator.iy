@@ -1,0 +1,530 @@
+local SqrtMark = "\1"
+
+local singleFuncs = {
+	{name = "sin",   fn = math.sin},
+	{name = "cos",   fn = math.cos},
+	{name = "tan",   fn = math.tan},
+	{name = "asin",  fn = math.asin},
+	{name = "acos",  fn = math.acos},
+	{name = "atan",  fn = math.atan},
+	{name = "log",   fn = math.log10},
+	{name = "ln",    fn = math.log},
+	{name = "abs",   fn = math.abs},
+	{name = "floor", fn = math.floor},
+	{name = "ceil",  fn = math.ceil},
+	{name = "round", fn = function(x) return math.floor(x + 0.5) end},
+}
+
+local multiFuncs = {
+	{name = "min", fn = math.min},
+	{name = "max", fn = math.max},
+}
+
+local function prepareExpression(expr, varMap)
+	local s = expr:lower():gsub("%s+", "")
+	s = s:gsub("sqrt", SqrtMark)
+	s = s:gsub("√", SqrtMark)
+	s = s:gsub("([^%d])//", "%1" .. SqrtMark)
+	s = s:gsub("^//", SqrtMark)
+	s = s:gsub("%f[%a]pi%f[%A]", "(" .. tostring(math.pi) .. ")")
+	s = s:gsub("%f[%a]e%f[%A]", "(" .. tostring(math.e) .. ")")
+	if varMap then
+		for v, _ in pairs(varMap) do
+			local vl = v:lower()
+			s = s:gsub("(%d)(" .. vl .. ")", "%1*%2")
+			s = s:gsub("(" .. vl .. ")(%d)", "%1*%2")
+			s = s:gsub("(%))(" .. vl .. ")", "%1*%2")
+			s = s:gsub("(" .. vl .. ")(%()", "%1*%2")
+		end
+		for v, val in pairs(varMap) do
+			s = s:gsub(v:lower(), "(" .. tostring(val) .. ")")
+		end
+	end
+	s = s:gsub("(%d)(%()", "%1*%2")
+	s = s:gsub("(%))(%d)", "%1*%2")
+	s = s:gsub("(%))(%()", "%1*%2")
+	s = s:gsub("(%d)" .. SqrtMark, "%1*" .. SqrtMark)
+	s = s:gsub("(%))" .. SqrtMark, "%1*" .. SqrtMark)
+	s = s:gsub(SqrtMark, "sqrt")
+	return s
+end
+
+local function Evaluate(expression, varMapOrName, varVal)
+	local varMap = nil
+	if type(varMapOrName) == "table" then
+		varMap = varMapOrName
+	elseif type(varMapOrName) == "string" and varVal ~= nil then
+		varMap = {[varMapOrName] = varVal}
+	end
+	local s = prepareExpression(expression, varMap)
+	if #s == 0 then return nil, "Empty expression provided" end
+	local pos = 1
+	local function peek() return s:sub(pos, pos) end
+	local function take()
+		local c = s:sub(pos, pos)
+		pos = pos + 1
+		return c
+	end
+	local parseExpr, parseTerm, parseFactor, parsePrimary
+	parsePrimary = function()
+		if s:sub(pos, pos + 3) == "sqrt" then
+			pos = pos + 4
+			if peek() == "(" then
+				take()
+				local val = parseExpr()
+				if peek() == ")" then take() end
+				if val < 0 then error("Domain error: square root of negative number") end
+				return math.sqrt(val)
+			else
+				local val = parsePrimary()
+				if val < 0 then error("Domain error: square root of negative number") end
+				return math.sqrt(val)
+			end
+		end
+		for _, entry in ipairs(multiFuncs) do
+			local name = entry.name
+			if s:sub(pos, pos + #name - 1) == name and s:sub(pos + #name, pos + #name) == "(" then
+				pos = pos + #name + 1
+				local vals = {parseExpr()}
+				while peek() == "," do
+					take()
+					table.insert(vals, parseExpr())
+				end
+				if peek() == ")" then take() end
+				return entry.fn(table.unpack(vals))
+			end
+		end
+		for _, entry in ipairs(singleFuncs) do
+			local name = entry.name
+			if s:sub(pos, pos + #name - 1) == name and s:sub(pos + #name, pos + #name) == "(" then
+				pos = pos + #name + 1
+				local val = parseExpr()
+				if peek() == ")" then take() end
+				local r = entry.fn(val)
+				if r ~= r then error("Math domain error: argument out of range") end
+				return r
+			end
+		end
+		local c = peek()
+		if c == "(" then
+			take()
+			local val = parseExpr()
+			if peek() == ")" then take() end
+			return val
+		elseif c == "-" then
+			take()
+			return -parsePrimary()
+		elseif c == "+" then
+			take()
+			return parsePrimary()
+		else
+			local start = pos
+			while pos <= #s and s:sub(pos, pos):match("[%d%.]") do
+				pos = pos + 1
+			end
+			local numStr = s:sub(start, pos - 1)
+			if numStr == "" then
+				local bad = peek()
+				if bad == "" then error("Unexpected end of expression")
+				else error("Unexpected character: '" .. bad .. "'") end
+			end
+			return tonumber(numStr) or 0
+		end
+	end
+	parseFactor = function()
+		local left = parsePrimary()
+		while peek() == "!" do
+			take()
+			if left < 0 or left ~= math.floor(left) then error("Factorial requires a non-negative integer") end
+			if left > 170 then error("Factorial too large (max 170)") end
+			local r = 1
+			for i = 2, left do r = r * i end
+			left = r
+		end
+		while peek() == "^" do
+			take()
+			local right = parseFactor()
+			left = left ^ right
+		end
+		return left
+	end
+	parseTerm = function()
+		local left = parseFactor()
+		while true do
+			local op = peek()
+			if op == "*" then
+				take()
+				left = left * parseFactor()
+			elseif op == "/" then
+				take()
+				local r = parseFactor()
+				if r == 0 then error("Division by zero") end
+				left = left / r
+			else break end
+		end
+		return left
+	end
+	parseExpr = function()
+		local left = parseTerm()
+		while true do
+			local op = peek()
+			if op == "+" then
+				take()
+				left = left + parseTerm()
+			elseif op == "-" then
+				take()
+				left = left - parseTerm()
+			else break end
+		end
+		return left
+	end
+	local ok, result = pcall(parseExpr)
+	if ok and type(result) == "number" then
+		if pos <= #s then
+			return nil, "Unexpected character at position " .. pos .. ": '" .. s:sub(pos, pos) .. "'"
+		end
+		return result, nil
+	end
+	if type(result) == "string" then return nil, result end
+	return nil, "Invalid mathematical expression"
+end
+
+local function SolveEquation(eq, targetVar)
+	local clean = eq:lower()
+	local parts = {}
+	for p in clean:gmatch("[^=]+") do table.insert(parts, p) end
+	if #parts ~= 2 then return nil, "Equation must contain exactly one '=' sign", nil end
+	local vars = {}
+	for v in clean:gmatch("[a-z]") do vars[v] = true end
+	local varList = {}
+	for v in pairs(vars) do table.insert(varList, v) end
+	if #varList == 0 then return nil, "No variable found in equation", nil
+	elseif #varList > 1 then return nil, "Multiple variables detected (" .. table.concat(varList, ", ") .. "). Use system solver", nil end
+	local name = targetVar and targetVar:lower() or varList[1]
+	local lhs, rhs = parts[1], parts[2]
+	local function diff(val)
+		local l, e1 = Evaluate(lhs, name, val)
+		if not l then return nil, e1 end
+		local r, e2 = Evaluate(rhs, name, val)
+		if not r then return nil, e2 end
+		return l - r, nil
+	end
+	local f0, err0 = diff(0)
+	if not f0 then return nil, "Error in LHS/RHS: " .. tostring(err0), name end
+	local f1, err1 = diff(1)
+	if not f1 then return nil, "Error in LHS/RHS: " .. tostring(err1), name end
+	local slope = f1 - f0
+	if math.abs(slope) < 1e-9 then
+		if math.abs(f0) < 1e-9 then return nil, "Infinite solutions (" .. name .. " can be any number)", name end
+		return nil, "No solution exists", name
+	end
+	local sol = f0 / (f0 - f1)
+	local check = diff(sol)
+	if check and math.abs(check) > 1e-4 then return nil, "Equation is non-linear or unsupported", name end
+	return sol, nil, name
+end
+
+local function SolveSystem(eq1, eq2, targetVar)
+	local c1, c2 = eq1:lower(), eq2:lower()
+	local vars = {}
+	for v in c1:gmatch("[a-z]") do vars[v] = true end
+	for v in c2:gmatch("[a-z]") do vars[v] = true end
+	local varList = {}
+	for v in pairs(vars) do table.insert(varList, v) end
+	table.sort(varList)
+	if #varList ~= 2 then return nil, "System must contain exactly two distinct variables" end
+	local u, v = varList[1], varList[2]
+	local function diff(eqStr, uVal, vVal)
+		local parts = {}
+		for p in eqStr:lower():gmatch("[^=]+") do table.insert(parts, p) end
+		if #parts ~= 2 then return nil, "Invalid equation syntax" end
+		local vm = {[u] = uVal, [v] = vVal}
+		local l, e1 = Evaluate(parts[1], vm)
+		if not l then return nil, e1 end
+		local r, e2 = Evaluate(parts[2], vm)
+		if not r then return nil, e2 end
+		return l - r, nil
+	end
+	local f1_00, e1 = diff(eq1, 0, 0)
+	local f1_10 = diff(eq1, 1, 0)
+	local f1_01 = diff(eq1, 0, 1)
+	local f2_00, e2 = diff(eq2, 0, 0)
+	local f2_10 = diff(eq2, 1, 0)
+	local f2_01 = diff(eq2, 0, 1)
+	if not f1_00 or not f1_10 or not f1_01 then return nil, "Error in Equation 1: " .. tostring(e1) end
+	if not f2_00 or not f2_10 or not f2_01 then return nil, "Error in Equation 2: " .. tostring(e2) end
+	local a1, b1 = f1_10 - f1_00, f1_01 - f1_00
+	local a2, b2 = f2_10 - f2_00, f2_01 - f2_00
+	local det = a1 * b2 - a2 * b1
+	if math.abs(det) < 1e-9 then return nil, "System has no unique solution (parallel or dependent lines)" end
+	local valU = ((-f1_00) * b2 - (-f2_00) * b1) / det
+	local valV = (a1 * (-f2_00) - a2 * (-f1_00)) / det
+	local check1 = diff(eq1, valU, valV)
+	local check2 = diff(eq2, valU, valV)
+	if (check1 and math.abs(check1) > 1e-4) or (check2 and math.abs(check2) > 1e-4) then
+		return nil, "System contains non-linear equations"
+	end
+	return {[u] = valU, [v] = valV}, nil
+end
+
+local function SumArguments(...)
+	local sum = 0
+	for _, val in ipairs({...}) do
+		if type(val) == "number" then sum = sum + val end
+	end
+	return sum
+end
+
+local function splitComma(text)
+	local list = {}
+	for p in text:gmatch("[^,]+") do
+		p = p:match("^%s*(.-)%s*$")
+		if #p > 0 then table.insert(list, p) end
+	end
+	return list
+end
+
+local function formatNumber(n)
+	if type(n) ~= "number" then return tostring(n) end
+	if n ~= n then return "nan" end
+	if n == math.huge then return "inf" end
+	if n == -math.huge then return "-inf" end
+	if math.abs(n) >= 1e13 or (n ~= 0 and math.abs(n) < 1e-5) then
+		return string.format("%.7g", n)
+	end
+	if n == math.floor(n) then return string.format("%d", n) end
+	local s = string.format("%.10f", n)
+	return (s:gsub("0+$", ""):gsub("%.$", ""))
+end
+
+local function findDuplicates(text)
+	local found = {}
+	for _, pair in ipairs({"++", "--", "**", "^^"}) do
+		if text:find(pair, 1, true) then table.insert(found, pair) end
+	end
+	local i = 1
+	while i < #text do
+		if text:sub(i, i + 1) == "//" then
+			local prev = i > 1 and text:sub(i - 1, i - 1) or ""
+			if prev:match("[%d%)]") then
+				table.insert(found, "//")
+				break
+			end
+		end
+		i = i + 1
+	end
+	if #found > 0 then return table.concat(found, ", ") end
+	return nil
+end
+
+local correctionRules = {
+	{"%d√$", "√ is a PREFIX, not a suffix, write '√16' instead of '16√'"},
+	{"%d√[^%d%(]", "√ is a PREFIX, not a suffix, write '√16' instead of '16√'"},
+	{"[%+%-%*/%^]√$", "√ needs a number after it, try '√16' or '√(4+5)'"},
+	{"^√$", "√ needs a number after it, try '√16' or '√(4+5)'"},
+	{"^√[^%d%(]", "√ needs a number right after it, try '√16' or '√(4+5)'"},
+	{"[%+%-%*/%^]sqrt$", "'sqrt' needs an argument, try 'sqrt(16)' or 'sqrt(4+5)'"},
+	{"^sqrt$", "'sqrt' needs an argument, try 'sqrt(16)' or 'sqrt(4+5)'"},
+	{"[%+%-%*/%^]//$", "'//' (root) needs a number after it, try '//16' or '//(4+5)'"},
+	{"^//$", "'//' (root) needs a number after it, try '//16' or '//(4+5)'"},
+	{"^!", "factorial goes AFTER the number, like '5!'"},
+	{"^%*", "cannot start with '*', try a number first"},
+	{"^/", "cannot start with '/', try a number first"},
+	{"^%^", "cannot start with '^', try a number first"},
+	{"[%+%-%*/%^]$", "the expression ends with an operator, something is missing after it"},
+	{"%*%*", "use '^' for power, not '**'"},
+	{"^min$", "'min' needs arguments like 'min(3,7)'"},
+	{"^max$", "'max' needs arguments like 'max(3,7)'"},
+	{"^log$", "'log' needs an argument like 'log(100)'"},
+	{"^ln$", "'ln' needs an argument like 'ln(e)'"},
+	{"^sin$", "'sin' needs an argument like 'sin(pi/2)'"},
+	{"^cos$", "'cos' needs an argument like 'cos(0)'"},
+	{"^tan$", "'tan' needs an argument like 'tan(1)'"},
+	{"^abs$", "'abs' needs an argument like 'abs(-5)'"},
+	{"^floor$", "'floor' needs an argument like 'floor(3.7)'"},
+	{"^ceil$", "'ceil' needs an argument like 'ceil(3.2)'"},
+	{"^round$", "'round' needs an argument like 'round(3.7)'"},
+	{"^%a$", "single letters are variables, only useful in equations like 'x+3=7'"},
+	{"^%a+$", "unknown name. if it's a function, add an argument like 'sin(pi/2)'"},
+}
+
+local Hints = {
+	["Empty expression provided"] = "nothing to calculate, try '2+2' or 'x+3=7'",
+	["Division by zero"] = "cannot divide by zero",
+	["Domain error: square root of negative number"] = "cannot take square root of a negative number",
+	["Math domain error: argument out of range"] = "argument is out of range for this function, try a smaller value or a different one",
+	["Factorial requires a non-negative integer"] = "factorial only works on whole numbers >= 0, like '5!'",
+	["Factorial too large (max 170)"] = "factorial is too large, max is 170",
+	["Unexpected end of expression"] = "the expression looks incomplete",
+	["Invalid mathematical expression"] = "could not understand this expression",
+	["Equation must contain exactly one '=' sign"] = "an equation needs exactly one '=' sign, like 'x+3=7'",
+	["No variable found in equation"] = "no variable found, try 'x+3=7' or '2x=10'",
+	["No solution exists"] = "this equation has no solution",
+	["Equation is non-linear or unsupported"] = "only linear equations work, 'x^2=9' is not supported",
+	["System must contain exactly two distinct variables"] = "a system needs exactly two different variables, like 'x+y=11,x-y=3,x'",
+	["System has no unique solution (parallel or dependent lines)"] = "the two equations describe parallel lines, no unique solution",
+	["System contains non-linear equations"] = "only linear systems work",
+	["Invalid equation syntax"] = "one of the equations has the wrong syntax",
+}
+
+local hintPatterns = {
+	{
+		pattern = "^Unexpected character: '(.-)'$",
+		build = function(ch) return "unexpected symbol '" .. ch .. "' in the expression" end
+	},
+	{
+		pattern = "^Unexpected character at position (%d+): '(.-)'$",
+		build = function(pos, ch) return "unexpected symbol '" .. ch .. "' near position " .. pos end
+	},
+	{
+		pattern = "^Multiple variables detected",
+		build = function() return "too many variables, for two variables use commas: 'x+y=11,x-y=3,x'" end
+	},
+	{
+		pattern = "^Infinite solutions",
+		build = function(err)
+			local v = err:match("%((.-) can be")
+			if v then return "this equation has infinitely many solutions (" .. v .. " can be anything)" end
+			return "this equation has infinitely many solutions"
+		end
+	},
+}
+
+local function suggestCorrection(text)
+	if #text == 0 then return nil end
+	if text:sub(1, 1) == "!" then
+		local rest = text:sub(2)
+		if rest:match("^%d+$") then
+			return "did you mean '" .. rest .. "!'? factorial goes AFTER the number"
+		end
+	end
+	for _, rule in ipairs(correctionRules) do
+		if text:match(rule[1]) then return rule[2] end
+	end
+	local open = 0
+	for i = 1, #text do
+		local c = text:sub(i, i)
+		if c == "(" then
+			open = open + 1
+		elseif c == ")" then
+			open = open - 1
+			if open < 0 then return "there is an extra ')' at position " .. i end
+		end
+	end
+	if open > 0 then return "missing " .. open .. " closing ')'" end
+	return nil
+end
+
+local function HintError(err, input, depth)
+	depth = depth or 0
+	if depth > 3 then return tostring(err or "unknown error") end
+	err = tostring(err or "")
+	local hint = suggestCorrection(input)
+	if hint then return hint end
+	local t = Hints[err]
+	if t then return t end
+	for _, rule in ipairs(hintPatterns) do
+		local matches = {err:match(rule.pattern)}
+		if #matches > 0 and matches[1] then
+			return rule.build(table.unpack(matches))
+		end
+	end
+	local side = err:match("^Error in LHS/RHS:%s*(.*)$")
+	if side then return "problem in the equation, " .. HintError(side, "", depth + 1) end
+	local which, inner = err:match("^Error in Equation (%d+):%s*(.*)$")
+	if which then return "problem in equation " .. which .. ", " .. HintError(inner, "", depth + 1) end
+	return err
+end
+
+local function OnCalculate(text)
+	if #text:gsub("%s+", "") == 0 then
+		notify("Calculator (Hint)", "write something like '2+2' or 'x+3=7'")
+		return
+	end
+	local dup = findDuplicates(text)
+	if dup then
+		notify("Calculator (Hint)", "bro, " .. dup .. ", 😭")
+		return
+	end
+	local pieces = splitComma(text)
+	local equations = {}
+	local targetVar = nil
+	for _, p in ipairs(pieces) do
+		if p:find("=") then
+			table.insert(equations, p)
+		else
+			local v = p:match("([a-zA-Z])")
+			if v then targetVar = v:lower() end
+		end
+	end
+	if #equations == 2 then
+		local res, err = SolveSystem(equations[1], equations[2], targetVar)
+		if res then
+			if targetVar and res[targetVar] then
+				local other = ""
+				for k, v in pairs(res) do
+					if k ~= targetVar then
+						other = string.format(" (%s = %s)", k, formatNumber(v))
+					end
+				end
+				notify("Calculator", string.format("System: %s = %s%s", targetVar, formatNumber(res[targetVar]), other))
+			else
+				local list = {}
+				for k, v in pairs(res) do
+					table.insert(list, string.format("%s = %s", k, formatNumber(v)))
+				end
+				notify("Calculator", "System: " .. table.concat(list, ", "))
+			end
+		else
+			notify("Calculator (Hint)", HintError(err, text))
+		end
+	elseif #equations == 1 then
+		local sol, err, name = SolveEquation(equations[1], targetVar)
+		if sol ~= nil and name ~= nil then
+			notify("Calculator", string.format("Equation: %s = %s", name, formatNumber(sol)))
+		else
+			notify("Calculator (Hint)", HintError(err, text))
+		end
+	elseif text:find(",") then
+		local nums = {}
+		for numStr in text:gmatch("[%d%.%-]+") do
+			local n = tonumber(numStr)
+			if n then table.insert(nums, n) end
+		end
+		if #nums > 0 then
+			local sum = SumArguments(table.unpack(nums))
+			notify("Calculator", string.format("Sum: %d args = %s", #nums, formatNumber(sum)))
+		else
+			notify("Calculator (Hint)", "no numbers found, separate numbers with commas, like '5,10,15'")
+		end
+	else
+		local res, err = Evaluate(text)
+		if res ~= nil then
+			notify("Calculator", string.format("Result: %s = %s", text, formatNumber(res)))
+		else
+			notify("Calculator (Hint)", HintError(err, text))
+		end
+	end
+end
+
+local Plugin = {
+	PluginName = "Calculator",
+	PluginDescription = "Evaluate, solve equations, 1-linear system",
+	Commands = {
+		["calc"] = {
+			ListName = "calc/calculate [math]",
+			Description = "Math Calculator, example: 2+2, 2^10/4, 5!, 10!/3!, x+3=7, x+y=11,x-y=3,x",
+			Aliases = {"calculate", "math", "solver", "solve"},
+			Function = function(args, speaker)
+				if #args == 0 then
+					notify("Calculator (Hint)", "write something like '2+2' or 'x+3=7'")
+					return
+				end
+				local text = table.concat(args, " ")
+				OnCalculate(text)
+			end
+		}
+	}
+}
+
+return Plugin
