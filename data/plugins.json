@@ -1,8 +1,34 @@
 {
-  "scraped_at": "2026-09-17T23:01:32.409125+00:00",
+  "scraped_at": "2026-09-18T13:45:40.977688+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 569,
+  "total_plugins": 570,
   "plugins": [
+    {
+      "id": "1550501949349167206",
+      "name": "killiy",
+      "description": "# killIY\n• no mercy for iy\n```killiy```\n(#) I found free time to improve my experience\n(!) load the plugin before u wrote the commands\n||some asked for it||",
+      "author": {
+        "name": "Tony",
+        "username": "debratecrush",
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/cda905748fa08a11c9fcff6a26d06117.png?size=1024"
+      },
+      "date": "2026-09-18T13:41:11.658000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1550501949349167206",
+      "files": [
+        {
+          "filename": "killiy.iy",
+          "url": "plugins/1550501949349167206/killiy.iy",
+          "size": 4347,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "killiy"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1550277322421305364",
       "name": "calculator",
@@ -6063,7 +6089,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6aad8532&is=6aac33b2&hm=80268fe7af7671b6bd8acc2657985ed1de712723fbcd03c1c18cf5726b8e00c5&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6aae2df2&is=6aacdc72&hm=a597b45f34f70dde3a64a306323f38e0d7534ab134d11cfa45ee6c69892150f7&"
           },
           "image": null,
           "video": null
@@ -6077,7 +6103,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6aad8549&is=6aac33c9&hm=0ce68bebda2e23658e9dc7f93651ec97792a4a209af61378e8757aeffe1bdd19&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6aae2e09&is=6aacdc89&hm=3345bd72605a7ea933d63703d95d1c2f96eb756f8d931811160288b5b4a1d935&"
           },
           "image": null,
           "video": null
@@ -6940,7 +6966,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6aad8532&is=6aac33b2&hm=80268fe7af7671b6bd8acc2657985ed1de712723fbcd03c1c18cf5726b8e00c5&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6aae2df2&is=6aacdc72&hm=a597b45f34f70dde3a64a306323f38e0d7534ab134d11cfa45ee6c69892150f7&"
           },
           "image": null,
           "video": null
@@ -6954,7 +6980,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6aad8549&is=6aac33c9&hm=0ce68bebda2e23658e9dc7f93651ec97792a4a209af61378e8757aeffe1bdd19&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6aae2e09&is=6aacdc89&hm=3345bd72605a7ea933d63703d95d1c2f96eb756f8d931811160288b5b4a1d935&"
           },
           "image": null,
           "video": null
@@ -8327,7 +8353,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6aad56e5&is=6aac0565&hm=acd22f2475ebab3e6a7f64de6bc5c3f852403f909e58956ec2af38e99cd2c9b3&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6aadffa5&is=6aacae25&hm=f69ffc0fb8b49418f3b8a54acce3d1dc7747486d87aa357cc78191539b2f93e1&"
           },
           "image": null,
           "video": null

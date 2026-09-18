@@ -1,0 +1,163 @@
+local function findInCmds(name)
+	name = name:lower()
+	for _, c in ipairs(cmds) do
+		if c.NAME and c.NAME:lower() == name then return c end
+	end
+	for _, c in ipairs(cmds) do
+		if c.ALIAS then
+			for _, a in ipairs(c.ALIAS) do
+				if tostring(a):lower() == name then return c end
+			end
+		end
+	end
+end
+
+local function customAliasesFor(canonical)
+	local out = {}
+	for alias, data in pairs(customAlias or {}) do
+		if data.NAME and data.NAME:lower() == canonical then
+			out[#out + 1] = alias
+		end
+	end
+	return out
+end
+
+local function resolve(input)
+	input = input:lower()
+	local custom = customAlias and customAlias[input]
+	if custom then
+		local rec = findInCmds(custom.NAME)
+		if rec then return rec, rec.NAME:lower(), { input } end
+	end
+	local rec = findInCmds(input)
+	if rec then
+		return rec, rec.NAME:lower(), customAliasesFor(rec.NAME:lower())
+	end
+end
+
+local function splitCommands(str)
+	local names = {}
+	if type(str) ~= "string" then return names end
+	str = str:gsub("%s+$", ""):gsub("\\\\", "\1")
+	for chunk in str:gmatch("[^\\]+") do
+		chunk = chunk:gsub("\1", "\\")
+			:gsub("^%d+%^", ""):gsub("^inf%^", ""):gsub("^[%d%.]+%^", "")
+		if chunk:sub(1, 1) == "!" then chunk = chunk:sub(2) end
+		local name = chunk:match("^(%S+)")
+		if name and name ~= "" then names[#names + 1] = name end
+	end
+	return names
+end
+
+local function commandExists(name)
+	name = name:lower()
+	for _, c in ipairs(cmds) do
+		if c.NAME and c.NAME:lower() == name then return true end
+		if c.ALIAS then
+			for _, a in ipairs(c.ALIAS) do
+				if tostring(a):lower() == name then return true end
+			end
+		end
+	end
+	return false
+end
+
+local tracked = {}
+local order   = {}
+local meta    = {}
+
+local original = execCmd
+execCmd = function(str, speaker, store)
+	for _, raw in ipairs(splitCommands(str)) do
+		local rec, canonical, aliases = resolve(raw)
+		if rec and not tracked[canonical] then
+			tracked[canonical] = true
+			order[#order + 1] = canonical
+			meta[canonical] = {
+				NAME    = rec.NAME,
+				ALIAS   = rec.ALIAS or {},
+				PLUGIN  = rec.PLUGIN,
+				aliases = aliases,
+			}
+		end
+	end
+	return original(str, speaker, store)
+end
+
+local function KillIY()
+	pcall(function()
+		if Holder then Holder:Destroy() end
+		if PARENT then PARENT:Destroy() end
+		if cmds then for k in pairs(cmds) do cmds[k] = nil end; cmds = nil end
+		if customAlias then for k in pairs(customAlias) do customAlias[k] = nil end; customAlias = nil end
+	end)
+
+	_G.IY_LOADED = nil
+
+	if getgenv then
+		getgenv().IY_LOADED     = nil
+		getgenv().IY_EXECUTE    = nil
+		getgenv().IY_Loaded     = nil
+		getgenv().InfiniteYield = nil
+		getgenv().Commands      = nil
+		getgenv().customAlias   = nil
+	end
+end
+
+local Plugin = {
+	PluginName = "killiy",
+	PluginDescription = "",
+	Commands = {
+		killiy = {
+			Aliases = {},
+			Description = "",
+			Function = function(args, speaker)
+				local toDisable = {}
+				for _, n in ipairs(order) do toDisable[#toDisable + 1] = n end
+
+				local allAliases, pluginCommands = {}, {}
+				for _, canonical in ipairs(toDisable) do
+					local m = meta[canonical] or {}
+					local aliases = {}
+					for _, a in ipairs(m.ALIAS or {})   do aliases[#aliases + 1] = a end
+					for _, a in ipairs(m.aliases or {}) do aliases[#aliases + 1] = a end
+					for _, a in ipairs(aliases) do allAliases[#allAliases + 1] = a end
+
+					if m.PLUGIN then
+						pluginCommands[#pluginCommands + 1] = {
+							command        = canonical,
+							plugin         = m.PLUGIN,
+							aliases        = aliases,
+							builtinAliases = m.ALIAS or {},
+						}
+					end
+				end
+
+				execCmd("breakloops")
+				task.wait(0.1)
+
+				local executed = {}
+				for _, canonical in ipairs(toDisable) do
+					local variant
+					if commandExists("un" .. canonical) then variant = "un" .. canonical
+					elseif commandExists("no" .. canonical) then variant = "no" .. canonical end
+					if variant then
+						pcall(execCmd, variant)
+						executed[#executed + 1] = variant
+					end
+				end
+
+				task.wait(0.2)
+				KillIY()
+
+				for k in pairs(tracked) do tracked[k] = nil end
+				for i = #order, 1, -1 do order[i] = nil end
+				for k in pairs(meta)    do meta[k]    = nil end
+
+				return executed, allAliases, pluginCommands
+			end
+		}
+	}
+}
+
+return Plugin
