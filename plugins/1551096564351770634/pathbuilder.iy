@@ -1,0 +1,111 @@
+-- PathBuilder Plugin for Infinite Yield
+-- Commands: path, nopath
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Debris = game:GetService("Debris")
+
+local player = Players.LocalPlayer
+local placing = false
+local lastPos = nil
+local fixedY = nil
+local connection = nil
+
+local function startPath()
+    if placing then return end
+    placing = true
+    lastPos = nil
+    fixedY = nil
+    print("[PathBuilder] ON")
+
+    connection = RunService.Heartbeat:Connect(function()
+        if not placing then return end
+        local character = player.Character
+        if not character then return end
+        local rootPart = character:FindFirstChild("HumanoidRootPart")
+        local humanoid = character:FindFirstChild("Humanoid")
+        if not rootPart or not humanoid then return end
+
+        local pos = rootPart.Position
+
+        -- Lock Y on first step
+        if not fixedY then
+            fixedY = pos.Y - 3.1
+        end
+
+        -- Allow Y to change when airborne (jumping/falling)
+        local state = humanoid:GetState()
+        if state == Enum.HumanoidStateType.Jumping
+            or state == Enum.HumanoidStateType.Freefall
+            or state == Enum.HumanoidStateType.Landed then
+            fixedY = pos.Y - 3.1
+        end
+
+        local below = Vector3.new(pos.X, fixedY, pos.Z)
+
+        if lastPos then
+            if (pos - lastPos).Magnitude < 2 then return end
+        end
+
+        local part = Instance.new("Part")
+        part.Name = "BlackPath"
+        part.Anchored = true
+        part.CanCollide = true
+        part.Material = Enum.Material.SmoothPlastic
+        part.Color = Color3.fromRGB(0, 0, 0)
+        part.TopSurface = Enum.SurfaceType.Smooth
+        part.BottomSurface = Enum.SurfaceType.Smooth
+        part.CastShadow = true
+
+        if lastPos then
+            local mid = (lastPos + below) / 2
+            local dist = (below - lastPos).Magnitude
+            part.Size = Vector3.new(4, 0.5, dist)
+            part.CFrame = CFrame.lookAt(mid, below)
+        else
+            part.Size = Vector3.new(4, 0.5, 4)
+            part.CFrame = CFrame.new(below)
+        end
+
+        part.Parent = workspace
+        Debris:AddItem(part, 5)
+        lastPos = below
+    end)
+end
+
+local function stopPath()
+    if not placing then return end
+    placing = false
+    if connection then
+        connection:Disconnect()
+        connection = nil
+    end
+    lastPos = nil
+    fixedY = nil
+    print("[PathBuilder] OFF")
+end
+
+local Plugin = {
+    ["PluginName"] = "PathBuilder",
+    ["PluginDescription"] = "Creates a black path under your feet as you walk. Path pieces disappear after 5 seconds.",
+    ["Commands"] = {
+        ["path"] = {
+            ["ListName"] = "path",
+            ["Description"] = "Start placing a black path under your feet",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                startPath()
+            end
+        },
+        ["nopath"] = {
+            ["ListName"] = "nopath",
+            ["Description"] = "Stop placing the path",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                stopPath()
+            end
+        }
+    }
+}
+
+return Plugin
