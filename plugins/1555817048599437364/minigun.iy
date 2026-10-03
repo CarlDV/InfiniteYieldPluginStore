@@ -1,0 +1,342 @@
+--[[
+	minigun.iy  --  Infinite Yield plugin
+
+	Fires hotbar slots 1 -> 0 in order: equips whatever tool the hotbar shows
+	in that slot and activates it, pausing a fixed delay between each.
+
+	Commands
+		minigun [ms] [slots]   start (ms default 100, slots default 10)
+		minigunstop           stop the loop
+		minigunrefresh        re-read the hotbar and rebind slots
+		minigunstatus         print current state
+
+	"ms" is entered in milliseconds, e.g. `minigun 100 10` is slots 1-0 at
+	100ms each. "slots" can only go DOWN from 10 -- it can never exceed the
+	ten keys.
+
+	Ordering
+		Slot contents come from the CoreGui hotbar (Backpack child order is NOT
+		slot order in this game). Each slot index is bound ONCE to a Tool
+		instance and that binding is held for the whole run, so the cycle
+		always goes 1 -> 2 -> ... -> 9 -> 0.
+
+		Equipping is not always immediate, so a slot waits briefly for its
+		tool to actually reach the character before activating. Without that
+		wait roughly one slot in eight was skipped every pass, which read as
+		the cycle jumping around.
+
+	Command replies go to IY's console AND as a toast notification.
+
+	Live state is shared on getgenv().MINIGUN. Reloading the plugin stops any
+	loop left running by the previous load, so ;minigunstop always works.
+]]
+
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local LocalPlayer = Players.LocalPlayer
+
+local SLOT_NAMES = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}
+
+local DEFAULT_INTERVAL = 0.1
+local DEFAULT_MS = DEFAULT_INTERVAL * 1000
+local DEFAULT_SLOTS = 10
+local EQUIP_GRACE = 0.06 -- seconds to wait for an equip to land
+
+local env = (getgenv and getgenv()) or _G
+local state = env.MINIGUN
+if type(state) ~= "table" then state = {} end
+state.running = false
+state.fired = 0
+state.ticks = 0
+state.cycles = 0
+state.interval = state.interval or DEFAULT_INTERVAL
+state.slotCount = state.slotCount or 0
+state.source = state.source or "none"
+state.lastTool = state.lastTool or "none"
+state.slots = state.slots or {}
+state.missed = 0
+state.error = ""
+env.MINIGUN = state
+
+-- slot index -> Tool, bound once and held for the whole run
+local bindings = {}
+
+local function publish()
+	state.bindTools = bindings
+	state.slotCount = 0
+	state.slots = {}
+	for i, tool in ipairs(bindings) do
+		state.slotCount = i
+		state.slots[i] = tool and tool.Name or "?"
+	end
+end
+
+local function log(msg)
+	local text = "[minigun] " .. tostring(msg)
+	if type(env.printconsole) == "function" then
+		pcall(env.printconsole, text)
+	else
+		print(text)
+	end
+end
+
+local function tell(msg)
+	local text = "[minigun] " .. tostring(msg)
+	if type(env.printconsole) == "function" then
+		pcall(env.printconsole, text)
+	else
+		print(text)
+	end
+	if type(env.notify) == "function" then
+		pcall(env.notify, text)
+	end
+	return text
+end
+
+local function getBackpack()
+	return LocalPlayer:FindFirstChildOfClass("Backpack")
+end
+
+local function getHumid()
+	local char = LocalPlayer.Character
+	if not char then return nil, nil end
+	return char, char:FindFirstChildOfClass("Humanoid")
+end
+
+local function isAlive(tool)
+	return tool ~= nil and tool.Parent ~= nil and tool:IsDescendantOf(LocalPlayer)
+end
+
+-- Backpack children first, in order, then anything in hand.
+local function toolPool()
+	local pool, seen = {}, {}
+	local function add(inst)
+		if inst and inst:IsA("Tool") and not seen[inst] then
+			seen[inst] = true
+			table.insert(pool, inst)
+		end
+	end
+	local backpack = getBackpack()
+	if backpack then
+		for _, child in ipairs(backpack:GetChildren()) do add(child) end
+	end
+	local char = LocalPlayer.Character
+	if char then
+		for _, child in ipairs(char:GetChildren()) do add(child) end
+	end
+	return pool
+end
+
+local function readHotbarNames()
+	local robloxGui = CoreGui:FindFirstChild("RobloxGui")
+	local backpackFrame = robloxGui and robloxGui:FindFirstChild("Backpack")
+	local hotbar = backpackFrame and backpackFrame:FindFirstChild("Hotbar")
+	if not hotbar then return nil end
+	local names = {}
+	for _, slotName in ipairs(SLOT_NAMES) do
+		local slot = hotbar:FindFirstChild(slotName)
+		local label = slot and slot:FindFirstChild("ToolName")
+		local text = label and label.Text or ""
+		if text == "" then break end
+		table.insert(names, text)
+		if #names >= DEFAULT_SLOTS then break end
+	end
+	return names
+end
+
+-- Bind hotbar slots to Tool instances. Only fills slots that are unbound or
+-- whose tool has gone away, so slot order never shifts mid-run.
+local function bindSlots(force)
+	local names = readHotbarNames()
+
+	if force then
+		for i = #bindings, 1, -1 do bindings[i] = nil end
+	end
+
+	if not names or #names == 0 then
+		if #bindings == 0 then
+			local pool = toolPool()
+			for i = 1, math.min(#pool, DEFAULT_SLOTS) do bindings[i] = pool[i] end
+		end
+		state.source = "backpack order (hotbar unavailable)"
+		publish()
+		return bindings
+	end
+
+	-- a slot keeps its tool for the whole run; drop only dead ones
+	local taken = {}
+	for i = #bindings, 1, -1 do
+		if isAlive(bindings[i]) then taken[bindings[i]] = true else bindings[i] = nil end
+	end
+
+	local pool = toolPool()
+	for i = #names, 1, -1 do
+		if not isAlive(bindings[i]) then
+			for _, tool in ipairs(pool) do
+				if tool.Name == names[i] and not taken[tool] then
+					bindings[i] = tool
+					taken[tool] = true
+					break
+				end
+			end
+		end
+	end
+	for i = #names + 1, #bindings do bindings[i] = nil end
+
+	state.source = "hotbar slots 1-0"
+	publish()
+	return bindings
+end
+
+local function orderedTools(limit)
+	local list = {}
+	for i = 1, math.min(#bindings, limit) do
+		if isAlive(bindings[i]) then table.insert(list, bindings[i]) end
+	end
+	return list
+end
+
+local function fire(tool, char, hum)
+	pcall(function() hum:EquipTool(tool) end)
+	if tool.Parent ~= char then
+		-- EquipTool is not always synchronous; give it a moment to land
+		local deadline = os.clock() + EQUIP_GRACE
+		while tool.Parent ~= char and os.clock() < deadline do
+			task.wait()
+		end
+	end
+	if tool.Parent == char then
+		pcall(function() tool:Activate() end)
+		state.fired += 1
+		state.lastTool = tool.Name
+		return true
+	end
+	state.missed += 1
+	return false
+end
+
+local function run(interval, slotsArg)
+	local limit = math.clamp(math.floor(tonumber(slotsArg) or DEFAULT_SLOTS), 1, DEFAULT_SLOTS)
+	while state.running do
+		state.ticks += 1
+		local ok, err = pcall(function()
+			local char, hum = getHumid()
+			if not hum or hum.Health <= 0 then
+				task.wait(0.5)
+				return
+			end
+			bindSlots(false)
+			local tools = orderedTools(limit)
+			if #tools == 0 then
+				task.wait(0.5)
+				return
+			end
+			for _, tool in ipairs(tools) do
+				if not state.running then break end
+				if isAlive(tool) and hum.Health > 0 then
+					fire(tool, char, hum)
+				end
+				task.wait(interval)
+			end
+			state.cycles += 1
+		end)
+		if not ok then
+			state.error = tostring(err)
+			log("error: " .. state.error)
+		end
+	end
+end
+
+local function slotText()
+	local names = {}
+	for i, n in ipairs(state.slots or {}) do
+		table.insert(names, i .. "=" .. tostring(n))
+	end
+	if #names == 0 then return "none" end
+	return table.concat(names, "  ")
+end
+
+local function statusLine()
+	return ("running=%s  activations=%d  missed=%d  ticks=%d  cycles=%d  slots=%d  interval=%.0fms  last=%s  source=%s  error=%s")
+		:format(tostring(state.running), state.fired, state.missed, state.ticks, state.cycles,
+			state.slotCount, state.interval * 1000, tostring(state.lastTool), tostring(state.source),
+			state.error == "" and "none" or state.error)
+end
+
+local function stop()
+	if not state.running then
+		tell("not running")
+		return
+	end
+	state.running = false
+	tell("stopped after " .. state.fired .. " activations (" .. state.missed .. " missed)")
+end
+
+local function start(interval, slotsArg)
+	if state.running then
+		tell("already running -- use minigunstop first")
+		return
+	end
+	interval = tonumber(interval) or DEFAULT_INTERVAL
+	if interval < 0.01 then interval = 0.01 end
+	bindSlots(true)
+	if #bindings == 0 then
+		tell("no tools found in hotbar slots 1-0")
+		return
+	end
+	state.interval = interval
+	state.fired = 0
+	state.missed = 0
+	state.ticks = 0
+	state.cycles = 0
+	state.running = true
+	task.spawn(run, interval, slotsArg)
+	tell(("started: %d slot(s) from %s at %.0fms  |  %s")
+		:format(#bindings, state.source, interval * 1000, statusLine()))
+end
+
+local Plugin = {
+	["PluginName"] = "minigun",
+	["PluginDescription"] = "Fires hotbar slots 1-0 in order with a fixed delay between each.",
+	["Commands"] = {
+		["minigun"] = {
+			["ListName"] = "minigun [ms] [slots]",
+			["Description"] = "Starts firing hotbar slots 1-0 in order. ms = delay between each in milliseconds (default 100). slots = how many of the 10 to use (default 10, max 10).",
+			["Aliases"] = {"mg", "spin"},
+			["Function"] = function(args)
+				local interval = (tonumber(args[1]) or DEFAULT_MS) / 1000
+				start(interval, args[2])
+			end,
+		},
+		["minigunstop"] = {
+			["ListName"] = "minigunstop",
+			["Description"] = "Stops the minigun loop.",
+			["Aliases"] = {"stopminigun", "mgstop"},
+			["Function"] = function(args)
+				stop()
+			end,
+		},
+		["minigunrefresh"] = {
+			["ListName"] = "minigunrefresh",
+			["Description"] = "Re-reads hotbar slots 1-0 and rebinds them from scratch.",
+			["Aliases"] = {"mgrefresh"},
+			["Function"] = function(args)
+				bindSlots(true)
+				tell(("hotbar 1-0 (%s, %d bound): %s")
+					:format(state.source, #bindings, slotText()))
+			end,
+		},
+		["minigunstatus"] = {
+			["ListName"] = "minigunstatus",
+			["Description"] = "Shows whether the minigun is running, and what is bound to each slot.",
+			["Aliases"] = {"mgstatus"},
+			["Function"] = function(args)
+				if #bindings == 0 then bindSlots(true) end
+				tell(statusLine())
+				log("slot order: " .. slotText())
+			end,
+		},
+	}
+}
+
+return Plugin
