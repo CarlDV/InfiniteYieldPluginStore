@@ -32,9 +32,17 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="shortcut icon" href="assets/Logo_Small.png" type="image/x-icon">
-    <!-- Syntax Highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/api.css">
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('iy-theme');
+                document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark';
+            } catch (e) {
+                document.documentElement.dataset.theme = 'dark';
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -46,6 +54,7 @@
                     <span>Plugins</span>
                 </a>
                 <span id="plugin-count" class="plugin-count"></span>
+                <span id="header-updated" class="header-updated"></span>
             </div>
             <nav class="header-nav" aria-label="Site navigation">
                 <div class="header-links" id="header-links">
@@ -84,6 +93,17 @@
                         </svg>
                         <span class="nav-label">Help</span>
                     </a>
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+                        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                    </button>
                     <div class="h-divider"></div>
                     <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link h-icon"
                         title="IY Discord">
@@ -144,7 +164,8 @@
 
                 <div class="callout callout-info">
                     <svg class="callout-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true" focusable="false">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="12" y1="16" x2="12" y2="12"></line>
                         <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -187,8 +208,9 @@
                     <div class="api-endpoint">
                         <span class="api-method">GET</span>
                         <span class="api-url">/plugins/{id}/{filename}</span>
-                        <div class="api-desc">Downloads the raw `.iy` or `.lua` plugin file content. The <code>id</code>
-                            and <code>filename</code> are retrieved from the plugin's payload.</div>
+                        <div class="api-desc">Downloads the raw <code>.iy</code> or <code>.lua</code> plugin file
+                            content. The <code>id</code> and <code>filename</code> are retrieved from the plugin's
+                            payload.</div>
                     </div>
                 </section>
 
@@ -345,8 +367,9 @@ end</code></pre>
 
                 <section class="docs-section">
                     <h2 id="autoload">Autoloading System</h2>
-                    <p>Autoload scans the workspace for files ending in `.iy` or `.lua` and registers them with Infinite
-                        Yield dynamically. This matches the official initialization workflow.</p>
+                    <p>Autoload scans the workspace for files ending in <code>.iy</code> or <code>.lua</code> and
+                        registers them with Infinite Yield dynamically. This matches the official initialization
+                        workflow.</p>
                     <div class="api-code">
                         <div class="api-code-bar">
                             <span class="api-code-lang">Luau</span>
@@ -549,8 +572,8 @@ return PluginManager</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="js/dialog.js?v=3"></script>
-    <script src="js/router.js?v=3"></script>
+    <script src="js/dialog.js?v=4"></script>
+    <script src="js/router.js?v=4"></script>
 </body>
 
 </html>

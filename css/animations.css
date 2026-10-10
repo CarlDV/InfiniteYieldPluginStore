@@ -11,7 +11,7 @@
 @keyframes modal-in {
     from {
         opacity: 0;
-        transform: scale(0.98) translateY(8px);
+        transform: scale(0.985) translateY(8px);
     }
     to {
         opacity: 1;
@@ -26,23 +26,23 @@
     }
     to {
         opacity: 0;
-        transform: scale(0.98) translateY(6px);
+        transform: scale(0.985) translateY(6px);
     }
 }
 
 .overlay:not(.hidden):not(.closing) .modal {
-    animation: modal-in 0.25s var(--ease-out);
+    animation: modal-in 0.24s var(--ease-out);
 }
 
 .overlay.closing .modal {
-    animation: modal-out 0.2s var(--ease-in-out);
+    animation: modal-out 0.18s var(--ease-in-out);
 }
 
 /* ---------- Scroll reveal ---------- */
 @keyframes fade-in-up {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
     to {
         opacity: 1;
@@ -55,7 +55,7 @@
 }
 
 .reveal-item.visible {
-    animation: fade-in-up 0.4s var(--ease-out) forwards;
+    animation: fade-in-up 0.35s var(--ease-out) forwards;
 }
 
 /* ---------- Loading pulse ---------- */
@@ -86,7 +86,7 @@
 }
 
 .logo:hover .brand-logo {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
 /* ---------- Reduced motion ---------- */

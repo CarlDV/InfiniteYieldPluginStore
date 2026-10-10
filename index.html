@@ -31,6 +31,16 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="shortcut icon" href="assets/Logo_Small.png" type="image/x-icon">
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('iy-theme');
+                document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark';
+            } catch (e) {
+                document.documentElement.dataset.theme = 'dark';
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -82,6 +92,17 @@
                         </svg>
                         <span class="nav-label">Help</span>
                     </a>
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+                        <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                    </button>
                     <div class="h-divider"></div>
                     <a href="https://discord.gg/78ZuWSq" target="_blank" rel="noopener" class="h-link h-icon"
                         title="IY Discord">
@@ -110,69 +131,129 @@
     </header>
 
     <div id="content-area">
-        <main>
-            <section class="hero">
-                <h1>Community plugins for <span class="accent">Infinite Yield</span></h1>
-                <p>Browse, install and remix plugins made by the Infinite Yield community. Everything is free, open and
-                    updated continuously.</p>
-                <div class="hero-actions">
-                    <a class="btn btn-primary" href="maker.html">Build a Plugin</a>
-                    <a class="btn btn-secondary" href="tutorial.html">How to Install</a>
-                    <a class="btn btn-secondary" href="api.html">API Docs</a>
-                </div>
-                <div class="hero-stats">
-                    <span class="stat-chip"><strong id="stat-count">–</strong> plugins</span>
-                    <span class="stat-chip"><strong id="stat-authors">–</strong> authors</span>
-                    <span class="stat-chip"><strong id="stat-updated">–</strong> last update</span>
-                </div>
+        <main class="home">
+            <section class="home-intro">
+                <p class="eyebrow">Infinite Yield</p>
+                <h1>Community plugins</h1>
+                <p class="lede">Browse, install and remix plugins made by the community. Free, open and updated
+                    continuously.</p>
+                <dl class="intro-stats">
+                    <div class="intro-stat">
+                        <dt>Plugins</dt>
+                        <dd id="stat-count">–</dd>
+                    </div>
+                    <div class="intro-stat">
+                        <dt>Authors</dt>
+                        <dd id="stat-authors">–</dd>
+                    </div>
+                    <div class="intro-stat">
+                        <dt>Updated</dt>
+                        <dd id="stat-updated">–</dd>
+                    </div>
+                </dl>
             </section>
 
-            <div class="toolbar">
-                <div class="search-wrap">
-                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8" />
-                        <path d="m21 21-4.35-4.35" />
-                    </svg>
-                    <input type="text" id="search" placeholder="Search plugins or type author:name..." autocomplete="off">
-                </div>
-                <div class="toolbar-right">
-                    <button class="dl-all-btn" id="dl-all">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                            <polyline points="7 10 12 15 17 10" />
-                            <line x1="12" y1="15" x2="12" y2="3" />
-                        </svg>
-                        Download All (.zip)
-                    </button>
-                    <div class="custom-select" id="sort-custom" data-target="sort">
-                        <button class="select-btn" type="button" aria-haspopup="listbox">
-                            <span class="select-val">Newest</span>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                        <div class="select-dropdown">
-                            <div class="select-option selected" data-value="newest">Newest</div>
-                            <div class="select-option" data-value="oldest">Oldest</div>
-                            <div class="select-option" data-value="name">A–Z</div>
+            <section class="browse">
+                <aside class="browse-rail" aria-label="Browse controls">
+                    <div class="rail-block">
+                        <span class="rail-label">Type</span>
+                        <div class="chip-row" id="type-filters" role="group" aria-label="Filter by type">
+                            <button class="chip is-active" type="button" data-filter="all">All</button>
+                            <button class="chip" type="button" data-filter="code">Code</button>
+                            <button class="chip" type="button" data-filter="video">Video</button>
+                            <button class="chip" type="button" data-filter="image">Image</button>
+                            <button class="chip" type="button" data-filter="link">Links</button>
+                            <button class="chip" type="button" data-filter="loadstring">Loadstring</button>
                         </div>
-                        <select id="sort" style="display: none;">
-                            <option value="newest">Newest</option>
-                            <option value="oldest">Oldest</option>
-                            <option value="name">A–Z</option>
-                        </select>
                     </div>
+
+                    <div class="rail-block">
+                        <span class="rail-label">Sort</span>
+                        <div class="custom-select" id="sort-custom" data-target="sort">
+                            <button class="select-btn" type="button" aria-haspopup="listbox">
+                                <span class="select-val">Newest</span>
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                            <div class="select-dropdown">
+                                <div class="select-option selected" data-value="newest">Newest</div>
+                                <div class="select-option" data-value="oldest">Oldest</div>
+                                <div class="select-option" data-value="name">A–Z</div>
+                            </div>
+                            <select id="sort" style="display: none;">
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="name">A–Z</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="rail-block rail-foot">
+                        <button class="dl-all-btn" id="dl-all">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Download all (.zip)
+                        </button>
+                        <a class="btn btn-primary rail-cta" href="maker.html">Build a plugin</a>
+                        <a class="btn btn-secondary rail-cta" href="tutorial.html">How to install</a>
+                    </div>
+                </aside>
+
+                <div class="results">
+                    <div class="search-bar">
+                        <div class="search-wrap">
+                            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                            <input type="text" id="search" placeholder="Search plugins, authors, or author:name"
+                                autocomplete="off" spellcheck="false">
+                            <kbd class="search-kbd">/</kbd>
+                        </div>
+                    </div>
+
+                    <div class="results-head">
+                        <p class="results-count" id="result-count">Loading…</p>
+                        <div class="view-toggle" id="view-toggle" role="group" aria-label="Layout">
+                            <button class="view-btn is-active" type="button" data-view="grid" title="Grid view"
+                                aria-label="Grid view">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+                                    <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+                                    <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+                                    <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+                                </svg>
+                            </button>
+                            <button class="view-btn" type="button" data-view="list" title="List view"
+                                aria-label="List view">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round">
+                                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid" id="grid"></div>
+                    <div id="load-more"></div>
+
+                    <div class="status hidden" id="empty">No plugins found. Try a different search or filter.</div>
+                    <div class="status" id="loading">Loading plugins…</div>
                 </div>
-            </div>
-
-            <div class="grid" id="grid"></div>
-            <div id="load-more"></div>
-
-            <div class="status hidden" id="empty">No plugins found.</div>
-            <div class="status" id="loading">Loading plugins...</div>
+            </section>
         </main>
 
         <!-- Modal -->
@@ -213,9 +294,9 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="js/dialog.js?v=3"></script>
-    <script src="js/app.js?v=3"></script>
-    <script src="js/router.js?v=3"></script>
+    <script src="js/dialog.js?v=4"></script>
+    <script src="js/app.js?v=4"></script>
+    <script src="js/router.js?v=4"></script>
 </body>
 
 </html>

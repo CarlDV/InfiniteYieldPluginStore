@@ -442,16 +442,7 @@
                 avatarEl.innerHTML = `<span class="m-avatar-ph">${esc(initial)}</span>`;
             }
 
-            let dateColor = 'inherit';
-            if (p.date) {
-                const ms = new Date(p.date).getTime();
-                if (!isNaN(ms)) {
-                    const now = Date.now();
-                    const oneYearAgo = now - ONE_YEAR_MS;
-                    const ratio = Math.max(0, Math.min(1, (ms - oneYearAgo) / (now - oneYearAgo)));
-                    dateColor = `hsl(${ratio * 120}, 80%, 65%)`;
-                }
-            }
+            const dateColor = 'var(--text3)';
 
             $('pm-title').textContent = p.name || 'Untitled';
 
@@ -733,7 +724,7 @@ if add then add(f) else warn("Saved to workspace. Run IY to use.") end`;
         /* ---------- Embeds ---------- */
 
         function renderEmbed(emb) {
-            const color = emb.color ? (emb.color.startsWith('0x') ? '#' + emb.color.slice(2) : emb.color) : '#202225';
+            const color = 'var(--border2)';
 
             let authorHtml = '';
             if (emb.author) {

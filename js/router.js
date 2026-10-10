@@ -6,6 +6,38 @@
 (() => {
     'use strict';
 
+    /* ---- Theme (monochrome dark/light) ---- */
+    const THEME_KEY = 'iy-theme';
+
+    function readTheme() {
+        try {
+            return localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark';
+        } catch (_) {
+            return 'dark';
+        }
+    }
+
+    function applyTheme(theme) {
+        document.documentElement.dataset.theme = theme;
+        const next = theme === 'light' ? 'dark' : 'light';
+        const label = next === 'light' ? 'Switch to light theme' : 'Switch to dark theme';
+        document.querySelectorAll('.theme-toggle').forEach(btn => {
+            btn.setAttribute('title', label);
+            btn.setAttribute('aria-label', label);
+        });
+    }
+
+    applyTheme(readTheme());
+
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.theme-toggle');
+        if (!btn) return;
+        const next = readTheme() === 'light' ? 'dark' : 'light';
+        try { localStorage.setItem(THEME_KEY, next); } catch (_) {}
+        applyTheme(next);
+    });
+
+
     document.addEventListener('DOMContentLoaded', () => {
         document.body.addEventListener('click', e => {
             const a = e.target.tagName === 'A' ? e.target : e.target.closest('A');
@@ -13,7 +45,7 @@
                 if (a.hash && a.pathname === location.pathname) {
                     e.preventDefault();
                     history.pushState(null, null, a.hash);
-                    const el = document.querySelector(a.hash);
+                    const el = document.getElementById(decodeURIComponent(a.hash.slice(1)));
                     if (el) {
                         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
@@ -121,13 +153,13 @@
 
         if (path === '/' || path === '/index' || path === '') {
             if (window.initHome) window.initHome();
-            else loadScript('js/app.js?v=3', () => window.initHome && window.initHome());
+            else loadScript('js/app.js?v=4', () => window.initHome && window.initHome());
         } else if (path === '/authors') {
             if (window.initAuthors) window.initAuthors();
-            else loadScript('js/authors.js?v=3', () => window.initAuthors && window.initAuthors());
+            else loadScript('js/authors.js?v=4', () => window.initAuthors && window.initAuthors());
         } else if (path === '/maker') {
             if (window.initMaker) window.initMaker();
-            else loadScript('js/maker.js?v=3', () => window.initMaker && window.initMaker());
+            else loadScript('js/maker.js?v=4', () => window.initMaker && window.initMaker());
         } else if (path === '/api' || path === '/tutorial') {
             if (path === '/tutorial') initTutorial();
             if (path === '/api') initApi();
@@ -358,7 +390,7 @@
     window.addEventListener('hashchange', () => {
         const hash = window.location.hash;
         if (hash) {
-            const el = document.querySelector(hash);
+            const el = document.getElementById(decodeURIComponent(hash.slice(1)));
             if (el) {
                 setTimeout(() => {
                     el.scrollIntoView({ behavior: 'smooth', block: 'start' });

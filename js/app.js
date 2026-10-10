@@ -12,6 +12,8 @@
         let currentList = [];
         let sort = 'newest';
         let query = '';
+        let typeFilter = 'all';
+        let view = 'grid';
 
         let currentPage = 0;
         const PAGE_SIZE = 40;
@@ -111,6 +113,17 @@
         const onHashChange = handleDeepLink;
         window.addEventListener('hashchange', onHashChange);
 
+        function typesOf(p) {
+            const files = p.files || [];
+            const t = new Set();
+            if (files.some(f => /\.(mp4|webm|mov|avi|mkv)$/i.test(f.filename))) t.add('video');
+            if (files.some(f => /\.(png|jpg|jpeg|gif|webp)$/i.test(f.filename))) t.add('image');
+            if (p.code_blocks?.length) t.add('code');
+            if (p.links?.length) t.add('link');
+            if (p.loadstring_urls?.length) t.add('loadstring');
+            return t;
+        }
+
         function render() {
             let list = [...allPlugins];
 
@@ -125,12 +138,25 @@
                 });
             }
 
+            if (typeFilter !== 'all') {
+                list = list.filter(p => typesOf(p).has(typeFilter));
+            }
+
             if (sort === 'newest') list.sort((a, b) => new Date(b.date) - new Date(a.date));
             if (sort === 'oldest') list.sort((a, b) => new Date(a.date) - new Date(b.date));
             if (sort === 'name') list.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
             grid.innerHTML = '';
             empty.classList.toggle('hidden', list.length > 0);
+
+            const rc = $('result-count');
+            if (rc) {
+                const total = allPlugins.length;
+                const shown = list.length;
+                rc.innerHTML = shown === total
+                    ? `<strong>${shown.toLocaleString()}</strong> plugins`
+                    : `<strong>${shown.toLocaleString()}</strong> of ${total.toLocaleString()} plugins`;
+            }
 
             currentList = list;
             currentPage = 0;
@@ -174,17 +200,7 @@
                 if (p.links?.length) tags += `<span class="tag tag-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Link</span>`;
                 if (p.loadstring_urls?.length) tags += `<span class="tag tag-loadstring"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Loadstring</span>`;
 
-                let dateColor = 'inherit';
-                if (p.date) {
-                    const ms = new Date(p.date).getTime();
-                    if (!isNaN(ms)) {
-                        const now = Date.now();
-                        const oneYearAgo = now - ONE_YEAR_MS;
-                        const ratio = Math.max(0, Math.min(1, (ms - oneYearAgo) / (now - oneYearAgo)));
-                        const hue = ratio * 120;
-                        dateColor = `hsl(${hue}, 80%, 65%)`;
-                    }
-                }
+                const dateColor = 'var(--text3)';
 
                 card.innerHTML = `
                 <div class="card-header">
@@ -242,16 +258,7 @@
                 $('m-avatar').innerHTML = `<span class="m-avatar-ph">${esc(initial)}</span>`;
             }
 
-            let dateColor = 'inherit';
-            if (p.date) {
-                const ms = new Date(p.date).getTime();
-                if (!isNaN(ms)) {
-                    const now = Date.now();
-                    const oneYearAgo = now - ONE_YEAR_MS;
-                    const ratio = Math.max(0, Math.min(1, (ms - oneYearAgo) / (now - oneYearAgo)));
-                    dateColor = `hsl(${ratio * 120}, 80%, 65%)`;
-                }
-            }
+            const dateColor = 'var(--text3)';
 
             $('m-title').textContent = p.name || 'Untitled';
             $('m-author').textContent = authorName;
@@ -529,6 +536,41 @@ end`;
         }
         setupCustomSelects();
 
+        // Type filter chips
+        const filtersEl = $('type-filters');
+        if (filtersEl) {
+            filtersEl.addEventListener('click', e => {
+                const chip = e.target.closest('.chip');
+                if (!chip) return;
+                const val = chip.dataset.filter || 'all';
+                if (val === typeFilter) return;
+                typeFilter = val;
+                filtersEl.querySelectorAll('.chip').forEach(c => c.classList.toggle('is-active', c === chip));
+                render();
+            });
+        }
+
+        // Grid / list view toggle
+        const viewToggle = $('view-toggle');
+        if (viewToggle) {
+            const applyView = v => {
+                view = v === 'list' ? 'list' : 'grid';
+                grid.classList.toggle('list-mode', view === 'list');
+                viewToggle.querySelectorAll('.view-btn').forEach(b => {
+                    b.classList.toggle('is-active', b.dataset.view === view);
+                });
+                try { localStorage.setItem('iy-view', view); } catch (_) { }
+            };
+            viewToggle.addEventListener('click', e => {
+                const btn = e.target.closest('.view-btn');
+                if (!btn) return;
+                applyView(btn.dataset.view);
+            });
+            let savedView = 'grid';
+            try { savedView = localStorage.getItem('iy-view') || 'grid'; } catch (_) { }
+            applyView(savedView);
+        }
+
         $('m-close')?.addEventListener('click', closeModal);
 
         const onOverlayClick = e => { if (e.target === overlay) closeModal(); };
@@ -537,6 +579,11 @@ end`;
         const onKeyDown = e => {
             if (e.key === 'Escape' && !overlay?.classList.contains('hidden')) closeModal();
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); search?.focus(); }
+            const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '');
+            if (e.key === '/' && !typing && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                e.preventDefault();
+                search?.focus();
+            }
         };
         document.addEventListener('keydown', onKeyDown);
 
@@ -637,7 +684,7 @@ end`;
         }
 
         function renderEmbed(emb) {
-            const color = emb.color ? (emb.color.startsWith('0x') ? '#' + emb.color.slice(2) : emb.color) : '#202225';
+            const color = 'var(--border2)';
 
             let authorHtml = '';
             if (emb.author) {

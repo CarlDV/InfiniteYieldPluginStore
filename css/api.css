@@ -1,15 +1,17 @@
 /* ============================================================
    API Docs — page-specific layout & styles
-   Built on top of the shared design system (css/style.css).
+   Monochrome, typography-led. Built entirely on the design
+   tokens from css/style.css. Dark default, light automatic.
    ============================================================ */
 
+/* ---------- Layout ---------- */
 .docs-layout {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 24px 72px;
+    padding: 40px 24px 80px;
     display: grid;
-    grid-template-columns: 240px minmax(0, 1fr);
-    gap: 48px;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 56px;
     align-items: start;
 }
 
@@ -17,45 +19,52 @@
 .docs-sidebar {
     position: sticky;
     top: 88px;
-    height: calc(100vh - 120px);
+    max-height: calc(100vh - 112px);
     overflow-y: auto;
     padding-right: 8px;
 }
 
 .docs-sidebar::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
+}
+
+.docs-sidebar::-webkit-scrollbar-thumb {
+    background: var(--border2);
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
 }
 
 .sidebar-section-title {
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.68rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.09em;
     color: var(--text3);
-    padding: 14px 8px 8px;
+    padding: 18px 12px 8px;
 }
 
 .sidebar-section-title:first-child {
-    padding-top: 0;
+    padding-top: 2px;
 }
 
 .sidebar-menu {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    margin-bottom: 8px;
+    gap: 1px;
+    margin-bottom: 6px;
 }
 
 .sidebar-link {
     display: block;
-    padding: 8px 12px;
+    padding: 7px 12px;
     border-radius: var(--radius-sm);
-    font-size: 0.85rem;
+    border-left: 2px solid transparent;
+    font-size: 0.84rem;
     font-weight: 500;
     color: var(--text2);
-    border-left: 2px solid transparent;
-    transition: color 0.15s ease, background 0.15s ease;
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
 .sidebar-link:hover {
@@ -75,45 +84,55 @@
 }
 
 .docs-hero {
-    padding: 8px 0 24px;
+    padding: 4px 0 28px;
 }
 
 .docs-hero h1 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    font-size: clamp(1.85rem, 3.4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
 }
 
 .docs-hero p {
     color: var(--text2);
-    margin-top: 10px;
+    margin-top: 12px;
     font-size: 0.98rem;
-    max-width: 640px;
+    line-height: 1.7;
+    max-width: 620px;
 }
 
+/* ---------- Sections ---------- */
 .docs-section {
-    padding: 32px 0;
+    padding: 36px 0;
     border-top: 1px solid var(--border);
     scroll-margin-top: 96px;
 }
 
 .docs-section:first-of-type {
     border-top: none;
+    padding-top: 24px;
 }
 
 .docs-section h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 1.38rem;
+    font-weight: 650;
     letter-spacing: -0.02em;
-    margin-bottom: 14px;
+    line-height: 1.25;
+    margin-bottom: 12px;
     scroll-margin-top: 96px;
 }
 
 .docs-section h3 {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
+    letter-spacing: -0.01em;
     color: var(--text);
-    margin: 24px 0 10px;
+    margin: 26px 0 10px;
+}
+
+.docs-section h2 + h3 {
+    margin-top: 18px;
 }
 
 .docs-section p {
@@ -121,16 +140,28 @@
     font-size: 0.92rem;
     line-height: 1.7;
     margin: 10px 0;
+    max-width: 72ch;
 }
 
 .docs-section code,
 .callout code {
     font-family: var(--mono);
-    font-size: 0.85em;
+    font-size: 0.84em;
     background: var(--bg3);
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: var(--accent-text);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+    color: var(--text);
+}
+
+/* Keep shared Prism-managed code blocks untouched by the inline rule above. */
+.docs-section pre code {
+    font-size: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
 }
 
 /* ---------- Endpoint panels ---------- */
@@ -138,47 +169,54 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 10px 12px;
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 14px 16px;
-    margin: 10px 0;
-    transition: border-color 0.15s ease;
+    margin: 12px 0;
+    transition: border-color 0.15s ease, background 0.15s ease;
 }
 
 .api-endpoint:hover {
     border-color: var(--border2);
+    background: var(--bg3);
 }
 
 .api-method {
     font-family: var(--mono);
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.67rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
     padding: 3px 10px;
     border-radius: 999px;
-    background: rgba(74, 222, 128, 0.12);
-    color: var(--green);
-    letter-spacing: 0.05em;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    color: var(--accent-text);
+    flex-shrink: 0;
 }
 
 .api-url {
     font-family: var(--mono);
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     color: var(--text);
     word-break: break-all;
+    min-width: 0;
 }
 
 .api-desc {
     width: 100%;
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     color: var(--text2);
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
-/* ---------- Table ---------- */
+/* ---------- Response schema table ---------- */
 .api-table-wrapper {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 14px 0;
     background: var(--bg2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -192,13 +230,13 @@
 
 .api-table th {
     text-align: left;
-    padding: 12px 16px;
-    background: var(--bg3);
-    color: var(--text2);
-    font-size: 0.72rem;
-    font-weight: 700;
+    padding: 11px 16px;
+    background: var(--bg-inset);
+    color: var(--text3);
+    font-size: 0.68rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     border-bottom: 1px solid var(--border);
     white-space: nowrap;
 }
@@ -206,8 +244,9 @@
 .api-table td {
     padding: 11px 16px;
     color: var(--text2);
-    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
     vertical-align: top;
+    border-bottom: 1px solid var(--border);
 }
 
 .api-table tr:last-child td {
@@ -221,10 +260,11 @@
 .api-table td code {
     font-family: var(--mono);
     font-size: 0.8rem;
-    color: var(--accent-text);
+    color: var(--text);
     background: var(--bg-inset);
-    padding: 2px 6px;
-    border-radius: 4px;
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
     white-space: nowrap;
 }
 
@@ -236,55 +276,101 @@
     border-radius: var(--radius);
     margin: 16px 0;
     font-size: 0.88rem;
-    line-height: 1.6;
+    line-height: 1.65;
 }
 
 .callout-info {
-    background: var(--accent-dim);
-    border: 1px solid var(--accent-border);
-    border-left: 4px solid var(--accent);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
     color: var(--text2);
 }
 
 .callout-icon {
-    color: var(--accent);
     flex-shrink: 0;
     margin-top: 2px;
+    color: var(--accent-text);
 }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 992px) {
     .docs-layout {
         grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 24px 16px 56px;
+        gap: 20px;
+        padding: 24px 18px 56px;
     }
 
     .docs-sidebar {
         position: static;
-        height: auto;
+        max-height: none;
         overflow: visible;
         padding: 0;
+    }
+
+    .sidebar-section-title {
+        padding: 0 0 8px;
     }
 
     .sidebar-menu {
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 4px;
+        gap: 6px;
+        margin-bottom: 14px;
     }
 
     .sidebar-link {
-        padding: 6px 10px;
-        border-left: none;
+        padding: 6px 12px;
+        border: 1px solid var(--border);
         border-radius: 999px;
+        background: var(--bg2);
         font-size: 0.8rem;
     }
 
+    .sidebar-link:hover {
+        background: var(--bg3);
+        border-color: var(--border2);
+    }
+
     .sidebar-link.active {
-        border-left: none;
+        border-color: var(--accent-border);
+        background: var(--accent-dim);
+        color: var(--accent-text);
     }
 
     .docs-section {
-        padding: 24px 0;
+        padding: 26px 0;
+    }
+
+    .docs-section,
+    .docs-section h2 {
+        scroll-margin-top: 116px;
+    }
+}
+
+@media (max-width: 560px) {
+    .docs-layout {
+        gap: 16px;
+        padding: 20px 14px 48px;
+    }
+
+    .docs-hero {
+        padding-bottom: 20px;
+    }
+
+    .docs-section {
+        padding: 22px 0;
+    }
+
+    .api-endpoint {
+        padding: 12px 14px;
+    }
+
+    .callout {
+        padding: 12px 14px;
+    }
+
+    .api-table th,
+    .api-table td {
+        padding: 10px 12px;
     }
 }
