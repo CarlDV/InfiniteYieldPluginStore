@@ -1,0 +1,256 @@
+-- Per-part custom colours for IY's partesp highlights.
+-- ;partespcolor <colour>              -> default colour for every partesp box
+-- ;partespcolor <colour> <part name>  -> colour for parts with that name only
+-- ;unpartespcolor <part name>         -> clear one part's rule
+-- ;unpartespcolor                    -> clear everything, back to IY green
+
+local WS = game:GetService("Workspace")
+local DEFAULT_COLOR = Color3.fromRGB(0, 255, 0)
+local SUFFIX = "_PESP"
+
+local globalColor = nil
+local partColors = {} -- [lower part name] = Color3
+local watchConn = nil
+
+local NAMED = {
+	black = Color3.fromRGB(0, 0, 0),
+	white = Color3.fromRGB(255, 255, 255),
+	red = Color3.fromRGB(255, 0, 0),
+	green = Color3.fromRGB(0, 255, 0),
+	blue = Color3.fromRGB(0, 0, 255),
+	yellow = Color3.fromRGB(255, 255, 0),
+	cyan = Color3.fromRGB(0, 255, 255),
+	magenta = Color3.fromRGB(255, 0, 255),
+	pink = Color3.fromRGB(255, 105, 180),
+	purple = Color3.fromRGB(128, 0, 255),
+	violet = Color3.fromRGB(148, 0, 211),
+	orange = Color3.fromRGB(255, 165, 0),
+	lime = Color3.fromRGB(50, 205, 50),
+	teal = Color3.fromRGB(0, 128, 128),
+	gray = Color3.fromRGB(128, 128, 128),
+	grey = Color3.fromRGB(128, 128, 128),
+	brown = Color3.fromRGB(139, 69, 19),
+	gold = Color3.fromRGB(255, 215, 0),
+	maroon = Color3.fromRGB(128, 0, 0),
+	navy = Color3.fromRGB(0, 0, 128),
+	silver = Color3.fromRGB(192, 192, 192),
+}
+
+local function say(msg)
+	if type(notify) == "function" then
+		notify(msg)
+	else
+		print("[partespcolor] " .. msg)
+	end
+end
+
+local function fmt(c)
+	return string.format("rgb(%d,%d,%d)",
+		math.floor(c.R * 255 + 0.5),
+		math.floor(c.G * 255 + 0.5),
+		math.floor(c.B * 255 + 0.5))
+end
+
+local function clamp255(n)
+	n = math.floor(n + 0.5)
+	if n < 0 then return 0 end
+	if n > 255 then return 255 end
+	return n
+end
+
+local function hexToColor(tok)
+	local h = tok
+	if h:sub(1, 1) == "#" then
+		h = h:sub(2)
+		if #h == 3 then
+			h = h:sub(1, 1):rep(2) .. h:sub(2, 2):rep(2) .. h:sub(3, 3):rep(2)
+		end
+	end
+	if #h ~= 6 or h:find("[^%x]") then
+		return nil
+	end
+	return Color3.fromRGB(
+		tonumber(h:sub(1, 2), 16),
+		tonumber(h:sub(3, 4), 16),
+		tonumber(h:sub(5, 6), 16))
+end
+
+-- Returns colour plus how many tokens it consumed
+-- (1 for name/#hex, 3 for "r g b", 1 for "r,g,b").
+local function parseColorTokens(tok)
+	local a = tok[1]
+	if not a then return nil, 0 end
+	local r, g, b = a:match("^(%d+)%s*,%s*(%d+)%s*,%s*(%d+)$")
+	if r then
+		return Color3.fromRGB(clamp255(tonumber(r)), clamp255(tonumber(g)), clamp255(tonumber(b))), 1
+	end
+	if tok[2] and tok[3] and tonumber(tok[1]) and tonumber(tok[2]) and tonumber(tok[3]) then
+		return Color3.fromRGB(clamp255(tonumber(tok[1])), clamp255(tonumber(tok[2])), clamp255(tonumber(tok[3]))), 3
+	end
+	local named = NAMED[a:lower()]
+	if named then return named, 1 end
+	local hex = hexToColor(a)
+	if hex then return hex, 1 end
+	return nil, 0
+end
+
+local function argTokens(args)
+	local raw = {}
+	if type(args) == "table" then
+		for _, v in ipairs(args) do
+			raw[#raw + 1] = tostring(v)
+		end
+	else
+		raw[1] = tostring(args or "")
+	end
+	local tokens = {}
+	for _, s in ipairs(raw) do
+		for w in s:gmatch("%S+") do
+			tokens[#tokens + 1] = w
+		end
+	end
+	return tokens
+end
+
+local function unquote(s)
+	local q = s:sub(1, 1)
+	if (q == '"' or q == "'") and #s >= 2 and s:sub(-1) == q then
+		return s:sub(2, #s - 1)
+	end
+	return s
+end
+
+local function isPESP(inst)
+	return inst:IsA("BoxHandleAdornment") and inst.Name:sub(-#SUFFIX) == SUFFIX
+end
+
+-- Exact lower-case rule wins; otherwise the longest rule whose key is a
+-- plain substring of the part name wins (e.g. rule "spawn" -> "SpawnLocation").
+local function ruleKeyFor(name)
+	local lower = name:lower()
+	if partColors[lower] then return lower end
+	local best = nil
+	for key in pairs(partColors) do
+		if lower:find(key, 1, true) and (best == nil or #key > #best) then
+			best = key
+		end
+	end
+	return best
+end
+
+local function colorFor(d)
+	local adornee = d.Adornee
+	if adornee then
+		local key = ruleKeyFor(adornee.Name)
+		if key then return partColors[key] end
+	end
+	return globalColor or DEFAULT_COLOR
+end
+
+local function applyAll()
+	local n = 0
+	for _, d in ipairs(WS:GetDescendants()) do
+		if isPESP(d) then
+			d.Color3 = colorFor(d)
+			n = n + 1
+		end
+	end
+	return n
+end
+
+local function anyRules()
+	return globalColor ~= nil or next(partColors) ~= nil
+end
+
+local function startWatch()
+	if watchConn then return end
+	watchConn = WS.DescendantAdded:Connect(function(inst)
+		if not isPESP(inst) or not anyRules() then return end
+		task.defer(function()
+			if inst.Parent then inst.Color3 = colorFor(inst) end
+		end)
+		task.delay(0.1, function()
+			if inst.Parent then inst.Color3 = colorFor(inst) end
+		end)
+	end)
+end
+
+local function stopWatch()
+	if watchConn then
+		watchConn:Disconnect()
+		watchConn = nil
+	end
+end
+
+local Plugin = {
+	["PluginName"] = "PartESPColor",
+	["PluginDescription"] = "Per-part and global colours for partesp highlights.",
+	["Commands"] = {
+		["partespcolor"] = {
+			["ListName"] = "partespcolor / pcolor",
+			["Description"] = "Colour for all partesp boxes, or one part: partespcolor <colour> [part name]",
+			["Aliases"] = {"pcolor", "partespcolor"},
+			["Function"] = function(args, speaker)
+				local tokens = argTokens(args)
+				if #tokens == 0 then
+					local state = {}
+					state[#state + 1] = "default " .. (globalColor and fmt(globalColor) or "IY green")
+					for key, c in pairs(partColors) do
+						state[#state + 1] = key .. " = " .. fmt(c)
+					end
+					say("PartESP colours - " .. table.concat(state, "; ")
+						.. ". Usage: partespcolor <colour> [part name]")
+					return
+				end
+				local color, used = parseColorTokens(tokens)
+				if not color then
+					say("Could not read colour '" .. table.concat(tokens, " ")
+						.. "'. Try: red, #ff8800, 255,0,0")
+					return
+				end
+				if #tokens > used then
+					local partName = unquote(table.concat(tokens, " ", used + 1))
+					partColors[partName:lower()] = color
+					startWatch()
+					local n = applyAll()
+					say("PartESP colour for '" .. partName .. "' = " .. fmt(color) .. " - " .. n
+						.. (n == 1 and " highlight" or " highlights") .. " updated; per-part rules beat the default.")
+				else
+					globalColor = color
+					startWatch()
+					local n = applyAll()
+					say("PartESP default colour = " .. fmt(color) .. " - " .. n
+						.. (n == 1 and " highlight" or " highlights") .. " updated; per-part rules still win.")
+				end
+			end
+		},
+		["unpartespcolor"] = {
+			["ListName"] = "unpartespcolor / resetpcolor",
+			["Description"] = "Clear one part's colour rule, or with no argument clear all rules",
+			["Aliases"] = {"nopartespcolor", "resetpcolor"},
+			["Function"] = function(args, speaker)
+				local tokens = argTokens(args)
+				if #tokens > 0 then
+					local partName = unquote(table.concat(tokens, " ")):lower()
+					if partColors[partName] then
+						partColors[partName] = nil
+						if not anyRules() then stopWatch() end
+						local n = applyAll()
+						say("Cleared part colour for '" .. partName .. "' - " .. n .. " highlights updated.")
+					else
+						say("No colour rule for '" .. partName .. "'.")
+					end
+					return
+				end
+				globalColor = nil
+				partColors = {}
+				stopWatch()
+				local n = applyAll()
+				say("PartESP colours reset to IY green - " .. n
+					.. (n == 1 and " highlight" or " highlights") .. " restored.")
+			end
+		},
+	}
+}
+
+return Plugin
