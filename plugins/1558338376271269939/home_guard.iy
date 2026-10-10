@@ -1,0 +1,256 @@
+-- Home Guard
+-- ;sethome                mark your current spot as home (saved to disk per place)
+-- ;home                   teleport back to home
+-- ;guard [distance]       watch: pulled back if flung, teleported or respawned away
+--                         from home (default radius 120 studs)
+-- ;unguard                stop the watch
+-- ;guardinfo              show home, radius and guard state
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local HttpService = game:GetService("HttpService")
+
+local LP = Players.LocalPlayer
+
+local DEFAULT_RADIUS = 120
+local FLING_SPEED = 120      -- studs/s of root movement treated as a fling
+local TICK = 0.2
+
+local home = nil             -- {x, y, z, yaw}
+local radius = DEFAULT_RADIUS
+local guarding = false
+local guardToken = 0
+
+local function say(msg)
+	if type(notify) == "function" then
+		notify(msg)
+	else
+		print("[homeguard] " .. tostring(msg))
+		pcall(function()
+			game:GetService("StarterGui"):SetCore("SendNotification", {
+				Title = "Home Guard",
+				Text = tostring(msg),
+				Duration = 4,
+			})
+		end)
+	end
+end
+
+local function toks(args)
+	local out = {}
+	if type(args) == "table" then
+		for _, v in ipairs(args) do
+			for w in tostring(v):gmatch("%S+") do
+				out[#out + 1] = w
+			end
+		end
+	elseif args ~= nil then
+		for w in tostring(args):gmatch("%S+") do
+			out[#out + 1] = w
+		end
+	end
+	return out
+end
+
+local function getRoot()
+	local c = LP.Character
+	return c and c:FindFirstChild("HumanoidRootPart")
+end
+
+local function getHum()
+	local c = LP.Character
+	return c and c:FindFirstChildOfClass("Humanoid")
+end
+
+-- ---------- storage ----------
+
+local function homeFile()
+	return "iy_home_" .. game.PlaceId .. ".json"
+end
+
+local function loadHome()
+	if type(isfile) ~= "function" or not isfile(homeFile()) then return end
+	local ok, data = pcall(function()
+		return HttpService:JSONDecode(readfile(homeFile()))
+	end)
+	if ok and type(data) == "table" and data.x then
+		home = data
+	end
+end
+
+local function saveHome()
+	if not home then return end
+	pcall(writefile, homeFile(), HttpService:JSONEncode(home))
+end
+
+-- ---------- movement ----------
+
+local function bringBack(reason)
+	local r = getRoot()
+	if not r then return end
+	if not home then return end
+	local target = CFrame.new(home.x, home.y, home.z) * CFrame.Angles(0, home.yaw or 0, 0)
+	r.AssemblyLinearVelocity = Vector3.zero
+	r.AssemblyAngularVelocity = Vector3.zero
+	local dist = math.floor((r.Position - Vector3.new(home.x, home.y, home.z)).Magnitude + 0.5)
+	if reason == "fling" then
+		r.CFrame = target
+		say("Fling stopped - pulled back to home.")
+	elseif reason == "manual" then
+		r.CFrame = target
+	elseif reason == "respawn" then
+		task.delay(0.4, function()
+			local rr = getRoot()
+			if rr and guarding then
+				rr.CFrame = target
+				say("Respawned away from home - returned.")
+			end
+		end)
+	else
+		local tween = TweenService:Create(r, TweenInfo.new(0.35, Enum.EasingStyle.Quad), { CFrame = target })
+		tween:Play()
+		say("Left home zone (" .. dist .. " studs) - recalled. Home is " .. radius .. " studs wide.")
+	end
+end
+
+local function startGuard(newRadius)
+	if newRadius and newRadius > 0 then
+		radius = newRadius
+	end
+	if not home then
+		say("No home set yet - run sethome first.")
+		return
+	end
+	if guarding then
+		say("Already guarding (radius " .. radius .. ").")
+		return
+	end
+	guarding = true
+	guardToken = guardToken + 1
+	local token = guardToken
+	local wasDead = false
+	say("Guard on - radius " .. radius .. " studs. unguard stops it.")
+	task.spawn(function()
+		while guarding and token == guardToken do
+			task.wait(TICK)
+			local h, r = getHum(), getRoot()
+			if not r then
+				if not wasDead then wasDead = true end
+			else
+				if wasDead then
+					wasDead = false
+					bringBack("respawn")
+				else
+					local vel = r.AssemblyLinearVelocity
+					if vel.Magnitude >= FLING_SPEED then
+						bringBack("fling")
+					else
+						local d = (r.Position - Vector3.new(home.x, home.y, home.z)).Magnitude
+						if d > radius then
+							bringBack("away")
+						end
+					end
+				end
+			end
+		end
+	end)
+end
+
+local function stopGuard(reason)
+	if not guarding then
+		say("Guard is not running.")
+		return
+	end
+	guarding = false
+	guardToken = guardToken + 1
+	say("Guard off" .. (reason and (" - " .. reason) or "") .. ".")
+end
+
+loadHome()
+
+-- ---------- commands ----------
+
+local Plugin = {
+	["PluginName"] = "HomeGuard",
+	["PluginDescription"] = "sethome / home / guard - recall to a saved spot, anti-fling and respawn return.",
+	["Commands"] = {
+		["sethome"] = {
+			["ListName"] = "sethome / markhome / savehome",
+			["Description"] = "Mark your current position as home (persisted per place)",
+			["Aliases"] = {"markhome", "savehome"},
+			["Function"] = function(args, speaker)
+				local r = getRoot()
+				if not r then
+					say("No character - cannot set home.")
+					return
+				end
+				local p = r.Position
+				local _, yaw = r.CFrame:ToEulerAnglesYXZ()
+				home = {
+					x = math.floor(p.X * 100) / 100,
+					y = math.floor(p.Y * 100) / 100,
+					z = math.floor(p.Z * 100) / 100,
+					yaw = math.floor(yaw * 1000) / 1000,
+				}
+				saveHome()
+				say(string.format("Home set to %.0f, %.0f, %.0f (saved for this place).", home.x, home.y, home.z))
+				if guarding then
+					say("Home moved - guard now watches the new spot.")
+				end
+			end,
+		},
+		["home"] = {
+			["ListName"] = "home / gotohome / tpbackhome",
+			["Description"] = "Teleport back to your saved home",
+			["Aliases"] = {"gotohome", "tpbackhome"},
+			["Function"] = function(args, speaker)
+				if not home then
+					say("No home set - run sethome first.")
+					return
+				end
+				local r = getRoot()
+				if not r then
+					say("No character - cannot go home.")
+					return
+				end
+				bringBack("manual")
+				say("Back home.")
+			end,
+		},
+		["guard"] = {
+			["ListName"] = "guard / guardon / homewatch [distance]",
+			["Description"] = "Pull you back if flung, teleported or respawned away from home",
+			["Aliases"] = {"guardon", "homewatch"},
+			["Function"] = function(args, speaker)
+				local t = toks(args)
+				local n = tonumber(t[1])
+				startGuard(n)
+			end,
+		},
+		["unguard"] = {
+			["ListName"] = "unguard / guardoff / noguard",
+			["Description"] = "Stop the home watch",
+			["Aliases"] = {"guardoff", "noguard"},
+			["Function"] = function(args, speaker)
+				stopGuard()
+			end,
+		},
+		["guardinfo"] = {
+			["ListName"] = "guardinfo / homeinfo",
+			["Description"] = "Show home position, radius and guard state",
+			["Aliases"] = {"homeinfo"},
+			["Function"] = function(args, speaker)
+				local parts = {}
+				parts[#parts + 1] = home
+					and string.format("home %.0f, %.0f, %.0f", home.x, home.y, home.z)
+					or "home not set"
+				parts[#parts + 1] = "radius " .. radius .. " studs"
+				parts[#parts + 1] = guarding and "guard ON" or "guard off"
+				say(table.concat(parts, "; "))
+			end,
+		},
+	},
+}
+
+return Plugin

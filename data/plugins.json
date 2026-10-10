@@ -1,8 +1,34 @@
 {
-  "scraped_at": "2026-10-10T04:03:23.982017+00:00",
+  "scraped_at": "2026-10-10T04:42:25.593800+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 573,
+  "total_plugins": 574,
   "plugins": [
+    {
+      "id": "1558338376271269939",
+      "name": "home_guard",
+      "description": "# Home Guard\nset a home point, get pulled back to it:\n```\n;sethome - mark your current spot (saved to disk, per place)\n;home - teleport back to your home\n;guard [distance] - watch mode - radius in studs, default 120\n;unguard - stop the watch\n;guardinfo - show home, radius and guard state\n```\nguard pulls you back when:\n- you get flung (instant snap, velocity killed)\n- you're teleported or walk past the radius (tween back)\n- you die and respawn away from home\n\nsupports custom radius per server (`;guard 300`), home persists across rejoins\n\n- made in project uai",
+      "author": {
+        "name": "David",
+        "username": "istmedavid",
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/6d094786bd2ee3c95d31966828d40a68.png?size=1024"
+      },
+      "date": "2026-10-10T04:40:21.430000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1558338376271269939",
+      "files": [
+        {
+          "filename": "home_guard.iy",
+          "url": "plugins/1558338376271269939/home_guard.iy",
+          "size": 6935,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        ";sethome - mark your current spot (saved to disk, per place)\n;home - teleport back to your home\n;guard [distance] - watch mode - radius in studs, default 120\n;unguard - stop the watch\n;guardinfo - show home, radius and guard state"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1558327852720726149",
       "name": "partespcolor",
