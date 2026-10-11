@@ -1,8 +1,38 @@
 {
-  "scraped_at": "2026-10-10T04:42:25.593800+00:00",
+  "scraped_at": "2026-10-11T05:47:06.185032+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 574,
+  "total_plugins": 575,
   "plugins": [
+    {
+      "id": "1558716361637896204",
+      "name": "GearGuide",
+      "description": "Guide that allows you to equip specific gears at the same time.",
+      "author": {
+        "name": "mdhmcc3346",
+        "username": "mdhmcc3346",
+        "avatar": "https://cdn.discordapp.com/embed/avatars/0.png"
+      },
+      "date": "2026-10-11T05:42:20.164000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1558716361637896204",
+      "files": [
+        {
+          "filename": "GearGuide.iy",
+          "url": "plugins/1558716361637896204/GearGuide.iy",
+          "size": 25390,
+          "is_plugin": true
+        },
+        {
+          "filename": "Desktop_2026.10.10_-_23.36.45.03.mp4",
+          "url": "plugins/1558716361637896204/Desktop_2026.10.10_-_23.36.45.03.mp4",
+          "size": 3152007,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1558338376271269939",
       "name": "home_guard",
@@ -126,9 +156,9 @@
       "name": "killiy",
       "description": "# killIY\n• no mercy for iy\n```killiy```\n(#) I found free time to improve my experience\n(!) load the plugin before u wrote the commands\n||some asked for it||",
       "author": {
-        "name": "(🎂)Tony",
+        "name": "Tony",
         "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/7d2adaccda92847ab1f882256890ccb3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
       },
       "date": "2026-09-18T13:41:11.658000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1550501949349167206",
@@ -152,9 +182,9 @@
       "name": "calculator",
       "description": "# Calculator\n• Evaluate, solve equations, linear systems\n```calc/calculate [math]```\n•All what it got:\nArithmetic (+,-,/,*,^)\nPostfix(^!)\nRoots (//x,√x,sqrt x)\nGrouping-()\nConstants(pi, e)\nTrigonometric(sin,cos,tan,asin,acos,atan(x))\nLogarithms(log,in(x))\nRounding(floor/round/ceil/abs(x))\n Selection(min/max)\nEquation(=, ,)\n||(I'm tired of adding all this because in the worst case it'll be unnecessary, please report bugs, there maybe a lot of them)||",
       "author": {
-        "name": "(🎂)Tony",
+        "name": "Tony",
         "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/7d2adaccda92847ab1f882256890ccb3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
       },
       "date": "2026-09-17T22:48:36.425000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1550277322421305364",
@@ -344,7 +374,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_83f6cc0b7730d720b4af20f3d44c339e.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
       },
       "date": "2026-08-13T11:51:09.458000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1537428294553833562",
@@ -416,9 +446,9 @@
       "name": "chatsound",
       "description": "# Chatsound\n• sound after each message\n```chatsound [player] [id] [volume]\nnochats [player] [id]```\n(#) removed useless things\n(#) Insert large rbxsound links, plugin will do everything itself\n(#) added [volume] value (1-10)\n(def sound with no settings is 5)\n(#) Removed \"PlaybackSpeed\"\n(#) Ignores [player] field if not specified.\n($) Re-upload",
       "author": {
-        "name": "(🎂)Tony",
+        "name": "Tony",
         "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/7d2adaccda92847ab1f882256890ccb3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
       },
       "date": "2026-08-11T10:30:13.416000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1536683151106121729",
@@ -442,9 +472,9 @@
       "name": "PPgoto",
       "description": "# PPGoto\n• Goto through Proximityprompt (renamed)\n```ppgoto [name]```\n```unppgoto [name]```",
       "author": {
-        "name": "(🎂)Tony",
+        "name": "Tony",
         "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/7d2adaccda92847ab1f882256890ccb3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
       },
       "date": "2026-08-03T18:55:05.081000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1533911100633120920",
@@ -633,9 +663,9 @@
       "name": "Bhop",
       "description": "# Bunny-Hop plugin\n•Makes you jump until you got exhausted\n```bhop/loopautojump```\n```unbhop/unloopautojump```",
       "author": {
-        "name": "(🎂)Tony",
+        "name": "Tony",
         "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/7d2adaccda92847ab1f882256890ccb3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
       },
       "date": "2026-07-19T13:48:18.692000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1528398080657985649",
@@ -876,9 +906,9 @@
       "name": "scrollfix",
       "description": "# scrollfix\n(For mobile, cuz it didn't change anything for PC)\n(No commands)",
       "author": {
-        "name": "(🎂)Tony",
+        "name": "Tony",
         "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/7d2adaccda92847ab1f882256890ccb3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
       },
       "date": "2026-06-23T09:41:30.857000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1518913887590940752",
@@ -900,9 +930,9 @@
       "name": "mfreecam",
       "description": "# MobileFreeCamera\n(You can also zoom through PC, using the wheel)\n```mfreecam/mfc [speed]```\n```unmfreecam/unmfc```",
       "author": {
-        "name": "(🎂)Tony",
+        "name": "Tony",
         "username": "debratecrush",
-        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/7d2adaccda92847ab1f882256890ccb3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
       },
       "date": "2026-06-22T21:28:00.290000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1518729293893599302",
@@ -1655,7 +1685,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_83f6cc0b7730d720b4af20f3d44c339e.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -3825,7 +3855,7 @@
       "author": {
         "name": "libertar",
         "username": "libertar",
-        "avatar": "https://cdn.discordapp.com/avatars/940240635456258069/2e2a44bad8b9da5e435c265202fb6766.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/940240635456258069/1bbe84820d9a2e3f3cede5e084d1f195.png?size=1024"
       },
       "date": "2025-01-31T01:43:46.555000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1334700625069473832",
@@ -4473,9 +4503,9 @@
       "name": "AnimationSpeed",
       "description": "Animation speed looper (The same as animspeed but looped basically)\n\ncommands:\n```animspeedloop [numb]\nstopanimspeed```",
       "author": {
-        "name": "‒═≡★",
+        "name": "cat",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/2493b42baf22529540efbc6de3c7ca61.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/93ce47d7c334745e5fd1b72af3e30d26.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -6207,7 +6237,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6aca8632&is=6ac934b2&hm=aa052765e18d52783530f19c45003a8c495337e894f23b30fe3aff4257f047ba&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6acbd7b2&is=6aca8632&hm=2a7349ce596df7916bc9b215e5a6365074c12c5bca82eb6c4d48b321c0425dca&"
           },
           "image": null,
           "video": null
@@ -6221,7 +6251,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6aca8649&is=6ac934c9&hm=cfca147afbf77d148d70b2c3cf29a22d4542f139946a5325eca67c2fa6058120&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6acbd7c9&is=6aca8649&hm=ca75705555f8c1e33b2f20628b3d4e6d9e2b198fb153b4a43a8373573b07634a&"
           },
           "image": null,
           "video": null
@@ -7084,7 +7114,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6aca8632&is=6ac934b2&hm=aa052765e18d52783530f19c45003a8c495337e894f23b30fe3aff4257f047ba&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6acbd7b2&is=6aca8632&hm=2a7349ce596df7916bc9b215e5a6365074c12c5bca82eb6c4d48b321c0425dca&"
           },
           "image": null,
           "video": null
@@ -7098,7 +7128,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6aca8649&is=6ac934c9&hm=cfca147afbf77d148d70b2c3cf29a22d4542f139946a5325eca67c2fa6058120&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6acbd7c9&is=6aca8649&hm=ca75705555f8c1e33b2f20628b3d4e6d9e2b198fb153b4a43a8373573b07634a&"
           },
           "image": null,
           "video": null
@@ -8471,7 +8501,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6acb00a5&is=6ac9af25&hm=e8125355cd33bbd1b1fccb295b8bcd6177862d52dc7296a2f8419b5ad090024b&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6acc5225&is=6acb00a5&hm=92db9f6756c5befce8526243ef22cd35492f42314aaaafcf7feffac7ba607877&"
           },
           "image": null,
           "video": null

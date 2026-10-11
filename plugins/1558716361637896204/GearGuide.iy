@@ -1,0 +1,899 @@
+--[[
+	GearGuide -- Infinite Yield plugin
+	The gear guide: equip the specific gears you want, several at once.
+
+	;esgui                            open the guide: click a gear to equip it, pick several
+	                                  to hold them together, search bar, select all,
+	                                  save/load sets
+	;eset  Flashlight, Lantern         hold exactly those (name substring, hotbar index
+	                                  or a saved set name)
+	;eset  all | none | 1, 3           all gears / put everything away / by index
+	;esadd <gears...>                 hold these as well as what you already hold
+	;estoggle <gears...>              flip each named gear on or off
+	;esoff                            put every held gear back in the backpack
+	;esheld                           list what you are holding
+	;esindex                          list gears with the indexes ;eset accepts (console)
+	;esnames                          list your gears with indexes, in chat and console
+	;essave <name> [gears...]         save a set (no gears = save what you hold now)
+	;eslist / ;esdel <name>           list / delete saved sets
+	;eslock <gears...> / ;esunlock    keep a set equipped, re-applied every moment
+
+	Gears are equipped by parenting the Tool onto your character: Humanoid:EquipTool
+	puts the gear already in your hand back in the backpack, so it cannot hold a set
+	at once. This is client-side - the server still counts those gears as backpack
+	items - so ;eslock re-applies the set, and the guide mirrors equips made with the
+	hotbar keys, by the game itself, and after a respawn.
+]]
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+
+local SETS_FILE = "GearSets.json"
+local PARENT_TIMEOUT = 0.4
+local LOCK_INTERVAL = 0.6
+local UI_LIB_URL = "https://raw.githubusercontent.com/Project-Ptolemy/ProjectUAI/main/dist/uai-ui.lua"
+
+-- shared state: a plugin reload orphans the previous lock loop, so the reloaded
+-- file finds the same table and turns the old loop off
+local State = getgenv().GearGuideState
+if type(State) ~= "table" then
+	State = { gen = 0, lock = { running = false, tokens = {} } }
+	getgenv().GearGuideState = State
+end
+State.gen = (State.gen or 0) + 1
+State.lock.running = false
+State.lock.tokens = {}
+
+local function localPlayer()
+	return Players.LocalPlayer
+end
+
+local function trim(text)
+	return (tostring(text or ""):gsub("^%s+", ""):gsub("%s+$", ""))
+end
+
+local function argString(args)
+	if type(args) == "table" then
+		local parts = {}
+		for index = 1, #args do
+			parts[index] = tostring(args[index])
+		end
+		return table.concat(parts, " ")
+	end
+	return tostring(args or "")
+end
+
+local SPECIAL = { all = true, ["*"] = true, none = true, off = true, clear = true }
+
+-- "a, b, c" -> {"a", "b", "c"}; "1 3" -> {"1", "3"}; "bendy plushie" -> {"bendy plushie"}
+local function splitTokens(text)
+	text = trim(text)
+	local tokens = {}
+	if text == "" then
+		return tokens
+	end
+	if text:find(",", 1, true) then
+		for piece in text:gmatch("[^,]+") do
+			local token = trim(piece)
+			if token ~= "" then
+				tokens[#tokens + 1] = token
+			end
+		end
+		return tokens
+	end
+	local simple, words = true, {}
+	for word in text:gmatch("%S+") do
+		words[#words + 1] = word
+		if not (tonumber(word) or SPECIAL[word:lower()]) then
+			simple = false
+		end
+	end
+	if simple then
+		return words
+	end
+	tokens[1] = text
+	return tokens
+end
+
+-- every gear you could hold: backpack first (hotbar order), then what is already held
+local function allTools()
+	local player = localPlayer()
+	local out, seen = {}, {}
+	if not player then
+		return out
+	end
+	local function add(container)
+		if not container then
+			return
+		end
+		for _, child in ipairs(container:GetChildren()) do
+			if child:IsA("Tool") and not seen[child] then
+				seen[child] = true
+				out[#out + 1] = child
+			end
+		end
+	end
+	add(player:FindFirstChild("Backpack"))
+	if player.Character then
+		add(player.Character)
+	end
+	return out
+end
+
+local function heldTools()
+	local player = localPlayer()
+	local out = {}
+	local character = player and player.Character
+	if character then
+		for _, child in ipairs(character:GetChildren()) do
+			if child:IsA("Tool") then
+				out[#out + 1] = child
+			end
+		end
+	end
+	return out
+end
+
+local function nameList(tools)
+	local names = {}
+	for index, tool in ipairs(tools) do
+		names[index] = tool.Name
+	end
+	return names
+end
+
+-- saved sets ------------------------------------------------------------
+local setsCache = nil
+
+local function loadSets()
+	if setsCache then
+		return setsCache
+	end
+	local plain = {}
+	if type(isfile) == "function" and type(readfile) == "function" then
+		local okCheck, exists = pcall(isfile, SETS_FILE)
+		if okCheck and exists then
+			local okRead, data = pcall(readfile, SETS_FILE)
+			if okRead and type(data) == "string" then
+				local okDecode, decoded = pcall(function()
+					return HttpService:JSONDecode(data)
+				end)
+				if okDecode and type(decoded) == "table" then
+					for name, list in pairs(decoded) do
+						if type(list) == "table" then
+							plain[tostring(name):lower()] = list
+						end
+					end
+				end
+			end
+		end
+	end
+	setsCache = plain
+	return setsCache
+end
+
+local function saveSets()
+	local sets = loadSets()
+	if type(writefile) ~= "function" then
+		return false, "this executor has no writefile, sets last for the session only"
+	end
+	local ok, err = pcall(function()
+		writefile(SETS_FILE, HttpService:JSONEncode(sets))
+	end)
+	if not ok then
+		return false, tostring(err)
+	end
+	return true
+end
+
+-- chat feedback ---------------------------------------------------------
+local function chatSend(text)
+	local okService, tcs = pcall(function()
+		return game:GetService("TextChatService")
+	end)
+	if okService and tcs and tcs.SendAsync then
+		local sent = pcall(function()
+			tcs:SendAsync(text)
+		end)
+		if sent then
+			return true
+		end
+	end
+	local okLegacy, chatSvc = pcall(function()
+		return game:GetService("Chat")
+	end)
+	if okLegacy and chatSvc and chatSvc.Chat then
+		local player = localPlayer()
+		if player and player.Character then
+			local ok3 = pcall(function()
+				chatSvc:Chat(player.Character, text, Enum.ChatColor.Blue)
+			end)
+			return ok3
+		end
+	end
+	return false
+end
+
+-- one token -> tools; second value is false when nothing matched
+local function resolveToken(token, tools, sets, depth)
+	depth = depth or 0
+	local lower = token:lower()
+	if lower == "all" or lower == "*" then
+		local out = {}
+		for index, tool in ipairs(tools) do
+			out[index] = tool
+		end
+		return out, #out > 0
+	end
+	if lower == "none" or lower == "off" or lower == "clear" then
+		return {}, true
+	end
+	local index = tonumber(token)
+	if index and index % 1 == 0 then
+		if tools[index] then
+			return { tools[index] }, true
+		end
+		return {}, false
+	end
+	if depth < 4 and sets[lower] then
+		local out = {}
+		for _, sub in ipairs(sets[lower]) do
+			local matched = resolveToken(tostring(sub), tools, sets, depth + 1)
+			for _, tool in ipairs(matched or {}) do
+				if not table.find(out, tool) then
+					out[#out + 1] = tool
+				end
+			end
+		end
+		return out, #out > 0
+	end
+	local out = {}
+	for _, tool in ipairs(tools) do
+		if tool.Name:lower():find(lower, 1, true) then
+			out[#out + 1] = tool
+		end
+	end
+	return out, #out > 0
+end
+
+-- equipping -------------------------------------------------------------
+local function equipTool(tool)
+	local player = localPlayer()
+	local character = player and player.Character
+	if not character or not tool or not tool.Parent then
+		return false
+	end
+	if tool.Parent == character then
+		return true
+	end
+	tool.Parent = character
+	local deadline = os.clock() + PARENT_TIMEOUT
+	while tool.Parent ~= character and os.clock() < deadline do
+		task.wait()
+	end
+	return tool.Parent == character
+end
+
+local function unequipTool(tool)
+	local player = localPlayer()
+	local backpack = player and player:FindFirstChild("Backpack")
+	if not backpack or not tool then
+		return false
+	end
+	if tool.Parent == backpack then
+		return true
+	end
+	tool.Parent = backpack
+	local deadline = os.clock() + PARENT_TIMEOUT
+	while tool.Parent ~= backpack and os.clock() < deadline do
+		task.wait()
+	end
+	return tool.Parent == backpack
+end
+
+-- mode: "exact" holds exactly these, "add" keeps what is already held, "toggle" flips each
+local function applySet(tokens, mode, quiet)
+	local tools = allTools()
+	local sets = loadSets()
+	local want, seen = {}, {}
+	for _, token in ipairs(tokens) do
+		local matched, ok = resolveToken(token, tools, sets, 0)
+		if not ok and not quiet and token:lower() ~= "none" then
+			print("[GearGuide] no gear matches '" .. token .. "'")
+		end
+		for _, tool in ipairs(matched or {}) do
+			if not seen[tool] then
+				seen[tool] = true
+				want[#want + 1] = tool
+			end
+		end
+	end
+	local player = localPlayer()
+	local character = player and player.Character
+	if mode == "toggle" then
+		for _, tool in ipairs(want) do
+			if tool.Parent == character then
+				unequipTool(tool)
+			else
+				equipTool(tool)
+			end
+		end
+		return want
+	end
+	if mode == "exact" then
+		local wantSet = {}
+		for _, tool in ipairs(want) do
+			wantSet[tool] = true
+		end
+		for _, tool in ipairs(heldTools()) do
+			if not wantSet[tool] then
+				unequipTool(tool)
+			end
+		end
+	end
+	for _, tool in ipairs(want) do
+		if tool.Parent ~= character then
+			equipTool(tool)
+		end
+	end
+	return want
+end
+
+local function run(tokens, mode)
+	local matched = applySet(tokens, mode, false)
+	local held = heldTools()
+	local names = nameList(held)
+	local line = "holding " .. #names .. ": " .. table.concat(names, ", ")
+	print("[GearGuide] " .. line:sub(1, 300))
+	chatSend("[GearGuide] holding " .. #names)
+	return matched
+end
+
+-- the guide -------------------------------------------------------------
+local function loadUI()
+	if type(getgenv().GearGuideUI) == "table" then
+		return getgenv().GearGuideUI
+	end
+	local okFetch, body = pcall(function()
+		return game:HttpGet(UI_LIB_URL, true)
+	end)
+	if not okFetch or type(body) ~= "string" or #body < 1000 then
+		return nil, "could not download the UI library: " .. tostring(body)
+	end
+	local chunk, compileErr = loadstring(body)
+	if not chunk then
+		return nil, tostring(compileErr)
+	end
+	local okRun, library = pcall(chunk)
+	if not okRun or type(library) ~= "table" then
+		return nil, tostring(library)
+	end
+	getgenv().GearGuideUI = library
+	return library
+end
+
+local function openGuide()
+	local UI, err = loadUI()
+	if not UI then
+		print("[GearGuide] guide error: " .. tostring(err))
+		chatSend("[GearGuide] guide failed to open")
+		return
+	end
+	local window = UI:CreateWindow({
+		Id = "GearSetsGuide",
+		Title = "Gear Guide",
+		Subtitle = "Click a gear to equip it - pick several to hold them together",
+		Width = 460,
+		Height = 580,
+	})
+	local tab = window:Tab({ Title = "Guide" })
+	local searchSection = tab:Section({ Title = "Find & actions" })
+	local search = searchSection:Input({
+		Id = "gear-search", Text = "Search gears", Placeholder = "type to filter...", Live = true,
+	})
+	local heldBadge = searchSection:Badge({ Id = "held-badge", Text = "Held", Value = "0", Kind = "Secondary" })
+	local setInput = searchSection:Input({ Id = "set-name", Text = "Set name", Placeholder = "e.g. light", MaxLength = 40 })
+	local setsDropdown = searchSection:Dropdown({
+		Id = "saved-sets", Text = "Saved sets", Options = {}, Placeholder = "pick a set",
+	})
+	local toolsSection = tab:Section({ Title = "Gears" })
+	local toggles = {}
+	local selectAllBtn = nil
+
+	local function refreshBadge()
+		if window.Alive then
+			heldBadge:Set("Held: " .. #heldTools())
+		end
+	end
+
+	local function applyFilter(query)
+		local q = (query or ""):lower()
+		local shown = 0
+		for tool, ctl in pairs(toggles) do
+			local visible = q == "" or tool.Name:lower():find(q, 1, true) ~= nil
+			ctl:SetVisible(visible)
+			if visible then
+				shown += 1
+			end
+		end
+		if selectAllBtn then
+			selectAllBtn:SetText(q == "" and "Select all" or "Select all shown")
+		end
+		return shown
+	end
+
+	local function shownTools()
+		local q = (search:Get() or ""):lower()
+		local out = {}
+		for tool in pairs(toggles) do
+			if q == "" or tool.Name:lower():find(q, 1, true) then
+				out[#out + 1] = tool
+			end
+		end
+		table.sort(out, function(a, b)
+			return a.Name:lower() < b.Name:lower()
+		end)
+		return out
+	end
+
+	-- mirror the real equipped state (hotbar keys, the game, respawns) in the rows
+	local function syncHeldRows()
+		if not window.Alive then
+			return
+		end
+		local character = localPlayer() and localPlayer().Character
+		local indexOf = {}
+		for index, tool in ipairs(allTools()) do
+			indexOf[tool] = index
+		end
+		for tool, ctl in pairs(toggles) do
+			local held = tool.Parent == character
+			ctl:Set(held, true)
+			ctl:SetDescription("#" .. (indexOf[tool] or "?") .. " - " .. (held and "held" or "backpack"))
+		end
+		refreshBadge()
+	end
+
+	local syncQueued = false
+	local function queueSync()
+		if syncQueued or not window.Alive then
+			return
+		end
+		syncQueued = true
+		local done, release
+		local thread = task.delay(0.05, function()
+			done = true
+			syncQueued = false
+			if release then
+				release(false)
+			end
+			if window.Alive then
+				syncHeldRows()
+			end
+		end)
+		if not done then
+			release = window:Give(thread)
+		end
+	end
+
+	local function rebuildTools()
+		for _, ctl in pairs(toggles) do
+			pcall(function()
+				ctl:Destroy()
+			end)
+		end
+		toggles = {}
+		local tools = allTools()
+		for index, tool in ipairs(tools) do
+			local isHeld = tool.Parent == localPlayer().Character
+			local ctl = toolsSection:Toggle({
+				Id = "gear-" .. index .. "-" .. tool.Name,
+				Text = tool.Name,
+				Description = "#" .. index .. " - " .. (isHeld and "held" or "backpack"),
+				Default = isHeld,
+				Callback = function(enabled)
+					task.spawn(function()
+						if enabled then
+							equipTool(tool)
+						else
+							unequipTool(tool)
+						end
+						queueSync()
+					end)
+				end,
+			})
+			toggles[tool] = ctl
+		end
+		applyFilter(search:Get())
+		refreshBadge()
+	end
+
+	local function refreshSetOptions()
+		local names = {}
+		for name in pairs(loadSets()) do
+			names[#names + 1] = name
+		end
+		table.sort(names)
+		setsDropdown:SetOptions(names)
+	end
+
+	search:OnChanged(function(value)
+		applyFilter(value)
+	end)
+
+	selectAllBtn = searchSection:Button({
+		Text = "Select all", ActionText = "Equip", Style = "Primary",
+		Callback = function()
+			local count = 0
+			for _, tool in ipairs(shownTools()) do
+				if tool.Parent ~= localPlayer().Character then
+					if equipTool(tool) then
+						count += 1
+					end
+					if count % 5 == 0 then
+						task.wait()
+					end
+				end
+			end
+			syncHeldRows()
+			window:Notify({ Title = "Gear Guide", Content = count .. " gear(s) equipped", Kind = "Success" })
+		end,
+	})
+	searchSection:Button({
+		Text = "Clear", ActionText = "Unequip",
+		Callback = function()
+			local count = 0
+			for _, tool in ipairs(shownTools()) do
+				if tool.Parent == localPlayer().Character then
+					if unequipTool(tool) then
+						count += 1
+					end
+					if count % 5 == 0 then
+						task.wait()
+					end
+				end
+			end
+			syncHeldRows()
+			window:Notify({ Title = "Gear Guide", Content = count .. " gear(s) unequipped", Kind = "Info" })
+		end,
+	})
+	searchSection:Button({
+		Text = "Refresh list", ActionText = "Refresh",
+		Callback = function()
+			rebuildTools()
+		end,
+	})
+	searchSection:Button({
+		Text = "Save selection as set", ActionText = "Save", Style = "Primary",
+		Callback = function()
+			local name = trim(setInput:Get())
+			if name == "" then
+				window:Notify({ Title = "Gear Guide", Content = "Type a set name first.", Kind = "Warning" })
+				return
+			end
+			local names = nameList(heldTools())
+			table.sort(names, function(a, b)
+				return a:lower() < b:lower()
+			end)
+			loadSets()[name:lower()] = names
+			local ok, why = saveSets()
+			refreshSetOptions()
+			setsDropdown:Set(name:lower(), true)
+			window:Notify({
+				Title = "Gear Guide",
+				Content = "Saved '" .. name .. "' (" .. #names .. " gears)" .. (ok and "" or (" - memory only: " .. tostring(why))),
+				Kind = "Success",
+			})
+		end,
+	})
+	searchSection:Button({
+		Text = "Load set", ActionText = "Load",
+		Callback = function()
+			local name = setsDropdown:Get()
+			if not name then
+				window:Notify({ Title = "Gear Guide", Content = "Pick a saved set first.", Kind = "Warning" })
+				return
+			end
+			task.spawn(function()
+				applySet({ name }, "exact", true)
+				for tool, ctl in pairs(toggles) do
+					ctl:Set(tool.Parent == localPlayer().Character, true)
+				end
+				refreshBadge()
+			end)
+		end,
+	})
+
+	-- keep the guide honest: hotbar keys, the game and respawns all move tools
+	local function watchContainer(container)
+		if not container then
+			return
+		end
+		window:Give(container.ChildAdded:Connect(function(child)
+			if child:IsA("Tool") then
+				queueSync()
+			end
+		end))
+		window:Give(container.ChildRemoved:Connect(function(child)
+			if child:IsA("Tool") then
+				queueSync()
+			end
+		end))
+	end
+
+	watchContainer(localPlayer().Character)
+	watchContainer(localPlayer():FindFirstChild("Backpack"))
+	window:Give(localPlayer().CharacterAdded:Connect(function(character)
+		watchContainer(character)
+		watchContainer(localPlayer():FindFirstChild("Backpack"))
+		task.wait(0.4)
+		if window.Alive then
+			rebuildTools()
+			queueSync()
+		end
+	end))
+
+	-- safety net: self-correct once a second, so an equip made while the list is
+	-- filtered cannot leave the badge stale
+	local lastSignature = nil
+	local function heldSignature()
+		local held = {}
+		for _, tool in ipairs(heldTools()) do
+			held[#held + 1] = tool.Name
+		end
+		table.sort(held)
+		local bag = {}
+		local backpack = localPlayer() and localPlayer():FindFirstChild("Backpack")
+		if backpack then
+			for _, child in ipairs(backpack:GetChildren()) do
+				if child:IsA("Tool") then
+					bag[#bag + 1] = child.Name
+				end
+			end
+		end
+		table.sort(bag)
+		return table.concat(held, ",") .. "|" .. table.concat(bag, ",")
+	end
+
+	window:Give(RunService.Heartbeat:Connect(function()
+		local signature = heldSignature()
+		if signature ~= lastSignature then
+			lastSignature = signature
+			queueSync()
+		end
+	end))
+
+	window:OnDestroy(function()
+		toggles = {}
+	end)
+
+	refreshSetOptions()
+	rebuildTools()
+	return window
+end
+
+local Plugin = {
+	["PluginName"] = "GearGuide",
+	["PluginDescription"] = "Equip specific gears together: guide window with search, select all and saved sets.",
+	["Commands"] = {
+		["esgui"] = {
+			["ListName"] = "esgui / guide",
+			["Description"] = "Opens the Gear Guide: click gears to equip them together, search, select all, save/load sets",
+			["Aliases"] = { "guide", "esguide" },
+			["Function"] = function()
+				task.spawn(function()
+					local ok, why = pcall(openGuide)
+					if not ok then
+						warn("[GearGuide] guide: " .. tostring(why))
+					end
+				end)
+			end,
+		},
+		["eset"] = {
+			["ListName"] = "eset / hold",
+			["Description"] = "Holds exactly the named gears: ;eset Flashlight, Lantern | ;eset all | ;eset none | ;eset 1, 3",
+			["Aliases"] = { "hold", "gearset" },
+			["Function"] = function(args)
+				local tokens = splitTokens(argString(args))
+				if #tokens == 0 then
+					print("[GearGuide] usage: ;eset <gears...> | all | none | 1, 3")
+					return
+				end
+				run(tokens, "exact")
+			end,
+		},
+		["esadd"] = {
+			["ListName"] = "esadd / holdmore",
+			["Description"] = "Holds these gears as well as what you already hold",
+			["Aliases"] = { "holdmore" },
+			["Function"] = function(args)
+				local tokens = splitTokens(argString(args))
+				if #tokens == 0 then
+					print("[GearGuide] usage: ;esadd <gears...>")
+					return
+				end
+				run(tokens, "add")
+			end,
+		},
+		["estoggle"] = {
+			["ListName"] = "estoggle / holdtoggle",
+			["Description"] = "Flips each named gear on or off",
+			["Aliases"] = { "holdtoggle" },
+			["Function"] = function(args)
+				local tokens = splitTokens(argString(args))
+				if #tokens == 0 then
+					print("[GearGuide] usage: ;estoggle <gears...>")
+					return
+				end
+				run(tokens, "toggle")
+			end,
+		},
+		["esoff"] = {
+			["ListName"] = "esoff / holdoff / dropall",
+			["Description"] = "Puts every held gear back in the backpack",
+			["Aliases"] = { "holdoff", "dropall" },
+			["Function"] = function()
+				local player = localPlayer()
+				local backpack = player and player:FindFirstChild("Backpack")
+				local count = 0
+				for _, tool in ipairs(heldTools()) do
+					if backpack then
+						tool.Parent = backpack
+						count += 1
+					end
+				end
+				print("[GearGuide] put " .. count .. " gear(s) away")
+				chatSend("[GearGuide] put " .. count .. " gear(s) away")
+			end,
+		},
+		["esheld"] = {
+			["ListName"] = "esheld / holding",
+			["Description"] = "Lists the gears you are holding",
+			["Aliases"] = { "holding" },
+			["Function"] = function()
+				local names = nameList(heldTools())
+				table.sort(names, function(a, b)
+					return a:lower() < b:lower()
+				end)
+				local line = #names .. " held: " .. table.concat(names, ", ")
+				print("[GearGuide] " .. line:sub(1, 400))
+				chatSend("[GearGuide] " .. #names .. " held")
+			end,
+		},
+		["esindex"] = {
+			["ListName"] = "esindex / slots / toolindex",
+			["Description"] = "Lists each gear with the index ;eset accepts (console)",
+			["Aliases"] = { "slots", "toolindex" },
+			["Function"] = function()
+				for index, tool in ipairs(allTools()) do
+					print(index .. ": " .. tool.Name .. " (" .. (tool.Parent == localPlayer().Character and "held" or "backpack") .. ")")
+				end
+			end,
+		},
+		["esnames"] = {
+			["ListName"] = "esnames / gearnames / esgear",
+			["Description"] = "Lists your gears with indexes, in chat and console",
+			["Aliases"] = { "gearnames", "esgear" },
+			["Function"] = function()
+				local tools = allTools()
+				local names = {}
+				for index, tool in ipairs(tools) do
+					names[index] = index .. ":" .. tool.Name
+				end
+				local line = #tools .. " gears: " .. table.concat(names, ", ")
+				print("[GearGuide] " .. line:sub(1, 500))
+				chatSend("[GearGuide] " .. #tools .. " gears in inventory")
+			end,
+		},
+		["essave"] = {
+			["ListName"] = "essave / saveset",
+			["Description"] = "Saves a set: ;essave light [gears...] (no gears = save what you hold now)",
+			["Aliases"] = { "saveset" },
+			["Function"] = function(args)
+				local tokens = splitTokens(argString(args))
+				local name = tokens[1]
+				if not name then
+					print("[GearGuide] usage: ;essave <name> [gears...]")
+					return
+				end
+				local picked
+				if #tokens > 1 then
+					local rest = {}
+					for index = 2, #tokens do
+						rest[#rest + 1] = tokens[index]
+					end
+					local want = applySet(rest, "add", true)
+					picked = nameList(want)
+				else
+					picked = nameList(heldTools())
+				end
+				table.sort(picked, function(a, b)
+					return a:lower() < b:lower()
+				end)
+				loadSets()[name:lower()] = picked
+				local ok, why = saveSets()
+				print("[GearGuide] set '" .. name .. "' saved with " .. #picked .. " gear(s)" .. (ok and "" or (" (memory only: " .. tostring(why) .. ")")))
+				chatSend("[GearGuide] saved " .. name .. " (" .. #picked .. ")")
+			end,
+		},
+		["eslist"] = {
+			["ListName"] = "eslist / setslist",
+			["Description"] = "Lists saved sets",
+			["Aliases"] = { "setslist" },
+			["Function"] = function()
+				local sets = loadSets()
+				local lines = {}
+				for name, list in pairs(sets) do
+					lines[#lines + 1] = name .. " (" .. #list .. ")"
+				end
+				table.sort(lines)
+				if #lines == 0 then
+					print("[GearGuide] no sets saved yet")
+					return
+				end
+				print("[GearGuide] sets: " .. table.concat(lines, ", "))
+				chatSend("[GearGuide] " .. #lines .. " saved set(s)")
+			end,
+		},
+		["esdel"] = {
+			["ListName"] = "esdel / delset",
+			["Description"] = "Deletes a saved set: ;esdel light",
+			["Aliases"] = { "delset" },
+			["Function"] = function(args)
+				local name = trim(argString(args)):lower()
+				local sets = loadSets()
+				if not sets[name] then
+					print("[GearGuide] no set called '" .. name .. "'")
+					return
+				end
+				sets[name] = nil
+				saveSets()
+				print("[GearGuide] deleted set '" .. name .. "'")
+			end,
+		},
+		["eslock"] = {
+			["ListName"] = "eslock / locktools",
+			["Description"] = "Keeps a set equipped, re-applying it every moment: ;eslock Flashlight, Lantern",
+			["Aliases"] = { "locktools" },
+			["Function"] = function(args)
+				if State.lock.running then
+					print("[GearGuide] lock is already on: " .. table.concat(State.lock.tokens, ", "))
+					return
+				end
+				local tokens = splitTokens(argString(args))
+				if #tokens == 0 then
+					print("[GearGuide] usage: ;eslock <gears...>   (stop with ;esunlock)")
+					return
+				end
+				local gen = State.gen
+				State.lock.tokens = tokens
+				State.lock.running = true
+				task.spawn(function()
+					while State.gen == gen and State.lock.running do
+						local ok, why = pcall(applySet, State.lock.tokens, "exact", true)
+						if not ok then
+							warn("[GearGuide] lock: " .. tostring(why))
+						end
+						task.wait(LOCK_INTERVAL)
+					end
+				end)
+				print("[GearGuide] lock on: " .. table.concat(tokens, ", ") .. "  (stop with ;esunlock)")
+				chatSend("[GearGuide] locked " .. #tokens .. " gear group(s)")
+			end,
+		},
+		["esunlock"] = {
+			["ListName"] = "esunlock",
+			["Description"] = "Stops the lock loop (the gears stay equipped until ;esoff)",
+			["Aliases"] = {},
+			["Function"] = function()
+				State.lock.running = false
+				State.lock.tokens = {}
+				print("[GearGuide] lock off")
+				chatSend("[GearGuide] lock off")
+			end,
+		},
+	},
+}
+
+return Plugin
