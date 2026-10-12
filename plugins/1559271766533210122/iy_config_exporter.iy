@@ -1,0 +1,1949 @@
+--!nonstrict
+-- Infinite Yield Config Exporter/Importer -- Infinite Yield plugin
+-- Export/import a complete IY setup through the clipboard:
+-- settings, keybinds, aliases, event binds, waypoints, plugin registry,
+-- every plugin .iy file's source, and the per-place plugin data files.
+--
+-- Transport: one base64 blob (lz4-compressed JSON) in the clipboard, chunked
+-- so it can be pasted into a Roblox TextBox (Ctrl+V) or shared in chat.
+--   whole payload : IYCFG1!<origLen>!<hash>!<base64>
+--   one chunk     : IYCFG1/<i>/<n>/<origLen>/<hash>/<base64 slice>
+-- This client's executor exposes a write-only clipboard (setclipboard /
+-- toclipboard; no reader at any level), so export copies out and import is a
+-- paste into the window's box, or a profile file in iy_profiles/.
+--
+-- Commands: cfg / iyconfig / iyconfigexporter [export|import|list] [name]
+
+local env = (getfenv and getfenv(1)) or _G
+local function api(name)
+	local v = env[name]
+	if v == nil then
+		v = _G[name]
+	end
+	return v
+end
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+
+-- A plugin runs in a sandbox table, so `env.foo = x` may only change the copy
+-- that plugin sees. IY's real tables are mutated in place, and plain globals go
+-- through globalWrite so the running IY (and its UI) actually sees them.
+local realEnv = (function()
+	local g = api("getgenv")
+	if type(g) == "function" then
+		local ok, r = pcall(g)
+		if ok and type(r) == "table" then
+			return r
+		end
+	end
+	return nil
+end)()
+
+local function globalWrite(name, value)
+	if realEnv then
+		realEnv[name] = value
+	end
+	pcall(function()
+		_G[name] = value
+	end)
+	env[name] = value
+end
+
+local listfiles = api("listfiles")
+local readfile = api("readfile")
+local writefile = api("writefile")
+local delfile = api("delfile")
+local makefolder = api("makefolder")
+local isfileFn = api("isfile")
+local setclipboardFn = api("setclipboard") or api("toclipboard")
+local lz4compress = api("lz4compress")
+local lz4decompress = api("lz4decompress")
+local base64encode = api("base64encode") or api("base64_encode")
+local base64decode = api("base64decode") or api("base64_decode")
+local addPluginFn = api("addPlugin")
+local deletePluginFn = api("deletePlugin")
+local execCmdFn = api("execCmd")
+local notifyFn = api("notify")
+
+local PROFILE_DIR = "iy_profiles"
+local SELF_FILE = "iy_config_exporter.iy"
+local CHUNK = 1800
+local MAGIC = "IYCFG1"
+local PLUGIN_MAX = 524288
+local DATA_PATTERNS = { "^iy_.*%.json$", "^iy_.*%.txt$" }
+
+local SECTION_NAMES = {
+	"settings", "keybinds", "aliases", "events", "waypoints", "plugins", "plugindata", "registry",
+}
+
+local COL_PANEL = Color3.fromRGB(36, 36, 37)
+local COL_ROW = Color3.fromRGB(46, 46, 47)
+local COL_SELECT = Color3.fromRGB(78, 78, 79)
+local COL_TEXT = Color3.fromRGB(255, 255, 255)
+local COL_DIM = Color3.fromRGB(190, 190, 190)
+local COL_GOOD = Color3.fromRGB(120, 210, 140)
+local COL_BAD = Color3.fromRGB(230, 120, 120)
+local ACCENT = Color3.fromRGB(58, 110, 190)
+local ACCENT_HOVER = Color3.fromRGB(74, 132, 216)
+local FONT = Enum.Font.SourceSans
+
+local state = {
+	gui = nil,
+	refs = nil,
+	conns = {},
+	tab = "export",
+	parts = {},
+	staged = nil,
+	stagedInfo = nil,
+	payloadBase64 = nil,
+	payloadParts = {},
+	partIndex = 1,
+	profiles = {},
+	removeExtras = false,
+	lastStatus = "",
+}
+
+local function say(title, text)
+	if notifyFn then
+		pcall(notifyFn, title, text)
+	end
+end
+
+local function track(conn)
+	if conn then
+		state.conns[#state.conns + 1] = conn
+	end
+	return conn
+end
+
+local function trace(msg)
+	state.lastStatus = tostring(msg)
+	local refs = state.refs
+	if refs and refs.status then
+		refs.status.Text = tostring(msg)
+	end
+end
+
+-- Settings are read from IY's live globals and written through IY's own
+-- commands / UI. IY's defaultsettings table is a partially synced container of
+-- defaults (it still held values an earlier probe wrote while the live prefix
+-- differed), so it is never exported or written wholesale: doing that once
+-- flipped keep_on_teleport from true to false.
+local SETTINGS_SPEC = {
+	{ key = "prefix", mode = "prefix" },
+	{ key = "espTransparency", cmd = "esptransparency %s" },
+	{ key = "guiScale", cmd = "guiscale %s" },
+	-- keep-on-teleport has no global of its own: it lives in IY's defaults
+	-- container and is set through IY's keepiy commands
+	{ key = "keepIY", on = "keepiy", off = "unkeepiy", defaults = true },
+	{ key = "logsEnabled", toggle = "chatlogs" },
+	{ key = "jLogsEnabled", toggle = "joinlogs" },
+	{ key = "logsWebhook", cmd = "chatlogswebhook %s", allowEmpty = true },
+	{ key = "StayOpen", direct = true },
+	{ key = "Clip", direct = true },
+	{ key = "currentShade1", defaults = true, theme = true },
+	{ key = "currentShade2", defaults = true, theme = true },
+	{ key = "currentShade3", defaults = true, theme = true },
+	{ key = "currentText1", defaults = true, theme = true },
+	{ key = "currentText2", defaults = true, theme = true },
+}
+
+local function encodable(v)
+	local t = type(v)
+	return t == "string" or t == "number" or t == "boolean" or t == "table"
+end
+
+local function deepCopy(v, depth)
+	if not encodable(v) then
+		return nil
+	end
+	if type(v) ~= "table" then
+		return v
+	end
+	depth = (depth or 0) + 1
+	if depth > 6 then
+		return nil
+	end
+	local out = {}
+	for k, val in pairs(v) do
+		if encodable(k) then
+			local copied = deepCopy(val, depth)
+			if copied ~= nil then
+				out[k] = copied
+			end
+		end
+	end
+	return out
+end
+
+local function refillTable(target, source)
+	if type(target) ~= "table" then
+		return false
+	end
+	for k in pairs(target) do
+		target[k] = nil
+	end
+	for k, v in pairs(source or {}) do
+		target[k] = deepCopy(v)
+	end
+	return true
+end
+
+-- a few values only exist inside IY's defaults container (read/written by key,
+-- never wholesale - see the note above SETTINGS_SPEC)
+local function readDefaultsKey(key)
+	local store = env.defaultsettings
+	if type(store) == "table" then
+		return store[key]
+	end
+	return nil
+end
+
+local function writeDefaultsKey(key, value)
+	local store = env.defaultsettings
+	if type(store) ~= "table" then
+		return false
+	end
+	local existing = store[key]
+	if type(existing) == "table" and type(value) == "table" then
+		for k in pairs(existing) do
+			existing[k] = nil
+		end
+		for k, v in pairs(value) do
+			existing[k] = v
+		end
+	else
+		store[key] = value
+	end
+	return true
+end
+
+local function hash32(s)
+	local h = 5381
+	for i = 1, #s do
+		h = (h * 33 + s:byte(i)) % 4294967296
+	end
+	return math.floor(h)
+end
+
+local function count(t)
+	local n = 0
+	if type(t) == "table" then
+		for _ in pairs(t) do
+			n = n + 1
+		end
+	end
+	return n
+end
+
+local function isFolder(p)
+	local fn = api("isfolder")
+	if fn then
+		local ok, res = pcall(fn, p)
+		return ok and res == true
+	end
+	return false
+end
+
+local function fileExists(p)
+	if isfileFn then
+		local ok, res = pcall(isfileFn, p)
+		if ok and res then
+			return true
+		end
+	end
+	local ok, content = pcall(readfile, p)
+	return ok and content ~= nil
+end
+
+local function matchesDataFile(name)
+	for _, pat in ipairs(DATA_PATTERNS) do
+		if name:match(pat) then
+			return true
+		end
+	end
+	return false
+end
+
+local function currentPlaceId()
+	local ok, id = pcall(function()
+		return game.PlaceId
+	end)
+	return ok and id or 0
+end
+
+-- ---------------------------------------------------------------- collecting
+
+local function collectSettings()
+	local settings = {}
+	for _, spec in ipairs(SETTINGS_SPEC) do
+		local v = spec.defaults and readDefaultsKey(spec.key) or env[spec.key]
+		if v ~= nil and encodable(v) then
+			local copied = deepCopy(v)
+			if copied ~= nil then
+				settings[spec.key] = copied
+			end
+		end
+	end
+	return settings
+end
+
+local function collectKeybinds()
+	local out = {}
+	local binds = env.binds
+	if type(binds) == "table" then
+		for _, entry in ipairs(binds) do
+			if type(entry) == "table" then
+				out[#out + 1] = {
+					KEY = tostring(entry.KEY),
+					ISKEYUP = entry.ISKEYUP == true,
+					COMMAND = tostring(entry.COMMAND or ""),
+					TOGGLE = entry.TOGGLE ~= nil and tostring(entry.TOGGLE) or nil,
+				}
+			end
+		end
+	end
+	return out
+end
+
+local function collectAliases()
+	return {
+		aliases = deepCopy(env.aliases) or {},
+		customAlias = deepCopy(env.customAlias) or {},
+	}
+end
+
+local function collectEvents()
+	local ee = env.eventEditor
+	if type(ee) == "table" and type(ee.SaveData) == "function" then
+		local ok, json = pcall(ee.SaveData)
+		if ok and type(json) == "string" then
+			return { json = json }
+		end
+	end
+	return { json = nil }
+end
+
+local function collectWaypoints()
+	return {
+		placeId = currentPlaceId(),
+		WayPoints = deepCopy(env.WayPoints) or {},
+		pWayPoints = deepCopy(env.pWayPoints) or {},
+		AllWaypoints = deepCopy(env.AllWaypoints) or {},
+	}
+end
+
+local function collectPlugins()
+	local files, skipped = {}, {}
+	local registry = {}
+	local reg = env.PluginsTable
+	if type(reg) == "table" then
+		for _, v in ipairs(reg) do
+			registry[#registry + 1] = tostring(v)
+		end
+	end
+	for _, raw in ipairs(listfiles("") or {}) do
+		local name = tostring(raw):match("([^/\\]+)$") or tostring(raw)
+		if name:lower():sub(-3) == ".iy" then
+			local ok, content = pcall(readfile, name)
+			if ok and type(content) == "string" then
+				if #content <= PLUGIN_MAX then
+					files[name] = content
+				else
+					skipped[#skipped + 1] = name .. " (too large)"
+				end
+			else
+				skipped[#skipped + 1] = name .. " (unreadable)"
+			end
+		end
+	end
+	return { files = files, registry = registry, skipped = skipped }
+end
+
+local function collectPluginData()
+	local data = {}
+	for _, raw in ipairs(listfiles("") or {}) do
+		local name = tostring(raw):match("([^/\\]+)$") or tostring(raw)
+		if matchesDataFile(name) then
+			local ok, content = pcall(readfile, name)
+			if ok and type(content) == "string" and #content <= PLUGIN_MAX then
+				data[name] = content
+			end
+		end
+	end
+	return data
+end
+
+local function collect(sections)
+	local wanted = sections
+	if type(wanted) ~= "table" then
+		wanted = {}
+		for _, name in ipairs(SECTION_NAMES) do
+			wanted[name] = true
+		end
+	end
+	local payload = {
+		format = MAGIC,
+		version = 1,
+		generated = os.date("!%Y-%m-%dT%H:%M:%SZ"),
+		placeId = currentPlaceId(),
+		iyVersion = tostring(env.currentVersion or ""),
+		player = Players.LocalPlayer and Players.LocalPlayer.Name or nil,
+		sections = {},
+	}
+	for _, name in ipairs(SECTION_NAMES) do
+		if wanted[name] then
+			payload.sections[name] = true
+		end
+	end
+	if wanted.settings then
+		payload.settings = collectSettings()
+	end
+	if wanted.keybinds then
+		payload.keybinds = collectKeybinds()
+	end
+	if wanted.aliases then
+		payload.aliases = collectAliases()
+	end
+	if wanted.events then
+		payload.events = collectEvents()
+	end
+	if wanted.waypoints then
+		payload.waypoints = collectWaypoints()
+	end
+	if wanted.plugins or wanted.registry then
+		local p = collectPlugins()
+		if wanted.plugins then
+			payload.plugins = p.files
+		end
+		if wanted.registry then
+			payload.registry = p.registry
+		end
+		payload.pluginSkipped = p.skipped
+	end
+	if wanted.plugindata then
+		payload.plugindata = collectPluginData()
+	end
+	return payload
+end
+
+-- ---------------------------------------------------------------- transport
+
+local function encodePayload(payload)
+	local ok, json = pcall(function()
+		return HttpService:JSONEncode(payload)
+	end)
+	if not ok or type(json) ~= "string" then
+		return nil, "json encode failed: " .. tostring(json)
+	end
+	local body, compressed, lz4Bytes = json, false, nil
+	if lz4compress and base64encode then
+		local okc, comp = pcall(lz4compress, json)
+		if okc and type(comp) == "string" and #comp < #json then
+			body, compressed, lz4Bytes = comp, true, #comp
+		end
+	end
+	local okb, b64 = pcall(base64encode, body)
+	if not okb or type(b64) ~= "string" then
+		return nil, "base64 encode failed: " .. tostring(b64)
+	end
+	return {
+		base64 = b64,
+		origLen = compressed and #json or 0,
+		compressed = compressed,
+		jsonBytes = #json,
+		lz4Bytes = lz4Bytes,
+		b64Bytes = #b64,
+		hash = hash32(b64),
+	}
+end
+
+local function decodePayload(b64, origLen)
+	local ok, body = pcall(base64decode, b64)
+	if not ok or type(body) ~= "string" then
+		return nil, "base64 decode failed"
+	end
+	local json = body
+	if origLen and origLen > 0 then
+		if not lz4decompress then
+			return nil, "payload is compressed but lz4decompress is unavailable"
+		end
+		local ok2, plain = pcall(lz4decompress, body, origLen)
+		if not ok2 or type(plain) ~= "string" then
+			return nil, "lz4 decompress failed: " .. tostring(plain)
+		end
+		json = plain
+	end
+	local ok3, data = pcall(function()
+		return HttpService:JSONDecode(json)
+	end)
+	if not ok3 or type(data) ~= "table" then
+		return nil, "json decode failed: " .. tostring(data)
+	end
+	return data
+end
+
+local function wholeBlob(enc)
+	return string.format("%s!%d!%d!%s", MAGIC, enc.origLen or 0, enc.hash, enc.base64)
+end
+
+local function chunkList(enc)
+	local list = {}
+	for i = 1, #enc.base64, CHUNK do
+		list[#list + 1] = enc.base64:sub(i, i + CHUNK - 1)
+	end
+	if #list == 0 then
+		list[1] = ""
+	end
+	return list
+end
+
+local function chunkText(enc, index, total)
+	local list = chunkList(enc)
+	local data = list[index] or ""
+	return string.format("%s/%d/%d/%d/%d/%s", MAGIC, index, #list, enc.origLen or 0, enc.hash, data)
+end
+
+local function parsePaste(text)
+	text = tostring(text or ""):gsub("^%s+", ""):gsub("%s+$", "")
+	if text == "" then
+		return nil, "nothing pasted"
+	end
+	local ol, hs, b64 = text:match("^" .. MAGIC .. "!(%d+)!(%d+)!(.*)$")
+	if ol then
+		return { kind = "whole", origLen = tonumber(ol), hash = tonumber(hs), base64 = b64 }
+	end
+	local i, n, ol2, hs2, data = text:match("^" .. MAGIC .. "/(%d+)/(%d+)/(%d+)/(%d+)/(.*)$")
+	if i then
+		return {
+			kind = "chunk",
+			index = tonumber(i),
+			total = tonumber(n),
+			origLen = tonumber(ol2),
+			hash = tonumber(hs2),
+			data = data,
+		}
+	end
+	return nil, "not an IY config payload"
+end
+
+-- stage a paste into state.staged; returns true, message
+local function stagePaste(text)
+	local parsed, err = parsePaste(text)
+	if not parsed then
+		return false, err
+	end
+	if parsed.kind == "whole" then
+		local computed = hash32(parsed.base64)
+		if parsed.hash ~= 0 and computed ~= parsed.hash then
+			return false, "checksum mismatch - the paste was truncated or altered"
+		end
+		state.staged = { base64 = parsed.base64, origLen = parsed.origLen, hash = computed }
+		state.parts = {}
+		return true, string.format("whole payload staged (%d chars)", #parsed.base64)
+	end
+
+	if parsed.index == 1 then
+		state.parts = {}
+	end
+	state.partTotal = parsed.total
+	state.partOrigLen = parsed.origLen
+	state.partHash = parsed.hash
+	state.parts[parsed.index] = parsed.data
+
+	local have = 0
+	for _ in pairs(state.parts) do
+		have += 1
+	end
+	if have < parsed.total then
+		return false, string.format("part %d/%d received - paste the next part", parsed.index, parsed.total)
+	end
+	local joined = {}
+	for i = 1, parsed.total do
+		if not state.parts[i] then
+			return false, string.format("part %d is missing", i)
+		end
+		joined[i] = state.parts[i]
+	end
+	local base64 = table.concat(joined)
+	local computed = hash32(base64)
+	if computed ~= parsed.hash then
+		state.parts = {}
+		return false, "checksum mismatch - parts are incomplete or from another export"
+	end
+	state.staged = { base64 = base64, origLen = parsed.origLen, hash = computed }
+	state.parts = {}
+	return true, string.format("all %d parts assembled (%d chars)", parsed.total, #base64)
+end
+
+local function stagedPayload()
+	if not state.staged then
+		return nil, "nothing staged"
+	end
+	local ok, data = pcall(function()
+		return decodePayload(state.staged.base64, state.staged.origLen)
+	end)
+	if not ok or type(data) ~= "table" then
+		return nil, "decode failed: " .. tostring(data)
+	end
+	if data.format ~= MAGIC then
+		return nil, "payload format is " .. tostring(data.format)
+	end
+	return data
+end
+
+-- ---------------------------------------------------------------- profiles
+
+local function profilePath(name)
+	return PROFILE_DIR .. "/" .. name .. ".iycfg"
+end
+
+local function ensureProfileDir()
+	if not isFolder(PROFILE_DIR) and makefolder then
+		pcall(makefolder, PROFILE_DIR)
+	end
+end
+
+local function listProfiles()
+	ensureProfileDir()
+	local out = {}
+	for _, raw in ipairs(listfiles(PROFILE_DIR) or {}) do
+		local name = tostring(raw):match("([^/\\]+)$") or tostring(raw)
+		if name:lower():sub(-6) == ".iycfg" then
+			local ok, content = pcall(readfile, PROFILE_DIR .. "/" .. name)
+			out[#out + 1] = {
+				name = name,
+				file = PROFILE_DIR .. "/" .. name,
+				bytes = ok and #content or 0,
+			}
+		end
+	end
+	table.sort(out, function(a, b)
+		return a.name:lower() < b.name:lower()
+	end)
+	state.profiles = out
+	return out
+end
+
+local function saveProfile(name, enc)
+	ensureProfileDir()
+	local path = profilePath(name)
+	local ok, err = pcall(writefile, path, wholeBlob(enc))
+	if not ok then
+		return nil, tostring(err)
+	end
+	local okRead, back = pcall(readfile, path)
+	if not okRead or type(back) ~= "string" or #back == 0 then
+		return nil, "profile write could not be verified"
+	end
+	return path, string.format("%s (%d bytes)", path, #back)
+end
+
+local function loadProfile(name)
+	local path = profilePath(name)
+	local ok, content = pcall(readfile, path)
+	if not ok or type(content) ~= "string" then
+		return false, "cannot read " .. path
+	end
+	local okStage, msg = stagePaste(content)
+	if not okStage then
+		return false, msg
+	end
+	return true, msg
+end
+
+-- ---------------------------------------------------------------- preview
+
+local function shortValue(v)
+	if type(v) == "table" then
+		return "{" .. tostring(count(v)) .. "}"
+	end
+	return tostring(v)
+end
+
+local function previewPayload(data)
+	local lines = {}
+	lines[#lines + 1] = string.format("payload: %s v%s, exported %s", tostring(data.format), tostring(data.version), tostring(data.generated or "?"))
+	lines[#lines + 1] = string.format("from place %s by %s%s", tostring(data.placeId or "?"), tostring(data.player or "?"), (data.iyVersion ~= "" and data.iyVersion) and (" on IY " .. data.iyVersion) or "")
+
+	if data.settings then
+		local changed, same = {}, 0
+		local current = collectSettings()
+		for k, v in pairs(data.settings) do
+			local cur = current[k]
+			if cur == nil then
+				changed[#changed + 1] = string.format("%s -> %s (new)", k, shortValue(v))
+			elseif type(cur) ~= type(v) or (type(v) ~= "table" and cur ~= v) then
+				changed[#changed + 1] = string.format("%s: %s -> %s", k, shortValue(cur), shortValue(v))
+			elseif type(v) == "table" then
+				local sameTable = true
+				for kk, vv in pairs(v) do
+					if cur[kk] ~= vv then
+						sameTable = false
+					end
+				end
+				if sameTable then
+					same += 1
+				else
+					changed[#changed + 1] = string.format("%s: colours/values differ", k)
+				end
+			else
+				same += 1
+			end
+		end
+		table.sort(changed)
+		lines[#lines + 1] = string.format("settings: %d to change, %d already match", #changed, same)
+		for i = 1, math.min(#changed, 6) do
+			lines[#lines + 1] = "  " .. changed[i]
+		end
+	end
+
+	if data.keybinds then
+		local cur = collectKeybinds()
+		lines[#lines + 1] = string.format("keybinds: %d now, %d in payload", #cur, #data.keybinds)
+		for i = 1, math.min(#data.keybinds, 4) do
+			local b = data.keybinds[i]
+			lines[#lines + 1] = string.format("  %s -> %s%s", tostring(b.KEY), tostring(b.COMMAND), b.ISKEYUP and " (on release)" or "")
+		end
+	end
+
+	if data.aliases then
+		local curA = count(env.aliases)
+		local curC = count(env.customAlias)
+		local newA = count(data.aliases.aliases)
+		local newC = count(data.aliases.customAlias)
+		lines[#lines + 1] = string.format("aliases: %d + %d custom now, %d + %d custom in payload", curA, curC, newA, newC)
+	end
+
+	if data.events then
+		local groups = 0
+		if data.events.json then
+			local ok, decoded = pcall(function()
+				return HttpService:JSONDecode(data.events.json)
+			end)
+			if ok and type(decoded) == "table" then
+				for _, list in pairs(decoded) do
+					if type(list) == "table" and #list > 0 then
+						groups += 1
+					end
+				end
+			end
+		end
+		lines[#lines + 1] = string.format("event binds: %d group(s) with entries", groups)
+	end
+
+	if data.waypoints then
+		local wp = count(data.waypoints.WayPoints)
+		local pwp = count(data.waypoints.pWayPoints)
+		lines[#lines + 1] = string.format("waypoints: %d global, %d for place %s", wp, pwp, tostring(data.waypoints.placeId))
+		if data.waypoints.placeId ~= currentPlaceId() then
+			lines[#lines + 1] = "  this-place waypoints will be skipped (payload is from another place)"
+		end
+	end
+
+	if data.plugins then
+		local after, new, same = 0, 0, 0
+		for name, src in pairs(data.plugins) do
+			after += 1
+			local ok, cur = pcall(readfile, name)
+			if not ok or type(cur) ~= "string" then
+				new += 1
+			elseif cur ~= src then
+				after = after
+			else
+				same += 1
+			end
+		end
+		local changedCount = 0
+		for name, src in pairs(data.plugins) do
+			local ok, cur = pcall(readfile, name)
+			if ok and type(cur) == "string" and cur ~= src then
+				changedCount += 1
+			end
+		end
+		lines[#lines + 1] = string.format("plugins: %d files in payload (%d new, %d overwrite, %d identical)", after, new, changedCount, same)
+		for name in pairs(data.plugins) do
+			if name == SELF_FILE then
+				lines[#lines + 1] = "  " .. name .. " is this plugin - it will be written but not auto-reloaded"
+			end
+		end
+		if data.pluginSkipped and #data.pluginSkipped > 0 then
+			lines[#lines + 1] = "  skipped: " .. table.concat(data.pluginSkipped, ", ")
+		end
+	end
+
+	if data.registry then
+		lines[#lines + 1] = string.format("registry: %d plugin file(s) were loaded", #data.registry)
+	end
+
+	if data.plugindata then
+		lines[#lines + 1] = string.format("plugin data files: %d (%s)", count(data.plugindata), table.concat((function()
+			local names = {}
+			for name in pairs(data.plugindata) do
+				names[#names + 1] = name
+			end
+			table.sort(names)
+			return names
+		end)(), ", "))
+	end
+
+	return lines
+end
+
+-- ---------------------------------------------------------------- apply
+
+local function keyCodeFrom(value)
+	if typeof(value) == "EnumItem" then
+		return value
+	end
+	local name = tostring(value or "")
+	name = name:match("KeyCode%.([%w_]+)$") or name
+	local ok, item = pcall(function()
+		return Enum.KeyCode[name]
+	end)
+	if ok and item then
+		return item
+	end
+	return nil
+end
+
+-- Settings must go through IY's own setters. Writing the globals directly is
+-- not enough: IY's saves() re-applies its own stored snapshot over them
+-- (verified: write "§" to the prefix, call saves(), value snaps back), so a
+-- direct write only appears to apply until IY next saves.
+local SETTING_COMMANDS = {
+	espTransparency = { cmd = "esptransparency %s" },
+	guiScale = { cmd = "guiscale %s" },
+	logsWebhook = { cmd = "chatlogswebhook %s", allowEmpty = true },
+	StayOpen = { on = "keepiy", off = "unkeepiy" },
+	logsEnabled = { toggle = "chatlogs" },
+	jLogsEnabled = { toggle = "joinlogs" },
+}
+
+local function applySettings(settings, report)
+	local execCmd = api("execCmd")
+	local viaIy, direct, theme = 0, 0, 0
+
+	local function run(cmd)
+		if execCmd then
+			pcall(execCmd, cmd)
+		end
+	end
+
+	local function writeGlobal(key, value)
+		globalWrite(key, value)
+		direct += 1
+	end
+
+	for _, spec in ipairs(SETTINGS_SPEC) do
+		local want = settings[spec.key]
+		if want ~= nil then
+			if spec.mode == "prefix" then
+				if type(want) == "string" and want ~= "" then
+					local box = env.PrefixBox
+					if box and box.Text ~= nil then
+						box.Text = want
+						viaIy += 1
+					else
+						writeGlobal("prefix", want)
+					end
+				end
+			elseif spec.cmd then
+				if want == "" and not spec.allowEmpty then
+					writeGlobal(spec.key, want)
+				else
+					run(string.format(spec.cmd, tostring(want)))
+					viaIy += 1
+				end
+			elseif spec.toggle then
+				if env[spec.key] ~= want then
+					run(spec.toggle)
+					viaIy += 1
+				end
+			elseif spec.on then
+				run(want and spec.on or spec.off)
+				if spec.defaults then
+					writeDefaultsKey(spec.key, want)
+				end
+				viaIy += 1
+			elseif spec.direct then
+				writeGlobal(spec.key, deepCopy(want))
+				direct += 1
+			elseif spec.defaults then
+				if writeDefaultsKey(spec.key, deepCopy(want)) then
+					direct += 1
+				end
+				if spec.theme then
+					theme += 1
+				end
+			end
+		end
+	end
+
+	report[#report + 1] = string.format(
+		"settings: %d applied through IY, %d written directly (%d theme values)",
+		viaIy, direct, theme
+	)
+end
+
+local function applyKeybinds(binds, report)
+	local target = env.binds
+	if type(target) ~= "table" then
+		target = {}
+		globalWrite("binds", target)
+	end
+	for i = #target, 1, -1 do
+		target[i] = nil
+	end
+	local applied = 0
+	for _, entry in ipairs(binds) do
+		local key = keyCodeFrom(entry.KEY)
+		if key then
+			local item = {
+				KEY = key,
+				ISKEYUP = entry.ISKEYUP == true,
+				COMMAND = tostring(entry.COMMAND or ""),
+			}
+			if entry.TOGGLE then
+				item.TOGGLE = tostring(entry.TOGGLE)
+			end
+			target[#target + 1] = item
+			applied += 1
+		end
+	end
+	if type(api("refreshbinds")) == "function" then
+		pcall(api("refreshbinds"))
+	end
+	report[#report + 1] = string.format("keybinds: %d of %d applied", applied, #binds)
+end
+
+local function applyAliases(aliases, report)
+	local a = env.aliases
+	if type(a) ~= "table" then
+		a = {}
+		globalWrite("aliases", a)
+	end
+	refillTable(a, aliases.aliases)
+	local c = env.customAlias
+	if type(c) ~= "table" then
+		c = {}
+		globalWrite("customAlias", c)
+	end
+	refillTable(c, aliases.customAlias)
+	if type(api("refreshaliases")) == "function" then
+		pcall(api("refreshaliases"))
+	end
+	report[#report + 1] = string.format("aliases: %d + %d custom applied", count(a), count(c))
+end
+
+local function applyEvents(events, report)
+	if not events.json then
+		report[#report + 1] = "event binds: payload had none"
+		return
+	end
+	local ee = env.eventEditor
+	if type(ee) ~= "table" or type(ee.LoadData) ~= "function" then
+		report[#report + 1] = "event binds: IY's editor is not available"
+		return
+	end
+	local ok, err = pcall(ee.LoadData, events.json)
+	if not ok then
+		report[#report + 1] = "event binds: failed (" .. tostring(err) .. ")"
+		return
+	end
+	if type(ee.Refresh) == "function" then
+		pcall(ee.Refresh)
+	end
+	report[#report + 1] = "event binds: restored"
+end
+
+local function applyWaypoints(waypoints, report)
+	if type(env.WayPoints) ~= "table" then
+		globalWrite("WayPoints", {})
+	end
+	refillTable(env.WayPoints, waypoints.WayPoints)
+	local samePlace = tostring(waypoints.placeId) == tostring(currentPlaceId())
+	if samePlace then
+		if type(env.pWayPoints) ~= "table" then
+			globalWrite("pWayPoints", {})
+		end
+		refillTable(env.pWayPoints, waypoints.pWayPoints)
+	end
+	if type(api("refreshwaypoints")) == "function" then
+		pcall(api("refreshwaypoints"))
+	end
+	report[#report + 1] = string.format("waypoints: %d global%s", count(env.WayPoints), samePlace and (" + " .. count(env.pWayPoints) .. " for this place") or " (this-place ones skipped, different place)")
+end
+
+local function applyPluginData(data, report)
+	local written, failed = 0, 0
+	for name, content in pairs(data) do
+		local ok = pcall(writefile, name, content)
+		if ok then
+			local okRead, back = pcall(readfile, name)
+			if okRead and back == content then
+				written += 1
+			else
+				failed += 1
+			end
+		else
+			failed += 1
+		end
+	end
+	report[#report + 1] = string.format("plugin data: %d file(s) written%s", written, failed > 0 and (", " .. failed .. " failed") or "")
+end
+
+local function applyPlugins(data, report)
+	local written, same, failed = 0, 0, 0
+	local writtenFiles = {}
+	for name, content in pairs(data.plugins or {}) do
+		local ok, cur = pcall(readfile, name)
+		if ok and cur == content then
+			same += 1
+			writtenFiles[#writtenFiles + 1] = name
+		else
+			local okw = pcall(writefile, name, content)
+			local okRead, back = pcall(readfile, name)
+			if okw and okRead and back == content then
+				written += 1
+				writtenFiles[#writtenFiles + 1] = name
+			else
+				failed += 1
+			end
+		end
+	end
+	report[#report + 1] = string.format("plugins: %d written, %d already identical%s", written, same, failed > 0 and (", " .. failed .. " failed") or "")
+
+	if state.removeExtras then
+		local keep = {}
+		for name in pairs(data.plugins or {}) do
+			keep[name:lower()] = true
+		end
+		local removed = 0
+		for _, raw in ipairs(listfiles("") or {}) do
+			local name = tostring(raw):match("([^/\\]+)$") or tostring(raw)
+			if name:lower():sub(-3) == ".iy" and name ~= SELF_FILE and not keep[name:lower()] then
+				if deletePluginFn then
+					pcall(deletePluginFn, (name:gsub("%.iy$", "")))
+				end
+				pcall(delfile, name)
+				if not fileExists(name) then
+					removed += 1
+				end
+			end
+		end
+		report[#report + 1] = string.format("plugins: %d local file(s) removed (not in profile)", removed)
+	end
+
+	local registered, reloaded, selfSkipped = 0, 0, false
+	if addPluginFn then
+		for _, name in ipairs(data.registry or {}) do
+			if fileExists(name) then
+				if name == SELF_FILE then
+					selfSkipped = true
+				else
+					pcall(addPluginFn, name)
+					registered += 1
+					if execCmdFn then
+						pcall(execCmdFn, "reloadplugin " .. (name:gsub("%.iy$", "")))
+						reloaded += 1
+					end
+				end
+			end
+		end
+	end
+	report[#report + 1] = string.format("registry: %d plugin(s) registered/loaded", registered)
+	if selfSkipped then
+		report[#report + 1] = SELF_FILE .. ": file restored, but this plugin must be reloaded by hand (reloadplugin iy_config_exporter)"
+	end
+end
+
+local function applyPayload(data)
+	local report = {}
+	-- plugins and their data files first: loading a plugin can touch IY's state,
+	-- so the config sections are applied afterwards and win
+	if data.plugindata then
+		applyPluginData(data.plugindata, report)
+	end
+	if data.plugins or data.registry then
+		applyPlugins(data, report)
+	end
+	if data.settings then
+		applySettings(data.settings, report)
+	end
+	if data.aliases then
+		applyAliases(data.aliases, report)
+	end
+	if data.keybinds then
+		applyKeybinds(data.keybinds, report)
+	end
+	if data.events then
+		applyEvents(data.events, report)
+	end
+	if data.waypoints then
+		applyWaypoints(data.waypoints, report)
+	end
+	return report
+end
+
+local function autoBackup()
+	local payload = collect(nil)
+	local enc, err = encodePayload(payload)
+	if not enc then
+		return nil, err
+	end
+	local name = "auto-backup-" .. os.date("!%Y%m%d-%H%M%S")
+	return saveProfile(name, enc)
+end
+
+-- ---------------------------------------------------------------- window
+
+local function new(class, props, parent)
+	local inst = Instance.new(class)
+	for k, v in pairs(props) do
+		if v ~= nil then
+			inst[k] = v
+		end
+	end
+	if parent then
+		inst.Parent = parent
+	end
+	return inst
+end
+
+local function reportFile(lines)
+	local ok = pcall(writefile, "iycfg_last.txt", table.concat(lines, "\n"))
+	return ok
+end
+
+local function publishReport(title, lines)
+	reportFile(lines)
+	if #lines > 0 then
+		say(title, lines[1])
+	end
+	for _, l in ipairs(lines) do
+		print("[iycfg] " .. l)
+	end
+end
+
+local function setStatus(text, good)
+	local refs = state.refs
+	if refs and refs.status then
+		refs.status.Text = text
+		refs.status.TextColor3 = good == false and COL_BAD or (good == true and COL_GOOD or COL_DIM)
+	end
+end
+
+local function closeWindow()
+	for _, conn in ipairs(state.conns) do
+		pcall(function()
+			conn:Disconnect()
+		end)
+	end
+	state.conns = {}
+	if state.gui then
+		state.gui:Destroy()
+	end
+	state.gui, state.refs = nil, nil
+end
+
+local function doExport(name)
+	local payload = collect(state.sections)
+	local enc, err = encodePayload(payload)
+	if not enc then
+		setStatus("export failed: " .. tostring(err), false)
+		return nil
+	end
+
+	local lines = {}
+	lines[#lines + 1] = string.format("exported %s", tostring(name or "payload"))
+	lines[#lines + 1] = string.format("json %d bytes -> lz4 %s -> base64 %d chars", enc.jsonBytes, enc.lz4Bytes and (enc.lz4Bytes .. " bytes") or "(not compressed)", enc.b64Bytes)
+	lines[#lines + 1] = string.format("keybinds %d, plugins %d, plugin data %d, aliases %d + %d",
+		#(payload.keybinds or {}), count(payload.plugins), count(payload.plugindata),
+		count(payload.aliases and payload.aliases.aliases), count(payload.aliases and payload.aliases.customAlias))
+
+	local savedPath, savedMsg = nil, nil
+	if name and name ~= "" then
+		savedPath, savedMsg = saveProfile(name, enc)
+		if not savedPath then
+			lines[#lines + 1] = "profile save failed: " .. tostring(savedMsg)
+		else
+			lines[#lines + 1] = "profile saved: " .. savedMsg
+		end
+	end
+
+	local blob = wholeBlob(enc)
+	local parts = chunkList(enc)
+	local copied
+	if #blob <= 20000 or #parts == 1 then
+		copied = string.format("whole payload (%d chars) copied to clipboard", #blob)
+		if setclipboardFn then
+			pcall(setclipboardFn, blob)
+		else
+			copied = "setclipboard unavailable"
+		end
+	else
+		copied = string.format("%d parts; part 1/%d copied to clipboard", #parts, #parts)
+		if setclipboardFn then
+			pcall(setclipboardFn, chunkText(enc, 1, #parts))
+		end
+	end
+	lines[#lines + 1] = copied
+	lines[#lines + 1] = "import: paste into the window's box, or use the profile file"
+
+	publishReport("IY Config Exporter", lines)
+	setStatus(lines[#lines - 1], true)
+	return enc
+end
+
+local function doStage(text)
+	local ok, msg = stagePaste(text)
+	setStatus(msg, ok)
+	if ok then
+		local refs = state.refs
+		if refs and refs.preview then
+			local data, derr = stagedPayload()
+			if data then
+				refs.preview.Text = table.concat(previewPayload(data), "\n")
+			else
+				refs.preview.Text = "staged, but " .. tostring(derr)
+			end
+		end
+	end
+	return ok, msg
+end
+
+local function doApply()
+	local data, err = stagedPayload()
+	if not data then
+		setStatus("nothing staged: " .. tostring(err), false)
+		return
+	end
+	local backupPath, backupMsg = autoBackup()
+	local lines = {}
+	lines[#lines + 1] = "applying payload exported " .. tostring(data.generated)
+	if backupPath then
+		lines[#lines + 1] = "backup written: " .. tostring(backupPath)
+	else
+		lines[#lines + 1] = "backup FAILED: " .. tostring(backupMsg)
+	end
+	for _, line in ipairs(applyPayload(data)) do
+		lines[#lines + 1] = line
+	end
+	publishReport("IY Config Exporter", lines)
+	setStatus(lines[#lines], true)
+	listProfiles()
+	local refs = state.refs
+	if refs and refs.refreshProfiles then
+		refs.refreshProfiles()
+	end
+end
+
+local function openWindow()
+	if state.gui then
+		return
+	end
+
+	local parent
+	local gethuiFn = api("gethui")
+	if gethuiFn then
+		local ok, hui = pcall(gethuiFn)
+		if ok and typeof(hui) == "Instance" then
+			parent = hui
+		end
+	end
+	if not parent then
+		local ok, cg = pcall(function()
+			return game:GetService("CoreGui")
+		end)
+		if ok and typeof(cg) == "Instance" then
+			parent = cg
+		end
+	end
+	if not parent and Players.LocalPlayer then
+		parent = Players.LocalPlayer:FindFirstChild("PlayerGui")
+	end
+	if not parent then
+		say("IY Config Exporter", "no GUI parent available")
+		return
+	end
+
+	local camera = workspace.CurrentCamera
+	local viewport = (camera and camera.ViewportSize) or Vector2.new(1280, 720)
+	local W, H = 300, 430
+
+	local screen = new("ScreenGui", {
+		Name = "UAI_ConfigExporter",
+		ResetOnSpawn = false,
+		IgnoreGuiInset = true,
+		DisplayOrder = 2147481990,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	}, parent)
+
+	local win = new("Frame", {
+		Name = "Window",
+		Size = UDim2.new(0, W, 0, H),
+		Position = UDim2.new(0, math.max(0, viewport.X - W - 20 - 250 - 10), 0, math.max(0, viewport.Y - H - 20)),
+		BackgroundColor3 = COL_PANEL,
+		BorderSizePixel = 0,
+	}, screen)
+
+	local titleBar = new("TextButton", {
+		Name = "Title",
+		Size = UDim2.new(1, 0, 0, 20),
+		BackgroundColor3 = COL_PANEL,
+		BorderSizePixel = 0,
+		Text = "Infinite Yield Config Exporter",
+		TextColor3 = COL_TEXT,
+		TextSize = 18,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		AutoButtonColor = false,
+		Selectable = false,
+	}, win)
+	new("UIPadding", { Name = "Pad", PaddingLeft = UDim.new(0, 8) }, titleBar)
+
+	new("Frame", {
+		Name = "Divider",
+		Size = UDim2.new(1, 0, 0, 2),
+		Position = UDim2.new(0, 0, 0, 20),
+		BackgroundColor3 = COL_ROW,
+		BorderSizePixel = 0,
+	}, win)
+
+	local closeBtn = new("TextButton", {
+		Name = "Exit",
+		Size = UDim2.new(0, 20, 0, 20),
+		Position = UDim2.new(1, -20, 0, 0),
+		BackgroundColor3 = COL_PANEL,
+		BorderSizePixel = 0,
+		Text = "X",
+		TextColor3 = COL_TEXT,
+		TextSize = 14,
+		Font = FONT,
+		AutoButtonColor = false,
+	}, win)
+
+	local exportTab = new("TextButton", {
+		Name = "ExportTab",
+		Size = UDim2.new(0, 145, 0, 22),
+		Position = UDim2.new(0, 5, 0, 26),
+		BackgroundColor3 = COL_SELECT,
+		BorderSizePixel = 0,
+		Text = "Export",
+		TextColor3 = COL_TEXT,
+		TextSize = 14,
+		Font = FONT,
+		AutoButtonColor = false,
+	}, win)
+
+	local importTab = new("TextButton", {
+		Name = "ImportTab",
+		Size = UDim2.new(0, 145, 0, 22),
+		Position = UDim2.new(1, -150, 0, 26),
+		BackgroundColor3 = COL_ROW,
+		BorderSizePixel = 0,
+		Text = "Import",
+		TextColor3 = COL_TEXT,
+		TextSize = 14,
+		Font = FONT,
+		AutoButtonColor = false,
+	}, win)
+
+	local content = new("Frame", {
+		Name = "Content",
+		Size = UDim2.new(1, -10, 0, 344),
+		Position = UDim2.new(0, 5, 0, 52),
+		BackgroundTransparency = 1,
+	}, win)
+
+	local status = new("TextLabel", {
+		Name = "Status",
+		Size = UDim2.new(1, -10, 0, 32),
+		Position = UDim2.new(0, 5, 0, 392),
+		BackgroundTransparency = 1,
+		Text = "ready",
+		TextColor3 = COL_DIM,
+		TextSize = 14,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextWrapped = true,
+	}, win)
+
+	state.gui = screen
+	state.refs = { window = win, status = status, content = content }
+
+local function makeButton(parent, name, text, x, y, w, h, callback, paint)
+	local btn = new("TextButton", {
+		Name = name,
+		Size = UDim2.new(0, w or 80, 0, h or 22),
+		Position = UDim2.new(0, x, 0, y),
+		BackgroundColor3 = COL_ROW,
+		BorderSizePixel = 0,
+		Text = text,
+		TextColor3 = COL_TEXT,
+		TextSize = 14,
+		Font = FONT,
+		AutoButtonColor = false,
+	}, parent)
+	track(btn.MouseEnter:Connect(function()
+		if paint then
+			paint(btn, true)
+		else
+			btn.BackgroundColor3 = COL_SELECT
+		end
+	end))
+	track(btn.MouseLeave:Connect(function()
+		if paint then
+			paint(btn, false)
+		else
+			btn.BackgroundColor3 = COL_ROW
+		end
+	end))
+	track(btn.MouseButton1Click:Connect(function()
+		callback(btn)
+	end))
+	return btn
+end
+
+local function setToggleVisual(btn, on)
+	btn.BackgroundColor3 = on and ACCENT or COL_ROW
+	btn.TextColor3 = on and COL_TEXT or COL_DIM
+end
+
+local function buildExportView(parent)
+	local view = new("Frame", { Name = "ExportView", Size = UDim2.new(1, 0, 1, 0), BackgroundTransparency = 1 }, parent)
+
+	new("TextLabel", {
+		Name = "NameLabel",
+		Size = UDim2.new(1, 0, 0, 16),
+		BackgroundTransparency = 1,
+		Text = "Profile name",
+		TextColor3 = COL_DIM,
+		TextSize = 14,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+	}, view)
+
+	local nameBox = new("TextBox", {
+		Name = "ProfileName",
+		Size = UDim2.new(1, 0, 0, 22),
+		Position = UDim2.new(0, 0, 0, 16),
+		BackgroundColor3 = COL_ROW,
+		BorderSizePixel = 0,
+		Text = "profile",
+		TextColor3 = COL_TEXT,
+		TextSize = 14,
+		Font = FONT,
+		ClearTextOnFocus = false,
+	}, view)
+
+	new("TextLabel", {
+		Name = "SectionsLabel",
+		Size = UDim2.new(0, 165, 0, 16),
+		Position = UDim2.new(0, 0, 0, 44),
+		BackgroundTransparency = 1,
+		Text = "Sections to include",
+		TextColor3 = COL_DIM,
+		TextSize = 14,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+	}, view)
+
+	state.sections = state.sections or {}
+	for _, s in ipairs(SECTION_NAMES) do
+		if state.sections[s] == nil then
+			state.sections[s] = true
+		end
+	end
+
+	local function paintSection(btn, section, hover)
+		local on = state.sections[section] == true
+		if on then
+			btn.BackgroundColor3 = hover and ACCENT_HOVER or ACCENT
+			btn.TextColor3 = COL_TEXT
+		else
+			btn.BackgroundColor3 = hover and COL_SELECT or COL_ROW
+			btn.TextColor3 = COL_DIM
+		end
+		btn.Text = (on and "[x] " or "[ ] ") .. section
+	end
+
+	local sectionButtons = {}
+	local function repaintSections()
+		for _, item in ipairs(sectionButtons) do
+			paintSection(item.btn, item.section, false)
+		end
+	end
+
+	for i, section in ipairs(SECTION_NAMES) do
+		local col = (i - 1) % 2
+		local row = math.floor((i - 1) / 2)
+		local btn = makeButton(view, "T_" .. section, "", col * 150, 62 + row * 22, 140, 20, function(b)
+			state.sections[section] = not (state.sections[section] == true)
+			paintSection(b, section, false)
+		end, function(b, hover)
+			paintSection(b, section, hover)
+		end)
+		paintSection(btn, section, false)
+		sectionButtons[#sectionButtons + 1] = { btn = btn, section = section }
+	end
+
+	makeButton(view, "SelectAll", "All", 170, 44, 55, 16, function()
+		for _, s in ipairs(SECTION_NAMES) do
+			state.sections[s] = true
+		end
+		repaintSections()
+	end)
+	makeButton(view, "SelectNone", "None", 230, 44, 55, 16, function()
+		for _, s in ipairs(SECTION_NAMES) do
+			state.sections[s] = false
+		end
+		repaintSections()
+	end)
+
+	makeButton(view, "CopyPayload", "Copy payload", 0, 158, 140, 22, function()
+		local enc = doExport(nameBox.Text)
+		if enc then
+			setStatus("copied " .. #wholeBlob(enc) .. " chars (" .. #chunkList(enc) .. " part(s) available)", true)
+			local refs = state.refs
+			if refs and refs.partLabel then
+				state.payloadBase64 = enc.base64
+				state.payloadEnc = enc
+				refs.partLabel.Text = string.format("part 1/%d", #chunkList(enc))
+			end
+		end
+	end)
+	makeButton(view, "SaveProfile", "Save profile", 150, 158, 140, 22, function()
+		local enc = doExport(nameBox.Text)
+		if enc then
+			local path = saveProfile(nameBox.Text, enc)
+			setStatus(path and ("saved " .. path) or "save failed", path ~= nil)
+			listProfiles()
+			local refs = state.refs
+			if refs and refs.refreshProfiles then
+				refs.refreshProfiles()
+			end
+		end
+	end)
+
+	local partIndex = 0
+	local partLabel
+	makeButton(view, "CopyPart", "Copy next part", 0, 184, 140, 22, function()
+		local enc = state.payloadEnc
+		if not enc then
+			setStatus("export first, then copy parts", false)
+			return
+		end
+		local total = #chunkList(enc)
+		partIndex = partIndex % total + 1
+		if setclipboardFn then
+			pcall(setclipboardFn, chunkText(enc, partIndex, total))
+			if partLabel then
+				partLabel.Text = string.format("part %d/%d", partIndex, total)
+			end
+			setStatus(string.format("part %d/%d copied (%d chars each)", partIndex, total, CHUNK), true)
+		else
+			setStatus("setclipboard unavailable", false)
+		end
+	end)
+	partLabel = new("TextLabel", {
+		Name = "PartLabel",
+		Size = UDim2.new(0, 140, 0, 22),
+		Position = UDim2.new(0, 150, 0, 184),
+		BackgroundTransparency = 1,
+		Text = "no payload yet",
+		TextColor3 = COL_DIM,
+		TextSize = 14,
+		Font = FONT,
+	}, view)
+	state.refs.partLabel = partLabel
+
+	local infoScroll = new("ScrollingFrame", {
+		Name = "Info",
+		Size = UDim2.new(1, 0, 0, 130),
+		Position = UDim2.new(0, 0, 0, 212),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		CanvasSize = UDim2.new(0, 0, 0, 0),
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		ScrollBarThickness = 4,
+		ScrollBarImageColor3 = COL_SELECT,
+	}, view)
+	local info = new("TextLabel", {
+		Name = "InfoText",
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 1,
+		Text = "Export builds one payload from the selected sections, copies it to the clipboard and writes a profile file. Big payloads are split into parts; copy them one by one.",
+		TextColor3 = COL_DIM,
+		TextSize = 14,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextWrapped = true,
+	}, infoScroll)
+	state.refs.info = info
+
+	return view
+end
+
+local function buildImportView(parent)
+	local view = new("Frame", { Name = "ImportView", Size = UDim2.new(1, 0, 1, 0), BackgroundTransparency = 1 }, parent)
+	view.Visible = false
+
+	local pasteBox = new("TextBox", {
+		Name = "PasteBox",
+		Size = UDim2.new(1, 0, 0, 62),
+		BackgroundColor3 = COL_ROW,
+		BorderSizePixel = 0,
+		Text = "",
+		PlaceholderText = "click here and press Ctrl+V to paste the payload (or one part at a time)",
+		PlaceholderColor3 = COL_DIM,
+		TextColor3 = COL_TEXT,
+		TextSize = 14,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextWrapped = true,
+		MultiLine = true,
+		ClearTextOnFocus = false,
+	}, view)
+
+	makeButton(view, "StagePaste", "Stage paste", 0, 68, 92, 22, function()
+		local text = pasteBox.Text
+		if text == "" then
+			setStatus("paste a payload first", false)
+			return
+		end
+		local ok, msg = doStage(text)
+		if ok then
+			pasteBox.Text = ""
+		end
+	end)
+	makeButton(view, "PreviewBtn", "Preview", 100, 68, 88, 22, function()
+		local data, err = stagedPayload()
+		if not data then
+			setStatus("nothing staged: " .. tostring(err), false)
+			return
+		end
+		local lines = previewPayload(data)
+		state.refs.preview.Text = table.concat(lines, "\n")
+		setStatus("previewed - nothing changed yet", true)
+	end)
+	makeButton(view, "ApplyBtn", "Apply", 196, 68, 94, 22, function()
+		doApply()
+	end)
+
+	local extrasBtn = makeButton(view, "RemoveExtras", "remove local plugins not in profile: OFF", 0, 92, 290, 20, function(b)
+		state.removeExtras = not state.removeExtras
+		b.Text = "remove local plugins not in profile: " .. (state.removeExtras and "ON" or "OFF")
+		setToggleVisual(b, state.removeExtras)
+	end)
+	setToggleVisual(extrasBtn, false)
+
+	local previewScroll = new("ScrollingFrame", {
+		Name = "PreviewScroll",
+		Size = UDim2.new(1, 0, 0, 104),
+		Position = UDim2.new(0, 0, 0, 116),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		CanvasSize = UDim2.new(0, 0, 0, 0),
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		ScrollBarThickness = 4,
+		ScrollBarImageColor3 = COL_SELECT,
+	}, view)
+	local preview = new("TextLabel", {
+		Name = "PreviewText",
+		Size = UDim2.new(1, 0, 0, 0),
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundTransparency = 1,
+		Text = "Paste, Stage, Preview, Apply. A backup profile is written automatically before every apply.",
+		TextColor3 = COL_DIM,
+		TextSize = 14,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextWrapped = true,
+	}, previewScroll)
+	state.refs.preview = preview
+
+	new("TextLabel", {
+		Name = "ProfilesLabel",
+		Size = UDim2.new(1, 0, 0, 16),
+		Position = UDim2.new(0, 0, 0, 224),
+		BackgroundTransparency = 1,
+		Text = "Profiles in " .. PROFILE_DIR,
+		TextColor3 = COL_DIM,
+		TextSize = 14,
+		Font = FONT,
+		TextXAlignment = Enum.TextXAlignment.Left,
+	}, view)
+
+	local profileScroll = new("ScrollingFrame", {
+		Name = "ProfileList",
+		Size = UDim2.new(1, 0, 0, 100),
+		Position = UDim2.new(0, 0, 0, 242),
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+		CanvasSize = UDim2.new(0, 0, 0, 0),
+		AutomaticCanvasSize = Enum.AutomaticSize.Y,
+		ScrollBarThickness = 4,
+		ScrollBarImageColor3 = COL_SELECT,
+	}, view)
+	new("UIListLayout", { Name = "UIListLayout", Padding = UDim.new(0, 2) }, profileScroll)
+	state.refs.profileList = profileScroll
+
+	local rows = {}
+	local function refreshProfiles()
+		for _, row in ipairs(rows) do
+			row:Destroy()
+		end
+		rows = {}
+		for _, p in ipairs(listProfiles()) do
+			local row = new("TextButton", {
+				Name = "Profile",
+				Size = UDim2.new(1, 0, 0, 20),
+				BackgroundColor3 = COL_ROW,
+				BorderSizePixel = 0,
+				Text = "  " .. p.name .. string.format("  (%d bytes)", p.bytes),
+				TextColor3 = COL_TEXT,
+				TextSize = 14,
+				Font = FONT,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				AutoButtonColor = false,
+			}, profileScroll)
+			rows[#rows + 1] = row
+			local base = COL_ROW
+			track(row.MouseEnter:Connect(function()
+				row.BackgroundColor3 = COL_SELECT
+			end))
+			track(row.MouseLeave:Connect(function()
+				row.BackgroundColor3 = base
+			end))
+			track(row.MouseButton1Click:Connect(function()
+				local ok, msg = loadProfile((p.name:gsub("%.iycfg$", "")))
+				if ok then
+					local data = stagedPayload()
+					if data then
+						preview.Text = table.concat(previewPayload(data), "\n")
+					end
+					setStatus("staged " .. p.name .. ": " .. msg, true)
+				else
+					setStatus("stage failed: " .. tostring(msg), false)
+				end
+			end))
+		end
+		if #rows == 0 then
+			local empty = new("TextLabel", {
+				Name = "Empty",
+				Size = UDim2.new(1, 0, 0, 20),
+				BackgroundTransparency = 1,
+				Text = "  no profiles yet",
+				TextColor3 = COL_DIM,
+				TextSize = 14,
+				Font = FONT,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}, profileScroll)
+			rows[#rows + 1] = empty
+		end
+	end
+	state.refs.refreshProfiles = refreshProfiles
+
+	return view
+end
+
+	state.refs.exportView = buildExportView(content)
+	state.refs.importView = buildImportView(content)
+
+	local function selectTab(name)
+		state.tab = name
+		state.refs.exportView.Visible = (name == "export")
+		state.refs.importView.Visible = (name == "import")
+		exportTab.BackgroundColor3 = (name == "export") and COL_SELECT or COL_ROW
+		importTab.BackgroundColor3 = (name == "import") and COL_SELECT or COL_ROW
+		if name == "import" and state.refs.refreshProfiles then
+			state.refs.refreshProfiles()
+		end
+	end
+
+	track(exportTab.MouseButton1Click:Connect(function()
+		selectTab("export")
+	end))
+	track(importTab.MouseButton1Click:Connect(function()
+		selectTab("import")
+	end))
+	track(closeBtn.MouseButton1Click:Connect(function()
+		closeWindow()
+	end))
+
+	local dragTypes = {
+		[Enum.UserInputType.MouseButton1] = true,
+		[Enum.UserInputType.Touch] = true,
+	}
+	local dragging, dragStart, startPos = false, nil, nil
+	local dragHint = false
+
+	local function inTitleRect(pos)
+		local origin, size = titleBar.AbsolutePosition, titleBar.AbsoluteSize
+		return pos.X >= origin.X and pos.X <= origin.X + size.X and pos.Y >= origin.Y and pos.Y <= origin.Y + size.Y
+	end
+
+	local function beginDrag(input, source)
+		if dragging then
+			return
+		end
+		dragging = true
+		dragStart = input.Position
+		startPos = win.Position
+		if not dragHint then
+			dragHint = true
+			print("[iycfg] drag started via " .. source)
+		end
+	end
+
+	track(titleBar.InputBegan:Connect(function(input)
+		if dragTypes[input.UserInputType] then
+			beginDrag(input, "titlebar")
+		end
+	end))
+	track(UIS.InputBegan:Connect(function(input)
+		if not dragTypes[input.UserInputType] then
+			return
+		end
+		local mouse = UIS:GetMouseLocation()
+		if inTitleRect(mouse) or inTitleRect(Vector2.new(input.Position.X, input.Position.Y)) then
+			beginDrag(input, "uis-hit-test")
+		end
+	end))
+	track(UIS.InputChanged:Connect(function(input)
+		local t = input.UserInputType
+		if not dragging or not dragStart or not startPos then
+			return
+		end
+		if t ~= Enum.UserInputType.MouseMovement and t ~= Enum.UserInputType.Touch then
+			return
+		end
+		local delta = input.Position - dragStart
+		local size = win.AbsoluteSize
+		local w = size.X > 0 and size.X or W
+		local h = size.Y > 0 and size.Y or H
+		win.Position = UDim2.new(
+			0,
+			math.clamp(startPos.X.Offset + delta.X, 0, math.max(0, viewport.X - w)),
+			0,
+			math.clamp(startPos.Y.Offset + delta.Y, 0, math.max(0, viewport.Y - h))
+		)
+	end))
+	track(UIS.InputEnded:Connect(function(input)
+		if dragTypes[input.UserInputType] then
+			dragging = false
+			dragStart, startPos = nil, nil
+		end
+	end))
+	track(UIS.InputBegan:Connect(function(input, processed)
+		if not processed and input.KeyCode == Enum.KeyCode.Escape and state.gui then
+			closeWindow()
+		end
+	end))
+
+	selectTab(state.tab or "export")
+	listProfiles()
+	setStatus("ready - " .. #listProfiles() .. " profile(s) in " .. PROFILE_DIR)
+end
+
+local function runExport(name)
+	if not name or name == "" then
+		name = "profile-" .. os.date("!%Y%m%d-%H%M%S")
+	end
+	return doExport(name)
+end
+
+local function runImport(name)
+	if not name or name == "" then
+		say("IY Config Exporter", "usage: cfg import <profile name>  (or open the window and paste)")
+		return false
+	end
+	local ok, msg = loadProfile(name)
+	if not ok then
+		publishReport("IY Config Exporter", { "import failed: " .. tostring(msg) })
+		return false
+	end
+	local data, err = stagedPayload()
+	if not data then
+		publishReport("IY Config Exporter", { "import failed: " .. tostring(err) })
+		return false
+	end
+	doApply()
+	return true
+end
+
+local Plugin = {
+	["PluginName"] = "Infinite Yield Config Exporter",
+	["PluginDescription"] = "Export/import your whole IY setup through the clipboard: settings, keybinds, aliases, event binds, waypoints, plugin files and plugin data.",
+	["Commands"] = {
+		["cfg"] = {
+			["ListName"] = "cfg / iyconfig [export|import|list] [name]",
+			["Description"] = "Open the Infinite Yield config exporter/importer window, or export/import a profile by name",
+			["Aliases"] = { "iyconfig", "iycfg", "iyconfigexporter" },
+			["Function"] = function(args, speaker)
+				local sub = args and args[1] and tostring(args[1]):lower() or nil
+				if sub == "export" then
+					runExport(args[2])
+				elseif sub == "import" then
+					runImport(args[2])
+				elseif sub == "list" then
+					local profiles = listProfiles()
+					local names = {}
+					for _, p in ipairs(profiles) do
+						names[#names + 1] = p.name
+					end
+					say("IY Config Exporter", string.format("%d profile(s): %s", #profiles, (#names > 0 and table.concat(names, ", ") or "none")))
+				elseif sub == "close" then
+					closeWindow()
+				else
+					if state.gui then
+						closeWindow()
+						say("IY Config Exporter", "Closed")
+					else
+						openWindow()
+					end
+				end
+			end,
+		},
+		["cfgexport"] = {
+			["ListName"] = "cfgexport [name]",
+			["Description"] = "Export everything to the clipboard and save a profile",
+			["Aliases"] = { "cfgexp", "iyexport" },
+			["Function"] = function(args, speaker)
+				runExport(args and args[1])
+			end,
+		},
+		["cfgimport"] = {
+			["ListName"] = "cfgimport <name>",
+			["Description"] = "Restore a profile (automatic backup first)",
+			["Aliases"] = { "cfgimp", "iyimport" },
+			["Function"] = function(args, speaker)
+				runImport(args and args[1])
+			end,
+		},
+		["cfglast"] = {
+			["ListName"] = "cfglast",
+			["Description"] = "Reprint the last export/import report",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local ok, content = pcall(readfile, "iycfg_last.txt")
+				if ok and type(content) == "string" then
+					publishReport("IY Config Exporter", { string.sub(content, 1, 400) })
+				else
+					say("IY Config Exporter", "no report yet")
+				end
+			end,
+		},
+	},
+}
+
+return Plugin

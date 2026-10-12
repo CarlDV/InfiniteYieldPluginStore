@@ -1,8 +1,32 @@
 {
-  "scraped_at": "2026-10-11T05:47:06.185032+00:00",
+  "scraped_at": "2026-10-12T18:33:33.862790+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 575,
+  "total_plugins": 576,
   "plugins": [
+    {
+      "id": "1559271766533210122",
+      "name": "iy_config_exporter",
+      "description": "iy config exporter/improter\n\nexports all your config including plugins in a compressed string format so you can share it with others in chat i think\n\nexports everything in a string and will be copied to your clipboard, then paste it again if you want to import\n\nyes this was made in uai\nto use: `cfg`",
+      "author": {
+        "name": "David",
+        "username": "istmedavid",
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/6d094786bd2ee3c95d31966828d40a68.png?size=1024"
+      },
+      "date": "2026-10-12T18:29:19.010000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1559271766533210122",
+      "files": [
+        {
+          "filename": "iy_config_exporter.iy",
+          "url": "plugins/1559271766533210122/iy_config_exporter.iy",
+          "size": 53932,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1558716361637896204",
       "name": "GearGuide",
@@ -374,7 +398,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_83f6cc0b7730d720b4af20f3d44c339e.gif?size=1024"
       },
       "date": "2026-08-13T11:51:09.458000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1537428294553833562",
@@ -1685,7 +1709,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_83f6cc0b7730d720b4af20f3d44c339e.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -2669,7 +2693,7 @@
       "name": "AnimSpeed",
       "description": "",
       "author": {
-        "name": "iv",
+        "name": "ValveTextureFile",
         "username": "ipv4e",
         "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_761b5ae8cf98dc74775cd3ab6299c523.gif?size=1024"
       },
@@ -2693,7 +2717,7 @@
       "name": "BangTool",
       "description": "",
       "author": {
-        "name": "iv",
+        "name": "ValveTextureFile",
         "username": "ipv4e",
         "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_761b5ae8cf98dc74775cd3ab6299c523.gif?size=1024"
       },
@@ -4505,7 +4529,7 @@
       "author": {
         "name": "cat",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/93ce47d7c334745e5fd1b72af3e30d26.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/1aebf53144cd93fea9c5d34578dd66d9.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -6237,7 +6261,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6acbd7b2&is=6aca8632&hm=2a7349ce596df7916bc9b215e5a6365074c12c5bca82eb6c4d48b321c0425dca&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6acdd1f2&is=6acc8072&hm=4ff5eab5129fcc2e48fc0765458f7410b794b6e5331397971ba6aaffc3c843aa&"
           },
           "image": null,
           "video": null
@@ -6251,7 +6275,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6acbd7c9&is=6aca8649&hm=ca75705555f8c1e33b2f20628b3d4e6d9e2b198fb153b4a43a8373573b07634a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6acdd209&is=6acc8089&hm=30a34733ee44c6317d8258bf4ffcf9f6734aa039e1e90cfdb05b31087f37ebbf&"
           },
           "image": null,
           "video": null
@@ -6601,7 +6625,7 @@
       "author": {
         "name": "Arato",
         "username": "notarato",
-        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/3979a15c4387b97e1411727506316a89.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/563258522339377154/c056786e9b586fa9052fd8a5c2e45b2e.png?size=1024"
       },
       "date": "2022-02-15T04:20:18.484000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/942998734961270824",
@@ -7114,7 +7138,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6acbd7b2&is=6aca8632&hm=2a7349ce596df7916bc9b215e5a6365074c12c5bca82eb6c4d48b321c0425dca&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6acdd1f2&is=6acc8072&hm=4ff5eab5129fcc2e48fc0765458f7410b794b6e5331397971ba6aaffc3c843aa&"
           },
           "image": null,
           "video": null
@@ -7128,7 +7152,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6acbd7c9&is=6aca8649&hm=ca75705555f8c1e33b2f20628b3d4e6d9e2b198fb153b4a43a8373573b07634a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6acdd209&is=6acc8089&hm=30a34733ee44c6317d8258bf4ffcf9f6734aa039e1e90cfdb05b31087f37ebbf&"
           },
           "image": null,
           "video": null
@@ -8501,7 +8525,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6acc5225&is=6acb00a5&hm=92db9f6756c5befce8526243ef22cd35492f42314aaaafcf7feffac7ba607877&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ace4c65&is=6accfae5&hm=4c1ba46bc5a62a5acebb947df50b46604a8c1fa18148e4875ceb8bde875dff49&"
           },
           "image": null,
           "video": null
@@ -11960,7 +11984,7 @@
       "author": {
         "name": "(•˕ •マ",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/5bf953ce0b661cb67cadae707a35f796.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/ee2e11b4dd2666519acb7a2e7a7338d4.png?size=1024"
       },
       "date": "2020-05-24T16:05:22.926000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/714147041592213744",
@@ -12270,7 +12294,7 @@
       "author": {
         "name": "(•˕ •マ",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/5bf953ce0b661cb67cadae707a35f796.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/ee2e11b4dd2666519acb7a2e7a7338d4.png?size=1024"
       },
       "date": "2020-05-11T18:32:32.106000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/709473031604404235",
@@ -12488,7 +12512,7 @@
       "author": {
         "name": "(•˕ •マ",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/5bf953ce0b661cb67cadae707a35f796.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/ee2e11b4dd2666519acb7a2e7a7338d4.png?size=1024"
       },
       "date": "2020-04-21T20:21:19.479000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/702252652079349900",
@@ -13417,7 +13441,7 @@
       "author": {
         "name": "(•˕ •マ",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/5bf953ce0b661cb67cadae707a35f796.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/ee2e11b4dd2666519acb7a2e7a7338d4.png?size=1024"
       },
       "date": "2020-02-29T18:14:43.939000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/683376625064214538",
@@ -13513,7 +13537,7 @@
       "author": {
         "name": "(•˕ •マ",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/5bf953ce0b661cb67cadae707a35f796.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/ee2e11b4dd2666519acb7a2e7a7338d4.png?size=1024"
       },
       "date": "2020-02-22T10:27:30.087000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/680722327507304485",
@@ -13611,7 +13635,7 @@
       "author": {
         "name": "(•˕ •マ",
         "username": "6zt2",
-        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/5bf953ce0b661cb67cadae707a35f796.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/629338501657395201/ee2e11b4dd2666519acb7a2e7a7338d4.png?size=1024"
       },
       "date": "2020-02-14T22:03:06.169000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/677998278398312511",
