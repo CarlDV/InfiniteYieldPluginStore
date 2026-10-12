@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-10-12T18:33:33.879171+00:00",
-  "total": 576,
+  "updated_at": "2026-10-12T21:32:43.259349+00:00",
+  "total": 577,
   "plugins": [
+    {
+      "id": "1559310081869357188",
+      "name": "Welder",
+      "author": "Systemattic",
+      "date": "2026-10-12T21:01:34.098000+00:00",
+      "files": [
+        {
+          "filename": "Welder.iy",
+          "url": "plugins/1559310081869357188/Welder.iy",
+          "size": 6281,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1559271766533210122",
       "name": "iy_config_exporter",
