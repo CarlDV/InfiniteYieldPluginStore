@@ -1,0 +1,166 @@
+-- posorbit: orbit your character around a fixed world position (not a player).
+-- Commands: posorbit <x> <y> <z> [speed] [radius] [height] [center|tangent]
+--           orbitposface [center|tangent]   - change where you look mid-orbit
+--           unposorbit
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local LP = Players.LocalPlayer
+local orbitConnection = nil
+local faceMode = "center" -- "center" = stare at the orbit point, "tangent" = look along the path
+
+local function announce(msg)
+	if typeof(notify) == "function" then
+		if pcall(notify, msg) then
+			return
+		end
+	end
+	print("[posorbit] " .. tostring(msg))
+end
+
+local function getRoot()
+	local char = LP.Character
+	if not char then
+		return nil
+	end
+	return char:FindFirstChild("HumanoidRootPart"), char:FindFirstChildOfClass("Humanoid")
+end
+
+local function stopOrbit(silent)
+	if orbitConnection then
+		orbitConnection:Disconnect()
+		orbitConnection = nil
+	end
+	local hrp = getRoot()
+	if hrp then
+		pcall(function()
+			hrp.AssemblyLinearVelocity = Vector3.zero
+			hrp.AssemblyAngularVelocity = Vector3.zero
+		end)
+	end
+	if not silent then
+		announce("Position orbit stopped.")
+	end
+end
+
+-- Accepts "100 50 200" or "100,50,200" or a mix of both.
+local function parseNumbers(args)
+	local nums, words = {}, {}
+	for _, raw in ipairs(args) do
+		local anyNumber = false
+		for piece in string.gmatch(tostring(raw), "[^,]+") do
+			local n = tonumber(piece)
+			if n then
+				nums[#nums + 1] = n
+				anyNumber = true
+			end
+		end
+		if not anyNumber then
+			words[#words + 1] = string.lower(tostring(raw))
+		end
+	end
+	return nums, words
+end
+
+local function applyFaceMode(words, quiet)
+	for _, w in ipairs(words) do
+		if w == "center" or w == "centre" or w == "point" or w == "in" then
+			faceMode = "center"
+		elseif w == "tangent" or w == "path" or w == "forward" or w == "out" then
+			faceMode = "tangent"
+		end
+	end
+	if not quiet then
+		announce("Facing mode: " .. faceMode .. " (" .. (faceMode == "center"
+			and "eyes on the orbit point" or "looking along the path") .. ")")
+	end
+end
+
+local Plugin = {
+	["PluginName"] = "PositionOrbit",
+	["PluginDescription"] = "Orbit your character around a fixed world position, facing the orbit point or the path.",
+	["Commands"] = {
+		["posorbit"] = {
+			["ListName"] = "posorbit / orbitpos",
+			["Description"] = "Orbit a fixed position, facing it. No coords = orbit where you stand. posorbit <x> <y> <z> [speed] [radius] [height] [center|tangent]",
+			["Aliases"] = {"orbitpos", "orbitorigin", "orbitat"},
+			["ToolTip"] = "posorbit <x> <y> <z> [speed] [radius] [height] [center|tangent]",
+			["Function"] = function(args, speaker)
+				local nums, words = parseNumbers(args or {})
+				local center
+				if #nums == 0 then
+					local hrp = getRoot()
+					if not hrp then
+						announce("No character yet. Usage: posorbit <x> <y> <z> [speed] [radius] [height]")
+						return
+					end
+					center = hrp.Position
+				elseif #nums >= 3 then
+					center = Vector3.new(nums[1], nums[2], nums[3])
+				else
+					announce("Need 3 coordinates. Usage: posorbit <x> <y> <z> [speed] [radius] [height]")
+					return
+				end
+
+				local speed = nums[4] or 40
+				local radius = math.max(math.abs(nums[5] or 15), 2)
+				local height = nums[6] or 0
+				applyFaceMode(words, true)
+
+				stopOrbit(true)
+				local angle = 0
+				orbitConnection = RunService.Heartbeat:Connect(function(dt)
+					local hrp = getRoot()
+					if not hrp then
+						return
+					end
+					angle = (angle + dt * speed / radius) % (math.pi * 2)
+					local pos = center + Vector3.new(math.cos(angle) * radius, height, math.sin(angle) * radius)
+
+					local lookTarget
+					if faceMode == "center" then
+						-- flattened so the character stays upright instead of tilting
+						lookTarget = Vector3.new(center.X, pos.Y, center.Z)
+					else
+						lookTarget = pos + Vector3.new(-math.sin(angle), 0, math.cos(angle)) * (speed < 0 and -1 or 1)
+					end
+					if (lookTarget - pos).Magnitude < 0.05 then
+						lookTarget = pos + Vector3.new(-math.sin(angle), 0, math.cos(angle))
+					end
+
+					hrp.AssemblyLinearVelocity = Vector3.zero
+					hrp.AssemblyAngularVelocity = Vector3.zero
+					hrp.CFrame = CFrame.lookAt(pos, lookTarget)
+				end)
+
+				announce(string.format(
+					"Orbiting (%.1f, %.1f, %.1f) | speed %.1f | radius %.1f | height %.1f | facing %s  (unposorbit to stop)",
+					center.X, center.Y, center.Z, speed, radius, height, faceMode))
+			end
+		},
+		["orbitposface"] = {
+			["ListName"] = "orbitposface",
+			["Description"] = "While orbiting a position: orbitposface center|tangent (no argument toggles)",
+			["Aliases"] = {"posorbitface", "orbitface"},
+			["Function"] = function(args, speaker)
+				local _, words = parseNumbers(args or {})
+				if #words == 0 then
+					faceMode = (faceMode == "center") and "tangent" or "center"
+					announce("Facing mode: " .. faceMode)
+				else
+					applyFaceMode(words, false)
+				end
+			end
+		},
+		["unposorbit"] = {
+			["ListName"] = "unposorbit / orbitposstop",
+			["Description"] = "Stops a position orbit started with posorbit",
+			["Aliases"] = {"unorbitpos", "unorbitorigin", "orbitposstop", "stoporbitpos"},
+			["Function"] = function(args, speaker)
+				stopOrbit(false)
+			end
+		}
+	}
+}
+
+return Plugin
