@@ -1,0 +1,68 @@
+local gameTimeSpeed = 1
+local timerConnection = nil
+
+local function say(msg)
+	task.spawn(function()
+		if notify then
+			pcall(notify, "Timer Manipulation", msg)
+		else
+			print("[Timer Manipulation] " .. msg)
+		end
+	end)
+end
+
+local function stopTimer()
+	gameTimeSpeed = 1
+	if timerConnection then
+		timerConnection:Disconnect()
+		timerConnection = nil
+	end
+end
+
+local function startTimer()
+	if timerConnection then
+		return
+	end
+
+	timerConnection = RunService.Heartbeat:Connect(function(dt)
+		if gameTimeSpeed <= 1 then return end
+
+		local char = Players.LocalPlayer.Character
+		if not char then return end
+
+		local root = getRoot(char)
+		if not root then return end
+
+		pcall(workspace.StepPhysics, workspace, dt * (gameTimeSpeed - 1), { root })
+	end)
+end
+
+local function setSpeed(value)
+	local speed = tonumber(value)
+	if not speed or speed <= 1 then
+		stopTimer()
+		say("Game speed reset to normal")
+		return
+	end
+
+	gameTimeSpeed = speed
+	startTimer()
+	say("Game speed changed to " .. tostring(speed))
+end
+
+local Plugin = {
+	["PluginName"] = "Timer Manipulation",
+	["PluginDescription"] = "Speeds up your character's physics time",
+	["Commands"] = {
+		["gamespeed"] = {
+			["ListName"] = "gamespeed / gs / timer [num]",
+			["Description"] = "Sets game speed (1 or empty resets to normal)",
+			["Aliases"] = {"gs", "timerspeed", "timer"},
+			["Function"] = function(args, speaker)
+				setSpeed(args[1])
+			end
+		}
+	}
+}
+
+return Plugin
