@@ -1,0 +1,222 @@
+--[[
+    Fixes Infinite Yield's command list tooltip not showing on hover.
+
+    Why it breaks: IY's checkTT() finds the hovered command with
+        COREGUI:GetGuiObjectsAtPosition(IYMouse.X, IYMouse.Y)
+    but on executors that have gethui(), IY puts its whole GUI inside gethui(),
+    not CoreGui. CoreGui's lookup never returns IY's buttons, so the tooltip is
+    always hidden.
+
+    This plugin uses each command button's own MouseEnter / MouseLeave events,
+    so Roblox decides what's hovered (no top-bar inset math that can be off on
+    some setups). The tooltip follows the cursor like IY's original, takes IY's
+    guiscale into account, and grows to fit long descriptions.
+]]
+
+local RunService  = game:GetService("RunService")
+local TextService = game:GetService("TextService")
+
+local env = (getgenv and getgenv()) or _G
+
+-- IY's globals; plugins normally share IY's environment, getgenv is the fallback
+local function iy(name)
+    local ok, v = pcall(function() return getfenv(1)[name] end)
+    if ok and v ~= nil then return v end
+    return env[name]
+end
+
+-- stop a previous copy if the plugin gets reloaded
+local old = env.__iyTooltipFix
+if old then
+    if old.stop then pcall(old.stop) end
+    if old.conn then pcall(function() old.conn:Disconnect() end) end   -- first version of the plugin
+end
+local state = {}
+env.__iyTooltipFix = state
+
+local DESC_WIDTH, DESC_MIN_HEIGHT = 180, 72
+local TIP_WIDTH, MOUSE_GAP = 200, 21   -- same 21px cursor gap IY uses
+local TITLE_MIN_HEIGHT, TITLE_PAD = 20, 5   -- IY's title bar height; side padding so wrapped text doesn't touch the edges
+local DESC_OVERLAP = 2                      -- IY puts the description 2px up into the title bar (y = 18)
+
+-- true if obj and all its GuiObject ancestors are visible and its ScreenGui is enabled
+local function shownOnScreen(obj)
+    local node = obj
+    while node do
+        if node:IsA("GuiObject") and not node.Visible then return false end
+        if node:IsA("LayerCollector") then return node.Enabled end
+        node = node.Parent
+    end
+    return false
+end
+
+-- true if the row's center isn't clipped away (scrolled out / list minimized)
+local function rowOnScreen(row)
+    local c = row.AbsolutePosition + row.AbsoluteSize / 2
+    local node = row.Parent
+    while node and node:IsA("GuiObject") do
+        if node.ClipsDescendants then
+            local a, s = node.AbsolutePosition, node.AbsoluteSize
+            if c.X < a.X or c.Y < a.Y or c.X >= a.X + s.X or c.Y >= a.Y + s.Y then return false end
+        end
+        node = node.Parent
+    end
+    return true
+end
+
+local function start()
+    local cmdList, tooltip = iy("CMDsF"), iy("Tooltip")
+    local title, desc = iy("Title_3"), iy("Description")
+    if not (cmdList and tooltip and title and desc) then
+        warn("[Tooltip Fix] Couldn't find Infinite Yield's command list / tooltip")
+        return
+    end
+
+    local conns, disabled = {}, {}
+    local hovered = nil
+    local lastShown = nil
+    local mouse = iy("IYMouse") or game:GetService("Players").LocalPlayer:GetMouse()
+    -- correction if the mouse coords and the GUI disagree on the top-bar inset;
+    -- learned from the hovered row, since Roblox says the cursor is inside it
+    local calib = Vector2.zero
+
+    state.stop = function()
+        for _, c in ipairs(conns) do pcall(function() c:Disconnect() end) end
+        for _, c in ipairs(disabled) do pcall(function() c:Enable() end) end
+        table.clear(conns)
+        table.clear(disabled)
+    end
+
+    -- turn off IY's broken hover handler so it doesn't fight this one
+    local checkTT = iy("checkTT")
+    if getconnections and checkTT and mouse then
+        pcall(function()
+            for _, c in ipairs(getconnections(mouse.Move)) do
+                if c.Function == checkTT then
+                    c:Disable()
+                    table.insert(disabled, c)
+                end
+            end
+        end)
+    end
+
+    -- keep the tooltip above the command buttons
+    pcall(function()
+        tooltip.ZIndex = 12
+        title.ZIndex = 13
+        desc.ZIndex = 13
+    end)
+
+    -- long command names wrap onto more lines instead of running off the tooltip
+    pcall(function()
+        title.TextWrapped = true
+        if not title:FindFirstChild("TooltipFixPadding") then
+            local pad = Instance.new("UIPadding")
+            pad.Name = "TooltipFixPadding"
+            pad.PaddingLeft = UDim.new(0, TITLE_PAD)
+            pad.PaddingRight = UDim.new(0, TITLE_PAD)
+            pad.Parent = title
+        end
+    end)
+
+    local hooked = setmetatable({}, { __mode = "k" })
+    local function hook(btn)
+        if hooked[btn] or not btn:IsA("GuiButton") then return end
+        hooked[btn] = true
+        table.insert(conns, btn.MouseEnter:Connect(function() hovered = btn end))
+        table.insert(conns, btn.MouseLeave:Connect(function()
+            if hovered == btn then hovered = nil end
+        end))
+    end
+    for _, child in ipairs(cmdList:GetChildren()) do hook(child) end
+    -- plugin commands are added to the list later
+    table.insert(conns, cmdList.ChildAdded:Connect(hook))
+
+    -- RenderStepped runs after input each frame, so this wins over IY's handler
+    -- even on executors without getconnections
+    table.insert(conns, RunService.RenderStepped:Connect(function()
+        if not cmdList.Parent or not tooltip.Parent then
+            state.stop()
+            return
+        end
+
+        local row = hovered
+        if not (row and row.Parent == cmdList and row.Visible
+            and row:GetAttribute("Title") ~= nil
+            and shownOnScreen(cmdList) and rowOnScreen(row)) then
+            tooltip.Visible = false
+            lastShown = nil
+            return
+        end
+
+        local container = tooltip.Parent
+        local scale = 1
+        local uiScale = container:FindFirstChildOfClass("UIScale")
+        if uiScale and uiScale.Scale > 0 then scale = uiScale.Scale end
+
+        -- text and height only change when the hovered command changes
+        if row ~= lastShown then
+            lastShown = row
+            local titleText = tostring(row:GetAttribute("Title") or "")
+            local descText = tostring(row:GetAttribute("Desc") or "")
+            title.Text = titleText
+            desc.Text = descText
+
+            -- title bar grows for names that wrap onto more lines
+            local th = TITLE_MIN_HEIGHT
+            local okT, tSize = pcall(TextService.GetTextSize, TextService,
+                titleText, title.TextSize, title.Font, Vector2.new(TIP_WIDTH - TITLE_PAD * 2, 10000))
+            if okT then th = math.max(TITLE_MIN_HEIGHT, tSize.Y + 6) end
+            title.Size = UDim2.new(0, TIP_WIDTH, 0, th)
+
+            local h = DESC_MIN_HEIGHT
+            local ok, size = pcall(TextService.GetTextSize, TextService,
+                descText, desc.TextSize, desc.Font, Vector2.new(DESC_WIDTH, 10000))
+            if ok then h = math.max(DESC_MIN_HEIGHT, size.Y + 4) end
+            local descTop = th - DESC_OVERLAP
+            desc.Position = UDim2.new(0, 10, 0, descTop)
+            desc.Size = UDim2.new(0, DESC_WIDTH, 0, h)
+            tooltip.Size = UDim2.new(0, TIP_WIDTH, 0, descTop + h + 6)
+        end
+
+        -- cursor position in the GUI's AbsolutePosition space
+        local p = Vector2.new(mouse.X, mouse.Y) + calib
+        local rp, rs = row.AbsolutePosition, row.AbsoluteSize
+        local fixX = (p.X < rp.X and rp.X - p.X) or (p.X >= rp.X + rs.X and rp.X + rs.X - 1 - p.X) or 0
+        local fixY = (p.Y < rp.Y and rp.Y - p.Y) or (p.Y >= rp.Y + rs.Y and rp.Y + rs.Y - 1 - p.Y) or 0
+        if fixX ~= 0 or fixY ~= 0 then
+            calib += Vector2.new(fixX, fixY)
+            p += Vector2.new(fixX, fixY)
+        end
+
+        local tipW = tooltip.Size.X.Offset * scale
+        local tipH = tooltip.Size.Y.Offset * scale
+        local origin, view = container.AbsolutePosition, container.AbsoluteSize
+
+        -- same placement rules as IY's checkTT: left of the cursor, or right of it
+        -- if there's no room on the left; flip up near the bottom of the screen
+        local x
+        if p.X - origin.X > tipW then
+            x = p.X - tipW - 1
+        else
+            x = p.X + MOUSE_GAP * scale
+        end
+        local y = p.Y
+        if p.Y > origin.Y + view.Y - tipH then
+            y = p.Y - tipH - 1
+        end
+        y = math.max(origin.Y, y)
+
+        tooltip.Position = UDim2.fromOffset((x - origin.X) / scale, (y - origin.Y) / scale)
+        tooltip.Visible = true
+    end))
+end
+
+-- apply as soon as the plugin loads
+task.defer(start)
+
+return {
+    ["PluginName"] = "Tooltip Fix",
+    ["PluginDescription"] = "Fixes command descriptions not showing when hovering the command list.",
+    ["Commands"] = {},
+}

@@ -7,7 +7,7 @@ local function executeIY(plr)
 	if not getgenv().PLUGIN_ISKeepInfYield and KeepInfYield and (not TeleportCheck) and queueteleport then
 		getgenv().PLUGIN_ISKeepInfYield = true
 		TeleportCheck = true
-		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+		queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
 	end
 end
 
