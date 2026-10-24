@@ -1,12 +1,36 @@
 {
-  "scraped_at": "2026-10-23T17:09:12.120076+00:00",
+  "scraped_at": "2026-10-24T14:56:28.467278+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 581,
+  "total_plugins": 582,
   "plugins": [
+    {
+      "id": "1563475647110840382",
+      "name": "BackwardsTrip",
+      "description": "# Backwards Trip\n-# keep in mind i almost rejected ts idea\nTrip but backwards! Just type in `btrip` and you will trip (but backwards). And becareful because you might fly in the air",
+      "author": {
+        "name": "LPG Daily Drinker",
+        "username": "totallyuhhh",
+        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/032cd51f62b4b3d29a096a8a3f0d22fd.png?size=1024"
+      },
+      "date": "2026-10-24T08:54:02.244000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1563475647110840382",
+      "files": [
+        {
+          "filename": "BackwardsTrip.iy",
+          "url": "plugins/1563475647110840382/BackwardsTrip.iy",
+          "size": 850,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1563231443319005277",
       "name": "destroyallearwax",
-      "description": "# makes u hear every sound in the game\n\nso uhhh it basically sets max & min distance to the limit when u type \"hear\" in the command bar im sorry this is awkward",
+      "description": "# makes u hear every sound in the game\n\nso uhhh it basically sets every audio instance's max & min distance to the limit when u type \"hear\" in the command bar and thats all",
       "author": {
         "name": "LPG Daily Drinker",
         "username": "totallyuhhh",
@@ -528,7 +552,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_73f43d2934fd5dd79bece354f64726d0.gif?size=1024"
       },
       "date": "2026-08-13T11:51:09.458000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1537428294553833562",
@@ -1839,7 +1863,7 @@
       "author": {
         "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_73f43d2934fd5dd79bece354f64726d0.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -4365,7 +4389,7 @@
       "name": "bams",
       "description": "# Blind # \nplugin suggestion from <@1053706509407768676> \nif your avatar is blockier then it's going to be harder for the specific person to see.\nusage :\n`command alises: annyon,blind `\n`turn off command alises: unannyon,stopannyon,unblin`",
       "author": {
-        "name": "#opsecgod 101",
+        "name": "kanos seggbaszo",
         "username": "lordofmountain",
         "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/7fa13b7c37aa93e3a3c0500ec9edd1b9.png?size=1024"
       },
@@ -4395,7 +4419,7 @@
       "name": "facefuck",
       "description": "# Face fuck # \nGet Blowjobs!\nUsage: \n`to activate it: facefuck,bj,blowjob,head (the specific player,speed) example: facefuck erta215 21`\n`disable alises: unfacefuck,unbj,unblowjob,unhead` \nfixed .",
       "author": {
-        "name": "#opsecgod 101",
+        "name": "kanos seggbaszo",
         "username": "lordofmountain",
         "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/7fa13b7c37aa93e3a3c0500ec9edd1b9.png?size=1024"
       },
@@ -6391,7 +6415,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6adc5272&is=6adb00f2&hm=b860fa417f1fba18a18e16bb1037a34024bb39f5f3d73d0e1acae4eed0529c28&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6adda3f2&is=6adc5272&hm=8e6c0a306f1f735c7c0e9b788d4cc284ab5db8e071c9d2bf80f79fd699913867&"
           },
           "image": null,
           "video": null
@@ -6405,7 +6429,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6adc5289&is=6adb0109&hm=4c9ba5a15c3732f8d0b878e1143580096d2d83be95cf4e5c0bf0245efd6b6496&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6adda409&is=6adc5289&hm=f6cd851bc784061288720a4ed947a9b4560740ff2427145fa3fd272666083f0c&"
           },
           "image": null,
           "video": null
@@ -7268,7 +7292,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6adc5272&is=6adb00f2&hm=b860fa417f1fba18a18e16bb1037a34024bb39f5f3d73d0e1acae4eed0529c28&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6adda3f2&is=6adc5272&hm=8e6c0a306f1f735c7c0e9b788d4cc284ab5db8e071c9d2bf80f79fd699913867&"
           },
           "image": null,
           "video": null
@@ -7282,7 +7306,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6adc5289&is=6adb0109&hm=4c9ba5a15c3732f8d0b878e1143580096d2d83be95cf4e5c0bf0245efd6b6496&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6adda409&is=6adc5289&hm=f6cd851bc784061288720a4ed947a9b4560740ff2427145fa3fd272666083f0c&"
           },
           "image": null,
           "video": null
@@ -8655,7 +8679,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6adccce5&is=6adb7b65&hm=a669535fc4bd755476ecb517c3f3d1073696bf1285c36db63e8d76ec50851281&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6add75a5&is=6adc2425&hm=494ee93bc8d92815581009c9bd91a83afff4aa59095d55587d4e3e6ef8a6c0b2&"
           },
           "image": null,
           "video": null

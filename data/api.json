@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-10-23T17:09:12.137572+00:00",
-  "total": 581,
+  "updated_at": "2026-10-24T14:56:28.489492+00:00",
+  "total": 582,
   "plugins": [
+    {
+      "id": "1563475647110840382",
+      "name": "BackwardsTrip",
+      "author": "LPG Daily Drinker",
+      "date": "2026-10-24T08:54:02.244000+00:00",
+      "files": [
+        {
+          "filename": "BackwardsTrip.iy",
+          "url": "plugins/1563475647110840382/BackwardsTrip.iy",
+          "size": 850,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1563231443319005277",
       "name": "destroyallearwax",
@@ -2646,7 +2661,7 @@
     {
       "id": "1270064449893564588",
       "name": "bams",
-      "author": "#opsecgod 101",
+      "author": "kanos seggbaszo",
       "date": "2024-08-05T17:02:41.511000+00:00",
       "files": [
         {
@@ -2667,7 +2682,7 @@
     {
       "id": "1270031197032157256",
       "name": "facefuck",
-      "author": "#opsecgod 101",
+      "author": "kanos seggbaszo",
       "date": "2024-08-05T14:50:33.411000+00:00",
       "files": [
         {

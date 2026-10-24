@@ -1,0 +1,27 @@
+local function AHHH()
+    local plyr = game:GetService("Players").LocalPlayer
+    local char = plyr.Character or plyr.CharacterAdded:Wait()
+    local look = char:WaitForChild("HumanoidRootPart").CFrame.LookVector
+    char:WaitForChild("Humanoid").PlatformStand = true
+    char:WaitForChild("HumanoidRootPart").AssemblyLinearVelocity = look - look - look * 40
+    char:WaitForChild("HumanoidRootPart").AssemblyAngularVelocity = Vector3.new(0, 0, 4)
+    task.wait(1.5) 
+    char:WaitForChild("Humanoid").PlatformStand = false
+end
+
+local Plugin = {
+	["PluginName"] = "BackwardsTrip",
+	["PluginDescription"] = "IAMHAVINGAHEARTATTACK",
+	["Commands"] = {
+		["TripBackwards"] = {
+			["ListName"] = "btrip",
+			["Description"] = "Trip backwards",
+			["Aliases"] = {"btrip"},
+			["Function"] = function(args, speaker)
+			 AHHH()
+			end
+		}
+	}
+}
+
+return Plugin
