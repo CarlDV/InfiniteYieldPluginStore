@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-10-24T14:56:28.489492+00:00",
-  "total": 582,
+  "updated_at": "2026-10-25T22:39:30.655751+00:00",
+  "total": 583,
   "plugins": [
+    {
+      "id": "1563985030152200242",
+      "name": "ScrollZoom",
+      "author": "Aureal",
+      "date": "2026-10-25T18:38:08.625000+00:00",
+      "files": [
+        {
+          "filename": "ScrollZoom.iy",
+          "url": "plugins/1563985030152200242/ScrollZoom.iy",
+          "size": 2826,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1563475647110840382",
       "name": "BackwardsTrip",
@@ -2661,7 +2676,7 @@
     {
       "id": "1270064449893564588",
       "name": "bams",
-      "author": "kanos seggbaszo",
+      "author": "I tag with my tip",
       "date": "2024-08-05T17:02:41.511000+00:00",
       "files": [
         {
@@ -2682,7 +2697,7 @@
     {
       "id": "1270031197032157256",
       "name": "facefuck",
-      "author": "kanos seggbaszo",
+      "author": "I tag with my tip",
       "date": "2024-08-05T14:50:33.411000+00:00",
       "files": [
         {

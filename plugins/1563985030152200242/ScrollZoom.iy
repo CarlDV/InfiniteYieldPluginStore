@@ -1,0 +1,108 @@
+
+local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local enabled = false
+local originalFOV = nil
+local currentFOV = nil
+local actionName = "InfiniteYieldScrollZoom"
+local renderName = "InfiniteYieldZoomRender"
+
+local function disableZoom()
+    if not enabled then
+        return
+    end
+
+    enabled = false
+
+    ContextActionService:UnbindAction(actionName)
+    RunService:UnbindFromRenderStep(renderName)
+
+    local camera = Workspace.CurrentCamera
+
+    if camera and originalFOV then
+        camera.FieldOfView = originalFOV
+    end
+
+    originalFOV = nil
+    currentFOV = nil
+end
+
+local function enableZoom()
+    if enabled then
+        disableZoom()
+        return
+    end
+
+    local camera = Workspace.CurrentCamera
+    if not camera then
+        return
+    end
+
+    enabled = true
+    originalFOV = camera.FieldOfView
+    currentFOV = originalFOV
+
+    ContextActionService:BindActionAtPriority(
+        actionName,
+        function(_, state, input)
+            if not enabled or state ~= Enum.UserInputState.Change then
+                return Enum.ContextActionResult.Pass
+            end
+
+            if UserInputService:GetFocusedTextBox() then
+                return Enum.ContextActionResult.Pass
+            end
+
+            currentFOV = math.clamp(
+                currentFOV - input.Position.Z * 5,
+                10,
+                math.max(10, originalFOV)
+            )
+
+            return Enum.ContextActionResult.Sink
+        end,
+        false,
+        3000,
+        Enum.UserInputType.MouseWheel
+    )
+
+    RunService:BindToRenderStep(
+        renderName,
+        Enum.RenderPriority.Camera.Value + 10,
+        function()
+            local currentCamera = Workspace.CurrentCamera
+
+            if currentCamera and currentFOV then
+                currentCamera.FieldOfView = currentFOV
+            end
+        end
+    )
+end
+
+local Plugin = {
+    ["PluginName"] = "ScrollZoom",
+    ["PluginDescription"] = "Scroll wheel camera zoom with FOV override",
+    ["Commands"] = {
+        ["zoom"] = {
+            ["ListName"] = "zoom",
+            ["Description"] = "Toggles scroll wheel FOV zoom",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                enableZoom()
+            end
+        },
+        ["unzoom"] = {
+            ["ListName"] = "unzoom",
+            ["Description"] = "Disables zoom and restores FOV",
+            ["Aliases"] = {"nozoom"},
+            ["Function"] = function(args, speaker)
+                disableZoom()
+            end
+        }
+    }
+}
+
+return Plugin
