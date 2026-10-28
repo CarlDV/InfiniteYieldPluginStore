@@ -1,0 +1,267 @@
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+
+local LocalPlayer = Players.LocalPlayer
+
+local COLOR = Color3.fromRGB(80, 220, 110)
+local MAX_BOXES = 800
+local MAX_PER_OBJECT = 20
+
+local env = (typeof(getgenv) == "function" and getgenv()) or _G
+if type(env.MovablePluginStop) == "function" then
+    pcall(env.MovablePluginStop)
+end
+
+local range = 500
+local enabled = false
+local scanned = false
+local candidates = {}
+local boxes = {}
+
+local folder = Instance.new("Folder")
+if not pcall(function()
+    folder.Parent = (typeof(gethui) == "function" and gethui()) or game:GetService("CoreGui")
+end) then
+    folder.Parent = Workspace.CurrentCamera
+end
+
+local function say(text)
+    if type(notify) == "function" then
+        pcall(notify, "movable", text)
+    else
+        print("[movable] " .. text)
+    end
+end
+
+local function inCharacter(part)
+    local model = part:FindFirstAncestorOfClass("Model")
+    while model do
+        if Players:GetPlayerFromCharacter(model) then
+            return true
+        end
+        model = model:FindFirstAncestorOfClass("Model")
+    end
+    return false
+end
+
+local function isLoose(part)
+    if part.Anchored or not part:IsDescendantOf(Workspace) then
+        return false
+    end
+    local camera = Workspace.CurrentCamera
+    if camera and part:IsDescendantOf(camera) then
+        return false
+    end
+    local root = part.AssemblyRootPart
+    return root ~= nil and not root.Anchored
+end
+
+local function consider(object)
+    if object:IsA("BasePart") and not object.Anchored then
+        candidates[object] = true
+    end
+end
+
+local function scan()
+    for index, object in ipairs(Workspace:GetDescendants()) do
+        consider(object)
+        if index % 3000 == 0 then
+            task.wait()
+        end
+    end
+    scanned = true
+end
+
+local function objectOf(part)
+    local object = part
+    local current = part
+    while current.Parent and current.Parent ~= Workspace do
+        current = current.Parent
+        if current:IsA("Model") then
+            object = current
+        end
+    end
+    return object
+end
+
+local function collect()
+    local character = LocalPlayer.Character
+    local myRoot = character and character:FindFirstChild("HumanoidRootPart")
+    local origin = myRoot and myRoot.Position or Workspace.CurrentCamera.CFrame.Position
+    local assemblies = {}
+    for part in pairs(candidates) do
+        if not part.Parent then
+            candidates[part] = nil
+        elseif isLoose(part) then
+            local distance = (part.Position - origin).Magnitude
+            if distance <= range and not inCharacter(part) then
+                local root = part.AssemblyRootPart
+                local entry = assemblies[root]
+                if not entry then
+                    entry = {Object = objectOf(root), Parts = {}, Distance = distance}
+                    assemblies[root] = entry
+                end
+                table.insert(entry.Parts, part)
+                entry.Distance = math.min(entry.Distance, distance)
+            end
+        end
+    end
+    local list = {}
+    for _, entry in pairs(assemblies) do
+        table.insert(list, entry)
+    end
+    table.sort(list, function(a, b)
+        return a.Distance < b.Distance
+    end)
+    return list
+end
+
+local function makeBox(part)
+    local shape = part:IsA("Part") and part.Shape
+    local box
+    if shape == Enum.PartType.Ball then
+        box = Instance.new("SphereHandleAdornment")
+        box.Radius = math.min(part.Size.X, part.Size.Y, part.Size.Z) / 2 + 0.05
+        box.Transparency = 0.7
+    elseif shape == Enum.PartType.Cylinder then
+        box = Instance.new("CylinderHandleAdornment")
+        box.Height = part.Size.X + 0.1
+        box.Radius = math.min(part.Size.Y, part.Size.Z) / 2 + 0.05
+        box.CFrame = CFrame.Angles(0, math.rad(90), 0)
+        box.Transparency = 0.7
+    else
+        box = Instance.new("SelectionBox")
+        box.LineThickness = 0.04
+        box.SurfaceTransparency = 0.85
+        box.SurfaceColor3 = COLOR
+    end
+    box.Color3 = COLOR
+    box.Adornee = part
+    box.Parent = folder
+    return box
+end
+
+local function clearBoxes()
+    for part, box in pairs(boxes) do
+        box:Destroy()
+        boxes[part] = nil
+    end
+end
+
+local function largestFirst(a, b)
+    return a.Size.Magnitude > b.Size.Magnitude
+end
+
+local function refresh()
+    local seen = {}
+    local count = 0
+    for _, entry in ipairs(collect()) do
+        if #entry.Parts > MAX_PER_OBJECT then
+            table.sort(entry.Parts, largestFirst)
+        end
+        for index, part in ipairs(entry.Parts) do
+            if count >= MAX_BOXES or index > MAX_PER_OBJECT then
+                break
+            end
+            count = count + 1
+            seen[part] = true
+            boxes[part] = boxes[part] or makeBox(part)
+        end
+    end
+    for part, box in pairs(boxes) do
+        if not seen[part] then
+            box:Destroy()
+            boxes[part] = nil
+        end
+    end
+end
+
+local added = Workspace.DescendantAdded:Connect(consider)
+
+task.spawn(function()
+    scan()
+    local lastScan = os.clock()
+    while folder.Parent do
+        if enabled then
+            if os.clock() - lastScan > 10 then
+                scan()
+                lastScan = os.clock()
+            end
+            pcall(refresh)
+        end
+        task.wait(0.5)
+    end
+end)
+
+env.MovablePluginStop = function()
+    enabled = false
+    added:Disconnect()
+    clearBoxes()
+    folder:Destroy()
+    table.clear(candidates)
+end
+
+return {
+    ["PluginName"] = "movable",
+    ["PluginDescription"] = "shows objects in the game you can move",
+    ["Commands"] = {
+        ["movable"] = {
+            ["ListName"] = "movable",
+            ["Description"] = "highlight every unanchored object you can move. radius is 500 studs, change it with movableradius",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                enabled = true
+                if not scanned then
+                    say("still loading, try again in a second")
+                    return
+                end
+                say(string.format("%d objects you can move within %d studs (movableradius to change)", #collect(), range))
+            end,
+        },
+        ["movableradius"] = {
+            ["ListName"] = "movableradius [studs]",
+            ["Description"] = "how far movable looks, default 500. example: movableradius 1000",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                local value = tonumber(args[1])
+                if not value then
+                    say("radius is " .. range .. " studs. to change it: movableradius 1000")
+                    return
+                end
+                range = math.clamp(value, 10, 100000)
+                say("radius " .. range .. " studs")
+            end,
+        },
+        ["unmovable"] = {
+            ["ListName"] = "unmovable",
+            ["Description"] = "hide them again",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                enabled = false
+                clearBoxes()
+            end,
+        },
+        ["movablelist"] = {
+            ["ListName"] = "movablelist",
+            ["Description"] = "list of objects you can move, nearest first (in the F9 console)",
+            ["Aliases"] = {},
+            ["Function"] = function(args, speaker)
+                if not scanned then
+                    say("still loading, try again in a second")
+                    return
+                end
+                local list = collect()
+                if #list == 0 then
+                    say("nothing to move within " .. range .. " studs")
+                    return
+                end
+                local lines = {}
+                for index, entry in ipairs(list) do
+                    table.insert(lines, string.format("%d. %s, %d studs away", index, entry.Object.Name, math.floor(entry.Distance)))
+                end
+                print("[movable]\n" .. table.concat(lines, "\n"))
+                say(#list .. " objects you can move. list is in F9")
+            end,
+        },
+    },
+}

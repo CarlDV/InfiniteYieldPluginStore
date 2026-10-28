@@ -1,8 +1,32 @@
 {
-  "scraped_at": "2026-10-25T22:39:30.634872+00:00",
+  "scraped_at": "2026-10-28T00:25:22.367044+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 583,
+  "total_plugins": 584,
   "plugins": [
+    {
+      "id": "1564398432746209361",
+      "name": "movable",
+      "description": "# movable\nshows every object in the game you can move. type `movable` and they all light up green\n\n`movable` on\n`unmovable` off\n`movableradius [studs]` how far it looks (500 by default)\n`movablelist` list of them in F9",
+      "author": {
+        "name": "lkjhgcffo",
+        "username": "lkjhgcffo",
+        "avatar": "https://cdn.discordapp.com/avatars/1076347807457361981/689aba0377dd498305b77209aab763a9.png?size=1024"
+      },
+      "date": "2026-10-26T22:00:51.484000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1564398432746209361",
+      "files": [
+        {
+          "filename": "movable.iy",
+          "url": "plugins/1564398432746209361/movable.iy",
+          "size": 8144,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1563985030152200242",
       "name": "ScrollZoom",
@@ -10,7 +34,7 @@
       "author": {
         "name": "Aureal",
         "username": "non.menthol.newports",
-        "avatar": "https://cdn.discordapp.com/avatars/1498977251134279900/a_5a6a8359e396de9624c6bd2eb04fe395.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1498977251134279900/0a7425d5e639b6e084d6afc08affd41c.png?size=1024"
       },
       "date": "2026-10-25T18:38:08.625000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1563985030152200242",
@@ -34,9 +58,9 @@
       "name": "BackwardsTrip",
       "description": "# Backwards Trip\n-# keep in mind i almost rejected ts idea\nTrip but backwards! Just type in `btrip` and you will trip (but backwards). And becareful because you might fly in the air",
       "author": {
-        "name": "LPG Daily Drinker",
+        "name": "Plugin",
         "username": "totallyuhhh",
-        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/032cd51f62b4b3d29a096a8a3f0d22fd.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/d8d4704f19ca7d86955937ecd2e8471d.png?size=1024"
       },
       "date": "2026-10-24T08:54:02.244000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1563475647110840382",
@@ -58,9 +82,9 @@
       "name": "destroyallearwax",
       "description": "# makes u hear every sound in the game\n\nso uhhh it basically sets every audio instance's max & min distance to the limit when u type \"hear\" in the command bar and thats all",
       "author": {
-        "name": "LPG Daily Drinker",
+        "name": "Plugin",
         "username": "totallyuhhh",
-        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/032cd51f62b4b3d29a096a8a3f0d22fd.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/d8d4704f19ca7d86955937ecd2e8471d.png?size=1024"
       },
       "date": "2026-10-23T16:43:39.523000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1563231443319005277",
@@ -576,9 +600,9 @@
       "name": "ServerDirectory",
       "description": "# Server Directory\n## Cmd Usage: sd\n- Allows you to view the server list of your current placeID and filter them accordingly for easy server switching/viewing\n\n#  ⚠️ What this plugin loads and calls out to\nThis plugin uses a loadstring to call a UI library called Fluent, The plugin itself also makes HTTP requests to servers other than roblox.com:\n\n- **`apis.rovalra.com`** RoValra's public API) — to get the list of Roblox datacenters and figure out which datacenter each server is running in. \n- **`ipapi.co`** — to get your rough physical location from your IP, so the plugin can tell which servers are actually close to you. This sends your IP to that service.",
       "author": {
-        "name": "Pops",
+        "name": "Anti-Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_5d19024a20732d0d77bfa5e426ffb369.gif?size=1024"
       },
       "date": "2026-08-13T11:51:09.458000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1537428294553833562",
@@ -1887,9 +1911,9 @@
       "name": "UselessFactNotification",
       "description": "**Useless Fact Notification** , Kept it as a IY notification\n(Honestly just a basic fact script I did like 3-4 years ago)\n\nthe commands are \"fact\" and \"useless\"",
       "author": {
-        "name": "Pops",
+        "name": "Anti-Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_50526088a494a50ca91e6ee62c7edf68.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_5d19024a20732d0d77bfa5e426ffb369.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -2875,7 +2899,7 @@
       "author": {
         "name": "ValveTextureFile",
         "username": "ipv4e",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_df614ab8cff8e1ad2eee2c6df0989b44.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_b4f10ad9ee8071e9ace88eac93ec2b17.gif?size=1024"
       },
       "date": "2025-12-26T03:45:29.686000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453956864403443784",
@@ -2899,7 +2923,7 @@
       "author": {
         "name": "ValveTextureFile",
         "username": "ipv4e",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_df614ab8cff8e1ad2eee2c6df0989b44.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_b4f10ad9ee8071e9ace88eac93ec2b17.gif?size=1024"
       },
       "date": "2025-12-24T21:41:15.365000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453502812871987333",
@@ -3435,7 +3459,7 @@
       "author": {
         "name": "Nexus",
         "username": "j5vz",
-        "avatar": "https://cdn.discordapp.com/avatars/1011492950884221049/532bc05803c4a4756fa4cae5d42ce921.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1011492950884221049/9594b190ac31758689f60f3594901bf7.png?size=1024"
       },
       "date": "2025-08-05T07:37:59.344000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1402193908729118733",
@@ -6441,7 +6465,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6adf9e32&is=6ade4cb2&hm=2eed1774093db7fd6ff3e9dbdd4d81a0ccfc535a6cc47bd5b000e14ea10e6b61&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae24132&is=6ae0efb2&hm=5b523603f22850ce5d361fb60aed673a1a57ff48b96078b98e3c21c357cc359d&"
           },
           "image": null,
           "video": null
@@ -6455,7 +6479,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6adf9e49&is=6ade4cc9&hm=4b1873d8645a0d9161861c8f0a07dc6617fbaa06a514381111039a9bf828a5ee&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae24149&is=6ae0efc9&hm=f91f2f3d3197c8c6c3bd45a79b8de48a837d7f712f64149fb766d7b4e5798b9f&"
           },
           "image": null,
           "video": null
@@ -7318,7 +7342,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6adf9e32&is=6ade4cb2&hm=2eed1774093db7fd6ff3e9dbdd4d81a0ccfc535a6cc47bd5b000e14ea10e6b61&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae24132&is=6ae0efb2&hm=5b523603f22850ce5d361fb60aed673a1a57ff48b96078b98e3c21c357cc359d&"
           },
           "image": null,
           "video": null
@@ -7332,7 +7356,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6adf9e49&is=6ade4cc9&hm=4b1873d8645a0d9161861c8f0a07dc6617fbaa06a514381111039a9bf828a5ee&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae24149&is=6ae0efc9&hm=f91f2f3d3197c8c6c3bd45a79b8de48a837d7f712f64149fb766d7b4e5798b9f&"
           },
           "image": null,
           "video": null
@@ -8705,7 +8729,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6adf6fe5&is=6ade1e65&hm=dcc0c8d9864444eaaf0aaa3109f87de34c2c3ed80d6b71321a095543baa6b7a5&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae212e5&is=6ae0c165&hm=8da143821495341215d941cf435bcb13ba53129dfc3b9d7109f6553763355c47&"
           },
           "image": null,
           "video": null
@@ -10069,8 +10093,8 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker V1.2]\n// Note: This is not the abomination that CamMaker V1.1 was.\n[New Features]:\"\nIt's not fucking broken.\nAdded listcams command, which lists the cameras.\nCompletely rewrote the plugin.\nCameras are now stored in the workspace folder of your exploit. This allows for you to view a camera even if you rejoin the game.\nImplemented some anti-detection measures.\"\n[Warning]:\"\nCamMaker V1.2 can only utilize all of it's features on Synapse X. If you are not running Synapse X note that the listcams command will not work. Also, may not work on some free exploits.\"\n[Commands]:'\nMakeCam [Name]: Creates a camera.\nViewCam [Name]: Views a camera.\nUnviewCam: Returns camera to view the player.\nDelCam [Name]: Deletes a camera.\nListCams: Lists the currently created cameras.'```",
       "author": {
-        "name": "lxyznn",
-        "username": "lxyznn",
+        "name": "evelyn",
+        "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-08-19T01:26:34.097000+00:00",
@@ -10145,8 +10169,8 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker v1.1]\n[New Features]:'\n  delcam [Camera Name] (no spaces in camera name):\n    Deletes the specified camera.\n```",
       "author": {
-        "name": "lxyznn",
-        "username": "lxyznn",
+        "name": "evelyn",
+        "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-08-13T09:03:36.878000+00:00",
@@ -10171,8 +10195,8 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker]\n[Commands]:'\n  makecam [Camera Name] (no spaces in camera name):\n    Creates a camera under that name.\n  viewcam [Camera Name] (no spaces in camera name):\n    Views the camera that you created under that name.\n  unviewcam:\n    Returns camera view back to your player.'\n// Note: The camera creates based on your camera's position so that you can create a camera in freecam. DM me if you encounter any bugs.```",
       "author": {
-        "name": "lxyznn",
-        "username": "lxyznn",
+        "name": "evelyn",
+        "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-08-13T02:07:23.484000+00:00",
@@ -10624,8 +10648,8 @@
       "name": "ESCMDS",
       "description": "Electric State Commands v1.0, for game 'Electric State DarkRP [Beta]'\n\nCommands:\nNoNLR: Disables New Life Rule, a big red sphere that appears after death that you cant enter for a few minutes.\n\nAimlock: My modified aimlock script you can find in <#510246778285719582>, press 'z' while hovering over a player to select them and 'u' (or 'c' i cant remember lol) to toggle the aimlock. It moves the camera so it only works in first person.\n\nNote: If anyone wants to try exploiting Electric State be warned that it's community fucking *hates* exploiters and they have a report system, which can get you banned. There is also a strong anti-cheat which subtly does things if it detects you, such as disabling some core features. Do not use noclip that disables humanoid collisions, as it will get anti cheated. Instead use humanoidchangestate noclip or btools.",
       "author": {
-        "name": "lxyznn",
-        "username": "lxyznn",
+        "name": "evelyn",
+        "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-07-18T08:28:55.627000+00:00",
@@ -10776,9 +10800,9 @@
       "name": "Ninja_Legends_Best_Free_Hack",
       "description": "Hello ,i created for you the best free hack of ninja legends it is imperatively necessary to have a level 7 executor you give me your opinions if you want",
       "author": {
-        "name": "mdr ?",
+        "name": "(@Le*****)",
         "username": "mdlk05",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/e1fe35b345075238decb885ca3da71e7.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/ec15c2718e94865e4345cdd6c5361174.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -12642,8 +12666,8 @@
       "name": "login_alertsiy",
       "description": "<@!222106655188451328> fixed ur file extension",
       "author": {
-        "name": "lxyznn",
-        "username": "lxyznn",
+        "name": "evelyn",
+        "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
       },
       "date": "2020-04-23T22:55:33.851000+00:00",
