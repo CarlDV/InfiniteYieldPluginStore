@@ -1,8 +1,32 @@
 {
-  "scraped_at": "2026-10-28T00:25:22.367044+00:00",
+  "scraped_at": "2026-10-30T08:08:16.359768+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 584,
+  "total_plugins": 585,
   "plugins": [
+    {
+      "id": "1565637440247697419",
+      "name": "destroyallearwax",
+      "description": "# makes u hear every sound in the game 2\nSets every audio volume to the limit and makes them sound really gruesome (command is earblast/loud dont include the numbers)",
+      "author": {
+        "name": "totallyuhhh",
+        "username": "totallyuhhh",
+        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/38f0ecbae4be464fcbcbfcc5df5f519c.png?size=1024"
+      },
+      "date": "2026-10-30T08:04:13.892000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1565637440247697419",
+      "files": [
+        {
+          "filename": "destroyallearwax.iy",
+          "url": "plugins/1565637440247697419/destroyallearwax.iy",
+          "size": 791,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1564398432746209361",
       "name": "movable",
@@ -58,9 +82,9 @@
       "name": "BackwardsTrip",
       "description": "# Backwards Trip\n-# keep in mind i almost rejected ts idea\nTrip but backwards! Just type in `btrip` and you will trip (but backwards). And becareful because you might fly in the air",
       "author": {
-        "name": "Plugin",
+        "name": "totallyuhhh",
         "username": "totallyuhhh",
-        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/d8d4704f19ca7d86955937ecd2e8471d.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/38f0ecbae4be464fcbcbfcc5df5f519c.png?size=1024"
       },
       "date": "2026-10-24T08:54:02.244000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1563475647110840382",
@@ -82,9 +106,9 @@
       "name": "destroyallearwax",
       "description": "# makes u hear every sound in the game\n\nso uhhh it basically sets every audio instance's max & min distance to the limit when u type \"hear\" in the command bar and thats all",
       "author": {
-        "name": "Plugin",
+        "name": "totallyuhhh",
         "username": "totallyuhhh",
-        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/d8d4704f19ca7d86955937ecd2e8471d.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/38f0ecbae4be464fcbcbfcc5df5f519c.png?size=1024"
       },
       "date": "2026-10-23T16:43:39.523000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1563231443319005277",
@@ -3030,7 +3054,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/f508a218e23d848936b7df780a3f8da2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
       },
       "date": "2025-11-19T14:39:50.620000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440713185668890714",
@@ -3054,7 +3078,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/f508a218e23d848936b7df780a3f8da2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
       },
       "date": "2025-11-19T12:24:35.056000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440679146526343312",
@@ -3104,7 +3128,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/f508a218e23d848936b7df780a3f8da2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
       },
       "date": "2025-11-02T06:01:29.844000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434422145844514886",
@@ -3181,7 +3205,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/f508a218e23d848936b7df780a3f8da2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
       },
       "date": "2025-11-01T13:31:14.811000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434172941133680670",
@@ -4439,7 +4463,7 @@
       "name": "bams",
       "description": "# Blind # \nplugin suggestion from <@1053706509407768676> \nif your avatar is blockier then it's going to be harder for the specific person to see.\nusage :\n`command alises: annyon,blind `\n`turn off command alises: unannyon,stopannyon,unblin`",
       "author": {
-        "name": "I tag with my tip",
+        "name": "I need fatality.win invite",
         "username": "lordofmountain",
         "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/0e08064747af93f6b0da03a5037fe456.png?size=1024"
       },
@@ -4469,7 +4493,7 @@
       "name": "facefuck",
       "description": "# Face fuck # \nGet Blowjobs!\nUsage: \n`to activate it: facefuck,bj,blowjob,head (the specific player,speed) example: facefuck erta215 21`\n`disable alises: unfacefuck,unbj,unblowjob,unhead` \nfixed .",
       "author": {
-        "name": "I tag with my tip",
+        "name": "I need fatality.win invite",
         "username": "lordofmountain",
         "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/0e08064747af93f6b0da03a5037fe456.png?size=1024"
       },
@@ -4733,7 +4757,7 @@
       "author": {
         "name": "McCafferty",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/bea0ab502faee1300c17bab47bfb8663.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/a6f0140a893d1927eefe1cb709d06a84.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -5247,9 +5271,9 @@
       "name": "yttd",
       "description": "**Youtube Thumbnail Downloader**\n**Download Youtube Thumbnails!**\n\n```;thumbdownload \"Youtube link\"```\n\npretty useless",
       "author": {
-        "name": "baby doggy",
+        "name": "Neon Gucci Tracksuit",
         "username": "joshycuteball",
-        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/589d7ca0c83a021e789605f7d68afcc7.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/1f4292fd5488533e31fc25fb46757afc.png?size=1024"
       },
       "date": "2023-02-05T07:42:15.585000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1071697250054578177",
@@ -5443,9 +5467,9 @@
       "name": "coinflip",
       "description": "**Coin Flip**\n\n*Commands:*\n`coinflip or cf`\n\n*Description:*\n`Flip a coin!`",
       "author": {
-        "name": "baby doggy",
+        "name": "Neon Gucci Tracksuit",
         "username": "joshycuteball",
-        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/589d7ca0c83a021e789605f7d68afcc7.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/615291207353892876/1f4292fd5488533e31fc25fb46757afc.png?size=1024"
       },
       "date": "2022-12-20T01:42:50.372000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1054574569312239696",
@@ -6465,7 +6489,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae24132&is=6ae0efb2&hm=5b523603f22850ce5d361fb60aed673a1a57ff48b96078b98e3c21c357cc359d&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae58cf2&is=6ae43b72&hm=d1a6001d8f29a60777bbf073697ddc3fb7aa0ed274b88b2ca8c5feb9877cd584&"
           },
           "image": null,
           "video": null
@@ -6479,7 +6503,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae24149&is=6ae0efc9&hm=f91f2f3d3197c8c6c3bd45a79b8de48a837d7f712f64149fb766d7b4e5798b9f&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae58d09&is=6ae43b89&hm=458ec81adbf59ebcd6eec2605e9e889b51d70d220d43f93e51de84f7b31cfcf1&"
           },
           "image": null,
           "video": null
@@ -7342,7 +7366,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae24132&is=6ae0efb2&hm=5b523603f22850ce5d361fb60aed673a1a57ff48b96078b98e3c21c357cc359d&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae58cf2&is=6ae43b72&hm=d1a6001d8f29a60777bbf073697ddc3fb7aa0ed274b88b2ca8c5feb9877cd584&"
           },
           "image": null,
           "video": null
@@ -7356,7 +7380,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae24149&is=6ae0efc9&hm=f91f2f3d3197c8c6c3bd45a79b8de48a837d7f712f64149fb766d7b4e5798b9f&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae58d09&is=6ae43b89&hm=458ec81adbf59ebcd6eec2605e9e889b51d70d220d43f93e51de84f7b31cfcf1&"
           },
           "image": null,
           "video": null
@@ -8729,7 +8753,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae212e5&is=6ae0c165&hm=8da143821495341215d941cf435bcb13ba53129dfc3b9d7109f6553763355c47&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae55ea5&is=6ae40d25&hm=055c93c08483a8e0b5047ecce20458ae77fe23606384fd92b85ed7fe441242b0&"
           },
           "image": null,
           "video": null
@@ -10093,9 +10117,9 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker V1.2]\n// Note: This is not the abomination that CamMaker V1.1 was.\n[New Features]:\"\nIt's not fucking broken.\nAdded listcams command, which lists the cameras.\nCompletely rewrote the plugin.\nCameras are now stored in the workspace folder of your exploit. This allows for you to view a camera even if you rejoin the game.\nImplemented some anti-detection measures.\"\n[Warning]:\"\nCamMaker V1.2 can only utilize all of it's features on Synapse X. If you are not running Synapse X note that the listcams command will not work. Also, may not work on some free exploits.\"\n[Commands]:'\nMakeCam [Name]: Creates a camera.\nViewCam [Name]: Views a camera.\nUnviewCam: Returns camera to view the player.\nDelCam [Name]: Deletes a camera.\nListCams: Lists the currently created cameras.'```",
       "author": {
-        "name": "evelyn",
+        "name": "evelxyzn",
         "username": "evelxyzn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
       "date": "2020-08-19T01:26:34.097000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/745453625161285802",
@@ -10169,9 +10193,9 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker v1.1]\n[New Features]:'\n  delcam [Camera Name] (no spaces in camera name):\n    Deletes the specified camera.\n```",
       "author": {
-        "name": "evelyn",
+        "name": "evelxyzn",
         "username": "evelxyzn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
       "date": "2020-08-13T09:03:36.878000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/743394317447462933",
@@ -10195,9 +10219,9 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker]\n[Commands]:'\n  makecam [Camera Name] (no spaces in camera name):\n    Creates a camera under that name.\n  viewcam [Camera Name] (no spaces in camera name):\n    Views the camera that you created under that name.\n  unviewcam:\n    Returns camera view back to your player.'\n// Note: The camera creates based on your camera's position so that you can create a camera in freecam. DM me if you encounter any bugs.```",
       "author": {
-        "name": "evelyn",
+        "name": "evelxyzn",
         "username": "evelxyzn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
       "date": "2020-08-13T02:07:23.484000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/743289571441377390",
@@ -10648,9 +10672,9 @@
       "name": "ESCMDS",
       "description": "Electric State Commands v1.0, for game 'Electric State DarkRP [Beta]'\n\nCommands:\nNoNLR: Disables New Life Rule, a big red sphere that appears after death that you cant enter for a few minutes.\n\nAimlock: My modified aimlock script you can find in <#510246778285719582>, press 'z' while hovering over a player to select them and 'u' (or 'c' i cant remember lol) to toggle the aimlock. It moves the camera so it only works in first person.\n\nNote: If anyone wants to try exploiting Electric State be warned that it's community fucking *hates* exploiters and they have a report system, which can get you banned. There is also a strong anti-cheat which subtly does things if it detects you, such as disabling some core features. Do not use noclip that disables humanoid collisions, as it will get anti cheated. Instead use humanoidchangestate noclip or btools.",
       "author": {
-        "name": "evelyn",
+        "name": "evelxyzn",
         "username": "evelxyzn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
       "date": "2020-07-18T08:28:55.627000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/733963503542468618",
@@ -10800,9 +10824,9 @@
       "name": "Ninja_Legends_Best_Free_Hack",
       "description": "Hello ,i created for you the best free hack of ninja legends it is imperatively necessary to have a level 7 executor you give me your opinions if you want",
       "author": {
-        "name": "(@Le*****)",
+        "name": "mdlk",
         "username": "mdlk05",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/ec15c2718e94865e4345cdd6c5361174.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/a0c9e154cb5d937a0946e4fb259b9742.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -12666,9 +12690,9 @@
       "name": "login_alertsiy",
       "description": "<@!222106655188451328> fixed ur file extension",
       "author": {
-        "name": "evelyn",
+        "name": "evelxyzn",
         "username": "evelxyzn",
-        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/41012d81701660ce79fa22574eb52cf2.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
       "date": "2020-04-23T22:55:33.851000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/703016243459915826",
