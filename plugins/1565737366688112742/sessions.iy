@@ -1,0 +1,469 @@
+local HttpService = game:GetService("HttpService")
+local iconPath = "infiniteyield/assets/sessions_icon.png"
+if not isfile(iconPath) then
+    writefile(iconPath, game:HttpGet("https://plain-weur-prod-public.komododecks.com/202610/30/9h9K2BdKCrRnyCAESvBc/image.png"))
+end
+local function safeRename(from, to)
+    writefile(to, readfile(from))
+    delfile(from)
+end
+
+local Messages = {
+    [1] = "please specify",
+    [2] = "session created: %s",
+    [3] = "session '%s' not found",
+    [4] = "cannot delete the active session",
+    [5] = "session '%s' deleted from Sessions",
+    [6] = "current session: %s",
+    [7] = "already on session: %s"
+}
+
+local function notifyS(num, duration, ...)
+    local str = Messages[num] or ""
+    if select("#", ...) > 0 then
+        str = string.format(str, ...)
+    end
+    notify("Sessions", str, duration)
+end
+
+local function getSessionsList()
+    local ThisSFile = "Sessions"
+    if not isfile(ThisSFile) then
+        writefile(ThisSFile, "Main")
+        return {"Main"}
+    end
+    local content = readfile(ThisSFile)
+    local list = {}
+    for item in string.gmatch(content, "([^,]+)") do
+        local cleanName = item:match("^%s*(.-)%s*$")
+        if cleanName and #cleanName > 0 then
+            table.insert(list, cleanName)
+        end
+    end
+    if #list == 0 then
+        list = {"Main"}
+        writefile(ThisSFile, "Main")
+    end
+    return list
+end
+
+local function saveSessionsList(list)
+    writefile("Sessions", table.concat(list, ", "))
+end
+
+local function getActiveSession()
+    local list = getSessionsList()
+    for _, sessionName in ipairs(list) do
+        if not isfile(sessionName .. ".IY") then
+            return sessionName
+        end
+    end
+    return list[1] or "Main"
+end
+
+local function applySession()
+    saves()
+    
+    pWayPoints = {}
+    WayPoints = {}
+    if #AllWaypoints > 0 then
+        for i = 1, #AllWaypoints do
+            if not AllWaypoints[i].GAME or AllWaypoints[i].GAME == PlaceId then
+                WayPoints[#WayPoints + 1] = {NAME = AllWaypoints[i].NAME, COORD = {AllWaypoints[i].COORD[1], AllWaypoints[i].COORD[2], AllWaypoints[i].COORD[3]}, GAME = AllWaypoints[i].GAME}
+            end
+        end
+    end
+
+    PrefixBox.Text = prefix
+    Cmdbar.PlaceholderText = "Command Bar ("..prefix..")"
+    On.BackgroundTransparency = StayOpen and 0 or 1
+    Toggle.Text = logsEnabled and 'Enabled' or 'Disabled'
+    Toggle_2.Text = jLogsEnabled and 'Enabled' or 'Disabled'
+    
+    updateColors(currentShade1, shade1)
+    updateColors(currentShade2, shade2)
+    updateColors(currentShade3, shade3)
+    updateColors(currentText1, text1)
+    updateColors(currentText2, text2)
+    updateColors(currentScroll, scroll)
+    
+    refreshbinds()
+    refreshaliases()
+    refreshwaypoints()
+    refreshplugins(true)
+    
+    execCmd("guiscale " .. guiScale)
+
+    customAlias = {}
+    if #aliases > 0 then
+        local cmdMap = {}
+        for i,v in pairs(cmds) do
+            cmdMap[v.NAME:lower()] = v
+            for _,alias in pairs(v.ALIAS) do
+                cmdMap[alias:lower()] = v
+            end
+        end
+        for i = 1, #aliases do
+            local cmd = string.lower(aliases[i].CMD)
+            local alias = string.lower(aliases[i].ALIAS)
+            if cmdMap[cmd] then
+                customAlias[alias] = cmdMap[cmd]
+            end
+        end
+    end
+
+    if loadedEventData then
+        eventEditor.LoadData(loadedEventData)
+        eventEditor.Refresh()
+    end
+end
+
+local currentSession = getActiveSession()
+task.delay(1, function()
+    notifyS(6, 3, currentSession)
+end)
+
+local SessionPanel
+local SessionScroll
+local rebuildSessionsList
+
+local function scrubThemeRefs(inst)
+    for _, tbl in ipairs({shade1, shade2, shade3, text1, text2, scroll}) do
+        if tbl then
+            for i = #tbl, 1, -1 do
+                if tbl[i] == inst then table.remove(tbl, i) end
+            end
+        end
+    end
+end
+
+local function createSessionRow(parent, sessionName)
+    local SessionRow = Instance.new("Frame")
+    SessionRow.Name = "SessionRow"
+    SessionRow.Size = UDim2.new(1, 0, 0, 25)
+    SessionRow.BackgroundColor3 = currentShade2
+    SessionRow.BorderSizePixel = 0
+    SessionRow.ZIndex = 10
+    SessionRow.Parent = parent
+
+    local Label = Instance.new("TextLabel")
+    Label.Name = "Label"
+    Label.Size = UDim2.new(1, -110, 1, 0)
+    Label.Position = UDim2.new(0, 10, 0, 0)
+    Label.BackgroundTransparency = 1
+    Label.Text = sessionName
+    Label.Font = Enum.Font.SourceSans
+    Label.TextSize = 14
+    Label.TextColor3 = currentText1
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.ZIndex = 10
+    Label.Parent = SessionRow
+
+    local LoadBtn = Instance.new("TextButton")
+    LoadBtn.Name = "Load"
+    LoadBtn.Size = UDim2.new(0, 45, 0, 25)
+    LoadBtn.Position = UDim2.new(1, -95, 0, 0)
+    LoadBtn.BackgroundColor3 = currentShade3
+    LoadBtn.BorderSizePixel = 0
+    LoadBtn.Text = "Load"
+    LoadBtn.Font = Enum.Font.SourceSans
+    LoadBtn.TextSize = 14
+    LoadBtn.TextColor3 = currentText2
+    LoadBtn.ZIndex = 11
+    LoadBtn.Parent = SessionRow
+
+    LoadBtn.MouseButton1Click:Connect(function()
+        if execCmd then
+            execCmd("loadsession " .. sessionName)
+        end
+    end)
+
+    local DeleteBtn = Instance.new("TextButton")
+    DeleteBtn.Name = "Delete"
+    DeleteBtn.Size = UDim2.new(0, 45, 0, 25)
+    DeleteBtn.Position = UDim2.new(1, -45, 0, 0)
+    DeleteBtn.BackgroundColor3 = currentShade3
+    DeleteBtn.BorderSizePixel = 0
+    DeleteBtn.Text = "Delete"
+    DeleteBtn.Font = Enum.Font.SourceSans
+    DeleteBtn.TextSize = 14
+    DeleteBtn.TextColor3 = currentText2
+    DeleteBtn.ZIndex = 11
+    DeleteBtn.Parent = SessionRow
+
+    DeleteBtn.MouseButton1Click:Connect(function()
+        if execCmd then
+            execCmd("delsession " .. sessionName)
+        end
+        task.wait(0.1)
+        if rebuildSessionsList then rebuildSessionsList() end
+    end)
+
+    table.insert(shade2, SessionRow)
+    table.insert(text1, Label)
+    table.insert(shade3, LoadBtn)
+    table.insert(shade3, DeleteBtn)
+    table.insert(text2, LoadBtn)
+    table.insert(text2, DeleteBtn)
+
+    return SessionRow
+end
+
+rebuildSessionsList = function()
+    if not SessionScroll then return end
+    for _, row in ipairs(SessionScroll:GetChildren()) do
+        if row.Name == "SessionRow" then
+            scrubThemeRefs(row)
+            for _, child in ipairs(row:GetChildren()) do scrubThemeRefs(child) end
+        end
+    end
+    for _, row in ipairs(SessionScroll:GetChildren()) do
+        if row.Name == "SessionRow" then row:Destroy() end
+    end
+
+    SessionScroll.CanvasSize = UDim2.new(0, 0, 0, 10)
+
+    local sessionsData = getSessionsList()
+    for i, name in ipairs(sessionsData) do
+        local YSize = 25
+        local Position = ((i * YSize) - YSize)
+        local row = createSessionRow(SessionScroll, name)
+        row.Position = UDim2.new(0, 0, 0, Position + 5)
+        SessionScroll.CanvasSize = UDim2.new(0, 0, 0, Position + 30)
+    end
+end
+
+local function buildSessionsPanel()
+    if SessionPanel then return SessionPanel end
+    if not SettingsHolder or not SettingsHolder.Parent then return nil end
+
+    local Settings = SettingsHolder.Parent
+
+    SessionPanel = Instance.new("Frame")
+    SessionPanel.Name = "SessionsFrame"
+    SessionPanel.Active = true
+    SessionPanel.BackgroundColor3 = currentShade1
+    SessionPanel.BorderSizePixel = 0
+    SessionPanel.Position = UDim2.new(0, 0, 0, 175)
+    SessionPanel.Size = UDim2.new(0, 250, 0, 175)
+    SessionPanel.ZIndex = 10
+    SessionPanel.Visible = false
+    SessionPanel.Parent = Settings
+    table.insert(shade1, SessionPanel)
+
+    local Close = Instance.new("TextButton")
+    Close.Name = "Close"
+    Close.BackgroundColor3 = currentShade2
+    Close.BorderSizePixel = 0
+    Close.Position = UDim2.new(0, 205, 0, 150)
+    Close.Size = UDim2.new(0, 40, 0, 20)
+    Close.Font = Enum.Font.SourceSans
+    Close.TextSize = 14
+    Close.Text = "Close"
+    Close.TextColor3 = currentText1
+    Close.ZIndex = 10
+    Close.Parent = SessionPanel
+    table.insert(shade2, Close)
+    table.insert(text1, Close)
+
+    Close.MouseButton1Click:Connect(function()
+        SessionPanel:TweenPosition(UDim2.new(0, 0, 0, 175), "InOut", "Quart", 0.5, true, nil)
+        task.delay(0.5, function()
+            SessionPanel.Visible = false
+        end)
+        SettingsHolder.Visible = true
+    end)
+
+    SessionScroll = Instance.new("ScrollingFrame")
+    SessionScroll.Name = "Holder"
+    SessionScroll.BackgroundTransparency = 1
+    SessionScroll.BorderSizePixel = 0
+    SessionScroll.Position = UDim2.new(0, 0, 0, 0)
+    SessionScroll.Size = UDim2.new(0, 250, 0, 145)
+    SessionScroll.Selectable = false
+    SessionScroll.ScrollBarImageColor3 = currentScroll
+    SessionScroll.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+    SessionScroll.MidImage    = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+    SessionScroll.TopImage    = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+    SessionScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+    SessionScroll.ScrollBarThickness = 6
+    SessionScroll.VerticalScrollBarInset = "Always"
+    SessionScroll.ZIndex = 10
+    SessionScroll.Parent = SessionPanel
+    table.insert(scroll, SessionScroll)
+
+    rebuildSessionsList()
+    return SessionPanel
+end
+
+local function addSettingsButton()
+    if not SettingsHolder or not makeSettingsButton then return end
+    for _, c in pairs(SettingsHolder:GetChildren()) do
+        if c:IsA("TextButton") and c:FindFirstChild("ButtonLabel") and c.ButtonLabel.Text == "Sessions" then return end
+    end
+
+    SettingsHolder.CanvasSize = UDim2.new(0, 0, 0, 260)
+
+    local iconId = waxgetcustomasset and waxgetcustomasset(iconPath) or ""
+    local btn = makeSettingsButton("Sessions", iconId)
+    btn.Position = UDim2.new(0, 5, 0, 235)
+    btn.Size = UDim2.new(1, -10, 0, 25)
+    btn.Name = "SessionsButton"
+    btn.Parent = SettingsHolder
+
+    btn.MouseButton1Click:Connect(function()
+        local panel = buildSessionsPanel()
+        if not panel then return end
+
+        rebuildSessionsList()
+
+        panel.Position = UDim2.new(0, 0, 0, 175)
+        panel.Visible = true
+        panel.ZIndex = 10
+        panel:TweenPosition(UDim2.new(0, 0, 0, 0), "InOut", "Quart", 0.5, true, nil)
+
+        task.delay(0.5, function()
+            SettingsHolder.Visible = false
+        end)
+    end)
+end
+
+task.spawn(function()
+    repeat task.wait() until SettingsHolder and SettingsHolder.Parent and makeSettingsButton
+    addSettingsButton()
+end)
+
+local Plugin = {
+    ["PluginName"] = "Sessions",
+    ["PluginDescription"] = "More than necessary.",
+    ["Commands"] = {
+
+        ["createsession"] = {
+            ["ListName"] = "createsession / csession [session]",
+            ["Description"] = "creates new session",
+            ["Aliases"] = {"csession", "session"},
+            ["Function"] = function(args, speaker)
+                local newName = args[1]
+                if not newName or newName == "" then
+                    local current = getActiveSession()
+                    notifyS(6, 1, current)
+                    return
+                end
+
+                local list = getSessionsList()
+                local originalName = newName
+                local counter = 1
+
+                while true do
+                    local exists = false
+                    for _, s in ipairs(list) do
+                        if s:lower() == newName:lower() then
+                            exists = true
+                            break
+                        end
+                    end
+                    if not exists then break end
+                    
+                    newName = originalName .. counter
+                    counter = counter + 1
+                end
+
+                local data = HttpService:JSONDecode(defaults)
+                data.PluginsTable = {"sessions.iy"}
+                data.binds = {}
+                data.aliases = {}
+                data.WayPoints = {}
+                data.logsEnabled = false
+                data.jLogsEnabled = false
+                data.eventBinds = "{\"OnSpawn\":[],\"OnDied\":[],\"OnExecute\":[],\"OnKilled\":[],\"OnJoin\":[],\"OnLeave\":[],\"OnDamage\":[],\"OnChatted\":[]}"
+                
+                writefile(newName .. ".IY", HttpService:JSONEncode(data))
+                table.insert(list, newName)
+                saveSessionsList(list)
+                notifyS(2, 1, newName)
+                if rebuildSessionsList then rebuildSessionsList() end
+            end
+        },
+
+        ["loadsession"] = {
+            ["ListName"] = "loadsession / lsession [session]",
+            ["Description"] = "switches session",
+            ["Aliases"] = {"lsession"},
+            ["Function"] = function(args, speaker)
+                local targetName = args[1]
+                if not targetName or targetName == "" then
+                    notifyS(1, 1)
+                    return
+                end
+
+                local list = getSessionsList()
+                local realName = nil
+                for _, s in ipairs(list) do
+                    if s:lower() == targetName:lower() then
+                        realName = s
+                        break
+                    end
+                end
+
+                if not realName then
+                    notifyS(3, 1, targetName)
+                    return
+                end
+
+                local activeSession = getActiveSession()
+                if activeSession == realName then
+                    notifyS(7, 1, realName)
+                    return
+                end
+                
+                safeRename("IY_FE.iy", activeSession .. ".IY")
+                safeRename(realName .. ".IY", "IY_FE.iy")
+                
+                notifyS(6, 1, realName)
+                
+                applySession()
+            end
+        },
+
+        ["delsession"] = {
+            ["ListName"] = "delsession / dsession[session]",
+            ["Description"] = "deletes session",
+            ["Aliases"] = {dsession},
+            ["Function"] = function(args, speaker)
+                local targetName = args[1]
+                if not targetName or targetName == "" then
+                    notifyS(1, 1)
+                    return
+                end
+
+                local activeSession = getActiveSession()
+                if activeSession:lower() == targetName:lower() then
+                    notifyS(4, 1)
+                    return
+                end
+
+                local list = getSessionsList()
+                local newList = {}
+                local found = false
+
+                for _, s in ipairs(list) do
+                    if s:lower() == targetName:lower() then
+                        found = true
+                        delfile(s .. ".IY")
+                    else
+                        table.insert(newList, s)
+                    end
+                end
+
+                if found then
+                    saveSessionsList(newList)
+                    notifyS(5, 1, targetName)
+                else
+                    notifyS(3, 1, targetName)
+                end
+            end
+        }
+    }
+}
+
+return Plugin

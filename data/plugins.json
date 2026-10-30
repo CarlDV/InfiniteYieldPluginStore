@@ -1,8 +1,36 @@
 {
-  "scraped_at": "2026-10-30T08:08:16.359768+00:00",
+  "scraped_at": "2026-10-30T14:44:11.412020+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 585,
+  "total_plugins": 586,
   "plugins": [
+    {
+      "id": "1565737366688112742",
+      "name": "sessions",
+      "description": "# Sessions.iy\n• \"more, than necessary\"\n• now you can save plugins, binds, etc in one session, and make **ANOTHER** one session, then **ANOTHER**...\n• All session names are writes on \"Session\" file\n• sessions are saves as \"example.IY\"\n\n(#) Added *SESSION PANEL* inside settings, so you're fully allowed to load OR delete session\n(#) Themes **ALSO** changes between sessions\n(if you changed it)\n(;) creates a new session\n```createsession / csession [session]```\n(;) switches with sessions\n```loadsession / lsession [session]```\n(;) deletes session\n```deletesession\\dsession [session]```\n(leave \"csession\" with no specify for look the current session)\n||(Icon installed from commodo.ai site idk, catbox.moe doesn't work💔)||",
+      "author": {
+        "name": "Tony",
+        "username": "debratecrush",
+        "avatar": "https://cdn.discordapp.com/avatars/1426934088090128526/f9d7b56908f617367a864fb32b3df8d4.png?size=1024"
+      },
+      "date": "2026-10-30T14:41:18.212000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1565737366688112742",
+      "files": [
+        {
+          "filename": "sessions.iy",
+          "url": "plugins/1565737366688112742/sessions.iy",
+          "size": 15615,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "createsession / csession [session]",
+        "loadsession / lsession [session]",
+        "deletesession\\dsession [session]"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1565637440247697419",
       "name": "destroyallearwax",
