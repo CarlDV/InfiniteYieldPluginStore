@@ -1,8 +1,40 @@
 {
-  "scraped_at": "2026-10-30T14:44:11.412020+00:00",
+  "scraped_at": "2026-10-31T12:01:36.897590+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 586,
+  "total_plugins": 587,
   "plugins": [
+    {
+      "id": "1566058888883601538",
+      "name": "checkpoint",
+      "description": "# Checkpoint plugin \ni dont know if a similar thing has existed in here before \ncheckpoint. \n\n```txt\n; cpon — Enable checkpoint plugin\n; cpoff — Disable checkpoint plugin\n; setcheckpoint — Save current position as checkpoint\n; returncp — Return to saved checkpoint (reverse animation)\n; clearcp — Clear current checkpoint\n; cpbutton — Toggle mobile checkpoint button\n; cpbind [key] — Change recall keybind (default: R)\n; cpbindset [key] — Change checkpoint keybind (default: T)\n; cpfall [distance/on/off] — Configure automatic recall when falling (default: OFF)\n; cpinfo — Display checkpoint status, coordinates, keybinds, and auto-fall settings\n```\ndefault keybinds > `T` for setting, `R` for going back\nsupports mobile with `cpbutton` for a button \n\nthis was made in just 10minutes\nthanks",
+      "author": {
+        "name": "David",
+        "username": "istmedavid",
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+      },
+      "date": "2026-10-31T11:58:55.077000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1566058888883601538",
+      "files": [
+        {
+          "filename": "20261031-1153-59.2153885.mp4",
+          "url": "plugins/1566058888883601538/20261031-1153-59.2153885.mp4",
+          "size": 12293730,
+          "is_plugin": false
+        },
+        {
+          "filename": "checkpoint.iy",
+          "url": "plugins/1566058888883601538/checkpoint.iy",
+          "size": 22115,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "txt\n; cpon — Enable checkpoint plugin\n; cpoff — Disable checkpoint plugin\n; setcheckpoint — Save current position as checkpoint\n; returncp — Return to saved checkpoint (reverse animation)\n; clearcp — Clear current checkpoint\n; cpbutton — Toggle mobile checkpoint button\n; cpbind [key] — Change recall keybind (default: R)\n; cpbindset [key] — Change checkpoint keybind (default: T)\n; cpfall [distance/on/off] — Configure automatic recall when falling (default: OFF)\n; cpinfo — Display checkpoint status, coordinates, keybinds, and auto-fall settings"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1565737366688112742",
       "name": "sessions",
@@ -6517,7 +6549,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae58cf2&is=6ae43b72&hm=d1a6001d8f29a60777bbf073697ddc3fb7aa0ed274b88b2ca8c5feb9877cd584&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae6de72&is=6ae58cf2&hm=2e67e99fa2cd01762720d8bee14848e25c91d885d92e3a4dcf8d279514940a12&"
           },
           "image": null,
           "video": null
@@ -6531,7 +6563,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae58d09&is=6ae43b89&hm=458ec81adbf59ebcd6eec2605e9e889b51d70d220d43f93e51de84f7b31cfcf1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae6de89&is=6ae58d09&hm=a9fa9b748d596ca4639c05794d382be64ad3e733e1d6e782cbe9e707bf4f7376&"
           },
           "image": null,
           "video": null
@@ -7394,7 +7426,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae58cf2&is=6ae43b72&hm=d1a6001d8f29a60777bbf073697ddc3fb7aa0ed274b88b2ca8c5feb9877cd584&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae6de72&is=6ae58cf2&hm=2e67e99fa2cd01762720d8bee14848e25c91d885d92e3a4dcf8d279514940a12&"
           },
           "image": null,
           "video": null
@@ -7408,7 +7440,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae58d09&is=6ae43b89&hm=458ec81adbf59ebcd6eec2605e9e889b51d70d220d43f93e51de84f7b31cfcf1&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae6de89&is=6ae58d09&hm=a9fa9b748d596ca4639c05794d382be64ad3e733e1d6e782cbe9e707bf4f7376&"
           },
           "image": null,
           "video": null
@@ -8781,7 +8813,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae55ea5&is=6ae40d25&hm=055c93c08483a8e0b5047ecce20458ae77fe23606384fd92b85ed7fe441242b0&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae6b025&is=6ae55ea5&hm=271b83dddbb17fff09463b711352236acef5c33b0b652e10020fb5d25ec1e9d9&"
           },
           "image": null,
           "video": null
@@ -10145,7 +10177,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker V1.2]\n// Note: This is not the abomination that CamMaker V1.1 was.\n[New Features]:\"\nIt's not fucking broken.\nAdded listcams command, which lists the cameras.\nCompletely rewrote the plugin.\nCameras are now stored in the workspace folder of your exploit. This allows for you to view a camera even if you rejoin the game.\nImplemented some anti-detection measures.\"\n[Warning]:\"\nCamMaker V1.2 can only utilize all of it's features on Synapse X. If you are not running Synapse X note that the listcams command will not work. Also, may not work on some free exploits.\"\n[Commands]:'\nMakeCam [Name]: Creates a camera.\nViewCam [Name]: Views a camera.\nUnviewCam: Returns camera to view the player.\nDelCam [Name]: Deletes a camera.\nListCams: Lists the currently created cameras.'```",
       "author": {
-        "name": "evelxyzn",
+        "name": "evelyn",
         "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
@@ -10221,7 +10253,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker v1.1]\n[New Features]:'\n  delcam [Camera Name] (no spaces in camera name):\n    Deletes the specified camera.\n```",
       "author": {
-        "name": "evelxyzn",
+        "name": "evelyn",
         "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
@@ -10247,7 +10279,7 @@
       "name": "CamMaker",
       "description": "```cs\n[CamMaker]\n[Commands]:'\n  makecam [Camera Name] (no spaces in camera name):\n    Creates a camera under that name.\n  viewcam [Camera Name] (no spaces in camera name):\n    Views the camera that you created under that name.\n  unviewcam:\n    Returns camera view back to your player.'\n// Note: The camera creates based on your camera's position so that you can create a camera in freecam. DM me if you encounter any bugs.```",
       "author": {
-        "name": "evelxyzn",
+        "name": "evelyn",
         "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
@@ -10700,7 +10732,7 @@
       "name": "ESCMDS",
       "description": "Electric State Commands v1.0, for game 'Electric State DarkRP [Beta]'\n\nCommands:\nNoNLR: Disables New Life Rule, a big red sphere that appears after death that you cant enter for a few minutes.\n\nAimlock: My modified aimlock script you can find in <#510246778285719582>, press 'z' while hovering over a player to select them and 'u' (or 'c' i cant remember lol) to toggle the aimlock. It moves the camera so it only works in first person.\n\nNote: If anyone wants to try exploiting Electric State be warned that it's community fucking *hates* exploiters and they have a report system, which can get you banned. There is also a strong anti-cheat which subtly does things if it detects you, such as disabling some core features. Do not use noclip that disables humanoid collisions, as it will get anti cheated. Instead use humanoidchangestate noclip or btools.",
       "author": {
-        "name": "evelxyzn",
+        "name": "evelyn",
         "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
@@ -10852,9 +10884,9 @@
       "name": "Ninja_Legends_Best_Free_Hack",
       "description": "Hello ,i created for you the best free hack of ninja legends it is imperatively necessary to have a level 7 executor you give me your opinions if you want",
       "author": {
-        "name": "mdlk",
+        "name": "bunny boss UnU",
         "username": "mdlk05",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/a0c9e154cb5d937a0946e4fb259b9742.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/f56c6cd48232d91a34741fd784b8a7f3.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -11392,7 +11424,7 @@
       "name": "avatar",
       "description": "Avatar Commands\n*Commands for changing your character's appearance (FE).*\nCommand list:\n```\nresetchar/rchar: Go back to original avatar.\nnoob: Load 3.0 noob.\npermnoob/pnoob: Load 3.0 noob until resetchar/rchar command.\noldnoob: Load old noob.\npermoldnoob / poldnoob: Load old noob until resetchar/rchar command.\nrandomoutfit / routfit: Load a random outfit of yours.\npermrandomoutfit / proutfit: Load a random outfit of yours until resetchar/rchar command.\nspawnrandomoutfit / sroutfit: Load a random outfit of yours on every respawn.\n```\n3.0 Noob (Free) Requirements:\n- <https://web.roblox.com/bundles/238>\n- <https://www.roblox.com/catalog/63690008>\n- <https://www.roblox.com/catalog/144076358>\n- <https://www.roblox.com/catalog/144076760>\n\nShowcase/Example: https://i.vgy.me/LjwdwU.gif",
       "author": {
-        "name": "Chris",
+        "name": "Ἠλίας",
         "username": "__aim__",
         "avatar": "https://cdn.discordapp.com/avatars/157252176350150656/a5ff340b3cc2bdb219e9966949d31b0c.png?size=1024"
       },
@@ -12365,7 +12397,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/69477a9ae5675a9ff03810fb7da1f0fc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/4852d0e1b09a9916c1aec12dcf72e2a1.png?size=1024"
       },
       "date": "2020-05-20T13:39:38.179000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556",
@@ -12718,7 +12750,7 @@
       "name": "login_alertsiy",
       "description": "<@!222106655188451328> fixed ur file extension",
       "author": {
-        "name": "evelxyzn",
+        "name": "evelyn",
         "username": "evelxyzn",
         "avatar": "https://cdn.discordapp.com/avatars/302638204102639627/2f5a5c87c48384e11856c99eff599faf.png?size=1024"
       },
@@ -14144,7 +14176,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/69477a9ae5675a9ff03810fb7da1f0fc.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/4852d0e1b09a9916c1aec12dcf72e2a1.png?size=1024"
       },
       "date": "2020-01-23T03:15:12.032000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800",

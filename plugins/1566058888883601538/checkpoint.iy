@@ -1,0 +1,759 @@
+-- checkpoint.iy - Checkpoint & Character Recall Plugin for Infinite Yield
+-- Exact Infinite Yield UI theme, mobile-only button, character rewind animation, zero visual effects.
+-- OFF by default on IY execute. Use ;cpon to enable or ;cpoff to disable.
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+
+local LP = Players.LocalPlayer
+
+-- Clean up any previous instance on reload
+if _G.Checkpoint_Cleanup then
+	pcall(_G.Checkpoint_Cleanup)
+end
+
+-- Clean up any existing ScreenGui from previous sessions
+pcall(function()
+	local core = game:GetService("CoreGui")
+	if core and core:FindFirstChild("Checkpoint_UI") then
+		core.Checkpoint_UI:Destroy()
+	end
+end)
+pcall(function()
+	local pg = LP and LP:FindFirstChildOfClass("PlayerGui")
+	if pg and pg:FindFirstChild("Checkpoint_UI") then
+		pg.Checkpoint_UI:Destroy()
+	end
+end)
+
+-- ----------------- State & Variables -----------------
+local isEnabled = false -- Strictly OFF by default on IY execute
+local checkpoint = nil -- { CFrame = CFrame, Position = Vector3, Yaw = number }
+local screenGui = nil
+local recallKey = Enum.KeyCode.R
+local setKey = Enum.KeyCode.T
+local autoFall = false -- OFF by default
+local fallThreshold = 35 -- studs below checkpoint Y
+local isRecalling = false
+
+-- Device check: only mobile touch devices without physical keyboard
+local isMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
+
+-- Active Connections
+local fallCheckConn = nil
+local keybindConn = nil
+
+-- Forward declarations
+local turnOn
+local turnOff
+local buildMobileGui
+local destroyMobileGui
+
+-- ----------------- Helpers -----------------
+local function say(msg)
+	if type(notify) == "function" then
+		notify(msg)
+	else
+		pcall(function()
+			game:GetService("StarterGui"):SetCore("SendNotification", {
+				Title = "Checkpoint",
+				Text = tostring(msg),
+				Duration = 3,
+			})
+		end)
+	end
+end
+
+local function getRoot()
+	local c = LP.Character
+	return c and (c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso"))
+end
+
+local function getHum()
+	local c = LP.Character
+	return c and c:FindFirstChildOfClass("Humanoid")
+end
+
+local function getGuiParent()
+	local ok, core = pcall(function() return game:GetService("CoreGui") end)
+	if ok and core then return core end
+	return LP:FindFirstChildOfClass("PlayerGui")
+end
+
+local function bindClick(button, callback)
+	button.Activated:Connect(callback)
+	button.MouseButton1Click:Connect(callback)
+end
+
+-- ----------------- Persistence -----------------
+local function getFileName()
+	return "checkpoint_cp_" .. tostring(game.PlaceId) .. ".json"
+end
+
+local function saveCheckpoint()
+	if not checkpoint or type(writefile) ~= "function" then return end
+	pcall(function()
+		local data = {
+			x = checkpoint.Position.X,
+			y = checkpoint.Position.Y,
+			z = checkpoint.Position.Z,
+			yaw = checkpoint.Yaw,
+			key = recallKey.Name,
+			setKey = setKey.Name,
+			autoFall = autoFall,
+			fallThreshold = fallThreshold
+		}
+		writefile(getFileName(), HttpService:JSONEncode(data))
+	end)
+end
+
+local function loadCheckpoint()
+	if type(isfile) ~= "function" or not isfile(getFileName()) then return end
+	pcall(function()
+		local content = readfile(getFileName())
+		local data = HttpService:JSONDecode(content)
+		if type(data) == "table" and data.x and data.y and data.z then
+			local cf = CFrame.new(data.x, data.y, data.z) * CFrame.Angles(0, data.yaw or 0, 0)
+			checkpoint = {
+				CFrame = cf,
+				Position = Vector3.new(data.x, data.y, data.z),
+				Yaw = data.yaw or 0
+			}
+			if data.key and Enum.KeyCode[data.key] then
+				recallKey = Enum.KeyCode[data.key]
+			end
+			if data.setKey and Enum.KeyCode[data.setKey] then
+				setKey = Enum.KeyCode[data.setKey]
+			end
+			if data.autoFall ~= nil then
+				autoFall = data.autoFall
+			else
+				autoFall = false
+			end
+			if data.fallThreshold then
+				fallThreshold = data.fallThreshold
+			end
+		end
+	end)
+end
+
+-- ----------------- Character Recall Animation (No Visual Effects) -----------------
+local function playCharacterRecallAnimation(char, root, hum, targetCF)
+	local animator = hum:FindFirstChildOfClass("Animator")
+	local animTrack = nil
+
+	-- Character reverse movement animation
+	if animator and char:FindFirstChild("Animate") then
+		local animFolder = char.Animate:FindFirstChild("run") or char.Animate:FindFirstChild("walk") or char.Animate:FindFirstChild("fall")
+		if animFolder then
+			local animObj = animFolder:FindFirstChildOfClass("Animation")
+			if animObj then
+				local ok, track = pcall(function()
+					return animator:LoadAnimation(animObj)
+				end)
+				if ok and track then
+					animTrack = track
+					animTrack.Priority = Enum.AnimationPriority.Action4
+					animTrack.Looped = true
+					animTrack:Play(0.05, 1, -2)
+				end
+			end
+		end
+	end
+
+	-- Fallback animation check if Animate folder didn't produce a track
+	if not animTrack and animator then
+		local playing = animator:GetPlayingAnimationTracks()
+		for _, t in ipairs(playing) do
+			if t.Animation and t.Animation.AnimationId ~= "" then
+				local ok, track = pcall(function()
+					return animator:LoadAnimation(t.Animation)
+				end)
+				if ok and track then
+					animTrack = track
+					animTrack.Priority = Enum.AnimationPriority.Action4
+					animTrack.Looped = true
+					animTrack:Play(0.05, 1, -2)
+					break
+				end
+			end
+		end
+	end
+
+	-- Temporarily disable collision on character parts to prevent snagging on obby obstacles
+	local oldCollide = {}
+	for _, p in ipairs(char:GetDescendants()) do
+		if p:IsA("BasePart") then
+			oldCollide[p] = p.CanCollide
+			p.CanCollide = false
+		end
+	end
+
+	-- Zero velocity
+	root.AssemblyLinearVelocity = Vector3.zero
+	root.AssemblyAngularVelocity = Vector3.zero
+
+	-- Smoothly translate character back to checkpoint
+	local dist = (root.Position - targetCF.Position).Magnitude
+	local travelTime = math.clamp(dist / 140, 0.22, 0.45)
+
+	local tween = TweenService:Create(root, TweenInfo.new(travelTime, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		CFrame = targetCF
+	})
+	tween:Play()
+	tween.Completed:Wait()
+
+	-- Stop reverse animation track
+	if animTrack then
+		pcall(function()
+			animTrack:Stop(0.08)
+			animTrack:Destroy()
+		end)
+	end
+
+	-- Restore collision states
+	for part, canCollide in pairs(oldCollide) do
+		if part and part.Parent then
+			part.CanCollide = canCollide
+		end
+	end
+
+	-- Final position and state reset
+	root.CFrame = targetCF
+	root.AssemblyLinearVelocity = Vector3.zero
+	root.AssemblyAngularVelocity = Vector3.zero
+	hum:ChangeState(Enum.HumanoidStateType.GettingUp)
+end
+
+-- ----------------- Core Actions -----------------
+local function setCheckpoint()
+	local root = getRoot()
+	if not root then
+		say("Cannot set checkpoint: character not found.")
+		return false
+	end
+
+	local pos = root.Position
+	local _, yaw = root.CFrame:ToEulerAnglesYXZ()
+	local cf = CFrame.new(pos) * CFrame.Angles(0, yaw, 0)
+
+	checkpoint = {
+		CFrame = cf,
+		Position = pos,
+		Yaw = yaw
+	}
+
+	saveCheckpoint()
+	say(string.format("Checkpoint saved at (%.1f, %.1f, %.1f).", pos.X, pos.Y, pos.Z))
+
+	-- Auto-enable if currently off
+	if not isEnabled then
+		turnOn()
+	end
+
+	return true
+end
+
+local function recallCheckpoint()
+	if not checkpoint then
+		say("No checkpoint set. Press " .. setKey.Name .. " or run ;setcp first.")
+		return false
+	end
+
+	local char = LP.Character
+	local root = getRoot()
+	local hum = getHum()
+	if not char or not root or not hum then
+		say("Cannot recall: character not found.")
+		return false
+	end
+
+	if isRecalling then return false end
+	isRecalling = true
+
+	local targetCF = checkpoint.CFrame + Vector3.new(0, 0.5, 0)
+
+	task.spawn(function()
+		playCharacterRecallAnimation(char, root, hum, targetCF)
+		isRecalling = false
+		say("Returned to checkpoint.")
+	end)
+
+	return true
+end
+
+local function clearCheckpoint()
+	checkpoint = nil
+	if type(delfile) == "function" and isfile and isfile(getFileName()) then
+		pcall(delfile, getFileName())
+	end
+	say("Checkpoint cleared.")
+end
+
+-- ----------------- Obby Fall Protection Loop -----------------
+local function stopFallWatch()
+	if fallCheckConn then
+		fallCheckConn:Disconnect()
+		fallCheckConn = nil
+	end
+end
+
+local function startFallWatch()
+	stopFallWatch()
+	if not autoFall then return end
+
+	fallCheckConn = RunService.Heartbeat:Connect(function()
+		if not isEnabled or not autoFall or not checkpoint or isRecalling then return end
+		local root = getRoot()
+		if not root then return end
+
+		local distBelow = checkpoint.Position.Y - root.Position.Y
+		if distBelow > fallThreshold then
+			recallCheckpoint()
+		end
+	end)
+end
+
+-- ----------------- Keybind Handler -----------------
+local function stopKeybinds()
+	if keybindConn then
+		keybindConn:Disconnect()
+		keybindConn = nil
+	end
+end
+
+local function setupKeybinds()
+	stopKeybinds()
+	keybindConn = UserInputService.InputBegan:Connect(function(input, gameProcessed)
+		if not isEnabled then return end
+		if gameProcessed then return end
+		if UserInputService:GetFocusedTextBox() ~= nil then return end
+
+		if input.KeyCode == recallKey then
+			recallCheckpoint()
+		elseif input.KeyCode == setKey then
+			setCheckpoint()
+		end
+	end)
+end
+
+-- ----------------- Mobile-Only UI (Native Infinite Yield Theme) -----------------
+-- Infinite Yield theme palette:
+-- Background: Color3.fromRGB(46, 46, 47)
+-- Title/TopBar: Color3.fromRGB(36, 36, 37)
+-- Button: Color3.fromRGB(78, 78, 79)
+-- Secondary Button: Color3.fromRGB(60, 60, 61)
+-- Border: Color3.fromRGB(27, 42, 53)
+-- Font: Enum.Font.SourceSans (flat sharp styling, 0 UICorner)
+destroyMobileGui = function()
+	if screenGui then
+		pcall(function() screenGui:Destroy() end)
+		screenGui = nil
+	end
+	pcall(function()
+		local core = game:GetService("CoreGui")
+		if core and core:FindFirstChild("Checkpoint_UI") then
+			core.Checkpoint_UI:Destroy()
+		end
+	end)
+	pcall(function()
+		local pg = LP and LP:FindFirstChildOfClass("PlayerGui")
+		if pg and pg:FindFirstChild("Checkpoint_UI") then
+			pg.Checkpoint_UI:Destroy()
+		end
+	end)
+end
+
+buildMobileGui = function()
+	destroyMobileGui()
+
+	local parent = getGuiParent()
+	if not parent then return end
+
+	local gui = Instance.new("ScreenGui")
+	gui.Name = "Checkpoint_UI"
+	gui.ResetOnSpawn = false
+	gui.DisplayOrder = 100
+
+	-- Main Window (IY Window styling: 46, 46, 47 with 27, 42, 53 border)
+	local frame = Instance.new("Frame")
+	frame.Name = "MainFrame"
+	frame.Size = UDim2.new(0, 150, 0, 80)
+	frame.Position = UDim2.new(0.82, -160, 0.65, 0)
+	frame.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+	frame.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	frame.BorderSizePixel = 1
+	frame.Active = true
+	frame.ZIndex = 2
+	frame.Parent = gui
+
+	-- Title Bar (IY TopBar: 36, 36, 37)
+	local titleBar = Instance.new("Frame")
+	titleBar.Name = "TitleBar"
+	titleBar.Size = UDim2.new(1, 0, 0, 20)
+	titleBar.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
+	titleBar.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	titleBar.BorderSizePixel = 1
+	titleBar.ZIndex = 3
+	titleBar.Parent = frame
+
+	local title = Instance.new("TextLabel")
+	title.Name = "Title"
+	title.Size = UDim2.new(1, -25, 1, 0)
+	title.Position = UDim2.new(0, 6, 0, 0)
+	title.BackgroundTransparency = 1
+	title.Font = Enum.Font.SourceSansBold
+	title.Text = "Checkpoint"
+	title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	title.TextSize = 14
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	title.ZIndex = 4
+	title.Parent = titleBar
+
+	-- Minimize button
+	local minBtn = Instance.new("TextButton")
+	minBtn.Name = "MinBtn"
+	minBtn.Size = UDim2.new(0, 18, 0, 18)
+	minBtn.Position = UDim2.new(1, -19, 0, 1)
+	minBtn.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+	minBtn.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	minBtn.BorderSizePixel = 1
+	minBtn.Font = Enum.Font.SourceSans
+	minBtn.Text = "-"
+	minBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	minBtn.TextSize = 14
+	minBtn.ZIndex = 5
+	minBtn.Parent = titleBar
+
+	-- Recall Button (IY action button: 78, 78, 79) - Single click immediate return
+	local recallBtn = Instance.new("TextButton")
+	recallBtn.Name = "RecallBtn"
+	recallBtn.Size = UDim2.new(1, -10, 0, 26)
+	recallBtn.Position = UDim2.new(0, 5, 0, 25)
+	recallBtn.BackgroundColor3 = Color3.fromRGB(78, 78, 79)
+	recallBtn.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	recallBtn.BorderSizePixel = 1
+	recallBtn.Font = Enum.Font.SourceSansBold
+	recallBtn.Text = "Recall"
+	recallBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	recallBtn.TextSize = 14
+	recallBtn.AutoButtonColor = true
+	recallBtn.ZIndex = 4
+	recallBtn.Parent = frame
+
+	-- Set Checkpoint Button
+	local setBtn = Instance.new("TextButton")
+	setBtn.Name = "SetBtn"
+	setBtn.Size = UDim2.new(1, -10, 0, 20)
+	setBtn.Position = UDim2.new(0, 5, 0, 54)
+	setBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 61)
+	setBtn.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	setBtn.BorderSizePixel = 1
+	setBtn.Font = Enum.Font.SourceSans
+	setBtn.Text = "Set Checkpoint"
+	setBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	setBtn.TextSize = 12
+	setBtn.AutoButtonColor = true
+	setBtn.ZIndex = 4
+	setBtn.Parent = frame
+
+	-- Compact Minimized Floating Button
+	local compactBtn = Instance.new("Frame")
+	compactBtn.Name = "CompactBtn"
+	compactBtn.Size = UDim2.new(0, 75, 0, 28)
+	compactBtn.Position = frame.Position
+	compactBtn.BackgroundColor3 = Color3.fromRGB(36, 36, 37)
+	compactBtn.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	compactBtn.BorderSizePixel = 1
+	compactBtn.Visible = false
+	compactBtn.Active = true
+	compactBtn.ZIndex = 10
+	compactBtn.Parent = gui
+
+	local compactAction = Instance.new("TextButton")
+	compactAction.Name = "ActionBtn"
+	compactAction.Size = UDim2.new(1, -18, 1, 0)
+	compactAction.BackgroundColor3 = Color3.fromRGB(78, 78, 79)
+	compactAction.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	compactAction.BorderSizePixel = 1
+	compactAction.Font = Enum.Font.SourceSansBold
+	compactAction.Text = "Recall"
+	compactAction.TextColor3 = Color3.fromRGB(255, 255, 255)
+	compactAction.TextSize = 13
+	compactAction.ZIndex = 11
+	compactAction.Parent = compactBtn
+
+	local expandBtn = Instance.new("TextButton")
+	expandBtn.Name = "ExpandBtn"
+	expandBtn.Size = UDim2.new(0, 16, 1, 0)
+	expandBtn.Position = UDim2.new(1, -16, 0, 0)
+	expandBtn.BackgroundColor3 = Color3.fromRGB(46, 46, 47)
+	expandBtn.BorderColor3 = Color3.fromRGB(27, 42, 53)
+	expandBtn.BorderSizePixel = 1
+	expandBtn.Font = Enum.Font.SourceSans
+	expandBtn.Text = "+"
+	expandBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	expandBtn.TextSize = 13
+	expandBtn.ZIndex = 12
+	expandBtn.Parent = compactBtn
+
+	-- Touch/Mouse dragging support
+	local function enableDrag(dragHandle, targetFrame)
+		local dragging = false
+		local dragStart, startPos
+
+		dragHandle.InputBegan:Connect(function(input)
+			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+				dragging = true
+				dragStart = input.Position
+				startPos = targetFrame.Position
+
+				input.Changed:Connect(function()
+					if input.UserInputState == Enum.UserInputState.End then
+						dragging = false
+					end
+				end)
+			end
+		end)
+
+		UserInputService.InputChanged:Connect(function(input)
+			if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+				local delta = input.Position - dragStart
+				targetFrame.Position = UDim2.new(
+					startPos.X.Scale,
+					startPos.X.Offset + delta.X,
+					startPos.Y.Scale,
+					startPos.Y.Offset + delta.Y
+				)
+			end
+		end)
+	end
+
+	enableDrag(titleBar, frame)
+	enableDrag(compactBtn, compactBtn)
+
+	-- Single click triggers
+	bindClick(recallBtn, function()
+		recallCheckpoint()
+	end)
+
+	bindClick(setBtn, function()
+		setCheckpoint()
+	end)
+
+	bindClick(compactAction, function()
+		recallCheckpoint()
+	end)
+
+	-- Minimize / Expand
+	bindClick(minBtn, function()
+		frame.Visible = false
+		compactBtn.Position = frame.Position
+		compactBtn.Visible = true
+	end)
+
+	bindClick(expandBtn, function()
+		compactBtn.Visible = false
+		frame.Position = compactBtn.Position
+		frame.Visible = true
+	end)
+
+	screenGui = gui
+	gui.Parent = parent
+end
+
+-- ----------------- Lifecycle Control (cpon / cpoff) -----------------
+turnOn = function()
+	if isEnabled then
+		say("Checkpoint plugin is already enabled.")
+		return
+	end
+	isEnabled = true
+	setupKeybinds()
+	if autoFall then
+		startFallWatch()
+	end
+	if isMobile then
+		buildMobileGui()
+	end
+	say("Checkpoint plugin enabled.")
+end
+
+turnOff = function()
+	stopKeybinds()
+	stopFallWatch()
+	destroyMobileGui()
+	if not isEnabled then
+		say("Checkpoint plugin is already disabled.")
+		return
+	end
+	isEnabled = false
+	say("Checkpoint plugin disabled.")
+end
+
+local function toggleMobileButton()
+	if screenGui and screenGui.Parent then
+		screenGui.Enabled = not screenGui.Enabled
+		say("Mobile button: " .. (screenGui.Enabled and "Enabled" or "Disabled"))
+	else
+		buildMobileGui()
+		say("Mobile button created.")
+	end
+end
+
+-- ----------------- Global Cleanup Handler -----------------
+_G.Checkpoint_Cleanup = function()
+	isEnabled = false
+	stopKeybinds()
+	stopFallWatch()
+	destroyMobileGui()
+end
+
+-- ----------------- Initialization (Dormant by Default) -----------------
+-- Load any saved coordinates/preferences from disk without activating keys or GUI
+loadCheckpoint()
+-- NOTE: Do NOT call turnOn(), setupKeybinds(), or buildMobileGui() here.
+-- The plugin remains completely OFF until the user calls ;cpon, ;setcp, or ;cpbutton.
+
+-- ----------------- Plugin Definition Table -----------------
+local Plugin = {
+	["PluginName"] = "Checkpoint",
+	["PluginDescription"] = "Obby checkpoint and instant character recall with reverse animation.",
+	["Commands"] = {
+		["cpon"] = {
+			["ListName"] = "cpon / checkpointon / enablecp",
+			["Description"] = "Enable the checkpoint plugin (turns on keybinds and mobile UI)",
+			["Aliases"] = {"checkpointon", "enablecp"},
+			["Function"] = function(args, speaker)
+				turnOn()
+			end
+		},
+		["cpoff"] = {
+			["ListName"] = "cpoff / checkpointoff / disablecp",
+			["Description"] = "Disable the checkpoint plugin (turns off keybinds, fall watch, and mobile UI)",
+			["Aliases"] = {"checkpointoff", "disablecp"},
+			["Function"] = function(args, speaker)
+				turnOff()
+			end
+		},
+		["setcheckpoint"] = {
+			["ListName"] = "setcheckpoint / setcp / cp",
+			["Description"] = "Save current position as checkpoint",
+			["Aliases"] = {"setcp", "cp"},
+			["Function"] = function(args, speaker)
+				setCheckpoint()
+			end
+		},
+		["returncp"] = {
+			["ListName"] = "returncp / tpcheckpoint / tpr / recall",
+			["Description"] = "Recall character back to your checkpoint with reverse movement animation",
+			["Aliases"] = {"tpcheckpoint", "tpr", "recall", "loadcp"},
+			["Function"] = function(args, speaker)
+				recallCheckpoint()
+			end
+		},
+		["clearcp"] = {
+			["ListName"] = "clearcp / clearcheckpoint",
+			["Description"] = "Remove the current checkpoint",
+			["Aliases"] = {"clearcheckpoint"},
+			["Function"] = function(args, speaker)
+				clearCheckpoint()
+			end
+		},
+		["cpbutton"] = {
+			["ListName"] = "cpbutton / cpui / mobileset",
+			["Description"] = "Toggle the mobile screen button on or off",
+			["Aliases"] = {"cpui", "mobileset"},
+			["Function"] = function(args, speaker)
+				toggleMobileButton()
+			end
+		},
+		["cpbind"] = {
+			["ListName"] = "cpbind [key]",
+			["Description"] = "Change the recall keybind (default R)",
+			["Aliases"] = {"bindcp"},
+			["Function"] = function(args, speaker)
+				local keyName = args[1] and tostring(args[1]):upper()
+				if keyName and Enum.KeyCode[keyName] then
+					recallKey = Enum.KeyCode[keyName]
+					saveCheckpoint()
+					say("Recall keybind set to: " .. recallKey.Name)
+				else
+					say("Invalid key name. Example: ;cpbind r")
+				end
+			end
+		},
+		["cpbindset"] = {
+			["ListName"] = "cpbindset [key]",
+			["Description"] = "Change the set-checkpoint keybind (default T)",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local keyName = args[1] and tostring(args[1]):upper()
+				if keyName and Enum.KeyCode[keyName] then
+					setKey = Enum.KeyCode[keyName]
+					saveCheckpoint()
+					say("Set-checkpoint keybind set to: " .. setKey.Name)
+				else
+					say("Invalid key name. Example: ;cpbindset t")
+				end
+			end
+		},
+		["cpfall"] = {
+			["ListName"] = "cpfall [distance | on | off]",
+			["Description"] = "Toggle or configure optional auto-recall on falling in obbys (off by default)",
+			["Aliases"] = {"autocp", "obbyguard"},
+			["Function"] = function(args, speaker)
+				local val = args[1] and tostring(args[1]):lower()
+				if val == "off" or val == "disable" then
+					autoFall = false
+					stopFallWatch()
+					say("Auto-fall recall disabled.")
+				elseif val == "on" or val == "enable" then
+					autoFall = true
+					if isEnabled then startFallWatch() end
+					say("Auto-fall recall enabled (" .. fallThreshold .. " studs threshold).")
+				elseif tonumber(val) then
+					fallThreshold = math.max(5, tonumber(val))
+					autoFall = true
+					if isEnabled then startFallWatch() end
+					say("Auto-fall threshold set to " .. fallThreshold .. " studs (enabled).")
+				else
+					autoFall = not autoFall
+					if autoFall and isEnabled then
+						startFallWatch()
+					elseif not autoFall then
+						stopFallWatch()
+					end
+					say("Auto-fall recall: " .. (autoFall and ("ON (" .. fallThreshold .. " studs)") or "OFF"))
+				end
+				saveCheckpoint()
+			end
+		},
+		["cpinfo"] = {
+			["ListName"] = "cpinfo",
+			["Description"] = "Show checkpoint status, coords, keybinds, and auto-fall setting",
+			["Aliases"] = {},
+			["Function"] = function(args, speaker)
+				local cpStatus = "None"
+				if checkpoint then
+					local p = checkpoint.Position
+					local root = getRoot()
+					local dist = root and math.floor((root.Position - p).Magnitude) or 0
+					cpStatus = string.format("(%.1f, %.1f, %.1f) - %d studs away", p.X, p.Y, p.Z, dist)
+				end
+				say(string.format("Status: %s | CP: %s | Recall: %s | Set: %s | Fall: %s",
+					isEnabled and "ENABLED" or "OFF",
+					cpStatus,
+					recallKey.Name,
+					setKey.Name,
+					autoFall and (fallThreshold .. " studs") or "OFF"
+				))
+			end
+		}
+	}
+}
+
+return Plugin
