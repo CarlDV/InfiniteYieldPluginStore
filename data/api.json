@@ -1,8 +1,35 @@
 {
   "version": "1.0",
-  "updated_at": "2026-10-31T12:01:36.919815+00:00",
-  "total": 587,
+  "updated_at": "2026-11-01T12:32:41.690751+00:00",
+  "total": 588,
   "plugins": [
+    {
+      "id": "1566427959349477376",
+      "name": "clickinspector",
+      "author": "David",
+      "date": "2026-11-01T12:25:28.333000+00:00",
+      "files": [
+        {
+          "filename": "20261101-1220-26.2979477.mp4",
+          "url": "plugins/1566427959349477376/20261101-1220-26.2979477.mp4",
+          "size": 5517781,
+          "is_plugin": false
+        },
+        {
+          "filename": "clickinspector.iy",
+          "url": "plugins/1566427959349477376/clickinspector.iy",
+          "size": 108320,
+          "is_plugin": true
+        },
+        {
+          "filename": "image.png",
+          "url": "plugins/1566427959349477376/image.png",
+          "size": 25716,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1566058888883601538",
       "name": "checkpoint",
@@ -2742,7 +2769,7 @@
     {
       "id": "1270064449893564588",
       "name": "bams",
-      "author": "I need fatality.win invite",
+      "author": "Mountain",
       "date": "2024-08-05T17:02:41.511000+00:00",
       "files": [
         {
@@ -2763,7 +2790,7 @@
     {
       "id": "1270031197032157256",
       "name": "facefuck",
-      "author": "I need fatality.win invite",
+      "author": "Mountain",
       "date": "2024-08-05T14:50:33.411000+00:00",
       "files": [
         {
@@ -2925,7 +2952,7 @@
     {
       "id": "1153550910342037534",
       "name": "AnimationSpeed",
-      "author": "McCafferty",
+      "author": "DrakCafferty",
       "date": "2023-09-19T04:39:28.965000+00:00",
       "files": [
         {
@@ -6357,7 +6384,7 @@
     {
       "id": "729894584263639051",
       "name": "Ninja_Legends_Best_Free_Hack",
-      "author": "bunny boss UnU",
+      "author": "mdlk",
       "date": "2020-07-07T03:00:29.674000+00:00",
       "files": [
         {

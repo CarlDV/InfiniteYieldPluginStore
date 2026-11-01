@@ -1,8 +1,44 @@
 {
-  "scraped_at": "2026-10-31T12:01:36.897590+00:00",
+  "scraped_at": "2026-11-01T12:32:41.673697+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 587,
+  "total_plugins": 588,
   "plugins": [
+    {
+      "id": "1566427959349477376",
+      "name": "clickinspector",
+      "description": "# ClickInspector\ninspect and export models and stuff\n` ;cinspect / ;clickinspector `\n\nall exports will go to your workspace folder > ClickInspectorExports",
+      "author": {
+        "name": "David",
+        "username": "istmedavid",
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+      },
+      "date": "2026-11-01T12:25:28.333000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1566427959349477376",
+      "files": [
+        {
+          "filename": "20261101-1220-26.2979477.mp4",
+          "url": "plugins/1566427959349477376/20261101-1220-26.2979477.mp4",
+          "size": 5517781,
+          "is_plugin": false
+        },
+        {
+          "filename": "clickinspector.iy",
+          "url": "plugins/1566427959349477376/clickinspector.iy",
+          "size": 108320,
+          "is_plugin": true
+        },
+        {
+          "filename": "image.png",
+          "url": "plugins/1566427959349477376/image.png",
+          "size": 25716,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1566058888883601538",
       "name": "checkpoint",
@@ -38,7 +74,7 @@
     {
       "id": "1565737366688112742",
       "name": "sessions",
-      "description": "# Sessions.iy\n• \"more, than necessary\"\n• now you can save plugins, binds, etc in one session, and make **ANOTHER** one session, then **ANOTHER**...\n• All session names are writes on \"Session\" file\n• sessions are saves as \"example.IY\"\n\n(#) Added *SESSION PANEL* inside settings, so you're fully allowed to load OR delete session\n(#) Themes **ALSO** changes between sessions\n(if you changed it)\n(;) creates a new session\n```createsession / csession [session]```\n(;) switches with sessions\n```loadsession / lsession [session]```\n(;) deletes session\n```deletesession\\dsession [session]```\n(leave \"csession\" with no specify for look the current session)\n||(Icon installed from commodo.ai site idk, catbox.moe doesn't work💔)||",
+      "description": "# Sessions.iy\n• \"more, than necessary\"\n• now you can save plugins, binds, etc in one session, and make **ANOTHER** one session, then **ANOTHER**...\n• All session names are writes on \"Session\" file\n• sessions are saves as \"example.IY\"\n•sessions allows you not accumulate in one file, so you can make multiple sessions for each purpose, no need to hold everything in one session\n(#) Added *SESSION PANEL* inside settings, so you're fully allowed to load OR delete session\n(#) Themes **ALSO** changes between sessions\n(if you changed it)\n(;) creates a new session\n```createsession / csession [session]```\n(;) switches with sessions\n```loadsession / lsession [session]```\n(;) deletes session\n```deletesession\\dsession [session]```\n(leave \"csession\" with no specify for look the current session)\n||(Icon installed from commodo.ai site idk, catbox.moe doesn't work💔)||",
       "author": {
         "name": "Tony",
         "username": "debratecrush",
@@ -813,7 +849,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
       },
       "date": "2026-07-30T16:27:56.604000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532424519854329936",
@@ -844,7 +880,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
       },
       "date": "2026-07-30T16:00:05.869000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532417512283570276",
@@ -1363,7 +1399,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
       },
       "date": "2026-06-09T00:54:39.534000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1513707869974036662",
@@ -1971,7 +2007,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/9047dd82fe57fc5f1b37a49e748fd706.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
       },
       "date": "2026-04-14T16:05:09.796000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493643285426601996",
@@ -3114,7 +3150,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/0fb0b47ed28f8a57ff0454b656c5fe86.png?size=1024"
       },
       "date": "2025-11-19T14:39:50.620000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440713185668890714",
@@ -3138,7 +3174,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/0fb0b47ed28f8a57ff0454b656c5fe86.png?size=1024"
       },
       "date": "2025-11-19T12:24:35.056000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1440679146526343312",
@@ -3188,7 +3224,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/0fb0b47ed28f8a57ff0454b656c5fe86.png?size=1024"
       },
       "date": "2025-11-02T06:01:29.844000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434422145844514886",
@@ -3265,7 +3301,7 @@
       "author": {
         "name": "hero",
         "username": "hxerohero",
-        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/ebdcbfe921e1bd19cd0dc2c880aefbaa.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1222180548592795702/0fb0b47ed28f8a57ff0454b656c5fe86.png?size=1024"
       },
       "date": "2025-11-01T13:31:14.811000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1434172941133680670",
@@ -4523,7 +4559,7 @@
       "name": "bams",
       "description": "# Blind # \nplugin suggestion from <@1053706509407768676> \nif your avatar is blockier then it's going to be harder for the specific person to see.\nusage :\n`command alises: annyon,blind `\n`turn off command alises: unannyon,stopannyon,unblin`",
       "author": {
-        "name": "I need fatality.win invite",
+        "name": "Mountain",
         "username": "lordofmountain",
         "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/0e08064747af93f6b0da03a5037fe456.png?size=1024"
       },
@@ -4553,7 +4589,7 @@
       "name": "facefuck",
       "description": "# Face fuck # \nGet Blowjobs!\nUsage: \n`to activate it: facefuck,bj,blowjob,head (the specific player,speed) example: facefuck erta215 21`\n`disable alises: unfacefuck,unbj,unblowjob,unhead` \nfixed .",
       "author": {
-        "name": "I need fatality.win invite",
+        "name": "Mountain",
         "username": "lordofmountain",
         "avatar": "https://cdn.discordapp.com/avatars/1212781365259403326/0e08064747af93f6b0da03a5037fe456.png?size=1024"
       },
@@ -4815,9 +4851,9 @@
       "name": "AnimationSpeed",
       "description": "Animation speed looper (The same as animspeed but looped basically)\n\ncommands:\n```animspeedloop [numb]\nstopanimspeed```",
       "author": {
-        "name": "McCafferty",
+        "name": "DrakCafferty",
         "username": "ucatte",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/a6f0140a893d1927eefe1cb709d06a84.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/bf6db2a1b83663236fe32c2a823992cb.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -6549,7 +6585,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae6de72&is=6ae58cf2&hm=2e67e99fa2cd01762720d8bee14848e25c91d885d92e3a4dcf8d279514940a12&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae82ff2&is=6ae6de72&hm=a37b2a6ba60c8803bb0cc5bfa0732bd41fe2903afe412fe8daf1879540a5c42a&"
           },
           "image": null,
           "video": null
@@ -6563,7 +6599,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae6de89&is=6ae58d09&hm=a9fa9b748d596ca4639c05794d382be64ad3e733e1d6e782cbe9e707bf4f7376&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae83009&is=6ae6de89&hm=b97489d88cd8d050b28da445663f7aabddfc569f64c7f15fcb1f35f7776479c0&"
           },
           "image": null,
           "video": null
@@ -7426,7 +7462,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae6de72&is=6ae58cf2&hm=2e67e99fa2cd01762720d8bee14848e25c91d885d92e3a4dcf8d279514940a12&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae82ff2&is=6ae6de72&hm=a37b2a6ba60c8803bb0cc5bfa0732bd41fe2903afe412fe8daf1879540a5c42a&"
           },
           "image": null,
           "video": null
@@ -7440,7 +7476,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae6de89&is=6ae58d09&hm=a9fa9b748d596ca4639c05794d382be64ad3e733e1d6e782cbe9e707bf4f7376&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae83009&is=6ae6de89&hm=b97489d88cd8d050b28da445663f7aabddfc569f64c7f15fcb1f35f7776479c0&"
           },
           "image": null,
           "video": null
@@ -8813,7 +8849,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae6b025&is=6ae55ea5&hm=271b83dddbb17fff09463b711352236acef5c33b0b652e10020fb5d25ec1e9d9&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae801a5&is=6ae6b025&hm=87a17536defcd453cf8acf5e07bda818773439f9cefa9ac61eb80fbce07f8cd2&"
           },
           "image": null,
           "video": null
@@ -10884,9 +10920,9 @@
       "name": "Ninja_Legends_Best_Free_Hack",
       "description": "Hello ,i created for you the best free hack of ninja legends it is imperatively necessary to have a level 7 executor you give me your opinions if you want",
       "author": {
-        "name": "bunny boss UnU",
+        "name": "mdlk",
         "username": "mdlk05",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/f56c6cd48232d91a34741fd784b8a7f3.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/embed/avatars/2.png"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",

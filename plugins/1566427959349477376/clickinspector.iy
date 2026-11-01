@@ -1,0 +1,1986 @@
+-- A read-only object inspector styled like Infinite Yield's auxiliary windows.
+local Plugin = {
+    PluginName = 'Click Inspector',
+    PluginDescription = 'Pick an object in the world and inspect its properties in a compact, read-only panel.',
+    Commands = {},
+}
+
+local Players = game:GetService('Players')
+local Workspace = game:GetService('Workspace')
+local UserInputService = game:GetService('UserInputService')
+local ContextActionService = game:GetService('ContextActionService')
+local RunService = game:GetService('RunService')
+local GuiService = game:GetService('GuiService')
+local CollectionService = game:GetService('CollectionService')
+
+-- Self-contained client-instance export. Inline this block into clickinspector.iy.
+-- The XML conventions follow rbx-dom's public serializers and reflection patches.
+-- No saveinstance/decompiler/downloaded code is invoked.
+local Exporter = (function()
+    local module = {}
+    local http = game:GetService('HttpService')
+    local collection = game:GetService('CollectionService')
+    local MAX_INSTANCES, MAX_BYTES, MAX_SECONDS = 5000, 32 * 1024 * 1024, 15
+    local alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+
+    local function globals()
+        if type(getgenv) == 'function' then
+            local ok, value = pcall(getgenv)
+            if ok and type(value) == 'table' then return value end
+        end
+        return _G
+    end
+
+    local function api(name)
+        local value = globals()[name]
+        if type(value) == 'function' then return value end
+        if name == 'writefile' and type(writefile) == 'function' then return writefile end
+        if name == 'readfile' and type(readfile) == 'function' then return readfile end
+        if name == 'isfile' and type(isfile) == 'function' then return isfile end
+        if name == 'makefolder' and type(makefolder) == 'function' then return makefolder end
+        if name == 'isfolder' and type(isfolder) == 'function' then return isfolder end
+        return nil
+    end
+
+    local function read(object, property)
+        local ok, value = pcall(function() return object[property] end)
+        return ok, value
+    end
+
+    local function isA(object, class)
+        local ok, value = pcall(function() return object:IsA(class) end)
+        return ok and value
+    end
+
+    local function finite(value)
+        return value == value and value ~= math.huge and value ~= -math.huge
+    end
+
+    local function scalar(value)
+        if not finite(value) then error('A non-finite numeric value cannot be written to model XML.') end
+        return string.format('%.17g', value == 0 and 0 or value)
+    end
+
+    local function base64(data, checkpoint)
+        local chunks, batch = {}, {}
+        for index = 1, #data, 3 do
+            local a, b, c = string.byte(data, index, index + 2)
+            local value = a * 65536 + (b or 0) * 256 + (c or 0)
+            batch[#batch + 1] = alphabet:sub(math.floor(value / 262144) + 1, math.floor(value / 262144) + 1)
+                .. alphabet:sub(math.floor(value / 4096) % 64 + 1, math.floor(value / 4096) % 64 + 1)
+                .. (b and alphabet:sub(math.floor(value / 64) % 64 + 1, math.floor(value / 64) % 64 + 1) or '=')
+                .. (c and alphabet:sub(value % 64 + 1, value % 64 + 1) or '=')
+            if #batch == 16384 then
+                chunks[#chunks + 1] = table.concat(batch)
+                table.clear(batch)
+                if checkpoint then checkpoint(#chunks * 100) end
+            end
+        end
+        if #batch > 0 then chunks[#chunks + 1] = table.concat(batch) end
+        return table.concat(chunks)
+    end
+
+    local function binary(kind, value)
+        local widths = {u8 = 1, u16 = 2, u32 = 4, i32 = 4, f32 = 4, f64 = 8}
+        if type(buffer) ~= 'table' or type(buffer.create) ~= 'function' then
+            error('This client lacks the buffer API required to preserve model attributes.')
+        end
+        local result = buffer.create(widths[kind])
+        buffer['write' .. kind](result, 0, value)
+        return buffer.tostring(result)
+    end
+
+    local function binaryString(value)
+        return binary('u32', #value) .. value
+    end
+
+    local function attributeValue(value)
+        local kind = typeof(value)
+        if kind == 'string' then return 0x02, binaryString(value) end
+        if kind == 'boolean' then return 0x03, string.char(value and 1 or 0) end
+        if kind == 'number' then return 0x06, binary('f64', value) end
+        if kind == 'BrickColor' then return 0x0E, binary('u32', value.Number) end
+        if kind == 'UDim' then
+            return 0x09, binary('f32', value.Scale) .. binary('i32', value.Offset)
+        end
+        if kind == 'UDim2' then
+            return 0x0A, binary('f32', value.X.Scale) .. binary('i32', value.X.Offset)
+                .. binary('f32', value.Y.Scale) .. binary('i32', value.Y.Offset)
+        end
+        if kind == 'Vector2' then return 0x10, binary('f32', value.X) .. binary('f32', value.Y) end
+        if kind == 'Vector3' then
+            return 0x11, binary('f32', value.X) .. binary('f32', value.Y) .. binary('f32', value.Z)
+        end
+        if kind == 'Color3' then
+            return 0x0F, binary('f32', value.R) .. binary('f32', value.G) .. binary('f32', value.B)
+        end
+        if kind == 'CFrame' then
+            local values = {value:GetComponents()}
+            local chunks = {binary('f32', values[1]), binary('f32', values[2]), binary('f32', values[3]), string.char(0)}
+            for index = 4, 12 do chunks[#chunks + 1] = binary('f32', values[index]) end
+            return 0x14, table.concat(chunks)
+        end
+        if kind == 'NumberRange' then return 0x1B, binary('f32', value.Min) .. binary('f32', value.Max) end
+        if kind == 'Rect' then
+            return 0x1C, binary('f32', value.Min.X) .. binary('f32', value.Min.Y)
+                .. binary('f32', value.Max.X) .. binary('f32', value.Max.Y)
+        end
+        if kind == 'NumberSequence' then
+            local chunks = {binary('u32', #value.Keypoints)}
+            for _, point in ipairs(value.Keypoints) do
+                chunks[#chunks + 1] = binary('f32', point.Envelope) .. binary('f32', point.Time) .. binary('f32', point.Value)
+            end
+            return 0x17, table.concat(chunks)
+        end
+        if kind == 'ColorSequence' then
+            local chunks = {binary('u32', #value.Keypoints)}
+            for _, point in ipairs(value.Keypoints) do
+                chunks[#chunks + 1] = binary('f32', 0) .. binary('f32', point.Time)
+                    .. binary('f32', point.Value.R) .. binary('f32', point.Value.G) .. binary('f32', point.Value.B)
+            end
+            return 0x19, table.concat(chunks)
+        end
+        if kind == 'EnumItem' then
+            return 0x15, binaryString(tostring(value.EnumType):gsub('^Enum%.', '')) .. binary('u32', value.Value)
+        end
+        if kind == 'Font' then
+            return 0x21, binary('u16', value.Weight.Value) .. binary('u8', value.Style.Value)
+                .. binaryString(value.Family) .. binaryString('')
+        end
+        return nil, nil
+    end
+
+    -- Descriptor format: script property | serialized alias | explicit XML type.
+    local schemas = {
+        {'Instance', {'Name', 'Archivable|archivable'}},
+        {'BasePart', {'CFrame', 'PivotOffset', 'Size|size', 'Color|Color3uint8|Color3uint8', 'Material',
+            'MaterialVariant|MaterialVariantSerialized', 'Transparency', 'Reflectance', 'Anchored', 'CanCollide',
+            'CanTouch', 'CanQuery', 'Massless', 'CastShadow', 'CollisionGroup', 'CustomPhysicalProperties',
+            'TopSurface', 'BottomSurface', 'LeftSurface', 'RightSurface', 'FrontSurface', 'BackSurface'}},
+        {'Part', {'Shape|shape'}},
+        {'MeshPart', {'MeshId|MeshContent|Content', 'TextureID|TextureContent|Content', 'DoubleSided',
+            'CollisionFidelity', 'RenderFidelity', 'MeshSize|InitialSize'}},
+        {'Model', {'PrimaryPart'}},
+        {'DataModelMesh', {'Scale', 'Offset', 'VertexColor'}},
+        {'SpecialMesh', {'MeshType', 'MeshId|MeshContent|Content', 'TextureId|TextureContent|Content'}},
+        {'Decal', {'Texture|TextureContent|Content', 'Color3', 'Transparency', 'Face', 'ZIndex||int'}},
+        {'Texture', {'StudsPerTileU', 'StudsPerTileV', 'OffsetStudsU', 'OffsetStudsV'}},
+        {'SurfaceAppearance', {'ColorMap|ColorMapContent|Content', 'NormalMap|NormalMapContent|Content',
+            'MetalnessMap|MetalnessMapContent|Content', 'RoughnessMap|RoughnessMapContent|Content', 'AlphaMode', 'Color'}},
+        {'Attachment', {'CFrame', 'Visible'}},
+        {'Bone', {'Transform'}},
+        {'JointInstance', {'Part0', 'Part1', 'C0', 'C1', 'Enabled'}},
+        {'WeldConstraint', {'Part0|Part0Internal', 'Part1|Part1Internal', 'Enabled'}},
+        {'Constraint', {'Attachment0', 'Attachment1', 'Enabled', 'Visible'}},
+        {'NoCollisionConstraint', {'Part0', 'Part1', 'Enabled'}},
+        {'BallSocketConstraint', {'LimitsEnabled', 'UpperAngle', 'TwistLimitsEnabled', 'TwistLowerAngle', 'TwistUpperAngle', 'MaxFrictionTorque', 'Restitution', 'Radius'}},
+        {'HingeConstraint', {'ActuatorType', 'LimitsEnabled', 'LowerAngle', 'UpperAngle', 'AngularVelocity', 'MotorMaxTorque', 'MotorMaxAcceleration', 'TargetAngle', 'AngularSpeed', 'ServoMaxTorque', 'Restitution'}},
+        {'RopeConstraint', {'Length', 'Restitution', 'Thickness', 'WinchEnabled', 'WinchForce', 'WinchResponsiveness', 'WinchSpeed', 'WinchTarget'}},
+        {'RodConstraint', {'Length', 'Thickness', 'LimitAngle0', 'LimitAngle1', 'LimitsEnabled'}},
+        {'SpringConstraint', {'Coils||int', 'Damping', 'FreeLength', 'MaxForce', 'Stiffness', 'Thickness', 'LimitsEnabled', 'MinLength', 'MaxLength'}},
+        {'AlignPosition', {'Mode', 'Position', 'MaxForce', 'MaxVelocity', 'Responsiveness', 'RigidityEnabled', 'ApplyAtCenterOfMass', 'ReactionForceEnabled', 'ForceLimitMode', 'ForceRelativeTo', 'MaxAxesForce'}},
+        {'AlignOrientation', {'Mode', 'CFrame', 'MaxTorque', 'MaxAngularVelocity', 'Responsiveness', 'RigidityEnabled', 'ReactionTorqueEnabled', 'PrimaryAxisOnly'}},
+        {'VectorForce', {'Force', 'RelativeTo', 'ApplyAtCenterOfMass'}},
+        {'LinearVelocity', {'VectorVelocity', 'LineVelocity', 'PlaneVelocity', 'LineDirection', 'PrimaryTangentAxis', 'SecondaryTangentAxis', 'RelativeTo', 'VelocityConstraintMode', 'MaxForce', 'MaxAxesForce', 'MaxPlanarAxesForce', 'ForceLimitsEnabled', 'ForceLimitMode'}},
+        {'AngularVelocity', {'AngularVelocity', 'MaxTorque', 'RelativeTo', 'ReactionTorqueEnabled'}},
+        {'Torque', {'Torque', 'RelativeTo'}},
+        {'ProximityPrompt', {'ActionText', 'ObjectText', 'Enabled', 'HoldDuration', 'MaxActivationDistance', 'RequiresLineOfSight', 'KeyboardKeyCode', 'GamepadKeyCode', 'ClickablePrompt', 'Exclusivity', 'Style', 'UIOffset'}},
+        {'ClickDetector', {'MaxActivationDistance', 'CursorIcon|CursorIconContent|Content'}},
+        {'Sound', {'SoundId|AudioContent|Content', 'Volume', 'PlaybackSpeed', 'Looped', 'RollOffMode',
+            'RollOffMinDistance|EmitterSize', 'RollOffMaxDistance|xmlRead_MaxDistance_3', 'SoundGroup'}},
+        {'SoundGroup', {'Volume'}},
+        {'Animation', {'AnimationId|AnimationContent|Content'}},
+        {'Shirt', {'ShirtTemplate|ShirtTemplateContent|Content'}},
+        {'Pants', {'PantsTemplate|PantsTemplateContent|Content'}},
+        {'ShirtGraphic', {'Graphic|TextureContent|Content'}},
+        {'BodyColors', {'HeadColor3', 'TorsoColor3', 'LeftArmColor3', 'RightArmColor3', 'LeftLegColor3', 'RightLegColor3'}},
+        {'CharacterMesh', {'BodyPart', 'MeshId|MeshContent|ContentAsset', 'BaseTextureId|BaseTextureContent|ContentAsset', 'OverlayTextureId|OverlayTextureContent|ContentAsset'}},
+        {'Light', {'Brightness', 'Color', 'Enabled', 'Shadows'}},
+        {'PointLight', {'Range'}}, {'SpotLight', {'Range', 'Angle', 'Face'}}, {'SurfaceLight', {'Range', 'Angle', 'Face'}},
+        {'ParticleEmitter', {'Texture|TextureContent|Content', 'Color', 'Transparency', 'Size', 'Lifetime', 'Rate', 'Speed',
+            'SpreadAngle', 'Acceleration', 'Drag', 'Rotation', 'RotSpeed', 'EmissionDirection', 'Enabled',
+            'LightEmission', 'LightInfluence', 'LockedToPart', 'VelocityInheritance', 'ZOffset', 'Orientation'}},
+        {'Beam', {'Attachment0', 'Attachment1', 'Color', 'Transparency', 'Texture|TextureContent|Content', 'TextureLength',
+            'TextureMode', 'TextureSpeed', 'CurveSize0', 'CurveSize1', 'Width0', 'Width1', 'Segments||int',
+            'FaceCamera', 'Enabled', 'LightEmission', 'LightInfluence', 'ZOffset'}},
+        {'Trail', {'Attachment0', 'Attachment1', 'Color', 'Transparency', 'Texture|TextureContent|Content', 'TextureLength',
+            'TextureMode', 'Lifetime', 'MinLength', 'MaxLength', 'WidthScale', 'FaceCamera', 'Enabled', 'LightEmission', 'LightInfluence'}},
+        {'Fire', {'Color', 'SecondaryColor', 'Enabled', 'Heat', 'Size'}},
+        {'Smoke', {'Color', 'Enabled', 'Opacity', 'RiseVelocity', 'Size'}},
+        {'Sparkles', {'SparkleColor', 'Enabled'}},
+        {'Tool', {'Grip', 'RequiresHandle', 'CanBeDropped', 'ToolTip', 'Enabled', 'ManualActivationOnly', 'TextureId|TextureContent|Content'}},
+        {'Humanoid', {'MaxHealth', 'WalkSpeed', 'JumpPower', 'JumpHeight', 'UseJumpPower', 'HipHeight', 'AutoRotate', 'RigType', 'DisplayName', 'HealthDisplayType', 'NameDisplayDistance', 'HealthDisplayDistance'}},
+        {'ValueBase', {'Value'}}, {'IntValue', {'Value||int64'}}, {'NumberValue', {'Value||double'}},
+        {'GuiObject', {'Position', 'Size', 'AnchorPoint', 'Rotation', 'Visible', 'Active', 'BackgroundColor3',
+            'BackgroundTransparency', 'BorderColor3', 'BorderSizePixel||int', 'BorderMode', 'ClipsDescendants',
+            'LayoutOrder||int', 'ZIndex||int', 'AutomaticSize'}},
+        {'GuiButton', {'AutoButtonColor', 'Modal', 'Selected'}},
+        {'ScreenGui', {'Enabled', 'IgnoreGuiInset', 'ResetOnSpawn', 'DisplayOrder||int', 'ZIndexBehavior'}},
+        {'SurfaceGui', {'Enabled', 'Adornee', 'Face', 'AlwaysOnTop', 'CanvasSize', 'SizingMode', 'PixelsPerStud', 'LightInfluence', 'Brightness'}},
+        {'BillboardGui', {'Enabled', 'Adornee', 'Size', 'StudsOffset', 'StudsOffsetWorldSpace', 'ExtentsOffset', 'AlwaysOnTop', 'LightInfluence', 'Brightness', 'MaxDistance'}},
+        {'ScrollingFrame', {'CanvasSize', 'ScrollingDirection', 'ScrollingEnabled', 'ScrollBarThickness||int', 'ScrollBarImageColor3', 'ScrollBarImageTransparency', 'AutomaticCanvasSize'}},
+        {'TextLabel', {'Text', 'TextSize', 'TextColor3', 'TextTransparency', 'TextStrokeColor3', 'TextStrokeTransparency', 'FontFace', 'TextWrapped', 'TextScaled', 'RichText', 'TextXAlignment', 'TextYAlignment', 'TextTruncate'}},
+        {'TextButton', {'Text', 'TextSize', 'TextColor3', 'TextTransparency', 'TextStrokeColor3', 'TextStrokeTransparency', 'FontFace', 'TextWrapped', 'TextScaled', 'RichText', 'TextXAlignment', 'TextYAlignment', 'TextTruncate'}},
+        {'TextBox', {'Text', 'TextSize', 'TextColor3', 'TextTransparency', 'TextStrokeColor3', 'TextStrokeTransparency', 'FontFace', 'TextWrapped', 'TextScaled', 'RichText', 'TextXAlignment', 'TextYAlignment', 'TextTruncate', 'PlaceholderText', 'PlaceholderColor3', 'ClearTextOnFocus', 'MultiLine', 'TextEditable'}},
+        {'ImageLabel', {'Image|ImageContent|Content', 'ImageColor3', 'ImageTransparency', 'ImageRectOffset', 'ImageRectSize', 'ScaleType', 'SliceCenter', 'SliceScale', 'TileSize', 'ResampleMode'}},
+        {'ImageButton', {'Image|ImageContent|Content', 'ImageColor3', 'ImageTransparency', 'ImageRectOffset', 'ImageRectSize', 'ScaleType', 'SliceCenter', 'SliceScale', 'TileSize', 'ResampleMode'}},
+        {'UIListLayout', {'FillDirection', 'HorizontalAlignment', 'VerticalAlignment', 'SortOrder', 'Padding'}},
+        {'UIGridLayout', {'CellPadding', 'CellSize', 'FillDirection', 'FillDirectionMaxCells||int', 'HorizontalAlignment', 'VerticalAlignment', 'SortOrder', 'StartCorner'}},
+        {'UIPadding', {'PaddingLeft', 'PaddingRight', 'PaddingTop', 'PaddingBottom'}},
+        {'UICorner', {'CornerRadius'}}, {'UIScale', {'Scale'}},
+        {'UIStroke', {'Color', 'Thickness', 'Transparency', 'ApplyStrokeMode', 'LineJoinMode', 'Enabled'}},
+        {'UIGradient', {'Color', 'Transparency', 'Rotation', 'Offset', 'Enabled'}},
+        {'UIAspectRatioConstraint', {'AspectRatio', 'AspectType', 'DominantAxis'}},
+        {'UISizeConstraint', {'MinSize', 'MaxSize'}}, {'UITextSizeConstraint', {'MinTextSize||int', 'MaxTextSize||int'}},
+        {'LuaSourceContainer', {'Source||ProtectedString'}}, {'BaseScript', {'Disabled', 'RunContext'}},
+    }
+    local known = {}
+    for _, class in ipairs({'Model', 'Folder', 'Configuration', 'Part', 'MeshPart', 'WedgePart', 'CornerWedgePart',
+        'TrussPart', 'UnionOperation', 'NegateOperation', 'SpecialMesh', 'BlockMesh', 'CylinderMesh', 'Decal', 'Texture',
+        'SurfaceAppearance', 'Attachment', 'Bone', 'Weld', 'ManualWeld', 'Motor', 'Motor6D', 'Snap', 'WeldConstraint',
+        'NoCollisionConstraint', 'BallSocketConstraint', 'HingeConstraint', 'RopeConstraint', 'RodConstraint',
+        'SpringConstraint', 'AlignPosition', 'AlignOrientation', 'VectorForce', 'LinearVelocity', 'AngularVelocity',
+        'Torque', 'PlaneConstraint', 'CylindricalConstraint', 'PrismaticConstraint', 'UniversalConstraint',
+        'ProximityPrompt', 'ClickDetector', 'Sound', 'SoundGroup', 'Animation', 'Animator', 'AnimationController',
+        'PointLight', 'SpotLight', 'SurfaceLight', 'ParticleEmitter', 'Beam', 'Trail', 'Fire', 'Smoke', 'Sparkles',
+        'Tool', 'Humanoid', 'Accessory', 'Shirt', 'Pants', 'ShirtGraphic', 'CharacterMesh', 'BodyColors',
+        'StringValue', 'BoolValue', 'IntValue', 'NumberValue', 'ObjectValue', 'Vector3Value', 'CFrameValue',
+        'Color3Value', 'BrickColorValue', 'RayValue', 'ScreenGui', 'SurfaceGui', 'BillboardGui', 'Frame',
+        'TextLabel', 'TextButton', 'TextBox', 'ImageLabel', 'ImageButton', 'ScrollingFrame', 'ViewportFrame',
+        'CanvasGroup', 'UIListLayout', 'UIGridLayout', 'UIPadding', 'UICorner', 'UIScale', 'UIStroke', 'UIGradient',
+        'UIAspectRatioConstraint', 'UISizeConstraint', 'UITextSizeConstraint', 'Script', 'LocalScript', 'ModuleScript'}) do
+        known[class] = true
+    end
+
+    local function descriptor(value)
+        local property, alias, kind = value:match('^([^|]+)|?([^|]*)|?([^|]*)$')
+        return property, alias ~= '' and alias or property, kind ~= '' and kind or nil
+    end
+
+    local function capture(root, options, note, checkpoint)
+        local limit = math.clamp(tonumber(options.maxInstances) or MAX_INSTANCES, 1, MAX_INSTANCES)
+        local instances, refs, records, children, parents = {root}, {[root] = 'RBX1'}, {}, {}, {}
+        local textBytes, textLimit = 0, math.clamp(tonumber(options.maxBytes) or MAX_BYTES, 1024, MAX_BYTES)
+        local function budget(value)
+            if type(value) == 'string' then
+                textBytes = textBytes + #value
+                if textBytes > textLimit then error('Export text exceeds the file-size limit. Choose a smaller selection.') end
+            end
+        end
+        local index = 1
+        while index <= #instances do
+            checkpoint(index)
+            local object = instances[index]
+            local ok, members = pcall(function() return object:GetChildren() end)
+            if not ok then error('An exported instance became unreadable while collecting its children.') end
+            children[object] = {}
+            for _, child in ipairs(members) do
+                if not refs[child] then
+                    if #instances >= limit then error('Selection exceeds the export limit of ' .. limit .. ' instances. Choose a smaller model.') end
+                    refs[child] = 'RBX' .. (#instances + 1)
+                    parents[child] = refs[object]
+                    instances[#instances + 1] = child
+                    children[object][#children[object] + 1] = child
+                end
+            end
+            index = index + 1
+        end
+        for i, object in ipairs(instances) do
+            checkpoint(i)
+            local classOk, class = read(object, 'ClassName')
+            local nameOk, name = read(object, 'Name')
+            if not classOk or not nameOk then error('An exported instance was removed during serialization.') end
+            local record = {id = refs[object], parent = parents[object], object = object, class = class, name = name, children = children[object], properties = {}, attributes = {}, tags = {}}
+            local matched = 0
+            for _, schema in ipairs(schemas) do
+                if isA(object, schema[1]) then
+                    matched = matched + 1
+                    for _, description in ipairs(schema[2]) do
+                        local property, alias, kind = descriptor(description)
+                        local readable, value = read(object, property)
+                        if readable then
+                            budget(value)
+                            record.properties[alias] = {property = property, name = alias, kind = kind, value = value}
+                        elseif property == 'Source' then
+                            note('Unreadable script Source is omitted (default empty in RBXMX); no decompilation is attempted.')
+                        end
+                    end
+                end
+            end
+            if isA(object, 'Model') and not isA(object, 'WorldRoot') then
+                local pivotOk, pivot = pcall(function() return object:GetPivot() end)
+                if pivotOk then record.properties.WorldPivotData = {name = 'WorldPivotData', property = 'Pivot', kind = 'OptionalCoordinateFrame', value = pivot} end
+                local scaleOk, scale = pcall(function() return object:GetScale() end)
+                if scaleOk then record.properties.ScaleFactor = {name = 'ScaleFactor', property = 'Scale', value = scale} end
+            end
+            local attributesOk, attributes = pcall(function() return object:GetAttributes() end)
+            if attributesOk then
+                record.attributes = attributes
+                for name, value in pairs(attributes) do budget(name); budget(value) end
+            else note('Attributes could not be read on one or more instances.') end
+            local tagsOk, tags = pcall(function() return collection:GetTags(object) end)
+            if tagsOk then
+                record.tags = tags
+                for _, tag in ipairs(tags) do budget(tag) end
+            else note('Tags could not be read on one or more instances.') end
+            record.exportClass = class
+            if class == 'UnionOperation' or class == 'NegateOperation' then
+                record.exportClass = 'Part'
+                note('CSG union/negation geometry is unavailable through readable properties; these objects become bounding-box Parts in RBXMX.')
+            elseif not known[class] then
+                record.exportClass = 'Folder'
+                note('Unsupported class ' .. class .. ' becomes a Folder in RBXMX; JSON retains its original class and readable fields.')
+            elseif matched <= 1 and class ~= 'Folder' and class ~= 'Configuration' and class ~= 'Animator' and class ~= 'AnimationController' then
+                note('Only common fields are supported for class ' .. class .. '.')
+            end
+            records[object] = record
+        end
+        return instances, refs, records
+    end
+
+    local function xmlSerializer(root, instances, refs, records, note, checkpoint, maxBytes)
+        local output, bytes = {}, 0
+        local function append(text)
+            bytes = bytes + #text
+            if bytes > maxBytes then error('Export exceeds the file-size limit. Choose a smaller selection.') end
+            output[#output + 1] = text
+        end
+        local function escape(value)
+            local clean, replaced = tostring(value):gsub('[%z\1-\8\11\12\14-\31]', '?')
+            if replaced > 0 then note('XML-invalid control characters in text fields were replaced; binary attributes remain intact.') end
+            return (clean:gsub('&', '&amp;'):gsub('<', '&lt;'):gsub('>', '&gt;'):gsub('"', '&quot;'):gsub("'", '&apos;'))
+        end
+        local function component(tag, value) return '<' .. tag .. '>' .. scalar(value) .. '</' .. tag .. '>' end
+        local function frame(value)
+            local names, values = {'X', 'Y', 'Z', 'R00', 'R01', 'R02', 'R10', 'R11', 'R12', 'R20', 'R21', 'R22'}, {value:GetComponents()}
+            local pieces = {}
+            for i, name in ipairs(names) do pieces[i] = component(name, values[i]) end
+            return table.concat(pieces)
+        end
+        local function property(name, value, explicit)
+            local kind = explicit or typeof(value)
+            local body, tag
+            if name == 'CustomPhysicalProperties' and value == nil then
+                return '<PhysicalProperties name="CustomPhysicalProperties"><CustomPhysics>false</CustomPhysics></PhysicalProperties>\n'
+            end
+            if value == nil and not explicit then return nil end
+            if kind == 'string' or kind == 'ProtectedString' then tag = explicit == 'ProtectedString' and explicit or 'string'; body = escape(value)
+            elseif kind == 'boolean' then tag, body = 'bool', value and 'true' or 'false'
+            elseif kind == 'number' or kind == 'float' or kind == 'double' or kind == 'int' or kind == 'int64' then
+                tag = explicit or 'float'
+                if tag == 'int' or tag == 'int64' then
+                    if not finite(value) then error('Integer property is non-finite.') end
+                    body = string.format('%.0f', value)
+                else body = scalar(value) end
+            elseif kind == 'EnumItem' then tag, body = 'token', tostring(value.Value)
+            elseif kind == 'BrickColor' then tag, body = 'int', tostring(value.Number)
+            elseif kind == 'Color3uint8' then
+                tag, body = kind, tostring(math.floor(value.R * 255 + 0.5) * 65536 + math.floor(value.G * 255 + 0.5) * 256 + math.floor(value.B * 255 + 0.5))
+            elseif kind == 'Color3' then tag = kind; body = component('R', value.R) .. component('G', value.G) .. component('B', value.B)
+            elseif kind == 'Vector3' then tag = kind; body = component('X', value.X) .. component('Y', value.Y) .. component('Z', value.Z)
+            elseif kind == 'Vector2' then tag = kind; body = component('X', value.X) .. component('Y', value.Y)
+            elseif kind == 'CFrame' then tag, body = 'CoordinateFrame', frame(value)
+            elseif kind == 'OptionalCoordinateFrame' then tag, body = kind, '<CFrame>' .. frame(value) .. '</CFrame>'
+            elseif kind == 'UDim' then tag = kind; body = component('S', value.Scale) .. component('O', value.Offset)
+            elseif kind == 'UDim2' then tag = kind; body = component('XS', value.X.Scale) .. component('XO', value.X.Offset) .. component('YS', value.Y.Scale) .. component('YO', value.Y.Offset)
+            elseif kind == 'Rect' then
+                tag = 'Rect2D'; body = '<min>' .. component('X', value.Min.X) .. component('Y', value.Min.Y) .. '</min><max>' .. component('X', value.Max.X) .. component('Y', value.Max.Y) .. '</max>'
+            elseif kind == 'NumberRange' then tag, body = kind, scalar(value.Min) .. ' ' .. scalar(value.Max)
+            elseif kind == 'NumberSequence' or kind == 'ColorSequence' then
+                local values = {}
+                for _, point in ipairs(value.Keypoints) do
+                    values[#values + 1] = scalar(point.Time)
+                    if kind == 'NumberSequence' then
+                        values[#values + 1] = scalar(point.Value); values[#values + 1] = scalar(point.Envelope)
+                    else
+                        values[#values + 1] = scalar(point.Value.R); values[#values + 1] = scalar(point.Value.G)
+                        values[#values + 1] = scalar(point.Value.B); values[#values + 1] = '0'
+                    end
+                end
+                tag, body = kind, table.concat(values, ' ')
+            elseif kind == 'Instance' then
+                tag, body = 'Ref', refs[value] or 'null'
+                if not refs[value] then note('References outside the exported selection become null.') end
+            elseif kind == 'PhysicalProperties' then
+                tag = kind
+                body = '<CustomPhysics>true</CustomPhysics>' .. component('Density', value.Density)
+                    .. component('Friction', value.Friction) .. component('Elasticity', value.Elasticity)
+                    .. component('FrictionWeight', value.FrictionWeight) .. component('ElasticityWeight', value.ElasticityWeight)
+            elseif kind == 'Content' or kind == 'ContentAsset' then
+                local uri = kind == 'ContentAsset' and (value == 0 and '' or 'rbxassetid://' .. string.format('%.0f', value))
+                    or (typeof(value) == 'Content' and value.Uri or value)
+                if type(uri) ~= 'string' then note('Object-backed content cannot be exported as an asset URI.'); return nil end
+                tag, body = 'Content', uri == '' and '<null></null>' or '<uri>' .. escape(uri) .. '</uri>'
+            elseif kind == 'Font' then
+                tag = kind
+                body = '<Family><url>' .. escape(value.Family) .. '</url></Family>'
+                    .. component('Weight', value.Weight.Value) .. '<Style>' .. escape(value.Style.Name) .. '</Style>'
+            else note('XML does not support readable datatype ' .. kind .. ' for ' .. name .. '; use JSON to retain its description.'); return nil end
+            return '<' .. tag .. ' name="' .. escape(name) .. '">' .. body .. '</' .. tag .. '>\n'
+        end
+        -- Roblox format sniffing requires <roblox at byte one, without an XML declaration.
+        append('<roblox version="4" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><External>null</External><External>nil</External>\n')
+        local stack, processed = {{object = root}}, 0
+        while #stack > 0 do
+            local item = table.remove(stack)
+            if item.close then append('</Item>\n') else
+                processed = processed + 1; checkpoint(processed)
+                local record = records[item.object]
+                append('<Item class="' .. escape(record.exportClass) .. '" referent="' .. record.id .. '"><Properties>\n')
+                local names = {}
+                for name in pairs(record.properties) do names[#names + 1] = name end
+                table.sort(names)
+                local runtimeScript = isA(record.object, 'BaseScript')
+                if runtimeScript then
+                    note('Runtime scripts are saved disabled in RBXMX. Readable source is preserved; inaccessible source is omitted.')
+                    append('<bool name="Disabled">true</bool>\n')
+                end
+                for _, name in ipairs(names) do
+                    local info = record.properties[name]
+                    if not (runtimeScript and name == 'Disabled') and (record.exportClass ~= 'Folder' or name == 'Name' or name == 'archivable') then
+                        local ok, encoded = pcall(property, name, info.value, info.kind)
+                        if ok and encoded then append(encoded) elseif not ok then note('Could not serialize XML property ' .. record.class .. '.' .. info.property .. '.') end
+                    end
+                end
+                local attributeNames, attributeChunks = {}, {}
+                for name in pairs(record.attributes) do attributeNames[#attributeNames + 1] = name end
+                table.sort(attributeNames)
+                local attributeCount = 0
+                for _, name in ipairs(attributeNames) do
+                    local ok, typeId, encoded = pcall(attributeValue, record.attributes[name])
+                    if ok and typeId then
+                        attributeChunks[#attributeChunks + 1] = binaryString(name) .. string.char(typeId) .. encoded
+                        attributeCount = attributeCount + 1
+                    else note('Unsupported attribute types are omitted from RBXMX; JSON preserves their readable value.') end
+                end
+                if attributeCount > 0 then
+                    append('<BinaryString name="AttributesSerialize">' .. base64(binary('u32', attributeCount) .. table.concat(attributeChunks), checkpoint) .. '</BinaryString>\n')
+                end
+                if #record.tags > 0 then append('<BinaryString name="Tags">' .. base64(table.concat(record.tags, '\0'), checkpoint) .. '</BinaryString>\n') end
+                append('</Properties>\n')
+                stack[#stack + 1] = {close = true}
+                for index = #record.children, 1, -1 do stack[#stack + 1] = {object = record.children[index]} end
+            end
+        end
+        append('</roblox>\n')
+        return table.concat(output)
+    end
+
+    local function jsonValue(value, refs)
+        local kind = typeof(value)
+        if value == nil then return {type = 'nil'} end
+        if kind == 'number' then return {type = kind, value = finite(value) and value or tostring(value)} end
+        if kind == 'string' or kind == 'boolean' then return {type = kind, value = value} end
+        if kind == 'Vector3' then return {type = kind, value = {value.X, value.Y, value.Z}} end
+        if kind == 'Vector2' then return {type = kind, value = {value.X, value.Y}} end
+        if kind == 'CFrame' then return {type = kind, value = {value:GetComponents()}} end
+        if kind == 'Color3' then return {type = kind, value = {value.R, value.G, value.B}} end
+        if kind == 'BrickColor' then return {type = kind, value = value.Number} end
+        if kind == 'UDim' then return {type = kind, value = {value.Scale, value.Offset}} end
+        if kind == 'UDim2' then return {type = kind, value = {value.X.Scale, value.X.Offset, value.Y.Scale, value.Y.Offset}} end
+        if kind == 'Rect' then return {type = kind, value = {value.Min.X, value.Min.Y, value.Max.X, value.Max.Y}} end
+        if kind == 'NumberRange' then return {type = kind, value = {value.Min, value.Max}} end
+        if kind == 'EnumItem' then return {type = kind, enum = tostring(value.EnumType), name = value.Name, value = value.Value} end
+        if kind == 'Instance' then
+            local ok, path = pcall(function() return value:GetFullName() end)
+            return {type = kind, id = refs[value], path = ok and path or nil, external = refs[value] == nil}
+        end
+        if kind == 'PhysicalProperties' then return {type = kind, value = {value.Density, value.Friction, value.Elasticity, value.FrictionWeight, value.ElasticityWeight}} end
+        if kind == 'NumberSequence' or kind == 'ColorSequence' then
+            local points = {}
+            for _, point in ipairs(value.Keypoints) do
+                points[#points + 1] = kind == 'NumberSequence' and {point.Time, point.Value, point.Envelope}
+                    or {point.Time, point.Value.R, point.Value.G, point.Value.B}
+            end
+            return {type = kind, value = points}
+        end
+        if kind == 'Font' then return {type = kind, family = value.Family, weight = value.Weight.Value, style = value.Style.Name} end
+        if kind == 'Content' then return {type = kind, value = value.Uri} end
+        return {type = kind, display = tostring(value)}
+    end
+
+    function module.Available()
+        local supported = api('writefile') ~= nil and api('readfile') ~= nil and api('makefolder') ~= nil
+        return {rbxmx = supported, json = supported, error = not supported and 'Verified file export requires writefile, readfile and makefolder.' or nil}
+    end
+
+    function module.Serialize(root, options)
+        options = options or {}
+        local notes, seenNotes = {}, {}
+        local function note(text)
+            if not seenNotes[text] then seenNotes[text] = true; notes[#notes + 1] = text end
+        end
+        local format = tostring(options.format or 'rbxmx'):lower():gsub('^%.', '')
+        if format ~= 'rbxmx' and format ~= 'json' then return {ok = false, error = 'Choose RBXMX or JSON.', notes = notes} end
+        if typeof(root) ~= 'Instance' then return {ok = false, error = 'Select an instance before exporting.', notes = notes} end
+        if isA(root, 'WorldRoot') or isA(root, 'DataModel') or isA(root, 'Terrain') then
+            return {ok = false, error = 'Choose a model, part, folder or smaller instance. Whole places and Terrain voxels are not exported.', notes = notes}
+        end
+        local deadline = os.clock() + math.clamp(tonumber(options.maxSeconds) or MAX_SECONDS, 1, MAX_SECONDS)
+        local function checkpoint(index)
+            if type(options.cancelled) == 'function' and options.cancelled() then error('Export cancelled.') end
+            if os.clock() > deadline then error('Export reached its time limit. Choose a smaller selection.') end
+            if index % 100 == 0 then task.wait() end
+        end
+        note('Exports contain client-loaded instances and a curated set of readable properties; server-only data is unavailable.')
+        note('Mesh, texture, audio and animation asset IDs remain references; asset binaries are not downloaded.')
+        local result
+        local ok, failure = pcall(function()
+            local instances, refs, records = capture(root, options, note, checkpoint)
+            local maxBytes = math.clamp(tonumber(options.maxBytes) or MAX_BYTES, 1024, MAX_BYTES)
+            local data
+            if format == 'rbxmx' then
+                data = xmlSerializer(root, instances, refs, records, note, checkpoint, maxBytes)
+            else
+                local values = {}
+                for index, object in ipairs(instances) do
+                    checkpoint(index)
+                    local record = records[object]
+                    local entry = {id = record.id, parent = record.parent, class = record.class, name = record.name, properties = {}, attributes = {}, tags = record.tags}
+                    for _, info in pairs(record.properties) do entry.properties[info.property] = jsonValue(info.value, refs) end
+                    for name, value in pairs(record.attributes) do entry.attributes[name] = jsonValue(value, refs) end
+                    values[#values + 1] = entry
+                end
+                data = http:JSONEncode({format = 'clickinspector-instance-snapshot', version = 1, root = refs[root], instances = values, notes = notes})
+                if #data > maxBytes then error('Export exceeds the file-size limit. Choose a smaller selection.') end
+            end
+            result = {ok = true, data = data, format = format, count = #instances, notes = notes, bytes = #data}
+        end)
+        if not ok then return {ok = false, error = tostring(failure), format = format, notes = notes} end
+        return result
+    end
+
+    local function cleanFilename(value)
+        value = tostring(value or ''):gsub('[%z\1-\31<>:"/\\|?*]', '_'):gsub('^%s+', ''):gsub('[%s%.]+$', '')
+        value = value:gsub('%.[Rr][Bb][Xx][Mm][Xx]$', ''):gsub('%.[Jj][Ss][Oo][Nn]$', '')
+        if not utf8.len(value) then value = value:gsub('[\128-\255]', '_') end
+        if #value > 80 then
+            local last = 80
+            while last > 0 do
+                local following = string.byte(value, last + 1)
+                if not following or following < 128 or following >= 192 then break end
+                last = last - 1
+            end
+            value = value:sub(1, last)
+        end
+        value = value:gsub('[%s%.]+$', '')
+        if value == '' or value == '.' or value == '..' then value = 'Instance' end
+        local upper = value:upper():match('^[^.]+') or value:upper()
+        if upper == 'CON' or upper == 'PRN' or upper == 'AUX' or upper == 'NUL'
+            or upper:match('^COM[1-9]$') or upper:match('^LPT[1-9]$') then value = '_' .. value end
+        return value
+    end
+
+    function module.Export(root, options)
+        options = options or {}
+        local available = module.Available()
+        if not available.rbxmx then return {ok = false, error = available.error, notes = {}} end
+        local result = module.Serialize(root, options)
+        if not result.ok then return result end
+        local folder = 'ClickInspectorExports'
+        local make, existsFolder, existsFile, write, readFile = api('makefolder'), api('isfolder'), api('isfile'), api('writefile'), api('readfile')
+        local ok, err = pcall(function()
+            if not existsFolder or not existsFolder(folder) then
+                local made, failure = pcall(make, folder)
+                if not made and not (existsFolder and existsFolder(folder)) then error('Could not create export folder: ' .. tostring(failure)) end
+            end
+            local readable, name = read(root, 'Name')
+            local chosenName = options.filename and options.filename ~= '' and options.filename or (readable and name or 'Instance')
+            local filename = cleanFilename(chosenName)
+            if not options.filename or options.filename == '' then filename = filename .. '-' .. os.date('!%Y%m%d-%H%M%S') end
+            local path = folder .. '/' .. filename .. '.' .. result.format
+            local function exists(candidate)
+                if existsFile then return existsFile(candidate) end
+                return pcall(readFile, candidate)
+            end
+            local suffix = 1
+            while exists(path) do
+                suffix = suffix + 1
+                if suffix > 1000 then error('Too many export files share this name. Choose a different filename.') end
+                path = folder .. '/' .. filename .. '-' .. suffix .. '.' .. result.format
+            end
+            if type(options.cancelled) == 'function' and options.cancelled() then error('Export cancelled before saving.') end
+            write(path, result.data)
+            if readFile(path) ~= result.data then error('The saved file did not match the generated export; save verification failed.') end
+            result.path = path
+        end)
+        if not ok then return {ok = false, error = tostring(err), notes = result.notes, format = result.format, count = result.count} end
+        result.data = nil
+        return result
+    end
+
+    return module
+end)()
+
+-- END_CLICK_INSPECTOR_EXPORTER
+
+local PAGE_SIZE, SCAN_LIMIT, ENTRY_LIMIT, HISTORY_LIMIT = 40, 1200, 1600, 128
+local TABS = {'Properties', 'Tree', 'Interactions', 'Connections', 'Assets', 'Export'}
+
+local SINGLETON_KEY = '__IY_LENS_CLICK_INSPECTOR'
+local environment = _G
+if type(getgenv) == 'function' then
+    local ok, result = pcall(getgenv)
+    if ok and type(result) == 'table' then
+        environment = result
+    end
+end
+
+local previous = environment[SINGLETON_KEY]
+if type(previous) == 'table' and type(previous.Destroy) == 'function' then
+    pcall(function() previous:Destroy() end)
+end
+environment[SINGLETON_KEY] = nil
+
+local colors = {
+    panel = Color3.fromRGB(36, 36, 37),
+    raised = Color3.fromRGB(46, 46, 47),
+    input = Color3.fromRGB(78, 78, 79),
+    text = Color3.fromRGB(255, 255, 255),
+    hoverHighlight = Color3.fromRGB(0, 255, 110),
+    selection = Color3.fromRGB(239, 209, 161),
+}
+
+local function make(class, properties, parent)
+    local object = Instance.new(class)
+    for property, value in pairs(properties or {}) do
+        object[property] = value
+    end
+    object.Parent = parent
+    return object
+end
+
+local function read(object, property)
+    local ok, value = pcall(function() return object[property] end)
+    if ok then return value end
+    return nil
+end
+
+local function isA(object, class)
+    local ok, result = pcall(function() return object:IsA(class) end)
+    return ok and result
+end
+
+local function number(value)
+    if value ~= value then return 'NaN' end
+    if value == math.huge then return 'Infinity' end
+    if value == -math.huge then return '-Infinity' end
+    if math.abs(value) < 0.0005 then value = 0 end
+    local result = string.format('%.3f', value)
+    return (result:gsub('(%..-)0+$', '%1'):gsub('%.$', ''))
+end
+
+local function format(value)
+    local kind = typeof(value)
+    if value == nil then return '—' end
+    if kind == 'number' then return number(value) end
+    if kind == 'boolean' then return value and 'Yes' or 'No' end
+    if kind == 'Vector3' then
+        return number(value.X) .. ', ' .. number(value.Y) .. ', ' .. number(value.Z)
+    end
+    if kind == 'Vector2' then
+        return number(value.X) .. ', ' .. number(value.Y)
+    end
+    if kind == 'Color3' then
+        return string.format('RGB %d, %d, %d',
+            math.floor(value.R * 255 + 0.5),
+            math.floor(value.G * 255 + 0.5),
+            math.floor(value.B * 255 + 0.5))
+    end
+    if kind == 'CFrame' then
+        return format(value.Position)
+    end
+    if kind == 'EnumItem' then return value.Name end
+    if kind == 'Instance' then return read(value, 'Name') or 'Instance' end
+    local result = tostring(value):gsub('[\r\n]+', ' ')
+    if #result > 180 then result = result:sub(1, 177) .. '...' end
+    return result
+end
+
+local function fullPath(object)
+    local ok, value = pcall(function() return object:GetFullName() end)
+    return ok and value or (read(object, 'Name') or '')
+end
+
+local function rawNumber(value)
+    if value ~= value or math.abs(value) == math.huge then return tostring(value) end
+    return string.format('%.17g', value)
+end
+
+local function rawValue(value)
+    local kind = typeof(value)
+    if value == nil then return 'nil' end
+    if kind == 'string' then return value end
+    if kind == 'number' then return rawNumber(value) end
+    if kind == 'Instance' then return fullPath(value) end
+    if kind == 'Vector3' then
+        return 'Vector3.new(' .. rawNumber(value.X) .. ', ' .. rawNumber(value.Y) .. ', ' .. rawNumber(value.Z) .. ')'
+    end
+    if kind == 'Vector2' then return 'Vector2.new(' .. rawNumber(value.X) .. ', ' .. rawNumber(value.Y) .. ')' end
+    if kind == 'Color3' then
+        return 'Color3.new(' .. rawNumber(value.R) .. ', ' .. rawNumber(value.G) .. ', ' .. rawNumber(value.B) .. ')'
+    end
+    if kind == 'CFrame' then
+        local components = {value:GetComponents()}
+        for index, component in ipairs(components) do components[index] = rawNumber(component) end
+        return 'CFrame.new(' .. table.concat(components, ', ') .. ')'
+    end
+    if kind == 'PhysicalProperties' then
+        return 'PhysicalProperties.new(' .. table.concat({rawNumber(value.Density), rawNumber(value.Friction),
+            rawNumber(value.Elasticity), rawNumber(value.FrictionWeight), rawNumber(value.ElasticityWeight)}, ', ') .. ')'
+    end
+    if kind == 'UDim' then return 'UDim.new(' .. rawNumber(value.Scale) .. ', ' .. rawNumber(value.Offset) .. ')' end
+    if kind == 'UDim2' then
+        return 'UDim2.new(' .. table.concat({rawNumber(value.X.Scale), rawNumber(value.X.Offset),
+            rawNumber(value.Y.Scale), rawNumber(value.Y.Offset)}, ', ') .. ')'
+    end
+    if kind == 'Rect' then return 'Rect.new(' .. rawValue(value.Min) .. ', ' .. rawValue(value.Max) .. ')' end
+    if kind == 'NumberRange' then return 'NumberRange.new(' .. rawNumber(value.Min) .. ', ' .. rawNumber(value.Max) .. ')' end
+    if kind == 'BrickColor' then return 'BrickColor.new(' .. tostring(value.Number) .. ')' end
+    if kind == 'NumberSequence' or kind == 'ColorSequence' then
+        local points = {}
+        for _, point in ipairs(value.Keypoints) do
+            if kind == 'NumberSequence' then
+                table.insert(points, 'NumberSequenceKeypoint.new(' .. table.concat({rawNumber(point.Time),
+                    rawNumber(point.Value), rawNumber(point.Envelope)}, ', ') .. ')')
+            else
+                table.insert(points, 'ColorSequenceKeypoint.new(' .. rawNumber(point.Time) .. ', ' .. rawValue(point.Value) .. ')')
+            end
+        end
+        return kind .. '.new({' .. table.concat(points, ', ') .. '})'
+    end
+    return tostring(value)
+end
+
+local function historyText(value)
+    if #value > 4096 then return value:sub(1, 4096) .. '\n[Previous value truncated]' end
+    return value
+end
+
+local function children(object, limit)
+    local ok, list = pcall(function() return object:GetChildren() end)
+    if not ok then return {}, false end
+    local result = {}
+    for index = 1, math.min(#list, limit or SCAN_LIMIT) do result[index] = list[index] end
+    return result, #list > #result
+end
+
+local function walk(object)
+    if isA(object, 'WorldRoot') or object == game then return {object}, true end
+    local nodes, cursor, truncated = {object}, 1, false
+    while cursor <= #nodes and cursor <= SCAN_LIMIT do
+        local list, cut = children(nodes[cursor], SCAN_LIMIT)
+        truncated = truncated or cut
+        for _, child in ipairs(list) do
+            if #nodes >= SCAN_LIMIT then truncated = true; break end
+            table.insert(nodes, child)
+        end
+        cursor = cursor + 1
+    end
+    return nodes, truncated
+end
+
+local function viewport()
+    local camera = Workspace.CurrentCamera
+    local size = camera and camera.ViewportSize
+    if not size or size.X < 1 or size.Y < 1 then
+        return Vector2.new(1280, 720)
+    end
+    return size
+end
+
+local function contains(guiObject, point)
+    if not guiObject.Visible then return false end
+    local position, size = guiObject.AbsolutePosition, guiObject.AbsoluteSize
+    return point.X >= position.X and point.Y >= position.Y
+        and point.X <= position.X + size.X and point.Y <= position.Y + size.Y
+end
+
+local Controller = {}
+Controller.__index = Controller
+
+function Controller:Connect(signal, callback, selection)
+    local connection = signal:Connect(callback)
+    local list = selection == 'rows' and self.RowConnections or selection == 'parent' and self.ParentConnections
+        or (selection and self.SelectionConnections or self.Connections)
+    table.insert(list, connection)
+    return connection
+end
+
+function Controller:DisconnectSelection()
+    for _, connection in ipairs(self.SelectionConnections) do
+        connection:Disconnect()
+    end
+    self.SelectionConnections = {}
+    for _, connection in ipairs(self.ParentConnections or {}) do connection:Disconnect() end
+    self.ParentConnections = {}
+end
+
+function Controller:Label(parent, text, size, color, properties)
+    local defaults = {
+        BackgroundTransparency = 1,
+        BorderSizePixel = 0,
+        Font = Enum.Font.SourceSans,
+        Text = text,
+        TextSize = size or 14,
+        TextColor3 = color or colors.text,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        TextYAlignment = Enum.TextYAlignment.Center,
+        RichText = false,
+        ZIndex = 4,
+    }
+    for property, value in pairs(properties or {}) do defaults[property] = value end
+    return make('TextLabel', defaults, parent)
+end
+
+function Controller:Button(parent, text, properties, callback, secondary, lifecycle)
+    local defaults = {
+        BackgroundColor3 = secondary and colors.input or colors.raised,
+        BorderSizePixel = 0,
+        AutoButtonColor = true,
+        Font = Enum.Font.SourceSans,
+        Text = text,
+        TextSize = 14,
+        TextColor3 = colors.text,
+        ZIndex = 5,
+    }
+    for property, value in pairs(properties or {}) do defaults[property] = value end
+    local button = make('TextButton', defaults, parent)
+    self:Connect(button.Activated, function()
+        if not self.Destroyed then callback() end
+    end, lifecycle)
+    return button
+end
+
+function Controller:SetStatus()
+    if self.Destroyed then return end
+    self.Status.Text = self.Picking and 'Picking an object'
+        or (self.Selected and (self.Frozen and 'Frozen snapshot' or 'Object selected - live') or 'Selection paused')
+    if self.FooterOverride and os.clock() < self.FooterOverrideUntil then
+        self.Footer.Text = self.FooterOverride
+    else
+        self.Footer.Text = self.Picking and 'Click an object  ·  Esc to cancel'
+            or 'Read-only view  ·  Esc to close'
+    end
+    self.PickButton.Text = self.Picking and 'Picking...' or 'Pick another'
+    local parent = self.Selected and read(self.Selected, 'Parent')
+    self.ParentButton.TextTransparency = parent and parent ~= game and 0 or 0.55
+    self.CopyButton.TextTransparency = self.Selected and 0 or 0.55
+    if self.FreezeButton then
+        self.FreezeButton.Text = self.Frozen and 'Resume live' or 'Freeze'
+        self.FreezeButton.TextTransparency = self.Selected and 0 or 0.55
+    end
+end
+
+function Controller:OverInterface(point)
+    if GuiService.MenuIsOpen or UserInputService:GetFocusedTextBox() then return true end
+    -- GUI hit testing uses the origin below the top bar, unlike raw mouse rays.
+    local inset = GuiService:GetGuiInset()
+    point = point - inset
+    if contains(self.Window, point) then return true end
+    -- Respect interactive game UI as well as this inspector.
+    for _, parent in ipairs(self.GuiParents) do
+        local ok, objects = pcall(function()
+            return parent:GetGuiObjectsAtPosition(point.X, point.Y)
+        end)
+        if ok then
+            for _, object in ipairs(objects) do
+                local cursor = object
+                while cursor and not isA(cursor, 'ScreenGui') do
+                    if isA(cursor, 'GuiButton') or isA(cursor, 'TextBox')
+                        or (isA(cursor, 'GuiObject') and read(cursor, 'Active')) then
+                        return true
+                    end
+                    cursor = read(cursor, 'Parent')
+                end
+            end
+        end
+    end
+    return false
+end
+
+function Controller:AdornmentTarget(object)
+    if isA(object, 'Terrain') or isA(object, 'WorldRoot') then return nil end
+    if isA(object, 'BasePart') or isA(object, 'Model') then return object end
+    return nil
+end
+
+function Controller:UpdateHover()
+    if self.Destroyed or not self.Picking then return end
+    local point = UserInputService:GetMouseLocation()
+    local target = nil
+    local camera = Workspace.CurrentCamera
+    if camera and not self:OverInterface(point) then
+        local character = self.Player and self.Player.Character
+        self.Raycast.FilterDescendantsInstances = character and {character} or {}
+        -- Raw MouseLocation and the IgnoreGuiInset overlay share viewport coordinates.
+        -- ScreenPointToRay would apply an extra top-bar inset here.
+        local ray = camera:ViewportPointToRay(point.X, point.Y, 0)
+        local ok, hit = pcall(function()
+            return Workspace:Raycast(ray.Origin, ray.Direction * 4096, self.Raycast)
+        end)
+        if ok and hit then target = hit.Instance end
+    end
+    self.Hovered = target
+    local adornment = target and self:AdornmentTarget(target) or nil
+    self.HoverHighlight.Adornee = adornment
+    self.HoverHighlight.Enabled = adornment ~= nil
+    self.Tooltip.Visible = target ~= nil
+    if target then
+        self.HoverName.Text = read(target, 'Name') or 'Object'
+        self.HoverClass.Text = read(target, 'ClassName') or 'Instance'
+        local screen = viewport()
+        local width = math.min(280, math.max(160, #self.HoverName.Text * 7 + 10))
+        self.Tooltip.Size = UDim2.fromOffset(width, 45)
+        self.Tooltip.Position = UDim2.fromOffset(
+            math.clamp(point.X + 18, 8, math.max(8, screen.X - width - 8)),
+            math.clamp(point.Y + 20, 8, math.max(8, screen.Y - 53)))
+    end
+end
+
+function Controller:BindPicking()
+    if self.PickBound or self.Destroyed then return end
+    self.PickBound = true
+    ContextActionService:BindActionAtPriority(self.PickAction, function(_, state)
+        if self.Destroyed then return Enum.ContextActionResult.Pass end
+        if state == Enum.UserInputState.End or state == Enum.UserInputState.Cancel then
+            if self.SuppressMouseRelease then
+                self.SuppressMouseRelease = false
+                if not self.Picking then self:UnbindPicking() end
+                return Enum.ContextActionResult.Sink
+            end
+            -- A GUI press passed through above must also receive its release.
+            return Enum.ContextActionResult.Pass
+        end
+        if not self.Picking or self:OverInterface(UserInputService:GetMouseLocation()) then
+            return Enum.ContextActionResult.Pass
+        end
+        if state == Enum.UserInputState.Begin then
+            self.SuppressMouseRelease = true
+            self:UpdateHover()
+            if self.Hovered then self:Select(self.Hovered) end
+        end
+        return Enum.ContextActionResult.Sink
+    end, false, 10000, Enum.UserInputType.MouseButton1)
+end
+
+function Controller:UnbindPicking()
+    if self.PickBound then
+        ContextActionService:UnbindAction(self.PickAction)
+        self.PickBound = false
+    end
+end
+
+function Controller:SetPicking(enabled)
+    if self.Destroyed then return end
+    self.Picking = enabled == true
+    self.FooterOverride = nil
+    self.Hovered = nil
+    self.HoverHighlight.Adornee = nil
+    self.HoverHighlight.Enabled = false
+    self.Tooltip.Visible = false
+    if self.Picking then
+        self:BindPicking()
+        self:UpdateHover()
+    elseif not self.SuppressMouseRelease then
+        self:UnbindPicking()
+    end
+    self:SetStatus()
+end
+
+function Controller:Notice(message, duration)
+    self.FooterOverride, self.FooterOverrideUntil = tostring(message), os.clock() + (duration or 6)
+    self:SetStatus()
+end
+
+function Controller:Key(object)
+    local key = self.InstanceKeys[object]
+    if not key then
+        self.NextKey = self.NextKey + 1
+        key = tostring(self.NextKey)
+        self.InstanceKeys[object] = key
+    end
+    return key
+end
+
+function Controller:Entry(list, group, title, object, suffix, getter, titleGetter)
+    if #list >= ENTRY_LIMIT then self.EntriesLimited = true; return end
+    table.insert(list, {Group = group, Title = title, Key = self:Key(object) .. '/' .. suffix,
+        Getter = getter, TitleGetter = titleGetter})
+end
+
+function Controller:Field(list, group, object, property, title)
+    local ok = pcall(function() return object[property] end)
+    if not ok then return end
+    self:Entry(list, group, title or property, object, property, function() return object[property] end)
+end
+
+function Controller:Fields(list, group, object, properties)
+    for _, property in ipairs(properties) do self:Field(list, group, object, property) end
+end
+
+function Controller:ObjectEntry(list, group, object, suffix)
+    self:Entry(list, group, '', object, suffix or 'object', function() return object end, function()
+        return (read(object, 'Name') or 'Removed object') .. ' [' .. (read(object, 'ClassName') or 'Instance') .. ']'
+    end)
+end
+
+function Controller:Scope()
+    if not self.ScopeNodes or self.ScopeDirty then
+        self.ScopeNodes, self.ScopeLimited = walk(self.Selected)
+        self.ScopeDirty = false
+        self.BoundsCache = nil
+    end
+    return self.ScopeNodes
+end
+
+function Controller:Bounds(object)
+    if self.ScopeLimited then return nil, nil end
+    if not self.BoundsCache or os.clock() - self.BoundsCache.Time >= 1 then
+        local ok, cframe, size = pcall(function() return object:GetBoundingBox() end)
+        self.BoundsCache = {Time = os.clock(), CFrame = ok and cframe or nil, Size = ok and size or nil}
+    end
+    return self.BoundsCache.CFrame, self.BoundsCache.Size
+end
+
+function Controller:BuildEntries(tab)
+    local list, object = {}, self.Selected
+    if not object then return list end
+    self.EntriesLimited = false
+    local nodes = self:Scope()
+    if tab == 'Properties' then
+        self:Fields(list, 'Object', object, {'Name', 'ClassName', 'Parent', 'Archivable'})
+        if isA(object, 'Terrain') then
+            self:Fields(list, 'Terrain', object, {'WaterColor', 'WaterTransparency', 'WaterWaveSize', 'WaterWaveSpeed'})
+        elseif isA(object, 'BasePart') then
+            self:Fields(list, 'Transform', object, {'CFrame', 'Position', 'Orientation', 'Size'})
+            self:Fields(list, 'Appearance', object, {'Color', 'Material', 'MaterialVariant', 'Transparency', 'Reflectance'})
+            self:Fields(list, 'Physics', object, {'Anchored', 'CanCollide', 'CanTouch', 'CanQuery', 'Massless',
+                'CollisionGroup', 'AssemblyMass', 'AssemblyRootPart', 'AssemblyLinearVelocity',
+                'AssemblyAngularVelocity', 'CustomPhysicalProperties'})
+            for _, property in ipairs({'Density', 'Friction', 'Elasticity', 'FrictionWeight', 'ElasticityWeight'}) do
+                local field = property
+                self:Entry(list, 'Effective physics', field, object, 'effective/' .. field, function()
+                    local properties = read(object, 'CurrentPhysicalProperties')
+                    return properties and properties[field]
+                end)
+            end
+        elseif isA(object, 'Model') and not isA(object, 'WorldRoot') then
+            self:Entry(list, 'Model', 'Pivot', object, 'pivot', function() return object:GetPivot() end)
+            self:Field(list, 'Model', object, 'PrimaryPart')
+            self:Entry(list, 'Model', 'Part count', object, 'partCount', function()
+                local count = 0
+                for _, node in ipairs(nodes) do if isA(node, 'BasePart') and not isA(node, 'Terrain') then count = count + 1 end end
+                return self.ScopeLimited and (tostring(count) .. '+ (scan limit)') or count
+            end)
+            self:Entry(list, 'Model', 'Bounds CFrame', object, 'bounds/cframe', function()
+                if self.ScopeLimited then return 'Subtree exceeds scan limit; bounds not calculated' end
+                return self:Bounds(object)
+            end)
+            self:Entry(list, 'Model', 'Bounds size', object, 'bounds/size', function()
+                if self.ScopeLimited then return 'Subtree exceeds scan limit; bounds not calculated' end
+                local _, size = self:Bounds(object); return size
+            end)
+        end
+        if isA(object, 'ValueBase') then self:Field(list, 'Value', object, 'Value') end
+        local ok, attributes = pcall(function() return object:GetAttributes() end)
+        if ok then
+            local names = {}
+            for name in pairs(attributes) do table.insert(names, name) end
+            table.sort(names)
+            for index, name in ipairs(names) do
+                if index > 256 then self.EntriesLimited = true; break end
+                local attribute = name
+                self:Entry(list, 'Attributes', attribute, object, 'attribute/' .. attribute,
+                    function() return object:GetAttribute(attribute) end)
+            end
+        end
+        self:Entry(list, 'Tags', 'Tags', object, 'tags', function()
+            local tags = CollectionService:GetTags(object); table.sort(tags); return table.concat(tags, ', ')
+        end)
+    elseif tab == 'Tree' then
+        local parent = read(object, 'Parent')
+        if parent and parent ~= game then self:ObjectEntry(list, 'Parent', parent, 'parent') end
+        local direct, cut = children(object, SCAN_LIMIT)
+        self.TreeLimited = cut
+        local siblings, siblingCut = {}, false
+        if parent then siblings, siblingCut = children(parent, SCAN_LIMIT) end
+        self.TreeLimited = cut or siblingCut
+        local function sorted(items)
+            table.sort(items, function(a, b)
+                return ((read(a, 'Name') or '') .. (read(a, 'ClassName') or '')):lower()
+                    < ((read(b, 'Name') or '') .. (read(b, 'ClassName') or '')):lower()
+            end)
+        end
+        sorted(direct); sorted(siblings)
+        for _, child in ipairs(direct) do self:ObjectEntry(list, 'Children', child, 'child') end
+        for _, sibling in ipairs(siblings) do
+            if sibling ~= object then self:ObjectEntry(list, 'Siblings', sibling, 'sibling') end
+        end
+    elseif tab == 'Interactions' then
+        for _, node in ipairs(nodes) do
+            if isA(node, 'ProximityPrompt') then
+                local group = 'Prompt: ' .. (read(node, 'Name') or 'Prompt')
+                self:ObjectEntry(list, group, node)
+                self:Fields(list, group, node, {'Enabled', 'ActionText', 'ObjectText', 'MaxActivationDistance',
+                    'HoldDuration', 'KeyboardKeyCode', 'GamepadKeyCode', 'RequiresLineOfSight', 'Style', 'Exclusivity'})
+            elseif isA(node, 'ClickDetector') then
+                local group = 'Click detector: ' .. (read(node, 'Name') or 'ClickDetector')
+                self:ObjectEntry(list, group, node)
+                self:Fields(list, group, node, {'MaxActivationDistance', 'CursorIcon'})
+            end
+        end
+    elseif tab == 'Connections' then
+        local connected, seen = {}, {}
+        local function add(node)
+            if typeof(node) == 'Instance' and not seen[node] and #connected < 256 then
+                seen[node] = true; table.insert(connected, node)
+            elseif not seen[node] and #connected >= 256 then
+                self.EntriesLimited = true
+            end
+        end
+        if isA(object, 'BasePart') and not isA(object, 'Terrain') then
+            local ok, parts = pcall(function() return object:GetConnectedParts(false) end)
+            if ok then
+                for index, part in ipairs(parts) do
+                    if index > 256 then self.EntriesLimited = true; break end
+                    self:ObjectEntry(list, 'Connected parts', part, 'connectedPart')
+                end
+            end
+            ok, parts = pcall(function() return object:GetJoints() end)
+            if ok then for _, joint in ipairs(parts) do add(joint) end end
+        end
+        for _, node in ipairs(nodes) do
+            if isA(node, 'JointInstance') or isA(node, 'WeldConstraint') or isA(node, 'Constraint') or isA(node, 'Attachment') then
+                add(node)
+                if isA(node, 'Attachment') then
+                    local ok, constraints = pcall(function() return node:GetConstraints() end)
+                    if ok then for _, constraint in ipairs(constraints) do add(constraint) end end
+                end
+            end
+        end
+        for _, node in ipairs(connected) do
+            local group = (read(node, 'ClassName') or 'Connection') .. ': ' .. (read(node, 'Name') or '')
+            self:ObjectEntry(list, group, node)
+            if isA(node, 'Attachment') then
+                self:Fields(list, group, node, {'Parent', 'CFrame', 'WorldCFrame', 'Axis', 'SecondaryAxis'})
+            else
+                self:Fields(list, group, node, {'Enabled', 'Active', 'Part0', 'Part1', 'Attachment0', 'Attachment1',
+                    'C0', 'C1', 'Length', 'LimitsEnabled', 'LowerLimit', 'UpperLimit', 'UpperAngle',
+                    'LowerAngle', 'Stiffness', 'Damping'})
+            end
+        end
+    elseif tab == 'Assets' then
+        local assetFields = {
+            {'MeshPart', {'MeshId', 'TextureID'}},
+            {'SpecialMesh', {'MeshId', 'TextureId', 'MeshType', 'Scale', 'Offset'}},
+            {'Texture', {'Texture', 'Face', 'Color3', 'Transparency', 'StudsPerTileU', 'StudsPerTileV', 'OffsetStudsU', 'OffsetStudsV'}},
+            {'Decal', {'Texture', 'Face', 'Color3', 'Transparency'}},
+            {'Sound', {'SoundId', 'Volume', 'PlaybackSpeed', 'Looped', 'RollOffMode', 'RollOffMinDistance', 'RollOffMaxDistance'}},
+            {'SurfaceAppearance', {'ColorMap', 'NormalMap', 'RoughnessMap', 'MetalnessMap', 'AlphaMode'}},
+            {'ParticleEmitter', {'Texture'}}, {'Beam', {'Texture'}}, {'Trail', {'Texture'}},
+            {'Animation', {'AnimationId'}},
+        }
+        for _, node in ipairs(nodes) do
+            for _, specification in ipairs(assetFields) do
+                if isA(node, specification[1]) then
+                    local group = specification[1] .. ': ' .. (read(node, 'Name') or '')
+                    self:ObjectEntry(list, group, node)
+                    self:Fields(list, group, node, specification[2]); break
+                end
+            end
+        end
+    end
+    if self.ScopeLimited and tab ~= 'Tree' then
+        self:Entry(list, 'Scope', 'Scan', object, 'scopeLimit', function()
+            return isA(object, 'WorldRoot') and 'Root selection: descendants are not scanned. Select a model or part.'
+                or ('First ' .. SCAN_LIMIT .. ' instances inspected. Select a smaller subtree for more details.')
+        end)
+    end
+    if self.EntriesLimited or self.TreeLimited and tab == 'Tree' then
+        if #list >= ENTRY_LIMIT then table.remove(list) end
+        self:Entry(list, 'Scope', 'Limit', object, 'entryLimit', function()
+            return 'List limited. Select a smaller container to inspect additional items.'
+        end)
+    end
+    return list
+end
+
+function Controller:TrackChange(key, previous, current)
+    if not self.Changes[key] then
+        if #self.ChangeOrder >= HISTORY_LIMIT then self.Changes[table.remove(self.ChangeOrder, 1)] = nil end
+        table.insert(self.ChangeOrder, key)
+        self.Changes[key] = {Count = 0}
+    end
+    local change = self.Changes[key]
+    change.Previous, change.Current = historyText(previous), historyText(current)
+    change.Count = change.Count + 1
+end
+
+function Controller:Capture(tab)
+    local entries = self.EntryCache[tab]
+    if not entries then entries = self:BuildEntries(tab); self.EntryCache[tab] = entries end
+    local records, activeKeys = {}, {}
+    for _, entry in ipairs(entries) do
+        local ok, value = pcall(entry.Getter)
+        local raw = ok and rawValue(value) or 'Unavailable'
+        local key = tab .. '/' .. entry.Key
+        local previous = self.LastValues[key]
+        if previous ~= nil and previous ~= raw then self:TrackChange(key, previous, raw) end
+        self.LastValues[key] = raw
+        activeKeys[key] = true
+        local title = entry.Title
+        if entry.TitleGetter then local success, result = pcall(entry.TitleGetter); if success then title = result end end
+        local change = self.Changes[key]
+        table.insert(records, {Key = key, Group = entry.Group, Title = title, Raw = raw,
+            Display = ok and format(value) or 'Unavailable', Target = ok and typeof(value) == 'Instance' and value or nil,
+            Changed = change ~= nil, Previous = change and change.Previous, ChangeCount = change and change.Count})
+    end
+    local prefix = tab .. '/'
+    for key in pairs(self.LastValues) do
+        if key:sub(1, #prefix) == prefix and not activeKeys[key] then self.LastValues[key] = nil end
+    end
+    return records
+end
+
+function Controller:CurrentRecords()
+    if self.Frozen then return self.Snapshot[self.Tab] or {} end
+    return self.LiveRecords[self.Tab] or {}
+end
+
+function Controller:FilteredRecords()
+    local query = self.Filter.Text:lower()
+    local result = {}
+    for _, record in ipairs(self:CurrentRecords()) do
+        if query == '' or (record.Group .. ' ' .. record.Title .. ' ' .. record.Raw):lower():find(query, 1, true) then
+            table.insert(result, record)
+        end
+    end
+    return result
+end
+
+function Controller:ShowValue(record)
+    self.DetailRecord = record
+    self.DetailRaw = record.Raw
+    self.DetailTitle.Text = record.Title .. (record.Changed and (' - changed ' .. record.ChangeCount .. ' time(s)') or '')
+    local preview = record.Raw .. (record.Changed and ('\n\nPrevious:\n' .. record.Previous) or '')
+    if #preview > 65536 then
+        local limit = 65536
+        local ok, boundary = pcall(utf8.offset, preview, 0, limit + 1)
+        if ok and boundary then limit = boundary - 1 end
+        preview = preview:sub(1, limit) .. '\n[Preview truncated. Copy keeps the full value.]'
+    end
+    self.ValueText.Text = preview
+end
+
+function Controller:RenderRows()
+    if self.Destroyed then return end
+    for _, connection in ipairs(self.RowConnections) do connection:Disconnect() end
+    self.RowConnections, self.VisibleRows = {}, {}
+    for _, child in ipairs(self.Content:GetChildren()) do
+        if not isA(child, 'UIListLayout') and not isA(child, 'UIPadding') then child:Destroy() end
+    end
+    self.Scroll.CanvasPosition = Vector2.zero
+    if self.Tab == 'Export' then return end
+    local records = self:FilteredRecords()
+    local pages = math.max(1, math.ceil(#records / PAGE_SIZE))
+    self.Page = math.clamp(self.Page, 1, pages)
+    self.PageLabel.Text = string.format('Page %d / %d  -  %d rows', self.Page, pages, #records)
+    self.Empty.Visible = #records == 0
+    self.Content.Visible = #records > 0
+    self.PrevButton.TextTransparency = self.Page > 1 and 0 or 0.55
+    self.NextButton.TextTransparency = self.Page < pages and 0 or 0.55
+    local first = (self.Page - 1) * PAGE_SIZE + 1
+    local groupName, group, order = nil, nil, 0
+    for index = first, math.min(#records, first + PAGE_SIZE - 1) do
+        local record = records[index]
+        if groupName ~= record.Group then
+            groupName, order = record.Group, order + 1
+            group = make('Frame', {BackgroundTransparency = 1, Size = UDim2.new(1, 0, 0, 0),
+                AutomaticSize = Enum.AutomaticSize.Y, LayoutOrder = order}, self.Content)
+            make('UIListLayout', {SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, 1)}, group)
+            self:Label(group, groupName, 14, colors.text, {Size = UDim2.new(1, 0, 0, 20),
+                Font = Enum.Font.SourceSansBold, LayoutOrder = 0, TextTruncate = Enum.TextTruncate.AtEnd})
+        end
+        local row = make('Frame', {BackgroundColor3 = colors.raised, BorderSizePixel = 0,
+            Size = UDim2.new(1, 0, 0, 22), LayoutOrder = index}, group)
+        local title = self:Label(row, (record.Changed and '* ' or '') .. record.Title, 14, colors.text, {
+            Position = UDim2.fromOffset(5, 0), Size = UDim2.new(0.4, -5, 1, 0), TextTruncate = Enum.TextTruncate.AtEnd})
+        local value = self:Button(row, record.Display, {BackgroundTransparency = 1,
+            Position = UDim2.new(0.4, 0, 0, 0), Size = UDim2.new(0.6, record.Target and -84 or -44, 1, 0),
+            TextXAlignment = Enum.TextXAlignment.Right, TextTruncate = Enum.TextTruncate.AtEnd},
+            function() self:ShowValue(record) end, false, 'rows')
+        self:Button(row, 'Copy', {Position = UDim2.new(1, -40, 0, 1), Size = UDim2.fromOffset(40, 20)},
+            function() self:ShowValue(record); self:CopyText(record.Raw) end, true, 'rows')
+        if record.Target then
+            self:Button(row, 'Go', {Position = UDim2.new(1, -80, 0, 1), Size = UDim2.fromOffset(35, 20)}, function()
+                if not self:Select(record.Target) then self:Notice('That object is no longer available.') end
+            end, false, 'rows')
+        end
+        table.insert(self.VisibleRows, {Key = record.Key, Title = title, Value = value, Record = record})
+    end
+    local keys = {}
+    for _, record in ipairs(records) do table.insert(keys, record.Key .. (record.Target and '/go' or '/value')) end
+    self.RenderSignature = table.concat(keys, '\0') .. '/' .. self.Page
+end
+
+function Controller:UpdateVisibleRows()
+    local records, byKey, keys = self:FilteredRecords(), {}, {}
+    for _, record in ipairs(records) do
+        byKey[record.Key] = record; table.insert(keys, record.Key .. (record.Target and '/go' or '/value'))
+    end
+    local signature = table.concat(keys, '\0') .. '/' .. self.Page
+    if signature ~= self.RenderSignature then self:RenderRows(); return end
+    for _, row in ipairs(self.VisibleRows) do
+        local latest = byKey[row.Key]
+        if latest then
+            -- Update the captured record in place so row callbacks also copy the latest value.
+            for key, value in pairs(latest) do row.Record[key] = value end
+            row.Record.Target = latest.Target
+            row.Record.Previous, row.Record.ChangeCount = latest.Previous, latest.ChangeCount
+            row.Title.Text = (latest.Changed and '* ' or '') .. latest.Title
+            row.Value.Text = latest.Display
+        end
+    end
+end
+
+function Controller:RefreshProperties()
+    if self.Destroyed or not self.Selected or self.Frozen then return end
+    self.ObjectName.Text = read(self.Selected, 'Name') or 'Object'
+    self.ClassLabel.Text = read(self.Selected, 'ClassName') or 'Instance'
+    local path = fullPath(self.Selected)
+    if self.Path.Text ~= path then self.Path.Text = path end
+    if self.Tab ~= 'Export' then
+        self.LiveRecords[self.Tab] = self:Capture(self.Tab)
+        self:UpdateVisibleRows()
+    end
+    self:SetStatus()
+end
+
+function Controller:BuildProperties()
+    if self.Destroyed then return end
+    if self.Frozen then self:RenderRows(); return end
+    self.EntryCache = {}
+    if self.Selected and self.Tab ~= 'Export' then self.LiveRecords[self.Tab] = self:Capture(self.Tab) end
+    self:RenderRows()
+    self:RefreshProperties()
+end
+
+function Controller:SetTab(tab)
+    if self.Destroyed then return end
+    self.Tab, self.Page = tab, 1
+    local exporting = tab == 'Export'
+    self.ExportPanel.Visible = exporting
+    self.Filter.Visible, self.Scroll.Visible, self.Pager.Visible = not exporting, not exporting, not exporting
+    for name, button in pairs(self.TabButtons) do
+        button.BackgroundColor3 = name == tab and colors.input or colors.raised
+    end
+    if not self.Frozen and self.Selected and not exporting then self.LiveRecords[tab] = self:Capture(tab) end
+    self:RenderRows()
+end
+
+function Controller:ToggleFreeze()
+    if not self.Selected then return end
+    self.DetailRecord, self.DetailRaw = nil, nil
+    self.DetailTitle.Text, self.ValueText.Text = 'Value - click a row to view its full value', ''
+    if self.Frozen then
+        self.Frozen, self.Snapshot = false, nil
+        self.ScopeDirty, self.EntryCache = true, {}
+        self:BuildProperties()
+    else
+        self.ScopeDirty, self.EntryCache = true, {}
+        local snapshot = {}
+        for _, tab in ipairs(TABS) do if tab ~= 'Export' then snapshot[tab] = self:Capture(tab) end end
+        self.Snapshot, self.Frozen = snapshot, true
+        self.FrozenHeader = {Name = read(self.Selected, 'Name') or 'Object',
+            Class = read(self.Selected, 'ClassName') or 'Instance', Path = fullPath(self.Selected)}
+        self.ObjectName.Text, self.ClassLabel.Text, self.Path.Text = self.FrozenHeader.Name, self.FrozenHeader.Class, self.FrozenHeader.Path
+        self:RenderRows()
+    end
+    self:SetStatus()
+end
+
+function Controller:ResetInspection()
+    self.Frozen, self.Snapshot, self.FrozenHeader = false, nil, nil
+    self.EntryCache, self.LiveRecords, self.LastValues, self.Changes, self.ChangeOrder = {}, {}, {}, {}, {}
+    self.ScopeNodes, self.ScopeDirty, self.ScopeLimited, self.TreeLimited = nil, true, false, false
+    self.EntriesDirty, self.DirtyAt, self.LastStructureRefresh = false, nil, 0
+    self.InstanceKeys, self.NextKey, self.Page = setmetatable({}, {__mode = 'k'}), 0, 1
+    self.DetailRecord, self.DetailRaw, self.RenderSignature = nil, nil, nil
+    self.ExportVersion = self.ExportVersion + 1
+    self.ExportBusy, self.ExportParent, self.ExportResultPath = false, false, nil
+    self.ExportButton.Text = 'Export'
+    self.ExportOutcome.Text = ''
+    self.ExportResults.CanvasPosition = Vector2.zero
+    self.DetailTitle.Text, self.ValueText.Text = 'Value - click a row to view its full value', ''
+end
+
+function Controller:ClearSelection()
+    self:DisconnectSelection()
+    self:ResetInspection()
+    self.Selected = nil
+    self.SelectedHighlight.Adornee = nil
+    self.SelectedHighlight.Enabled = false
+    self.ObjectName.Text = 'Choose an object'
+    self.ClassLabel.Text = '-'
+    self.Path.Text = ''
+    self:BuildProperties()
+    self:UpdateExportTarget()
+    self:SetStatus()
+end
+
+function Controller:Select(object)
+    if self.Destroyed or typeof(object) ~= 'Instance' then return false end
+    local ok, inGame = pcall(function() return object:IsDescendantOf(game) end)
+    if not ok or not inGame then return false end
+    self:DisconnectSelection()
+    self:ResetInspection()
+    self.Selected = object
+    self:SetPicking(false)
+    local adornment = self:AdornmentTarget(object)
+    self.SelectedHighlight.Adornee = adornment
+    self.SelectedHighlight.Enabled = adornment ~= nil
+    self.Scroll.CanvasPosition = Vector2.zero
+    self:BuildProperties()
+    self:UpdateExportTarget()
+    self:Connect(object.Destroying, function()
+        if self.Selected == object then
+            self:ClearSelection()
+            self:SetPicking(true)
+        end
+    end, true)
+    self:Connect(object.AncestryChanged, function()
+        if self.Selected ~= object then return end
+        local present, result = pcall(function() return object:IsDescendantOf(game) end)
+        if not present or not result then
+            self:ClearSelection()
+            self:SetPicking(true)
+        else
+            self.EntriesDirty, self.DirtyAt = true, self.DirtyAt or (os.clock() + 0.15)
+            self:WatchParent()
+            self:RefreshProperties()
+        end
+    end, true)
+    local function structureChanged()
+        self.ScopeDirty, self.EntriesDirty = true, true
+        self.DirtyAt = self.DirtyAt or (os.clock() + 0.15)
+    end
+    self:Connect(object.DescendantAdded, structureChanged, true)
+    self:Connect(object.DescendantRemoving, structureChanged, true)
+    self:Connect(object.AttributeChanged, function()
+        self.EntriesDirty, self.DirtyAt = true, self.DirtyAt or (os.clock() + 0.15)
+    end, true)
+    self:WatchParent()
+    return true
+end
+
+function Controller:WatchParent()
+    for _, connection in ipairs(self.ParentConnections) do connection:Disconnect() end
+    self.ParentConnections = {}
+    local parent = self.Selected and read(self.Selected, 'Parent')
+    if parent then
+        local function changed()
+            self.EntriesDirty, self.DirtyAt = true, self.DirtyAt or (os.clock() + 0.15)
+        end
+        self:Connect(parent.ChildAdded, changed, 'parent')
+        self:Connect(parent.ChildRemoved, changed, 'parent')
+    end
+end
+
+function Controller:CopyPath()
+    if not self.Selected then return end
+    self:CopyText(self.Path.Text)
+end
+
+function Controller:CopyText(text)
+    text = tostring(text or '')
+    local clipboard = type(setclipboard) == 'function' and setclipboard
+        or (type(toclipboard) == 'function' and toclipboard)
+    if clipboard then
+        local ok = pcall(clipboard, text)
+        if ok then
+            self:Notice('Copied full value.', 2)
+            return
+        end
+    end
+    local preview, truncated = text, #text > 65536
+    if truncated then
+        local limit = 65536
+        local ok, boundary = pcall(utf8.offset, text, 0, limit + 1)
+        if ok and boundary then limit = boundary - 1 end
+        preview = text:sub(1, limit)
+    end
+    self.DetailRaw, self.ValueText.Text = text, preview
+    self.ValueText:CaptureFocus()
+    self.ValueText.CursorPosition = #preview + 1
+    self.ValueText.SelectionStart = 1
+    self:Notice(truncated and 'Clipboard unavailable. Preview selected; export JSON for the full value.'
+        or 'Full value selected - copy with Ctrl+C.')
+end
+
+function Controller:UpdateExportTarget()
+    if not self.ExportTarget then return end
+    local target = self.Selected
+    if self.ExportParent and target then target = read(target, 'Parent') end
+    if target == game then target = nil end
+    self.ExportTarget.Text = target and ('Target: ' .. fullPath(target) .. ' (with children)') or 'Select an object to export.'
+    self.ExportSelectedButton.BackgroundColor3 = self.ExportParent and colors.raised or colors.input
+    self.ExportParentButton.BackgroundColor3 = self.ExportParent and colors.input or colors.raised
+end
+
+function Controller:RunExport()
+    if self.ExportBusy then self:Notice('An export is already running.'); return end
+    if type(Exporter) ~= 'table' or type(Exporter.Export) ~= 'function' then
+        self.ExportOutcome.Text = 'Exporter is not available in this plugin build.'; return
+    end
+    local target = self.Selected
+    if self.ExportParent and target then target = read(target, 'Parent') end
+    if not target or target == game then self.ExportOutcome.Text = 'Select an object or parent container first.'; return end
+    local filename, exportFormat = self.ExportFilename.Text, self.ExportFormat
+    self.ExportVersion = self.ExportVersion + 1
+    local version = self.ExportVersion
+    self.ExportBusy, self.ExportResultPath = true, nil
+    self.ExportButton.Text, self.ExportOutcome.Text = 'Saving...', 'Saving ' .. fullPath(target) .. '...'
+    task.spawn(function()
+        local ok, result = pcall(Exporter.Export, target, {filename = filename, format = exportFormat,
+            maxInstances = 5000, cancelled = function() return self.Destroyed or self.ExportVersion ~= version end})
+        if self.Destroyed or self.ExportVersion ~= version then return end
+        self.ExportBusy, self.ExportButton.Text = false, 'Export'
+        if not ok then self.ExportOutcome.Text = 'Export failed: ' .. tostring(result); return end
+        if type(result) ~= 'table' or not result.ok then
+            self.ExportOutcome.Text = 'Export failed: ' .. tostring(type(result) == 'table' and result.error or result)
+            return
+        end
+        self.ExportResultPath = result.path
+        local notes = result.notes
+        if type(notes) == 'table' then
+            local lines = {}; for _, note in ipairs(notes) do table.insert(lines, tostring(note)) end
+            notes = table.concat(lines, '\n')
+        end
+        self.ExportOutcome.Text = 'Saved: ' .. tostring(result.path) .. '\nInstances: ' .. tostring(result.count)
+            .. (notes and notes ~= '' and ('\n' .. tostring(notes)) or '')
+    end)
+end
+
+function Controller:FitWindow(initial)
+    if self.Destroyed then return end
+    local size = viewport()
+    local availableWidth, availableHeight = math.max(1, size.X - 24), math.max(1, size.Y - 24)
+    local width = math.clamp(availableWidth, 400, 460)
+    local height = math.clamp(availableHeight, 560, 620)
+    local scale = math.min(1, availableWidth / width, availableHeight / height)
+    self.WindowScale.Scale = scale
+    self.Window.Size = UDim2.fromOffset(width, height)
+    local visibleWidth, visibleHeight = width * scale, height * scale
+    local x, y = self.Window.Position.X.Offset, self.Window.Position.Y.Offset
+    if initial then
+        x, y = size.X - visibleWidth - 18, math.max(12, (size.Y - visibleHeight) / 2)
+    end
+    self.Window.Position = UDim2.fromOffset(
+        math.clamp(x, 0, math.max(0, size.X - visibleWidth)),
+        math.clamp(y, 0, math.max(0, size.Y - visibleHeight)))
+    self.LastViewport = size
+end
+
+function Controller:Destroy()
+    if self.Destroyed then return end
+    self.Destroyed = true
+    self.Picking = false
+    self.SuppressMouseRelease = false
+    self:UnbindPicking()
+    ContextActionService:UnbindAction(self.EscapeAction)
+    self:DisconnectSelection()
+    for _, connection in ipairs(self.RowConnections or {}) do connection:Disconnect() end
+    self.RowConnections = {}
+    for _, connection in ipairs(self.Connections) do connection:Disconnect() end
+    self.Connections = {}
+    if self.HoverHighlight then self.HoverHighlight:Destroy() end
+    if self.SelectedHighlight then self.SelectedHighlight:Destroy() end
+    if self.Gui then self.Gui:Destroy() end
+    self.Selected, self.Hovered = nil, nil
+    if environment[SINGLETON_KEY] == self then environment[SINGLETON_KEY] = nil end
+end
+
+function Controller.new(speaker)
+    local self = setmetatable({
+        Connections = {}, SelectionConnections = {}, ParentConnections = {}, RowConnections = {}, VisibleRows = {}, GuiParents = {},
+        EntryCache = {}, LiveRecords = {}, LastValues = {}, Changes = {}, ChangeOrder = {},
+        InstanceKeys = setmetatable({}, {__mode = 'k'}), NextKey = 0, Tab = 'Properties', Page = 1,
+        ScopeDirty = true, ExportVersion = 0, ExportFormat = 'rbxmx',
+        Player = Players.LocalPlayer or speaker,
+        Picking = false, Destroyed = false, SuppressMouseRelease = false,
+        PickAction = 'IY_LENS_PICK', EscapeAction = 'IY_LENS_ESCAPE',
+        HoverElapsed = 0, RefreshElapsed = 0,
+    }, Controller)
+    -- Publish early so a failed constructor can clean up everything it created.
+    environment[SINGLETON_KEY] = self
+    self.Raycast = RaycastParams.new()
+    self.Raycast.FilterType = Enum.RaycastFilterType.Exclude
+    self.Raycast.IgnoreWater = false
+
+    local gui = make('ScreenGui', {
+        Name = 'IY_LENS_ClickInspector',
+        IgnoreGuiInset = true,
+        ResetOnSpawn = false,
+        DisplayOrder = 1000000,
+        ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+    })
+    self.Gui = gui
+    if type(protect_gui) == 'function' then pcall(protect_gui, gui) end
+    if syn and type(syn.protect_gui) == 'function' then pcall(syn.protect_gui, gui) end
+    local parents = {}
+    if type(gethui) == 'function' then
+        local ok, result = pcall(gethui)
+        if ok and typeof(result) == 'Instance' then table.insert(parents, result) end
+    end
+    local ok, coreGui = pcall(function() return game:GetService('CoreGui') end)
+    if ok then table.insert(parents, coreGui) end
+    local playerGui = self.Player and self.Player:FindFirstChildOfClass('PlayerGui')
+    if playerGui then table.insert(parents, playerGui) end
+    for _, parent in ipairs(parents) do
+        table.insert(self.GuiParents, parent)
+        if not gui.Parent then pcall(function() gui.Parent = parent end) end
+    end
+    if not gui.Parent then
+        gui:Destroy()
+        error('Click Inspector could not find an available GUI container.')
+    end
+
+    local window = make('Frame', {
+        Name = 'Window', BackgroundTransparency = 1,
+        Position = UDim2.fromOffset(0, 0), Size = UDim2.fromOffset(460, 620),
+        ZIndex = 2,
+    }, gui)
+    self.Window = window
+    self.WindowScale = make('UIScale', {Scale = 1}, window)
+    local panel = make('Frame', {
+        Name = 'Panel', BackgroundColor3 = colors.panel, BorderSizePixel = 0,
+        Size = UDim2.fromScale(1, 1), Active = true, ZIndex = 3,
+    }, window)
+    local header = make('Frame', {
+        Name = 'DragHandle', BackgroundColor3 = colors.raised,
+        BorderSizePixel = 0, Active = true,
+        Size = UDim2.new(1, 0, 0, 20), ZIndex = 4,
+    }, panel)
+    self:Label(header, 'Click Inspector', 14, colors.text, {
+        Position = UDim2.fromOffset(5, 0), Size = UDim2.new(1, -30, 1, 0),
+    })
+    self.CloseButton = self:Button(header, 'X', {
+        Position = UDim2.new(1, -20, 0, 0), Size = UDim2.fromOffset(20, 20),
+    }, function() self:Destroy() end)
+    self.Status = self:Label(panel, '', 14, colors.text, {
+        Position = UDim2.fromOffset(5, 25), Size = UDim2.new(1, -10, 0, 20),
+    })
+    self:Label(panel, 'Name', 14, colors.text, {
+        Position = UDim2.fromOffset(5, 45), Size = UDim2.fromOffset(45, 20),
+    })
+    self.ObjectName = self:Label(panel, 'Choose an object', 14, colors.text, {
+        Position = UDim2.fromOffset(55, 45), Size = UDim2.new(1, -60, 0, 20),
+        TextTruncate = Enum.TextTruncate.AtEnd,
+    })
+    self:Label(panel, 'Class', 14, colors.text, {
+        Position = UDim2.fromOffset(5, 65), Size = UDim2.fromOffset(45, 20),
+    })
+    self.ClassLabel = self:Label(panel, '-', 14, colors.text, {
+        Position = UDim2.fromOffset(55, 65), Size = UDim2.new(1, -60, 0, 20),
+        TextTruncate = Enum.TextTruncate.AtEnd,
+    })
+    self:Label(panel, 'Path', 14, colors.text, {
+        Position = UDim2.fromOffset(5, 90), Size = UDim2.fromOffset(35, 20),
+    })
+    self.Path = make('TextBox', {
+        Name = 'ObjectPath', BackgroundColor3 = colors.input, BorderSizePixel = 0,
+        Position = UDim2.fromOffset(45, 90), Size = UDim2.new(1, -125, 0, 20),
+        ClearTextOnFocus = false, MultiLine = false, Text = '',
+        PlaceholderText = 'No object selected', PlaceholderColor3 = colors.text,
+        Font = Enum.Font.SourceSans, TextSize = 14, TextColor3 = colors.text,
+        TextXAlignment = Enum.TextXAlignment.Left, TextEditable = false, ZIndex = 5,
+    }, panel)
+    make('UIPadding', {PaddingLeft = UDim.new(0, 5), PaddingRight = UDim.new(0, 5)}, self.Path)
+    self.CopyButton = self:Button(panel, 'Copy path', {
+        Position = UDim2.new(1, -75, 0, 90), Size = UDim2.fromOffset(70, 20),
+    }, function() self:CopyPath() end, true)
+    self.ParentButton = self:Button(panel, 'Parent', {
+        Position = UDim2.fromOffset(5, 115), Size = UDim2.fromOffset(65, 20),
+    }, function()
+        local parent = self.Selected and read(self.Selected, 'Parent')
+        if parent and parent ~= game then self:Select(parent) end
+    end)
+    self.PickButton = self:Button(panel, 'Pick another', {
+        Position = UDim2.fromOffset(75, 115), Size = UDim2.fromOffset(100, 20),
+    }, function() self:SetPicking(true) end)
+    self.FreezeButton = self:Button(panel, 'Freeze', {
+        Position = UDim2.fromOffset(180, 115), Size = UDim2.fromOffset(85, 20),
+    }, function() self:ToggleFreeze() end)
+    self:Button(panel, 'Refresh', {
+        Position = UDim2.fromOffset(270, 115), Size = UDim2.fromOffset(65, 20),
+    }, function()
+        if self.Frozen then self:Notice('Resume live view to refresh.'); return end
+        self.ScopeDirty, self.EntriesDirty = true, false
+        self:BuildProperties()
+        self:UpdateExportTarget()
+    end)
+
+    local tabs = make('Frame', {BackgroundTransparency = 1, Position = UDim2.fromOffset(5, 145),
+        Size = UDim2.new(1, -10, 0, 20), ZIndex = 4}, panel)
+    make('UIListLayout', {FillDirection = Enum.FillDirection.Horizontal,
+        SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, 5)}, tabs)
+    self.TabButtons = {}
+    local tabLabels = {'Props', 'Tree', 'Actions', 'Links', 'Assets', 'Export'}
+    for index, tab in ipairs(TABS) do
+        local name = tab
+        self.TabButtons[name] = self:Button(tabs, tabLabels[index], {
+            Size = UDim2.new(1 / #TABS, -25 / #TABS, 1, 0), LayoutOrder = index,
+        }, function() self:SetTab(name) end)
+    end
+
+    self.Filter = make('TextBox', {Name = 'Filter', BackgroundColor3 = colors.input, BorderSizePixel = 0,
+        Position = UDim2.fromOffset(5, 175), Size = UDim2.new(1, -10, 0, 20), ClearTextOnFocus = false,
+        PlaceholderText = 'Search names, classes, properties or values', PlaceholderColor3 = colors.text,
+        Text = '', Font = Enum.Font.SourceSans, TextSize = 14, TextColor3 = colors.text,
+        TextXAlignment = Enum.TextXAlignment.Left, ZIndex = 5}, panel)
+    make('UIPadding', {PaddingLeft = UDim.new(0, 5), PaddingRight = UDim.new(0, 5)}, self.Filter)
+    self:Connect(self.Filter:GetPropertyChangedSignal('Text'), function()
+        self.Page = 1; self:RenderRows()
+    end)
+    self.Pager = make('Frame', {BackgroundTransparency = 1, Position = UDim2.fromOffset(5, 200),
+        Size = UDim2.new(1, -10, 0, 20), ZIndex = 4}, panel)
+    self.PrevButton = self:Button(self.Pager, 'Prev', {Size = UDim2.fromOffset(45, 20)}, function()
+        if self.Page > 1 then self.Page = self.Page - 1; self:RenderRows() end
+    end)
+    self.NextButton = self:Button(self.Pager, 'Next', {
+        Position = UDim2.new(1, -45, 0, 0), Size = UDim2.fromOffset(45, 20),
+    }, function()
+        local pages = math.max(1, math.ceil(#self:FilteredRecords() / PAGE_SIZE))
+        if self.Page < pages then self.Page = self.Page + 1; self:RenderRows() end
+    end)
+    self.PageLabel = self:Label(self.Pager, 'Page 1 / 1 - 0 rows', 14, colors.text, {
+        Position = UDim2.fromOffset(50, 0), Size = UDim2.new(1, -100, 1, 0), TextXAlignment = Enum.TextXAlignment.Center,
+    })
+
+    self.Scroll = make('ScrollingFrame', {
+        Name = 'Properties', BackgroundTransparency = 1, BorderSizePixel = 0,
+        Position = UDim2.fromOffset(5, 225), Size = UDim2.new(1, -10, 1, -340),
+        CanvasSize = UDim2.fromOffset(0, 0), AutomaticCanvasSize = Enum.AutomaticSize.Y,
+        ScrollBarThickness = 8, ScrollBarImageColor3 = colors.input,
+        ScrollBarImageTransparency = 0, ScrollingDirection = Enum.ScrollingDirection.Y,
+        Active = true, ZIndex = 4,
+    }, panel)
+    self.Content = make('Frame', {
+        BackgroundTransparency = 1, Position = UDim2.fromOffset(0, 0),
+        Size = UDim2.new(1, -8, 0, 0), AutomaticSize = Enum.AutomaticSize.Y,
+        Visible = false, ZIndex = 4,
+    }, self.Scroll)
+    make('UIListLayout', {
+        SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, 5),
+    }, self.Content)
+    make('UIPadding', {PaddingBottom = UDim.new(0, 5)}, self.Content)
+    self.Empty = make('Frame', {
+        BackgroundTransparency = 1, Position = UDim2.fromOffset(0, 5),
+        Size = UDim2.new(1, -8, 0, 40), ZIndex = 4,
+    }, self.Scroll)
+    self:Label(self.Empty, 'Select an object to view its properties.', 14, colors.text, {
+        Size = UDim2.new(1, 0, 1, 0), TextWrapped = true,
+        TextYAlignment = Enum.TextYAlignment.Top,
+    })
+    self.DetailTitle = self:Label(panel, 'Value - click a row to view its full value', 14, colors.text, {
+        Position = UDim2.new(0, 5, 1, -110), Size = UDim2.new(1, -10, 0, 20), TextTruncate = Enum.TextTruncate.AtEnd,
+    })
+    self.ValueText = make('TextBox', {Name = 'FullValue', BackgroundColor3 = colors.input, BorderSizePixel = 0,
+        Position = UDim2.new(0, 5, 1, -85), Size = UDim2.new(1, -85, 0, 55), Text = '',
+        Font = Enum.Font.SourceSans, TextSize = 14, TextColor3 = colors.text, ClearTextOnFocus = false,
+        MultiLine = true, TextEditable = false, TextXAlignment = Enum.TextXAlignment.Left,
+        TextYAlignment = Enum.TextYAlignment.Top, TextWrapped = false, ZIndex = 5}, panel)
+    make('UIPadding', {PaddingLeft = UDim.new(0, 5), PaddingRight = UDim.new(0, 5), PaddingTop = UDim.new(0, 3)}, self.ValueText)
+    self:Button(panel, 'Copy value', {Position = UDim2.new(1, -75, 1, -85), Size = UDim2.fromOffset(70, 20)}, function()
+        if self.DetailRaw then self:CopyText(self.DetailRaw) end
+    end, true)
+    self.ExportPanel = make('Frame', {Name = 'ExportPanel', BackgroundTransparency = 1,
+        Position = UDim2.fromOffset(5, 175), Size = UDim2.new(1, -10, 1, -295), Visible = false, ZIndex = 4}, panel)
+    self.ExportTarget = self:Label(self.ExportPanel, 'Select an object to export.', 14, colors.text, {
+        Size = UDim2.new(1, 0, 0, 20), TextTruncate = Enum.TextTruncate.AtEnd,
+    })
+    self:Label(self.ExportPanel, 'Exports the current hierarchy; Freeze applies to inspection.', 14, colors.text, {
+        Position = UDim2.fromOffset(0, 20), Size = UDim2.new(1, 0, 0, 20), TextTruncate = Enum.TextTruncate.AtEnd,
+    })
+    self.ExportSelectedButton = self:Button(self.ExportPanel, 'Selected', {
+        Position = UDim2.fromOffset(0, 45), Size = UDim2.fromOffset(80, 20),
+    }, function() self.ExportParent = false; self:UpdateExportTarget() end)
+    self.ExportParentButton = self:Button(self.ExportPanel, 'Parent container', {
+        Position = UDim2.fromOffset(85, 45), Size = UDim2.fromOffset(105, 20),
+    }, function() self.ExportParent = true; self:UpdateExportTarget() end)
+    self:Label(self.ExportPanel, 'Format', 14, colors.text, {Position = UDim2.fromOffset(0, 75), Size = UDim2.fromOffset(50, 20)})
+    local rbxmxButton, jsonButton
+    rbxmxButton = self:Button(self.ExportPanel, 'RBXMX', {Position = UDim2.fromOffset(55, 75), Size = UDim2.fromOffset(65, 20)}, function()
+        self.ExportFormat = 'rbxmx'; rbxmxButton.BackgroundColor3 = colors.input; jsonButton.BackgroundColor3 = colors.raised
+    end, true)
+    jsonButton = self:Button(self.ExportPanel, 'JSON', {Position = UDim2.fromOffset(125, 75), Size = UDim2.fromOffset(65, 20)}, function()
+        self.ExportFormat = 'json'; jsonButton.BackgroundColor3 = colors.input; rbxmxButton.BackgroundColor3 = colors.raised
+    end)
+    self:Label(self.ExportPanel, 'Filename', 14, colors.text, {Position = UDim2.fromOffset(0, 105), Size = UDim2.fromOffset(55, 20)})
+    self.ExportFilename = make('TextBox', {Name = 'ExportFilename', BackgroundColor3 = colors.input, BorderSizePixel = 0,
+        Position = UDim2.fromOffset(60, 105), Size = UDim2.new(1, -60, 0, 20), Text = '',
+        PlaceholderText = 'Leave blank to use the object name', PlaceholderColor3 = colors.text,
+        ClearTextOnFocus = false, Font = Enum.Font.SourceSans, TextSize = 14, TextColor3 = colors.text,
+        TextXAlignment = Enum.TextXAlignment.Left, ZIndex = 5}, self.ExportPanel)
+    make('UIPadding', {PaddingLeft = UDim.new(0, 5)}, self.ExportFilename)
+    self.ExportButton = self:Button(self.ExportPanel, 'Export', {
+        Position = UDim2.fromOffset(0, 135), Size = UDim2.fromOffset(80, 20),
+    }, function() self:RunExport() end)
+    self:Button(self.ExportPanel, 'Copy saved path', {
+        Position = UDim2.fromOffset(85, 135), Size = UDim2.fromOffset(105, 20),
+    }, function() if self.ExportResultPath then self:CopyText(self.ExportResultPath) end end)
+    self:Button(self.ExportPanel, 'Copy result', {
+        Position = UDim2.fromOffset(195, 135), Size = UDim2.fromOffset(85, 20),
+    }, function() if self.ExportOutcome.Text ~= '' then self:CopyText(self.ExportOutcome.Text) end end)
+    self.ExportResults = make('ScrollingFrame', {Name = 'ExportResults', BackgroundTransparency = 1, BorderSizePixel = 0,
+        Position = UDim2.fromOffset(0, 165), Size = UDim2.new(1, 0, 1, -165),
+        AutomaticCanvasSize = Enum.AutomaticSize.Y, CanvasSize = UDim2.fromOffset(0, 0),
+        ScrollBarThickness = 8, ScrollBarImageColor3 = colors.input,
+        ScrollingDirection = Enum.ScrollingDirection.Y, Active = true, ZIndex = 4}, self.ExportPanel)
+    self.ExportOutcome = make('TextBox', {Name = 'ExportOutcome', BackgroundTransparency = 1, BorderSizePixel = 0,
+        Size = UDim2.new(1, -10, 0, 20), AutomaticSize = Enum.AutomaticSize.Y, Text = '',
+        Font = Enum.Font.SourceSans, TextSize = 14, TextColor3 = colors.text, MultiLine = true,
+        ClearTextOnFocus = false, TextEditable = false, TextWrapped = true,
+        TextXAlignment = Enum.TextXAlignment.Left, TextYAlignment = Enum.TextYAlignment.Top, ZIndex = 5}, self.ExportResults)
+    self.Footer = self:Label(panel, '', 14, colors.text, {
+        Position = UDim2.new(0, 5, 1, -25), Size = UDim2.new(1, -10, 0, 20),
+    })
+
+    self.Tooltip = make('Frame', {
+        Name = 'HoverPreview', BackgroundColor3 = colors.panel, BorderSizePixel = 0,
+        BackgroundTransparency = 0.1, Visible = false, ZIndex = 10,
+        Size = UDim2.fromOffset(220, 45),
+    }, gui)
+    local tooltipTitle = make('Frame', {
+        BackgroundColor3 = colors.raised, BackgroundTransparency = 0.1,
+        BorderSizePixel = 0, Size = UDim2.new(1, 0, 0, 20), ZIndex = 11,
+    }, self.Tooltip)
+    self.HoverName = self:Label(tooltipTitle, '', 14, colors.text, {
+        Position = UDim2.fromOffset(5, 0), Size = UDim2.new(1, -10, 0, 20),
+        TextTruncate = Enum.TextTruncate.AtEnd, ZIndex = 11,
+    })
+    self.HoverClass = self:Label(self.Tooltip, '', 14, colors.text, {
+        Position = UDim2.fromOffset(5, 20), Size = UDim2.new(1, -10, 0, 25), ZIndex = 11,
+    })
+    -- These are local adornments; keeping them outside the camera survives camera replacement.
+    local highlightParent = Workspace
+    self.HoverHighlight = make('Highlight', {
+        Name = 'LENS_Hover', Enabled = false,
+        FillColor = colors.hoverHighlight, OutlineColor = colors.hoverHighlight,
+        FillTransparency = 1, OutlineTransparency = 0,
+        DepthMode = Enum.HighlightDepthMode.AlwaysOnTop,
+    }, highlightParent)
+    self.SelectedHighlight = make('Highlight', {
+        Name = 'LENS_Selected', Enabled = false, FillColor = colors.selection, OutlineColor = colors.selection,
+        FillTransparency = 1, OutlineTransparency = 0.05,
+        DepthMode = Enum.HighlightDepthMode.AlwaysOnTop,
+    }, highlightParent)
+
+    self:Connect(header.InputBegan, function(input)
+        if input.UserInputType ~= Enum.UserInputType.MouseButton1
+            and input.UserInputType ~= Enum.UserInputType.Touch then return end
+        local point = Vector2.new(input.Position.X, input.Position.Y)
+        if contains(self.CloseButton, point) then return end
+        self.Drag = {Input = input, Start = point, Position = self.Window.Position}
+    end)
+    self:Connect(UserInputService.InputChanged, function(input)
+        if not self.Drag or self.Destroyed then return end
+        if input.UserInputType ~= Enum.UserInputType.MouseMovement
+            and input ~= self.Drag.Input then return end
+        local point = Vector2.new(input.Position.X, input.Position.Y)
+        local delta = point - self.Drag.Start
+        self.Window.Position = UDim2.fromOffset(
+            self.Drag.Position.X.Offset + delta.X,
+            self.Drag.Position.Y.Offset + delta.Y)
+        self:FitWindow(false)
+    end)
+    self:Connect(UserInputService.InputEnded, function(input)
+        if self.Drag and (input == self.Drag.Input or input.UserInputType == Enum.UserInputType.MouseButton1) then
+            self.Drag = nil
+        end
+    end)
+    ContextActionService:BindActionAtPriority(self.EscapeAction, function(_, state)
+        if self.Destroyed or UserInputService:GetFocusedTextBox() then
+            return Enum.ContextActionResult.Pass
+        end
+        if state == Enum.UserInputState.Begin then
+            if self.Picking then self:SetPicking(false) else self:Destroy() end
+        end
+        return Enum.ContextActionResult.Sink
+    end, false, 10000, Enum.KeyCode.Escape)
+
+    self:Connect(Workspace:GetPropertyChangedSignal('CurrentCamera'), function()
+        self:FitWindow(false)
+    end)
+    if self.Player then
+        self:Connect(self.Player.CharacterAdded, function()
+            self.Hovered = nil
+            self.HoverHighlight.Adornee = nil
+            self.HoverHighlight.Enabled = false
+            self.Tooltip.Visible = false
+        end)
+    end
+    self:Connect(gui.AncestryChanged, function(_, parent)
+        if not parent and not self.Destroyed then self:Destroy() end
+    end)
+    self:Connect(RunService.RenderStepped, function(delta)
+        if self.Destroyed then return end
+        if viewport() ~= self.LastViewport then self:FitWindow(false) end
+        self.HoverElapsed = self.HoverElapsed + delta
+        if self.Picking and self.HoverElapsed >= 0.045 then
+            self.HoverElapsed = 0
+            self:UpdateHover()
+        end
+        self.RefreshElapsed = self.RefreshElapsed + delta
+        if self.Selected and not self.Frozen and self.RefreshElapsed >= 0.5 then
+            self.RefreshElapsed = 0
+            if self.EntriesDirty and os.clock() >= (self.DirtyAt or 0)
+                and os.clock() - (self.LastStructureRefresh or 0) >= 1 then
+                self.EntryCache, self.EntriesDirty, self.DirtyAt = {}, false, nil
+                self.LastStructureRefresh = os.clock()
+            end
+            self:RefreshProperties()
+        end
+    end)
+
+    environment[SINGLETON_KEY] = self
+    self:SetTab('Properties')
+    self:FitWindow(true)
+    self:SetPicking(true)
+    return self
+end
+
+Plugin.Commands.clickinspector = {
+    ListName = 'clickinspector / cinspect',
+    Description = 'Open Click Inspector and click an object to inspect its properties without changing it.',
+    Aliases = {'cinspect'},
+    Function = function(args, speaker)
+        local active = environment[SINGLETON_KEY]
+        if type(active) == 'table' and not active.Destroyed and active.Gui and active.Gui.Parent then
+            active.Gui.Enabled = true
+            active:SetPicking(true)
+        else
+            local ok, result = pcall(Controller.new, speaker)
+            if not ok then
+                local partial = environment[SINGLETON_KEY]
+                if type(partial) == 'table' and type(partial.Destroy) == 'function' then
+                    pcall(function() partial:Destroy() end)
+                end
+                error('Click Inspector could not open: ' .. tostring(result))
+            end
+        end
+    end,
+}
+
+Plugin.Commands.unclickinspector = {
+    ListName = 'unclickinspector',
+    Description = 'Close Click Inspector and remove its input bindings and highlights.',
+    Aliases = {},
+    Function = function()
+        local active = environment[SINGLETON_KEY]
+        if type(active) == 'table' and type(active.Destroy) == 'function' then active:Destroy() end
+    end,
+}
+
+return Plugin
