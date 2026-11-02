@@ -1,0 +1,429 @@
+local Settings = {
+    PlatformSize = 5,
+    PlatformTransparency = 1,
+    PlatformOffset = nil,
+    MoveSpeed = 0.1,
+    PlatformFollow = true,
+    RaycastLimit = 3,
+    UpKey = Enum.KeyCode.E,
+    DownKey = Enum.KeyCode.Q
+}
+
+local activePlatforms = {}
+local disabledCollisions = {}
+local keyStates = { up = false, down = false }
+
+local RAYCAST_DISTANCE = 1000
+
+local function getDefaultOffset(character)
+    local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+    if humanoid and humanoid.RigType == Enum.HumanoidRigType.R6 then
+        return 3.3
+    end
+    return 3
+end
+
+local function isOnGround(character)
+    local humanoid = character:FindFirstChildWhichIsA("Humanoid")
+    return humanoid.FloorMaterial ~= Enum.Material.Air
+end
+
+local function collectGroundHits(character, limit)
+    local root = character:FindFirstChild("HumanoidRootPart")
+    if not root then return {} end
+
+    local hits = {}
+    local filterList = { character }
+    local params = RaycastParams.new()
+    params.FilterType = Enum.RaycastFilterType.Exclude
+
+    local count = 0
+    while count < limit do
+        params.FilterDescendantsInstances = filterList
+        local result = workspace:Raycast(root.Position, Vector3.new(0, -RAYCAST_DISTANCE, 0), params)
+        if not result then break end
+        table.insert(hits, { part = result.Instance, position = result.Position })
+        table.insert(filterList, result.Instance)
+        count = count + 1
+    end
+    return hits
+end
+
+local function buildPlatform()
+    local platform = Instance.new("Part")
+    platform.Size = Vector3.new(Settings.PlatformSize, 0.5, Settings.PlatformSize)
+    platform.Shape = Enum.PartType.Block
+    platform.BottomSurface = Enum.SurfaceType.Smooth
+    platform.TopSurface = Enum.SurfaceType.Smooth
+    platform.Material = Enum.Material.Plastic
+    platform.Transparency = Settings.PlatformTransparency
+    platform.Color = Color3.fromRGB(128, 128, 128)
+    platform.Anchored = true
+    platform.CanCollide = true
+    platform.CanQuery = false
+    return platform
+end
+
+local function restoreCollision(characterId)
+    local records = disabledCollisions[characterId]
+    if not records then return end
+    for _, record in ipairs(records) do
+        if record.part.Parent then
+            record.part.CanCollide = record.originalCanCollide
+        end
+    end
+    disabledCollisions[characterId] = nil
+end
+
+local function createPlatform(character)
+    local root = character:FindFirstChild("HumanoidRootPart")
+    if not root then return nil end
+
+    local platform = buildPlatform()
+    local pos = root.Position
+    local platformY
+
+    if Settings.PlatformOffset ~= nil then
+        platformY = pos.Y - Settings.PlatformOffset
+    elseif isOnGround(character) then
+        local hits = collectGroundHits(character, 1)
+        if #hits > 0 then
+            platformY = hits[1].position.Y - platform.Size.Y / 2
+        else
+            platformY = pos.Y - getDefaultOffset(character)
+        end
+    else
+        platformY = pos.Y - getDefaultOffset(character)
+    end
+
+    platform.Position = Vector3.new(pos.X, platformY, pos.Z)
+    platform.Parent = workspace
+    return platform
+end
+
+local function createClipPlatform(character)
+    local root = character:FindFirstChild("HumanoidRootPart")
+    if not root then return nil end
+
+    local platform = buildPlatform()
+    local pos = root.Position
+    local platformY
+    local maxTopY
+    local characterId = tostring(character)
+
+    local hits = collectGroundHits(character, Settings.RaycastLimit)
+    if #hits > 0 then
+        local groundY = hits[1].position.Y
+        platformY = groundY - platform.Size.Y / 2
+        maxTopY = groundY
+        local records = {}
+        for _, hit in ipairs(hits) do
+            table.insert(records, { part = hit.part, originalCanCollide = hit.part.CanCollide })
+            hit.part.CanCollide = false
+        end
+        disabledCollisions[characterId] = records
+    else
+        platformY = pos.Y - getDefaultOffset(character)
+        maxTopY = platformY + platform.Size.Y / 2
+    end
+
+    platform.Position = Vector3.new(pos.X, platformY, pos.Z)
+    platform:SetAttribute("MaxTopY", maxTopY)
+    platform.Parent = workspace
+    return platform
+end
+
+local function removePlatform(character)
+    if not character then return false end
+    local characterId = tostring(character)
+    local platform = activePlatforms[characterId]
+    if platform then
+        if platform.Parent then
+            platform:Destroy()
+        end
+        activePlatforms[characterId] = nil
+    end
+    restoreCollision(characterId)
+    return platform ~= nil
+end
+
+local function changePlatformHeight(character, amount)
+    if not character then return false end
+    local platform = activePlatforms[tostring(character)]
+    if not platform or not platform.Parent then return false end
+    local pos = platform.Position
+    local newY = pos.Y + amount
+    local maxTopY = platform:GetAttribute("MaxTopY")
+    if maxTopY then
+        local newTop = newY + platform.Size.Y / 2
+        if newTop > maxTopY then
+            newY = maxTopY - platform.Size.Y / 2
+        end
+    end
+    platform.Position = Vector3.new(pos.X, newY, pos.Z)
+    return true
+end
+
+local function createTool(character)
+    if not character then return nil end
+    local tool = Instance.new("Tool")
+    tool.Name = "FloatTool"
+    tool.RequiresHandle = false
+    tool.CanBeDropped = false
+
+    tool.Equipped:Connect(function()
+        if not activePlatforms[tostring(character)] then
+            local platform = createPlatform(character)
+            if platform then
+                activePlatforms[tostring(character)] = platform
+            end
+        end
+    end)
+
+    tool.Unequipped:Connect(function()
+        removePlatform(character)
+    end)
+
+    tool.Parent = character
+    return tool
+end
+
+local function watchPlayer(player)
+    if player.Character then
+        local humanoid = player.Character:FindFirstChildWhichIsA("Humanoid")
+        if humanoid then
+            humanoid.Died:Connect(function()
+                removePlatform(player.Character)
+            end)
+        end
+    end
+
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        humanoid.Died:Connect(function()
+            removePlatform(character)
+        end)
+    end)
+
+    player.CharacterRemoving:Connect(function()
+        removePlatform(player.Character)
+    end)
+end
+
+for _, player in ipairs(game.Players:GetPlayers()) do
+    watchPlayer(player)
+end
+game.Players.PlayerAdded:Connect(watchPlayer)
+game.Players.PlayerRemoving:Connect(function(player)
+    removePlatform(player.Character)
+end)
+
+local userInputService = game:GetService("UserInputService")
+
+userInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    local ctrl = userInputService:IsKeyDown(Enum.KeyCode.LeftControl) or userInputService:IsKeyDown(Enum.KeyCode.RightControl)
+    if not ctrl then return end
+    if input.KeyCode == Settings.UpKey then
+        keyStates.up = true
+    elseif input.KeyCode == Settings.DownKey then
+        keyStates.down = true
+    end
+end)
+
+userInputService.InputEnded:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Settings.UpKey then
+        keyStates.up = false
+    elseif input.KeyCode == Settings.DownKey then
+        keyStates.down = false
+    end
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if not Settings.PlatformFollow then return end
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local character = player.Character
+        if character then
+            local platform = activePlatforms[tostring(character)]
+            if platform and platform.Parent then
+                local root = character:FindFirstChild("HumanoidRootPart")
+                if root then
+                    local pos = root.Position
+                    platform.Position = Vector3.new(pos.X, platform.Position.Y, pos.Z)
+                end
+            end
+        end
+    end
+end)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    local ctrl = userInputService:IsKeyDown(Enum.KeyCode.LeftControl) or userInputService:IsKeyDown(Enum.KeyCode.RightControl)
+    if not ctrl then return end
+    local player = game.Players.LocalPlayer
+    if not player then return end
+    local character = player.Character
+    if not character then return end
+    if not activePlatforms[tostring(character)] then return end
+    if keyStates.up then
+        changePlatformHeight(character, Settings.MoveSpeed)
+    elseif keyStates.down then
+        changePlatformHeight(character, -Settings.MoveSpeed)
+    end
+end)
+
+local FloatSystem = {
+    PluginName = "",
+    PluginDescription = "",
+    Commands = {
+        fl = {
+            ListName = "fl",
+            Description = "Create floating platform",
+            Aliases = {},
+            Function = function(args, speaker)
+                local character = speaker.Character
+                if not character then return end
+                removePlatform(character)
+                local platform = createPlatform(character)
+                if platform then
+                    activePlatforms[tostring(character)] = platform
+                end
+            end
+        },
+        flclip = {
+            ListName = "flclip",
+            Description = "Create platform via raycast and disable collisions of ground parts below",
+            Aliases = {},
+            Function = function(args, speaker)
+                local character = speaker.Character
+                if not character then return end
+                removePlatform(character)
+                local platform = createClipPlatform(character)
+                if platform then
+                    activePlatforms[tostring(character)] = platform
+                end
+            end
+        },
+        fltool = {
+            ListName = "fltool",
+            Description = "Give a tool that creates platform when equipped and removes it when unequipped",
+            Aliases = {},
+            Function = function(args, speaker)
+                local character = speaker.Character
+                if character then
+                    createTool(character)
+                end
+            end
+        },
+        ufl = {
+            ListName = "ufl",
+            Description = "Remove floating platform",
+            Aliases = {},
+            Function = function(args, speaker)
+                if speaker.Character then
+                    removePlatform(speaker.Character)
+                end
+            end
+        },
+        flnofollow = {
+            ListName = "flnofollow",
+            Description = "Disable platform following (platform stays in place)",
+            Aliases = {},
+            Function = function(args, speaker)
+                Settings.PlatformFollow = false
+            end
+        },
+        flfollow = {
+            ListName = "flfollow",
+            Description = "Enable platform following (platform moves with player)",
+            Aliases = {},
+            Function = function(args, speaker)
+                Settings.PlatformFollow = true
+            end
+        },
+        setflkeys = {
+            ListName = "setflkeys [upKey] [downKey]",
+            Description = "default E Q. Key names like E, Q, F, G, Space",
+            Aliases = {},
+            Function = function(args, speaker)
+                local up = args[1] and Enum.KeyCode[args[1]:upper()]
+                local down = args[2] and Enum.KeyCode[args[2]:upper()]
+                if up then
+                    Settings.UpKey = up
+                end
+                if down then
+                    Settings.DownKey = down
+                end
+            end
+        },
+        setflspeed = {
+            ListName = "setflspeed [num]",
+            Description = "default " .. tostring(Settings.MoveSpeed),
+            Aliases = {},
+            Function = function(args, speaker)
+                local speed = tonumber(args[1])
+                if speed and speed > 0 then
+                    Settings.MoveSpeed = speed
+                end
+            end
+        },
+        setfloffset = {
+            ListName = "setfloffset [num]",
+            Description = "default none (raycast). 0 or no arg = raycast mode",
+            Aliases = {},
+            Function = function(args, speaker)
+                local offset = tonumber(args[1])
+                if offset == nil or offset == 0 then
+                    Settings.PlatformOffset = nil
+                else
+                    Settings.PlatformOffset = offset
+                end
+            end
+        },
+        setflraycount = {
+            ListName = "setflraycount [num]",
+            Description = "default " .. tostring(Settings.RaycastLimit) .. ". Number of raycast hits to disable collisions for flclip",
+            Aliases = {},
+            Function = function(args, speaker)
+                local count = tonumber(args[1])
+                if count and count >= 1 then
+                    Settings.RaycastLimit = math.floor(count)
+                end
+            end
+        },
+        setflsize = {
+            ListName = "setflsize [num]",
+            Description = "default " .. tostring(Settings.PlatformSize),
+            Aliases = {},
+            Function = function(args, speaker)
+                local size = tonumber(args[1])
+                if size and size > 0 then
+                    Settings.PlatformSize = size
+                    for _, platform in pairs(activePlatforms) do
+                        if platform.Parent then
+                            platform.Size = Vector3.new(Settings.PlatformSize, 0.5, Settings.PlatformSize)
+                        end
+                    end
+                end
+            end
+        },
+        setfltrans = {
+            ListName = "setfltrans [0-1]",
+            Description = "default " .. tostring(Settings.PlatformTransparency),
+            Aliases = {},
+            Function = function(args, speaker)
+                local transparency = tonumber(args[1])
+                if transparency and transparency >= 0 and transparency <= 1 then
+                    Settings.PlatformTransparency = transparency
+                    for _, platform in pairs(activePlatforms) do
+                        if platform.Parent then
+                            platform.Transparency = transparency
+                        end
+                    end
+                end
+            end
+        }
+    }
+}
+
+return FloatSystem

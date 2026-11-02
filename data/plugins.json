@@ -1,8 +1,52 @@
 {
-  "scraped_at": "2026-11-01T12:32:41.673697+00:00",
+  "scraped_at": "2026-11-02T10:22:56.148699+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 588,
+  "total_plugins": 589,
   "plugins": [
+    {
+      "id": "1566517325757423647",
+      "name": "float",
+      "description": "# - ;float\n-# reupload\n-# forget about the old one\nwithout following Y\n\n```\n;fl - creates platform under u, if u on the ground platform will be right as the floor, if u in air - under u\n;ufl - remove platform\n;fltool - why not, tool.Equipped = fl, tool.Unequipped = ufl\n;flclip - makes platform right as the floor via raycast and disables collision of parts below, ;setflraycount [num] will change for how much parts collision will be turned off\n;flnofollow - removes follow by XZ\n;flfollow - follow by XZ\n;setflspeed [num] - up/down speed via ctrl + q/e, default 0.1\n;setflsize [num] - change platform size, default 5\n;setfltrans [0-1] - change visibility of platform, default 1 (invisible)\n;setfloffset [num] - change Y spawn position of platform, values like 3 means under u, -3 above, no arguments will reset to default work with spawn platform right as the floor if u on it\n;setflraycount [num] - change for how much parts collision will be turned off, default 3 means that 3 parts under u via raycast will be without collision if flclip used\n```\n## - ctrl + q/e will move platform up/down\nu can change default values in the `Settings` table at the top of the file\n-# ||dm me if this shi not working, i have been used it everyday so hope it will be fine||",
+      "author": {
+        "name": "wonkeyy",
+        "username": "wonkeyy",
+        "avatar": "https://cdn.discordapp.com/avatars/812296107262083112/5445a8fb804c3c3dd2b1d21394bf5eb0.png?size=1024"
+      },
+      "date": "2026-11-01T18:20:34.945000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1566517325757423647",
+      "files": [
+        {
+          "filename": "2026-11-01_18-55-59.mp4",
+          "url": "plugins/1566517325757423647/2026-11-01_18-55-59.mp4",
+          "size": 13427200,
+          "is_plugin": false
+        },
+        {
+          "filename": "2026-11-01_19-03-08.mp4",
+          "url": "plugins/1566517325757423647/2026-11-01_19-03-08.mp4",
+          "size": 11755991,
+          "is_plugin": false
+        },
+        {
+          "filename": "2026-11-01_19-29-48.mp4",
+          "url": "plugins/1566517325757423647/2026-11-01_19-29-48.mp4",
+          "size": 8183765,
+          "is_plugin": false
+        },
+        {
+          "filename": "float.iy",
+          "url": "plugins/1566517325757423647/float.iy",
+          "size": 14957,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        ";fl - creates platform under u, if u on the ground platform will be right as the floor, if u in air - under u\n;ufl - remove platform\n;fltool - why not, tool.Equipped = fl, tool.Unequipped = ufl\n;flclip - makes platform right as the floor via raycast and disables collision of parts below, ;setflraycount [num] will change for how much parts collision will be turned off\n;flnofollow - removes follow by XZ\n;flfollow - follow by XZ\n;setflspeed [num] - up/down speed via ctrl + q/e, default 0.1\n;setflsize [num] - change platform size, default 5\n;setfltrans [0-1] - change visibility of platform, default 1 (invisible)\n;setfloffset [num] - change Y spawn position of platform, values like 3 means under u, -3 above, no arguments will reset to default work with spawn platform right as the floor if u on it\n;setflraycount [num] - change for how much parts collision will be turned off, default 3 means that 3 parts under u via raycast will be without collision if flclip used"
+      ],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1566427959349477376",
       "name": "clickinspector",
@@ -10,7 +54,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-11-01T12:25:28.333000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1566427959349477376",
@@ -46,7 +90,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-10-31T11:58:55.077000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1566058888883601538",
@@ -252,7 +296,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-10-17T15:18:40.603000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1561035729704976467",
@@ -334,7 +378,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-10-12T18:29:19.010000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1559271766533210122",
@@ -388,7 +432,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-10-10T04:40:21.430000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1558338376271269939",
@@ -414,7 +458,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-10-10T03:58:32.420000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1558327852720726149",
@@ -582,7 +626,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-09-08T08:14:18.081000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1546795805388709969",
@@ -849,7 +893,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
       },
       "date": "2026-07-30T16:27:56.604000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532424519854329936",
@@ -880,7 +924,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
       },
       "date": "2026-07-30T16:00:05.869000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532417512283570276",
@@ -1145,7 +1189,7 @@
       "author": {
         "name": "David",
         "username": "istmedavid",
-        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/5e1fa29137a7cb6ba16a6f8d9896ff68.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/852629822727651399/3fea3294619173aab3df02e0e550b790.png?size=1024"
       },
       "date": "2026-07-01T06:36:47.289000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1521766502661886062",
@@ -1399,7 +1443,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
       },
       "date": "2026-06-09T00:54:39.534000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1513707869974036662",
@@ -2007,7 +2051,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2a06e417de318c44445ee9d4bb4c99e6.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
       },
       "date": "2026-04-14T16:05:09.796000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493643285426601996",
@@ -3019,7 +3063,7 @@
       "author": {
         "name": "ValveTextureFile",
         "username": "ipv4e",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_b4f10ad9ee8071e9ace88eac93ec2b17.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_21ddd5504b9f425741507ca742fc5e1e.gif?size=1024"
       },
       "date": "2025-12-26T03:45:29.686000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453956864403443784",
@@ -3043,7 +3087,7 @@
       "author": {
         "name": "ValveTextureFile",
         "username": "ipv4e",
-        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_b4f10ad9ee8071e9ace88eac93ec2b17.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1445064541938389139/a_21ddd5504b9f425741507ca742fc5e1e.gif?size=1024"
       },
       "date": "2025-12-24T21:41:15.365000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1453502812871987333",
@@ -6585,7 +6629,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae82ff2&is=6ae6de72&hm=a37b2a6ba60c8803bb0cc5bfa0732bd41fe2903afe412fe8daf1879540a5c42a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae98172&is=6ae82ff2&hm=cf2ebb8b285d21db7b7fb51eefdb5b2ce4ee8442c989df06d7c91569a2c320e2&"
           },
           "image": null,
           "video": null
@@ -6599,7 +6643,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae83009&is=6ae6de89&hm=b97489d88cd8d050b28da445663f7aabddfc569f64c7f15fcb1f35f7776479c0&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae98189&is=6ae83009&hm=9e8e7dfdc53a5527a2d1f9d3eb0dfa16c5eba3034babe2eba049fbb5b4703e25&"
           },
           "image": null,
           "video": null
@@ -7462,7 +7506,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae82ff2&is=6ae6de72&hm=a37b2a6ba60c8803bb0cc5bfa0732bd41fe2903afe412fe8daf1879540a5c42a&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6ae98172&is=6ae82ff2&hm=cf2ebb8b285d21db7b7fb51eefdb5b2ce4ee8442c989df06d7c91569a2c320e2&"
           },
           "image": null,
           "video": null
@@ -7476,7 +7520,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae83009&is=6ae6de89&hm=b97489d88cd8d050b28da445663f7aabddfc569f64c7f15fcb1f35f7776479c0&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6ae98189&is=6ae83009&hm=9e8e7dfdc53a5527a2d1f9d3eb0dfa16c5eba3034babe2eba049fbb5b4703e25&"
           },
           "image": null,
           "video": null
@@ -8849,7 +8893,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae801a5&is=6ae6b025&hm=87a17536defcd453cf8acf5e07bda818773439f9cefa9ac61eb80fbce07f8cd2&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6ae95325&is=6ae801a5&hm=09a89e2b59b897005a2df78a4fc5a4511e82168da33dca12e03cfbb76204e7e9&"
           },
           "image": null,
           "video": null

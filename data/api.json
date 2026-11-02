@@ -1,8 +1,41 @@
 {
   "version": "1.0",
-  "updated_at": "2026-11-01T12:32:41.690751+00:00",
-  "total": 588,
+  "updated_at": "2026-11-02T10:22:56.170479+00:00",
+  "total": 589,
   "plugins": [
+    {
+      "id": "1566517325757423647",
+      "name": "float",
+      "author": "wonkeyy",
+      "date": "2026-11-01T18:20:34.945000+00:00",
+      "files": [
+        {
+          "filename": "2026-11-01_18-55-59.mp4",
+          "url": "plugins/1566517325757423647/2026-11-01_18-55-59.mp4",
+          "size": 13427200,
+          "is_plugin": false
+        },
+        {
+          "filename": "2026-11-01_19-03-08.mp4",
+          "url": "plugins/1566517325757423647/2026-11-01_19-03-08.mp4",
+          "size": 11755991,
+          "is_plugin": false
+        },
+        {
+          "filename": "2026-11-01_19-29-48.mp4",
+          "url": "plugins/1566517325757423647/2026-11-01_19-29-48.mp4",
+          "size": 8183765,
+          "is_plugin": false
+        },
+        {
+          "filename": "float.iy",
+          "url": "plugins/1566517325757423647/float.iy",
+          "size": 14957,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1566427959349477376",
       "name": "clickinspector",
