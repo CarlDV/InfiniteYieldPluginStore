@@ -1,0 +1,452 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local StarterGui = game:GetService("StarterGui")
+
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+local SETTINGS = {
+	MOVE_SPEED = 100,
+	SHIFT_SPEED = 20,
+	SPACE_SPEED = 2,
+	SMOOTH_POS = 8,
+	SMOOTH_ROT = 6,
+	MOUSE_SENSITIVITY = 0.0035,
+	TOUCH_SENSITIVITY = 0.016,
+	FOV_MIN = 1,
+	FOV_MAX = 120,
+	FOV_SMOOTH = 10,
+}
+
+local freeCamActive = false
+local initialized = false
+local bindName = nil
+local fovGuardConn = nil
+local fovDefaultCaptured = nil
+
+local camPosition = Vector3.new()
+local camYaw, camPitch = 0, 0
+local zoomLevel = 0
+local displayFOV
+local savedFOV
+local smoothedPosition, smoothedRotation
+
+local savedTouchMovementMode = nil
+
+local HIDDEN_CORE_GUI = {
+	Enum.CoreGuiType.Backpack,
+	Enum.CoreGuiType.EmotesMenu,
+	Enum.CoreGuiType.Health,
+}
+local savedCoreGuiState = {}
+local hiddenThirdPartyGuis = {}
+local touchGuiWatcherConn = nil
+
+local screenGui, zoomBg, zoomKnob, zoomText
+local zoomTouchId = nil
+
+local joystickTouchId = nil
+local joystickOrigin = Vector2.new()
+local joystickVector = Vector2.new()
+local JOYSTICK_RADIUS = 60
+local JOYSTICK_ZONE_FRACTION = 0.5
+local ISJOYSTICK_ZONE = 0.10
+
+local cameraTouchId = nil
+local cameraTouchLastPos = Vector2.new(0, 0)
+
+local function addCorner(parent, radius)
+	local c = Instance.new("UICorner")
+	c.CornerRadius = UDim.new(0, radius)
+	c.Parent = parent
+	return c
+end
+
+local function getHiddenHui()
+	if gethui then
+		local ok, hui = pcall(gethui)
+		if ok and hui then
+			local folder = Instance.new("Folder")
+			folder.Name = randomString(16)
+			folder.Parent = hui
+			return folder
+		end
+	end
+	local ok, cg = pcall(function() return game:GetService("CoreGui") end)
+	if ok and cg then return cg end
+	return player:WaitForChild("PlayerGui")
+end
+
+local function clampPitch(p)
+	return math.clamp(p, -math.rad(89), math.rad(89))
+end
+
+local function onFOVChanged()
+	if math.abs(camera.FieldOfView - displayFOV) > 0.01 then
+		camera.FieldOfView = displayFOV
+	end
+end
+
+local function createUI()
+	screenGui = Instance.new("ScreenGui")
+	screenGui.Name = randomString(20)
+	screenGui.ResetOnSpawn = false
+	screenGui.IgnoreGuiInset = true
+	screenGui.Enabled = true
+	screenGui.DisplayOrder = 1.7976931348623157e308
+	screenGui.Parent = getHiddenHui()
+
+	zoomBg = Instance.new("Frame")
+	zoomBg.Size = UDim2.fromOffset(32, 150)
+	zoomBg.Position = UDim2.new(1, -32, 1, -240)
+	zoomBg.BackgroundColor3 = Color3.new(1, 1, 1)
+	zoomBg.BackgroundTransparency = 0.6
+	zoomBg.BorderSizePixel = 0
+	zoomBg.Visible = false
+	addCorner(zoomBg, 14)
+	zoomBg.Parent = screenGui
+
+	zoomKnob = Instance.new("Frame")
+	zoomKnob.Size = UDim2.fromOffset(27, 27)
+	zoomKnob.AnchorPoint = Vector2.new(0.5, 0.5)
+	zoomKnob.Position = UDim2.new(0.5, 0, 1, -13.5)
+	zoomKnob.BackgroundColor3 = Color3.new(1, 1, 1)
+	zoomKnob.BackgroundTransparency = 0.1
+	zoomKnob.BorderSizePixel = 0
+	addCorner(zoomKnob, 19)
+	zoomKnob.Parent = zoomBg
+
+	zoomText = Instance.new("TextLabel")
+	zoomText.Size = UDim2.fromScale(1, 1)
+	zoomText.BackgroundTransparency = 1
+	zoomText.TextColor3 = Color3.fromRGB(30, 30, 30)
+	zoomText.Font = Enum.Font.GothamBold
+	zoomText.TextSize = 11
+	zoomText.Parent = zoomKnob
+end
+
+local function updateZoomVisual(yPos)
+	if not zoomBg then return end
+	local h = zoomBg.AbsoluteSize.Y
+	local r = zoomKnob.AbsoluteSize.Y / 2
+	local clamped = math.clamp(yPos, r, h - r)
+	zoomKnob.Position = UDim2.new(0.5, 0, 0, clamped)
+	zoomLevel = 1 - ((clamped - r) / (h - r * 2))
+end
+
+local function syncZoomKnob()
+	if not zoomBg then return end
+	local h = zoomBg.AbsoluteSize.Y
+	local r = zoomKnob.AbsoluteSize.Y / 2
+	local y = r + (1 - zoomLevel) * (h - r * 2)
+	zoomKnob.Position = UDim2.new(0.5, 0, 0, math.clamp(y, r, h - r))
+end
+
+local function isInJoystickZone(pos)
+	return pos.X < camera.ViewportSize.X * JOYSTICK_ZONE_FRACTION
+end
+
+local function computeJoystickVector(pos)
+	local delta = pos - joystickOrigin
+	local len = delta.Magnitude
+	local dead = JOYSTICK_RADIUS * ISJOYSTICK_ZONE
+	if len < dead then return Vector2.new(0, 0) end
+	local mag = math.min(1, (len - dead) / (JOYSTICK_RADIUS - dead))
+	mag = mag * mag
+	return delta.Unit * mag
+end
+
+local function onTouchBegan(input, gameProcessed)
+	if not freeCamActive or gameProcessed then return end
+	local pos = input.Position
+
+	if zoomBg then
+		local absPos = zoomBg.AbsolutePosition
+		local absSize = zoomBg.AbsoluteSize
+		if zoomTouchId == nil
+			and pos.X >= absPos.X - 20 and pos.X <= absPos.X + absSize.X + 20
+			and pos.Y >= absPos.Y - 20 and pos.Y <= absPos.Y + absSize.Y + 20 then
+			zoomTouchId = input
+			updateZoomVisual(pos.Y - absPos.Y)
+			return
+		end
+	end
+
+	if joystickTouchId == nil and isInJoystickZone(pos) then
+		joystickTouchId = input
+		joystickOrigin = pos
+		joystickVector = Vector2.new(0, 0)
+		return
+	end
+
+	if cameraTouchId == nil and not isInJoystickZone(pos) then
+		cameraTouchId = input
+		cameraTouchLastPos = pos
+	end
+end
+
+local function onTouchMoved(input, gameProcessed)
+	if not freeCamActive then return end
+
+	if zoomBg and input == zoomTouchId then
+		updateZoomVisual(input.Position.Y - zoomBg.AbsolutePosition.Y)
+		return
+	end
+
+	if input == joystickTouchId then
+		joystickVector = computeJoystickVector(input.Position)
+		return
+	end
+
+	if input == cameraTouchId then
+		local delta = input.Position - cameraTouchLastPos
+		cameraTouchLastPos = input.Position
+		camYaw = camYaw - delta.X * SETTINGS.TOUCH_SENSITIVITY
+		camPitch = clampPitch(camPitch - delta.Y * SETTINGS.TOUCH_SENSITIVITY)
+	end
+end
+
+local function onTouchEnded(input, gameProcessed)
+	if input == zoomTouchId then zoomTouchId = nil end
+	if input == joystickTouchId then
+		joystickTouchId = nil
+		joystickVector = Vector2.new(0, 0)
+	end
+	if input == cameraTouchId then cameraTouchId = nil end
+end
+
+local function onInputChanged(input, gameProcessed)
+	if not freeCamActive then return end
+	if input.UserInputType == Enum.UserInputType.MouseMovement
+		and UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
+		camYaw = camYaw - input.Delta.X * SETTINGS.MOUSE_SENSITIVITY
+		camPitch = clampPitch(camPitch - input.Delta.Y * SETTINGS.MOUSE_SENSITIVITY)
+	elseif input.UserInputType == Enum.UserInputType.MouseWheel then
+		zoomLevel = math.clamp(zoomLevel + input.Position.Z * 0.05, 0, 1)
+		syncZoomKnob()
+	end
+end
+
+local function init()
+	if initialized then return end
+	initialized = true
+
+	bindName = randomString(24)
+	createUI()
+
+	UserInputService.InputBegan:Connect(onTouchBegan)
+	UserInputService.InputEnded:Connect(onTouchEnded)
+	UserInputService.InputChanged:Connect(onInputChanged)
+	UserInputService.InputChanged:Connect(onTouchMoved)
+end
+
+local function renderStep(dt)
+	local character = player.Character
+	local head = character and character:FindFirstChild("Head")
+	if head and head.Material ~= Enum.Material.Air then
+		head.Anchored = true
+	end
+
+	local playerGui = player:FindFirstChild("PlayerGui")
+	if playerGui then
+		local touchGui = playerGui:FindFirstChild("TouchGui")
+		if touchGui and touchGui.Enabled then touchGui.Enabled = false end
+	end
+
+	local kb = UserInputService
+	local moveVector = Vector3.new(0, 0, 0)
+	if kb:IsKeyDown(Enum.KeyCode.W) then moveVector += Vector3.new(0, 0, -1) end
+	if kb:IsKeyDown(Enum.KeyCode.S) then moveVector += Vector3.new(0, 0, 1) end
+	if kb:IsKeyDown(Enum.KeyCode.A) then moveVector += Vector3.new(-1, 0, 0) end
+	if kb:IsKeyDown(Enum.KeyCode.D) then moveVector += Vector3.new(1, 0, 0) end
+	if moveVector.Magnitude > 1 then moveVector = moveVector.Unit end
+
+	if joystickTouchId then
+		moveVector = Vector3.new(joystickVector.X, 0, joystickVector.Y)
+	end
+
+	local upDown = 0
+	if kb:IsKeyDown(Enum.KeyCode.E) then upDown += 1 end
+	if kb:IsKeyDown(Enum.KeyCode.Q) then upDown -= 1 end
+
+	local speed = SETTINGS.MOVE_SPEED
+	if kb:IsKeyDown(Enum.KeyCode.Space) then
+		speed *= SETTINGS.SPACE_SPEED
+	end
+	if kb:IsKeyDown(Enum.KeyCode.LeftShift) or kb:IsKeyDown(Enum.KeyCode.RightShift) then
+		speed = SETTINGS.SHIFT_SPEED
+	end
+
+	local rotation = CFrame.fromEulerAnglesYXZ(camPitch, camYaw, 0)
+	local worldMove = rotation:VectorToWorldSpace(moveVector)
+	local verticalSpeed = speed / 2
+	camPosition = camPosition + worldMove * speed * dt + Vector3.new(0, upDown * verticalSpeed * dt, 0)
+
+	smoothedRotation = smoothedRotation:Lerp(
+		CFrame.fromEulerAnglesYXZ(camPitch, camYaw, 0),
+		1 - math.exp(-SETTINGS.SMOOTH_ROT * dt)
+	)
+	smoothedPosition = smoothedPosition:Lerp(camPosition, 1 - math.exp(-SETTINGS.SMOOTH_POS * dt))
+
+	local targetFOV = SETTINGS.FOV_MAX - zoomLevel * (SETTINGS.FOV_MAX - SETTINGS.FOV_MIN)
+	displayFOV = displayFOV + (targetFOV - displayFOV) * (1 - math.exp(-SETTINGS.FOV_SMOOTH * dt))
+	camera.FieldOfView = displayFOV
+	if zoomText then zoomText.Text = tostring(math.round(displayFOV)) end
+
+	camera.CFrame = CFrame.new(smoothedPosition) * smoothedRotation
+end
+
+local function enableFreeCam(speedArg)
+	init()
+
+	local parsedSpeed = tonumber(speedArg)
+	if parsedSpeed then SETTINGS.MOVE_SPEED = parsedSpeed end
+	if freeCamActive then return end
+	freeCamActive = true
+
+	if not fovDefaultCaptured then
+		fovDefaultCaptured = camera.FieldOfView
+	end
+
+	savedFOV = camera.FieldOfView
+	displayFOV = savedFOV
+
+	local span = SETTINGS.FOV_MAX - SETTINGS.FOV_MIN
+	zoomLevel = math.clamp((SETTINGS.FOV_MAX - savedFOV) / span, 0, 1)
+
+	local character = player.Character
+	local head = character and character:FindFirstChild("Head")
+	if head and head.Material ~= Enum.Material.Air then
+		head.Anchored = true
+	end
+
+	savedTouchMovementMode = player.DevTouchMovementMode
+	pcall(function() player.DevTouchMovementMode = Enum.DevTouchMovementMode.DynamicThumbstick end)
+
+	for _, guiType in ipairs(HIDDEN_CORE_GUI) do
+		local ok, state = pcall(function() return StarterGui:GetCoreGuiEnabled(guiType) end)
+		if ok then savedCoreGuiState[guiType] = state end
+		pcall(function() StarterGui:SetCoreGuiEnabled(guiType, false) end)
+	end
+
+	hiddenThirdPartyGuis = {}
+	local playerGui = player:FindFirstChild("PlayerGui")
+	if playerGui then
+		for _, gui in ipairs(playerGui:GetChildren()) do
+			if gui:IsA("ScreenGui") and gui ~= screenGui
+				and gui.Enabled and not string.find(string.lower(gui.Name), "chat") then
+				gui.Enabled = false
+				table.insert(hiddenThirdPartyGuis, gui)
+			end
+		end
+		touchGuiWatcherConn = playerGui.ChildAdded:Connect(function(gui)
+			if gui:IsA("ScreenGui") and gui.Name == "TouchGui" then
+				gui.Enabled = false
+			end
+		end)
+	end
+
+	camPosition = camera.CFrame.Position
+	local pitch, yaw = camera.CFrame:ToEulerAnglesYXZ()
+	camPitch, camYaw = pitch, yaw
+	smoothedPosition = camPosition
+	smoothedRotation = CFrame.fromEulerAnglesYXZ(camPitch, camYaw, 0)
+
+	camera.CameraType = Enum.CameraType.Scriptable
+	camera.FieldOfView = displayFOV
+	camera.CFrame = CFrame.new(smoothedPosition) * smoothedRotation
+
+	if zoomBg then
+		if zoomText then zoomText.Text = tostring(math.round(fovDefaultCaptured)) end
+		syncZoomKnob()
+		zoomBg.Visible = true
+	end
+
+	if not UserInputService.TouchEnabled then
+		UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+		UserInputService.MouseIconEnabled = false
+	end
+
+	RunService:BindToRenderStep(bindName, Enum.RenderPriority.Last.Value, renderStep)
+	fovGuardConn = camera:GetPropertyChangedSignal("FieldOfView"):Connect(onFOVChanged)
+end
+
+local function disableFreeCam()
+	if not freeCamActive then return end
+	freeCamActive = false
+
+	local character = player.Character
+	local head = character and character:FindFirstChild("Head")
+	if head then
+		head.Anchored = false
+	end
+
+	fovGuardConn:Disconnect()
+	fovGuardConn = nil
+	RunService:UnbindFromRenderStep(bindName)
+
+	if zoomBg then zoomBg.Visible = false end
+	camera.FieldOfView = savedFOV
+
+	camera.CameraSubject = player.Character
+	camera.CameraType = Enum.CameraType.Custom
+
+	zoomLevel = 0
+	joystickTouchId = nil
+	joystickVector = Vector2.new(0, 0)
+	cameraTouchId = nil
+
+	if savedTouchMovementMode then
+		pcall(function() player.DevTouchMovementMode = savedTouchMovementMode end)
+		savedTouchMovementMode = nil
+	end
+
+	for _, guiType in ipairs(HIDDEN_CORE_GUI) do
+		local state = savedCoreGuiState[guiType]
+		if state ~= nil then
+			pcall(function() StarterGui:SetCoreGuiEnabled(guiType, state) end)
+		end
+	end
+	savedCoreGuiState = {}
+
+	for _, gui in ipairs(hiddenThirdPartyGuis) do
+		if gui and gui.Parent then gui.Enabled = true end
+	end
+	hiddenThirdPartyGuis = {}
+
+	touchGuiWatcherConn:Disconnect()
+	touchGuiWatcherConn = nil
+
+	local playerGuiNow = player:FindFirstChild("PlayerGui")
+	if playerGuiNow then
+		local touchGuiNow = playerGuiNow:FindFirstChild("TouchGui")
+		if touchGuiNow then touchGuiNow.Enabled = true end
+	end
+
+	if not UserInputService.TouchEnabled then
+		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+		UserInputService.MouseIconEnabled = true
+	end
+end
+
+local Plugin = {
+	PluginName = "Mfreecam",
+	PluginDescription = "Full Free camera!",
+	Commands = {
+		mfreecam = {
+			ListName = "mfreecam/mfc [speed]",
+			Description = "Turns on Freecam",
+			Aliases = {"mfc"},
+			Function = function(args) enableFreeCam(args[1]) end,
+		},
+		unmfreecam = {
+			ListName = "unmfreecam/unmfc",
+			Description = "Turns off Freecam",
+			Aliases = {"unmfc"},
+			Function = function() disableFreeCam() end,
+		},
+	},
+}
+
+return Plugin

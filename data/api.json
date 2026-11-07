@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-11-02T10:22:56.170479+00:00",
-  "total": 589,
+  "updated_at": "2026-11-07T00:11:01.324026+00:00",
+  "total": 590,
   "plugins": [
+    {
+      "id": "1568412915986464920",
+      "name": "mfreecam",
+      "author": "Tony",
+      "date": "2026-11-06T23:52:58.874000+00:00",
+      "files": [
+        {
+          "filename": "mfreecam.iy",
+          "url": "plugins/1568412915986464920/mfreecam.iy",
+          "size": 13258,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1566517325757423647",
       "name": "float",
@@ -2985,7 +3000,7 @@
     {
       "id": "1153550910342037534",
       "name": "AnimationSpeed",
-      "author": "DrakCafferty",
+      "author": "drako",
       "date": "2023-09-19T04:39:28.965000+00:00",
       "files": [
         {
