@@ -1,0 +1,23 @@
+local p = game:GetService("Players").LocalPlayer
+
+local function say()
+    game.Chat:Chat(p.Character.Head, getstring(1, args), Enum.ChatColor.White)
+end
+    
+    
+local Plugin = {
+	["PluginName"] = "VisualChat",
+	["PluginDescription"] = "Makes you be able to say veri bad things without getting tagged (but visual)",
+	["Commands"] = {
+		["HearEverything"] = {
+			["ListName"] = "vsay [string]",
+			["Description"] = "Read plugin desc",
+			["Aliases"] = {"vsay"},
+			["Function"] = function(args, speaker)
+			 say(getstring(1, args))
+			end
+		}
+	}
+}
+
+return Plugin
