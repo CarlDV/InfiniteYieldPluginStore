@@ -1,8 +1,40 @@
 {
-  "scraped_at": "2026-11-07T08:21:51.713150+00:00",
+  "scraped_at": "2026-11-16T11:42:33.829679+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 591,
+  "total_plugins": 592,
   "plugins": [
+    {
+      "id": "1571770452714594407",
+      "name": "newdex",
+      "description": "# Better Dex Explorer\n\nReplaces the dex and explorer commands with a new version of Dex featuring a redesigned UI, improved performance, and way more additional features",
+      "author": {
+        "name": "wyatt",
+        "username": "an1thoxny.",
+        "avatar": "https://cdn.discordapp.com/avatars/1082477972897931315/662aaaec8a6ac3f82966f66521e7be1c.png?size=1024"
+      },
+      "date": "2026-11-16T06:14:38.010000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1571770452714594407",
+      "files": [
+        {
+          "filename": "newdex.iy",
+          "url": "plugins/1571770452714594407/newdex.iy",
+          "size": 415,
+          "is_plugin": true
+        },
+        {
+          "filename": "dex_showcase.mp4",
+          "url": "plugins/1571770452714594407/dex_showcase.mp4",
+          "size": 7851974,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/wooxps/dex-explorer/main/loader.lua"
+      ]
+    },
     {
       "id": "1568523864114331690",
       "name": "VisualSay",
@@ -815,9 +847,9 @@
       "name": "ServerDirectory",
       "description": "# Server Directory\n## Cmd Usage: sd\n- Allows you to view the server list of your current placeID and filter them accordingly for easy server switching/viewing\n\n#  ⚠️ What this plugin loads and calls out to\nThis plugin uses a loadstring to call a UI library called Fluent, The plugin itself also makes HTTP requests to servers other than roblox.com:\n\n- **`apis.rovalra.com`** RoValra's public API) — to get the list of Roblox datacenters and figure out which datacenter each server is running in. \n- **`ipapi.co`** — to get your rough physical location from your IP, so the plugin can tell which servers are actually close to you. This sends your IP to that service.",
       "author": {
-        "name": "Anti-Pops",
+        "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_56effc129c618a9ea75b4c149fc5b1c3.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_c73b9d2918ac4e447f7e23a85ec97ee1.gif?size=1024"
       },
       "date": "2026-08-13T11:51:09.458000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1537428294553833562",
@@ -944,7 +976,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/1aac4e99257b34e7d387b060e647fdd2.png?size=1024"
       },
       "date": "2026-07-30T16:27:56.604000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532424519854329936",
@@ -975,7 +1007,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/1aac4e99257b34e7d387b060e647fdd2.png?size=1024"
       },
       "date": "2026-07-30T16:00:05.869000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1532417512283570276",
@@ -1210,7 +1242,7 @@
       "author": {
         "name": "openbridge",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/703ee7afa47448c1cc00d46f3c5c914b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/223ecfb6db9caa763b7d231a67bd5751.png?size=1024"
       },
       "date": "2026-07-02T20:38:42.778000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1522340767845056776",
@@ -1325,9 +1357,9 @@
       "name": "wfcp",
       "description": "# Weapon's Fun Camera Plugin V1.2\n\n### so wtf did you even add weapon\n\nok so first off i improved the command, so after you die it will try to keep itself on first person which may be buggy which is my fault\ni also added a new unlock cursor command which allows you to press buttons with my cool little first person command. it's my favorite child\n\n\n(please remove the previous version if you want the newest one to work)\n\n\n**execute once = enabled, twice = disabled**\n\n## Commands\n\nfreemouse/unlockmouse\n\nthis shouldve already been in IY, but it's not, so here's my version. hold right click to be able to look around, press all the buttons u want now\n\nhideacc / accessories\n\ntries to make your accessories clientsidedly transparent, works in all games i think\n\nrearview / rear / f5\n\nturns your camera 180 degrees, flips controls. not reccomended for use with shift lock or first person\n\nrealfirstperson / fp / worldmodelfp\n\nputs you in my custom first person where you can see your body.\nedit this line as you please to put the camera up or down more:\nCamera.CFrame = HeadPosOnly * CamRotation * CFrame.new(0, 0.3, -0.2)\n\nfrontview / resetcam\n\nlevels your camera. cuz why not???\n❓",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/d67121babd69ff6c6a9e6fdb2a2fc76c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/6be0119367f732baf698252129cdd7c1.png?size=1024"
       },
       "date": "2026-06-25T14:24:05.099000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1519709774567178270",
@@ -1426,7 +1458,7 @@
       "author": {
         "name": "openbridge",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/703ee7afa47448c1cc00d46f3c5c914b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/223ecfb6db9caa763b7d231a67bd5751.png?size=1024"
       },
       "date": "2026-06-10T15:15:19.284000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1514286850649489581",
@@ -1451,8 +1483,8 @@
     },
     {
       "id": "1514193210832846949",
-      "name": "savelogs, VoiceChatBypass, KeepIYImproved",
-      "description": "been keeping 3 plugins for a while and now got access.\n\n# Introducing 3 plugins by me.\nI have made those plugins because i was bored so why not publish them publicly?\n\n- `savelogs.iy`\n  - It's entire purpose is to save console logs as a file in your exploit workspace.\n- `KeepIYImproved.iy`\n  - basically keepiy but *better*, it makes it whenever you leave and rejoin another game from roblox app it will still load up infinite yield, you disable it by using **unkeepiy** or **togglekeepiy**\n - `VoiceChatBypass.iy`\n  - new voice chat bypass, it bypasses suspensions unless you rejoin but wont save you from roblox listening... okay yeah anyways idk if it still works haven't used it in awhile.\n\n- Changelogs (KeepIYImproved):\n  - Fixed queue on teleport (changed function to queue\\_on\\_teleport). Was a different (queueteleport) function probably not supported on other execs.\n**Updated file version in the message**",
+      "name": "savelogs, VoiceChatBypass",
+      "description": "been keeping 3 plugins for a while and now got access.\n\n# Introducing 3 plugins by me.\nI have made those plugins because i was bored so why not publish them publicly?\n\n- `savelogs.iy`\n  - It's entire purpose is to save console logs as a file in your exploit workspace.\n\n~~- `KeepIYImproved.iy`\n  - basically keepiy but *better*, it makes it whenever you leave and rejoin another game from roblox app it will still load up infinite yield, you disable it by using **unkeepiy** or **togglekeepiy**~~\nunfortunately not working anymore\n\n - `VoiceChatBypass.iy`\n  - new voice chat bypass, it bypasses suspensions unless you rejoin but wont save you from roblox listening... okay yeah anyways idk if it still works haven't used it in awhile.\n\n- Changelogs (KeepIYImproved):\n  - Fixed queue on teleport (changed function to queue\\_on\\_teleport). Was a different (queueteleport) function probably not supported on other execs.\n**Updated file version in the message**",
       "author": {
         "name": "! FurryBoy",
         "username": "furryboy.1",
@@ -1472,20 +1504,12 @@
           "url": "plugins/1514193210832846949/VoiceChatBypass.iy",
           "size": 5397,
           "is_plugin": true
-        },
-        {
-          "filename": "KeepIYImproved.iy",
-          "url": "plugins/1514193210832846949/KeepIYImproved.iy",
-          "size": 1007,
-          "is_plugin": true
         }
       ],
       "code_blocks": [],
       "links": [],
       "embeds": [],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"
-      ]
+      "loadstring_urls": []
     },
     {
       "id": "1513707869974036662",
@@ -1494,7 +1518,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/1aac4e99257b34e7d387b060e647fdd2.png?size=1024"
       },
       "date": "2026-06-09T00:54:39.534000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1513707869974036662",
@@ -1610,7 +1634,7 @@
       "author": {
         "name": "openbridge",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/703ee7afa47448c1cc00d46f3c5c914b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/223ecfb6db9caa763b7d231a67bd5751.png?size=1024"
       },
       "date": "2026-06-02T18:28:07.829000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1511436269719126090",
@@ -1640,7 +1664,7 @@
       "author": {
         "name": "openbridge",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/703ee7afa47448c1cc00d46f3c5c914b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/223ecfb6db9caa763b7d231a67bd5751.png?size=1024"
       },
       "date": "2026-06-01T08:50:32.414000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510928526507773952",
@@ -1694,7 +1718,7 @@
       "author": {
         "name": "openbridge",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/703ee7afa47448c1cc00d46f3c5c914b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/223ecfb6db9caa763b7d231a67bd5751.png?size=1024"
       },
       "date": "2026-05-31T21:17:22.813000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510754087078072540",
@@ -1721,7 +1745,7 @@
       "author": {
         "name": "openbridge",
         "username": "openbridge",
-        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/703ee7afa47448c1cc00d46f3c5c914b.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/363479095503355904/223ecfb6db9caa763b7d231a67bd5751.png?size=1024"
       },
       "date": "2026-05-31T09:44:33.574000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510579733052788867",
@@ -1928,9 +1952,9 @@
       "name": "wfcp",
       "description": "# WFCP V1.1 (Weappon's Fun Camera Plugins)\n(please remove the previous version if you want the newest one to work)\n||because some of you have a problem with me yapping im gonna yap more||\n\nexecute once = enabled, twice = disabled\n\n## Commands\n\n**hideacc / accessories**\n\ntries to make your accessories clientsidedly transparent, *should* work for most games\n\n**rearview / rear / f5**\n\nturns your camera 180 degrees, flips controls. not reccomended for use with shift lock or first person\n\n**realfirstperson / fp / worldmodelfp**\n\nputs you in my custom first person where you can see your body.\nedit the number in bold to put the camera up or down more:\nCamera.CFrame = HeadPosOnly * CamRotation * CFrame.new(0, **0.3**, -0.2)\n\n**frontview / resetcam**\n\nstraightens your camera. cuz why not???\n\nhttps://medal.tv/games/roblox/clips/mwYJITbj9hZ4y_4bW?invite=cr-MSxYclosNDA4OTMwNzYy&v=43",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/d67121babd69ff6c6a9e6fdb2a2fc76c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/6be0119367f732baf698252129cdd7c1.png?size=1024"
       },
       "date": "2026-04-17T21:06:23.881000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494806257230417920",
@@ -2026,9 +2050,9 @@
       "name": "wfcp",
       "description": "(V1) i lowk uploaded a diff version and i didnt realize i think this one is the right one",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/d67121babd69ff6c6a9e6fdb2a2fc76c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/6be0119367f732baf698252129cdd7c1.png?size=1024"
       },
       "date": "2026-04-15T21:49:42.799000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1494092382151643207",
@@ -2050,9 +2074,9 @@
       "name": "Speedometer2",
       "description": "# Updated the speedometer to (i think) work for mobile, but i cant brainstorm a way reset to original position quickly.\nno resizing cuz like I'd rather not try that shit...... also i made some minor changes to where you can close it\nplease tell me if this doesn't work mobile users\n||typing pneumonoultramicroscopicsilicovolcanoconiosis can exit the speedometer if you really want that|| \n||https://medal.tv/games/roblox/clips/mvJjirmVFMajMJ_vR?invite=cr-MSxseGIsNDA4OTMwNzYy||",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/d67121babd69ff6c6a9e6fdb2a2fc76c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/6be0119367f732baf698252129cdd7c1.png?size=1024"
       },
       "date": "2026-04-14T22:27:29.974000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493739503507210392",
@@ -2102,7 +2126,7 @@
       "author": {
         "name": "𝓜𝓪𝔁…👑",
         "username": "maxproglitcher",
-        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/2946fd5d10f2ce07c632a045b433b0ab.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/787097751489478687/1aac4e99257b34e7d387b060e647fdd2.png?size=1024"
       },
       "date": "2026-04-14T16:05:09.796000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493643285426601996",
@@ -2126,9 +2150,9 @@
       "name": "UselessFactNotification",
       "description": "**Useless Fact Notification** , Kept it as a IY notification\n(Honestly just a basic fact script I did like 3-4 years ago)\n\nthe commands are \"fact\" and \"useless\"",
       "author": {
-        "name": "Anti-Pops",
+        "name": "Pops",
         "username": "nolifepops",
-        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_56effc129c618a9ea75b4c149fc5b1c3.gif?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/221807880053981184/a_c73b9d2918ac4e447f7e23a85ec97ee1.gif?size=1024"
       },
       "date": "2026-04-12T22:02:24.507000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1493008413389619240",
@@ -2204,9 +2228,9 @@
       "name": "aimbot",
       "description": "a port of **exuny's** aimbot v1, not mine (yes it works. atleast for xeno) ||https://medal.tv/games/roblox/clips/mtnoJ1Zj5_OUjDVlZ?invite=cr-MSxHNzUsNDA4OTMwNzYy&v=12|| IGNORE THE 1'S U CAN TYPE IT LIKE NORMAL IDK HOW THAT HAPPENED",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/d67121babd69ff6c6a9e6fdb2a2fc76c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/6be0119367f732baf698252129cdd7c1.png?size=1024"
       },
       "date": "2026-04-09T03:25:43.613000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1491640227675115601",
@@ -2417,9 +2441,9 @@
       "name": "Speedometer",
       "description": "speedometer that tracks your speed in studs per second. rightalt to hide, rightclick to reset position idk if rightctrl for close works https://medal.tv/games/roblox/clips/mqMFjvniiVzmZhLtQ?invite=cr-MSw2cE0sNDA4OTMwNzYy&v=5",
       "author": {
-        "name": "weapponofchoice",
+        "name": "weaponofchoice",
         "username": "weapponofchoice",
-        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/d67121babd69ff6c6a9e6fdb2a2fc76c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/933424766960926850/6be0119367f732baf698252129cdd7c1.png?size=1024"
       },
       "date": "2026-04-02T20:16:01.790000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1489357763678310441",
@@ -2574,7 +2598,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-03-13T16:49:06.980000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482057934878937169",
@@ -2598,7 +2622,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-03-13T15:56:48.420000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1482044770804301845",
@@ -2648,7 +2672,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-03-05T02:52:37.697000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478948322843562024",
@@ -2672,7 +2696,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-03-03T20:02:01.315000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478482602502525102",
@@ -2696,7 +2720,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-03-03T01:25:15.917000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1478201561493541048",
@@ -2720,7 +2744,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-03-01T12:55:59.335000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477650612056231938",
@@ -2744,7 +2768,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-02-28T16:54:53.381000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477348345537368204",
@@ -2768,7 +2792,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-02-27T18:11:03.845000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1477005127586939044",
@@ -2792,7 +2816,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-02-27T17:26:49.418000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476993994113286195",
@@ -2816,7 +2840,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-02-27T15:58:20.228000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476971725756563548",
@@ -2840,7 +2864,7 @@
       "author": {
         "name": "fork",
         "username": "forkcate",
-        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/28985aebb8fe3305d8c6f01fcbc7507f.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1225936467700875284/e6ee20a3a13ecb94cba6f839f3b0f997.png?size=1024"
       },
       "date": "2026-02-27T00:53:31.057000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1476744020469481554",
@@ -3746,7 +3770,7 @@
       "author": {
         "name": "Chillz",
         "username": ".chill.z.",
-        "avatar": "https://cdn.discordapp.com/avatars/1136569806389264405/c5cebe274f9943a49e9bf2fc6e9a3280.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1136569806389264405/cfd0139c59a45d29ad2db1135ff4e2a1.png?size=1024"
       },
       "date": "2025-07-26T19:32:14.132000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1398749776081588324",
@@ -4296,7 +4320,7 @@
       "name": "Inject",
       "description": "# ** Script Injector**\nA practical plugin for users who run multiple scripts, making Infinity Yield the central hub for all your injectables. No more manually organizing.\n## About the script \n- This script allows users to easily inject Lua scripts into their game.\n- To customize, replace the example URLs with your own scripts.\n### How to edit:\n 1. Find the 'script_template' table in the script.\n 2. Replace the example URLs with your own.\n 3. Add or remove commands as needed.",
       "author": {
-        "name": "libertar",
+        "name": "i$]cVo$tfw6,$+)",
         "username": "libertar",
         "avatar": "https://cdn.discordapp.com/avatars/940240635456258069/d96121e570d640fcb302348c7084f764.png?size=1024"
       },
@@ -4948,7 +4972,7 @@
       "author": {
         "name": "drako",
         "username": "drakotried",
-        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/32d26bcbeefe53bac1248fdeb4cafa76.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1102028161451036773/e3dafa26af274051d3a34478f86ec036.png?size=1024"
       },
       "date": "2023-09-19T04:39:28.965000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1153550910342037534",
@@ -6355,7 +6379,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/df3416140953276e516fb7e0cebc9575.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/6f6c0d2a45ca058db6c8ed3f4cdac913.png?size=1024"
       },
       "date": "2022-05-05T05:24:58.991000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/971643652369707018",
@@ -6680,7 +6704,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6af018f2&is=6aeec772&hm=903ed0bff6d4b6d65ea0654cb2032d15c189cb42cafbccbbfca1fc3425a8fbd7&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6afbf672&is=6afaa4f2&hm=f5d65def18d3cdba9b7314933cf339e110847aa128a96085a79f612ca50f2f17&"
           },
           "image": null,
           "video": null
@@ -6694,7 +6718,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6af01909&is=6aeec789&hm=94d164e0b55052a7396c50c1ca9c7ce5f3c76492c960635eb337c2f2cfebfcc7&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6afbf689&is=6afaa509&hm=eaf86cd577b84fd7fbe8f879d1d8b293f91932f87da6de37e50b35ec7c796193&"
           },
           "image": null,
           "video": null
@@ -6868,7 +6892,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/df3416140953276e516fb7e0cebc9575.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/6f6c0d2a45ca058db6c8ed3f4cdac913.png?size=1024"
       },
       "date": "2022-03-28T09:20:39.498000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/957932223061950465",
@@ -7395,7 +7419,7 @@
       "author": {
         "name": "lyrium",
         "username": "lyrium.",
-        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/df3416140953276e516fb7e0cebc9575.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/189744625387438080/6f6c0d2a45ca058db6c8ed3f4cdac913.png?size=1024"
       },
       "date": "2021-11-13T02:46:59.722000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/908910792684994562",
@@ -7557,7 +7581,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6af018f2&is=6aeec772&hm=903ed0bff6d4b6d65ea0654cb2032d15c189cb42cafbccbbfca1fc3425a8fbd7&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6afbf672&is=6afaa4f2&hm=f5d65def18d3cdba9b7314933cf339e110847aa128a96085a79f612ca50f2f17&"
           },
           "image": null,
           "video": null
@@ -7571,7 +7595,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6af01909&is=6aeec789&hm=94d164e0b55052a7396c50c1ca9c7ce5f3c76492c960635eb337c2f2cfebfcc7&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6afbf689&is=6afaa509&hm=eaf86cd577b84fd7fbe8f879d1d8b293f91932f87da6de37e50b35ec7c796193&"
           },
           "image": null,
           "video": null
@@ -8944,7 +8968,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6aefeaa5&is=6aee9925&hm=7e9e21d835d3e6e63f7219e32f53e5a007a84f4563b4898e925177520773c10b&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6afbc825&is=6afa76a5&hm=cf5ff96c73aec995c2a37f14e6c3781a3779c417a7e42f18f6d25edda5dba27b&"
           },
           "image": null,
           "video": null
@@ -11015,9 +11039,9 @@
       "name": "Ninja_Legends_Best_Free_Hack",
       "description": "Hello ,i created for you the best free hack of ninja legends it is imperatively necessary to have a level 7 executor you give me your opinions if you want",
       "author": {
-        "name": "mdlk",
+        "name": "LeVraiMDLK",
         "username": "mdlk05",
-        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/7193c5ac88169beef4b120bcad7508b8.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/706264366328053842/59335983e04d88a650f85bbe06efcd94.png?size=1024"
       },
       "date": "2020-07-07T03:00:29.674000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/729894584263639051",
@@ -12528,7 +12552,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/4852d0e1b09a9916c1aec12dcf72e2a1.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/f43d8dd3bbe5b21dda5933ca230563a1.png?size=1024"
       },
       "date": "2020-05-20T13:39:38.179000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/712660812002492556",
@@ -14307,7 +14331,7 @@
       "author": {
         "name": "Warped",
         "username": "warpedcyan",
-        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/4852d0e1b09a9916c1aec12dcf72e2a1.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/533266071612948482/f43d8dd3bbe5b21dda5933ca230563a1.png?size=1024"
       },
       "date": "2020-01-23T03:15:12.032000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/669741899451596800",

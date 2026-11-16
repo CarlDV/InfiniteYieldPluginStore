@@ -1,8 +1,31 @@
 {
   "version": "1.0",
-  "updated_at": "2026-11-07T08:21:51.750749+00:00",
-  "total": 591,
+  "updated_at": "2026-11-16T11:42:33.844812+00:00",
+  "total": 592,
   "plugins": [
+    {
+      "id": "1571770452714594407",
+      "name": "newdex",
+      "author": "wyatt",
+      "date": "2026-11-16T06:14:38.010000+00:00",
+      "files": [
+        {
+          "filename": "newdex.iy",
+          "url": "plugins/1571770452714594407/newdex.iy",
+          "size": 415,
+          "is_plugin": true
+        },
+        {
+          "filename": "dex_showcase.mp4",
+          "url": "plugins/1571770452714594407/dex_showcase.mp4",
+          "size": 7851974,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": [
+        "https://raw.githubusercontent.com/wooxps/dex-explorer/main/loader.lua"
+      ]
+    },
     {
       "id": "1568523864114331690",
       "name": "VisualSay",
@@ -514,7 +537,7 @@
     {
       "id": "1537428294553833562",
       "name": "ServerDirectory",
-      "author": "Anti-Pops",
+      "author": "Pops",
       "date": "2026-08-13T11:51:09.458000+00:00",
       "files": [
         {
@@ -834,7 +857,7 @@
     {
       "id": "1519709774567178270",
       "name": "wfcp",
-      "author": "weapponofchoice",
+      "author": "weaponofchoice",
       "date": "2026-06-25T14:24:05.099000+00:00",
       "files": [
         {
@@ -914,7 +937,7 @@
     },
     {
       "id": "1514193210832846949",
-      "name": "savelogs, VoiceChatBypass, KeepIYImproved",
+      "name": "savelogs, VoiceChatBypass",
       "author": "! FurryBoy",
       "date": "2026-06-10T09:03:13.812000+00:00",
       "files": [
@@ -929,17 +952,9 @@
           "url": "plugins/1514193210832846949/VoiceChatBypass.iy",
           "size": 5397,
           "is_plugin": true
-        },
-        {
-          "filename": "KeepIYImproved.iy",
-          "url": "plugins/1514193210832846949/KeepIYImproved.iy",
-          "size": 1007,
-          "is_plugin": true
         }
       ],
-      "loadstring_urls": [
-        "https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"
-      ]
+      "loadstring_urls": []
     },
     {
       "id": "1513707869974036662",
@@ -1222,7 +1237,7 @@
     {
       "id": "1494806257230417920",
       "name": "wfcp",
-      "author": "weapponofchoice",
+      "author": "weaponofchoice",
       "date": "2026-04-17T21:06:23.881000+00:00",
       "files": [
         {
@@ -1282,7 +1297,7 @@
     {
       "id": "1494092382151643207",
       "name": "wfcp",
-      "author": "weapponofchoice",
+      "author": "weaponofchoice",
       "date": "2026-04-15T21:49:42.799000+00:00",
       "files": [
         {
@@ -1297,7 +1312,7 @@
     {
       "id": "1493739503507210392",
       "name": "Speedometer2",
-      "author": "weapponofchoice",
+      "author": "weaponofchoice",
       "date": "2026-04-14T22:27:29.974000+00:00",
       "files": [
         {
@@ -1327,7 +1342,7 @@
     {
       "id": "1493008413389619240",
       "name": "UselessFactNotification",
-      "author": "Anti-Pops",
+      "author": "Pops",
       "date": "2026-04-12T22:02:24.507000+00:00",
       "files": [
         {
@@ -1378,7 +1393,7 @@
     {
       "id": "1491640227675115601",
       "name": "aimbot",
-      "author": "weapponofchoice",
+      "author": "weaponofchoice",
       "date": "2026-04-09T03:25:43.613000+00:00",
       "files": [
         {
@@ -1465,7 +1480,7 @@
     {
       "id": "1489357763678310441",
       "name": "Speedometer",
-      "author": "weapponofchoice",
+      "author": "weaponofchoice",
       "date": "2026-04-02T20:16:01.790000+00:00",
       "files": [
         {
@@ -2610,7 +2625,7 @@
     {
       "id": "1334700625069473832",
       "name": "Inject",
-      "author": "libertar",
+      "author": "i$]cVo$tfw6,$+)",
       "date": "2025-01-31T01:43:46.555000+00:00",
       "files": [
         {
@@ -6447,7 +6462,7 @@
     {
       "id": "729894584263639051",
       "name": "Ninja_Legends_Best_Free_Hack",
-      "author": "mdlk",
+      "author": "LeVraiMDLK",
       "date": "2020-07-07T03:00:29.674000+00:00",
       "files": [
         {

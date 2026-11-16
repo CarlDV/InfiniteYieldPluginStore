@@ -1,0 +1,15 @@
+local plugin = {
+    PluginName = "ExplorerOverride",
+    PluginDescription = "",
+    Commands = {}
+}
+
+overridecmd("dex", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/wooxps/dex-explorer/main/loader.lua"))()
+end)
+
+overridecmd("explorer", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/wooxps/dex-explorer/main/loader.lua"))()
+end)
+
+return plugin
