@@ -1,12 +1,42 @@
 {
-  "scraped_at": "2026-11-16T11:42:33.829679+00:00",
+  "scraped_at": "2026-11-19T13:59:14.294648+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 592,
+  "total_plugins": 593,
   "plugins": [
+    {
+      "id": "1572969030967627806",
+      "name": "RemoveLighting",
+      "description": "# removelighting\nRemoves all lighting in the workspace cause <@1488040811986817067> said it would help with fullbright (fb)",
+      "author": {
+        "name": "totallyuhhh",
+        "username": "totallyuhhh",
+        "avatar": "https://cdn.discordapp.com/avatars/1261646599323521037/38f0ecbae4be464fcbcbfcc5df5f519c.png?size=1024"
+      },
+      "date": "2026-11-19T13:37:21.334000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1572969030967627806",
+      "files": [
+        {
+          "filename": "RemoveLighting.iy",
+          "url": "plugins/1572969030967627806/RemoveLighting.iy",
+          "size": 704,
+          "is_plugin": true
+        },
+        {
+          "filename": "Screenshot_20261119_203559_Roblox.jpg",
+          "url": "plugins/1572969030967627806/Screenshot_20261119_203559_Roblox.jpg",
+          "size": 239487,
+          "is_plugin": false
+        }
+      ],
+      "code_blocks": [],
+      "links": [],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1571770452714594407",
       "name": "newdex",
-      "description": "# Better Dex Explorer\n\nReplaces the dex and explorer commands with a new version of Dex featuring a redesigned UI, improved performance, and way more additional features",
+      "description": "# Better Dex Explorer\n\nReplaces the dex and explorer commands with a new version of Dex featuring a redesigned UI, improved performance, and way more additional features\n\nGithub: https://github.com/wooxps/dex-explorer",
       "author": {
         "name": "wyatt",
         "username": "an1thoxny.",
@@ -29,7 +59,9 @@
         }
       ],
       "code_blocks": [],
-      "links": [],
+      "links": [
+        "https://github.com/wooxps/dex-explorer"
+      ],
       "embeds": [],
       "loadstring_urls": [
         "https://raw.githubusercontent.com/wooxps/dex-explorer/main/loader.lua"
@@ -281,7 +313,7 @@
       "author": {
         "name": "Aureal",
         "username": "non.menthol.newports",
-        "avatar": "https://cdn.discordapp.com/avatars/1498977251134279900/0a7425d5e639b6e084d6afc08affd41c.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1498977251134279900/a2f8a5d62f421668608084077113ef2d.png?size=1024"
       },
       "date": "2026-10-25T18:38:08.625000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1563985030152200242",
@@ -1775,7 +1807,7 @@
       "author": {
         "name": "Equs",
         "username": "equsss",
-        "avatar": "https://cdn.discordapp.com/avatars/1243018736626176055/bc327cfab6a80ee60f07dc18cbc1e6f1.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/1243018736626176055/6309e38716a5aa9c250c451a32de531b.png?size=1024"
       },
       "date": "2026-05-29T19:36:31.848000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1510003931760033843",
@@ -4320,9 +4352,9 @@
       "name": "Inject",
       "description": "# ** Script Injector**\nA practical plugin for users who run multiple scripts, making Infinity Yield the central hub for all your injectables. No more manually organizing.\n## About the script \n- This script allows users to easily inject Lua scripts into their game.\n- To customize, replace the example URLs with your own scripts.\n### How to edit:\n 1. Find the 'script_template' table in the script.\n 2. Replace the example URLs with your own.\n 3. Add or remove commands as needed.",
       "author": {
-        "name": "i$]cVo$tfw6,$+)",
+        "name": "libertar",
         "username": "libertar",
-        "avatar": "https://cdn.discordapp.com/avatars/940240635456258069/d96121e570d640fcb302348c7084f764.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/940240635456258069/cdf176313a8efe3ae8e8cb0cc5175e47.png?size=1024"
       },
       "date": "2025-01-31T01:43:46.555000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1334700625069473832",
@@ -5074,7 +5106,7 @@
       "author": {
         "name": "Cielle",
         "username": "cielle_",
-        "avatar": "https://cdn.discordapp.com/avatars/821821188103602287/f74ceb1427bcc8bf41a8aedf77abe91e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/821821188103602287/e2bca259c0179b57612d8d98a4ca879d.png?size=1024"
       },
       "date": "2023-08-03T19:24:14.553000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1136741337752944714",
@@ -5100,7 +5132,7 @@
       "author": {
         "name": "Cielle",
         "username": "cielle_",
-        "avatar": "https://cdn.discordapp.com/avatars/821821188103602287/f74ceb1427bcc8bf41a8aedf77abe91e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/821821188103602287/e2bca259c0179b57612d8d98a4ca879d.png?size=1024"
       },
       "date": "2023-08-02T18:57:23.751000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1136372193694068787",
@@ -6704,7 +6736,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6afbf672&is=6afaa4f2&hm=f5d65def18d3cdba9b7314933cf339e110847aa128a96085a79f612ca50f2f17&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6affeaf2&is=6afe9972&hm=4d659da8710f6e46e49609c887a11e90334801685314b65456f494ce9bfaf2d3&"
           },
           "image": null,
           "video": null
@@ -6718,7 +6750,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6afbf689&is=6afaa509&hm=eaf86cd577b84fd7fbe8f879d1d8b293f91932f87da6de37e50b35ec7c796193&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6affeb09&is=6afe9989&hm=cb8bbd46f8bf6838bab214377a3764b5fad0a214f7008172fc4506bc3e69db35&"
           },
           "image": null,
           "video": null
@@ -7581,7 +7613,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6afbf672&is=6afaa4f2&hm=f5d65def18d3cdba9b7314933cf339e110847aa128a96085a79f612ca50f2f17&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574488498585610/25_23_38_12_oIiMlISm.gif?ex=6affeaf2&is=6afe9972&hm=4d659da8710f6e46e49609c887a11e90334801685314b65456f494ce9bfaf2d3&"
           },
           "image": null,
           "video": null
@@ -7595,7 +7627,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6afbf689&is=6afaa509&hm=eaf86cd577b84fd7fbe8f879d1d8b293f91932f87da6de37e50b35ec7c796193&"
+            "url": "https://media.discordapp.net/attachments/890082640307298334/891574583205957642/25_23_38_51_lZCNfjSB.gif?ex=6affeb09&is=6afe9989&hm=cb8bbd46f8bf6838bab214377a3764b5fad0a214f7008172fc4506bc3e69db35&"
           },
           "image": null,
           "video": null
@@ -8968,7 +9000,7 @@
           "provider": null,
           "author": null,
           "thumbnail": {
-            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6afbc825&is=6afa76a5&hm=cf5ff96c73aec995c2a37f14e6c3781a3779c417a7e42f18f6d25edda5dba27b&"
+            "url": "https://media.discordapp.net/attachments/743950171121123469/791143332356685824/unknown.png?ex=6affbca5&is=6afe6b25&hm=14a22b9386687abec64b114b4fba2220881057f92161e2a4eced19c0089a6937&"
           },
           "image": null,
           "video": null
@@ -9730,7 +9762,7 @@
       "author": {
         "name": "sevie",
         "username": "sehvie",
-        "avatar": "https://cdn.discordapp.com/avatars/763528086271557643/87b2e5353a7cfe2842a151111d2b411e.png?size=1024"
+        "avatar": "https://cdn.discordapp.com/avatars/763528086271557643/988b0e75b86ee75cb6c4b6e633259fa7.png?size=1024"
       },
       "date": "2020-10-31T19:29:06.615000+00:00",
       "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/772180369956012084",

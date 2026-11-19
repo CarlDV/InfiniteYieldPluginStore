@@ -1,0 +1,28 @@
+local Players = game:GetService("Players")
+local wrkspace = game:GetService("Workspace")
+
+local function removealllighting()
+    for _, v in ipairs(wrkspace:GetDescendants()) do
+        if v:IsA("Lighting") or v:IsA("Beam") or v:IsA("SpotLight") or v:IsA("SurfaceLight") or v:IsA("PointLight") then
+            v:Destroy()
+        end
+    end
+end
+    
+
+local Plugin = {
+	["PluginName"] = "Remove All Lightings",
+	["PluginDescription"] = "Suggested by @Agnt",
+	["Commands"] = {
+		["RemoveLight"] = {
+			["ListName"] = "removelighting/rl",
+			["Description"] = "Removes all lighting",
+			["Aliases"] = {"rl"},
+			["Function"] = function(args, speaker)
+			 removealllighting()
+			end
+		}
+	}
+}
+
+return Plugin

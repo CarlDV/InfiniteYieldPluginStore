@@ -1,8 +1,29 @@
 {
   "version": "1.0",
-  "updated_at": "2026-11-16T11:42:33.844812+00:00",
-  "total": 592,
+  "updated_at": "2026-11-19T13:59:14.309496+00:00",
+  "total": 593,
   "plugins": [
+    {
+      "id": "1572969030967627806",
+      "name": "RemoveLighting",
+      "author": "totallyuhhh",
+      "date": "2026-11-19T13:37:21.334000+00:00",
+      "files": [
+        {
+          "filename": "RemoveLighting.iy",
+          "url": "plugins/1572969030967627806/RemoveLighting.iy",
+          "size": 704,
+          "is_plugin": true
+        },
+        {
+          "filename": "Screenshot_20261119_203559_Roblox.jpg",
+          "url": "plugins/1572969030967627806/Screenshot_20261119_203559_Roblox.jpg",
+          "size": 239487,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1571770452714594407",
       "name": "newdex",
@@ -2625,7 +2646,7 @@
     {
       "id": "1334700625069473832",
       "name": "Inject",
-      "author": "i$]cVo$tfw6,$+)",
+      "author": "libertar",
       "date": "2025-01-31T01:43:46.555000+00:00",
       "files": [
         {
