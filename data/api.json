@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-11-19T13:59:14.309496+00:00",
-  "total": 593,
+  "updated_at": "2026-11-23T20:00:39.687539+00:00",
+  "total": 594,
   "plugins": [
+    {
+      "id": "1574460312764284959",
+      "name": "ExecInfo",
+      "author": "ts2021",
+      "date": "2026-11-23T16:23:10.621000+00:00",
+      "files": [
+        {
+          "filename": "ExecInfo.iy",
+          "url": "plugins/1574460312764284959/ExecInfo.iy",
+          "size": 4708,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1572969030967627806",
       "name": "RemoveLighting",
@@ -2646,7 +2661,7 @@
     {
       "id": "1334700625069473832",
       "name": "Inject",
-      "author": "libertar",
+      "author": "7hl&1k9x>m^5z4b",
       "date": "2025-01-31T01:43:46.555000+00:00",
       "files": [
         {
@@ -3051,7 +3066,7 @@
     {
       "id": "1153550910342037534",
       "name": "AnimationSpeed",
-      "author": "drako",
+      "author": "drakotried",
       "date": "2023-09-19T04:39:28.965000+00:00",
       "files": [
         {
@@ -3357,7 +3372,7 @@
     {
       "id": "1071861478258389012",
       "name": "meme",
-      "author": "> Adviidka",
+      "author": "Chiho",
       "date": "2023-02-05T18:34:50.640000+00:00",
       "files": [
         {
@@ -6483,7 +6498,7 @@
     {
       "id": "729894584263639051",
       "name": "Ninja_Legends_Best_Free_Hack",
-      "author": "LeVraiMDLK",
+      "author": "mdlk05",
       "date": "2020-07-07T03:00:29.674000+00:00",
       "files": [
         {

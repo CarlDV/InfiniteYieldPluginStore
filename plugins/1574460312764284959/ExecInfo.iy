@@ -1,0 +1,133 @@
+
+local function print_table(tbl, indent)
+    indent = indent or 0
+    local spacing = string.rep("  ", indent)
+    
+    for k, v in pairs(tbl) do
+        if type(v) == "table" then
+            print(string.format("%s[%s] = {", spacing, tostring(k)))
+            print_table(v, indent + 1)
+            print(string.format("%s}", spacing))
+        else
+            print(string.format("%s[%s] = %s (%s)", spacing, tostring(k), tostring(v), type(v)))
+        end
+    end
+end
+
+local function exec_reader(arg1, arg2)
+    local name, version = identifyexecutor()
+    local ise = name and (version and (name .. " " .. version) or name) or "Unknown Executor"
+    local nname = name
+    local rawd = false
+
+    if arg2 then
+        nname = arg1
+        rawd = parseBoolean(arg2) or false
+    elseif arg1 then
+        local check = parseBoolean(arg1, "Epstein")
+        if check ~= "Epstein" then
+            rawd = check
+        else
+            nname = arg1
+        end
+    end
+
+    if not httprequest then 
+        warn("[ExecInfo] httprequest is not supported by your executor.")
+        return notify("Executor Info", ise) 
+    end
+
+    task.spawn(function()
+        local foundex = nil
+        local statusText = "Unknown"
+        local suncText = "Unknown"
+        local safetyText = "Unknown"
+
+        local success, err = pcall(function()
+            local response = httprequest({
+                Url = "https://weao.xyz/api/status/exploits",
+                Method = "GET",
+                Headers = {
+                    ["User-Agent"] = "WEAO-3PService",
+                    ["Accept"] = "application/json"
+                }
+            })
+
+            if not response then
+                error("No response returned from httprequest")
+            elseif response.StatusCode ~= 200 then
+                error("HTTP Status " .. tostring(response.StatusCode) .. ": " .. tostring(response.Body))
+            end
+
+            local data = HttpService:JSONDecode(response.Body)
+            local target = string.lower(nname or "")
+            
+            if type(data) == "table" and target ~= "" then
+                local matchedRecord = nil
+
+                for _, exploit in pairs(data) do
+                    if type(exploit) == "table" and exploit.title and string.lower(exploit.title) == target then
+                        matchedRecord = exploit
+                        break
+                    end
+                end
+
+                if not matchedRecord then
+                    for _, exploit in pairs(data) do
+                        if type(exploit) == "table" and exploit.title then
+                            local titleLower = string.lower(exploit.title)
+                            if string.find(titleLower, target, 1, true) or string.find(target, titleLower, 1, true) then
+                                matchedRecord = exploit
+                                break
+                            end
+                        end
+                    end
+                end
+
+                if matchedRecord then
+                    foundex = matchedRecord.title
+                    statusText = matchedRecord.updateStatus and "Updated" or "Outdated/Updating"
+                    suncText = matchedRecord.suncPercentage and (tostring(matchedRecord.suncPercentage) .. "%") or "N/A"
+                    safetyText = matchedRecord.detected and "Detected" or "Undetected"
+                    
+                    if rawd then
+                        print("====== [WEAO RAW DATABASE RECORD] ======")
+                        print_table(matchedRecord)
+                        print("========================================")
+                    end
+                end
+            end
+        end)
+
+        if not success then
+            warn("[ExecInfo Error]:", err)
+        end
+
+        if success and foundex then
+            task.wait(0.5)
+            notify(
+                "WEAO Network Status for " .. foundex, 
+                string.format("• Status: %s\n• sUNC: %s\n• Detection: %s", statusText, suncText, safetyText)
+            )
+        else
+            notify("Executor Info", ise)
+        end
+    end)
+end
+
+local Plugin = {
+    ["PluginName"] = "ExecInfo",
+    ["PluginDescription"] = "Gives information about an executor.",
+    ["Commands"] = {
+        ["execinfo"] = {
+            ["ListName"] = "execinfo [name] [raw: true/false]",
+            ["Description"] = "Gives info about an executor. If true, prints all WEAO data to console.",
+            ["Aliases"] = {'identifyexec', 'iexec', 'identifyexecutor', 'expinfo', 'exploitinfo'},
+            ["Function"] = function(args, speaker)
+exec_reader(args[1], args[2])
+            end
+        }
+    }
+}
+
+return Plugin
