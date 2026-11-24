@@ -1,8 +1,36 @@
 {
-  "scraped_at": "2026-11-23T20:00:39.665759+00:00",
+  "scraped_at": "2026-11-24T02:21:38.274504+00:00",
   "channel_id": "551846012310782014",
-  "total_plugins": 594,
+  "total_plugins": 595,
   "plugins": [
+    {
+      "id": "1574567346226593883",
+      "name": "bbinds",
+      "description": "BBinds — Update Log\nVersion 1.0 → 2.0\n\n1.0 Version:  https://discord.com/channels/503045718102114305/551846012310782014/1342104008273170522\n\n## New Features\n\n- Edit BBind: Open the editing window by clicking a button (without dragging) in Edit Mode, or using the Edit option in the button list.\n- Customizable content: Edit the button text, command and secondary command.\n- Toggle support: Leave the secondary command empty to disable toggle functionality.\n- Individual button sizing: Set each button's size independently (30–250px).\n- Quick resizing: Use \"-\" / \"+\" buttons (10px increments) or enter a custom value.\n- Auto-save: Changes are automatically saved when closing the edit window.\n- Create window: Added a new \"Button Size\" field.\n- Default size: 50px.\n\n## Improvements\n\n- Collision system: Buttons can no longer overlap and will slide around each other.\n- Screen boundaries: Buttons can no longer be dragged outside the screen.\n- General fixes: A lot of fixes and improvements 😭\n\n## New Commands\n\n```diff\n+ ;enablebbind (alias: bbind, enablebb) — Show BBinds\n+ ;disablebbind (alias: unbbind, disablebb) — Hide BBinds\n+ ;bbindeditmode (aliases: bbindedit, bbeditmode) — Toggle Edit Mode (also shows BBinds)```",
+      "author": {
+        "name": "Oteb",
+        "username": "roberto35365",
+        "avatar": "https://cdn.discordapp.com/avatars/959676873535782983/bceb309a5671fff1aa95986926098100.png?size=1024"
+      },
+      "date": "2026-11-23T23:28:29.387000+00:00",
+      "message_url": "https://discord.com/channels/503045718102114305/551846012310782014/1574567346226593883",
+      "files": [
+        {
+          "filename": "bbinds.iy",
+          "url": "plugins/1574567346226593883/bbinds.iy",
+          "size": 32731,
+          "is_plugin": true
+        }
+      ],
+      "code_blocks": [
+        "diff\n+ ;enablebbind (alias: bbind, enablebb) — Show BBinds\n+ ;disablebbind (alias: unbbind, disablebb) — Hide BBinds\n+ ;bbindeditmode (aliases: bbindedit, bbeditmode) — Toggle Edit Mode (also shows BBinds)"
+      ],
+      "links": [
+        "https://discord.com/channels/503045718102114305/551846012310782014/1342104008273170522"
+      ],
+      "embeds": [],
+      "loadstring_urls": []
+    },
     {
       "id": "1574460312764284959",
       "name": "ExecInfo",

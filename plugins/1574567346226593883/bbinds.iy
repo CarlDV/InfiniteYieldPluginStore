@@ -1,0 +1,1111 @@
+-- // Configuration
+local Config = {
+    DefaultButtonSize = 50,
+    MinimumButtonSize = 30,
+    MaximumButtonSize = 250,
+
+    ResizeStep = 10,
+    DragThreshold = 6,
+    CollisionTolerance = 0.01,
+
+    TextScaled = true,
+    TextSize = 50
+}
+
+-- // States
+local Buttons = {}
+local ListEntries = {}
+
+local IsEditing = false
+local IsCreatingToggle = false
+local IsCreationWindowOpen = false
+
+local ActiveDrag
+
+local EditTarget
+local EditDirty = false
+
+local OpenEditWindow, CloseEditWindow
+
+-- // Helpers
+local function Trim(Value)
+    return (string.gsub(Value, '^%s*(.-)%s*$', '%1'))
+end
+
+local function IsFilledString(Value)
+    return typeof(Value) == 'string' and Trim(Value) ~= ''
+end
+
+local function ClampPosition(X, Y)
+    return math.clamp(tonumber(X) or 0.05, 0, 1), math.clamp(tonumber(Y) or 0.05, 0, 1)
+end
+
+local function NormalizeSize(Value)
+    local Size = tonumber(Value) or Config.DefaultButtonSize
+
+    return math.clamp(math.floor(Size + 0.5), Config.MinimumButtonSize, Config.MaximumButtonSize)
+end
+
+local function RegisterTheme(Object, ShadeGroup, TextGroup)
+    if ShadeGroup then
+        table.insert(ShadeGroup, Object)
+    end
+
+    if TextGroup then
+        table.insert(TextGroup, Object)
+    end
+end
+
+local function UnregisterTheme(Object)
+    for _, Group in ipairs({shade1, shade2, shade3, text1, text2}) do
+        for Index = #Group, 1, -1 do
+            if Group[Index] == Object then
+                table.remove(Group, Index)
+            end
+        end
+    end
+end
+
+local function DestroyInstance(Object)
+    if not Object then
+        return
+    end
+
+    for _, Descendant in ipairs(Object:GetDescendants()) do
+        UnregisterTheme(Descendant)
+    end
+
+    UnregisterTheme(Object)
+    Object:Destroy()
+end
+
+local function IsValidButton(Data)
+    return typeof(Data) == 'table'
+        and IsFilledString(Data.text)
+        and IsFilledString(Data.cmd)
+        and (Data.cmd2 == nil or IsFilledString(Data.cmd2))
+        and typeof(Data.pos) == 'table'
+        and typeof(Data.pos[1]) == 'number'
+        and typeof(Data.pos[2]) == 'number'
+        and (Data.size == nil or typeof(Data.size) == 'number')
+end
+
+local function GetViewportSize()
+    local Camera = workspace.CurrentCamera
+
+    return Camera and Camera.ViewportSize or Vector2.new(1920, 1080)
+end
+
+local function FitPosition(Position, Size)
+    local Viewport = GetViewportSize()
+
+    local X, Y = ClampPosition(Position[1], Position[2])
+
+    return {
+        math.min(X, math.max(0, Viewport.X - Size) / math.max(Viewport.X, 1)),
+        math.min(Y, math.max(0, Viewport.Y - Size) / math.max(Viewport.Y, 1))
+    }
+end
+
+-- // Collision
+local function ToPixels(Position)
+    local Viewport = GetViewportSize()
+
+    return Vector2.new(Position[1] * Viewport.X, Position[2] * Viewport.Y)
+end
+
+local function ToScale(Position)
+    local Viewport = GetViewportSize()
+
+    return {Position.X / math.max(Viewport.X, 1), Position.Y / math.max(Viewport.Y, 1)}
+end
+
+local function IsColliding(Ignore, Position, Size)
+    for _, Other in ipairs(Buttons) do
+        if Other ~= Ignore then
+            local OtherPosition = ToPixels(Other.Position)
+
+            if Position.X + Size > OtherPosition.X + Config.CollisionTolerance
+                and OtherPosition.X + Other.Size > Position.X + Config.CollisionTolerance
+                and Position.Y + Size > OtherPosition.Y + Config.CollisionTolerance
+                and OtherPosition.Y + Other.Size > Position.Y + Config.CollisionTolerance then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+local function MoveAlong(Data, Axis, Position, Target)
+    local Cross = Axis == 'X' and 'Y' or 'X'
+    local Result = Target
+
+    for _, Other in ipairs(Buttons) do
+        if Other ~= Data then
+            local OtherPosition = ToPixels(Other.Position)
+
+            local IsInLane = Position[Cross] + Data.Size > OtherPosition[Cross] + Config.CollisionTolerance
+                and OtherPosition[Cross] + Other.Size > Position[Cross] + Config.CollisionTolerance
+
+            if IsInLane then
+                if Target > Position[Axis] and OtherPosition[Axis] >= Position[Axis] + Data.Size - Config.CollisionTolerance then
+                    Result = math.min(Result, OtherPosition[Axis] - Data.Size)
+                elseif Target < Position[Axis] and OtherPosition[Axis] + Other.Size <= Position[Axis] + Config.CollisionTolerance then
+                    Result = math.max(Result, OtherPosition[Axis] + Other.Size)
+                end
+            end
+        end
+    end
+
+    return Result
+end
+
+local function FindFreePosition(Data)
+    local Viewport = GetViewportSize()
+    local Desired = ToPixels(Data.Position)
+
+    local MaximumX = math.max(0, Viewport.X - Data.Size) + Config.CollisionTolerance
+    local MaximumY = math.max(0, Viewport.Y - Data.Size) + Config.CollisionTolerance
+
+    local XCandidates = {0, Desired.X}
+    local YCandidates = {0, Desired.Y}
+
+    for _, Other in ipairs(Buttons) do
+        local OtherPosition = ToPixels(Other.Position)
+
+        table.insert(XCandidates, OtherPosition.X + Other.Size)
+        table.insert(YCandidates, OtherPosition.Y + Other.Size)
+    end
+
+    local Best
+    local BestDistance = math.huge
+
+    for _, X in ipairs(XCandidates) do
+        for _, Y in ipairs(YCandidates) do
+            local Candidate = Vector2.new(X, Y)
+            local Distance = (Candidate - Desired).Magnitude
+
+            if X <= MaximumX and Y <= MaximumY and Distance < BestDistance and not IsColliding(Data, Candidate, Data.Size) then
+                Best, BestDistance = Candidate, Distance
+            end
+        end
+    end
+
+    return Best
+end
+
+local function PlaceButton(Data)
+    Data.Position = FitPosition(Data.Position, Data.Size)
+
+    local Free = FindFreePosition(Data)
+
+    if Free then
+        Data.Position = ToScale(Free)
+    end
+end
+
+local function FindFreeSize(Data, Requested)
+    for Size = Requested, Data.Size + 1, -1 do
+        local Position = FitPosition(Data.Position, Size)
+
+        if not IsColliding(Data, ToPixels(Position), Size) then
+            return Size, Position
+        end
+    end
+
+    return math.min(Requested, Data.Size), Data.Position
+end
+
+-- // Files
+local function SerializeButtons()
+    local Saved = {}
+
+    for _, Data in ipairs(Buttons) do
+        local X, Y = ClampPosition(Data.Position[1], Data.Position[2])
+
+        Saved[#Saved + 1] = {
+            text = Data.Text,
+            cmd = Data.Command,
+            cmd2 = Data.SecondCommand,
+            pos = {X, Y},
+            size = NormalizeSize(Data.Size)
+        }
+    end
+
+    return Saved
+end
+
+local function SaveButtons()
+    if type(writefile) ~= 'function' then
+        notify('BBinds', 'This executor does not support file writing')
+
+        return false
+    end
+
+    local EncodeSuccess, EncodedData = pcall(function()
+        return HttpService:JSONEncode(SerializeButtons())
+    end)
+
+    if not EncodeSuccess then
+        warn('[BBinds] JSON encoding failed: ' .. tostring(EncodedData))
+        notify('BBinds', 'Failed to encode button binds')
+
+        return false
+    end
+
+    local WriteSuccess, WriteResult, WriteError = pcall(writefile, 'IY_BBINDS', EncodedData)
+
+    if not WriteSuccess or WriteResult == false then
+        warn('[BBinds] File write failed: ' .. tostring(WriteSuccess and WriteError or WriteResult))
+        notify('BBinds', 'Failed to save button binds')
+
+        return false
+    end
+
+    return true
+end
+
+local function LoadButtons()
+    if type(isfile) ~= 'function' or type(readfile) ~= 'function' then
+        return {}
+    end
+
+    local ExistsSuccess, FileExists = pcall(isfile, 'IY_BBINDS')
+
+    if not ExistsSuccess or not FileExists then
+        return {}
+    end
+
+    local ReadSuccess, RawData, ReadError = pcall(readfile, 'IY_BBINDS')
+
+    if not ReadSuccess or RawData == false or typeof(RawData) ~= 'string' then
+        warn('[BBinds] File read failed: ' .. tostring(ReadError or RawData))
+        notify('BBinds', 'Failed to read saved button binds')
+
+        return {}
+    end
+
+    local DecodeSuccess, DecodedData = pcall(function()
+        return HttpService:JSONDecode(RawData)
+    end)
+
+    if not DecodeSuccess or typeof(DecodedData) ~= 'table' then
+        warn('[BBinds] Invalid JSON in IY_BBINDS: ' .. tostring(DecodedData))
+        notify('BBinds', 'The saved button binds file is invalid or corrupted')
+
+        return {}
+    end
+
+    local ValidButtons = {}
+    local InvalidCount = 0
+
+    for _, Data in ipairs(DecodedData) do
+        if IsValidButton(Data) then
+            local X, Y = ClampPosition(Data.pos[1], Data.pos[2])
+
+            ValidButtons[#ValidButtons + 1] = {
+                Text = Trim(Data.text),
+                Command = Trim(Data.cmd),
+                SecondCommand = Data.cmd2 and Trim(Data.cmd2) or nil,
+                Position = {X, Y},
+                Size = NormalizeSize(Data.size)
+            }
+        else
+            InvalidCount += 1
+        end
+    end
+
+    if InvalidCount > 0 then
+        notify('BBinds', `Skipped {InvalidCount} invalid bind(s)`)
+    end
+
+    return ValidButtons
+end
+
+-- // Settings Entry
+SettingsHolder.CanvasSize = UDim2.fromOffset(0, 265)
+
+local SettingsButton = makeSettingsButton('Edit BBinds', 'rbxassetid://129697930')
+SettingsButton.Name = 'BBinds'
+SettingsButton.Position = UDim2.new(0, 5, 0, 235)
+SettingsButton.Size = UDim2.new(1, -10, 0, 25)
+SettingsButton.Parent = SettingsHolder
+SettingsButton.BackgroundColor3 = currentShade2
+SettingsButton.ButtonLabel.TextColor3 = currentText1
+
+-- // Management Window
+local ManagementFrame = Instance.new('Frame')
+ManagementFrame.Name = 'BBindsFrame'
+ManagementFrame.Parent = Settings
+ManagementFrame.Active = true
+ManagementFrame.BackgroundColor3 = currentShade1
+ManagementFrame.BorderSizePixel = 0
+ManagementFrame.Position = UDim2.fromOffset(0, 175)
+ManagementFrame.Size = UDim2.fromOffset(250, 175)
+ManagementFrame.ZIndex = 10
+
+RegisterTheme(ManagementFrame, shade1)
+
+local function CreateTextButton(Parent, Name, Text, Position, Size, BackgroundColor, TextColor, ShadeGroup, TextGroup)
+    local Button = Instance.new('TextButton')
+    Button.Name = Name
+    Button.Parent = Parent
+    Button.BackgroundColor3 = BackgroundColor
+    Button.BorderSizePixel = 0
+    Button.Position = Position
+    Button.Size = Size
+    Button.Font = Enum.Font.SourceSans
+    Button.TextSize = 14
+    Button.Text = Text
+    Button.TextColor3 = TextColor
+    Button.ZIndex = 10
+
+    RegisterTheme(Button, ShadeGroup or shade2, TextGroup or text1)
+
+    return Button
+end
+
+local CloseButton = CreateTextButton(ManagementFrame, 'Close', 'Close', UDim2.fromOffset(205, 150), UDim2.fromOffset(40, 20), currentShade2, currentText1)
+
+local AddButton = CreateTextButton(ManagementFrame, 'Add', 'Add', UDim2.fromOffset(5, 150), UDim2.fromOffset(40, 20), currentShade2, currentText1)
+
+local EditButton = CreateTextButton(ManagementFrame, 'Edit', 'Edit mode', UDim2.fromOffset(95, 150), UDim2.fromOffset(70, 20), currentShade2, currentText1)
+
+local ClearButton = CreateTextButton(ManagementFrame, 'Clear', 'Clear', UDim2.fromOffset(50, 150), UDim2.fromOffset(40, 20), currentShade2, currentText1)
+
+-- // Bind List
+local ListFrame = Instance.new('ScrollingFrame')
+ListFrame.Name = 'Holder'
+ListFrame.Parent = ManagementFrame
+ListFrame.BackgroundTransparency = 1
+ListFrame.BorderSizePixel = 0
+ListFrame.Position = UDim2.fromOffset(0, 0)
+ListFrame.Size = UDim2.fromOffset(250, 145)
+ListFrame.ScrollBarImageColor3 = currentScroll
+ListFrame.BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png'
+ListFrame.CanvasSize = UDim2.fromOffset(0, 0)
+ListFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+ListFrame.MidImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png'
+ListFrame.ScrollBarThickness = 0
+ListFrame.TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png'
+ListFrame.VerticalScrollBarInset = Enum.ScrollBarInset.Always
+ListFrame.ZIndex = 10
+
+table.insert(scroll, ListFrame)
+
+local ListLayout = Instance.new('UIListLayout')
+ListLayout.Parent = ListFrame
+ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+ListLayout.Padding = UDim.new(0, 5)
+
+local function ClearListEntries()
+    for _, Entry in ipairs(ListEntries) do
+        DestroyInstance(Entry)
+    end
+
+    table.clear(ListEntries)
+end
+
+local function RefreshButtons()
+    ClearListEntries()
+
+    for Index, Data in ipairs(Buttons) do
+        local Entry = Instance.new('Frame')
+        Entry.Name = 'BBindEntry'
+        Entry.Parent = ListFrame
+        Entry.BackgroundColor3 = currentShade2
+        Entry.BorderSizePixel = 0
+        Entry.LayoutOrder = Index
+        Entry.Size = UDim2.new(1, -5, 0, 20)
+        Entry.ZIndex = 10
+
+        RegisterTheme(Entry, shade2)
+
+        local EntryText = Instance.new('TextLabel')
+        EntryText.Name = 'Text'
+        EntryText.Parent = Entry
+        EntryText.BackgroundTransparency = 1
+        EntryText.Position = UDim2.fromOffset(5, 0)
+        EntryText.Size = UDim2.new(1, -68, 1, 0)
+        EntryText.Font = Enum.Font.SourceSans
+        EntryText.Text = `{Data.Text} > {Data.Command}{(Data.SecondCommand and ' / ' .. Data.SecondCommand) or ''} [{Data.Size}px]`
+        EntryText.TextColor3 = currentText1
+        EntryText.TextSize = 14
+        EntryText.TextTruncate = Enum.TextTruncate.AtEnd
+        EntryText.TextXAlignment = Enum.TextXAlignment.Left
+        EntryText.ZIndex = 10
+
+        RegisterTheme(EntryText, nil, text1)
+
+        local EditEntryButton = CreateTextButton(Entry, 'Edit', 'Edit', UDim2.new(1, -58, 0, 0), UDim2.fromOffset(30, 20), currentShade3, currentText2, shade3, text2)
+
+        local DeleteButton = CreateTextButton(Entry, 'Delete', 'X', UDim2.new(1, -25, 0, 0), UDim2.fromOffset(20, 20), currentShade3, currentText2, shade3, text2)
+
+        EditEntryButton.Activated:Connect(function()
+            OpenEditWindow(Data)
+        end)
+
+        DeleteButton.Activated:Connect(function()
+            local ButtonIndex = table.find(Buttons, Data)
+
+            if not ButtonIndex then
+                return
+            end
+
+            if EditTarget == Data then
+                CloseEditWindow()
+            end
+
+            DestroyInstance(Data.Gui)
+
+            table.remove(Buttons, ButtonIndex)
+
+            RefreshButtons()
+            SaveButtons()
+
+            notify('BBinds', `The BBind {Data.Text} has been removed`)
+        end)
+
+        ListEntries[#ListEntries + 1] = Entry
+    end
+end
+
+local function RemoveAllButtons()
+    CloseEditWindow()
+
+    for _, Data in ipairs(Buttons) do
+        DestroyInstance(Data.Gui)
+        Data.Gui = nil
+    end
+
+    table.clear(Buttons)
+
+    RefreshButtons()
+    SaveButtons()
+end
+
+-- // Windows
+local ScreenGui = Instance.new('ScreenGui', PARENT)
+ScreenGui.Name = 'BBinds'
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+
+local function CreateWindow(Name, Title, Width, Height)
+    local Gui = Instance.new('Frame')
+    Gui.Name = Name
+    Gui.Parent = ScreenGui
+    Gui.Active = true
+    Gui.BackgroundTransparency = 1
+    Gui.Position = UDim2.new(0.5, -Width / 2, 0, -500)
+    Gui.Size = UDim2.fromOffset(Width, 20)
+    Gui.ZIndex = 10
+
+    dragGUI(Gui)
+
+    local Background = Instance.new('Frame')
+    Background.Name = 'Background'
+    Background.Parent = Gui
+    Background.Active = true
+    Background.BackgroundColor3 = currentShade1
+    Background.BorderSizePixel = 0
+    Background.Position = UDim2.fromOffset(0, 20)
+    Background.Size = UDim2.fromOffset(Width, Height)
+    Background.ZIndex = 10
+
+    RegisterTheme(Background, shade1)
+
+    local TitleBar = Instance.new('Frame')
+    TitleBar.Name = 'Title'
+    TitleBar.Parent = Gui
+    TitleBar.BackgroundColor3 = currentShade2
+    TitleBar.BorderSizePixel = 0
+    TitleBar.Size = UDim2.fromOffset(Width, 20)
+    TitleBar.ZIndex = 10
+
+    RegisterTheme(TitleBar, shade2)
+
+    local TitleText = Instance.new('TextLabel')
+    TitleText.Name = 'Text'
+    TitleText.Parent = TitleBar
+    TitleText.BackgroundTransparency = 1
+    TitleText.Size = UDim2.new(1, -25, 1, 0)
+    TitleText.Font = Enum.Font.SourceSans
+    TitleText.Text = Title
+    TitleText.TextColor3 = currentText1
+    TitleText.TextSize = 14
+    TitleText.ZIndex = 10
+
+    RegisterTheme(TitleText, nil, text1)
+
+    local WindowClose = Instance.new('TextButton')
+    WindowClose.Name = 'Close'
+    WindowClose.Parent = TitleBar
+    WindowClose.BackgroundTransparency = 1
+    WindowClose.Position = UDim2.new(1, -20, 0, 0)
+    WindowClose.Size = UDim2.fromOffset(20, 20)
+    WindowClose.ZIndex = 10
+    WindowClose.Text = ''
+
+    local CloseIcon = Instance.new('ImageLabel')
+    CloseIcon.Name = 'Icon'
+    CloseIcon.Parent = WindowClose
+    CloseIcon.BackgroundTransparency = 1
+    CloseIcon.Position = UDim2.fromOffset(5, 5)
+    CloseIcon.Size = UDim2.fromOffset(10, 10)
+    CloseIcon.ZIndex = 10
+    CloseIcon.Image = 'rbxassetid://5054663650'
+
+    return Gui, Background, WindowClose
+end
+
+local function SlideWindow(Gui, IsVisible)
+    Gui:TweenPosition(UDim2.new(0.5, -Gui.Size.X.Offset / 2, 0, IsVisible and 100 or -500), 'InOut', 'Quart', 0.5, true)
+end
+
+local function CreateInput(Parent, Name, Placeholder, Position, Size)
+    local Holder = Instance.new('Frame')
+    Holder.Name = Name .. 'Holder'
+    Holder.Parent = Parent
+    Holder.BackgroundColor3 = currentShade2
+    Holder.BorderSizePixel = 0
+    Holder.ClipsDescendants = true
+    Holder.Position = Position
+    Holder.Size = Size
+    Holder.ZIndex = 10
+
+    RegisterTheme(Holder, shade2)
+
+    local Input = Instance.new('TextBox')
+    Input.Name = Name
+    Input.Parent = Holder
+    Input.BackgroundTransparency = 1
+    Input.BorderSizePixel = 0
+    Input.Position = UDim2.fromOffset(2, 0)
+    Input.Size = UDim2.new(1, -8, 1, 0)
+    Input.ZIndex = 10
+    Input.Font = Enum.Font.SourceSans
+    Input.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+    Input.PlaceholderText = Placeholder
+    Input.Text = ''
+    Input.TextColor3 = currentText1
+    Input.TextSize = 14
+    Input.TextXAlignment = Enum.TextXAlignment.Left
+
+    RegisterTheme(Input, nil, text1)
+
+    return Input, Holder
+end
+
+-- // Creation Window
+local CreationGui, CreationBackground, CreationClose = CreateWindow('BBindsGui', 'Set BBinds', 220, 165)
+
+local TextInput = CreateInput(CreationBackground, 'Text', 'Button text', UDim2.fromOffset(10, 10), UDim2.fromOffset(200, 20))
+
+local CommandInput = CreateInput(CreationBackground, 'Command', 'Command', UDim2.fromOffset(10, 65), UDim2.fromOffset(150, 20))
+
+local SecondCommandInput, SecondCommandHolder = CreateInput(CreationBackground, 'Command2', 'Command 2', UDim2.fromOffset(10, 90), UDim2.fromOffset(150, 20))
+
+local SizeInput = CreateInput(
+    CreationBackground,
+    'ButtonSize',
+    `Button size ({Config.MinimumButtonSize}-{Config.MaximumButtonSize}px)`,
+    UDim2.fromOffset(10, 115),
+    UDim2.fromOffset(150, 20)
+)
+
+SecondCommandHolder.Visible = false
+
+local ToggleLabel = Instance.new('TextLabel')
+ToggleLabel.Name = 'CreateToggle'
+ToggleLabel.Parent = CreationBackground
+ToggleLabel.BackgroundTransparency = 1
+ToggleLabel.BorderSizePixel = 0
+ToggleLabel.Position = UDim2.fromOffset(10, 40)
+ToggleLabel.Size = UDim2.fromOffset(198, 20)
+ToggleLabel.ZIndex = 10
+ToggleLabel.Font = Enum.Font.SourceSans
+ToggleLabel.Text = 'Create Toggle'
+ToggleLabel.TextColor3 = currentText1
+ToggleLabel.TextSize = 14
+ToggleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+RegisterTheme(ToggleLabel, nil, text1)
+
+local ToggleHolder = Instance.new('Frame')
+ToggleHolder.Name = 'Button'
+ToggleHolder.Parent = ToggleLabel
+ToggleHolder.BackgroundColor3 = currentShade3
+ToggleHolder.BorderSizePixel = 0
+ToggleHolder.Position = UDim2.new(1, -20, 0, 0)
+ToggleHolder.Size = UDim2.fromOffset(20, 20)
+ToggleHolder.ZIndex = 10
+
+RegisterTheme(ToggleHolder, shade3)
+
+local ToggleButton = Instance.new('TextButton')
+ToggleButton.Name = 'On'
+ToggleButton.Parent = ToggleHolder
+ToggleButton.BackgroundColor3 = Color3.fromRGB(150, 150, 151)
+ToggleButton.BackgroundTransparency = 1
+ToggleButton.BorderSizePixel = 0
+ToggleButton.Position = UDim2.fromOffset(2, 2)
+ToggleButton.Size = UDim2.fromOffset(16, 16)
+ToggleButton.ZIndex = 10
+ToggleButton.Font = Enum.Font.SourceSans
+ToggleButton.Text = ''
+ToggleButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+ToggleButton.TextSize = 14
+
+local CreationAddButton = CreateTextButton(CreationBackground, 'Add', 'Add', UDim2.fromOffset(168, 140), UDim2.fromOffset(40, 20), currentShade2, currentText1)
+
+local function ClearCreationInputs()
+    TextInput.Text = ''
+    CommandInput.Text = ''
+    SecondCommandInput.Text = ''
+    SizeInput.Text = ''
+end
+
+local function SetCreationWindowVisible(IsVisible)
+    if IsCreationWindowOpen == IsVisible then
+        return
+    end
+
+    IsCreationWindowOpen = IsVisible
+
+    if IsVisible then
+        CloseEditWindow()
+    end
+
+    SlideWindow(CreationGui, IsVisible)
+end
+
+-- // Edit Window
+local EditGui, EditBackground, EditClose = CreateWindow('BBindsEditGui', 'Edit BBind', 200, 115)
+
+local EditTextInput = CreateInput(EditBackground, 'EditText', 'Button text', UDim2.fromOffset(10, 10), UDim2.fromOffset(180, 20))
+
+local EditCommandInput = CreateInput(EditBackground, 'EditCommand', 'Command', UDim2.fromOffset(10, 35), UDim2.fromOffset(180, 20))
+
+local EditSecondCommandInput = CreateInput(EditBackground, 'EditCommand2', 'Command 2 (optional)', UDim2.fromOffset(10, 60), UDim2.fromOffset(180, 20))
+
+local EditSizeInput = CreateInput(
+    EditBackground,
+    'EditSize',
+    `Size ({Config.MinimumButtonSize}-{Config.MaximumButtonSize}px)`,
+    UDim2.fromOffset(10, 85),
+    UDim2.fromOffset(110, 20)
+)
+
+local MinusButton = CreateTextButton(EditBackground, 'Minus', '-', UDim2.fromOffset(125, 85), UDim2.fromOffset(30, 20), currentShade2, currentText1)
+
+local PlusButton = CreateTextButton(EditBackground, 'Plus', '+', UDim2.fromOffset(160, 85), UDim2.fromOffset(30, 20), currentShade2, currentText1)
+
+local function ApplySize(Size)
+    local Target = EditTarget
+
+    if not Target or not Target.Gui or ActiveDrag == Target then
+        return
+    end
+
+    local RequestedSize = NormalizeSize(Size)
+
+    Target.Size, Target.Position = FindFreeSize(Target, RequestedSize)
+
+    Target.Gui.Size = UDim2.fromOffset(Target.Size, Target.Size)
+    Target.Gui.Position = UDim2.fromScale(Target.Position[1], Target.Position[2])
+
+    EditSizeInput.Text = tostring(Target.Size)
+    EditDirty = true
+
+    if Target.Size < RequestedSize then
+        notify('BBinds', 'There is no free space to enlarge this button')
+    end
+end
+
+local function ApplyField(Field, Input, Label)
+    local Target = EditTarget
+
+    if not Target or not Target.Gui then
+        return
+    end
+
+    local Value = Trim(Input.Text)
+
+    if Label and Value == '' then
+        Input.Text = Target[Field]
+
+        return notify('BBinds', `The {Label} must not be empty`)
+    end
+
+    local NewValue = Value ~= '' and Value or nil
+
+    Input.Text = Value
+
+    if Target[Field] == NewValue then
+        return
+    end
+
+    Target[Field] = NewValue
+    Target.Gui.Text = Target.Text
+
+    EditDirty = true
+end
+
+local function CommitEdit()
+    if not EditDirty then
+        return
+    end
+
+    EditDirty = false
+
+    SaveButtons()
+    RefreshButtons()
+end
+
+function OpenEditWindow(Data)
+    if EditTarget ~= Data then
+        CommitEdit()
+    end
+
+    EditTarget = Data
+    EditTextInput.Text = Data.Text
+    EditCommandInput.Text = Data.Command
+    EditSecondCommandInput.Text = Data.SecondCommand or ''
+    EditSizeInput.Text = tostring(Data.Size)
+
+    SetCreationWindowVisible(false)
+    SlideWindow(EditGui, true)
+end
+
+function CloseEditWindow()
+    if not EditTarget then
+        return
+    end
+
+    CommitEdit()
+
+    EditTarget = nil
+
+    SlideWindow(EditGui, false)
+end
+
+-- // Buttons
+local function CreateButton(Data)
+    Data.Size = NormalizeSize(Data.Size)
+
+    PlaceButton(Data)
+
+    local Gui = Instance.new('TextButton')
+    Gui.Name = 'BBind_' .. randomString()
+    Gui.Parent = ScreenGui
+    Gui.BackgroundColor3 = currentShade1
+    Gui.TextColor3 = currentText1
+    Gui.BorderSizePixel = 0
+    Gui.Size = UDim2.fromOffset(Data.Size, Data.Size)
+    Gui.Position = UDim2.fromScale(Data.Position[1], Data.Position[2])
+    Gui.Text = Data.Text
+    Gui.TextTruncate = Enum.TextTruncate.AtEnd
+    Gui.Font = Enum.Font.SourceSans
+    Gui.AutoButtonColor = true
+    Gui.TextScaled = Config.TextScaled
+
+    if not Config.TextScaled then
+        Gui.TextSize = Config.TextSize
+    end
+
+    RegisterTheme(Gui, shade1, text1)
+
+    Data.Gui = Gui
+
+    Buttons[#Buttons + 1] = Data
+
+    local IsToggled = false
+
+    Gui.Activated:Connect(function()
+        if IsEditing then
+            return
+        end
+
+        IsToggled = not IsToggled
+    
+        Gui.BackgroundColor3 = IsToggled and currentShade3 or currentShade1
+
+        execCmd(IsToggled and Data.Command or (Data.SecondCommand or Data.Command))
+    end)
+
+    Gui.InputBegan:Connect(function(Input)
+        if not IsEditing or ActiveDrag then
+            return
+        end
+
+        local InputType = Input.UserInputType
+        local IsTouch = InputType == Enum.UserInputType.Touch
+
+        if not IsTouch and InputType ~= Enum.UserInputType.MouseButton1 then
+            return
+        end
+
+        local function GetPointer()
+            return IsTouch and Vector2.new(Input.Position.X, Input.Position.Y) or UserInputService:GetMouseLocation()
+        end
+
+        local StartPointer = GetPointer()
+        local StartPosition = Gui.Position
+
+        local StartPixels = ToPixels(Data.Position)
+        local CurrentPixels = StartPixels
+
+        local MovedDistance = 0
+        local IsDragging = true
+
+        local Connections = {}
+
+        ActiveDrag = Data
+
+        Gui.AutoButtonColor = false
+
+        local function StopDragging()
+            if not IsDragging then
+                return
+            end
+
+            IsDragging = false
+            ActiveDrag = nil
+            Gui.AutoButtonColor = true
+
+            for _, Connection in ipairs(Connections) do
+                Connection:Disconnect()
+            end
+
+            table.clear(Connections)
+
+            if not Gui.Parent then
+                return
+            end
+
+            if MovedDistance < Config.DragThreshold then
+                Gui.Position = StartPosition
+
+                return OpenEditWindow(Data)
+            end
+
+            Data.Position = ToScale(CurrentPixels)
+            Gui.Position = UDim2.fromScale(Data.Position[1], Data.Position[2])
+
+            SaveButtons()
+        end
+
+        Connections[1] = RunService.RenderStepped:Connect(function()
+            if not Gui.Parent then
+                return StopDragging()
+            end
+
+            local Viewport = GetViewportSize()
+            local Delta = GetPointer() - StartPointer
+
+            MovedDistance = math.max(MovedDistance, Delta.Magnitude)
+
+            local Target = Vector2.new(
+                math.clamp(StartPixels.X + Delta.X, 0, math.max(0, Viewport.X - Data.Size)),
+                math.clamp(StartPixels.Y + Delta.Y, 0, math.max(0, Viewport.Y - Data.Size))
+            )
+
+            CurrentPixels = Vector2.new(MoveAlong(Data, 'X', CurrentPixels, Target.X), CurrentPixels.Y)
+            CurrentPixels = Vector2.new(CurrentPixels.X, MoveAlong(Data, 'Y', CurrentPixels, Target.Y))
+
+            Gui.Position = UDim2.fromScale(CurrentPixels.X / math.max(Viewport.X, 1), CurrentPixels.Y / math.max(Viewport.Y, 1))
+        end)
+
+        Connections[2] = UserInputService.InputEnded:Connect(function(EndedInput)
+            if EndedInput == Input or (not IsTouch and EndedInput.UserInputType == Enum.UserInputType.MouseButton1) then
+                StopDragging()
+            end
+        end)
+    end)
+
+    return Data
+end
+
+-- // Initial Load
+for _, Data in ipairs(LoadButtons()) do
+    CreateButton(Data)
+end
+
+RefreshButtons()
+
+-- // UI Interaction
+SettingsButton.Activated:Connect(function()
+    ManagementFrame:TweenPosition(UDim2.fromOffset(0, 0), 'InOut', 'Quart', 0.5, true, function()
+        SettingsHolder.Visible = false
+    end)
+end)
+
+CloseButton.Activated:Connect(function()
+    SettingsHolder.Visible = true
+
+    ManagementFrame:TweenPosition(UDim2.fromOffset(0, 175), 'InOut', 'Quart', 0.5, true)
+end)
+
+AddButton.Activated:Connect(function()
+    SetCreationWindowVisible(true)
+end)
+
+local function ToggleEditMode()
+    IsEditing = not IsEditing
+
+    EditButton.Text = IsEditing and 'Edit mode: ON' or 'Edit mode'
+    EditButton.BackgroundColor3 = IsEditing and currentShade3 or currentShade2
+
+    if not IsEditing then
+        CloseEditWindow()
+    end
+
+    notify('BBinds', IsEditing and 'Editing mode has been enabled' or 'Editing mode has been disabled')
+end
+
+EditButton.Activated:Connect(ToggleEditMode)
+
+ClearButton.Activated:Connect(RemoveAllButtons)
+
+CreationClose.Activated:Connect(function()
+    ClearCreationInputs()
+    SetCreationWindowVisible(false)
+end)
+
+EditClose.Activated:Connect(CloseEditWindow)
+
+MinusButton.Activated:Connect(function()
+    if EditTarget then
+        ApplySize(EditTarget.Size - Config.ResizeStep)
+    end
+end)
+
+PlusButton.Activated:Connect(function()
+    if EditTarget then
+        ApplySize(EditTarget.Size + Config.ResizeStep)
+    end
+end)
+
+EditTextInput.FocusLost:Connect(function()
+    ApplyField('Text', EditTextInput, 'button text')
+end)
+
+EditCommandInput.FocusLost:Connect(function()
+    ApplyField('Command', EditCommandInput, 'command')
+end)
+
+EditSecondCommandInput.FocusLost:Connect(function()
+    ApplyField('SecondCommand', EditSecondCommandInput)
+end)
+
+EditSizeInput.FocusLost:Connect(function()
+    if not EditTarget then
+        return
+    end
+
+    local RequestedSize = tonumber(Trim(EditSizeInput.Text))
+
+    if RequestedSize then
+        ApplySize(RequestedSize)
+    else
+        EditSizeInput.Text = tostring(EditTarget.Size)
+
+        notify('BBinds', 'Button size must be a number')
+    end
+end)
+
+ToggleButton.Activated:Connect(function()
+    IsCreatingToggle = not IsCreatingToggle
+
+    ToggleButton.BackgroundTransparency = IsCreatingToggle and 0 or 1
+    SecondCommandHolder.Visible = IsCreatingToggle
+end)
+
+CreationAddButton.Activated:Connect(function()
+    local ButtonText = Trim(TextInput.Text)
+
+    local Command = Trim(CommandInput.Text)
+    local SecondCommand = Trim(SecondCommandInput.Text)
+
+    local RequestedSize = Trim(SizeInput.Text)
+
+    if ButtonText == '' then
+        return notify('BBinds', 'The button text must not be empty')
+    end
+
+    if Command == '' then
+        return notify('BBinds', 'The command must not be empty')
+    end
+
+    if IsCreatingToggle and SecondCommand == '' then
+        return notify('BBinds', 'The second command must not be empty')
+    end
+
+    local Size = Config.DefaultButtonSize
+
+    if RequestedSize ~= '' then
+        Size = tonumber(RequestedSize)
+
+        if not Size then
+            return notify('BBinds', 'Button size must be a number')
+        end
+
+        if Size < Config.MinimumButtonSize or Size > Config.MaximumButtonSize then
+            return notify('BBinds', `Button size must be between {Config.MinimumButtonSize} and {Config.MaximumButtonSize}px`)
+        end
+    end
+
+    local Viewport = GetViewportSize()
+
+    local NewButton = CreateButton({
+        Text = ButtonText,
+        Command = Command,
+        SecondCommand = IsCreatingToggle and SecondCommand or nil,
+        Position = {20 / math.max(Viewport.X, 1), 20 / math.max(Viewport.Y, 1)},
+        Size = NormalizeSize(Size)
+    })
+
+    RefreshButtons()
+    SaveButtons()
+
+    notify('BBinds', `The BBind {NewButton.Text} has been created ({NewButton.Size}px)`)
+
+    ClearCreationInputs()
+    SetCreationWindowVisible(false)
+end)
+
+return {
+    ['PluginName'] = 'BBinds',
+    ['PluginDescription'] = 'Adds configurable Button Binds to Infinite Yield',
+    ['Commands'] = {
+        ['enablebbind'] = {
+            ['ListName'] = 'EnableBBind',
+            ['Description'] = 'Turn BBinds Visible',
+            ['Aliases'] = {'bbind', 'enablebb'},
+            ['Function'] = function()
+                ScreenGui.Enabled = true
+            end
+        },
+        ['disablebbind'] = {
+            ['ListName'] = 'DisableBBind',
+            ['Description'] = 'Turn BBinds not Visible',
+            ['Aliases'] = {'unbbind', 'disablebb'},
+            ['Function'] = function()
+                ScreenGui.Enabled = false
+            end
+        },
+        ['bbindeditmode'] = {
+            ['ListName'] = 'BBind EditMode',
+            ['Description'] = 'Toggle BBind EditMode',
+            ['Aliases'] = {'bbindedit', 'bbeditmode'},
+            ['Function'] = function()
+                if not (ScreenGui and ScreenGui.Enabled) then
+                    return notify('BBinds', 'BBinds is Disable. Cannot Activate EditMode')
+                end
+
+                ToggleEditMode()
+            end
+        }
+    }
+}

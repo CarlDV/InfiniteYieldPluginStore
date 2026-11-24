@@ -1,8 +1,23 @@
 {
   "version": "1.0",
-  "updated_at": "2026-11-23T20:00:39.687539+00:00",
-  "total": 594,
+  "updated_at": "2026-11-24T02:21:38.287219+00:00",
+  "total": 595,
   "plugins": [
+    {
+      "id": "1574567346226593883",
+      "name": "bbinds",
+      "author": "Oteb",
+      "date": "2026-11-23T23:28:29.387000+00:00",
+      "files": [
+        {
+          "filename": "bbinds.iy",
+          "url": "plugins/1574567346226593883/bbinds.iy",
+          "size": 32731,
+          "is_plugin": true
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1574460312764284959",
       "name": "ExecInfo",
