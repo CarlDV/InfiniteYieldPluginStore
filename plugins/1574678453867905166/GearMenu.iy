@@ -1,0 +1,1041 @@
+local Plugin = {
+    ["PluginName"] = "GearMenu",
+    ["PluginDescription"] = "Advanced gear holding menu with sets and settings",
+    ["Commands"] = {
+        ["gearmenu"] = {
+            ["ListName"] = "gearmenu",
+            ["Description"] = "Opens the gear menu",
+            ["Aliases"] = {"gm", "multigear", "gearhold"},
+            ["Function"] = function(args, speaker)
+                local HttpService = game:GetService("HttpService")
+                local SAVE_FILE = "GearMenuData.json"
+
+                local function colorToTable(col)
+                    return {math.floor(col.R * 255), math.floor(col.G * 255), math.floor(col.B * 255)}
+                end
+
+                local function tableToColor(t)
+                    if type(t) == "table" and #t >= 3 then
+                        return Color3.fromRGB(t[1], t[2], t[3])
+                    end
+                    return Color3.fromRGB(30, 30, 30)
+                end
+
+                local function saveData()
+                    if not _G.GearMenuData then return end
+                    local toSave = {
+                        Sets = _G.GearMenuData.Sets,
+                        Settings = {
+                            Keybind = _G.GearMenuData.Settings.Keybind.Name,
+                            ActivateKey = (_G.GearMenuData.Settings.ActivateKey and _G.GearMenuData.Settings.ActivateKey.Name) or "RightControl",
+                            AutoRefresh = _G.GearMenuData.Settings.AutoRefresh ~= false,
+                            BgColor = colorToTable(_G.GearMenuData.Settings.BgColor),
+                            AccentColor = colorToTable(_G.GearMenuData.Settings.AccentColor),
+                            ButtonColor = colorToTable(_G.GearMenuData.Settings.ButtonColor),
+                            TextColor = colorToTable(_G.GearMenuData.Settings.TextColor or Color3.new(1,1,1))
+                        }
+                    }
+                    pcall(function()
+                        writefile(SAVE_FILE, HttpService:JSONEncode(toSave))
+                    end)
+                end
+                _G.GearMenuSave = saveData
+
+                local function loadData()
+                    local success, content = pcall(function()
+                        if isfile and isfile(SAVE_FILE) then
+                            return readfile(SAVE_FILE)
+                        end
+                    end)
+                    if not success or not content then return nil end
+                    local ok, data = pcall(function()
+                        return HttpService:JSONDecode(content)
+                    end)
+                    if not ok or type(data) ~= "table" then return nil end
+
+                    local loaded = {
+                        Sets = data.Sets or {},
+                        Settings = {
+                            Keybind = Enum.KeyCode[data.Settings and data.Settings.Keybind] or Enum.KeyCode.RightShift,
+                            ActivateKey = Enum.KeyCode[data.Settings and data.Settings.ActivateKey] or Enum.KeyCode.RightControl,
+                            AutoRefresh = data.Settings and data.Settings.AutoRefresh ~= false,
+                            BgColor = tableToColor(data.Settings and data.Settings.BgColor),
+                            AccentColor = tableToColor(data.Settings and data.Settings.AccentColor),
+                            ButtonColor = tableToColor(data.Settings and data.Settings.ButtonColor),
+                            TextColor = tableToColor(data.Settings and data.Settings.TextColor),
+                            Size = UDim2.new(0, 400, 0, 560)
+                        }
+                    }
+                    return loaded
+                end
+
+                -- Load or create data
+                if not _G.GearMenuData then
+                    local loaded = loadData()
+                    if loaded then
+                        _G.GearMenuData = loaded
+                    else
+                        _G.GearMenuData = {
+                            Sets = {},
+                            Settings = {
+                                Keybind = Enum.KeyCode.RightShift,
+                                ActivateKey = Enum.KeyCode.RightControl,
+                                AutoRefresh = true,
+                                BgColor = Color3.fromRGB(30, 30, 30),
+                                AccentColor = Color3.fromRGB(45, 45, 45),
+                                ButtonColor = Color3.fromRGB(70, 160, 70),
+                                TextColor = Color3.new(1, 1, 1),
+                                Size = UDim2.new(0, 400, 0, 560)
+                            }
+                        }
+                    end
+                end
+                local Data = _G.GearMenuData
+
+                local Players = game:GetService("Players")
+                local CoreGui = game:GetService("CoreGui")
+                local UIS = game:GetService("UserInputService")
+                local player = speaker or Players.LocalPlayer
+                local character = player.Character or player.CharacterAdded:Wait()
+                local backpack = player:FindFirstChildOfClass("Backpack")
+
+                local old = CoreGui:FindFirstChild("IY_GearMenu")
+                if old then old:Destroy() end
+
+                local ScreenGui = Instance.new("ScreenGui")
+                ScreenGui.Name = "IY_GearMenu"
+                ScreenGui.ResetOnSpawn = false
+                ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                ScreenGui.Parent = CoreGui
+
+                local Main = Instance.new("Frame")
+                Main.Name = "Main"
+                Main.Size = Data.Settings.Size
+                Main.Position = UDim2.new(0.5, -Data.Settings.Size.X.Offset/2, 0.5, -Data.Settings.Size.Y.Offset/2)
+                Main.BackgroundColor3 = Data.Settings.BgColor
+                Main.BorderSizePixel = 0
+                Main.Active = true
+                Main.Draggable = true
+                Main.Parent = ScreenGui
+
+                local Corner = Instance.new("UICorner", Main)
+                Corner.CornerRadius = UDim.new(0, 8)
+
+                local Title = Instance.new("TextLabel")
+                Title.Size = UDim2.new(1, 0, 0, 40)
+                Title.BackgroundColor3 = Data.Settings.AccentColor
+                Title.Text = "Gear Menu"
+                Title.TextColor3 = Data.Settings.TextColor or Color3.new(1,1,1)
+                Title.Font = Enum.Font.SourceSansBold
+                Title.TextSize = 20
+                Title.Parent = Main
+                Instance.new("UICorner", Title).CornerRadius = UDim.new(0, 8)
+
+                local Close = Instance.new("TextButton")
+                Close.Size = UDim2.new(0, 30, 0, 30)
+                Close.Position = UDim2.new(1, -35, 0, 5)
+                Close.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+                Close.Text = "X"
+                Close.TextColor3 = Color3.new(1,1,1)
+                Close.Font = Enum.Font.SourceSansBold
+                Close.TextSize = 16
+                Close.Parent = Main
+                Instance.new("UICorner", Close).CornerRadius = UDim.new(0, 6)
+                Close.MouseButton1Click:Connect(function() ScreenGui:Destroy() end)
+
+                -- Tabs
+                local TabFrame = Instance.new("Frame")
+                TabFrame.Size = UDim2.new(1, -10, 0, 30)
+                TabFrame.Position = UDim2.new(0, 5, 0, 45)
+                TabFrame.BackgroundTransparency = 1
+                TabFrame.Parent = Main
+
+                local TabLayout = Instance.new("UIListLayout", TabFrame)
+                TabLayout.FillDirection = Enum.FillDirection.Horizontal
+                TabLayout.Padding = UDim.new(0, 5)
+
+                local function makeTab(name)
+                    local btn = Instance.new("TextButton")
+                    btn.Size = UDim2.new(0, 100, 1, 0)
+                    btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    btn.Text = name
+                    btn.TextColor3 = Color3.new(1,1,1)
+                    btn.Font = Enum.Font.SourceSansBold
+                    btn.TextSize = 14
+                    btn.Parent = TabFrame
+                    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+                    return btn
+                end
+
+                local GearsTab = makeTab("Gears")
+                local SetsTab = makeTab("Sets")
+                local SettingsTab = makeTab("Settings")
+
+                local Content = Instance.new("Frame")
+                Content.Size = UDim2.new(1, -10, 1, -90)
+                Content.Position = UDim2.new(0, 5, 0, 80)
+                Content.BackgroundTransparency = 1
+                Content.Parent = Main
+
+                local currentPage = nil
+                local function clearContent()
+                    for _, c in ipairs(Content:GetChildren()) do c:Destroy() end
+                end
+
+                -- ===== GEARS PAGE =====
+                local function loadGears()
+                    clearContent()
+
+                    -- Search bar
+                    local SearchBox = Instance.new("TextBox")
+                    SearchBox.Size = UDim2.new(1, 0, 0, 28)
+                    SearchBox.Position = UDim2.new(0, 0, 0, 0)
+                    SearchBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    SearchBox.PlaceholderText = "Search gears..."
+                    SearchBox.Text = ""
+                    SearchBox.TextColor3 = Color3.new(1,1,1)
+                    SearchBox.Font = Enum.Font.SourceSans
+                    SearchBox.TextSize = 14
+                    SearchBox.ClearTextOnFocus = false
+                    SearchBox.Parent = Content
+                    Instance.new("UICorner", SearchBox).CornerRadius = UDim.new(0, 6)
+
+                    -- Buttons below search
+                    local TopButtons = Instance.new("Frame")
+                    TopButtons.Size = UDim2.new(1, 0, 0, 30)
+                    TopButtons.Position = UDim2.new(0, 0, 0, 36)
+                    TopButtons.BackgroundTransparency = 1
+                    TopButtons.Parent = Content
+
+                    local RefreshBtn = Instance.new("TextButton")
+                    RefreshBtn.Size = UDim2.new(0.24, 0, 1, 0)
+                    RefreshBtn.BackgroundColor3 = Color3.fromRGB(60, 140, 200)
+                    RefreshBtn.Text = "Refresh"
+                    RefreshBtn.TextColor3 = Color3.new(1,1,1)
+                    RefreshBtn.Font = Enum.Font.SourceSansBold
+                    RefreshBtn.TextSize = 12
+                    RefreshBtn.Parent = TopButtons
+                    Instance.new("UICorner", RefreshBtn).CornerRadius = UDim.new(0, 6)
+
+                    local ActivateBtn = Instance.new("TextButton")
+                    ActivateBtn.Size = UDim2.new(0.24, 0, 1, 0)
+                    ActivateBtn.Position = UDim2.new(0.25, 0, 0, 0)
+                    ActivateBtn.BackgroundColor3 = Color3.fromRGB(70, 160, 70)
+                    ActivateBtn.Text = "Act. Eq."
+                    ActivateBtn.TextColor3 = Color3.new(1,1,1)
+                    ActivateBtn.Font = Enum.Font.SourceSansBold
+                    ActivateBtn.TextSize = 12
+                    ActivateBtn.Parent = TopButtons
+                    Instance.new("UICorner", ActivateBtn).CornerRadius = UDim.new(0, 6)
+
+                    local EquippedOnlyBtn = Instance.new("TextButton")
+                    EquippedOnlyBtn.Size = UDim2.new(0.24, 0, 1, 0)
+                    EquippedOnlyBtn.Position = UDim2.new(0.50, 0, 0, 0)
+                    EquippedOnlyBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                    EquippedOnlyBtn.Text = "Eq. Only"
+                    EquippedOnlyBtn.TextColor3 = Color3.new(1,1,1)
+                    EquippedOnlyBtn.Font = Enum.Font.SourceSansBold
+                    EquippedOnlyBtn.TextSize = 12
+                    EquippedOnlyBtn.Parent = TopButtons
+                    Instance.new("UICorner", EquippedOnlyBtn).CornerRadius = UDim.new(0, 6)
+
+                    local SortBtn = Instance.new("TextButton")
+                    SortBtn.Size = UDim2.new(0.24, 0, 1, 0)
+                    SortBtn.Position = UDim2.new(0.75, 0, 0, 0)
+                    SortBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                    SortBtn.Text = "A → Z"
+                    SortBtn.TextColor3 = Color3.new(1,1,1)
+                    SortBtn.Font = Enum.Font.SourceSansBold
+                    SortBtn.TextSize = 12
+                    SortBtn.Parent = TopButtons
+                    Instance.new("UICorner", SortBtn).CornerRadius = UDim.new(0, 6)
+
+                    local showEquippedOnly = false
+                    local sortAZ = true
+
+                    -- List below buttons
+                    local Scrolling = Instance.new("ScrollingFrame")
+                    Scrolling.Size = UDim2.new(1, 0, 1, -74)
+                    Scrolling.Position = UDim2.new(0, 0, 0, 72)
+                    Scrolling.BackgroundTransparency = 1
+                    Scrolling.ScrollBarThickness = 6
+                    Scrolling.Parent = Content
+                    local Layout = Instance.new("UIListLayout", Scrolling)
+                    Layout.Padding = UDim.new(0, 4)
+
+                    local refreshPending = false
+                    local function refresh()
+                        if refreshPending then return end
+                        refreshPending = true
+                        task.defer(function()
+                            refreshPending = false
+                            -- Re-fetch character and backpack in case of death/respawn
+                            character = player.Character
+                            backpack = player:FindFirstChildOfClass("Backpack")
+
+                            for _, c in ipairs(Scrolling:GetChildren()) do
+                                if c:IsA("Frame") then c:Destroy() end
+                            end
+                            local allTools = {}
+                            if backpack then
+                                for _, t in ipairs(backpack:GetChildren()) do
+                                    if t:IsA("Tool") or t:IsA("HopperBin") then table.insert(allTools, t) end
+                                end
+                            end
+                            if character then
+                                for _, t in ipairs(character:GetChildren()) do
+                                    if t:IsA("Tool") or t:IsA("HopperBin") then table.insert(allTools, t) end
+                                end
+                            end
+
+                            -- Filter by search
+                            local query = SearchBox.Text:lower()
+                            if query ~= "" then
+                                local filtered = {}
+                                for _, t in ipairs(allTools) do
+                                    if t.Name:lower():find(query, 1, true) then
+                                        table.insert(filtered, t)
+                                    end
+                                end
+                                allTools = filtered
+                            end
+
+                            -- Filter equipped only
+                            if showEquippedOnly then
+                                local filtered = {}
+                                for _, t in ipairs(allTools) do
+                                    if t.Parent == character then
+                                        table.insert(filtered, t)
+                                    end
+                                end
+                                allTools = filtered
+                            end
+
+                            -- Keep a stable order so equipped tools don't jump around
+                            table.sort(allTools, function(a, b)
+                                if sortAZ then
+                                    return a.Name:lower() < b.Name:lower()
+                                else
+                                    return a.Name:lower() > b.Name:lower()
+                                end
+                            end)
+                        for i, tool in ipairs(allTools) do
+                            local Entry = Instance.new("Frame")
+                            Entry.Size = UDim2.new(1, -8, 0, 36)
+                            Entry.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                            Entry.Parent = Scrolling
+                            Instance.new("UICorner", Entry).CornerRadius = UDim.new(0, 6)
+
+                            local NameLabel = Instance.new("TextLabel")
+                            NameLabel.Size = UDim2.new(1, -180, 1, 0)
+                            NameLabel.Position = UDim2.new(0, 8, 0, 0)
+                            NameLabel.BackgroundTransparency = 1
+                            NameLabel.Text = tool.Name .. " (#" .. i .. ")"
+                            NameLabel.TextColor3 = Color3.new(1,1,1)
+                            NameLabel.Font = Enum.Font.SourceSans
+                            NameLabel.TextSize = 15
+                            NameLabel.TextXAlignment = Enum.TextXAlignment.Left
+                            NameLabel.Parent = Entry
+
+                            local isEq = tool.Parent == character
+                            local Btn = Instance.new("TextButton")
+                            Btn.Size = UDim2.new(0, 80, 0, 26)
+                            Btn.Position = UDim2.new(1, -170, 0.5, -13)
+                            Btn.BackgroundColor3 = isEq and Color3.fromRGB(200, 70, 70) or Data.Settings.ButtonColor
+                            Btn.Text = isEq and "Unequip" or "Equip"
+                            Btn.TextColor3 = Color3.new(1,1,1)
+                            Btn.Font = Enum.Font.SourceSansBold
+                            Btn.TextSize = 13
+                            Btn.Parent = Entry
+                            Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 6)
+
+                            Btn.MouseButton1Click:Connect(function()
+                                if tool.Parent == character then
+                                    tool.Parent = backpack
+                                else
+                                    tool.Parent = character
+                                end
+                                refresh()
+                            end)
+
+                            local ActBtn = Instance.new("TextButton")
+                            ActBtn.Size = UDim2.new(0, 80, 0, 26)
+                            ActBtn.Position = UDim2.new(1, -85, 0.5, -13)
+                            ActBtn.BackgroundColor3 = Color3.fromRGB(160, 120, 50)
+                            ActBtn.Text = "Activate"
+                            ActBtn.TextColor3 = Color3.new(1,1,1)
+                            ActBtn.Font = Enum.Font.SourceSansBold
+                            ActBtn.TextSize = 13
+                            ActBtn.Parent = Entry
+                            Instance.new("UICorner", ActBtn).CornerRadius = UDim.new(0, 6)
+
+                            ActBtn.MouseButton1Click:Connect(function()
+                                if tool.Parent ~= character then
+                                    tool.Parent = character
+                                end
+                                task.wait(0.05)
+                                pcall(function() tool:Activate() end)
+                                notify("Activate", "Activated: " .. tool.Name)
+                            end)
+                        end
+                        Scrolling.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y + 8)
+                        end)
+                    end
+
+                    local function activateEquipped()
+                        character = player.Character
+                        if not character then return end
+                        local equipped = {}
+                        for _, t in ipairs(character:GetChildren()) do
+                            if t:IsA("Tool") or t:IsA("HopperBin") then
+                                table.insert(equipped, t)
+                            end
+                        end
+                        if #equipped == 0 then
+                            return notify("Activate", "No gears equipped")
+                        end
+                        task.spawn(function()
+                            for _, tool in ipairs(equipped) do
+                                pcall(function() tool:Activate() end)
+                                task.wait(0.1)
+                            end
+                            notify("Activate", "Activated " .. #equipped .. " equipped gear(s)")
+                        end)
+                    end
+
+                    RefreshBtn.MouseButton1Click:Connect(refresh)
+                    ActivateBtn.MouseButton1Click:Connect(activateEquipped)
+                    EquippedOnlyBtn.MouseButton1Click:Connect(function()
+                        showEquippedOnly = not showEquippedOnly
+                        EquippedOnlyBtn.BackgroundColor3 = showEquippedOnly and Color3.fromRGB(70, 160, 70) or Color3.fromRGB(100, 100, 100)
+                        EquippedOnlyBtn.Text = showEquippedOnly and "Showing Eq." or "Eq. Only"
+                        refresh()
+                    end)
+                    SortBtn.MouseButton1Click:Connect(function()
+                        sortAZ = not sortAZ
+                        SortBtn.Text = sortAZ and "A → Z" or "Z → A"
+                        SortBtn.BackgroundColor3 = sortAZ and Color3.fromRGB(100, 100, 100) or Color3.fromRGB(70, 160, 70)
+                        refresh()
+                    end)
+                    SearchBox:GetPropertyChangedSignal("Text"):Connect(refresh)
+                    refresh()
+
+                    -- Auto refresh
+                    local cons = {}
+                    if backpack then
+                        table.insert(cons, backpack.ChildAdded:Connect(refresh))
+                        table.insert(cons, backpack.ChildRemoved:Connect(refresh))
+                    end
+                    if character then
+                        table.insert(cons, character.ChildAdded:Connect(function(c) if c:IsA("Tool") then refresh() end end))
+                        table.insert(cons, character.ChildRemoved:Connect(function(c) if c:IsA("Tool") then refresh() end end))
+                    end
+                    ScreenGui.Destroying:Connect(function() for _, c in ipairs(cons) do c:Disconnect() end end)
+                end
+
+                -- ===== SETS PAGE =====
+                local function loadSets()
+                    clearContent()
+                    local Scrolling = Instance.new("ScrollingFrame")
+                    Scrolling.Size = UDim2.new(1, 0, 1, -40)
+                    Scrolling.BackgroundTransparency = 1
+                    Scrolling.ScrollBarThickness = 6
+                    Scrolling.Parent = Content
+                    local Layout = Instance.new("UIListLayout", Scrolling)
+                    Layout.Padding = UDim.new(0, 4)
+
+                    local function refreshSets()
+                        for _, c in ipairs(Scrolling:GetChildren()) do if c:IsA("Frame") then c:Destroy() end end
+                        for name, setData in pairs(Data.Sets) do
+                            local Entry = Instance.new("Frame")
+                            Entry.Size = UDim2.new(1, -8, 0, 36)
+                            Entry.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+                            Entry.Parent = Scrolling
+                            Instance.new("UICorner", Entry).CornerRadius = UDim.new(0, 6)
+
+                            local lbl = Instance.new("TextLabel")
+                            lbl.Size = UDim2.new(0.5, 0, 1, 0)
+                            lbl.Position = UDim2.new(0, 8, 0, 0)
+                            lbl.BackgroundTransparency = 1
+                            lbl.Text = name
+                            lbl.TextColor3 = Color3.new(1,1,1)
+                            lbl.Font = Enum.Font.SourceSans
+                            lbl.TextSize = 15
+                            lbl.TextXAlignment = Enum.TextXAlignment.Left
+                            lbl.Parent = Entry
+
+                            local LoadBtn = Instance.new("TextButton")
+                            LoadBtn.Size = UDim2.new(0, 70, 0, 26)
+                            LoadBtn.Position = UDim2.new(1, -160, 0.5, -13)
+                            LoadBtn.BackgroundColor3 = Color3.fromRGB(60, 140, 200)
+                            LoadBtn.Text = "Load"
+                            LoadBtn.TextColor3 = Color3.new(1,1,1)
+                            LoadBtn.Font = Enum.Font.SourceSansBold
+                            LoadBtn.Parent = Entry
+                            Instance.new("UICorner", LoadBtn).CornerRadius = UDim.new(0, 6)
+                            LoadBtn.MouseButton1Click:Connect(function()
+                                -- Unequip all first
+                                for _, t in ipairs(character:GetChildren()) do
+                                    if t:IsA("Tool") then t.Parent = backpack end
+                                end
+                                -- Equip saved
+                                for toolName, count in pairs(setData) do
+                                    local equipped = 0
+                                    for _, t in ipairs(backpack:GetChildren()) do
+                                        if t.Name == toolName and equipped < count and (t:IsA("Tool") or t:IsA("HopperBin")) then
+                                            t.Parent = character
+                                            equipped = equipped + 1
+                                        end
+                                    end
+                                end
+                                notify("Sets", "Loaded set: " .. name)
+                            end)
+
+                            local DelBtn = Instance.new("TextButton")
+                            DelBtn.Size = UDim2.new(0, 70, 0, 26)
+                            DelBtn.Position = UDim2.new(1, -80, 0.5, -13)
+                            DelBtn.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
+                            DelBtn.Text = "Delete"
+                            DelBtn.TextColor3 = Color3.new(1,1,1)
+                            DelBtn.Font = Enum.Font.SourceSansBold
+                            DelBtn.Parent = Entry
+                            Instance.new("UICorner", DelBtn).CornerRadius = UDim.new(0, 6)
+                            DelBtn.MouseButton1Click:Connect(function()
+                                -- Confirmation
+                                DelBtn.Text = "Sure?"
+                                DelBtn.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+                                local confirmed = false
+                                local conn
+                                conn = DelBtn.MouseButton1Click:Connect(function()
+                                    confirmed = true
+                                    Data.Sets[name] = nil
+                                    refreshSets()
+                                    saveData()
+                                    if conn then conn:Disconnect() end
+                                end)
+                                task.delay(2, function()
+                                    if not confirmed and DelBtn and DelBtn.Parent then
+                                        DelBtn.Text = "Delete"
+                                        DelBtn.BackgroundColor3 = Color3.fromRGB(200, 70, 70)
+                                        if conn then conn:Disconnect() end
+                                    end
+                                end)
+                            end)
+                        end
+                        Scrolling.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y + 8)
+                    end
+                    refreshSets()
+
+                    local SaveFrame = Instance.new("Frame")
+                    SaveFrame.Size = UDim2.new(1, 0, 0, 36)
+                    SaveFrame.Position = UDim2.new(0, 0, 1, -36)
+                    SaveFrame.BackgroundTransparency = 1
+                    SaveFrame.Parent = Content
+
+                    local NameBox = Instance.new("TextBox")
+                    NameBox.Size = UDim2.new(0.6, -10, 0, 28)
+                    NameBox.Position = UDim2.new(0, 5, 0, 4)
+                    NameBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                    NameBox.PlaceholderText = "Set name..."
+                    NameBox.Text = ""
+                    NameBox.TextColor3 = Color3.new(1,1,1)
+                    NameBox.Parent = SaveFrame
+                    Instance.new("UICorner", NameBox).CornerRadius = UDim.new(0, 6)
+
+                    local SaveBtn = Instance.new("TextButton")
+                    SaveBtn.Size = UDim2.new(0, 100, 0, 28)
+                    SaveBtn.Position = UDim2.new(0.6, 5, 0, 4)
+                    SaveBtn.BackgroundColor3 = Color3.fromRGB(70, 160, 70)
+                    SaveBtn.Text = "Save Current"
+                    SaveBtn.TextColor3 = Color3.new(1,1,1)
+                    SaveBtn.Font = Enum.Font.SourceSansBold
+                    SaveBtn.Parent = SaveFrame
+                    Instance.new("UICorner", SaveBtn).CornerRadius = UDim.new(0, 6)
+                    SaveBtn.MouseButton1Click:Connect(function()
+                        local name = NameBox.Text
+                        if name == "" then return end
+                        local set = {}
+                        for _, t in ipairs(character:GetChildren()) do
+                            if t:IsA("Tool") or t:IsA("HopperBin") then
+                                set[t.Name] = (set[t.Name] or 0) + 1
+                            end
+                        end
+                        Data.Sets[name] = set
+                        NameBox.Text = ""
+                        refreshSets()
+                        saveData()
+                        notify("Sets", "Saved set: " .. name)
+                    end)
+                end
+
+                -- ===== SETTINGS PAGE =====
+                local function loadSettings()
+                    clearContent()
+                    local Scrolling = Instance.new("ScrollingFrame")
+                    Scrolling.Size = UDim2.new(1, 0, 1, 0)
+                    Scrolling.BackgroundTransparency = 1
+                    Scrolling.ScrollBarThickness = 6
+                    Scrolling.Parent = Content
+                    local Layout = Instance.new("UIListLayout", Scrolling)
+                    Layout.Padding = UDim.new(0, 8)
+
+                    local function addSetting(labelText, element)
+                        local frame = Instance.new("Frame")
+                        frame.Size = UDim2.new(1, -8, 0, 40)
+                        frame.BackgroundTransparency = 1
+                        frame.Parent = Scrolling
+                        local lbl = Instance.new("TextLabel")
+                        lbl.Size = UDim2.new(0.5, 0, 1, 0)
+                        lbl.BackgroundTransparency = 1
+                        lbl.Text = labelText
+                        lbl.TextColor3 = Color3.new(1,1,1)
+                        lbl.Font = Enum.Font.SourceSans
+                        lbl.TextSize = 15
+                        lbl.TextXAlignment = Enum.TextXAlignment.Left
+                        lbl.Parent = frame
+                        element.Parent = frame
+                        element.Position = UDim2.new(0.5, 0, 0.5, -14)
+                        return frame
+                    end
+
+                    -- Open/Close Keybind
+                    local KeyBtn = Instance.new("TextButton")
+                    KeyBtn.Size = UDim2.new(0, 140, 0, 28)
+                    KeyBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                    KeyBtn.Text = "Key: " .. Data.Settings.Keybind.Name
+                    KeyBtn.TextColor3 = Color3.new(1,1,1)
+                    KeyBtn.Font = Enum.Font.SourceSans
+                    addSetting("Open/Close Keybind", KeyBtn)
+                    KeyBtn.MouseButton1Click:Connect(function()
+                        KeyBtn.Text = "Press a key..."
+                        local conn
+                        conn = UIS.InputBegan:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.Keyboard then
+                                Data.Settings.Keybind = input.KeyCode
+                                KeyBtn.Text = "Key: " .. input.KeyCode.Name
+                                conn:Disconnect()
+                                saveData()
+                            end
+                        end)
+                    end)
+
+                    -- Auto refresh on respawn
+                    if Data.Settings.AutoRefresh == nil then
+                        Data.Settings.AutoRefresh = true
+                    end
+                    local AutoRefreshBtn = Instance.new("TextButton")
+                    AutoRefreshBtn.Size = UDim2.new(0, 140, 0, 28)
+                    AutoRefreshBtn.BackgroundColor3 = Data.Settings.AutoRefresh and Color3.fromRGB(70, 160, 70) or Color3.fromRGB(100, 100, 100)
+                    AutoRefreshBtn.Text = Data.Settings.AutoRefresh and "On" or "Off"
+                    AutoRefreshBtn.TextColor3 = Color3.new(1,1,1)
+                    AutoRefreshBtn.Font = Enum.Font.SourceSansBold
+                    addSetting("Auto Refresh on Respawn", AutoRefreshBtn)
+                    AutoRefreshBtn.MouseButton1Click:Connect(function()
+                        Data.Settings.AutoRefresh = not Data.Settings.AutoRefresh
+                        AutoRefreshBtn.Text = Data.Settings.AutoRefresh and "On" or "Off"
+                        AutoRefreshBtn.BackgroundColor3 = Data.Settings.AutoRefresh and Color3.fromRGB(70, 160, 70) or Color3.fromRGB(100, 100, 100)
+                        saveData()
+                    end)
+                    local ActKeyBtn = Instance.new("TextButton")
+                    ActKeyBtn.Size = UDim2.new(0, 140, 0, 28)
+                    ActKeyBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+                    ActKeyBtn.Text = "Key: " .. Data.Settings.ActivateKey.Name
+                    ActKeyBtn.TextColor3 = Color3.new(1,1,1)
+                    ActKeyBtn.Font = Enum.Font.SourceSans
+                    addSetting("Activate Equipped Keybind", ActKeyBtn)
+                    ActKeyBtn.MouseButton1Click:Connect(function()
+                        ActKeyBtn.Text = "Press a key..."
+                        local conn
+                        conn = UIS.InputBegan:Connect(function(input)
+                            if input.UserInputType == Enum.UserInputType.Keyboard then
+                                Data.Settings.ActivateKey = input.KeyCode
+                                ActKeyBtn.Text = "Key: " .. input.KeyCode.Name
+                                conn:Disconnect()
+                                saveData()
+                            end
+                        end)
+                    end)
+
+                    -- Simple color presets
+                    local DarkBtn = Instance.new("TextButton")
+                    DarkBtn.Size = UDim2.new(0, 80, 0, 28)
+                    DarkBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+                    DarkBtn.Text = "Dark"
+                    DarkBtn.TextColor3 = Color3.new(1,1,1)
+                    addSetting("Theme", DarkBtn)
+                    DarkBtn.MouseButton1Click:Connect(function()
+                        Data.Settings.BgColor = Color3.fromRGB(30, 30, 30)
+                        Data.Settings.AccentColor = Color3.fromRGB(45, 45, 45)
+                        Data.Settings.TextColor = Color3.new(1,1,1)
+                        Main.BackgroundColor3 = Data.Settings.BgColor
+                        Title.BackgroundColor3 = Data.Settings.AccentColor
+                        Title.TextColor3 = Data.Settings.TextColor
+                        saveData()
+                    end)
+
+                    local LightBtn = Instance.new("TextButton")
+                    LightBtn.Size = UDim2.new(0, 80, 0, 28)
+                    LightBtn.Position = UDim2.new(0, 90, 0.5, -14)
+                    LightBtn.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+                    LightBtn.Text = "Light"
+                    LightBtn.TextColor3 = Color3.new(0,0,0)
+                    LightBtn.Parent = DarkBtn.Parent
+                    LightBtn.MouseButton1Click:Connect(function()
+                        Data.Settings.BgColor = Color3.fromRGB(230, 230, 230)
+                        Data.Settings.AccentColor = Color3.fromRGB(180, 180, 180)
+                        Data.Settings.TextColor = Color3.new(0,0,0)
+                        Main.BackgroundColor3 = Data.Settings.BgColor
+                        Title.BackgroundColor3 = Data.Settings.AccentColor
+                        Title.TextColor3 = Data.Settings.TextColor
+                        saveData()
+                    end)
+
+                    -- RGB Color Controls
+                    local function makeRGB(label, colorKey, applyFunc)
+                        local frame = Instance.new("Frame")
+                        frame.Size = UDim2.new(1, -8, 0, 50)
+                        frame.BackgroundTransparency = 1
+                        frame.Parent = Scrolling
+
+                        local lbl = Instance.new("TextLabel")
+                        lbl.Size = UDim2.new(1, 0, 0, 18)
+                        lbl.BackgroundTransparency = 1
+                        lbl.Text = label
+                        lbl.TextColor3 = Color3.new(1,1,1)
+                        lbl.Font = Enum.Font.SourceSans
+                        lbl.TextSize = 14
+                        lbl.TextXAlignment = Enum.TextXAlignment.Left
+                        lbl.Parent = frame
+
+                        local function makeBox(posX, default)
+                            local box = Instance.new("TextBox")
+                            box.Size = UDim2.new(0, 50, 0, 24)
+                            box.Position = UDim2.new(0, posX, 0, 22)
+                            box.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+                            box.TextColor3 = Color3.new(1,1,1)
+                            box.Text = tostring(default)
+                            box.PlaceholderText = "0-255"
+                            box.Font = Enum.Font.SourceSans
+                            box.TextSize = 14
+                            box.Parent = frame
+                            Instance.new("UICorner", box).CornerRadius = UDim.new(0, 4)
+                            return box
+                        end
+
+                        local current = Data.Settings[colorKey] or Color3.new(1,1,1)
+                        local rBox = makeBox(0, math.floor(current.R * 255))
+                        local gBox = makeBox(60, math.floor(current.G * 255))
+                        local bBox = makeBox(120, math.floor(current.B * 255))
+
+                        local ApplyBtn = Instance.new("TextButton")
+                        ApplyBtn.Size = UDim2.new(0, 70, 0, 24)
+                        ApplyBtn.Position = UDim2.new(0, 190, 0, 22)
+                        ApplyBtn.BackgroundColor3 = Color3.fromRGB(70, 160, 70)
+                        ApplyBtn.Text = "Apply"
+                        ApplyBtn.TextColor3 = Color3.new(1,1,1)
+                        ApplyBtn.Font = Enum.Font.SourceSansBold
+                        ApplyBtn.Parent = frame
+                        Instance.new("UICorner", ApplyBtn).CornerRadius = UDim.new(0, 4)
+
+                        ApplyBtn.MouseButton1Click:Connect(function()
+                            local r = math.clamp(tonumber(rBox.Text) or 255, 0, 255)
+                            local g = math.clamp(tonumber(gBox.Text) or 255, 0, 255)
+                            local b = math.clamp(tonumber(bBox.Text) or 255, 0, 255)
+                            local col = Color3.fromRGB(r, g, b)
+                            Data.Settings[colorKey] = col
+                            applyFunc(col)
+                            saveData()
+                        end)
+                    end
+
+                    makeRGB("Primary (Background)", "BgColor", function(col)
+                        Main.BackgroundColor3 = col
+                    end)
+                    makeRGB("Secondary (Accent)", "AccentColor", function(col)
+                        Title.BackgroundColor3 = col
+                    end)
+                    makeRGB("Text Color", "TextColor", function(col)
+                        Title.TextColor3 = col
+                        -- You can expand this to more labels if wanted
+                    end)
+
+                    Scrolling.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y + 10)
+                end
+
+                -- Tab switching
+                GearsTab.MouseButton1Click:Connect(function() loadGears() end)
+                SetsTab.MouseButton1Click:Connect(function() loadSets() end)
+                SettingsTab.MouseButton1Click:Connect(function() loadSettings() end)
+
+                loadGears() -- default
+
+                -- Auto refresh on respawn
+                local respawnConn
+                respawnConn = player.CharacterAdded:Connect(function()
+                    if Data.Settings.AutoRefresh then
+                        task.wait(0.5)
+                        if ScreenGui and ScreenGui.Parent then
+                            loadGears()
+                        end
+                    end
+                end)
+                ScreenGui.Destroying:Connect(function()
+                    if respawnConn then respawnConn:Disconnect() end
+                end)
+
+                -- Keybind management (always update to current ScreenGui)
+                if _G.GearMenuKeybind then
+                    _G.GearMenuKeybind:Disconnect()
+                end
+                _G.GearMenuCurrentGui = ScreenGui
+                _G.GearMenuKeybind = UIS.InputBegan:Connect(function(input, gp)
+                    if gp then return end
+                    if input.KeyCode == Data.Settings.Keybind then
+                        local gui = _G.GearMenuCurrentGui
+                        if gui and gui.Parent then
+                            gui.Enabled = not gui.Enabled
+                        end
+                    elseif Data.Settings.ActivateKey and input.KeyCode == Data.Settings.ActivateKey then
+                        -- Activate all equipped gears
+                        local char = player.Character
+                        if not char then return end
+                        local equipped = {}
+                        for _, t in ipairs(char:GetChildren()) do
+                            if t:IsA("Tool") or t:IsA("HopperBin") then
+                                table.insert(equipped, t)
+                            end
+                        end
+                        if #equipped > 0 then
+                            task.spawn(function()
+                                for _, tool in ipairs(equipped) do
+                                    pcall(function() tool:Activate() end)
+                                    task.wait(0.08)
+                                end
+                                notify("Activate", "Activated " .. #equipped .. " equipped gear(s)")
+                            end)
+                        end
+                    end
+                end)
+
+                notify("Gear Menu", "Opened")
+            end
+        },
+
+        ["hold"] = {
+            ["ListName"] = "hold [gearname]",
+            ["Description"] = "Equips all tools with the given name",
+            ["Aliases"] = {"holdall", "equipall"},
+            ["Function"] = function(args, speaker)
+                local name = getstring(1, args)
+                if not name or name == "" then return notify("Hold", "Please provide a gear name") end
+                name = name:lower()
+                local player = speaker
+                local char = player.Character
+                local bp = player:FindFirstChildOfClass("Backpack")
+                local count = 0
+                if bp then
+                    for _, t in ipairs(bp:GetChildren()) do
+                        if t.Name:lower() == name and (t:IsA("Tool") or t:IsA("HopperBin")) then
+                            t.Parent = char
+                            count = count + 1
+                        end
+                    end
+                end
+                notify("Hold", "Equipped " .. count .. "x " .. name)
+            end
+        },
+
+        ["unequip"] = {
+            ["ListName"] = "unequip [gearname]",
+            ["Description"] = "Unequips all held tools with the given name",
+            ["Aliases"] = {"unhold", "unequipall"},
+            ["Function"] = function(args, speaker)
+                local name = getstring(1, args)
+                if not name or name == "" then return notify("Unequip", "Please provide a gear name") end
+                name = name:lower()
+                local player = speaker
+                local char = player.Character
+                local bp = player:FindFirstChildOfClass("Backpack")
+                local count = 0
+                if char then
+                    for _, t in ipairs(char:GetChildren()) do
+                        if t.Name:lower() == name and (t:IsA("Tool") or t:IsA("HopperBin")) then
+                            t.Parent = bp
+                            count = count + 1
+                        end
+                    end
+                end
+                notify("Unequip", "Unequipped " .. count .. "x " .. name)
+            end
+        },
+
+        ["activate"] = {
+            ["ListName"] = "activate [gearname / all]",
+            ["Description"] = "Equips and activates matching gears (or all gears with 'all')",
+            ["Aliases"] = {"act", "usegear"},
+            ["Function"] = function(args, speaker)
+                local name = getstring(1, args)
+                if not name or name == "" then return notify("Activate", "Please provide a gear name or 'all'") end
+                name = name:lower()
+                local player = speaker
+                local char = player.Character
+                local bp = player:FindFirstChildOfClass("Backpack")
+                local tools = {}
+
+                if name == "all" then
+                    if bp then
+                        for _, t in ipairs(bp:GetChildren()) do
+                            if t:IsA("Tool") or t:IsA("HopperBin") then
+                                table.insert(tools, t)
+                            end
+                        end
+                    end
+                    if char then
+                        for _, t in ipairs(char:GetChildren()) do
+                            if t:IsA("Tool") or t:IsA("HopperBin") then
+                                table.insert(tools, t)
+                            end
+                        end
+                    end
+                else
+                    if bp then
+                        for _, t in ipairs(bp:GetChildren()) do
+                            if t.Name:lower() == name and (t:IsA("Tool") or t:IsA("HopperBin")) then
+                                table.insert(tools, t)
+                            end
+                        end
+                    end
+                    if char then
+                        for _, t in ipairs(char:GetChildren()) do
+                            if t.Name:lower() == name and (t:IsA("Tool") or t:IsA("HopperBin")) then
+                                table.insert(tools, t)
+                            end
+                        end
+                    end
+                end
+
+                if #tools == 0 then
+                    return notify("Activate", "No tools found")
+                end
+
+                task.spawn(function()
+                    for _, tool in ipairs(tools) do
+                        tool.Parent = char
+                        task.wait(0.05)
+                        pcall(function() tool:Activate() end)
+                        task.wait(0.15)
+                    end
+                    if name == "all" then
+                        notify("Activate", "Activated and kept equipped all " .. #tools .. " tools")
+                    else
+                        notify("Activate", "Activated and kept equipped " .. #tools .. "x " .. name)
+                    end
+                end)
+            end
+        },
+
+        ["holdcount"] = {
+            ["ListName"] = "holdcount [gearname] [number]",
+            ["Description"] = "Equips exactly the given number of a gear",
+            ["Aliases"] = {"hc", "equipcount"},
+            ["Function"] = function(args, speaker)
+                local name = getstring(1, args)
+                local num = tonumber(args[2]) or 1
+                if not name or name == "" then return notify("HoldCount", "Please provide a gear name") end
+                name = name:lower()
+                local player = speaker
+                local char = player.Character
+                local bp = player:FindFirstChildOfClass("Backpack")
+                local equipped = 0
+                if bp then
+                    for _, t in ipairs(bp:GetChildren()) do
+                        if equipped >= num then break end
+                        if t.Name:lower() == name and (t:IsA("Tool") or t:IsA("HopperBin")) then
+                            t.Parent = char
+                            equipped = equipped + 1
+                        end
+                    end
+                end
+                notify("HoldCount", "Equipped " .. equipped .. "/" .. num .. "x " .. name)
+            end
+        },
+
+        ["drop"] = {
+            ["ListName"] = "drop [gearname]",
+            ["Description"] = "Drops all tools with the given name",
+            ["Aliases"] = {"dropgear", "throw"},
+            ["Function"] = function(args, speaker)
+                local name = getstring(1, args)
+                if not name or name == "" then return notify("Drop", "Please provide a gear name") end
+                name = name:lower()
+                local player = speaker
+                local char = player.Character
+                local bp = player:FindFirstChildOfClass("Backpack")
+                local count = 0
+                local function dropTool(t)
+                    if t.Name:lower() == name and (t:IsA("Tool") or t:IsA("HopperBin")) then
+                        t.Parent = workspace
+                        count = count + 1
+                    end
+                end
+                if bp then
+                    for _, t in ipairs(bp:GetChildren()) do dropTool(t) end
+                end
+                if char then
+                    for _, t in ipairs(char:GetChildren()) do dropTool(t) end
+                end
+                notify("Drop", "Dropped " .. count .. "x " .. name)
+            end
+        },
+
+        ["exportsets"] = {
+            ["ListName"] = "exportsets",
+            ["Description"] = "Copies all saved sets to clipboard",
+            ["Aliases"] = {"exportset", "savesets"},
+            ["Function"] = function(args, speaker)
+                if not _G.GearMenuData or not next(_G.GearMenuData.Sets) then
+                    return notify("Export", "No sets to export")
+                end
+                local HttpService = game:GetService("HttpService")
+                local json = HttpService:JSONEncode(_G.GearMenuData.Sets)
+                toClipboard(json)
+                notify("Export", "Sets copied to clipboard")
+            end
+        },
+
+        ["importsets"] = {
+            ["ListName"] = "importsets",
+            ["Description"] = "Imports sets from clipboard (JSON)",
+            ["Aliases"] = {"importset", "loadsets"},
+            ["Function"] = function(args, speaker)
+                local clipboard = nil
+                pcall(function()
+                    clipboard = getclipboard() or get_clipboard() or clipboard() or syn and syn.getclipboard and syn.getclipboard()
+                end)
+                if not clipboard or clipboard == "" then
+                    return notify("Import", "Could not read clipboard or clipboard is empty")
+                end
+                local HttpService = game:GetService("HttpService")
+                local success, data = pcall(function()
+                    return HttpService:JSONDecode(clipboard)
+                end)
+                if not success or type(data) ~= "table" then
+                    return notify("Import", "Invalid set data on clipboard")
+                end
+                if not _G.GearMenuData then
+                    _G.GearMenuData = { Sets = {}, Settings = {} }
+                end
+                for name, set in pairs(data) do
+                    _G.GearMenuData.Sets[name] = set
+                end
+                -- Trigger save if available
+                if _G.GearMenuSave then
+                    _G.GearMenuSave()
+                end
+                notify("Import", "Imported sets from clipboard")
+            end
+        }
+    }
+}
+
+return Plugin

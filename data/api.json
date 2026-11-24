@@ -1,8 +1,35 @@
 {
   "version": "1.0",
-  "updated_at": "2026-11-24T02:21:38.287219+00:00",
-  "total": 595,
+  "updated_at": "2026-11-24T07:10:10.022344+00:00",
+  "total": 596,
   "plugins": [
+    {
+      "id": "1574678453867905166",
+      "name": "GearMenu",
+      "author": "mdhmcc3346",
+      "date": "2026-11-24T06:49:59.513000+00:00",
+      "files": [
+        {
+          "filename": "GearMenu.iy",
+          "url": "plugins/1574678453867905166/GearMenu.iy",
+          "size": 53021,
+          "is_plugin": true
+        },
+        {
+          "filename": "image.png",
+          "url": "plugins/1574678453867905166/image.png",
+          "size": 583401,
+          "is_plugin": false
+        },
+        {
+          "filename": "image.png",
+          "url": "plugins/1574678453867905166/image.png",
+          "size": 103290,
+          "is_plugin": false
+        }
+      ],
+      "loadstring_urls": []
+    },
     {
       "id": "1574567346226593883",
       "name": "bbinds",
